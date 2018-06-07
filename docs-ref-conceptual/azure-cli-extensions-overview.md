@@ -10,11 +10,12 @@ ms.topic: conceptual
 ms.prod: azure
 ms.technology: azure-cli
 ms.devlang: azure-cli
-ms.openlocfilehash: fde52c29a3ec82a1c6a03438a5d84dd4684e296a
-ms.sourcegitcommit: 8b4629a42ceecf30c1efbc6fdddf512f4dddfab0
+ms.openlocfilehash: 1b983faef4c1678763b3483192e94a6c96e24f32
+ms.sourcegitcommit: 80189ff103c91f8c47ab8ebf586df815fff5dd5d
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 05/18/2018
+ms.lasthandoff: 06/07/2018
+ms.locfileid: "34479473"
 ---
 # <a name="using-extensions-with-the-azure-cli-20"></a>Verwenden von Erweiterungen mit Azure CLI 2.0
 
@@ -34,7 +35,7 @@ Auf der Dokumentationswebsite wird darüber hinaus eine [Liste der Microsoft-Erw
 
 ## <a name="install-extensions"></a>Installieren von Erweiterungen
 
-Nachdem Sie eine zu installierende Erweiterung gefunden haben, können Sie [az extension add](https://docs.microsoft.com/en-us/cli/azure/extension#az-extension-add) verwenden, um sie abzurufen. Wenn die Erweiterung in `az extension list-available` aufgeführt wird, können Sie die Erweiterung anhand des Namens installieren.
+Nachdem Sie eine zu installierende Erweiterung gefunden haben, können Sie [az extension add](https://docs.microsoft.com/cli/azure/extension#az-extension-add) verwenden, um sie abzurufen. Wenn die Erweiterung in `az extension list-available` aufgeführt wird, können Sie die Erweiterung anhand des Namens installieren.
 
 ```azurecli-interactive
 az extension add --name <extension-name>
@@ -50,7 +51,7 @@ Nach der Installation einer Erweiterung befindet sich diese unter dem Wert der S
 
 ## <a name="update-extensions"></a>Aktualisieren von Erweiterungen
 
-Wenn eine Erweiterung anhand des Namens installiert wurde, kann sie mithilfe von [az extension update](https://docs.microsoft.com/en-us/cli/azure/extension#az-extension-update) aktualisiert werden.
+Wenn eine Erweiterung anhand des Namens installiert wurde, kann sie mithilfe von [az extension update](https://docs.microsoft.com/cli/azure/extension#az-extension-update) aktualisiert werden.
 
 ```azurecli-interactive
 az extension update --name <extension-name>
@@ -62,7 +63,7 @@ Falls der Name einer Erweiterung von der CLI nicht aufgelöst werden kann, deins
 
 ## <a name="uninstall-extensions"></a>Deinstallieren von Erweiterungen
 
-Wenn Sie eine Erweiterung nicht mehr benötigen, können Sie sie mit [az extension remove](https://docs.microsoft.com/en-us/cli/azure/extension#az-extension-remove) entfernen.
+Wenn Sie eine Erweiterung nicht mehr benötigen, können Sie sie mit [az extension remove](https://docs.microsoft.com/cli/azure/extension#az-extension-remove) entfernen.
 
 ```azurecli-interactive
 az extension remove --name <extension-name>
