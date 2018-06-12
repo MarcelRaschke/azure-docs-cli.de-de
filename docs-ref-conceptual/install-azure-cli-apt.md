@@ -4,16 +4,17 @@ description: Installieren der Azure CLI 2.0 mit dem apt-Paket-Manager
 author: sptramer
 ms.author: sttramer
 manager: carmonm
-ms.date: 02/06/2018
+ms.date: 05/24/2018
 ms.topic: conceptual
 ms.prod: azure
 ms.technology: azure-cli
 ms.devlang: azure-cli
-ms.openlocfilehash: 7eb04b408f403264f3951bf663d43686601c4ab8
-ms.sourcegitcommit: 1d18f667af28b59f5524a3499a4b7dc12af5163d
+ms.openlocfilehash: 7b5835581bf1e14e2d9fdc7c9584c704d1a5d82f
+ms.sourcegitcommit: 38549f60d76d4b6b65d180367e83749769fe6e43
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 05/09/2018
+ms.lasthandoff: 06/04/2018
+ms.locfileid: "34703178"
 ---
 # <a name="install-azure-cli-20-with-apt"></a>Installieren der Azure CLI 2.0 mit apt
 
@@ -24,26 +25,19 @@ Wenn Sie eine Distribution mit `apt` verwenden (etwa Ubuntu oder Debian), steht 
 
 ## <a name="install"></a>Installieren
 
-1. Ändern Sie die Quellenliste:
+1. <a name="install-step-1"/> Ändern Sie die Quellenliste:
 
-     ```bash
-     AZ_REPO=$(lsb_release -cs)
-     echo "deb [arch=amd64] https://packages.microsoft.com/repos/azure-cli/ $AZ_REPO main" | \
-          sudo tee /etc/apt/sources.list.d/azure-cli.list
-     ```
+    ```bash
+    AZ_REPO=$(lsb_release -cs)
+    echo "deb [arch=amd64] https://packages.microsoft.com/repos/azure-cli/ $AZ_REPO main" | \
+        sudo tee /etc/apt/sources.list.d/azure-cli.list
+    ```
 
-2. Rufen Sie den Microsoft-Signaturschlüssel ab:
+2. <a name="signingKey"></a>Rufen Sie den Microsoft-Signaturschlüssel ab:
 
    ```bash
-   sudo apt-key adv --keyserver packages.microsoft.com --recv-keys 52E16F86FEE04B979B07E28DB02C46DF417A0893
+   curl -L https://packages.microsoft.com/keys/microsoft.asc | sudo apt-key add -
    ```
-
-  > [!WARNING]
-  > Dieser Signaturschlüssel ist veraltet und wird Ende Mai 2018 ersetzt. Stellen Sie sicher, dass Sie auch den neuen Schlüssel installieren, um mit `apt` weiterhin Updates zu erhalten:
-  > 
-  > ```bash
-  > curl -L https://packages.microsoft.com/keys/microsoft.asc | sudo apt-key add -
-  > ``` 
 
 3. Installieren Sie die Befehlszeilenschnittstelle:
 
@@ -51,6 +45,9 @@ Wenn Sie eine Distribution mit `apt` verwenden (etwa Ubuntu oder Debian), steht 
    sudo apt-get install apt-transport-https
    sudo apt-get update && sudo apt-get install azure-cli
    ```
+
+   > [!WARNING]
+   > Der Signaturschlüssel wurde im Mai 2018 aktualisiert und ersetzt. Falls Signaturschlüsselfehler auftreten, stellen Sie sicher, dass Sie den [aktuellen Signaturschlüssel](#signingKey) abgerufen haben.
 
 Sie können dann die Azure CLI mit dem Befehl `az` ausführen. Führen Sie den Befehl `az login` aus, um sich anzumelden.
 
@@ -77,6 +74,10 @@ Fehlerursache: „lsb_release“ ist nicht installiert. Das Problem lässt sich 
 ```bash
 sudo apt-get install lsb-release
 ```
+
+### <a name="lsbrelease-does-not-return-the-base-distribution-version"></a>„lsb_release“ gibt nicht die Basisdistributionsversion zurück.
+
+Einige von Ubuntu oder Debian abgeleiteten Distributionen wie Linux Mint geben über `lsb_release` unter Umständen nicht den richtigen Versionsnamen zurück. Mit diesem Wert wird im Installationsprozess das zu installierende Pakete ermittelt. Wenn Sie den Namen der Version kennen, von der Ihre Distribution abgeleitet ist, können Sie im [Installationsschritt 1](#install-step-1) den Wert `AZ_REPO` manuell festlegen. Sehen Sie sich andernfalls Informationen dazu an, wie Sie für Ihre Distribution den Basisdistributionsnamen ermitteln, und legen Sie `AZ_REPO` auf den richtigen Wert fest.
 
 ### <a name="apt-key-fails-with-no-dirmngr"></a>Fehler „No dirmngr“ beim Ausführen von „apt-key“
 
@@ -112,6 +113,9 @@ Verwenden Sie `apt-get upgrade` zum Aktualisieren des CLI-Pakets.
    sudo apt-get update && sudo apt-get upgrade
    ```
 
+> [!WARNING]
+> Der Signaturschlüssel wurde im Mai 2018 aktualisiert und ersetzt. Falls Signaturschlüsselfehler auftreten, stellen Sie sicher, dass Sie den [aktuellen Signaturschlüssel](#signingKey) abgerufen haben.
+   
 > [!NOTE]
 > Durch diesen Befehl werden alle installierten Pakete auf Ihrem System aktualisiert, deren Abhängigkeiten nicht geändert wurden.
 > Wenn Sie nur ein Upgrade für die CLI durchführen möchten, verwenden Sie `apt-get install`.
