@@ -9,14 +9,38 @@ ms.topic: article
 ms.prod: azure
 ms.technology: azure-cli
 ms.devlang: azure-cli
-ms.openlocfilehash: 57f13c7d17e2d248132e2e9c49bb0b4994f041f5
-ms.sourcegitcommit: 80189ff103c91f8c47ab8ebf586df815fff5dd5d
+ms.openlocfilehash: 72e667d74ff8d55f26ecbf3b3c8845c9c03b56be
+ms.sourcegitcommit: 5c80e96e96f9608c92a94fa4a9c4afb25099f3fc
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 06/05/2018
-ms.locfileid: "34799259"
+ms.lasthandoff: 06/13/2018
+ms.locfileid: "35512902"
 ---
 # <a name="azure-cli-20-release-notes"></a>Azure CLI 2.0-Versionshinweise
+
+## <a name="june-13-2018"></a>13. Juni 2018
+
+Version 2.0.36
+
+### <a name="aks"></a>AKS
+
+* Zusätzliche erweiterte Netzwerkoptionen zu `aks create` hinzugefügt
+* Argumente zu `aks create` zum Aktivieren der Überwachung und HTTP-Routing hinzugefügt 
+* Argument `--no-ssh-key` zu `aks create` hinzugefügt
+* Argument `--enable-rbac` zu `aks create` hinzugefügt
+* [VORSCHAUVERSION] Unterstützung für Azure Active Directory-Authentifizierung zu `aks create` hinzugefügt
+
+### <a name="appservice"></a>AppService
+
+* Problem mit inkompatiblen urllib-Versionen behoben
+
+## <a name="june-5-2018"></a>5. Juni 2018
+
+Version 2.0.35
+
+### <a name="interactive"></a>Interactive
+
+* Grenzwerte für die Abhängigkeiten des interaktiven Modus hinzugefügt
 
 ## <a name="june-5-2018"></a>5. Juni 2018
 
