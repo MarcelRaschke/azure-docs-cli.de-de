@@ -14,6 +14,7 @@ ms.sourcegitcommit: 15d6dfaee2075d0abceb2aa2423f0b6ef7b2ac9b
 ms.translationtype: HT
 ms.contentlocale: de-DE
 ms.lasthandoff: 05/07/2018
+ms.locfileid: "33815975"
 ---
 # <a name="install-azure-cli-20-on-windows"></a>Installieren der Azure CLI 2.0 unter Windows
 
