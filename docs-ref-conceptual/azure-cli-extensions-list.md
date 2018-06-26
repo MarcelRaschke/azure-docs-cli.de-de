@@ -4,17 +4,17 @@ description: Eine vollständige Liste der offiziell unterstützten Erweiterungen
 author: derekbekoe
 ms.author: debekoe
 manager: routlaw
-ms.date: 06/05/2018
+ms.date: 06/19/2018
 ms.topic: article
 ms.prod: azure
 ms.technology: azure-cli
 ms.devlang: azure-cli
-ms.openlocfilehash: 080dd3d67fe7aa1860cce91c217cd6f8d81ae398
-ms.sourcegitcommit: 44f2b6feb980be78050632dae224399488a8d5fa
+ms.openlocfilehash: 93ec0ae1da6dd3527ad6c108e2b13e8026f9e456
+ms.sourcegitcommit: 1a38729d6ae93c49137b3d49b6a9ec8a75eff190
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 06/05/2018
-ms.locfileid: "34758218"
+ms.lasthandoff: 06/19/2018
+ms.locfileid: "36262623"
 ---
 # <a name="available-extensions-for-the-azure-cli-20"></a>Verfügbare Erweiterungen für die Azure CLI 2.0
 
@@ -32,11 +32,11 @@ az extension list-available --output table
 | [alias](https://github.com/Azure/azure-cli-extensions) | 0.5.1 | Unterstützung für Befehlsaliase | Ja |
 | [azure-batch-cli-extensions](https://github.com/Azure/azure-batch-cli-extensions) | 2.2.2 | Zusätzliche Befehle für die Verwendung des Azure Batch-Diensts |  |
 | [azure-cli-iot-ext](https://github.com/azure/azure-iot-cli-extension) | 0.4.5 | Stellt die Befehlsebene der Datenebene für Azure IoT Hub, IoT Edge und den IoT Device Provisioning-Dienst bereit |  |
-| [botservice](https://github.com/Azure/azure-cli-extensions) | 0.0.2 | Unterstützung für die Vorschaufeatures von Azure Bot Service 2017-12-01 | Ja |
+| [botservice](https://github.com/Azure/azure-cli-extensions) | 0.0.3 | Unterstützung für die Vorschaufeatures von Azure Bot Service 2017-12-01 | Ja |
 | [dev-spaces-preview](https://github.com/Azure/azure-cli-extensions) | 0.1.3 | Dev Spaces ermöglicht eine schnelle, iterative Kubernetes-Bereitstellung für Teams. | Ja |
 | [dns](https://github.com/Azure/azure-cli-extensions) | 0.0.2 | Eine Azure CLI-Erweiterung für DNS-Zonen |  |
 | [eventgrid](https://github.com/Azure/azure-cli-extensions) | 0.2.1 | Unterstützung für Features von Azure EventGrid 2018-05-01-preview | Ja |
-| [image-copy-extension](https://github.com/Azure/azure-cli-extensions) | 0.0.6 | Unterstützung für das Kopieren verwalteter VM-Images zwischen Regionen |  |
+| [image-copy-extension](https://github.com/Azure/azure-cli-extensions) | 0.0.7 | Unterstützung für das Kopieren verwalteter VM-Images zwischen Regionen |  |
 | [keyvault-preview](https://github.com/Azure/azure-keyvault-cli-extension) | 0.1.3 | Zeigen Sie eine Vorschau der Azure Key Vault-Befehle an. | Ja |
 | [managementgroups](https://github.com/Azure/azure-cli-extensions) | 0.1.0 | Eine Azure CLI-Erweiterung für Verwaltungsgruppen |  |
 | [managementpartner](https://github.com/Azure/azure-cli-extensions) | 0.1.2 | Unterstützung für Verwaltungspartner (Vorschauversion) |  |
