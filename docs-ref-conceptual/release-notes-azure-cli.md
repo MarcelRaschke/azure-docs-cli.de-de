@@ -9,14 +9,109 @@ ms.topic: article
 ms.prod: azure
 ms.technology: azure-cli
 ms.devlang: azure-cli
-ms.openlocfilehash: 72e667d74ff8d55f26ecbf3b3c8845c9c03b56be
-ms.sourcegitcommit: 5c80e96e96f9608c92a94fa4a9c4afb25099f3fc
+ms.openlocfilehash: 64db2b58ca883518757d8e189bf7263ed818b283
+ms.sourcegitcommit: 1a38729d6ae93c49137b3d49b6a9ec8a75eff190
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 06/13/2018
-ms.locfileid: "35512902"
+ms.lasthandoff: 06/19/2018
+ms.locfileid: "36262657"
 ---
 # <a name="azure-cli-20-release-notes"></a>Azure CLI 2.0-Versionshinweise
+
+## <a name="june-19-2018"></a>19. Juni 2018
+
+Version 2.0.38
+
+### <a name="core"></a>Core
+
+* Globale Unterstützung für `--subscription` zu den meisten Befehlen hinzugefügt
+
+### <a name="acr"></a>ACR
+
+* `azure-storage-blob` als Abhängigkeit hinzugefügt
+* CPU-Standardkonfiguration für `acr build-task create` geändert, sodass zwei Kerne verwendet werden
+
+### <a name="acs"></a>ACS
+
+* Optionen des Befehls `aks use-dev-spaces` wurden aktualisiert. Unterstützung für `--update` hinzugefügt
+* `aks get-credentials --admin` geändert, sodass der Benutzerkontext in `$HOME/.kube/config` ersetzt wird
+* Schreibgeschützte `nodeResourceGroup`-Eigenschaft in verwalteten Clustern verfügbar gemacht
+* Befehlsfehler `acs browse` korrigiert
+* `--connector-name` für `aks install-connector`, `aks upgrade-connector` und `aks remove-connector` als optional festgelegt
+* Neue Azure Container Instances-Regionen für `aks install-connector` hinzugefügt
+* Normalisierter Speicherort im Helm-Versionsnamen und Knotenname zu `aks install-connector` hinzugefügt 
+
+### <a name="appservice"></a>AppService
+
+* Unterstützung für neuere Versionen von „urllib“ hinzugefügt
+* Unterstützung der Verwendung eines App Service-Plans aus externen Ressourcengruppen zu `functionapp create` hinzugefügt
+
+### <a name="batch"></a>Batch
+
+* `azure-batch-extensions`-Abhängigkeit entfernt
+
+### <a name="batch-ai"></a>Batch AI
+
+* Unterstützung für Arbeitsbereiche wurde hinzugefügt. Arbeitsbereiche ermöglichen das Zusammenfassen von Clustern, Dateiservern und Experimenten in Gruppen ohne Beschränkung der Anzahl von Ressourcen, die erstellt werden können.
+* Unterstützung für Experimente wurde hinzugefügt. Experimente ermöglichen das Zusammenfassen von Aufträgen in Sammlungen ohne Beschränkung der Anzahl von erstellten Aufträgen.
+* Unterstützung für das Konfigurieren von `/dev/shm` für Aufträge hinzugefügt, die in einem Docker-Container ausgeführt werden
+* Die Befehle `batchai cluster node exec` und `batchai job node exec` wurden hinzugefügt. Diese Befehle ermöglichen die Ausführung aller Befehle direkt auf Knoten und bieten Funktionen zur Portweiterleitung.
+* Unterstützung für `--ids` zu `batchai`-Befehlen hinzugefügt 
+* [WICHTIGE ÄNDERUNG] Alle Cluster und Dateiserver müssen unter Arbeitsbereichen erstellt werden.
+* [WICHTIGE ÄNDERUNG] Aufträge müssen unter Experimenten erstellt werden.
+* [WICHTIGE ÄNDERUNG] `--nfs-resource-group` wurde aus den Befehlen `cluster create` und `job create` entfernt. Geben Sie zum Bereitstellen eines NFS, das einem anderen Arbeitsbereich/einer anderen Ressourcengruppe angehört, die ARM-ID des Dateiservers über die Option `--nfs` an.
+* [WICHTIGE ÄNDERUNG] `--cluster-resource-group` wurde aus dem Befehl `job create` entfernt. Geben Sie zum Übermitteln eines Auftrags, der einem anderen Arbeitsbereich/einer anderen Ressourcengruppe angehört, die ARM-ID des Clusters über die Option `--cluster` an.
+* [WICHTIGE ÄNDERUNG] Attribut `location` wurde aus Aufträgen, Clustern und Dateiservern entfernt. „Location“ ist jetzt ein Attribut eines Arbeitsbereichs.
+* [WICHTIGE ÄNDERUNG] `--location` wurde aus den Befehlen `job create`, `cluster create` und `file-server create` entfernt.
+* [WICHTIGE ÄNDERUNG] Namen von Kurzoptionen wurden geändert, um die Schnittstelle konsistenter zu machen:
+ - [`--config`, `-c`] in [`--config-file`, `-f`] umbenannt
+ - [`--cluster`, `-r`] in [`--cluster`, `-c`] umbenannt
+ - [`--cluster`, `-n`] in [`--cluster`, `-c`] umbenannt
+ - [`--job`, `-n`] in [`--job`, `-j`] umbenannt
+
+### <a name="maps"></a>Karten
+
+* [WICHTIGE ÄNDERUNG] `maps account create` wurde so geändert, dass Nutzungsbedingungen entweder durch interaktive Eingabeaufforderung oder `--accept-tos`-Flag akzeptiert werden müssen.
+
+### <a name="network"></a>Netzwerk
+
+* Unterstützung für `https` zu `network lb probe create` hinzugefügt ([#6571](https://github.com/Azure/azure-cli/issues/6571))
+* Problem behoben, aufgrund dessen die Groß-/Kleinschreibung von `--endpoint-status` berücksichtigt wurde. [#6502](https://github.com/Azure/azure-cli/issues/6502)
+
+### <a name="reservations"></a>Reservations
+
+* [WICHTIGE ÄNDERUNG] Erforderlicher Parameter `ReservedResourceType` zu `reservations catalog show` hinzugefügt
+* Parameter `Location` zu `reservations catalog show` hinzugefügt
+* [WICHTIGE ÄNDERUNG] `kind` aus `ReservationProperties` entfernt
+* [WICHTIGE ÄNDERUNG] `capabilities` wurde in `Catalog` in `sku_properties` umbenannt
+* [WICHTIGE ÄNDERUNG] Eigenschaften `size` und `tier` aus `Catalog` entfernt
+* Parameter `InstanceFlexibility` zu `reservations reservation update` hinzugefügt
+
+### <a name="role"></a>Rolle
+
+* Fehlerbehandlung verbessert
+
+### <a name="sql"></a>SQL
+
+* Verwirrender Fehler behoben, der beim Ausführen von `az sql db list-editions` für einen Ort auftrat, der für Ihr Abonnement nicht verfügbar ist
+
+### <a name="storage"></a>Speicher
+
+* Lesbarkeit der Tabellenausgabe für `storage blob download` verbessert
+
+### <a name="vm"></a>VM
+
+* Verbesserte Einschränkung der VM-Größenüberprüfung für Unterstützung von beschleunigten Netzwerken in `vm create`
+* Warnung für `vmss create` hinzugefügt, dass die VM-Standardgröße von `Standard_D1_v2` auf `Standard_DS1_v2` umgestellt wird
+* `--force-update` zu `[vm|vmss] extension set` hinzugefügt, um die Erweiterung auch dann zu aktualisieren, wenn die Konfiguration nicht geändert wurde
+
+## <a name="june-13-2018"></a>13. Juni 2018
+
+Version 2.0.37
+
+### <a name="core"></a>Core
+
+* Verbesserte interaktive Telemetrie
 
 ## <a name="june-13-2018"></a>13. Juni 2018
 
