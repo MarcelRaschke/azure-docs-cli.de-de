@@ -9,12 +9,12 @@ ms.topic: conceptual
 ms.technology: azure-cli
 ms.devlang: azure-cli
 ms.service: role-based-access-control
-ms.openlocfilehash: d250cb2d35a128c789fccd3aca17c47074121a25
-ms.sourcegitcommit: 38549f60d76d4b6b65d180367e83749769fe6e43
+ms.openlocfilehash: cd9a41b66d18410afa091ede50ca24e7d4b5e9ed
+ms.sourcegitcommit: 308f9eb433a05b814999ac404f63d181169fffeb
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 06/04/2018
-ms.locfileid: "34703110"
+ms.lasthandoff: 07/03/2018
+ms.locfileid: "37439957"
 ---
 # <a name="create-an-azure-service-principal-with-azure-cli-20"></a>Erstellen eines Azure-Dienstprinzipals mit Azure CLI 2.0
 
@@ -101,7 +101,7 @@ az role assignment list --assignee APP_ID
 > [!NOTE] 
 > Wenn Ihr Konto nicht über die Berechtigungen zum Zuweisen einer Rolle verfügt, wird eine Fehlermeldung mit dem Hinweis angezeigt, dass Ihr Konto keine Berechtigung zum Ausführen der Aktion „Microsoft.Authorization/roleAssignments/write“ über Bereich „/subscriptions/{guid}“ hat. Bitten Sie den Azure Active Directory-Administrator um die Verwaltung von Rollen.
 
-## <a name="log-in-using-the-service-principal"></a>Anmelden mithilfe des Dienstprinzipals
+## <a name="sign-in-using-the-service-principal"></a>Anmelden mithilfe des Dienstprinzipals
 
 Sie können die Anmeldung und Berechtigungen des neuen Dienstprinzipals testen, indem Sie sich darunter bei der Azure CLI anmelden. Melden Sie sich mit den Werten für `appId`, `tenant` und die Anmeldeinformationen an. Die von Ihnen angegebenen Authentifizierungsinformationen ändern sich basierend darauf, ob Sie den Dienstprinzipal mit einem Kennwort oder mit einem Zertifikat erstellen möchten.
 
