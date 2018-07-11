@@ -4,19 +4,100 @@ description: Enthält Informationen zu den aktuellen Updates von Azure CLI 2.0.
 author: sptramer
 ms.author: sttramer
 manager: carmonm
-ms.date: 06/01/2018
+ms.date: 07/03/2018
 ms.topic: article
 ms.prod: azure
 ms.technology: azure-cli
 ms.devlang: azure-cli
-ms.openlocfilehash: 64db2b58ca883518757d8e189bf7263ed818b283
-ms.sourcegitcommit: 1a38729d6ae93c49137b3d49b6a9ec8a75eff190
+ms.openlocfilehash: 102152b7d99de253ccb2fea09b99be91e3c9135e
+ms.sourcegitcommit: 308f9eb433a05b814999ac404f63d181169fffeb
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 06/19/2018
-ms.locfileid: "36262657"
+ms.lasthandoff: 07/03/2018
+ms.locfileid: "37439668"
 ---
 # <a name="azure-cli-20-release-notes"></a>Azure CLI 2.0-Versionshinweise
+
+## <a name="july-3-2018"></a>3. Juli 2018
+
+Version 2.0.41
+
+### <a name="aks"></a>AKS
+
+* Überwachung geändert, sodass Abonnement-ID verwendet wird
+
+## <a name="july-3-2018"></a>3. Juli 2018
+
+Version 2.0.40
+
+### <a name="core"></a>Core
+
+* Neuer Autorisierungscode-Flow für interaktive Anmeldung hinzugefügt
+
+### <a name="acr"></a>ACR
+
+* Abruf-Buildstatus hinzugefügt
+* Unterstützung für Enumerationswerte ohne Berücksichtigung von Groß-/Kleinschreibung hinzugefügt
+* Parameter `--top` und `--orderby` für `show-manifests` hinzugefügt
+
+### <a name="acs"></a>ACS
+
+* [WICHTIGE ÄNDERUNG] Standardmäßiges Aktivieren der rollenbasierten Zugriffssteuerung für Kubernetes
+* Argument `--disable-rbac` hinzugefügt und `--enable-rbac` als veraltet festgelegt, da es nun der Standard ist
+* Optionen für Befehl `aks browse` wurden aktualisiert. Unterstützung für `--listen-port` hinzugefügt
+* Standardmäßiges Helm-Diagrammpaket für Befehl `aks install-connector` wurde aktualisiert. Verwenden von „virtual-kubelet-for-aks-latest.tgz“
+* Befehle `aks enable-addons` und `aks disable-addons` zum Aktualisieren eines vorhandenen Clusters hinzugefügt
+
+### <a name="appservice"></a>AppService
+
+* Unterstützung für das Deaktivieren der Identität über `webapp identity remove` hinzugefügt
+* `preview`-Tag für Identitätsfunktion entfernt
+
+### <a name="backup"></a>Backup
+
+* Moduldefinition aktualisiert
+
+### <a name="batchai"></a>Batch AI
+
+* Tabellenausgabe für Befehle `batchai cluster node list` und `batchai job node list` korrigiert
+
+### <a name="cloud"></a>Cloud
+
+* Serversuffix `acr login` zu Cloudkonfiguration hinzugefügt
+
+### <a name="container"></a>Container
+
+* `container create` zu Standard für Vorgang mit langer Ausführungsdauer geändert
+* Log Analytics-Parameter `--log-analytics-workspace` und `--log-analytics-workspace-key` hinzugefügt
+* Parameter `--protocol` zum Festlegen des zu verwendenden Netzwerkprotokolls hinzugefügt
+
+### <a name="extension"></a>Durchwahl
+
+* `extension list-available` geändert, sodass nur mit der CLI-Version kompatible Erweiterungen angezeigt werden
+
+### <a name="network"></a>Netzwerk
+
+* Problem behoben, aufgrund dessen bei Datensatztypen die Groß-/Kleinschreibung beachtet werden musste ([#6602](https://github.com/Azure/azure-cli/issues/6602))
+
+### <a name="rdbms"></a>Rdbms
+
+* Befehle vom Typ `[postgres|myql] server vnet-rule` hinzugefügt
+
+### <a name="resource"></a>Ressource
+
+* Neue Vorgangsgruppe `deployment` hinzugefügt
+
+### <a name="vm"></a>VM
+
+* Unterstützung für das Entfernen der vom System zugewiesenen Identität hinzugefügt
+
+## <a name="june-25-2018"></a>25. Juni 2018
+
+Version 2.0.39
+
+### <a name="cli"></a>Befehlszeilenschnittstelle (CLI)
+
+* Dateieinschränkung in MSI-Installer aktualisiert, um Problem mit der Erweiterungsinstallation zu beheben
 
 ## <a name="june-19-2018"></a>19. Juni 2018
 
