@@ -10,12 +10,12 @@ ms.technology: azure-cli
 ms.devlang: azurecli
 ms.service: active-directory
 ms.component: authentication
-ms.openlocfilehash: 4d5bee6514477c494ec53d2bd7bba778301ba490
-ms.sourcegitcommit: 38549f60d76d4b6b65d180367e83749769fe6e43
+ms.openlocfilehash: bbd64458b49d3e6c6a533a489d5c8105f364d3d7
+ms.sourcegitcommit: 308f9eb433a05b814999ac404f63d181169fffeb
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 06/04/2018
-ms.locfileid: "34703144"
+ms.lasthandoff: 07/03/2018
+ms.locfileid: "37439872"
 ---
 # <a name="log-in-with-azure-cli-20"></a>Anmelden mit Azure CLI 2.0
 
@@ -26,9 +26,9 @@ Die privaten Anmeldeinformationen werden nicht lokal gespeichert. Stattdessen wi
 
 Nach der Anmeldung werden CLI-Befehle für Ihr Standardabonnement ausgeführt. Sollten Sie über mehrere Abonnements verfügen, können Sie das [Standardabonnement ändern](manage-azure-subscriptions-azure-cli.md).
 
-## <a name="interactive-log-in"></a>Interaktive Anmeldung
+## <a name="interactive-sign-in"></a>Interaktive Anmeldung
 
-Melden Sie sich interaktiv über den Webbrowser an.
+Die Standardauthentifizierungsmethode der Azure CLI ist die interaktive Anmeldung über Ihren Webbrowser.
 
 [!INCLUDE [interactive_login](includes/interactive-login.md)]
 
