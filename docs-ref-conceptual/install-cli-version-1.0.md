@@ -9,12 +9,12 @@ ms.topic: conceptual
 ms.prod: azure
 ms.technology: azure-cli
 ms.devlang: azure-cli
-ms.openlocfilehash: 92714f32736e0a1a0ea7c8dd4a615b158c955931
-ms.sourcegitcommit: ae72b6c8916aeb372a92188090529037e63930ba
+ms.openlocfilehash: 5f185e02217d6a3b54a9c252825c0f3fed3ab09e
+ms.sourcegitcommit: 64f2c628e83d687d0e172c01f13d71c8c39a8040
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 04/28/2018
-ms.locfileid: "32044008"
+ms.lasthandoff: 07/11/2018
+ms.locfileid: "38967672"
 ---
 # <a name="install-the-azure-cli-10"></a>Installieren von Azure CLI 1.0
 
@@ -33,6 +33,7 @@ Weitere Optionen und Hintergrundinformationen finden Sie im Projektrepository au
 Sobald Azure CLI 1.0 installiert ist, [verbinden Sie die Befehlszeilenschnittstelle mit Ihrem Azure-Abonnement](/cli/azure/authenticate-azure-cli), und führen Sie die **azure**-Befehle über die Befehlszeilenschnittstelle (Bash, Terminal, Eingabeaufforderung usw.) für die Arbeit mit Ihren Azure-Ressourcen aus.
 
 ## <a name="option-1-install-an-npm-package"></a>Option 1: Installieren eines npm-Pakets
+
 Um die CLI aus einem npm-Paket zu installieren, müssen Sie die aktuellen Versionen von [Node.js und npm](https://nodejs.org/en/download/package-manager/) herunterladen und installieren. Führen Sie anschließend zum Installieren des Azure-CLI-Pakets **npm install** aus:
 
 ```bash
@@ -55,6 +56,7 @@ npm install -g <path to downloaded tar file>
 ```
 
 ## <a name="option-2-use-an-installer"></a>Option 2: Verwenden eines Installers
+
 Wenn Sie einen Mac- oder Windows-Computer verwenden, stehen die folgenden CLI-Installer zum Download zur Verfügung:
 
 * [Mac OS X-Installer][mac-installer]
@@ -64,6 +66,7 @@ Wenn Sie einen Mac- oder Windows-Computer verwenden, stehen die folgenden CLI-In
 > Unter Windows können Sie auch den [Webplattform-Installer](https://go.microsoft.com/?linkid=9828653) herunterladen, um die Befehlszeilenschnittstelle zu installieren. Dieser Installer bietet Ihnen die Möglichkeit, nach der Installation der Befehlszeilenschnittstelle zusätzliche Azure SDK- und -Befehlszeilentools zu installieren.
 
 ## <a name="option-3-use-a-docker-container"></a>Option 3: Verwenden eines Docker-Containers
+
 Wenn Sie Ihren Computer als [Docker](https://docs.docker.com/engine/understanding-docker/)-Host eingerichtet haben, können Sie die neueste Azure CLI 1.0 in einem Docker-Container ausführen. Führen Sie den folgenden Befehl aus (bei Linux-Distributionen müssen Sie möglicherweise **sudo** verwenden):
 
 ```bash
@@ -71,6 +74,7 @@ docker run -it microsoft/azure-cli:0.10.17
 ```
 
 ## <a name="run-azure-cli-10-commands"></a>Ausführen von Azure CLI 1.0-Befehlen
+
 Sobald Azure CLI 1.0 installiert ist, führen Sie den Befehl **azure** in der Befehlszeilenschnittstelle (Bash, Terminal, Eingabeaufforderung usw.) aus. Um beispielsweise den Hilfebefehl auszuführen, geben Sie Folgendes ein:
 
 ```azurecli
@@ -96,6 +100,7 @@ Jetzt sind Sie soweit. Um Zugriff auf alle CLI-Befehle für die Arbeit mit Ihren
 > Wenn Sie die Azure-CLI zum ersten Mal verwenden, werden Sie in einer Meldung gefragt, ob Sie Microsoft das Erfassen von Nutzungsinformationen erlauben möchten. Die Teilnahme ist freiwillig. Wenn Sie sich für die Teilnahme entscheiden, können Sie diese durch Ausführen von `azure telemetry --disable`jederzeit beenden. Zum Aktivieren der Teilnahme können Sie jederzeit `azure telemetry --enable`ausführen.
 
 ## <a name="update-the-cli"></a>Aktualisieren der CLI
+
 Microsoft veröffentlicht regelmäßig aktualisierte Versionen der Azure-Befehlszeilenschnittstelle. Installieren Sie die CLI erneut, indem Sie das Installationsprogramm für Ihr Betriebssystem verwenden, oder führen Sie den neuesten Docker-Container aus. Oder wenn Node.js und npm installiert sind, aktualisieren Sie sie, indem Sie Folgendes eingeben (bei Linux-Distributionen müssen Sie möglicherweise **sudo**verwenden).
 
 ```bash
@@ -103,6 +108,7 @@ npm update -g azure-cli
 ```
 
 ## <a name="enable-tab-completion"></a>Aktivieren der Vervollständigung mit der TAB-Taste
+
 Die Vervollständigung mit der TAB-Taste für CLI-Befehle wird für Mac und Linux unterstützt.
 
 Für die Aktivierung in zsh führen Sie Folgendes aus:
@@ -118,12 +124,11 @@ azure --completion >> ~/azure.completion.sh
 echo 'source ~/azure.completion.sh' >> ~/.bash_profile
 ```
 
-
 ## <a name="next-steps"></a>Nächste Schritte
+
 * [Verbinden mit Ihrem Azure-Abonnement über die CLI](/cli/azure/authenticate-azure-cli) zum Erstellen und Verwalten von Azure-Ressourcen.
 * Wenn Sie weitere Informationen zur Azure-Befehlszeilenschnittstelle erhalten, den Quellcode herunterladen, Probleme melden oder etwas zum Projekt beitragen möchten, besuchen Sie die Webseite [GitHub repository for the Azure CLI](https://github.com/azure/azure-xplat-cli).
 * Wenn Sie Fragen zur Verwendung der Azure-CLI oder zu Azure haben, besuchen Sie die [Azure-Foren](https://social.msdn.microsoft.com/Forums/en-US/home?forum=azurescripting).
-
 
 [mac-installer]: http://aka.ms/mac-azure-cli
 [windows-installer]: http://aka.ms/webpi-azure-cli

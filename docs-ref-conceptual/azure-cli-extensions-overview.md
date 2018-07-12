@@ -10,12 +10,12 @@ ms.topic: conceptual
 ms.prod: azure
 ms.technology: azure-cli
 ms.devlang: azure-cli
-ms.openlocfilehash: 1b983faef4c1678763b3483192e94a6c96e24f32
-ms.sourcegitcommit: 80189ff103c91f8c47ab8ebf586df815fff5dd5d
+ms.openlocfilehash: b503c51ffc55ceda30738e34171c7da92532f328
+ms.sourcegitcommit: 64f2c628e83d687d0e172c01f13d71c8c39a8040
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 06/07/2018
-ms.locfileid: "34479473"
+ms.lasthandoff: 07/11/2018
+ms.locfileid: "38967723"
 ---
 # <a name="using-extensions-with-the-azure-cli-20"></a>Verwenden von Erweiterungen mit Azure CLI 2.0
 
@@ -59,7 +59,7 @@ az extension update --name <extension-name>
 
 Andernfalls kann eine Erweiterung anhand der Quelle gemäß den Anweisungen unter [Installieren von Erweiterungen](#install-extensions) aktualisiert werden.
 
-Falls der Name einer Erweiterung von der CLI nicht aufgelöst werden kann, deinstallieren Sie die Erweiterung, und installieren Sie sie anschließend erneut. Außerdem ist es möglich, dass die Erweiterung nicht mehr als Vorschauversion verfügbar und zu einem integrierten Befehl für die CLI geworden ist. Versuchen Sie, die CLI wie unter [Installieren von Azure CLI 2.0](install-azure-cli.md) beschrieben zu installieren, und überprüfen Sie, ob die Befehle der Erweiterung hinzugefügt wurden. 
+Falls der Name einer Erweiterung von der CLI nicht aufgelöst werden kann, deinstallieren Sie die Erweiterung, und installieren Sie sie anschließend erneut. Außerdem ist es möglich, dass die Erweiterung nicht mehr als Vorschauversion verfügbar und zu einem integrierten Befehl für die CLI geworden ist. Versuchen Sie, die CLI wie unter [Installieren von Azure CLI 2.0](install-azure-cli.md) beschrieben zu installieren, und überprüfen Sie, ob die Befehle der Erweiterung hinzugefügt wurden.
 
 ## <a name="uninstall-extensions"></a>Deinstallieren von Erweiterungen
 
@@ -69,7 +69,8 @@ Wenn Sie eine Erweiterung nicht mehr benötigen, können Sie sie mit [az extensi
 az extension remove --name <extension-name>
 ```
 
-Sie können eine Erweiterung auch manuell entfernen, indem Sie sie am Installationsspeicherort löschen. Dies ist der Wert der Shellvariablen `$AZURE_EXTENSION_DIR`. Wenn diese Variable nicht festgelegt ist, befindet sich der Wert standardmäßig unter `$HOME/.azure/cliextensions` (Linux und macOS) bzw. `%USERPROFILE%\.azure\cliextensions` (Windows).
+Sie können eine Erweiterung auch manuell entfernen, indem Sie sie am Installationsspeicherort löschen. Dies ist der Wert der Shellvariablen `$AZURE_EXTENSION_DIR`.
+Wenn diese Variable nicht festgelegt ist, befindet sich der Wert standardmäßig unter `$HOME/.azure/cliextensions` (Linux und macOS) bzw. `%USERPROFILE%\.azure\cliextensions` (Windows).
 
 ```bash
 rm -rf $AZURE_EXTENSION_DIR/<extension-name>

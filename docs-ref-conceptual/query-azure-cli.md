@@ -9,12 +9,12 @@ ms.topic: conceptual
 ms.prod: azure
 ms.technology: azure-cli
 ms.devlang: azure-cli
-ms.openlocfilehash: ed8f8ac160dd8225170ffcfff9619d94b92e456a
-ms.sourcegitcommit: 8b4629a42ceecf30c1efbc6fdddf512f4dddfab0
+ms.openlocfilehash: 97fcd9d5b5a65480957734cec0ead68029918a49
+ms.sourcegitcommit: 64f2c628e83d687d0e172c01f13d71c8c39a8040
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 05/18/2018
-ms.locfileid: "34306164"
+ms.lasthandoff: 07/11/2018
+ms.locfileid: "38967791"
 ---
 # <a name="use-jmespath-queries-with-azure-cli-20"></a>Verwenden von JMESPath-Abfragen mit der Azure CLI 2.0
 
@@ -67,7 +67,7 @@ Beim Anzeigen von Informationen im Ausgabeformat `table` ist die Wörterbuchanze
 
 ## <a name="work-with-list-output"></a>Verwenden von Listenausgaben
 
-CLI-Befehle, die mehrere Werte zurückgeben können, geben immer ein Array zurück. Auf die Elemente eines Arrays kann über einen Index zugegriffen werden, es gibt jedoch niemals eine Reihenfolgengarantie von der Befehlszeilenschnittstelle. Beim Abfragen eines Arrays von Werten empfiehlt es sich, die Werte mit dem Operator `[]` zu vereinfachen. Der Operator wird nach dem Schlüssel für das Array oder als erstes Element im Ausdruck geschrieben. Durch die Vereinfachung wird die darauf folgende Abfrage für jedes einzelne Element im Array ausgeführt, und die resultierenden Werte werden in einem neuen Array platziert. Im folgenden Beispiel werden jeweils der Name und das Betriebssystem der virtuellen Computer in einer Ressourcengruppe ausgegeben. 
+CLI-Befehle, die mehrere Werte zurückgeben können, geben immer ein Array zurück. Auf die Elemente eines Arrays kann über einen Index zugegriffen werden, es gibt jedoch niemals eine Reihenfolgengarantie von der Befehlszeilenschnittstelle. Beim Abfragen eines Arrays von Werten empfiehlt es sich, die Werte mit dem Operator `[]` zu vereinfachen. Der Operator wird nach dem Schlüssel für das Array oder als erstes Element im Ausdruck geschrieben. Durch die Vereinfachung wird die darauf folgende Abfrage für jedes einzelne Element im Array ausgeführt, und die resultierenden Werte werden in einem neuen Array platziert. Im folgenden Beispiel werden jeweils der Name und das Betriebssystem der virtuellen Computer in einer Ressourcengruppe ausgegeben.
 
 ```azurecli-interactive
 az vm list -g QueryDemo --query '[].{name:name, image:storageProfile.imageReference.offer}'

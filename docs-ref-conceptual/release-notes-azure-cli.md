@@ -9,12 +9,12 @@ ms.topic: article
 ms.prod: azure
 ms.technology: azure-cli
 ms.devlang: azure-cli
-ms.openlocfilehash: 102152b7d99de253ccb2fea09b99be91e3c9135e
-ms.sourcegitcommit: 308f9eb433a05b814999ac404f63d181169fffeb
+ms.openlocfilehash: b44a387a144b9d7daca8d87309d8a5e1a47b078a
+ms.sourcegitcommit: 64f2c628e83d687d0e172c01f13d71c8c39a8040
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 07/03/2018
-ms.locfileid: "37439668"
+ms.lasthandoff: 07/11/2018
+ms.locfileid: "38967876"
 ---
 # <a name="azure-cli-20-release-notes"></a>Azure CLI 2.0-Versionshinweise
 
@@ -120,7 +120,7 @@ Version 2.0.38
 * Befehlsfehler `acs browse` korrigiert
 * `--connector-name` für `aks install-connector`, `aks upgrade-connector` und `aks remove-connector` als optional festgelegt
 * Neue Azure Container Instances-Regionen für `aks install-connector` hinzugefügt
-* Normalisierter Speicherort im Helm-Versionsnamen und Knotenname zu `aks install-connector` hinzugefügt 
+* Normalisierter Speicherort im Helm-Versionsnamen und Knotenname zu `aks install-connector` hinzugefügt
 
 ### <a name="appservice"></a>AppService
 
@@ -137,7 +137,7 @@ Version 2.0.38
 * Unterstützung für Experimente wurde hinzugefügt. Experimente ermöglichen das Zusammenfassen von Aufträgen in Sammlungen ohne Beschränkung der Anzahl von erstellten Aufträgen.
 * Unterstützung für das Konfigurieren von `/dev/shm` für Aufträge hinzugefügt, die in einem Docker-Container ausgeführt werden
 * Die Befehle `batchai cluster node exec` und `batchai job node exec` wurden hinzugefügt. Diese Befehle ermöglichen die Ausführung aller Befehle direkt auf Knoten und bieten Funktionen zur Portweiterleitung.
-* Unterstützung für `--ids` zu `batchai`-Befehlen hinzugefügt 
+* Unterstützung für `--ids` zu `batchai`-Befehlen hinzugefügt
 * [WICHTIGE ÄNDERUNG] Alle Cluster und Dateiserver müssen unter Arbeitsbereichen erstellt werden.
 * [WICHTIGE ÄNDERUNG] Aufträge müssen unter Experimenten erstellt werden.
 * [WICHTIGE ÄNDERUNG] `--nfs-resource-group` wurde aus den Befehlen `cluster create` und `job create` entfernt. Geben Sie zum Bereitstellen eines NFS, das einem anderen Arbeitsbereich/einer anderen Ressourcengruppe angehört, die ARM-ID des Dateiservers über die Option `--nfs` an.
@@ -201,7 +201,7 @@ Version 2.0.36
 ### <a name="aks"></a>AKS
 
 * Zusätzliche erweiterte Netzwerkoptionen zu `aks create` hinzugefügt
-* Argumente zu `aks create` zum Aktivieren der Überwachung und HTTP-Routing hinzugefügt 
+* Argumente zu `aks create` zum Aktivieren der Überwachung und HTTP-Routing hinzugefügt
 * Argument `--no-ssh-key` zu `aks create` hinzugefügt
 * Argument `--enable-rbac` zu `aks create` hinzugefügt
 * [VORSCHAUVERSION] Unterstützung für Azure Active Directory-Authentifizierung zu `aks create` hinzugefügt
@@ -326,7 +326,7 @@ Version 2.0.33
 
 * [WICHTIGE ÄNDERUNG] Von den Befehlen `db` und `dw` zurückgegebene Antwortobjekte geändert:
     * Eigenschaft `serviceLevelObjective` in `currentServiceObjectiveName` umbenannt
-    * Eigenschaften `currentServiceObjectiveId` und `requestedServiceObjectiveId` entfernt 
+    * Eigenschaften `currentServiceObjectiveId` und `requestedServiceObjectiveId` entfernt
     * Eigenschaft `maxSizeBytes` geändert (ist nun keine Zeichenfolge mehr, sondern ein Ganzzahlwert)
 * [WICHTIGE ÄNDERUNG] Die folgenden `db`- und `dw`-Eigenschaften wurden geändert und sind jetzt schreibgeschützt:
     * `requestedServiceObjectiveName`(Fixierte Verbindung) festgelegt ist(Fixierte Verbindung) festgelegt ist.  Verwenden Sie zum Aktualisieren den Parameter `--service-objective`, oder legen Sie die Eigenschaft `sku.name` fest.
@@ -432,7 +432,7 @@ Version 2.0.32
 
 ### <a name="network"></a>Netzwerk
 
-* [WICHTIGE ÄNDERUNG] Parameter `--ids` entfernt für: 
+* [WICHTIGE ÄNDERUNG] Parameter `--ids` entfernt für:
   * `express-route auth list`
   * `express-route peering list`
   * `nic ip-config list`
@@ -477,7 +477,7 @@ Version 2.0.32
   * `vm secret list`
   * `vm unmanaged-disk list`
   * `vmss nic list`
-* Unterstützung für Schreibbeschleunigung hinzugefügt 
+* Unterstützung für Schreibbeschleunigung hinzugefügt
 * `vmss perform-maintenance` hinzugefügt
 * `vm diagnostics set` korrigiert, um zuverlässig den Betriebssystemtyp des virtuellen Computers zu erkennen
 * `vm resize` geändert, um zu überprüfen, ob die angeforderte Größe von der derzeit festgelegten Größe abweicht, und nur bei einer Änderung eine Aktualisierung auszuführen
@@ -561,7 +561,7 @@ Version 2.0.31
 
 * [#5936](https://github.com/Azure/azure-cli/issues/5936) behoben: `application-gateway create`-Tags konnten nicht festgelegt werden
 * Argument `--auth-certs` zum Anfügen von Authentifizierungszertifikaten für `application-gateway http-settings [create|update]` hinzugefügt. [#4910](https://github.com/Azure/azure-cli/issues/4910)
-* `ddos-protection`-Befehle zum Erstellen von DDoS-Schutzplänen hinzugefügt 
+* `ddos-protection`-Befehle zum Erstellen von DDoS-Schutzplänen hinzugefügt
 * Unterstützung von `--ddos-protection-plan` für `vnet [create|update]` hinzugefügt, um das Zuordnen eines VNET zu einem DDoS-Schutzplan zu ermöglichen
 * Problem mit `--disable-bgp-route-propagation`-Flag in `network route-table [create|update]` behoben
 * Dummy-Argumente `--public-ip-address-type` und `--subnet-type` für `network lb [create|update]` entfernt
@@ -726,7 +726,7 @@ Version 2.0.29
 
 * [WICHTIGE ÄNDERUNG] `advisor configuration get` in `advisor configuration list` umbenannt
 * [WICHTIGE ÄNDERUNG] `advisor configuration set` in `advisor configuration update` umbenannt
-* [WICHTIGE ÄNDERUNG] `advisor recommendation generate` entfernt 
+* [WICHTIGE ÄNDERUNG] `advisor recommendation generate` entfernt
 * Parameter `--refresh` zu `advisor recommendation list` hinzugefügt
 * Befehl `advisor recommendation show` hinzugefügt
 
@@ -998,7 +998,7 @@ Version 2.0.26
 * Folgende Probleme mit `dns zone export` behoben:
   * Problem behoben, aufgrund dessen lange TXT-Einträge nicht korrekt exportiert wurden
   * Problem behoben, aufgrund dessen TXT-Einträge in Anführungszeichen fälschlich ohne Anführungszeichen in Escapezeichen exportiert wurden
-* Problem behoben, aufgrund dessen bestimmte Datensätze zweimal mit `dns zone import` importiert wurden 
+* Problem behoben, aufgrund dessen bestimmte Datensätze zweimal mit `dns zone import` importiert wurden
 * Befehle `vnet-gateway root-cert` und `vnet-gateway revoked-cert` wiederhergestellt
 
 ### <a name="profile"></a>Profil
@@ -1013,7 +1013,7 @@ Version 2.0.26
 
 * Problem mit der Migration von Storage V1-Konten zu Storage V2 behoben
 * Statusberichterstellung für alle Upload-/Downloadbefehle hinzugefügt
-* Fehler korrigiert, der die Verwendung der arg-Option „-n“ mit `storage account check-name` verhindert hat  
+* Fehler korrigiert, der die Verwendung der arg-Option „-n“ mit `storage account check-name` verhindert hat
 * Spalte „Momentaufnahme“ zur Tabellenausgabe für `blob [list|show]` hinzugefügt
 * Fehler mit verschiedenen Parametern korrigiert, die als Int-Typen analysiert werden mussten
 
