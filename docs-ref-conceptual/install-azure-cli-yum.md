@@ -9,12 +9,12 @@ ms.topic: conceptual
 ms.prod: azure
 ms.technology: azure-cli
 ms.devlang: azure-cli
-ms.openlocfilehash: 7729077d9240f09e0ad93ad8ab154d1477d8c3fd
-ms.sourcegitcommit: 308f9eb433a05b814999ac404f63d181169fffeb
+ms.openlocfilehash: 03276af8fc9640b6c74f7417ecdaecfe48762782
+ms.sourcegitcommit: 64f2c628e83d687d0e172c01f13d71c8c39a8040
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 07/03/2018
-ms.locfileid: "37439889"
+ms.lasthandoff: 07/11/2018
+ms.locfileid: "38967519"
 ---
 # <a name="install-azure-cli-20-with-yum"></a>Installieren der Azure CLI 2.0 mit yum
 
@@ -36,7 +36,7 @@ Wenn Sie eine Distribution mit `yum` verwenden (etwa RHEL, Fedora oder CentOS), 
    sudo sh -c 'echo -e "[azure-cli]\nname=Azure CLI\nbaseurl=https://packages.microsoft.com/yumrepos/azure-cli\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/azure-cli.repo'
    ```
 
-3. Installieren Sie mit dem Befehl `yum install`. 
+3. Installieren Sie mit dem Befehl `yum install`.
 
    ```bash
    sudo yum install azure-cli
@@ -46,7 +46,7 @@ Sie können dann die Azure CLI mit dem Befehl `az` ausführen. Verwenden Sie den
 
 [!INCLUDE [interactive-login](includes/interactive-login.md)]
 
-Weitere Informationen zu verschiedenen Anmeldemethoden finden Sie unter [Anmelden mit Azure CLI 2.0](authenticate-azure-cli.md).
+Weitere Informationen zu verschiedenen Authentifizierungsmethoden finden Sie unter [Anmelden mit Azure CLI 2.0](authenticate-azure-cli.md).
 
 ## <a name="update"></a>Aktualisieren
 
