@@ -9,14 +9,83 @@ ms.topic: article
 ms.prod: azure
 ms.technology: azure-cli
 ms.devlang: azure-cli
-ms.openlocfilehash: b44a387a144b9d7daca8d87309d8a5e1a47b078a
-ms.sourcegitcommit: 64f2c628e83d687d0e172c01f13d71c8c39a8040
+ms.openlocfilehash: 8d4f0879a18d2cf99ea7a284155bec86413406f8
+ms.sourcegitcommit: da34d0eecf19c676826bd32ab254a92bd0976124
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 07/11/2018
-ms.locfileid: "38967876"
+ms.lasthandoff: 07/19/2018
+ms.locfileid: "39138235"
 ---
 # <a name="azure-cli-20-release-notes"></a>Azure CLI 2.0-Versionshinweise
+
+## <a name="july-18-2018"></a>18. Juli 2018
+
+Version 2.0.42
+
+### <a name="core"></a>Core
+
+* Unterstützung für browserbasierte Anmeldung WSL-Bash-Fenster hinzugefügt
+* `--force-string`-Flag für alle generischen Updatebefehle hinzugefügt
+* [WICHTIGE ÄNDERUNG] Befehle vom Typ „show“ so geändert, dass die Fehlermeldung protokolliert wird und der Vorgang bei einer fehlenden Ressource mit dem Exitcode 3 fehlschlägt
+
+### <a name="acr"></a>ACR
+
+* [WICHTIGE ÄNDERUNG] „--no-push“ in Befehl „acr build“ in reines Flag geändert
+* Befehle `show` und `update` unter Gruppe `acr repository` hinzugefügt
+* `--detail`-Flag für `show-manifests` und `show-tags` hinzugefügt, um ausführlichere Informationen anzuzeigen
+* Parameter `--image` zur Unterstützung des Abrufs von Builddetails oder Protokollen anhand eines Images hinzugefügt
+
+### <a name="acs"></a>ACS
+
+* `az aks create` so geändert, dass mit Fehler beendet wird, wenn `--max-pods` kleiner als 5 ist
+
+### <a name="appservice"></a>AppService
+
+* Unterstützung für PremiumV2-SKUs hinzugefügt
+
+### <a name="batch"></a>Batch
+
+* Korrektur eines Fehlers bei der Verwendung von Anmeldeinformationen im Cloud Shell-Modus
+* JSON-Eingabe so geändert, dass Groß-/Kleinschreibung nicht beachtet wird
+
+### <a name="batch-ai"></a>Batch AI
+
+* Befehl `az batchai job exec` korrigiert
+
+### <a name="container"></a>Container
+
+* Anforderung von Benutzername und Kennwort für Nicht-DockerHub-Registrierungen entfernt
+* Fehler beim Erstellen von Containergruppen aus YAML-Datei behoben
+
+### <a name="network"></a>Netzwerk
+
+* Unterstützung für `--no-wait` zu `network nic [create|update|delete]` hinzugefügt 
+* `network nic wait` hinzugefügt
+* `--ids`-Argument für `network vnet [subnet|peering] list` als veraltet markiert
+* `--include-default`-Flag hinzugefügt, um Standardsicherheitsregeln in die Ausgabe von `network nsg rule list` aufzunehmen  
+
+### <a name="resource"></a>Ressource
+
+* Unterstützung für `--no-wait` zu `group deployment delete` hinzugefügt
+* Unterstützung für `--no-wait` zu `deployment delete` hinzugefügt
+* Befehl `deployment wait` hinzugefügt
+* Problem behoben, aufgrund dessen die `az deployment`-Befehle auf Abonnementebene fälschlicherweise für Profil „2017-03-09-profile“ angezeigt wurden
+
+### <a name="sql"></a>SQL
+
+* Fehler „Der angegebene Ressourcengruppenname ... entsprach nicht dem Namen in der URL“ beim Angeben des Namens des Pools für elastische Datenbanken für `sql db copy`-und `sql db replica create`-Befehle behoben
+* Konfigurieren des Standard-SQL Servers durch Ausführen von `az configure --defaults sql-server=<name>` zulässig
+* Tabellenformatierer für Befehle `sql server`, `sql server firewall-rule`, `sql list-usages` und `sql show-usage` hinzugefügt
+
+### <a name="storage"></a>Speicher
+
+* `pageRanges`-Eigenschaft zu `storage blob show`-Ausgabe hinzugefügt, die für Seitenblobs ausgefüllt wird
+
+### <a name="vm"></a>VM
+
+* [WICHTIGE ÄNDERUNG] `vmss create` so geändert, dass `Standard_DS1_v2` als standardmäßige Instanzgröße verwendet wird
+* Unterstützung für `--no-wait` zu `vm extension [set|delete]` und `vmss extension [set|delete]` hinzugefügt
+* `vm extension wait` hinzugefügt
 
 ## <a name="july-3-2018"></a>3. Juli 2018
 
