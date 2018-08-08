@@ -9,14 +9,72 @@ ms.topic: article
 ms.prod: azure
 ms.technology: azure-cli
 ms.devlang: azure-cli
-ms.openlocfilehash: 8d4f0879a18d2cf99ea7a284155bec86413406f8
-ms.sourcegitcommit: da34d0eecf19c676826bd32ab254a92bd0976124
+ms.openlocfilehash: d0f8c01495cc95ecfbf6a41d510eb4bc54d47ba2
+ms.sourcegitcommit: 8019690502e9f89c083839d83a0a245cc812e8b6
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 07/19/2018
-ms.locfileid: "39138235"
+ms.lasthandoff: 08/01/2018
+ms.locfileid: "39392352"
 ---
 # <a name="azure-cli-20-release-notes"></a>Azure CLI 2.0-Versionshinweise
+
+## <a name="july-31-2018"></a>31. Juli 2018
+
+Version 2.0.43
+
+### <a name="acr"></a>ACR
+
+* Flag `--with-secure-properties` zum Befehl `acr build-task show` hinzugefügt
+* Befehl `acr build-task update-build` hinzugefügt
+
+### <a name="acs"></a>ACS
+
+* Änderung, um 0 (Erfolg) zurückzugeben, wenn `az aks browse` durch Drücken von [STRG+C] beendet wird
+
+### <a name="batch"></a>Batch
+
+* Korrektur eines Fehlers bei der Anzeige des AAD-Tokens in Cloud Shell
+
+### <a name="container"></a>Container
+
+* Voraussetzung von `--log-analytics-workspace-key` für Name oder ID im festgelegten Abonnement entfernt
+
+### <a name="network"></a>Netzwerk
+
+* DNS-Unterstützung zu „2017-03-09-profile“ für Azure Stack hinzugefügt 
+
+### <a name="resource"></a>Ressource
+
+* `--rollback-on-error` zu `group deployment create` hinzugefügt, um bei einem Fehler eine als funktionierend bekannte Bereitstellung auszuführen
+* Problem behoben, aufgrund dessen `--parameters {}` mit `group deployment create` zu einem Fehler führte
+
+### <a name="role"></a>Rolle
+
+* Unterstützung für das Stack-Profil „2017-03-09-profile“ hinzugefügt
+* Problem behoben, aufgrund dessen das generische Update von Parametern auf `app update` nicht funktionierte
+
+### <a name="search"></a>Suchen,
+
+* Befehle für Azure Search-Dienst hinzugefügt
+
+### <a name="service-bus"></a>Service Bus
+
+* Migrationsbefehlsgruppe hinzugefügt, um einen Namespace von Service Bus Standard zu Premium zu migrieren
+* Neue optionale Eigenschaften zu Service Bus-Warteschlange und -Abonnement hinzugefügt
+  *  `--enable-batched-operations` und `--enable-dead-lettering-on-message-expiration` in `queue`
+  *  `--dead-letter-on-filter-exceptions` in `subscriptions`
+
+### <a name="storage"></a>Speicher
+
+* Unterstützung für den Download großer Dateien über eine einzelne Verbindung hinzugefügt
+* `show`-Befehle konvertiert, bei denen im Falle einer fehlenden Ressource kein Fehler mit dem Exitcode 3 ausgelöst wurde
+
+### <a name="vm"></a>VM
+
+* Unterstützung zum Auflisten von Verfügbarkeitsgruppen nach Abonnement hinzugefügt
+* Unterstützung für `StandardSSD_LRS` hinzugefügt
+* Unterstützung für Anwendungssicherheitsgruppe beim Erstellen einer VM-Skalierungsgruppe hinzugefügt
+* [WICHTIGE ÄNDERUNG] `[vm|vmss] create`, `[vm|vmss] identity assign` und `[vm|vmss] identity remove` wurden geändert, um vom Benutzer zugewiesene Identitäten im Wörterbuchformat auszugeben.
 
 ## <a name="july-18-2018"></a>18. Juli 2018
 
