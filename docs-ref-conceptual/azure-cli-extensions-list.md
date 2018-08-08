@@ -4,17 +4,17 @@ description: Eine vollständige Liste der offiziell unterstützten Erweiterungen
 author: derekbekoe
 ms.author: debekoe
 manager: routlaw
-ms.date: 07/02/2018
+ms.date: 07/30/2018
 ms.topic: article
 ms.prod: azure
 ms.technology: azure-cli
 ms.devlang: azure-cli
-ms.openlocfilehash: 80af5542b222754ae94c35392a183d8d3c2372ac
-ms.sourcegitcommit: e3d060c045d93fabe5000ef66e21efbe680b9dac
+ms.openlocfilehash: 92d2ac36d0176469f8f5a77e7a27d0b11ab6d947
+ms.sourcegitcommit: 70bb8b115f7b9079ca1fdb65c7f5582b060a466f
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 07/02/2018
-ms.locfileid: "37347222"
+ms.lasthandoff: 07/31/2018
+ms.locfileid: "39356606"
 ---
 # <a name="available-extensions-for-the-azure-cli-20"></a>Verfügbare Erweiterungen für die Azure CLI 2.0
 
@@ -29,19 +29,21 @@ az extension list-available --output table
 | NAME | Version | Zusammenfassung | Vorschau |
 |------|---------|---------|---------|
 | [aem](https://github.com/Azure/azure-cli-extensions) | 0.1.1 | Verwalten der Azure-Erweiterungen zur verbesserten Überwachung für SAP |  |
-| [alias](https://github.com/Azure/azure-cli-extensions) | 0.5.1 | Unterstützung für Befehlsaliase | Ja |
-| [azure-batch-cli-extensions](https://github.com/Azure/azure-batch-cli-extensions) | 2.3.0 | Zusätzliche Befehle für die Verwendung des Azure Batch-Diensts |  |
-| [azure-cli-iot-ext](https://github.com/azure/azure-iot-cli-extension) | 0.5.0 | Stellt die Befehlsebene der Datenebene für Azure IoT Hub, IoT Edge und den IoT Device Provisioning-Dienst bereit |  |
-| [botservice](https://github.com/Azure/azure-cli-extensions) | 0.0.3 | Unterstützung für die Vorschaufeatures von Azure Bot Service 2017-12-01 | Ja |
-| [dev-spaces-preview](https://github.com/Azure/azure-cli-extensions) | 0.1.6 | Dev Spaces ermöglicht eine schnelle, iterative Kubernetes-Bereitstellung für Teams. | Ja |
+| [alias](https://github.com/Azure/azure-cli-extensions) | 0.5.1 | Unterstützung für Befehlsaliase | JA |
+| [azure-batch-cli-extensions](https://github.com/Azure/azure-batch-cli-extensions) | 2.4.1 | Zusätzliche Befehle für die Verwendung des Azure Batch-Diensts |  |
+| [azure-cli-iot-ext](https://github.com/azure/azure-iot-cli-extension) | 0.5.1 | Stellt die Befehlsebene der Datenebene für Azure IoT Hub, IoT Edge und den IoT Device Provisioning-Dienst bereit |  |
+| [botservice](https://github.com/Azure/azure-cli-extensions) | 0.0.3 | Unterstützung für die Vorschaufeatures von Azure Bot Service 2017-12-01 | JA |
+| [dev-spaces-preview](https://github.com/Azure/azure-cli-extensions) | 0.1.6 | Dev Spaces ermöglicht eine schnelle, iterative Kubernetes-Bereitstellung für Teams. | JA |
 | [dns](https://github.com/Azure/azure-cli-extensions) | 0.0.2 | Eine Azure CLI-Erweiterung für DNS-Zonen |  |
-| [eventgrid](https://github.com/Azure/azure-cli-extensions) | 0.2.1 | Unterstützung für Features von Azure EventGrid 2018-05-01-preview | Ja |
+| [eventgrid](https://github.com/Azure/azure-cli-extensions) | 0.2.1 | Unterstützung für Features von Azure EventGrid 2018-05-01-preview | JA |
 | [image-copy-extension](https://github.com/Azure/azure-cli-extensions) | 0.0.7 | Unterstützung für das Kopieren verwalteter VM-Images zwischen Regionen |  |
-| [keyvault-preview](https://github.com/Azure/azure-keyvault-cli-extension) | 0.1.3 | Zeigen Sie eine Vorschau der Azure Key Vault-Befehle an. | Ja |
+| [keyvault-preview](https://github.com/Azure/azure-keyvault-cli-extension) | 0.1.3 | Zeigen Sie eine Vorschau der Azure Key Vault-Befehle an. | JA |
+| [log-analytics](https://github.com/Azure/azure-cli-extensions/tree/master/src/log-analytics) | 0.1.2 | Unterstützung für Azure Log Analytics-Abfragefunktionen | JA |
 | [managementgroups](https://github.com/Azure/azure-cli-extensions) | 0.1.0 | Eine Azure CLI-Erweiterung für Verwaltungsgruppen |  |
 | [managementpartner](https://github.com/Azure/azure-cli-extensions) | 0.1.2 | Unterstützung für Verwaltungspartner (Vorschauversion) |  |
+| [mesh](https://github.com/Azure/azure-cli-extensions) | 0.9.1 | Unterstützung für Microsoft Azure Service Fabric Mesh: Öffentliche Vorschau | JA |
 | [rdbms-vnet](https://github.com/Azure/azure-cli-extensions) | 10.0.0 | Unterstützung für Virtual Network-Regeln in Azure MySQL- und Azure PostgreSQL-Ressourcen |  |
-| [SignalR](https://github.com/Azure/azure-cli-extensions) | 0.1.0 | Unterstützung für die SignalR-Verwaltung (Vorschauversion) | Ja |
-| [storage-preview](https://github.com/Azure/azure-cli-extensions/tree/master/src/storage-preview) | 0.1.3 | Bietet eine Vorschau für zukünftige Speicherfeatures. | Ja |
+| [SignalR](https://github.com/Azure/azure-cli-extensions) | 0.1.0 | Unterstützung für die SignalR-Verwaltung (Vorschauversion) | JA |
+| [storage-preview](https://github.com/Azure/azure-cli-extensions/tree/master/src/storage-preview) | 0.1.3 | Bietet eine Vorschau für zukünftige Speicherfeatures. | JA |
 | [Abonnement](https://github.com/Azure/azure-cli-extensions) | 0.1.1 | Unterstützung für die Abonnementverwaltung (Vorschauversion) |  |
-| [webapp](https://github.com/Azure/azure-cli-extensions) | 0.2.6 | Eine Azure CLI-Erweiterung zum Verwalten von appservice-Ressourcen | Ja |
+| [webapp](https://github.com/Azure/azure-cli-extensions) | 0.2.6 | Eine Azure CLI-Erweiterung zum Verwalten von appservice-Ressourcen | JA |
