@@ -9,12 +9,12 @@ ms.topic: conceptual
 ms.prod: azure
 ms.technology: azure-cli
 ms.devlang: azure-cli
-ms.openlocfilehash: 65d8140bd12a260c127efa2adb064c2f9294810b
-ms.sourcegitcommit: 64f2c628e83d687d0e172c01f13d71c8c39a8040
+ms.openlocfilehash: 7a50682d549f6383e68128f2c2aef02dc2877a8e
+ms.sourcegitcommit: 83826ca154c9f32c6091c63ce4b3e480694ba8d1
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 07/11/2018
-ms.locfileid: "38967774"
+ms.lasthandoff: 08/09/2018
+ms.locfileid: "43144860"
 ---
 # <a name="run-azure-cli-20-in-a-docker-container"></a>Ausführen der Azure CLI 2.0 in einem Docker-Container
 
@@ -29,10 +29,10 @@ Installieren Sie die CLI mit `docker run`.
    ```
 
 > [!NOTE]
-> Wenn Sie die SSH-Schlüssel aus Ihrer Benutzerumgebung übernehmen möchten, können Sie `-v ${HOME}:/root` verwenden, um $HOME als `/root` bereitzustellen.
+> Wenn Sie die SSH-Schlüssel aus Ihrer Benutzerumgebung übernehmen möchten, können Sie `-v ${HOME}/.ssh:/root/.ssh` verwenden, um Ihre SSH-Schlüssel in der Umgebung bereitzustellen.
 >
 > ```bash
-> docker run -it -v ${HOME}:/root microsoft/azure-cli
+> docker run -it -v ${HOME}/.ssh:/root/.ssh microsoft/azure-cli
 > ```
 
 Die CLI wird in dem Image als Befehl `az` in `/usr/local/bin` installiert. Führen Sie den Befehl [az login](/cli/azure/reference-index#az-login) aus, um sich anzumelden.
