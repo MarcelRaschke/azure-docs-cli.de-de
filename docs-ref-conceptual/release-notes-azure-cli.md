@@ -4,19 +4,159 @@ description: Enthält Informationen zu den aktuellen Updates von Azure CLI 2.0.
 author: sptramer
 ms.author: sttramer
 manager: carmonm
-ms.date: 07/03/2018
+ms.date: 08/28/2018
 ms.topic: article
 ms.prod: azure
 ms.technology: azure-cli
 ms.devlang: azure-cli
-ms.openlocfilehash: 549317fb3ffffbe5f392e7a2bbc5cb4ed10b7e89
-ms.sourcegitcommit: 772aad0d9696156d6e87fa00e255dfd0b6394d23
+ms.openlocfilehash: 62e57d048666f478b670f182bb9348dba90de6a0
+ms.sourcegitcommit: 8f060bc009278eafc0ed448bad4b7d08c742ff63
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 08/08/2018
-ms.locfileid: "39718013"
+ms.lasthandoff: 08/29/2018
+ms.locfileid: "43145089"
 ---
 # <a name="azure-cli-20-release-notes"></a>Azure CLI 2.0-Versionshinweise
+
+## <a name="auguest-28-2018"></a>28. August 2018
+
+Version 2.0.45
+
+### <a name="core"></a>Core
+
+* Das Problem, aufgrund dessen eine leere Konfigurationsdatei geladen wurde, wurde behoben.
+* Unterstützung für Profil `2018-03-01-hybrid` für Azure Stack hinzugefügt
+
+### <a name="acr"></a>ACR
+
+* Problemumgehung für Laufzeitvorgänge ohne ARM-Anforderungen hinzugefügt
+* Änderung vorgenommen, um im Befehl `build` Versionskontrolldateien (etwa „.git“ und „.gitignore“) standardmäßig aus der TAR-Datei auszuschließen
+
+### <a name="acs"></a>ACS
+
+* `aks create` geändert, dass standardmäßig virtuelle Computer vom Typ `Standard_DS2_v2` erstellt werden
+* `aks get-credentials` geändert, um nun neue APIs zum Abrufen der Clusteranmeldeinformationen aufzurufen
+
+### <a name="appservice"></a>AppService
+
+* Unterstützung für CORS in „functionapp“ und „webapp“ hinzugefügt
+* ARM-Tagunterstützung in Erstellungsbefehlen hinzugefügt
+* `[webapp|functionapp] identity show` geändert, um bei fehlender Ressource mit Code 3 zu beenden
+
+### <a name="backup"></a>Backup
+
+* `backup vault backup-properties show` geändert, um bei fehlender Ressource mit Code 3 zu beenden
+
+### <a name="bot-service"></a>Botdienst
+
+* Anfängliches Release der Botdienst-CLI
+
+### <a name="cognitive-services"></a>Cognitive Services
+
+* Neuer Parameter `--api-properties,` hinzugefügt, der zum Erstellen einiger Dienste erforderlich ist
+
+### <a name="iot"></a>IoT
+
+* Problem mit dem Zuweisen verknüpfter Hubs behoben
+
+### <a name="monitor"></a>Überwachen
+
+* `monitor metrics alert`-Befehle für Metrikwarnungen nahezu in Echtzeit hinzugefügt
+* `monitor alert`-Befehle als veraltet markiert
+
+### <a name="network"></a>Netzwerk
+
+* `network application-gateway ssl-policy predefined show` geändert, um bei fehlender Ressource mit Code 3 zu beenden
+
+### <a name="resource"></a>Ressource
+
+* `provider operation show` geändert, um bei fehlender Ressource mit Code 3 zu beenden
+
+### <a name="storage"></a>Speicher
+
+* `storage share policy show` geändert, um bei fehlender Ressource mit Code 3 zu beenden
+
+### <a name="vm"></a>VM
+
+* `vm/vmss identity show` geändert, um bei fehlender Ressource mit Code 3 zu beenden 
+* `--storage-caching` für `vm create` eingestellt
+
+## <a name="auguest-14-2018"></a>14. August 2018
+
+Version 2.0.44
+
+### <a name="core"></a>Core
+
+* Numerische Anzeige in `table`-Ausgabe korrigiert
+* YAML-Ausgabeformat hinzugefügt
+
+### <a name="telemetry"></a>Telemetrie
+
+* Verbesserte Berichterstellung für Telemetriedaten
+
+### <a name="acr"></a>ACR
+
+* Befehle vom Typ `content-trust policy` hinzugefügt
+* Problem behoben, aufgrund dessen `.dockerignore` nicht richtig verarbeitet wurde
+
+### <a name="acs"></a>ACS
+
+* `az acs/aks install-cli` für die Installation in `%USERPROFILE%\.azure-kubectl` unter Windows geändert
+* `az aks install-connector` geändert, um zu ermitteln, ob der Cluster über RBAC verfügt, und um den ACI-Connector entsprechend zu konfigurieren
+* Geändert in Rollenzuweisung zum Subnetz bei entsprechender Angabe
+* Neue Option zum Überspringen der Rollenzuweisung für Subnetz hinzugefügt, wenn dieses angegeben ist                                 
+* Geändert, um Rollenzuweisung zum Subnetz zu überspringen, wenn bereits eine Zuweisung vorhanden ist                
+
+### <a name="appservice"></a>AppService
+
+* Fehler behoben, der das Erstellen einer Funktions-App mithilfe von Speicherkonten in externen Ressourcengruppen verhinderte
+* Absturz bei ZIP-Bereitstellung behoben
+
+### <a name="batchai"></a>Batch AI
+
+* Protokollierungsausgabe für die automatische Speicherkontoerstellung geändert, sodass nun „Ressourcen*gruppe*“ angegeben wird        
+
+### <a name="container"></a>Container
+
+* `--secure-environment-variables` zum Übergeben sicherer Umgebungsvariablen an einen Container hinzugefügt      
+
+### <a name="iot"></a>IoT
+
+* [WICHTIGE ÄNDERUNG] Veraltete Befehle entfernt, die in die IoT-Erweiterung verschoben wurden
+* Elemente aktualisiert, um nicht die Domäne `azure-devices.net` anzunehmen
+
+### <a name="iot-central"></a>Iot Central
+
+* Erstes Release des IoT Central-Moduls
+
+### <a name="keyvault"></a>KeyVault
+
+
+* Befehle zum Verwalten von Speicherkonten und SAS-Definitionen hinzugefügt
+* Befehle für Netzwerkregeln hinzugefügt                                                           
+* Parameter `--id` zu Geheimnis-, Schlüssel- und Zertifikatvorgängen hinzugefügt
+* Unterstützung für Version mit mehreren APIs zur Schlüsseltresorverwaltung hinzugefügt
+* Unterstützung für Version mit mehreren APIs zur Schlüsseltresordatenebene hinzugefügt
+
+### <a name="relay"></a>Relay
+
+* Erste Version
+
+### <a name="sql"></a>Sql
+
+* Befehle vom Typ `sql failover-group` hinzugefügt
+
+### <a name="storage"></a>Speicher
+
+* [WICHTIGE ÄNDERUNG] `storage account show-usage` geändert, um Parameter `--location` erforderlich zu machen. Auflistung nach Region
+* Parameter `--resource-group` geändert, sodass er für `storage account`-Befehle optional ist
+* Warnungen vom Typ „Fehler bei Vorbedingung“ für einzelne Fehler in Batch-Befehlen für eine aggregiert Nachricht entfernt
+* `[blob|file] delete-batch`-Befehle geändert, sodass kein Array mit Null-Werten mehr ausgegeben wird
+* `blob [download|upload|delete-batch]`-Befehle geändert, um SAS-Token aus Container-URL zu lesen
+
+### <a name="vm"></a>VM
+
+* Allgemeine Filter zu `vm list-skus` für höhere Benutzerfreundlichkeit hinzugefügt
 
 ## <a name="july-31-2018"></a>31. Juli 2018
 
