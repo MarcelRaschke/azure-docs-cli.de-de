@@ -10,19 +10,19 @@ ms.technology: azure-cli
 ms.devlang: azurecli
 ms.service: active-directory
 ms.component: authentication
-ms.openlocfilehash: a0e05b3306cc273486b1b5fc887ceedbf78cb779
-ms.sourcegitcommit: 64f2c628e83d687d0e172c01f13d71c8c39a8040
+ms.openlocfilehash: a9476937af004609b35fae7a748d8c254f370541
+ms.sourcegitcommit: 252e5e1b5d0ab868044a9c03f2c9fefc22d362b4
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 07/11/2018
-ms.locfileid: "38967757"
+ms.lasthandoff: 08/31/2018
+ms.locfileid: "43380899"
 ---
 # <a name="sign-in-with-azure-cli-20"></a>Anmelden mit Azure CLI 2.0
 
 Es gibt mehrere Möglichkeiten, sich bei der Azure-CLI zu authentifizieren. Melden Sie sich am besten interaktiv per Browser über Azure Cloud Shell oder den Befehl `az login` an.
 Es wird empfohlen, Dienstprinzipale zu verwenden. Dabei handelt es sich um Konten mit eingeschränkten Berechtigungen. Indem Sie einem Dienstprinzipal nur die erforderlichen Mindestberechtigungen erteilen, können Sie Ihre Automatisierungsskripts noch sicherer machen.
 
-Die privaten Anmeldeinformationen werden nicht lokal gespeichert. Stattdessen wird von Azure ein Authentifizierungstoken generiert und gespeichert. Nach der Anmeldung ist das Authentifizierungstoken gültig, bis es 14 Tage lang nicht verwendet wird. Dann müssen Sie sich erneut authentifizieren.
+Die privaten Anmeldeinformationen werden nicht lokal gespeichert. Stattdessen wird von Azure ein Authentifizierungstoken generiert und gespeichert. Nach der Anmeldung ist das Authentifizierungstoken gültig, bis es 90 Tage lang nicht verwendet wird. Dann müssen Sie sich erneut authentifizieren.
 
 Nach der Anmeldung werden CLI-Befehle für Ihr Standardabonnement ausgeführt. Sollten Sie über mehrere Abonnements verfügen, können Sie das [Standardabonnement ändern](manage-azure-subscriptions-azure-cli.md).
 
