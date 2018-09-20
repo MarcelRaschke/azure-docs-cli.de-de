@@ -4,21 +4,21 @@ description: Installieren der Azure CLI 2.0 mit zypper
 author: sptramer
 ms.author: sttramer
 manager: carmonm
-ms.date: 01/29/2018
+ms.date: 09/09/2018
 ms.topic: conceptual
 ms.prod: azure
 ms.technology: azure-cli
 ms.devlang: azure-cli
-ms.openlocfilehash: a7329784f26edfaeebc3520b63d12faed11fe38f
-ms.sourcegitcommit: 64f2c628e83d687d0e172c01f13d71c8c39a8040
+ms.openlocfilehash: ed92443b6de4e538eaf5da41376e836aa2c771a0
+ms.sourcegitcommit: 0e688704889fc88b91588bb6678a933c2d54f020
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 07/11/2018
-ms.locfileid: "38967536"
+ms.lasthandoff: 09/11/2018
+ms.locfileid: "44388302"
 ---
 # <a name="install-azure-cli-20-with-zypper"></a>Installieren der Azure CLI 2.0 mit zypper
 
-Wenn Sie eine Distribution mit `zypper` verwenden (etwa openSUSE oder SLES), steht ein Paket für die Azure CLI zur Verfügung. Dieses Paket wurde mit openSUSE 42.2 und SLES 12 SP 2 getestet.
+Für Linux-Distributionen mit `zypper` wie openSUSE oder SLES ist ein Paket für die Azure CLI verfügbar. Dieses Paket wurde mit openSUSE 42.2 und SLES 12 SP 2 getestet.
 
 [!INCLUDE [linux-install-requirements.md](includes/linux-install-requirements.md)]
 

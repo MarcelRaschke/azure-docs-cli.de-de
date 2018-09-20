@@ -4,21 +4,21 @@ description: Erfahren Sie, wie Sie JMESPath-Abfragen für die Ausgabe von Azure 
 author: sptramer
 ms.author: sttramer
 manager: carmonm
-ms.date: 05/16/2018
+ms.date: 09/09/2018
 ms.topic: conceptual
 ms.prod: azure
 ms.technology: azure-cli
 ms.devlang: azure-cli
-ms.openlocfilehash: 97fcd9d5b5a65480957734cec0ead68029918a49
-ms.sourcegitcommit: 64f2c628e83d687d0e172c01f13d71c8c39a8040
+ms.openlocfilehash: 55880b87e1bffc37bbdeaeb84206deb5b9b7b227
+ms.sourcegitcommit: 0e688704889fc88b91588bb6678a933c2d54f020
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 07/11/2018
-ms.locfileid: "38967791"
+ms.lasthandoff: 09/11/2018
+ms.locfileid: "44388372"
 ---
 # <a name="use-jmespath-queries-with-azure-cli-20"></a>Verwenden von JMESPath-Abfragen mit der Azure CLI 2.0
 
-Die Azure CLI 2.0 verwendet das Argument `--query`, um eine [JMESPath-Abfrage](http://jmespath.org) für die Ergebnisse von Befehlen auszuführen. JMESPath ist eine Abfragesprache für JSON, die es ermöglicht, Daten aus der CLI-Ausgabe auszuwählen und zu präsentieren. Diese Abfragen werden für die JSON-Ausgabe ausgeführt, bevor irgendeine andere Anzeigeformatierung stattfindet.
+Die Azure CLI 2.0 verwendet das Argument `--query`, um eine [JMESPath-Abfrage](http://jmespath.org) für die Ergebnisse von Befehlen auszuführen. JMESPath ist eine Abfragesprache für JSON, die es ermöglicht, Daten aus der CLI-Ausgabe auszuwählen und zu präsentieren. Diese Abfragen werden für die JSON-Ausgabe ausgeführt, bevor irgendeine Anzeigeformatierung stattfindet.
 
 Das Argument `--query` wird von allen Befehlen der Azure-Befehlszeilenschnittstelle unterstützt. Die Beispiele in diesem Artikel decken allgemeine Anwendungsfälle ab und veranschaulichen die Verwendung der Features von JMESPath.
 
@@ -30,7 +30,7 @@ Befehle, die ein JSON-Wörterbuch zurückgeben, können allein anhand ihrer Schl
 az vm show -g QueryDemo -n TestVM --query osProfile.linuxConfiguration.ssh.publicKeys
 ```
 
-Sie können auch mehrere Werte abrufen und in einem sortierten Array platzieren. Das Array verfügt zwar über keinerlei Schlüsselinformationen, die Reihenfolge der Arrayelemente entspricht jedoch der Reihenfolge der abgefragten Schlüssel. Das folgende Beispiel zeigt das Abrufen des Azure-Imageangebotsnamens und der Größe des Betriebssystemdatenträgers:
+Mehrere Werte können in einem sortierten Array platziert werden. Das folgende Beispiel zeigt das Abrufen des Azure-Imageangebotsnamens und der Größe des Betriebssystemdatenträgers:
 
 ```azurecli-interactive
 az vm show -g QueryDemo -n TestVM --query 'storageProfile.[imageReference.offer, osDisk.diskSizeGb]'
@@ -43,7 +43,7 @@ az vm show -g QueryDemo -n TestVM --query 'storageProfile.[imageReference.offer,
 ]
 ```
 
-Wenn die Ausgabe Schlüssel enthalten soll, können Sie eine alternative Wörterbuchsyntax verwenden. Bei der Auswahl mehrerer Elemente in einem Wörterbuch wird das Format `{displayKey:keyPath, ...}` verwendet, um nach dem `keyPath`-JMESPath-Ausdruck zu filtern. Dies wird in der Ausgabe als `{displayKey: value}` angezeigt. Das nächste Beispiel baut auf der Abfrage des letzten Beispiels auf und weist der Ausgabe Schlüssel zu, um sie deutlicher zu machen:
+Wenn die Ausgabe Schlüssel enthalten soll, können Sie eine alternative Wörterbuchsyntax verwenden.  Bei der Auswahl von Elementen in einem Wörterbuch wird das Format `{displayKey:keyPath, ...}` verwendet, um nach dem `keyPath`-JMESPath-Ausdruck zu filtern. In den Ausgabewerten werden die Schlüssel-Wert-Paare in `{displayKey: value}` geändert. Das nächste Beispiel baut auf der Abfrage des letzten Beispiels auf und weist der Ausgabe Schlüssel zu, um sie deutlicher zu machen:
 
 ```azurecli-interactive
 az vm show -g QueryDemo -n TestVM --query 'storageProfile.{image:imageReference.offer, diskSize:osDisk.diskSizeGb}'
@@ -56,7 +56,7 @@ az vm show -g QueryDemo -n TestVM --query 'storageProfile.{image:imageReference.
 }
 ```
 
-Beim Anzeigen von Informationen im Ausgabeformat `table` ist die Wörterbuchanzeige besonders hilfreich. Hierbei können eigene Spaltenüberschriften festgelegt werden, um die Lesbarkeit der Ausgabe weiter zu verbessern. Weitere Informationen zu Ausgabeformaten finden Sie unter [Ausgabeformate für Azure CLI 2.0-Befehle](/cli/azure/format-output-azure-cli).
+Beim Anzeigen von Informationen im Ausgabeformat `table` ermöglicht die Wörterbuchanzeige das Festlegen eigener Spaltenüberschriften. Weitere Informationen zu Ausgabeformaten finden Sie unter [Ausgabeformate für Azure CLI 2.0-Befehle](/cli/azure/format-output-azure-cli).
 
 > [!NOTE]
 > Bestimmte Schlüssel werden herausgefiltert und nicht in der Tabellenansicht gedruckt. Diese Schlüssel sind `id`, `type` und `etag`. Wenn Sie diese Informationen benötigen, können Sie den Schlüsselnamen ändern und so die Filterung umgehen.
@@ -67,7 +67,9 @@ Beim Anzeigen von Informationen im Ausgabeformat `table` ist die Wörterbuchanze
 
 ## <a name="work-with-list-output"></a>Verwenden von Listenausgaben
 
-CLI-Befehle, die mehrere Werte zurückgeben können, geben immer ein Array zurück. Auf die Elemente eines Arrays kann über einen Index zugegriffen werden, es gibt jedoch niemals eine Reihenfolgengarantie von der Befehlszeilenschnittstelle. Beim Abfragen eines Arrays von Werten empfiehlt es sich, die Werte mit dem Operator `[]` zu vereinfachen. Der Operator wird nach dem Schlüssel für das Array oder als erstes Element im Ausdruck geschrieben. Durch die Vereinfachung wird die darauf folgende Abfrage für jedes einzelne Element im Array ausgeführt, und die resultierenden Werte werden in einem neuen Array platziert. Im folgenden Beispiel werden jeweils der Name und das Betriebssystem der virtuellen Computer in einer Ressourcengruppe ausgegeben.
+CLI-Befehle, die mehrere Werte zurückgeben können, geben ein Array zurück. Auf Arrayelemente wird über einen Index zugegriffen, und sie werden unter Umständen nicht jedes Mal in der gleichen Reihenfolge zurückgegeben. Sie können alle Arrayelemente gleichzeitig abfragen, indem Sie sie mit dem Operator `[]` vereinfachen. Der Operator wird nach dem Array oder als erstes Element in einen Ausdruck eingefügt. Bei einem vereinfachten Array wird die darauffolgende Abfrage für jedes Arrayelement ausgeführt.
+
+Im folgenden Beispiel werden jeweils der Name und das Betriebssystem der virtuellen Computer in einer Ressourcengruppe ausgegeben.
 
 ```azurecli-interactive
 az vm list -g QueryDemo --query '[].{name:name, image:storageProfile.imageReference.offer}'
@@ -98,7 +100,7 @@ az vm list -g QueryDemo --query '[].{name:name, image:storageProfile.imageRefere
 ]
 ```
 
-Auch Arrays, die einem Schlüsselpfad angehören, können vereinfacht werden. Dieses Beispiel zeigt eine Abfrage, die die Azure-Objekt-IDs für die NICs abruft, mit denen ein virtueller Computer verbunden ist.
+Auch Arrays, die einem Schlüsselpfad angehören, können vereinfacht werden. Die folgende Abfrage ruft die Azure-Objekt-IDs für die NICs ab, mit denen ein virtueller Computer verbunden ist.
 
 ```azurecli-interactive
 az vm show -g QueryDemo -n TestVM --query 'networkProfile.networkInterfaces[].id'
@@ -120,7 +122,7 @@ az vm list --query '[?osProfile.windowsConfiguration!=null].name'
 
 ## <a name="experiment-with-queries-interactively"></a>Interaktives Experimentieren mit Abfragen
 
-Beim Experimentieren mit JMESPath-Ausdrücken empfiehlt sich eine Arbeitsweise, bei der Sie Abfragen schnell bearbeiten und die Ausgabe untersuchen können. Das Python-Paket [JMESPath-terminal](https://github.com/jmespath/jmespath.terminal) bietet eine interaktive Umgebung, in der Sie Daten mittels Piping als Eingabe verwenden und programminterne Abfragen schreiben können, um die Daten zu extrahieren.
+Wenn Sie sich mit JMESPath vertraut machen möchten, können Sie in der interaktiven Umgebung des Python-Pakets [JMESPath-terminal](https://github.com/jmespath/jmespath.terminal) mit Abfragen experimentieren. Daten werden als Eingabe übergeben. Anschließend werden programminterne Abfragen geschrieben und bearbeitet, um die Daten zu extrahieren.
 
 ```bash
 pip install jmespath-terminal

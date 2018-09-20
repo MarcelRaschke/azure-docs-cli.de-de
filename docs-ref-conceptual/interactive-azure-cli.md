@@ -4,22 +4,22 @@ description: Verwenden Sie die Azure CLI 2.0 im interaktiven Modus.
 author: sptramer
 ms.author: sttramer
 manager: carmonm
-ms.date: 04/06/2017
+ms.date: 09/09/2018
 ms.topic: conceptual
 ms.prod: azure
 ms.technology: azure-cli
 ms.devlang: azure-cli
-ms.openlocfilehash: 1ee7da8dfdde402d4d536f7ab4bb0599a8f3fa1d
-ms.sourcegitcommit: fb3fed8701aff6c46af856e8fdc3e56ff9a678bc
+ms.openlocfilehash: f07689a323314c076f1eb2a8844875d9543d4b2e
+ms.sourcegitcommit: 0e688704889fc88b91588bb6678a933c2d54f020
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 07/11/2018
-ms.locfileid: "38229191"
+ms.lasthandoff: 09/11/2018
+ms.locfileid: "44388574"
 ---
 # <a name="interactive-azure-cli-20"></a>Interaktive Azure CLI 2.0
 
 Sie können die Azure CLI 2.0 im interaktiven Modus verwenden, indem Sie den Befehl `az interactive` ausführen.
-So gelangen Sie zu einer interaktiven Shell, in der Ihre Befehle automatisch vervollständigt werden und in der Sie auf Beschreibungen von Befehlen und ihren Parametern sowie auf Befehlsbeispiele zugreifen können.
+Bei diesem Modus arbeiten Sie in einer interaktiven Shell mit automatischer Vervollständigung, Befehlsbeschreibungen und Beispielen.
 
 ![Interaktiver Modus](./media/interactive-azure-cli/webapp-create.png)
 
@@ -43,7 +43,7 @@ Sie können die Anzeige von Standardwerten für Parameter über `F2` aktivieren 
 
 ![Tastenkombinationen](./media/interactive-azure-cli/gestures.png)
 
-## <a name="scope"></a>Umfang
+## <a name="scope"></a>Bereich
 
 Sie können den Bereich Ihres interaktiven Modus auf eine bestimmte Befehlsgruppe wie `vm` oder `vm image` festlegen.
 In diesem Fall werden alle Befehle für diesen Bereich interpretiert.

@@ -10,16 +10,17 @@ ms.topic: conceptual
 ms.prod: azure
 ms.technology: azure-cli
 ms.devlang: azure-cli
-ms.openlocfilehash: b0d26beac83a7ce3bba44d5e64d129a211c82836
-ms.sourcegitcommit: 8b4629a42ceecf30c1efbc6fdddf512f4dddfab0
+ms.openlocfilehash: 75ea347b0d4d018142a26bf985ee3639f2b79924
+ms.sourcegitcommit: 0e688704889fc88b91588bb6678a933c2d54f020
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 05/18/2018
-ms.locfileid: "34305875"
+ms.lasthandoff: 09/11/2018
+ms.locfileid: "44388591"
 ---
 # <a name="azure-cli-20-configuration"></a>Konfiguration der Azure CLI 2.0
 
-Die Azure CLI 2.0 ermöglicht die Überschreibung interner Einstellungen (etwa für die Protokollierung und die Datensammlung) durch eine Benutzerkonfiguration sowie die Bereitstellung von Standardoptionen für einige erforderliche Parameter. Die CLI bietet einen praktischen Befehl für die Verwaltung einiger dieser Werte (`az configure`). Andere können in einer Konfigurationsdatei oder mithilfe von Umgebungsvariablen festgelegt werden.
+Die Azure CLI 2.0 ermöglicht die Benutzerkonfiguration von Einstellungen wie Protokollierung, Datensammlung und Standardargumentwerte.
+Die CLI bietet einen praktischen Befehl für die Verwaltung einiger Standardwerte: `az configure`. Andere Werte können in einer Konfigurationsdatei oder mit Umgebungsvariablen festgelegt werden.
 
 Von der CLI verwendete Konfigurationswerte werden in der folgenden Reihenfolge ausgewertet. Die Liste ist nach absteigender Priorität sortiert.
 
@@ -32,7 +33,7 @@ Von der CLI verwendete Konfigurationswerte werden in der folgenden Reihenfolge a
 Standardwerte für die CLI werden mit dem Befehl [az configure](/cli/azure/reference-index#az-configure) festgelegt.
 Dieser Befehl akzeptiert ein einzelnes Argument: `--defaults` (eine durch Leerzeichen getrennte Liste mit `key=value`-Paaren). Die angegebenen Werte werden von der CLI anstelle von erforderlichen Argumenten verwendet.
 
-Folgende Schlüssel können verwendet werden:
+Die folgende Tabelle enthält eine Liste der verfügbaren Konfigurationsschlüssel.
 
 | NAME | BESCHREIBUNG |
 |------|-------------|
@@ -40,9 +41,8 @@ Folgende Schlüssel können verwendet werden:
 | location | Der Standardstandort für alle Befehle. |
 | Web- | Der Standard-App-Name für `az webapp`-Befehle. |
 | vm | Der Standard-VM-Name für `az vm`-Befehle. |
-| vmss | Der Standard-VMSS-Name für `az vmss`-Befehle. |
+| vmss | Der Standardname einer VM-Skalierungsgruppe (VMSS), der für `az vmss`-Befehle verwendet wird |
 | acr | Der standardmäßige Containerregistrierungsname für `az acr`-Befehle. |
-| acs | Der standardmäßige Containerdienstname für `az acs`-Befehle. |
 
 Das folgende Beispiel zeigt, wie Sie die Standardressourcengruppe und den Standardstandort für alle Befehle festlegen.
 
@@ -54,8 +54,13 @@ az configure --defaults location=westus2 group=MyResourceGroup
 
 Die CLI-Konfigurationsdatei enthält weitere Einstellungen für die Verwaltung des CLI-Verhaltens. Sie befindet sich unter `$AZURE_CONFIG_DIR/config`. `AZURE_CONFIG_DIR` hat standardmäßig den Wert `$HOME/.azure` (Linux und macOS) bzw. `%USERPROFILE%\.azure` (Windows).
 
-Konfigurationsdateien sind im INI-Dateiformat geschrieben. Die einzelnen Abschnitte in den Dateien beginnen jeweils mit einem `[section-name]`-Header, gefolgt von einer Liste mit Einträgen vom Typ `key=value`. Bei Abschnittsnamen wird die Groß-/Kleinschreibung beachtet, bei Schlüsselnamen nicht.
-Zeilen, die mit `#` oder `;` beginnen, sind Kommentare. Inlinekommentare sind nicht zulässig. Bei booleschen Werten wird die Groß-/Kleinschreibung nicht beachtet, und sie werden durch folgende Werte dargestellt:
+Konfigurationsdateien sind im INI-Dateiformat geschrieben. Dieses Dateiformat wird durch Abschnittsheader gefolgt von einer Liste von Schlüssel-Wert-Einträgen definiert.
+
+* Abschnittsheader werden als `[section-name]` geschrieben. Bei Abschnittsnamen wird zwischen Groß- und Kleinschreibung unterschieden.
+* Einträge werden als `key=value` geschrieben. Bei Schlüsselnamen wird nicht zwischen Groß- und Kleinschreibung unterschieden.
+* Zeilen, die mit `#` oder `;` beginnen, sind Kommentare. Inlinekommentare sind nicht zulässig.
+
+Bei booleschen Werten wird die Groß-/Kleinschreibung nicht beachtet, und sie werden durch folgende Werte dargestellt:
 
 * __True:__ 1, yes, true, on
 * __False:__ 0, no, false, off
@@ -75,17 +80,17 @@ Ausführliche Informationen zu allen verfügbaren Konfigurationswerten und zu de
 
 ## <a name="cli-configuration-values-and-environment-variables"></a>CLI-Konfigurationswerte und Umgebungsvariablen
 
-Die folgende Tabelle enthält sämtliche Abschnitte und Optionsnamen, die in einer Konfigurationsdatei verwendet werden können. Die entsprechenden Umgebungsvariablen können als `AZURE_{section}_{name}` (in Großbuchstaben) festgelegt werden. So können Sie beispielsweise den Standardwert für `storage_account` des Abschnitts `batchai` in der Variablen `AZURE_BATCHAI_STORAGE_ACCOUNT` festlegen.
+Die folgende Tabelle enthält sämtliche Abschnitte und Optionsnamen, die in einer Konfigurationsdatei verwendet werden können. Die entsprechenden Umgebungsvariablen werden als `AZURE_{section}_{name}` (in Großbuchstaben) festgelegt. Der `storage_account`-Standardwert für `batchai` wird beispielsweise in der Variablen `AZURE_BATCHAI_STORAGE_ACCOUNT` festgelegt.
 
-Werte mit einem Standardwert müssen in Befehlszeilenargumenten nicht vorhanden sein, auch wenn sie erforderlich sind.
+Wenn Sie einen Standardwert angeben, wird dieses Argument von keinem Befehl mehr benötigt. Stattdessen wird der Standardwert verwendet.
 
 | Abschnitt | NAME      | Typ | BESCHREIBUNG|
 |---------|-----------|------|------------|
 | __core__ | output | Zeichenfolge | Das Standardausgabeformat. Mögliche Optionen: `json`, `jsonc`, `tsv` oder `table`. |
 | | disable\_confirm\_prompt | boolean | Dient zum Aktivieren/Deaktivieren von Bestätigungsaufforderungen. |
-| | collect\_telemetry | boolean | Erlaubt Microsoft das Sammeln anonymer Daten zur Verwendung der CLI. Informationen zum Datenschutz finden Sie in den [Nutzungsbedingungen für die Azure CLI 2.0](http://aka.ms/AzureCliLegal). |
+| | collect\_telemetry | boolean | Erlaubt Microsoft das Sammeln anonymer Daten zur Verwendung der CLI. Informationen zum Datenschutz finden Sie in den [Nutzungsbedingungen für die Azure CLI 2.0](https://aka.ms/AzureCliLegal). |
 | __logging__ | enable\_log\_file | boolean | Dient zum Aktivieren/Deaktivieren der Protokollierung. |
-| | log\_dir | Zeichenfolge | Das Verzeichnis, in das Protokolle geschrieben werden sollen. Standardwert: `${AZURE_CONFIG_DIR}/logs` |
+| | log\_dir | Zeichenfolge | Das Verzeichnis, in das Protokolle geschrieben werden sollen. Standardmäßig ist dieser Wert auf `${AZURE_CONFIG_DIR}/logs` festgelegt. |
 | __storage__ | connection\_string | Zeichenfolge | Die Standardverbindungszeichenfolge für `az storage`-Befehle. |
 | | Konto | Zeichenfolge | Der Standardkontoname für `az storage`-Befehle. |
 | | key | Zeichenfolge | Der Standardkontoschlüssel für `az storage`-Befehle. |

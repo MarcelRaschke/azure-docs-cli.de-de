@@ -4,17 +4,17 @@ description: Installieren der Azure CLI 2.0 mit dem apt-Paket-Manager
 author: sptramer
 ms.author: sttramer
 manager: carmonm
-ms.date: 05/24/2018
+ms.date: 09/07/2018
 ms.topic: conceptual
 ms.prod: azure
 ms.technology: azure-cli
 ms.devlang: azure-cli
-ms.openlocfilehash: a0908c5b5bda7ec903b702eecb61eabbbedaf533
-ms.sourcegitcommit: 64f2c628e83d687d0e172c01f13d71c8c39a8040
+ms.openlocfilehash: 88b4570f62858ec1e12898aea51a5dbce6d677b5
+ms.sourcegitcommit: 0e688704889fc88b91588bb6678a933c2d54f020
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 07/11/2018
-ms.locfileid: "38967842"
+ms.lasthandoff: 09/11/2018
+ms.locfileid: "44388421"
 ---
 # <a name="install-azure-cli-20-with-apt"></a>Installieren der Azure CLI 2.0 mit apt
 
@@ -57,7 +57,7 @@ Weitere Informationen zu verschiedenen Authentifizierungsmethoden finden Sie unt
 
 ## <a name="troubleshooting"></a>Problembehandlung
 
-In diesem Abschnitt finden Sie einige allgemeine Probleme, die bei der Installation mit `apt` auftreten können. Sollte Ihr Problem hier nicht aufgeführt sein, [melden Sie es über GitHub](https://github.com/Azure/azure-cli/issues).
+In diesem Abschnitt finden Sie einige allgemeine Probleme, die bei der Installation mit `apt` auftreten können. Falls ein Problem auftritt, das hier nicht behandelt wird, [melden Sie es auf GitHub](https://github.com/Azure/azure-cli/issues).
 
 ### <a name="lsbrelease-fails-with-command-not-found"></a>Bei „lsb_release“ tritt der Fehler „Der Befehl wurde nicht gefunden.“ auf.
 
@@ -67,7 +67,7 @@ Beim Ausführen des Befehls `lsb_release` wird unter Umständen eine Ausgabe wie
 -bash: lsb_release: command not found
 ```
 
-Fehlerursache: „lsb_release“ ist nicht installiert. Das Problem lässt sich durch Installieren des Pakets `lsb-release` beheben.
+Fehlerursache: Der Befehl `lsb_release` ist nicht installiert. Das Problem lässt sich durch Installieren des Pakets `lsb-release` beheben.
 
 ```bash
 sudo apt-get install lsb-release
@@ -101,7 +101,7 @@ Wenn hinter einer Firewall ausgehende Verbindungen mit Port 11371 blockiert werd
 sudo apt-key adv --keyserver-options http-proxy=http://<USER>:<PASSWORD>@<PROXY-HOST>:<PROXY-PORT>/ --keyserver packages.microsoft.com --recv-keys 52E16F86FEE04B979B07E28DB02C46DF417A0893
 ```
 
-Wenn Sie nicht wissen, ob ein Proxy eingerichtet ist, wenden Sie sich an Ihren Systemadministrator. Wenn für den Proxy keine Anmeldung erforderlich ist, lassen Sie Benutzer, Kennwort und `@`-Token weg.
+Um zu ermitteln, ob ein Proxy eingerichtet ist, wenden Sie sich an Ihren Systemadministrator. Wenn für den Proxy keine Anmeldung erforderlich ist, lassen Sie Benutzer, Kennwort und `@`-Token weg.
 
 ## <a name="update"></a>Aktualisieren
 

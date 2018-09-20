@@ -4,35 +4,34 @@ description: Melden Sie sich mit der Azure CLI 2.0 interaktiv oder mit lokalen A
 author: sptramer
 ms.author: sttramer
 manager: carmonm
-ms.date: 07/09/2018
+ms.date: 09/07/2018
 ms.topic: conceptual
 ms.technology: azure-cli
 ms.devlang: azurecli
 ms.service: active-directory
 ms.component: authentication
-ms.openlocfilehash: a9476937af004609b35fae7a748d8c254f370541
-ms.sourcegitcommit: 252e5e1b5d0ab868044a9c03f2c9fefc22d362b4
+ms.openlocfilehash: ef77f407284752ad4f4a1585f8a4036b32b3eb1b
+ms.sourcegitcommit: 0e688704889fc88b91588bb6678a933c2d54f020
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 08/31/2018
-ms.locfileid: "43380899"
+ms.lasthandoff: 09/11/2018
+ms.locfileid: "44388319"
 ---
 # <a name="sign-in-with-azure-cli-20"></a>Anmelden mit Azure CLI 2.0
 
-Es gibt mehrere Möglichkeiten, sich bei der Azure-CLI zu authentifizieren. Melden Sie sich am besten interaktiv per Browser über Azure Cloud Shell oder den Befehl `az login` an.
-Es wird empfohlen, Dienstprinzipale zu verwenden. Dabei handelt es sich um Konten mit eingeschränkten Berechtigungen. Indem Sie einem Dienstprinzipal nur die erforderlichen Mindestberechtigungen erteilen, können Sie Ihre Automatisierungsskripts noch sicherer machen.
+Es gibt mehrere Authentifizierungstypen für die Azure CLI. Den einfachsten Einstieg ermöglicht der [Azure Cloud Shell](/azure/cloud-shell/overview)-Dienst, der Sie automatisch anmeldet. Lokal können Sie sich interaktiv über Ihren Browser mit dem Befehl `az login` anmelden. Beim Schreiben von Skripts wird die Verwendung von Dienstprinzipalen empfohlen. Indem Sie einem Dienstprinzipal nur die erforderlichen Mindestberechtigungen erteilen, können Sie Ihre Automatisierung schützen.
 
-Die privaten Anmeldeinformationen werden nicht lokal gespeichert. Stattdessen wird von Azure ein Authentifizierungstoken generiert und gespeichert. Nach der Anmeldung ist das Authentifizierungstoken gültig, bis es 90 Tage lang nicht verwendet wird. Dann müssen Sie sich erneut authentifizieren.
+Ihre Anmeldeinformationen werden nicht von der CLI gespeichert. Stattdessen wird von Azure ein Authentifizierungstoken generiert und gespeichert. Nach der Anmeldung ist das Authentifizierungstoken gültig, bis es 90 Tage lang nicht verwendet wird.
 
 Nach der Anmeldung werden CLI-Befehle für Ihr Standardabonnement ausgeführt. Sollten Sie über mehrere Abonnements verfügen, können Sie das [Standardabonnement ändern](manage-azure-subscriptions-azure-cli.md).
 
-## <a name="interactive-sign-in"></a>Interaktive Anmeldung
+## <a name="sign-in-interactively"></a>Interaktives Anmelden
 
 Die Standardauthentifizierungsmethode der Azure CLI ist die Anmeldung über einen Webbrowser mit Zugriffstoken.
 
 [!INCLUDE [interactive_login](includes/interactive-login.md)]
 
-## <a name="command-line"></a>Befehlszeile
+## <a name="sign-in-with-credentials-on-the-command-line"></a>Anmelden mit Anmeldeinformationen über die Befehlszeile
 
 Geben Sie Ihre Azure-Benutzeranmeldeinformationen in der Befehlszeile an.
 
@@ -61,7 +60,7 @@ az login -u <username> -p <password>
 
 ## <a name="sign-in-with-a-specific-tenant"></a>Anmelden mit einem bestimmten Mandanten
 
-Wenn Sie mehrere Mandanten verwenden, können Sie mit dem Argument `--tenant` den Mandanten auswählen, unter dem Sie sich anmelden. Der Wert dieses Arguments kann eine Domäne vom Typ `.onmicrosoft.com` oder die Azure-Objekt-ID für den Mandanten sein. Sie können sich interaktiv anmelden oder Ihre Anmeldeinformationen mit den Argumenten `--user` und `--password` angeben.
+Sie können mit dem Argument `--tenant` einen Mandanten auswählen, unter dem Sie sich anmelden möchten. Der Wert dieses Arguments kann eine Domäne vom Typ `.onmicrosoft.com` oder die Azure-Objekt-ID für den Mandanten sein. Mit `--tenant` können sowohl interaktive Methoden als auch die Befehlszeile für die Anmeldung verwendet werden.
 
 ```azurecli
 az login --tenant <tenant>
@@ -71,17 +70,14 @@ az login --tenant <tenant>
 
 Dienstprinzipale sind Konten, die nicht an einen bestimmten Benutzer gebunden sind und über Berechtigungen verfügen können, die ihnen über vordefinierte Rollen zugewiesen werden. Die Authentifizierung mit einem Dienstprinzipal ist die beste Methode zum Schreiben sicherer Skripts oder Programme und ermöglicht das Anwenden von Berechtigungseinschränkungen und lokal gespeicherten statischen Anmeldeinformationen. Weitere Informationen zu Dienstprinzipalen finden Sie unter [Erstellen eines Azure-Dienstprinzipals mit Azure CLI 2.0](create-an-azure-service-principal-azure-cli.md).
 
-Für die Anmeldung mit einem Dienstprinzipal geben Sie den Benutzernamen, das Kennwort oder die PEM-Zertifikatdatei und den Mandanten an, der dem Dienstprinzipal zugeordnet ist:
+Für die Anmeldung mit einem Dienstprinzipal benötigen Sie Folgendes:
+
+* Die dem Dienstprinzipal zugeordnete URL bzw. den zugeordneten Namen
+* Das Dienstprinzipalkennwort oder das X509-Zertifikat (im PEM-Format), das zum Erstellen des Dienstprinzipals verwendet wurde
+* Den dem Dienstprinzipal zugeordneten Mandanten, als `.onmicrosoft.com`-Domäne oder Azure-Objekt-ID
 
 ```azurecli
 az login --service-principal -u <app-url> -p <password-or-cert> --tenant <tenant>
-```
-
-Der Mandantenwert ist der dem Dienstprinzipal zugeordnete Azure Active Directory-Mandant. Hierbei kann es sich um eine Domäne vom Typ `.onmicrosoft.com` oder um die Azure-Objekt-ID für den Mandanten handeln.
-Die Mandantenobjekt-ID für Ihr derzeit aktives Konto können Sie mithilfe des folgenden Befehls abrufen:
-
-```azurecli-interactive
-az account show --query 'tenantId' -o tsv
 ```
 
 > [!IMPORTANT]

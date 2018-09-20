@@ -4,21 +4,21 @@ description: Verwenden der Aliaserweiterung der Azure CLI 2.0
 author: sptramer
 ms.author: sttramer
 manager: carmonm
-ms.date: 05/16/2018
+ms.date: 09/07/2018
 ms.topic: conceptual
 ms.prod: azure
 ms.technology: azure-cli
 ms.devlang: azure-cli
-ms.openlocfilehash: 39996693d6b796c2d9a45cd909121829f00291a8
-ms.sourcegitcommit: 8b4629a42ceecf30c1efbc6fdddf512f4dddfab0
+ms.openlocfilehash: a2cd277640ab0a55d2e1da5ecb491e72eee1e0df
+ms.sourcegitcommit: 0e688704889fc88b91588bb6678a933c2d54f020
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 05/18/2018
-ms.locfileid: "34306266"
+ms.lasthandoff: 09/11/2018
+ms.locfileid: "44388625"
 ---
 # <a name="the-azure-cli-20-alias-extension"></a>Aliaserweiterung der Azure CLI 2.0
 
-Dank der Aliaserweiterung können Benutzer mithilfe von vorhandenen Befehlen benutzerdefinierte Befehle für die Azure CLI definieren. Mit Aliasen können Sie durch die Bereitstellung von Verknüpfungen und die Verwendung von positionellen Argumenten prägnante, einfache Workflows erstellen. Aliase werden von der Jinja2-Vorlagenengine unterstützt und bieten daher sogar erweiterte Argumentverarbeitung.
+Dank der Aliaserweiterung können Benutzer mithilfe von vorhandenen Befehlen benutzerdefinierte Befehle für die Azure CLI definieren. Aliase ermöglichen die Verwendung von Verknüpfungen und vereinfachen dadurch Ihren Workflow. Aliase werden von der Jinja2-Vorlagenengine unterstützt und bieten daher sogar erweiterte Argumentverarbeitung.
 
 > [!NOTE]
 > Die Aliaserweiterung ist als öffentliche Vorschauversion verfügbar. Die Funktionen und das Konfigurationsdateiformat können sich ändern.
@@ -47,7 +47,7 @@ alias
 
 ## <a name="keep-the-extension-up-to-date"></a>Sicherstellen, dass die Erweiterung immer auf dem neuesten Stand ist
 
-Die Aliaserweiterung befindet sich in der aktiven Entwicklung, und es werden regelmäßig neue Versionen veröffentlicht. Beim Aktualisieren der CLI werden neue Versionen nicht automatisch installiert. Installieren Sie die Updates für die Erweiterung mithilfe von [az extension update](/cli/azure/extension#az-extension-update).
+Die Aliaserweiterung befindet sich in der aktiven Entwicklung, und es werden regelmäßig neue Versionen veröffentlicht. Beim Aktualisieren der CLI werden keine neuen Versionen installiert. Installieren Sie die Updates für die Erweiterung mithilfe von [az extension update](/cli/azure/extension#az-extension-update).
 
 ```azurecli-interactive
 az extension update --name alias
@@ -55,7 +55,7 @@ az extension update --name alias
 
 ## <a name="manage-aliases-for-the-azure-cli"></a>Verwalten von Aliasen für die Azure CLI
 
-Mit der Aliaserweiterung werden komfortable und vertraute Befehle für die Verwaltung von Aliasen bereitgestellt. Rufen Sie den Aliasbefehl mit `--help` auf, um alle verfügbaren Befehle und Parameterdetails anzuzeigen.
+Die Aliaserweiterung ermöglicht das Erstellen und Verwalten von Aliasen für andere CLI-Befehle. Führen Sie den Aliasbefehl mit `--help` aus, um alle verfügbaren Befehle und Parameterdetails anzuzeigen.
 
 ```azurecli-interactive
 az alias --help
@@ -115,7 +115,7 @@ Beim Ausführen dieses Befehls übergeben Sie Werte an die positionellen Argumen
 az get-vm-ip MyResourceGroup MyVM
 ```
 
-Sie können in von Aliasen aufgerufenen Befehlen auch Umgebungsvariablen verwenden, die zur Laufzeit ausgewertet werden. Im nächsten Beispiel wird der Alias `create-rg` hinzugefügt, der eine Ressourcengruppe in `eastus` erstellt und ein `owner`-Tag hinzufügt. Diesem Tag wird der Wert der lokalen Umgebungsvariablen `USER` zugewiesen.
+Sie können in Aliasbefehlen auch Umgebungsvariablen verwenden, die zur Laufzeit ausgewertet werden. Im nächsten Beispiel wird der Alias `create-rg` hinzugefügt, der eine Ressourcengruppe in `eastus` erstellt und ein `owner`-Tag hinzufügt. Diesem Tag wird der Wert der lokalen Umgebungsvariablen `USER` zugewiesen.
 
 ```azurecli-interactive
 az alias create \
@@ -127,7 +127,7 @@ Zum Registrieren der Umgebungsvariablen im Befehl des Alias muss das Dollarzeich
 
 ## <a name="process-arguments-using-jinja2-templates"></a>Verarbeiten von Argumenten mithilfe von Jinja2-Vorlagen
 
-Die Argumentersetzung in der Aliaserweiterung wird von [Jinja2](http://jinja.pocoo.org/docs/2.10/) durchgeführt. Somit haben Sie Vollzugriff auf die Funktionen der Jinja2-Vorlagenengine. Vorlagen ermöglichen die Ausführung von Aktionen wie Datenextraktion und -ersetzung für Zeichenfolgen.
+Die Argumentersetzung in der Aliaserweiterung wird von [Jinja2](http://jinja.pocoo.org/docs/2.10/) durchgeführt. Jinja2-Vorlagen ermöglichen die Bearbeitung der Argumente.
 
 Mit Jinja2-Vorlagen können Sie Aliase schreiben, die andere Argumenttypen akzeptieren als der zugrunde liegende Befehl. Beispielsweise können Sie einen Alias erstellen, der eine Speicher-URL übernimmt. Anschließend wird diese URL analysiert, um den Konto- und Containernamen an den Speicherbefehl zu übergeben.
 
@@ -159,7 +159,7 @@ command = invoked_commands_including_args
 
 ## <a name="create-an-alias-command-with-arguments-via-the-alias-configuration-file"></a>Erstellen eines Aliasbefehls mit Argumenten über die Aliaskonfigurationsdatei
 
-Unten ist eine Aliaskonfigurationsdatei angegeben, die ein Beispiel für einen Aliasbefehl mit Argumenten enthält, mit dem die öffentliche IP-Adresse für eine VM abgerufen wird. Stellen Sie sicher, dass sich der aufgerufene Befehl in einer einzelnen Zeile befindet und die gleichen Argumente enthält, die im Alias definiert sind.
+Das nächste Beispiel zeigt einen Alias für einen Befehl mit Argumenten. Dieser Befehl ruft die öffentliche IP-Adresse für einen virtuellen Computer ab. Aliasbefehle müssen sich in einer Zeile befinden und alle Argumente im Aliasnamen verwenden.
 
 ```ini
 [get-vm-ip {{ resourceGroup }} {{ vmName }}]

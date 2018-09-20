@@ -4,21 +4,21 @@ description: Erfahren Sie, wie Sie die Ausgabe von Azure CLI 2.0-Befehlen in Tab
 author: sptramer
 ms.author: sttramer
 manager: carmonm
-ms.date: 05/16/2018
+ms.date: 09/07/2018
 ms.topic: conceptual
 ms.prod: azure
 ms.technology: azure-cli
 ms.devlang: azure-cli
-ms.openlocfilehash: b402ce89cbf51adb3d521a604e992dd1fb5a42fa
-ms.sourcegitcommit: 64f2c628e83d687d0e172c01f13d71c8c39a8040
+ms.openlocfilehash: 07a5e9d913257d6aeb20a68263a6256ffadbe627
+ms.sourcegitcommit: 0e688704889fc88b91588bb6678a933c2d54f020
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 07/11/2018
-ms.locfileid: "38967604"
+ms.lasthandoff: 09/11/2018
+ms.locfileid: "44388506"
 ---
 # <a name="output-formats-for-azure-cli-20-commands"></a>Ausgabeformate für Azure CLI 2.0-Befehle
 
-Für Azure CLI 2.0 wird JSON als Standardoption für die Ausgabe verwendet, aber Sie haben verschiedene Möglichkeiten, die Ausgabe von Befehlen zu formatieren.  Verwenden Sie den Parameter `--output` (oder `--out` oder `-o`), um die Ausgabe des Befehls basierend auf einem der Ausgabetypen zu formatieren, die in der folgenden Tabelle angegeben sind:
+Die Azure CLI 2.0 verwendet JSON als Standardausgabeformat, sie bietet jedoch auch andere Formate.  Verwenden Sie den Parameter `--output` (`--out` oder `-o`) zum Formatieren der CLI-Ausgabe. Die Argumentwerte und Typen der Ausgabe lauten wie folgt:
 
 --output | BESCHREIBUNG
 ---------|-------------------------------
@@ -67,7 +67,7 @@ In der folgenden Ausgabe wurden einige Felder aus Platzgründen weggelassen, und
 
 ## <a name="table-output-format"></a>Tabellenausgabeformat
 
-Das Ausgabeformat `table` bietet die einfache Ausgabe formatiert als Zeilen und Spalten von sortierten Daten, die einfach zu lesen und überprüfen sind. Geschachtelte Objekte sind in der Tabellenausgabe nicht enthalten, können jedoch im Rahmen einer Abfrage gefiltert werden. Auch bei den Tabellendaten werden einige Felder weggelassen, d.h. dieses Format ist am besten geeignet, wenn Sie eine schnelle und von Menschen durchsuchbare Übersicht über Daten möchten.
+Beim `table`-Format wird die Ausgabe als ASCII-Tabelle zurückgegeben, die einfach gelesen und überprüft werden kann. Geschachtelte Objekte sind in der Tabellenausgabe nicht enthalten, können jedoch im Rahmen einer Abfrage gefiltert werden. Einige Felder sind nicht in der Tabelle enthalten, daher ist dieses Format am besten geeignet, wenn Sie eine schnelle und von Menschen durchsuchbare Übersicht über Daten benötigen.
 
 ```azurecli-interactive
 az vm list --out table
@@ -100,7 +100,7 @@ RGDEMO001   KBDemo020
 ```
 
 > [!NOTE]
-> Bestimmte Schlüssel werden herausgefiltert und nicht in der Tabellenansicht gedruckt. Hierbei handelt es sich um `id`, `type`, und `etag`. Wenn Sie diese in der Ausgabe benötigen, können Sie die JMESPath-Funktion zum Erstellen neuer Schlüssel verwenden, um den Namen des Schlüssels zu ändern und das Filtern zu vermeiden.
+> Einige Schlüssel werden standardmäßig nicht in der Tabellenansicht ausgegeben. Hierbei handelt es sich um `id`, `type`, und `etag`. Wenn Sie diese in der Ausgabe benötigen, können Sie die JMESPath-Funktion zum Erstellen neuer Schlüssel verwenden, um den Namen des Schlüssels zu ändern und das Filtern zu vermeiden.
 >
 > ```azurecli
 > az vm list --query "[].{objectID:id}" -o table
@@ -110,7 +110,7 @@ Weitere Informationen zum Verwenden von Abfragen zum Filtern von Daten finden Si
 
 ## <a name="tsv-output-format"></a>TSV-Ausgabeformat
 
-Das `tsv`-Ausgabeformat gibt durch Tabstopp oder Zeilenumbruch getrennte Werte ohne zusätzliche Formatierung, Schlüssel oder andere Symbole zurück. Mit diesem Format ist es leicht, die Ausgabe in anderen Befehlen und Tools zu nutzen, in denen der Text verarbeitet werden muss. Genau wie das `table`-Format druckt die `tsv`-Ausgabeoption keine geschachtelten Objekte.
+Das `tsv`-Ausgabeformat gibt durch Tabstopp oder Zeilenumbruch getrennte Werte ohne zusätzliche Formatierung, Schlüssel oder andere Symbole zurück. Mit diesem Format ist es leicht, die Ausgabe in anderen Befehlen und Tools zu nutzen, in denen der Text verarbeitet werden muss. Wie beim `table`-Format gibt `tsv` keine geschachtelten Objekte aus.
 
 Wenn das obige Beispiel mit der Option `tsv` verwendet wird, wird das Ergebnis mit Tabulatortrennung ausgegeben.
 
@@ -126,7 +126,7 @@ None    None        /subscriptions/.../resourceGroups/RGDEMO001/providers/Micros
 None    None        /subscriptions/.../resourceGroups/RGDEMO001/providers/Microsoft.Compute/virtualMachines/KBDemo02None    None    westus    KBDemo020            None    Succeeded    RGDEMO001    None            Microsoft.Compute/virtualMachines    36baa9-9b80-48a8-b4a9-854c7a858ece
 ```
 
-Das folgende Beispiel zeigt, wie die `tsv`-Ausgabe an andere Befehle in UNIX-Systemen zum Extrahieren spezifischerer Daten weitergeleitet werden kann. Mit dem Befehl `grep` werden Elemente ausgewählt, die den Text „RGD“ enthalten, und anschließend wird mit dem Befehl `cut` das achte Feld (durch Tabstopp getrennt) für die Anzeige des Namens des virtuellen Computers in der Ausgabe ausgewählt.
+Das nächste Beispiel zeigt, wie die `tsv`-Ausgabe an andere Befehle in Bash übergeben werden können. `grep` wählt Elemente aus, die den Text „RGD“ enthalten, und anschließend wird mit dem Befehl `cut` das achte Feld für die Anzeige des Namens des virtuellen Computers in der Ausgabe ausgewählt.
 
 ```bash
 az vm list --out tsv | grep RGD | cut -f8

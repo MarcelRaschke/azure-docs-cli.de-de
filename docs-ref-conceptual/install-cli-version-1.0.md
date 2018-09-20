@@ -4,17 +4,17 @@ description: Installieren von Azure CLI 1.0 für Mac, Linux und Windows für das
 author: sptramer
 ms.author: sttramer
 manager: carmonm
-ms.date: 03/20/2017
+ms.date: 09/09/2018
 ms.topic: conceptual
 ms.prod: azure
 ms.technology: azure-cli
 ms.devlang: azure-cli
-ms.openlocfilehash: 5f185e02217d6a3b54a9c252825c0f3fed3ab09e
-ms.sourcegitcommit: 64f2c628e83d687d0e172c01f13d71c8c39a8040
+ms.openlocfilehash: dd2d8658819c03742ae65c639717837ca940659e
+ms.sourcegitcommit: 0e688704889fc88b91588bb6678a933c2d54f020
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 07/11/2018
-ms.locfileid: "38967672"
+ms.lasthandoff: 09/11/2018
+ms.locfileid: "44388608"
 ---
 # <a name="install-the-azure-cli-10"></a>Installieren von Azure CLI 1.0
 
@@ -75,7 +75,7 @@ docker run -it microsoft/azure-cli:0.10.17
 
 ## <a name="run-azure-cli-10-commands"></a>Ausführen von Azure CLI 1.0-Befehlen
 
-Sobald Azure CLI 1.0 installiert ist, führen Sie den Befehl **azure** in der Befehlszeilenschnittstelle (Bash, Terminal, Eingabeaufforderung usw.) aus. Um beispielsweise den Hilfebefehl auszuführen, geben Sie Folgendes ein:
+Sobald Azure CLI 1.0 installiert ist, führen Sie den Befehl **azure** über die Befehlszeilenschnittstelle aus. Geben Sie beispielsweise Folgendes ein, um den Hilfebefehl auszuführen:
 
 ```azurecli
 azure help
@@ -88,13 +88,13 @@ azure help
 sudo ln -s /usr/bin/nodejs /usr/bin/node
 ```
 
-Um die installierte Version von Azure CLI 1.0 anzuzeigen, geben Sie Folgendes ein:
+Um die installierte Version von Azure CLI 1.0 anzuzeigen, geben Sie den folgenden Befehl ein:
 
 ```azurecli
 azure --version
 ```
 
-Jetzt sind Sie soweit. Um Zugriff auf alle CLI-Befehle für die Arbeit mit Ihren eigenen Ressourcen zu erhalten, [stellen Sie über die Azure-CLI eine Verbindung mit Ihrem Azure-Abonnement her](/cli/azure/authenticate-azure-cli).
+Um Zugriff auf alle CLI-Befehle zu erhalten, [stellen Sie über die Azure CLI eine Verbindung mit Ihrem Azure-Abonnement her](/cli/azure/authenticate-azure-cli).
 
 > [!NOTE]
 > Wenn Sie die Azure-CLI zum ersten Mal verwenden, werden Sie in einer Meldung gefragt, ob Sie Microsoft das Erfassen von Nutzungsinformationen erlauben möchten. Die Teilnahme ist freiwillig. Wenn Sie sich für die Teilnahme entscheiden, können Sie diese durch Ausführen von `azure telemetry --disable`jederzeit beenden. Zum Aktivieren der Teilnahme können Sie jederzeit `azure telemetry --enable`ausführen.
@@ -130,8 +130,8 @@ echo 'source ~/azure.completion.sh' >> ~/.bash_profile
 * Wenn Sie weitere Informationen zur Azure-Befehlszeilenschnittstelle erhalten, den Quellcode herunterladen, Probleme melden oder etwas zum Projekt beitragen möchten, besuchen Sie die Webseite [GitHub repository for the Azure CLI](https://github.com/azure/azure-xplat-cli).
 * Wenn Sie Fragen zur Verwendung der Azure-CLI oder zu Azure haben, besuchen Sie die [Azure-Foren](https://social.msdn.microsoft.com/Forums/en-US/home?forum=azurescripting).
 
-[mac-installer]: http://aka.ms/mac-azure-cli
-[windows-installer]: http://aka.ms/webpi-azure-cli
-[linux-installer]: http://aka.ms/linux-azure-cli
+[mac-installer]: https://aka.ms/mac-azure-cli
+[windows-installer]: https://aka.ms/webpi-azure-cli
+[linux-installer]: https://aka.ms/linux-azure-cli
 [cliasm]: /cli/azure/get-started-with-az-cli2
 [cliarm]: ./virtual-machines/azure-cli-arm-commands.md

@@ -5,17 +5,17 @@ keywords: Azure CLI, CLI Hilfe, Azure Hilfe, Abfrage, Automatisierung,
 author: sptramer
 ms.author: sttramer
 manager: carmonm
-ms.date: 05/16/2018
+ms.date: 09/07/2018
 ms.topic: conceptual
 ms.prod: azure
 ms.technology: azure-cli
 ms.devlang: azure-cli
-ms.openlocfilehash: f45c3acfdb4edb82cde755472d240ae18d82aba2
-ms.sourcegitcommit: 64f2c628e83d687d0e172c01f13d71c8c39a8040
+ms.openlocfilehash: 165da295d187edf7dbc19a332670fd49d8f8bdd5
+ms.sourcegitcommit: 0e688704889fc88b91588bb6678a933c2d54f020
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 07/11/2018
-ms.locfileid: "38967740"
+ms.lasthandoff: 09/11/2018
+ms.locfileid: "44388557"
 ---
 # <a name="get-started-with-azure-cli-20"></a>Erste Schritte mit Azure CLI 2.0
 
@@ -33,8 +33,7 @@ Es gibt Methoden, sich nicht interaktiv anzumelden. Diese werden unter [Anmelden
 
 ## <a name="common-commands"></a>Häufig verwendete Befehle
 
-In der nachfolgenden Tabelle sind einige der in der CLI häufig verwendeten Befehle als Links zu den Dokumentationsseiten in der Referenz aufgeführt.
-Alle Unterbefehle dieser Gruppen und ihre Dokumentation können in der Onlinereferenz oder mit dem Argument `--help` nachgeschlagen werden.
+Die folgende Tabelle enthält einige allgemeine Befehle, die in der CLI verwendet werden, sowie Links zu ihrer Referenzdokumentation.
 
 | Ressourcentyp | Azure CLI-Befehlsgruppe |
 |---------------|-------------------------|
@@ -48,8 +47,7 @@ Alle Unterbefehle dieser Gruppen und ihre Dokumentation können in der Onlineref
 
 ## <a name="finding-commands"></a>Suchen von Befehlen
 
-Befehle in der CLI werden als _Unterbefehle_ von _Gruppen_ bereitgestellt.
-Jede Gruppe stellt einen von Azure bereitgestellten Dienst dar, und die Untergruppen unterteilen Befehle für diese Dienste in logische Gruppierungen.
+Befehle in der CLI werden als _Befehle_ von _Gruppen_ organisiert. Jede Gruppe stellt einen Azure-Dienst dar, und Befehle werden für diesen Dienst ausgeführt.
 
 Suchen Sie Befehle mithilfe von [az find](/cli/azure/reference-index#az-find). Verwenden Sie den folgenden Befehl, um beispielsweise nach Befehlsnamen zu suchen, die `secret` enthalten:
 
@@ -57,7 +55,7 @@ Suchen Sie Befehle mithilfe von [az find](/cli/azure/reference-index#az-find). V
 az find -q secret
 ```
 
-Wenn Sie wissen, mit welcher Gruppe von Befehlen Sie arbeiten möchten, ist das Argument `--help` unter Umständen besser geeignet. Damit werden nicht nur detaillierte Informationen für einen Befehl, sondern – bei Verwendung mit einer Befehlsgruppe – alle verfügbaren Unterbefehle angezeigt. Beispielsweise können Sie bei Verwendung von Netzwerksicherheitsgruppen (NSGs) die verfügbaren Untergruppen und Befehle der NSGs ermitteln.
+Verwenden Sie das Argument `--help`, um eine vollständige Liste der Befehle und Untergruppen einer Gruppe abzurufen. Geben Sie beispielsweise Folgendes ein, um die CLI-Befehle für die Verwendung mit Netzwerksicherheitsgruppen (NSGs) zu ermitteln:
 
 ```azurecli-interactive
 az network nsg --help
@@ -85,7 +83,7 @@ az interactive
 
 Weitere Informationen zum interaktiven Modus finden Sie unter [Interaktive Azure CLI 2.0](interactive-azure-cli.md).
 
-Darüber hinaus gibt es ein [Visual Studio Code-Plug-In](https://marketplace.visualstudio.com/items?itemName=ms-vscode.azurecli), das eine interaktive Benutzeroberfläche bereitstellt. Diese bietet unter anderem Funktionen wie AutoVervollständigen und die Anzeige von Informationen beim Daraufzeigen.
+Darüber hinaus gibt es ein [Visual Studio Code-Plug-In](https://marketplace.visualstudio.com/items?itemName=ms-vscode.azurecli), das eine interaktive Benutzeroberfläche bereitstellt. Diese bietet unter anderem Funktionen wie AutoVervollständigen und die Anzeigen von Informationen beim Daraufzeigen.
 
 ## <a name="learn-cli-basics-with-quickstarts-and-tutorials"></a>Lernen der CLI-Grundlagen mit Schnellstarts und Tutorials
 
@@ -94,7 +92,7 @@ Sehen Sie sich für die ersten Schritte mit der Azure CLI 2.0 ein ausführliches
 > [!div class="nextstepaction"]
 > [Erstellen von virtuellen Computern mit der Azure CLI 2.0](azure-cli-vm-tutorial.yml)
 
-Wenn Sie sich eher auf andere Dienste konzentrieren möchten, stehen verschiedene Schnellstartanleitungen für Azure-Dienste zur Verfügung, die die CLI nutzen.
+Es gibt auch Schnellstartanleitungen für andere beliebte Dienste.
 
 * [Erstellen eines Speicherkontos mit der Azure-Befehlszeilenschnittstelle](/azure/storage/common/storage-quickstart-create-storage-account-cli)
 * [Transfer objects to/from Azure Blob storage using the CLI](/azure/storage/blobs/storage-quickstart-blobs-cli) (Übertragen von Objekten in/aus Azure Blob Storage mit der CLI)

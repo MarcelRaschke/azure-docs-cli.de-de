@@ -9,16 +9,16 @@ ms.topic: conceptual
 ms.prod: azure
 ms.technology: azure-cli
 ms.devlang: azure-cli
-ms.openlocfilehash: 7a50682d549f6383e68128f2c2aef02dc2877a8e
-ms.sourcegitcommit: 83826ca154c9f32c6091c63ce4b3e480694ba8d1
+ms.openlocfilehash: 277d9d3423af4941fb7f7fb57130fa1b7af7d32e
+ms.sourcegitcommit: 0e688704889fc88b91588bb6678a933c2d54f020
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 08/09/2018
-ms.locfileid: "43144860"
+ms.lasthandoff: 09/11/2018
+ms.locfileid: "44388336"
 ---
 # <a name="run-azure-cli-20-in-a-docker-container"></a>Ausführen der Azure CLI 2.0 in einem Docker-Container
 
-Mit Docker können Sie einen eigenständigen Linux-Container mit vorinstallierter Azure CLI 2.0 verwenden. Docker ermöglicht einen schnellen Einstieg in eine Umgebung, in der Sie die CLI ausprobieren und somit testen können, ob sie für Sie geeignet ist. Eine Verwendung als Basisimage für Ihre eigene Bereitstellung ist ebenfalls möglich.
+Mit Docker können Sie einen eigenständigen Linux-Container mit vorinstallierter Azure CLI 2.0 verwenden. Docker ermöglicht Ihnen einen schnellen Einstieg mit einer isolierten Umgebung für die Ausführung der CLI. Das Image kann auch als Grundlage für eigene Bereitstellungen verwendet werden.
 
 ## <a name="run-in-a-docker-container"></a>Ausführen in einem Docker-Container
 
@@ -29,7 +29,7 @@ Installieren Sie die CLI mit `docker run`.
    ```
 
 > [!NOTE]
-> Wenn Sie die SSH-Schlüssel aus Ihrer Benutzerumgebung übernehmen möchten, können Sie `-v ${HOME}/.ssh:/root/.ssh` verwenden, um Ihre SSH-Schlüssel in der Umgebung bereitzustellen.
+> Wenn Sie die SSH-Schlüssel aus Ihrer Benutzerumgebung übernehmen möchten, verwenden Sie `-v ${HOME}/.ssh:/root/.ssh`, um Ihre SSH-Schlüssel in der Umgebung bereitzustellen.
 >
 > ```bash
 > docker run -it -v ${HOME}/.ssh:/root/.ssh microsoft/azure-cli

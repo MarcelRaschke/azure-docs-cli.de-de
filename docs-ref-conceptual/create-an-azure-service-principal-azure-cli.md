@@ -4,17 +4,17 @@ description: Hier erfahren Sie, wie Sie mit der Azure CLI 2.0 einen Dienstprinzi
 author: sptramer
 ms.author: sttramer
 manager: carmonm
-ms.date: 05/16/2018
+ms.date: 09/07/2018
 ms.topic: conceptual
 ms.technology: azure-cli
 ms.devlang: azure-cli
 ms.service: role-based-access-control
-ms.openlocfilehash: 3f20892e846bd07f8e97ccf788d05c4305fe3301
-ms.sourcegitcommit: 83826ca154c9f32c6091c63ce4b3e480694ba8d1
+ms.openlocfilehash: 5f98fd8d3897b11a9b37eefa6295b8b25b2b1c95
+ms.sourcegitcommit: 0e688704889fc88b91588bb6678a933c2d54f020
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 08/09/2018
-ms.locfileid: "43144933"
+ms.lasthandoff: 09/11/2018
+ms.locfileid: "44388438"
 ---
 # <a name="create-an-azure-service-principal-with-azure-cli-20"></a>Erstellen eines Azure-Dienstprinzipals mit Azure CLI 2.0
 
@@ -81,7 +81,7 @@ Die Azure CLI 2.0 enthält die folgenden Befehle zum Verwalten von Rollenzuweisu
 * [az role assignment create](/cli/azure/role/assignment#az-role-assignment-create)
 * [az role assignment delete](/cli/azure/role/assignment#az-role-assignment-delete)
 
-Standardmäßig hat ein Dienstprinzipal die Rolle **Mitwirkender**. Diese Rolle besitzt uneingeschränkte Berechtigungen für Lese- und Schreibvorgänge in einem Azure-Konto. Sie eignet sich in der Regel nicht für Anwendungen. Die Rolle **Leser** ist stärker eingeschränkt und bietet schreibgeschützten Zugriff.  Weitere Informationen zur rollenbasierten Zugriffssteuerung (Role-Based Access Control, RBAC) und zu Rollen finden Sie unter [Integrierte Rollen für die rollenbasierte Zugriffssteuerung in Azure](/azure/active-directory/role-based-access-built-in-roles).
+Standardmäßig hat ein Dienstprinzipal die Rolle **Mitwirkender**. Diese Rolle besitzt uneingeschränkte Berechtigungen für Lese- und Schreibvorgänge in einem Azure-Konto und eignet sich nicht für Anwendungen. Die Rolle **Leser** ist stärker eingeschränkt und bietet schreibgeschützten Zugriff.  Weitere Informationen zur rollenbasierten Zugriffssteuerung (Role-Based Access Control, RBAC) und zu Rollen finden Sie unter [Integrierte Rollen für die rollenbasierte Zugriffssteuerung in Azure](/azure/active-directory/role-based-access-built-in-roles).
 
 Dieses Beispiel fügt die Rolle **Leser** hinzu und löscht die Rolle **Mitwirkender**.
 
@@ -103,7 +103,7 @@ az role assignment list --assignee APP_ID
 
 ## <a name="sign-in-using-the-service-principal"></a>Anmelden mithilfe des Dienstprinzipals
 
-Sie können die Anmeldeinformationen und Berechtigungen des neuen Dienstprinzipals testen, indem Sie sich darunter bei der Azure CLI anmelden. Melden Sie sich mit den Werten für `appId`, `tenant` und die Anmeldeinformationen an. Die von Ihnen angegebenen Authentifizierungsinformationen ändern sich basierend darauf, ob Sie den Dienstprinzipal mit einem Kennwort oder mit einem Zertifikat erstellen möchten.
+Sie können die Anmeldeinformationen und Berechtigungen des neuen Dienstprinzipals testen, indem Sie sich darunter bei der Azure CLI anmelden. Melden Sie sich mit den Werten für `appId`, `tenant` und die Anmeldeinformationen an. Verwenden Sie den Authentifizierungstyp, mit dem der Dienstprinzipal erstellt wurde.
 
 Wenn Sie sich mit einem Kennwort anmelden möchten, geben Sie es als Argumentparameter an.
 
@@ -119,7 +119,7 @@ az login --service-principal --username APP_ID --tenant TENANT_ID --password PAT
 
 ## <a name="reset-credentials"></a>Zurücksetzen von Anmeldeinformation
 
-Falls Sie die Anmeldeinformationen für einen Dienstprinzipal vergessen, können sie mit dem Befehl [az ad sp reset-credentials](https://docs.microsoft.com/en-us/cli/azure/ad/sp#az-ad-sp-reset-credentials) zurückgesetzt werden. Hier gelten die gleichen Einschränkungen und Optionen wie beim Erstellen eines neuen Dienstprinzipals.
+Falls Sie die Anmeldeinformationen für einen Dienstprinzipal vergessen, können sie mit dem Befehl [az ad sp credential reset](/cli/azure/ad/sp/credential#az-ad-sp-credential-reset) zurückgesetzt werden. Hier gelten die gleichen Einschränkungen und Optionen wie beim Erstellen eines neuen Dienstprinzipals.
 
 ```azurecli-interactive
 az ad sp credential reset --name APP_ID --password NEW_PASSWORD

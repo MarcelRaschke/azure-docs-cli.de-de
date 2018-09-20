@@ -5,33 +5,32 @@ keywords: Azure CLI, Erweiterungen
 author: sptramer
 ms.author: sttramer
 manager: carmonm
-ms.date: 05/16/2018
+ms.date: 09/07/2018
 ms.topic: conceptual
 ms.prod: azure
 ms.technology: azure-cli
 ms.devlang: azure-cli
-ms.openlocfilehash: b503c51ffc55ceda30738e34171c7da92532f328
-ms.sourcegitcommit: 64f2c628e83d687d0e172c01f13d71c8c39a8040
+ms.openlocfilehash: 8df4c82253e958fdad37ef1551c051f3d17fb191
+ms.sourcegitcommit: 0e688704889fc88b91588bb6678a933c2d54f020
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 07/11/2018
-ms.locfileid: "38967723"
+ms.lasthandoff: 09/11/2018
+ms.locfileid: "44388540"
 ---
-# <a name="using-extensions-with-the-azure-cli-20"></a>Verwenden von Erweiterungen mit Azure CLI 2.0
+# <a name="use-extensions-with-azure-cli-20"></a>Verwenden von Erweiterungen mit der Azure CLI 2.0
 
-Erweiterungen sind einzelne Module, die nicht mit der Azure CLI bereitgestellt werden und Funktionen über neue Befehle hinzufügen. Dies können experimentelle Angebote oder Vorabangebote, spezielle Tools von Microsoft oder von Ihnen selbst geschriebene benutzerdefinierte Features sein. Erweiterungen ermöglichen das flexible Anpassen der CLI an Ihre eigenen Anforderungen, ohne dass Sie viele zusätzliche Pakete mitliefern müssen, die nicht als Teil des Kernfeaturesatzes angesehen werden.
-
-In diesem Artikel wird beschrieben, wie Sie Erweiterungen für die CLI installieren, aktualisieren und entfernen. Außerdem werden häufige Fragen zum Verhalten von Erweiterungen beantwortet.
+Die Azure CLI 2.0 bietet eine Funktion zum Laden von Erweiterungen. Erweiterungen sind Python-Wheels, die zusammen mit der CLI bereitgestellt, aber als CLI-Befehle ausgeführt werden.
+Mit Erweiterungen erhalten Sie Zugriff auf experimentelle Befehle und Vorabversionen von Befehlen und können eigene CLIs schreiben. Dieser Artikel behandelt die Verwaltung von Erweiterungen und enthält Antworten auf allgemeine Fragen zu ihrer Verwendung.
 
 ## <a name="find-extensions"></a>Suchen von Erweiterungen
 
-Um zu ermitteln, welche Erweiterungen verfügbar sind, können Sie [az extension list-available](/cli/azure/extension#az-extension-list-available) verwenden. Mit diesem Befehl werden die offiziellen Erweiterungen aufgeführt, die von Microsoft bereitgestellt und verwaltet werden.
+Verwenden Sie den Befehl [az extension list-available](/cli/azure/extension#az-extension-list-available), um die von Microsoft bereitgestellten und verwalteten Erweiterungen anzuzeigen.
 
 ```azurecli-interactive
 az extension list-available --output table
 ```
 
-Auf der Dokumentationswebsite wird darüber hinaus eine [Liste der Microsoft-Erweiterungen](azure-cli-extensions-list.md) bereitgestellt.
+Auf der Dokumentationswebsite wird darüber hinaus eine [Liste der Erweiterungen](azure-cli-extensions-list.md) bereitgestellt.
 
 ## <a name="install-extensions"></a>Installieren von Erweiterungen
 
@@ -41,7 +40,7 @@ Nachdem Sie eine zu installierende Erweiterung gefunden haben, können Sie [az e
 az extension add --name <extension-name>
 ```
 
-Wenn die Erweiterung von einer externen Ressource stammt oder Sie über einen direkten Link dafür verfügen, können Sie die Quell-URL oder den lokalen Pfad angeben. Dies _muss_ eine kompilierte Python-Wheeldatei sein.
+Wenn die Erweiterung von einer externen Ressource stammt oder Sie über einen direkten Link dafür verfügen, geben Sie die Quell-URL oder den lokalen Pfad an. Die Erweiterung _muss_ eine kompilierte Python-Wheeldatei sein.
 
 ```azurecli-interactive
 az extension add --source <URL-or-path>
@@ -51,7 +50,7 @@ Nach der Installation einer Erweiterung befindet sich diese unter dem Wert der S
 
 ## <a name="update-extensions"></a>Aktualisieren von Erweiterungen
 
-Wenn eine Erweiterung anhand des Namens installiert wurde, kann sie mithilfe von [az extension update](https://docs.microsoft.com/cli/azure/extension#az-extension-update) aktualisiert werden.
+Wenn eine Erweiterung anhand des Namens installiert wurde, aktualisieren Sie sie mithilfe von [az extension update](https://docs.microsoft.com/cli/azure/extension#az-extension-update).
 
 ```azurecli-interactive
 az extension update --name <extension-name>
@@ -59,24 +58,23 @@ az extension update --name <extension-name>
 
 Andernfalls kann eine Erweiterung anhand der Quelle gemäß den Anweisungen unter [Installieren von Erweiterungen](#install-extensions) aktualisiert werden.
 
-Falls der Name einer Erweiterung von der CLI nicht aufgelöst werden kann, deinstallieren Sie die Erweiterung, und installieren Sie sie anschließend erneut. Außerdem ist es möglich, dass die Erweiterung nicht mehr als Vorschauversion verfügbar und zu einem integrierten Befehl für die CLI geworden ist. Versuchen Sie, die CLI wie unter [Installieren von Azure CLI 2.0](install-azure-cli.md) beschrieben zu installieren, und überprüfen Sie, ob die Befehle der Erweiterung hinzugefügt wurden.
+Falls der Name einer Erweiterung von der CLI nicht aufgelöst werden kann, deinstallieren Sie die Erweiterung, und installieren Sie sie anschließend erneut. Die Erweiterung kann auch Teil der Basis-CLI geworden sein.
+Versuchen Sie, die CLI wie unter [Installieren von Azure CLI 2.0](install-azure-cli.md) beschrieben zu installieren, und überprüfen Sie, ob die Befehle der Erweiterung hinzugefügt wurden.
 
 ## <a name="uninstall-extensions"></a>Deinstallieren von Erweiterungen
 
-Wenn Sie eine Erweiterung nicht mehr benötigen, können Sie sie mit [az extension remove](https://docs.microsoft.com/cli/azure/extension#az-extension-remove) entfernen.
+Wenn Sie eine Erweiterung nicht mehr benötigen, entfernen Sie sie mit [az extension remove](https://docs.microsoft.com/cli/azure/extension#az-extension-remove).
 
 ```azurecli-interactive
 az extension remove --name <extension-name>
 ```
 
-Sie können eine Erweiterung auch manuell entfernen, indem Sie sie am Installationsspeicherort löschen. Dies ist der Wert der Shellvariablen `$AZURE_EXTENSION_DIR`.
+Sie können eine Erweiterung auch manuell entfernen, indem Sie sie am Installationsspeicherort löschen. Die Shellvariable `$AZURE_EXTENSION_DIR` legt fest, welche Module installiert werden.
 Wenn diese Variable nicht festgelegt ist, befindet sich der Wert standardmäßig unter `$HOME/.azure/cliextensions` (Linux und macOS) bzw. `%USERPROFILE%\.azure\cliextensions` (Windows).
 
 ```bash
 rm -rf $AZURE_EXTENSION_DIR/<extension-name>
 ```
-
-Es wird empfohlen, die Deinstallation mit `az extension remove` durchzuführen.
 
 ## <a name="faq"></a>Häufig gestellte Fragen
 
@@ -92,11 +90,11 @@ Ja. Erweiterungen können vorhandene Befehle ersetzen, aber vor dem Ausführen e
 
 ### <a name="how-can-i-tell-if-an-extension-is-in-pre-release"></a>Woran erkenne ich, dass es sich bei einer Erweiterung um eine Vorabversion handelt?
 
-Für eine Erweiterung sollte in der dazugehörigen Dokumentation und in den Versionsinformationen angegeben sein, wenn es sich um eine Vorabversion handelt. Es kommt auch häufiger vor, dass Microsoft Vorschauversionen von Befehlen für die CLI als Erweiterungen veröffentlicht, die nach der Vorschauphase des Produkts in die Hauptoberfläche der CLI integriert werden sollen.
+Anhand der Dokumentation und der Versionsverwaltung können Sie erkennen, ob es sich bei einer Erweiterung um eine Vorabversion handelt. Microsoft veröffentlicht häufig Vorschaubefehle als CLI-Erweiterungen, damit sie später ggf. in das CLI-Hauptprodukt aufgenommen werden können. Wenn Befehle aus Erweiterungen verschoben werden, muss die alte Erweiterung deinstalliert werden. 
 
 ### <a name="can-extensions-depend-upon-each-other"></a>Können Erweiterungen voneinander abhängig sein?
 
-Nein. Erweiterungen müssen einzelne Pakete sein, die nicht voneinander abhängig sind. Dies liegt daran, dass für die CLI nicht garantiert ist, wann Erweiterungen geladen werden. Es kann also nicht sichergestellt werden, dass die Anforderungen von Abhängigkeiten erfüllt werden. Bei der Installation einer Erweiterung wird nur die jeweilige Erweiterung installiert, und sie sollte auch dann funktionieren, wenn Sie andere Erweiterungen entfernen.
+Nein. Da die CLI keine Ladereihenfolge garantiert, werden Abhängigkeiten unter Umständen nicht ordnungsgemäß berücksichtigt. Das Entfernen einer Erweiterung wirkt sich nicht auf andere Erweiterungen aus.
 
 ### <a name="are-extensions-updated-along-with-the-cli"></a>Werden Erweiterungen zusammen mit der CLI aktualisiert?
 

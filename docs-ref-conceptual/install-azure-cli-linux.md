@@ -4,28 +4,28 @@ description: Manuelle Installation der Azure CLI 2.0 unter Linux
 author: sptramer
 ms.author: sttramer
 manager: carmonm
-ms.date: 01/29/2018
+ms.date: 09/09/2018
 ms.topic: conceptual
 ms.prod: azure
 ms.technology: azure-cli
 ms.devlang: azure-cli
-ms.openlocfilehash: 7e73ae8bbbba80bf48c6f01fc1c37a3c32c6eb31
-ms.sourcegitcommit: 64f2c628e83d687d0e172c01f13d71c8c39a8040
+ms.openlocfilehash: c5c7ea61a35e915760081897e88d8c43b80919e0
+ms.sourcegitcommit: 0e688704889fc88b91588bb6678a933c2d54f020
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 07/11/2018
-ms.locfileid: "38967553"
+ms.lasthandoff: 09/11/2018
+ms.locfileid: "44388353"
 ---
 # <a name="install-azure-cli-20-on-linux-manually"></a>Manuelle Installation der Azure CLI 2.0 unter Linux
 
-Wenn in Ihrer Distribution kein Paket für die Azure CLI enthalten ist, können Sie die CLI durch Ausführen eines Installationsskripts jederzeit manuell installieren.
+Ist kein Paket für die Azure CLI für Ihre Distribution vorhanden, installieren Sie die CLI manuell durch Ausführung eines Skripts.
 
 > [!NOTE]
-> Es wird dringend empfohlen, einen Paket-Manager für die CLI zu verwenden. Ein Paket-Manager stellt sicher, dass Sie immer die neuesten Updates erhalten, und gewährleistet die Stabilität der CLI-Komponenten. Überprüfen Sie vor der manuellen Installation, ob ein Paket für Ihre Distribution verfügbar ist.
+> Es wird dringend empfohlen, die CLI mit einem Paket-Manager zu installieren. Ein Paket-Manager stellt sicher, dass Sie immer die neuesten Updates erhalten, und gewährleistet die Stabilität der CLI-Komponenten. Überprüfen Sie vor der manuellen Installation, ob ein Paket für Ihre Distribution verfügbar ist.
 
 ## <a name="prerequisites"></a>Voraussetzungen
 
-Zum Installieren der CLI muss auf dem System folgende Software verfügbar sein:
+Die CLI benötigt die folgende Software:
 
 * [Python 2.7 oder Python 3.x](https://www.python.org/downloads/)
 * [libffi](https://sourceware.org/libffi/)
@@ -33,13 +33,13 @@ Zum Installieren der CLI muss auf dem System folgende Software verfügbar sein:
 
 ## <a name="install-or-update"></a>Installieren oder Aktualisieren
 
-Sie müssen eine vollständige Installation ausführen – unabhängig davon, ob die CLI installiert oder aktualisiert wird. Wenn alle erforderlichen Komponenten vorhanden sind, können Sie die CLI durch Ausführung von `curl` installieren.
+Sowohl für die Installation als auch die Aktualisierung der CLI muss das Installationsskript erneut ausgeführt werden. Installieren Sie die CLI durch Ausführen von `curl`.
 
 ```bash
 curl -L https://aka.ms/InstallAzureCli | bash
 ```
 
-Alternativ können Sie das Skript herunterladen und lokal ausführen. Unter Umständen müssen Sie Ihre Shell neu starten, damit einige Änderungen wirksam werden.
+Das Skript kann auch heruntergeladen und lokal ausgeführt werden. Unter Umständen müssen Sie Ihre Shell neu starten, damit einige Änderungen wirksam werden.
 
 Sie können dann die Azure CLI mit dem Befehl `az` ausführen. Verwenden Sie den Befehl [az login](/cli/azure/reference-index#az-login), um sich anzumelden.
 
@@ -49,7 +49,7 @@ Weitere Informationen zu verschiedenen Authentifizierungsmethoden finden Sie unt
 
 ## <a name="troubleshooting"></a>Problembehandlung
 
-In diesem Abschnitt werden einige allgemeine Probleme beschrieben, die bei einer manuellen Installation auftreten können. Sollte Ihr Problem hier nicht aufgeführt sein, [melden Sie es über GitHub](https://github.com/Azure/azure-cli/issues).
+In diesem Abschnitt werden einige allgemeine Probleme beschrieben, die bei einer manuellen Installation auftreten können. Falls ein Problem auftritt, das hier nicht behandelt wird, [melden Sie es auf GitHub](https://github.com/Azure/azure-cli/issues).
 
 ### <a name="curl-object-moved-error"></a>curl-Fehler „Objekt verschoben“
 
