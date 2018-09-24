@@ -10,18 +10,18 @@ ms.technology: azure-cli
 ms.devlang: azurecli
 ms.service: active-directory
 ms.component: authentication
-ms.openlocfilehash: ef77f407284752ad4f4a1585f8a4036b32b3eb1b
-ms.sourcegitcommit: 0e688704889fc88b91588bb6678a933c2d54f020
+ms.openlocfilehash: f6f3e8bc015420795dda48da093bc92bbf246529
+ms.sourcegitcommit: 8e6e3129f8f4824a8acfa12edb5dae52466d4be8
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 09/11/2018
-ms.locfileid: "44388319"
+ms.lasthandoff: 09/15/2018
+ms.locfileid: "45626923"
 ---
 # <a name="sign-in-with-azure-cli-20"></a>Anmelden mit Azure CLI 2.0
 
 Es gibt mehrere Authentifizierungstypen für die Azure CLI. Den einfachsten Einstieg ermöglicht der [Azure Cloud Shell](/azure/cloud-shell/overview)-Dienst, der Sie automatisch anmeldet. Lokal können Sie sich interaktiv über Ihren Browser mit dem Befehl `az login` anmelden. Beim Schreiben von Skripts wird die Verwendung von Dienstprinzipalen empfohlen. Indem Sie einem Dienstprinzipal nur die erforderlichen Mindestberechtigungen erteilen, können Sie Ihre Automatisierung schützen.
 
-Ihre Anmeldeinformationen werden nicht von der CLI gespeichert. Stattdessen wird von Azure ein Authentifizierungstoken generiert und gespeichert. Nach der Anmeldung ist das Authentifizierungstoken gültig, bis es 90 Tage lang nicht verwendet wird.
+Ihre Anmeldeinformationen werden nicht von der CLI gespeichert. Stattdessen wird von Azure ein [Authentifizierungsaktualisierungstoken](https://docs.microsoft.com/en-us/azure/active-directory/develop/v1-id-and-access-tokens#refresh-tokens) generiert und gespeichert. Ab August 2018 wird dieses Token nach 90-tägiger Inaktivität widerrufen. Dieser Wert kann jedoch von Microsoft oder von Ihrem Mandantenadministrator geändert werden. Wenn das Token widerrufen wurde, werden Sie von der Befehlszeilenschnittstelle aufgefordert, sich erneut anzumelden.
 
 Nach der Anmeldung werden CLI-Befehle für Ihr Standardabonnement ausgeführt. Sollten Sie über mehrere Abonnements verfügen, können Sie das [Standardabonnement ändern](manage-azure-subscriptions-azure-cli.md).
 
