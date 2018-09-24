@@ -4,19 +4,123 @@ description: Enthält Informationen zu den aktuellen Updates von Azure CLI 2.0.
 author: sptramer
 ms.author: sttramer
 manager: carmonm
-ms.date: 08/28/2018
+ms.date: 09/21/2018
 ms.topic: article
 ms.prod: azure
 ms.technology: azure-cli
 ms.devlang: azure-cli
-ms.openlocfilehash: 5d179a49ad64201270be7848a72535b871081125
-ms.sourcegitcommit: c90bc90c9a2b3adf2836d7cfb84951cd3ab51317
+ms.openlocfilehash: f6dd04e088651527b1ac13e719b7fc3c5522b310
+ms.sourcegitcommit: d93b0a2bcfb0d164ef90d6d4618f0552609a8ea6
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 09/06/2018
-ms.locfileid: "43828744"
+ms.lasthandoff: 09/20/2018
+ms.locfileid: "46470064"
 ---
 # <a name="azure-cli-20-release-notes"></a>Azure CLI 2.0-Versionshinweise
+
+## <a name="september-21-2018"></a>21. September 2018
+
+Version 20.46
+
+### <a name="acr"></a>ACR
+* ACR-Aufgabenbefehle hinzugefügt
+* Befehl für die Schnellausführung hinzugefügt
+* `build-task`-Befehlsgruppe als veraltet markiert
+* `helm`-Befehlsgruppe hinzugefügt, um die Verwaltung von Helm-Diagrammen mit ACR zu unterstützen
+* Unterstützung für idempotentes Erstellen für die verwaltete Registrierung hinzugefügt
+* Formatfreies Flag für die Anzeige von Buildprotokollen hinzugefügt
+
+### <a name="acs"></a>ACS
+* Befehl `install-connector` zum Festlegen des AKS-Master-FQDN geändert
+* Erstellen der Rollenzuweisung für „vnet-subnet-id“ (wenn kein Dienstprinzipal angegeben wurde) und „skip-role-assignment“ korrigiert
+
+### <a name="appservice"></a>AppService
+
+* Unterstützung für WebJobs-Vorgangsverwaltung hinzugefügt (kontinuierlich/ausgelöst)
+* „az webapp config set“ unterstützt die Eigenschaft „--fts-state“; Unterstützung für „az functionapp config set/show“ hinzugefügt
+* Unterstützung für Bring Your Own Storage für Web-Apps hinzugefügt
+* Unterstützung für das Auflisten und Wiederherstellen gelöschter Web-Apps hinzugefügt
+
+### <a name="batch"></a>Batch
+* Hinzufügen von Aufgaben über `--json-file` geändert, um die AddTaskCollectionParameter-Syntax zu unterstützen
+* Dokumentation akzeptierter `--json-file`-Formate aktualisiert
+* `--max-tasks-per-node-option` zu `batch pool create` hinzugefügt
+* Verhalten von `batch account` geändert, um das aktuell angemeldete Konto anzuzeigen, wenn keine Optionen angegeben wurden
+
+### <a name="batch-ai"></a>Batch AI 
+* Fehler bei der automatischen Speicherkontoerstellung im Befehl `batchai cluster create` behoben
+
+### <a name="cognitive-services"></a>Cognitive Services
+* Vervollständigung für die Argumente `--sku`, `--kind` und `--location` hinzugefügt
+* Befehl `cognitiveservices account list-usage` hinzugefügt
+* Befehl `cognitiveservices account list-kinds` hinzugefügt
+* Befehl `cognitiveservices account list` hinzugefügt
+* `cognitiveservices list` als veraltet markiert
+* `--name` geändert (ist jetzt optional für `cognitiveservices account list-skus`)
+
+### <a name="container"></a>Container
+* Möglichkeit zum Neustarten und Beenden einer ausgeführten Containergruppe hinzugefügt
+* `--network-profile` zum Übergeben eines Netzwerkprofils hinzugefügt
+* `--subnet` und `--vnet_name` hinzugefügt, um das Erstellen von Containergruppen in einem VNET zu ermöglichen
+* Tabellenausgabe geändert, sodass der Status der Containergruppe angezeigt wird
+
+### <a name="datalake"></a>Data Lake
+* Befehle für VNET-Regeln hinzugefügt
+
+### <a name="interactive-shell"></a>Interaktive Shell
+* Fehler in Windows behoben, durch den Befehle nicht ordnungsgemäß ausgeführt wurden
+* Durch veraltete Objekte verursachtes Problem beim Laden von Befehlen im interaktiven Modus behoben
+
+### <a name="iot"></a>IoT
+* Routingunterstützung für IoT Hubs hinzugefügt
+
+### <a name="key-vault"></a>Key Vault
+* Key Vault-Schlüsselimport für RSA-Schlüssel korrigiert
+
+### <a name="network"></a>Netzwerk
+* Befehle vom Typ `network public-ip prefix` hinzugefügt, um Präfixe von öffentlichen IP-Adressen zu unterstützen
+* Befehle vom Typ `network service-endpoint` hinzugefügt, um Dienstendpunktrichtlinien-Features zu unterstützen
+* Befehle vom Typ `network lb outbound-rule` hinzugefügt, um die Erstellung von Ausgangsregeln für Load Balancer Standard zu unterstützen
+* `--public-ip-prefix` zu `network lb frontend-ip create/update` hinzugefügt, um Front-End-IP-Konfigurationen mit Präfixen von öffentlichen IP-Adressen zu unterstützen
+* `--enable-tcp-reset` zu `network lb rule/inbound-nat-rule/inbound-nat-pool create/update` hinzugefügt
+* `--disable-outbound-snat` zu `network lb rule create/update` hinzugefügt
+* Verwendung von `network watcher flow-log show/configure` mit klassischen NSGs ermöglicht
+* Hinzufügen des `network watcher run-configuration-diagnostic`-Befehls
+* Befehl `network watcher test-connectivity` korrigiert und Eigenschaften `--method`, `--valid-status-codes` und `--headers` hinzugefügt
+* `network express-route create/update`: Flag `--allow-global-reach` hinzugefügt
+* `network vnet subnet create/update`: Unterstützung für `--delegation` hinzugefügt
+* Befehl `network vnet subnet list-available-delegations` hinzugefügt
+* `network traffic-manager profile create/update`: Unterstützung für `--interval`, `--timeout` und `--max-failures` für die Überwachungskonfiguration hinzugefügt; Optionen `--monitor-path`, `--monitor-port` und `--monitor-protocol` zugunsten von `--path`, `--port` und `--protocol` als veraltet markiert
+* `network lb frontend-ip create/update`: Logik für das Festlegen der Zuweisungsmethode für private IP-Adressen korrigiert. Bei Angabe einer privaten IP-Adresse ist die Zuweisung statisch. Wird keine private IP-Adresse (oder eine leere Zeichenfolge für die private IP-Adresse) angegeben, erfolgt eine dynamische Zuweisung.
+* `dns record-set * create/update`: Unterstützung für `--target-resource` hinzugefügt
+* Befehle vom Typ `network interface-endpoint` hinzugefügt, um Schnittstellenendpunkt-Objekte abzufragen
+* `network profile show/list/delete` für die partielle Verwaltung von Netzwerkprofilen hinzugefügt
+* Befehle vom Typ `network express-route peering connection` für die Verwaltung von Peeringverbindungen zwischen ExpressRoute-Instanzen hinzugefügt
+
+### <a name="rdbms"></a>RDBMS
+* Unterstützung für den MariaDB-Dienst hinzugefügt
+
+### <a name="reservation"></a>Reservierung
+* Cosmos DB im Enumerationstyp für reservierte Ressourcen hinzugefügt
+* Namenseigenschaft im Patchmodell hinzugefügt
+
+### <a name="manage-app"></a>App-Verwaltung
+* Fehler in `managedapp create --kind MarketPlace` korrigiert, der zum Absturz der Instanzerstellung einer verwalteten Marketplace-App führte
+* Befehle vom Typ `feature` geändert, um sie auf unterstützte Profile zu beschränken
+
+### <a name="role"></a>Rolle
+* Unterstützung für das Auflisten der Gruppenmitgliedschaften des Benutzers hinzugefügt
+
+### <a name="signalr"></a>SignalR
+* Erste Version
+
+### <a name="storage"></a>Speicher
+* Parameter `--auth-mode login` für die Verwendung der Anmeldeinformationen des Benutzers für die Blob- und Warteschlangenautorisierung hinzugefügt
+* `storage container immutability-policy/legal-hold` für die Verwaltung von unveränderlichem Speicher hinzugefügt
+
+### <a name="vm"></a>VM
+* Problem behoben, das dazu führte, dass die Datei mit dem privaten Schlüssel durch `vm create --generate-ssh-keys` überschrieben wird, wenn die Datei mit dem privaten Schlüssel fehlt (Nr. 4725, 6780)
+* Unterstützung für den gemeinsamen Image-Katalog über `az sig` hinzugefügt
 
 ## <a name="august-28-2018"></a>28. August 2018
 
