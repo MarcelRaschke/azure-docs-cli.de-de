@@ -4,21 +4,21 @@ ms.author: sttramer
 manager: carmonm
 ms.date: 09/07/2018
 ms.topic: include
-ms.openlocfilehash: 1eed73c1279889c713032ec29fcbb3a1ff99799a
-ms.sourcegitcommit: 0e688704889fc88b91588bb6678a933c2d54f020
+ms.openlocfilehash: d34ad05504c49e09e538e4721a28399287969fdb
+ms.sourcegitcommit: c4462456dfb17993f098d47c37bc19f4d78b8179
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 09/11/2018
-ms.locfileid: "44388693"
+ms.lasthandoff: 09/25/2018
+ms.locfileid: "47178132"
 ---
-1. <span data-ttu-id="0f7af-101">Führen Sie den Befehl `login` aus.</span><span class="sxs-lookup"><span data-stu-id="0f7af-101">Run the `login` command.</span></span>
+1. <span data-ttu-id="622d1-101">Führen Sie den Befehl `login` aus.</span><span class="sxs-lookup"><span data-stu-id="622d1-101">Run the `login` command.</span></span>
 
     ```azurecli-interactive
     az login
     ```
 
-    <span data-ttu-id="0f7af-102">Die CLI öffnet Ihren Standardbrowser, sofern sie dazu in der Lage ist, und lädt eine Anmeldeseite.</span><span class="sxs-lookup"><span data-stu-id="0f7af-102">If the CLI can open your default browser, it will do so and load a sign-in page.</span></span>
+    <span data-ttu-id="622d1-102">Die CLI öffnet Ihren Standardbrowser, sofern sie dazu in der Lage ist, und lädt eine Anmeldeseite.</span><span class="sxs-lookup"><span data-stu-id="622d1-102">If the CLI can open your default browser, it will do so and load a sign-in page.</span></span>
 
-    <span data-ttu-id="0f7af-103">Andernfalls müssen Sie eine Browserseite öffnen und den Anweisungen zur Befehlszeile folgen, um einen Autorisierungscode einzugeben, nachdem Sie in Ihrem Browser zu [https://aka.ms/devicelogin](https://aka.ms/devicelogin) navigiert sind.</span><span class="sxs-lookup"><span data-stu-id="0f7af-103">Otherwise, you need to open a browser page and follow the instructions on the command line to enter an  authorization code after navigating to [https://aka.ms/devicelogin](https://aka.ms/devicelogin) in your browser.</span></span>
+    <span data-ttu-id="622d1-103">Andernfalls müssen Sie eine Browserseite öffnen und den Anweisungen zur Befehlszeile folgen, um einen Autorisierungscode einzugeben, nachdem Sie in Ihrem Browser zu [https://aka.ms/devicelogin](https://aka.ms/devicelogin) navigiert sind.</span><span class="sxs-lookup"><span data-stu-id="622d1-103">Otherwise, you need to open a browser page and follow the instructions on the command line to enter an  authorization code after navigating to [https://aka.ms/devicelogin](https://aka.ms/devicelogin) in your browser.</span></span>
 
-2. <span data-ttu-id="0f7af-104">Melden Sie sich im Browser mit Ihren Anmeldeinformationen an.</span><span class="sxs-lookup"><span data-stu-id="0f7af-104">Sign in with your account credentials in the browser.</span></span>
+2. <span data-ttu-id="622d1-104">Melden Sie sich im Browser mit Ihren Anmeldeinformationen an.</span><span class="sxs-lookup"><span data-stu-id="622d1-104">Sign in with your account credentials in the browser.</span></span>
