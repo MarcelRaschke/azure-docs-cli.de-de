@@ -1,6 +1,6 @@
 ---
-title: Azure CLI 2.0-Erweiterungen
-description: Verwenden von Erweiterungen mit Azure CLI 2.0
+title: Azure CLI-Erweiterungen
+description: Verwenden von Erweiterungen mit der Azure CLI
 keywords: Azure CLI, Erweiterungen
 author: sptramer
 ms.author: sttramer
@@ -10,16 +10,16 @@ ms.topic: conceptual
 ms.prod: azure
 ms.technology: azure-cli
 ms.devlang: azure-cli
-ms.openlocfilehash: 8df4c82253e958fdad37ef1551c051f3d17fb191
-ms.sourcegitcommit: 0e688704889fc88b91588bb6678a933c2d54f020
+ms.openlocfilehash: 0ba204063c00bf706f6af5a14dc59ba317385f95
+ms.sourcegitcommit: c4462456dfb17993f098d47c37bc19f4d78b8179
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 09/11/2018
-ms.locfileid: "44388540"
+ms.lasthandoff: 09/25/2018
+ms.locfileid: "47178115"
 ---
-# <a name="use-extensions-with-azure-cli-20"></a>Verwenden von Erweiterungen mit der Azure CLI 2.0
+# <a name="use-extensions-with-azure-cli"></a>Verwenden von Erweiterungen mit der Azure CLI 
 
-Die Azure CLI 2.0 bietet eine Funktion zum Laden von Erweiterungen. Erweiterungen sind Python-Wheels, die zusammen mit der CLI bereitgestellt, aber als CLI-Befehle ausgeführt werden.
+Die Azure CLI umfasst eine Funktion zum Laden von Erweiterungen. Erweiterungen sind Python-Wheels, die zusammen mit der CLI bereitgestellt, aber als CLI-Befehle ausgeführt werden.
 Mit Erweiterungen erhalten Sie Zugriff auf experimentelle Befehle und Vorabversionen von Befehlen und können eigene CLIs schreiben. Dieser Artikel behandelt die Verwaltung von Erweiterungen und enthält Antworten auf allgemeine Fragen zu ihrer Verwendung.
 
 ## <a name="find-extensions"></a>Suchen von Erweiterungen
@@ -59,7 +59,7 @@ az extension update --name <extension-name>
 Andernfalls kann eine Erweiterung anhand der Quelle gemäß den Anweisungen unter [Installieren von Erweiterungen](#install-extensions) aktualisiert werden.
 
 Falls der Name einer Erweiterung von der CLI nicht aufgelöst werden kann, deinstallieren Sie die Erweiterung, und installieren Sie sie anschließend erneut. Die Erweiterung kann auch Teil der Basis-CLI geworden sein.
-Versuchen Sie, die CLI wie unter [Installieren von Azure CLI 2.0](install-azure-cli.md) beschrieben zu installieren, und überprüfen Sie, ob die Befehle der Erweiterung hinzugefügt wurden.
+Versuchen Sie, die CLI wie unter [Installieren der Azure CLI](install-azure-cli.md) beschrieben zu installieren, und überprüfen Sie, ob die Befehle der Erweiterung hinzugefügt wurden.
 
 ## <a name="uninstall-extensions"></a>Deinstallieren von Erweiterungen
 

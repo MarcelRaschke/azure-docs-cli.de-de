@@ -1,6 +1,6 @@
 ---
-title: Verwenden von Azure-Dienstprinzipalen mit der Azure CLI 2.0
-description: Hier erfahren Sie, wie Sie mit der Azure CLI 2.0 einen Dienstprinzipal erstellen und verwenden.
+title: Verwenden von Azure-Dienstprinzipalen mit der Azure CLI
+description: Hier erfahren Sie, wie Sie mit der Azure CLI einen Dienstprinzipal erstellen und verwenden.
 author: sptramer
 ms.author: sttramer
 manager: carmonm
@@ -8,15 +8,14 @@ ms.date: 09/07/2018
 ms.topic: conceptual
 ms.technology: azure-cli
 ms.devlang: azure-cli
-ms.service: role-based-access-control
-ms.openlocfilehash: 5f98fd8d3897b11a9b37eefa6295b8b25b2b1c95
-ms.sourcegitcommit: 0e688704889fc88b91588bb6678a933c2d54f020
+ms.openlocfilehash: 5ba7d8b0bf313a8d8ea1b20fb861c2ac0086b2be
+ms.sourcegitcommit: f7554c00b5d5dca0ec716cbf996eb6654183ec37
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 09/11/2018
-ms.locfileid: "44388438"
+ms.lasthandoff: 09/26/2018
+ms.locfileid: "47237611"
 ---
-# <a name="create-an-azure-service-principal-with-azure-cli-20"></a>Erstellen eines Azure-Dienstprinzipals mit Azure CLI 2.0
+# <a name="create-an-azure-service-principal-with-azure-cli"></a>Erstellen eines Azure-Dienstprinzipals mit der Azure CLI
 
 Wenn Sie eine separate Anmeldung mit Zugriffseinschränkungen erstellen möchten, können Sie dafür einen Dienstprinzipal verwenden. Dienstprinzipale sind separate Identitäten, die einem Konto zugeordnet werden können. Dienstprinzipale sind hilfreich bei der Verwendung von Anwendungen und Tasks, die automatisiert werden müssen. Dieser Artikel führt Sie durch den Vorgang zum Erstellen eines Dienstprinzipals.
 
@@ -75,7 +74,7 @@ Die Werte `appId`, `tenant` und `password` werden für die Authentifizierung ver
 
 ## <a name="manage-service-principal-roles"></a>Verwalten von Dienstprinzipalrollen
 
-Die Azure CLI 2.0 enthält die folgenden Befehle zum Verwalten von Rollenzuweisungen:
+Die Azure CLI enthält die folgenden Befehle zum Verwalten von Rollenzuweisungen:
 
 * [az role assignment list](/cli/azure/role/assignment#az-role-assignment-list)
 * [az role assignment create](/cli/azure/role/assignment#az-role-assignment-create)

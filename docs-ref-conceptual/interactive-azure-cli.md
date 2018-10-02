@@ -1,6 +1,6 @@
 ---
-title: Azure CLI 2.0 – Interaktiver Modus
-description: Verwenden Sie die Azure CLI 2.0 im interaktiven Modus.
+title: Azure CLI – Interaktiver Modus
+description: Verwenden Sie die Azure CLI im interaktiven Modus.
 author: sptramer
 ms.author: sttramer
 manager: carmonm
@@ -9,16 +9,16 @@ ms.topic: conceptual
 ms.prod: azure
 ms.technology: azure-cli
 ms.devlang: azure-cli
-ms.openlocfilehash: f07689a323314c076f1eb2a8844875d9543d4b2e
-ms.sourcegitcommit: 0e688704889fc88b91588bb6678a933c2d54f020
+ms.openlocfilehash: 2a07b77873f4b0439e494a96243b0298f7d77b8d
+ms.sourcegitcommit: c4462456dfb17993f098d47c37bc19f4d78b8179
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 09/11/2018
-ms.locfileid: "44388574"
+ms.lasthandoff: 09/25/2018
+ms.locfileid: "47177690"
 ---
-# <a name="interactive-azure-cli-20"></a>Interaktive Azure CLI 2.0
+# <a name="azure-cli-interactive-mode"></a>Azure CLI – Interaktiver Modus
 
-Sie können die Azure CLI 2.0 im interaktiven Modus verwenden, indem Sie den Befehl `az interactive` ausführen.
+Sie können die Azure CLI im interaktiven Modus verwenden, indem Sie den Befehl `az interactive` ausführen.
 Bei diesem Modus arbeiten Sie in einer interaktiven Shell mit automatischer Vervollständigung, Befehlsbeschreibungen und Beispielen.
 
 ![Interaktiver Modus](./media/interactive-azure-cli/webapp-create.png)
@@ -96,7 +96,7 @@ az>> ? [*].provisioningState
 ]
 ```
 
-Weitere Informationen zum Abfragen der Ergebnisse Ihrer Befehle finden Sie unter [Verwenden von JMESPath-Abfragen mit Azure CLI 2.0](query-azure-cli.md).
+Weitere Informationen zum Abfragen der Ergebnisse Ihrer Befehle finden Sie unter [Abfragen von Befehlsergebnissen mit der Azure CLI](query-azure-cli.md).
 
 ## <a name="bash-commands"></a>Bash-Befehle
 

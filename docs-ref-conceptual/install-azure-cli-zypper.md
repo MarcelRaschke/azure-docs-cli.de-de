@@ -1,6 +1,6 @@
 ---
-title: Installieren der Azure CLI 2.0 unter Linux mit zypper
-description: Installieren der Azure CLI 2.0 mit zypper
+title: Installieren der Azure CLI unter Linux mit zypper
+description: Installieren der Azure CLI mit zypper
 author: sptramer
 ms.author: sttramer
 manager: carmonm
@@ -9,14 +9,14 @@ ms.topic: conceptual
 ms.prod: azure
 ms.technology: azure-cli
 ms.devlang: azure-cli
-ms.openlocfilehash: d5197e1d62b89bc293970a85bcf976a38898862e
-ms.sourcegitcommit: d93b0a2bcfb0d164ef90d6d4618f0552609a8ea6
+ms.openlocfilehash: 201cce81046d5039a313b918ac48b2849352995c
+ms.sourcegitcommit: c4462456dfb17993f098d47c37bc19f4d78b8179
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 09/20/2018
-ms.locfileid: "46469911"
+ms.lasthandoff: 09/25/2018
+ms.locfileid: "47177673"
 ---
-# <a name="install-azure-cli-20-with-zypper"></a>Installieren der Azure CLI 2.0 mit zypper
+# <a name="install-azure-cli-with-zypper"></a>Installieren der Azure CLI mit zypper
 
 Für Linux-Distributionen mit `zypper` wie openSUSE oder SLES ist ein Paket für die Azure CLI verfügbar. Dieses Paket wurde mit openSUSE 42.2 und SLES 12 SP 2 getestet.
 
@@ -52,7 +52,7 @@ Sie können dann die Azure CLI mit dem Befehl `az` ausführen. Verwenden Sie den
 
 [!INCLUDE [interactive-login](includes/interactive-login.md)]
 
-Weitere Informationen zu verschiedenen Authentifizierungsmethoden finden Sie unter [Anmelden mit Azure CLI 2.0](authenticate-azure-cli.md).
+Weitere Informationen zu verschiedenen Authentifizierungsmethoden finden Sie unter [Anmelden mit der Azure CLI](authenticate-azure-cli.md).
 
 ## <a name="update"></a>Aktualisieren
 
@@ -85,7 +85,6 @@ sudo zypper update azure-cli
   MSFT_KEY=`rpm -qa gpg-pubkey /* --qf "%{version}-%{release} %{summary}\n" | grep Microsoft | awk '{print $1}'`
   sudo rpm -e --allmatches gpg-pubkey-$MSFT_KEY
   ```
-
 ## <a name="next-steps"></a>Nächste Schritte
 
 Machen Sie sich nach der Installation der Azure-Befehlszeilenschnittstelle kurz mit den Features sowie mit häufig verwendeten Befehlen vertraut.

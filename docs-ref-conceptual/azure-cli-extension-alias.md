@@ -1,6 +1,6 @@
 ---
-title: Aliaserweiterung der Azure CLI 2.0
-description: Verwenden der Aliaserweiterung der Azure CLI 2.0
+title: Azure CLI-Aliaserweiterung
+description: Verwenden der Azure CLI-Aliaserweiterung
 author: sptramer
 ms.author: sttramer
 manager: carmonm
@@ -9,14 +9,14 @@ ms.topic: conceptual
 ms.prod: azure
 ms.technology: azure-cli
 ms.devlang: azure-cli
-ms.openlocfilehash: a2cd277640ab0a55d2e1da5ecb491e72eee1e0df
-ms.sourcegitcommit: 0e688704889fc88b91588bb6678a933c2d54f020
+ms.openlocfilehash: 47afede5cb1954ddd33f03fd4a6a6dc6c5ed7aee
+ms.sourcegitcommit: c4462456dfb17993f098d47c37bc19f4d78b8179
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 09/11/2018
-ms.locfileid: "44388625"
+ms.lasthandoff: 09/25/2018
+ms.locfileid: "47177928"
 ---
-# <a name="the-azure-cli-20-alias-extension"></a>Aliaserweiterung der Azure CLI 2.0
+# <a name="the-azure-cli-alias-extension"></a>Azure CLI-Aliaserweiterung
 
 Dank der Aliaserweiterung können Benutzer mithilfe von vorhandenen Befehlen benutzerdefinierte Befehle für die Azure CLI definieren. Aliase ermöglichen die Verwendung von Verknüpfungen und vereinfachen dadurch Ihren Workflow. Aliase werden von der Jinja2-Vorlagenengine unterstützt und bieten daher sogar erweiterte Argumentverarbeitung.
 
@@ -25,7 +25,7 @@ Dank der Aliaserweiterung können Benutzer mithilfe von vorhandenen Befehlen ben
 
 ## <a name="install-the-alias-extension"></a>Installieren der Aliaserweiterung
 
-Damit Sie die Aliaserweiterung verwenden können, ist mindestens Version **2.0.28** der Azure CLI erforderlich. Führen Sie zum Überprüfen der CLI-Version `az --version` aus. Falls Sie die Installation aktualisieren müssen, befolgen Sie die Anweisungen unter [Installieren von Azure CLI 2.0](./install-azure-cli.md).
+Damit Sie die Aliaserweiterung verwenden können, ist mindestens Version **2.0.28** der Azure CLI erforderlich. Führen Sie zum Überprüfen der CLI-Version `az --version` aus. Falls Sie die Installation aktualisieren müssen, hilft Ihnen die Anleitung unter [Installieren der Azure CLI](./install-azure-cli.md) weiter.
 
 Installieren Sie die Erweiterung mit dem Befehl [az extension add](/cli/azure/extension#az-extension-add).
 

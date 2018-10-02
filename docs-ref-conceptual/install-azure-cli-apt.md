@@ -1,6 +1,6 @@
 ---
-title: Installieren der Azure CLI 2.0 unter Linux mit apt
-description: Installieren der Azure CLI 2.0 mit dem apt-Paket-Manager
+title: Installieren der Azure CLI unter Linux mit apt
+description: Installieren der Azure CLI mit dem apt-Paket-Manager
 author: sptramer
 ms.author: sttramer
 manager: carmonm
@@ -9,14 +9,14 @@ ms.topic: conceptual
 ms.prod: azure
 ms.technology: azure-cli
 ms.devlang: azure-cli
-ms.openlocfilehash: 13cc995e099cee47534a46097b2e1afd8e96e8b4
-ms.sourcegitcommit: d93b0a2bcfb0d164ef90d6d4618f0552609a8ea6
+ms.openlocfilehash: b388d3ecaf2d978aed11f925b9a479d8e95fb101
+ms.sourcegitcommit: c4462456dfb17993f098d47c37bc19f4d78b8179
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 09/20/2018
-ms.locfileid: "46469979"
+ms.lasthandoff: 09/25/2018
+ms.locfileid: "47178098"
 ---
-# <a name="install-azure-cli-20-with-apt"></a>Installieren der Azure CLI 2.0 mit apt
+# <a name="install-azure-cli-with-apt"></a>Installieren der Azure CLI mit apt
 
 Wenn Sie eine Distribution mit `apt` verwenden (etwa Ubuntu oder Debian), steht ein 64-Bit-Paket für die Azure CLI zur Verfügung. Dieses Paket wurde mit Folgendem getestet:
 
@@ -53,7 +53,7 @@ Sie können dann die Azure CLI mit dem Befehl `az` ausführen. Verwenden Sie den
 
 [!INCLUDE [interactive-login](includes/interactive-login.md)]
 
-Weitere Informationen zu verschiedenen Authentifizierungsmethoden finden Sie unter [Anmelden mit Azure CLI 2.0](authenticate-azure-cli.md).
+Weitere Informationen zu verschiedenen Authentifizierungsmethoden finden Sie unter [Anmelden mit der Azure CLI](authenticate-azure-cli.md).
 
 ## <a name="troubleshooting"></a>Problembehandlung
 

@@ -1,25 +1,25 @@
 ---
 title: Konfigurationsoptionen für die Azure-Befehlszeilenschnittstelle
-description: Informationen zum Konfigurieren der Azure CLI 2.0
+description: Konfigurieren der Azure CLI
 keywords: Azure CLI, Azure-Befehlszeilenschnittstelle, Konfiguration, Einstellungen, Azure
 author: sptramer
 ms.author: sttramer
 manager: carmonm
-ms.date: 05/16/2018
+ms.date: 06/11/2018
 ms.topic: conceptual
 ms.prod: azure
 ms.technology: azure-cli
 ms.devlang: azure-cli
-ms.openlocfilehash: 75ea347b0d4d018142a26bf985ee3639f2b79924
-ms.sourcegitcommit: 0e688704889fc88b91588bb6678a933c2d54f020
+ms.openlocfilehash: f4f1e89e5541d741ef4e02f309a49eece033af5d
+ms.sourcegitcommit: c4462456dfb17993f098d47c37bc19f4d78b8179
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 09/11/2018
-ms.locfileid: "44388591"
+ms.lasthandoff: 09/25/2018
+ms.locfileid: "47177979"
 ---
-# <a name="azure-cli-20-configuration"></a>Konfiguration der Azure CLI 2.0
+# <a name="azure-cli-configuration"></a>Azure CLI-Konfiguration
 
-Die Azure CLI 2.0 ermöglicht die Benutzerkonfiguration von Einstellungen wie Protokollierung, Datensammlung und Standardargumentwerte.
+Die Azure CLI ermöglicht die Benutzerkonfiguration von Einstellungen, z.B. Protokollierung, Datensammlung und Standardargumentwerte.
 Die CLI bietet einen praktischen Befehl für die Verwaltung einiger Standardwerte: `az configure`. Andere Werte können in einer Konfigurationsdatei oder mit Umgebungsvariablen festgelegt werden.
 
 Von der CLI verwendete Konfigurationswerte werden in der folgenden Reihenfolge ausgewertet. Die Liste ist nach absteigender Priorität sortiert.
@@ -88,7 +88,7 @@ Wenn Sie einen Standardwert angeben, wird dieses Argument von keinem Befehl mehr
 |---------|-----------|------|------------|
 | __core__ | output | Zeichenfolge | Das Standardausgabeformat. Mögliche Optionen: `json`, `jsonc`, `tsv` oder `table`. |
 | | disable\_confirm\_prompt | boolean | Dient zum Aktivieren/Deaktivieren von Bestätigungsaufforderungen. |
-| | collect\_telemetry | boolean | Erlaubt Microsoft das Sammeln anonymer Daten zur Verwendung der CLI. Informationen zum Datenschutz finden Sie in den [Nutzungsbedingungen für die Azure CLI 2.0](https://aka.ms/AzureCliLegal). |
+| | collect\_telemetry | boolean | Erlaubt Microsoft das Sammeln anonymer Daten zur Verwendung der CLI. Informationen zum Datenschutz finden Sie in den [Nutzungsbedingungen für die Azure CLI](http://aka.ms/AzureCliLegal). |
 | __logging__ | enable\_log\_file | boolean | Dient zum Aktivieren/Deaktivieren der Protokollierung. |
 | | log\_dir | Zeichenfolge | Das Verzeichnis, in das Protokolle geschrieben werden sollen. Standardmäßig ist dieser Wert auf `${AZURE_CONFIG_DIR}/logs` festgelegt. |
 | __storage__ | connection\_string | Zeichenfolge | Die Standardverbindungszeichenfolge für `az storage`-Befehle. |
