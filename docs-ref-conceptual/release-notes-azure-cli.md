@@ -4,23 +4,85 @@ description: Enthält Informationen zu den aktuellen Updates der Azure CLI.
 author: sptramer
 ms.author: sttramer
 manager: carmonm
-ms.date: 09/21/2018
+ms.date: 10/09/2018
 ms.topic: article
 ms.prod: azure
 ms.technology: azure-cli
 ms.devlang: azure-cli
-ms.openlocfilehash: f0ee84c3f70cf168818de447289d6c7ab5a40c9e
-ms.sourcegitcommit: c4462456dfb17993f098d47c37bc19f4d78b8179
+ms.openlocfilehash: 0aec9dce0eda007c71df3693b39c7ec8cc9856cd
+ms.sourcegitcommit: 0fc354c24454f5c9c5ff4b7296ad7b18ffdf31b1
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 09/25/2018
-ms.locfileid: "47178081"
+ms.lasthandoff: 10/10/2018
+ms.locfileid: "48904785"
 ---
 # <a name="azure-cli-release-notes"></a>Versionshinweise für die Azure CLI
 
+## <a name="october-9-2018"></a>9. Oktober 2018
+
+Version 2.0.47
+
+### <a name="core"></a>Core
+* Verbesserte Fehlerbehandlung für Fehler vom Typ „Ungültige Anforderung“
+
+### <a name="acr"></a>ACR
+* Unterstützung für ähnliches Tabellenformat wie Helm-Client hinzugefügt
+
+### <a name="acs"></a>ACS
+* `aks [create|scale] --nodepool-name` zum Konfigurieren des Knotenpoolnamens hinzugefügt, auf 12 Zeichen gekürzt, Standard: nodepool1 
+* Korrektur, bei der auf „scp“ zurückgegriffen wird, wenn Parimiko nicht funktioniert
+* `aks create` geändert, sodass `--aad-tenant-id` nicht mehr erforderlich ist
+* Verbesserte Zusammenführung von Kubernetes-Anmeldeinformationen, wenn doppelte Einträge vorhanden sind
+
+### <a name="container"></a>Container
+* `functionapp create` geändert, sodass das Erstellen eines Linux-Nutzungsplans mit einer bestimmten Runtime unterstützt wird
+* [VORSCHAUVERSION] Unterstützung für das Hosten von Web-Apps in Windows-Containern hinzugefügt
+
+### <a name="event-hub"></a>Event Hub
+* Befehl `eventhub update` korrigiert
+* [WICHTIGE ÄNDERUNG] `list`-Befehle geändert, sodass Fehler von Typ „NotFound(404)“ für Ressourcen mit der typische Vorgehensweise behandelt werden, anstatt eine leere Liste anzuzeigen
+
+### <a name="extensions"></a>Erweiterungen
+* Problem beim Hinzufügen einer Erweiterung behoben, die bereits installiert ist
+
+### <a name="hdinsight"></a>HDInsight
+* Erste Version
+
+### <a name="iot"></a>IoT
+* Befehl zur Erweiterungsinstallation zu Banner bei der ersten Ausführung hinzugefügt
+
+### <a name="keyvault"></a>KeyVault
+* Geändert, sodass Key Vault-Speicherbefehle auf das aktuelle API-Profil beschränkt sind
+
+### <a name="network"></a>Netzwerk
+* `network dns zone create` korrigiert: Befehl ist auch erfolgreich, wenn der Benutzer einen Standardspeicherort konfiguriert hat. Siehe Nr. 6052
+* `--remote-vnet-id` für `network vnet peering create` eingestellt
+* `--remote-vnet` zum `network vnet peering create`-Element hinzugefügt, das einen Namen oder eine ID akzeptiert
+* Unterstützung für mehrere Subnetzpräfixe zu `network vnet create` in `--subnet-prefixes` hinzugefügt
+* Unterstützung für mehrere Subnetzpräfixe zu `network vnet subnet [create|update]` in `--address-prefixes` hinzugefügt
+* Problem mit `network application-gateway create` behoben, das die Erstellung von Gateways mit der SKU `WAF_v2` oder `Standard_v2` verhindert hat
+* `--service-endpoint-policy`-Argument für Benutzerfreundlichkeit zu `network vnet subnet update` hinzugefügt
+
+### <a name="role"></a>Rolle
+* Unterstützung für das Auflisten von Azure AD-App-Besitzern in `ad app owner` hinzugefügt
+* Unterstützung für das Auflisten von Azure AD-Dienstprinzipalbesitzern in `ad sp owner` hinzugefügt
+* Geändert, um sicherzustellen, dass die Erstellungs- und Aktualisierungsbefehle für die Rollendefinition Konfigurationen mit mehreren Berechtigungen akzeptieren
+* `ad sp create-for-rbac` geändert, um sicherzustellen, dass der Homepage-URI immer „https“ ist
+
+### <a name="service-bus"></a>Service Bus
+* [WICHTIGE ÄNDERUNG] `list`-Befehle geändert, sodass Fehler von Typ „NotFound(404)“ für Ressourcen mit der typische Vorgehensweise behandelt werden, anstatt eine leere Liste anzuzeigen
+
+### <a name="vm"></a>VM
+* Leeres `accessSas`-Feld in `disk grant-access` korrigiert
+* `vmss create` geändert, sodass ein ausreichend großer Front-End-Portbereich zur Verarbeitung von Überbereitstellung reserviert ist
+* Aktualisierungsbefehle für `sig` korrigiert
+* `--no-wait`-Unterstützung für die Verwaltung von Imageversionen in `sig` hinzugefügt
+* `vm list-ip-addresses` geändert, sodass die Verfügbarkeitszone von öffentlichen IP-Adressen angezeigt wird
+* `[vm|vmss] disk attach` geändert, sodass die Standard-LUN eines Datenträgers standardmäßig auf die erste verfügbare Stelle festgelegt wird
+
 ## <a name="september-21-2018"></a>21. September 2018
 
-Version 20.46
+Version 2.0.46
 
 ### <a name="acr"></a>ACR
 * ACR-Aufgabenbefehle hinzugefügt
@@ -700,14 +762,14 @@ Version 2.0.33
     * Eigenschaften `currentServiceObjectiveId` und `requestedServiceObjectiveId` entfernt
     * Eigenschaft `maxSizeBytes` geändert (ist nun keine Zeichenfolge mehr, sondern ein Ganzzahlwert)
 * [WICHTIGE ÄNDERUNG] Die folgenden `db`- und `dw`-Eigenschaften wurden geändert und sind jetzt schreibgeschützt:
-    * `requestedServiceObjectiveName`(Fixierte Verbindung) festgelegt ist(Fixierte Verbindung) festgelegt ist.  Verwenden Sie zum Aktualisieren den Parameter `--service-objective`, oder legen Sie die Eigenschaft `sku.name` fest.
-    * `edition`(Fixierte Verbindung) festgelegt ist(Fixierte Verbindung) festgelegt ist. Verwenden Sie zum Aktualisieren den Parameter `--edition`, oder legen Sie die Eigenschaft `sku.tier` fest.
-    * `elasticPoolName`(Fixierte Verbindung) festgelegt ist(Fixierte Verbindung) festgelegt ist. Verwenden Sie zum Aktualisieren den Parameter `--elastic-pool`, oder legen Sie die Eigenschaft `elasticPoolId` fest.
+    * `requestedServiceObjectiveName`.  Verwenden Sie zum Aktualisieren den Parameter `--service-objective`, oder legen Sie die Eigenschaft `sku.name` fest.
+    * `edition`. Verwenden Sie zum Aktualisieren den Parameter `--edition`, oder legen Sie die Eigenschaft `sku.tier` fest.
+    * `elasticPoolName`. Verwenden Sie zum Aktualisieren den Parameter `--elastic-pool`, oder legen Sie die Eigenschaft `elasticPoolId` fest.
 * [WICHTIGE ÄNDERUNG] Die folgenden `elastic-pool`-Eigenschaften wurden geändert und sind jetzt schreibgeschützt:
-    * `edition`(Fixierte Verbindung) festgelegt ist(Fixierte Verbindung) festgelegt ist. Verwenden Sie zum Aktualisieren den Parameter `--edition`.
-    * `dtu`(Fixierte Verbindung) festgelegt ist(Fixierte Verbindung) festgelegt ist. Verwenden Sie zum Aktualisieren den Parameter `--capacity`.
-    *  `databaseDtuMin`(Fixierte Verbindung) festgelegt ist(Fixierte Verbindung) festgelegt ist. Verwenden Sie zum Aktualisieren den Parameter `--db-min-capacity`.
-    *  `databaseDtuMax`(Fixierte Verbindung) festgelegt ist(Fixierte Verbindung) festgelegt ist. Verwenden Sie zum Aktualisieren den Parameter `--db-max-capacity`.
+    * `edition`. Verwenden Sie zum Aktualisieren den Parameter `--edition`.
+    * `dtu`. Verwenden Sie zum Aktualisieren den Parameter `--capacity`.
+    *  `databaseDtuMin`. Verwenden Sie zum Aktualisieren den Parameter `--db-min-capacity`.
+    *  `databaseDtuMax`. Verwenden Sie zum Aktualisieren den Parameter `--db-max-capacity`.
 * Die Parameter `--family` und `--capacity` wurden zu den `db`-, `dw`- und `elastic-pool`-Befehlen hinzugefügt.
 * Den `db`-, `dw`- und `elastic-pool`-Befehlen wurden Tabellenformatierer hinzugefügt.
 
