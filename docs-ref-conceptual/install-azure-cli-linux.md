@@ -9,12 +9,12 @@ ms.topic: conceptual
 ms.prod: azure
 ms.technology: azure-cli
 ms.devlang: azure-cli
-ms.openlocfilehash: 221e8904fdb938b15b28cb369085dcacb08e4091
-ms.sourcegitcommit: c4462456dfb17993f098d47c37bc19f4d78b8179
+ms.openlocfilehash: 38d32f62cbaff7d5f1bdf7fd52bf00d47e9e14b1
+ms.sourcegitcommit: 6d9169ed547df151f99e5a3ac86578634486419a
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 09/25/2018
-ms.locfileid: "47177945"
+ms.lasthandoff: 10/23/2018
+ms.locfileid: "49652497"
 ---
 # <a name="install-azure-cli-on-linux-manually"></a>Manuelles Installieren der Azure CLI unter Linux
 
@@ -83,22 +83,22 @@ Sie können die CLI deinstallieren, indem Sie die Dateien direkt aus dem Verzeic
 
 1. Entfernen Sie die installierten CLI-Dateien.
 
-  ```bash
-  rm -r <install location>/lib/azure-cli
-  rm <install location>/bin/az
-  ```
+   ```bash
+   rm -r <install location>/lib/azure-cli
+   rm <install location>/bin/az
+   ```
 
 2. Ändern Sie die Datei `$HOME/.bash_profile`, indem Sie die folgende Zeile entfernen:
 
-  ```text
-  <install location>/lib/azure-cli/az.completion
-  ```
+   ```text
+   <install location>/lib/azure-cli/az.completion
+   ```
 
 3. Laden Sie bei Verwendung von `bash` oder `zsh` den Befehlscache Ihrer Shell neu.
 
-  ```bash
-  hash -r
-  ```
+   ```bash
+   hash -r
+   ```
 
 ## <a name="next-steps"></a>Nächste Schritte
 
