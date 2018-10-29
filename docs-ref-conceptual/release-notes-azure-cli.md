@@ -4,19 +4,90 @@ description: Enthält Informationen zu den aktuellen Updates der Azure CLI.
 author: sptramer
 ms.author: sttramer
 manager: carmonm
-ms.date: 10/09/2018
+ms.date: 10/23/2018
 ms.topic: article
 ms.prod: azure
 ms.technology: azure-cli
 ms.devlang: azure-cli
-ms.openlocfilehash: 0aec9dce0eda007c71df3693b39c7ec8cc9856cd
-ms.sourcegitcommit: 0fc354c24454f5c9c5ff4b7296ad7b18ffdf31b1
+ms.openlocfilehash: 65e34ab6014c47ae92a6d4bae8cdc30d4a1413dc
+ms.sourcegitcommit: aec89531c938781b4724f43b5bb4b878e106a26a
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 10/10/2018
-ms.locfileid: "48904785"
+ms.lasthandoff: 10/23/2018
+ms.locfileid: "49952484"
 ---
 # <a name="azure-cli-release-notes"></a>Versionshinweise für die Azure CLI
+
+## <a name="october-23-2018"></a>23. Oktober 2018
+
+Version 2.0.49
+
+### <a name="core"></a>Core
+* Problem mit `--ids` behoben, aufgrund dessen `--subscription` Vorrang vor dem Abonnement in `--ids` hatte
+* Ausdrückliche Warnungen hinzugefügt, wenn Parameter durch die Verwendung von `--ids` ignoriert würden
+
+### <a name="acr"></a>ACR
+* Problem mit der ACR Build-Codierung in Python2 behoben
+
+### <a name="cdn"></a>CDN
+* [WICHTIGE ÄNDERUNG] Standardverhalten beim Zwischenspeichern der Abfragezeichenfolge von `cdn endpoint create` so geändert, dass der Standardwert nicht mehr „IgnoreQueryString“ ist. Er wird jetzt vom Dienst festgelegt.
+
+### <a name="container"></a>Container
+* `Private` als gültiger Typ für die Übergabe an „--ip-address“ hinzugefügt
+* Geändert, sodass nur eine Subnetz-ID für das Einrichten eines virtuellen Netzwerks für die Containergruppe zulässig ist
+* Geändert, sodass das Verwenden eines VNET-Namens oder einer Ressourcen-ID zulässig ist, um die Verwendung von VNETs aus verschiedenen Ressourcengruppen zu ermöglichen
+* `--assign-identity` hinzugefügt, um einer Containergruppe eine MSI-Identität hinzuzufügen
+* `--scope` hinzugefügt, um eine Rollenzuweisung für die vom System zugewiesene MSI-Identität zu erstellen
+* Warnung hinzugefügt, wenn eine Containergruppe mit einem Image ohne Prozess mit langer Ausführungszeit erstellt wird
+* Probleme mit der Tabellenausgabe für Befehle `list` und `show` behoben
+
+### <a name="cosmosdb"></a>CosmosDB
+* Unterstützung für `--enable-multiple-write-locations` zu `cosmosdb create` hinzugefügt
+
+### <a name="interactive"></a>Interactive
+* Geändert, um sicherzustellen, dass der Parameter für globales Abonnement in Parametern angezeigt wird
+
+### <a name="iot-central"></a>IoT Central
+* Optionen für Vorlagen und Anzeigenamen für die Erstellung von IoT Central-Anwendungen hinzugefügt
+* [WICHTIGE ÄNDERUNG] Unterstützung für F1-SKU entfernt; stattdessen ist die S1-SKU zu verwenden.
+
+### <a name="monitor"></a>Überwachen
+* Änderungen an `monitor activity-log list`:
+  * Unterstützung für das Auflisten aller Ereignisse auf Abonnementebene hinzugefügt
+  * `--offset`-Parameter für das einfachere Erstellen von Zeitabfragen hinzugefügt
+  * Validierung für `--start-time` und `--end-time` verbessert, um die Verwendung von mehr ISO8601-Formate und benutzerfreundlicheren datetime-Formaten zu ermöglichen
+  * `--namespace` als Alias für veraltete Option `--resource-provider` hinzugefügt
+  * `--filters` als veraltet markiert, da vom Dienst ausschließlich Werte mit stark typisierten Optionen unterstützt werden
+* Änderungen an `monitor metrics list`:
+  * `--offset`-Parameter für das einfachere Erstellen von Zeitabfragen hinzugefügt
+  * Validierung für `--start-time` und `--end-time` verbessert, um die Verwendung von mehr ISO8601-Formate und benutzerfreundlicheren datetime-Formaten zu ermöglichen
+* Validierung für `--event-hub`- und `--event-hub-rule`-Argumente an `monitor diagnostic-settings create` verbessert
+
+### <a name="network"></a>Netzwerk
+* `--app-gateway-address-pools`- und `--gateway-name`-Argumente zu `nic create` hinzugefügt, um das Hinzufügen von Back-End-Adresspools für Anwendungsgateways zu einer NIC zu unterstützen
+* `--app-gateway-address-pools`- und `--gateway-name`-Argumente zu `nic ip-config create/update` hinzugefügt, um das Hinzufügen von Back-End-Adresspools für Anwendungsgateways zu einer NIC zu unterstützen
+
+### <a name="servicebus"></a>ServiceBus
+* Schreibgeschütztes `migration_state`-Element zu „MigrationConfigProperties“ hinzugefügt, um den aktuellen Status der Migration von Service Bus Standard- zu Premium-Namespace anzuzeigen
+
+### <a name="sql"></a>SQL
+* `sql failover-group create` und `sql failover-group update` korrigiert, damit die Verwendung einer Richtlinie für manuelles Failover möglich ist
+
+### <a name="storage"></a>Speicher
+* Formatierung der `az storage cors list`-Ausgabe korrigiert, sodass alle Elemente den richtigen Dienstschlüssel anzeigen
+* `--bypass-immutability-policy`-Parameter für das Löschen von durch Unveränderlichkeitsrichtlinien blockierten Containern hinzugefügt
+
+### <a name="vm"></a>VM
+* Datenträger-Zwischenspeicherungsmodus `None` für Lv/Lv2-Computerserine in `[vm|vmss] create` erzwungen
+* Liste der unterstützten Größen für unterstützenden Netzwerkbeschleuniger für `vm create` aktualisiert
+* Stark typisierte Argumente für UltraSSD-IOPS und MBit/s-Konfigurationen für `disk create` hinzugefügt
+
+## <a name="october-16-2018"></a>16. Oktober 2018
+
+Version 2.0.48
+
+### <a name="vm"></a>VM
+* SDK-Problem behoben, das ein Fehlschlagen der Homebrew-Installation verursacht hat
 
 ## <a name="october-9-2018"></a>9. Oktober 2018
 
@@ -578,10 +649,10 @@ Version 2.0.38
 * [WICHTIGE ÄNDERUNG] Attribut `location` wurde aus Aufträgen, Clustern und Dateiservern entfernt. „Location“ ist jetzt ein Attribut eines Arbeitsbereichs.
 * [WICHTIGE ÄNDERUNG] `--location` wurde aus den Befehlen `job create`, `cluster create` und `file-server create` entfernt.
 * [WICHTIGE ÄNDERUNG] Namen von Kurzoptionen wurden geändert, um die Schnittstelle konsistenter zu machen:
- - [`--config`, `-c`] in [`--config-file`, `-f`] umbenannt
- - [`--cluster`, `-r`] in [`--cluster`, `-c`] umbenannt
- - [`--cluster`, `-n`] in [`--cluster`, `-c`] umbenannt
- - [`--job`, `-n`] in [`--job`, `-j`] umbenannt
+  - [`--config`, `-c`] in [`--config-file`, `-f`] umbenannt
+  - [`--cluster`, `-r`] in [`--cluster`, `-c`] umbenannt
+  - [`--cluster`, `-n`] in [`--cluster`, `-c`] umbenannt
+  - [`--job`, `-n`] in [`--job`, `-j`] umbenannt
 
 ### <a name="maps"></a>Karten
 
@@ -937,15 +1008,15 @@ Version 2.0.31
 
 * Unterstützung für API 2018-03-01 hinzugefügt
 
- - Bereitstellung auf Auftragsebene
- - Umgebungsvariablen mit Geheimniswerten
- - Einstellungen von Leistungsindikatoren
- - Berichtstellung für auftragsspezifisches Pfadsegment
- - Unterstützung für Unterordner in Listendateien-API
- - Berichterstellung zur Nutzung und zu Grenzwerten
- - Zulassen der Angabe des Cachetyps für NFS-Server
- - Unterstützung für benutzerdefinierte Images
- - Unterstützung für pyTorch-Toolkit hinzugefügt
+  - Bereitstellung auf Auftragsebene
+  - Umgebungsvariablen mit Geheimniswerten
+  - Einstellungen von Leistungsindikatoren
+  - Berichtstellung für auftragsspezifisches Pfadsegment
+  - Unterstützung für Unterordner in Listendateien-API
+  - Berichterstellung zur Nutzung und zu Grenzwerten
+  - Zulassen der Angabe des Cachetyps für NFS-Server
+  - Unterstützung für benutzerdefinierte Images
+  - Unterstützung für pyTorch-Toolkit hinzugefügt
 
 * Befehl `job wait` hinzugefügt, der das Warten auf die Auftragsfertigstellung ermöglicht und den Code für die Auftragsbeendigung meldet
 * Befehl `usage show` hinzugefügt, mit dem die aktuelle Nutzung von Batch AI-Ressourcen und die Grenzwerte für verschiedene Regionen aufgelistet werden
@@ -2666,7 +2737,7 @@ vm (2.0.2)
 * VM/VMSS: Einbinden der vom Portal verwendeten Logik zur Überprüfung von Anmeldeinformationen ([#2537](https://github.com/Azure/azure-cli/pull/2537))
 * Hinzufügen von wait-Befehlen und Unterstützung für „--no-wait“ ([#2524](https://github.com/Azure/azure-cli/pull/2524))
 * VM-Skalierungsgruppe: Unterstützung von „*“ zum Auflisten der übergreifenden Instanzansicht für VMs ([#2467](https://github.com/Azure/azure-cli/pull/2467))
-* Hinzufügen – geheime Schlüssel für virtuellen Computer und VM-Skalierungsgruppe ([#2212}(https://github.com/Azure/azure-cli/pull/2212))
+* Hinzufügen – Geheimnisse für virtuellen Computer und VM-Skalierungsgruppe ([#2212}(<https://github.com/Azure/azure-cli/pull/2212>))
 * Zulassen der VM-Erstellung mit spezialisierter VHD ([#2256](https://github.com/Azure/azure-cli/pull/2256))
 
 ## <a name="february-27-2017"></a>27. Februar 2017
