@@ -9,14 +9,14 @@ ms.topic: conceptual
 ms.prod: azure
 ms.technology: azure-cli
 ms.devlang: azure-cli
-ms.openlocfilehash: 047a953a0ab8ccaf145d56e4d774d2bf9852ed6f
-ms.sourcegitcommit: c4462456dfb17993f098d47c37bc19f4d78b8179
+ms.openlocfilehash: 8ab8435f2d8337f63a73aef39472646dc8ebcd74
+ms.sourcegitcommit: 0d6b08048b5b35bf0bb3d7b91ff567adbaab2a8b
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 09/25/2018
-ms.locfileid: "47177724"
+ms.lasthandoff: 11/07/2018
+ms.locfileid: "51222292"
 ---
-# <a name="azure-cli"></a>Azure CLI
+# <a name="azure-cli"></a>Azure-Befehlszeilenschnittstelle
 
 Die Azure CLI ist die plattformübergreifende Befehlszeilenumgebung von Microsoft zum Verwalten von Azure-Ressourcen.
 Sie können sie in Ihrem Browser mit [Azure Cloud Shell](/azure/cloud-shell/overview) verwenden oder unter macOS, Linux oder Windows [installieren](install-azure-cli.md) und über die Befehlszeile ausführen.
@@ -26,6 +26,10 @@ Der Einstieg in die Azure CLI ist einfach, und sie eignet sich am besten für di
 ```azurecli-interactive
 az vm create -n MyLinuxVM -g MyResourceGroup --image UbuntuLTS
 ```
+
+> [!NOTE]
+>
+> In Skripts und auf der Microsoft-Dokumentationswebsite sind Azure CLI-Beispiele für die `bash`-Shell geschrieben. Einzeilige Beispiele können auf jeder Plattform ausgeführt werden. Längere oder kompliziertere Beispiele mit Zeilenfortsetzungen (`\`) oder Variablenzuweisung müssen angepasst werden, damit sie in anderen Shells verwendet werden können (einschließlich PowerShell).
 
 ## <a name="run-or-install"></a>Ausführen oder Installieren
 
