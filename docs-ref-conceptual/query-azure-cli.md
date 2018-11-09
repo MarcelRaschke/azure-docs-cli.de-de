@@ -9,12 +9,12 @@ ms.topic: conceptual
 ms.prod: azure
 ms.technology: azure-cli
 ms.devlang: azure-cli
-ms.openlocfilehash: 4522242952e5d257449c9c593885c62de2f56d0f
-ms.sourcegitcommit: c4462456dfb17993f098d47c37bc19f4d78b8179
+ms.openlocfilehash: 1736d1677fb6c7fc83a092493e8706c2d5edfccd
+ms.sourcegitcommit: 0d6b08048b5b35bf0bb3d7b91ff567adbaab2a8b
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 09/25/2018
-ms.locfileid: "47178030"
+ms.lasthandoff: 11/07/2018
+ms.locfileid: "51222530"
 ---
 # <a name="use-jmespath-queries-with-azure-cli"></a>Verwenden von JMESPath-Abfragen mit der Azure CLI 
 
@@ -61,7 +61,7 @@ Beim Anzeigen von Informationen im Ausgabeformat `table` ermöglicht die Wörter
 > [!NOTE]
 > Bestimmte Schlüssel werden herausgefiltert und nicht in der Tabellenansicht gedruckt. Diese Schlüssel sind `id`, `type` und `etag`. Wenn Sie diese Informationen benötigen, können Sie den Schlüsselnamen ändern und so die Filterung umgehen.
 >
-> ```azurecli
+> ```azurecli-interactive
 > az vm show -g QueryDemo -n TestVM --query "{objectID:id}" -o table
 > ```
 

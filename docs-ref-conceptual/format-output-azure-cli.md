@@ -9,12 +9,12 @@ ms.topic: conceptual
 ms.prod: azure
 ms.technology: azure-cli
 ms.devlang: azure-cli
-ms.openlocfilehash: 5b5d962e244037d9c904fc5c75314661130d1910
-ms.sourcegitcommit: c4462456dfb17993f098d47c37bc19f4d78b8179
+ms.openlocfilehash: 1a3e7a632cc9931a4fe16c780d2706e52a1aa5c2
+ms.sourcegitcommit: 0d6b08048b5b35bf0bb3d7b91ff567adbaab2a8b
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 09/25/2018
-ms.locfileid: "47178064"
+ms.lasthandoff: 11/07/2018
+ms.locfileid: "51222343"
 ---
 # <a name="output-formats-for-azure-cli-commands"></a>Ausgabeformate für Azure CLI-Befehle
 
@@ -116,7 +116,7 @@ KBDemo020    RGDEMO001        westus
 
 Sie können den Parameter `--query` verwenden, um die Eigenschaften und Spalten anzupassen, die Sie in der Listenausgabe anzeigen möchten. Im folgenden Beispiel wird veranschaulicht, wie Sie im Befehl `list` nur den VM-Namen und den Ressourcengruppennamen auswählen.
 
-```azurecli
+```azurecli-interactive
 az vm list --query "[].{resource:resourceGroup, name:name}" -o table
 ```
 
@@ -133,7 +133,7 @@ RGDEMO001   KBDemo020
 > [!NOTE]
 > Einige Schlüssel werden standardmäßig nicht in der Tabellenansicht ausgegeben. Hierbei handelt es sich um `id`, `type`, und `etag`. Wenn Sie diese in der Ausgabe benötigen, können Sie die JMESPath-Funktion zum Erstellen neuer Schlüssel verwenden, um den Namen des Schlüssels zu ändern und das Filtern zu vermeiden.
 >
-> ```azurecli
+> ```azurecli-interactive
 > az vm list --query "[].{objectID:id}" -o table
 > ```
 
