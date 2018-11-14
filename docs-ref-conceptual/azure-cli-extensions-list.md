@@ -4,17 +4,17 @@ description: Eine vollständige Liste mit den offiziell unterstützten Erweiteru
 author: sptramer
 ms.author: sttramer
 manager: carmonm
-ms.date: 10/31/2018
+ms.date: 11/07/2018
 ms.topic: article
 ms.prod: azure
 ms.technology: azure-cli
 ms.devlang: azure-cli
-ms.openlocfilehash: cf1182cee6b48ba7f6400cafe43ed6c90bfa5a11
-ms.sourcegitcommit: a44203b9392edf3a35018099db40d6bf9ade59c4
+ms.openlocfilehash: 97636487677a0f28837c474d10cffedc7a52d5a5
+ms.sourcegitcommit: 2a2c87c21289cdfef3d0e5b3f07b0bea42c6c267
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 11/01/2018
-ms.locfileid: "50738545"
+ms.lasthandoff: 11/08/2018
+ms.locfileid: "51273173"
 ---
 # <a name="available-extensions-for-the-azure-cli"></a>Verfügbare Erweiterungen für die Azure CLI
 
@@ -22,13 +22,14 @@ Dieser Artikel enthält eine vollständige Liste mit den verfügbaren Erweiterun
 
 Die Liste der Erweiterungen ist auch über die CLI verfügbar. Führen Sie zum Abrufen [az extension list-available](/cli/azure/extension?view=azure-cli-latest#az-extension-list-available) aus:
 
-```azurecli
+```azurecli-interactive
 az extension list-available --output table
 ```
 
 | NAME | Version | Zusammenfassung | Vorschau |
 |------|---------|---------|---------|
 | [aem](https://github.com/Azure/azure-cli-extensions) | 0.1.1 | Verwalten der Azure-Erweiterungen zur verbesserten Überwachung für SAP |  |
+| [aks-preview](https://github.com/Azure/azure-cli-extensions/tree/master/src/aks-preview) | 0.1.0 | Bietet eine Vorschau für zukünftige AKS-Features | JA |
 | [alias](https://github.com/Azure/azure-cli-extensions) | 0.5.2 | Unterstützung für Befehlsaliase | JA |
 | [azure-batch-cli-extensions](https://github.com/Azure/azure-batch-cli-extensions) | 2.5.1 | Zusätzliche Befehle für die Verwendung des Azure Batch-Diensts |  |
 | [azure-cli-iot-ext](https://github.com/azure/azure-iot-cli-extension) | 0.6.0 | Stellt die Befehlsebene der Datenebene für Azure IoT Hub, IoT Edge und den IoT Device Provisioning-Dienst bereit |  |
@@ -53,8 +54,8 @@ az extension list-available --output table
 | [resource-graph](https://github.com/Azure/azure-cli-extensions/tree/master/src/resource-graph) | 0.1.8 | Unterstützung für das Abfragen von Azure-Ressourcen mit Resource Graph. | JA |
 | [sap-hana](https://github.com/Azure/azure-hanaonazure-cli-extension) | 0.1.6 | Zusätzliche Befehle für die Verwendung von SAP-HanaOnAzure-Instanzen. |  |
 | [SignalR](https://github.com/Azure/azure-cli-extensions) | 0.1.0 | Unterstützung für die SignalR-Verwaltung (Vorschauversion) | JA |
-| [storage-preview](https://github.com/Azure/azure-cli-extensions/tree/master/src/storage-preview) | 0.1.6 | Bietet eine Vorschau für zukünftige Speicherfeatures. | JA |
+| [storage-preview](https://github.com/Azure/azure-cli-extensions/tree/master/src/storage-preview) | 0.1.7 | Bietet eine Vorschau für zukünftige Speicherfeatures. | JA |
 | [Abonnement](https://github.com/Azure/azure-cli-extensions) | 0.1.1 | Unterstützung für die Abonnementverwaltung (Vorschauversion) |  |
 | [virtual-network-tap](https://github.com/Azure/azure-cli-extensions/tree/master/src/virtual-network-tap) | 0.1.0 | Verwalten von TAPs für virtuelle Netzwerke (VTAP) | JA |
 | [virtual-wan](https://github.com/Azure/azure-cli-extensions/tree/master/src/virtual-wan) | 0.1.0 | Verwalten von virtuellen WANs, Hubs, VPN-Gateways und VPN-Standorten | JA |
-| [webapp](https://github.com/Azure/azure-cli-extensions) | 0.2.13 | Zusätzliche Befehle für Azure App Service | JA |
+| [webapp](https://github.com/Azure/azure-cli-extensions) | 0.2.14 | Zusätzliche Befehle für Azure App Service | JA |

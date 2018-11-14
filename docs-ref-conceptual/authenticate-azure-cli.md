@@ -9,16 +9,17 @@ ms.topic: conceptual
 ms.technology: azure-cli
 ms.devlang: azurecli
 ms.component: authentication
-ms.openlocfilehash: 6176fbbbe58e72ae45fc9769514478ffe4a8fea5
-ms.sourcegitcommit: f7554c00b5d5dca0ec716cbf996eb6654183ec37
+ms.openlocfilehash: 05a4ef87fcf23af21ec6dc1d6cd9daa82369d5b9
+ms.sourcegitcommit: 0d6b08048b5b35bf0bb3d7b91ff567adbaab2a8b
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 09/26/2018
-ms.locfileid: "47237628"
+ms.lasthandoff: 11/07/2018
+ms.locfileid: "51222445"
 ---
 # <a name="sign-in-with-azure-cli"></a>Anmelden mit der Azure CLI 
 
-Es gibt mehrere Authentifizierungstypen für die Azure CLI. Den einfachsten Einstieg ermöglicht der [Azure Cloud Shell](/azure/cloud-shell/overview)-Dienst, der Sie automatisch anmeldet. Lokal können Sie sich interaktiv über Ihren Browser mit dem Befehl `az login` anmelden. Beim Schreiben von Skripts wird die Verwendung von Dienstprinzipalen empfohlen. Indem Sie einem Dienstprinzipal nur die erforderlichen Mindestberechtigungen erteilen, können Sie Ihre Automatisierung schützen.
+Es gibt mehrere Authentifizierungstypen für die Azure CLI. Den einfachsten Einstieg ermöglicht der [Azure Cloud Shell](/azure/cloud-shell/overview)-Dienst, der Sie automatisch anmeldet.
+Lokal können Sie sich interaktiv über Ihren Browser mit dem Befehl [az login](/cli/azure/reference-index#az-login) anmelden. Beim Schreiben von Skripts wird die Verwendung von Dienstprinzipalen empfohlen. Indem Sie einem Dienstprinzipal nur die erforderlichen Mindestberechtigungen erteilen, können Sie Ihre Automatisierung schützen.
 
 Ihre Anmeldeinformationen werden nicht von der CLI gespeichert. Stattdessen wird von Azure ein [Authentifizierungsaktualisierungstoken](https://docs.microsoft.com/en-us/azure/active-directory/develop/v1-id-and-access-tokens#refresh-tokens) generiert und gespeichert. Ab August 2018 wird dieses Token nach 90-tägiger Inaktivität widerrufen. Dieser Wert kann jedoch von Microsoft oder von Ihrem Mandantenadministrator geändert werden. Wenn das Token widerrufen wurde, werden Sie von der Befehlszeilenschnittstelle aufgefordert, sich erneut anzumelden.
 
@@ -37,7 +38,7 @@ Geben Sie Ihre Azure-Benutzeranmeldeinformationen in der Befehlszeile an.
 > [!Note]
 > Dieser Ansatz funktioniert nicht für Microsoft-Konten oder Konten, für die die Authentifizierung in zwei Schritten aktiviert ist.
 
-```azurecli
+```azurecli-interactive
 az login -u <username> -p <password>
 ```
 
@@ -67,7 +68,7 @@ Für die Anmeldung mit einem Dienstprinzipal benötigen Sie Folgendes:
 * Das Dienstprinzipalkennwort oder das X509-Zertifikat (im PEM-Format), das zum Erstellen des Dienstprinzipals verwendet wurde
 * Den dem Dienstprinzipal zugeordneten Mandanten, als `.onmicrosoft.com`-Domäne oder Azure-Objekt-ID
 
-```azurecli
+```azurecli-interactive
 az login --service-principal -u <app-url> -p <password-or-cert> --tenant <tenant>
 ```
 
@@ -91,7 +92,7 @@ az login --service-principal -u <app-url> -p <password-or-cert> --tenant <tenant
 
 Sie können mit dem Argument `--tenant` einen Mandanten auswählen, unter dem Sie sich anmelden möchten. Der Wert dieses Arguments kann eine Domäne vom Typ `.onmicrosoft.com` oder die Azure-Objekt-ID für den Mandanten sein. Mit `--tenant` können sowohl interaktive Methoden als auch die Befehlszeile für die Anmeldung verwendet werden.
 
-```azurecli
+```azurecli-interactive
 az login --tenant <tenant>
 ```
 
@@ -99,7 +100,7 @@ az login --tenant <tenant>
 
 Auf Ressourcen, die für verwaltete Identitäten von Azure-Ressourcen konfiguriert sind, können Sie sich mit der verwalteten Identität anmelden. Das Anmelden mit der Identität der Ressource erfolgt über das Flag `--identity`.
 
-```azurecli
+```azurecli-interactive
 az login --identity
 ```
 
