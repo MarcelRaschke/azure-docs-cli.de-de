@@ -4,125 +4,282 @@ description: Es wird beschrieben, wie Sie JMESPath-Abfragen für die Ausgabe von
 author: sptramer
 ms.author: sttramer
 manager: carmonm
-ms.date: 09/09/2018
+ms.date: 11/12/2018
 ms.topic: conceptual
 ms.prod: azure
 ms.technology: azure-cli
 ms.devlang: azure-cli
-ms.openlocfilehash: 1736d1677fb6c7fc83a092493e8706c2d5edfccd
-ms.sourcegitcommit: 0d6b08048b5b35bf0bb3d7b91ff567adbaab2a8b
+ms.openlocfilehash: 53aa2d1011eb76c27a503e6b15c20aa05e13b448
+ms.sourcegitcommit: f92d5b3ccd409be126f1e7c06b9f1adc98dad78b
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 11/07/2018
-ms.locfileid: "51222530"
+ms.lasthandoff: 11/20/2018
+ms.locfileid: "52159387"
 ---
-# <a name="use-jmespath-queries-with-azure-cli"></a>Verwenden von JMESPath-Abfragen mit der Azure CLI 
+# <a name="query-azure-cli-command-output"></a>Abfragen der Azure CLI-Befehlsausgabe
 
-Die Azure CLI verwendet das Argument `--query`, um eine [JMESPath-Abfrage](http://jmespath.org) für die Ergebnisse von Befehlen auszuführen. JMESPath ist eine Abfragesprache für JSON, die es ermöglicht, Daten aus der CLI-Ausgabe auszuwählen und zu präsentieren. Diese Abfragen werden für die JSON-Ausgabe ausgeführt, bevor irgendeine Anzeigeformatierung stattfindet.
+Die Azure CLI verwendet das Argument `--query`, um eine [JMESPath-Abfrage](http://jmespath.org) für die Ergebnisse von Befehlen auszuführen. JMESPath ist eine Abfragesprache für JSON, die es ermöglicht, Daten aus der CLI-Ausgabe auszuwählen und zu ändern. Abfragen werden für die JSON-Ausgabe ausgeführt, bevor irgendeine Anzeigeformatierung stattfindet.
 
-Das Argument `--query` wird von allen Befehlen der Azure-Befehlszeilenschnittstelle unterstützt. Die Beispiele in diesem Artikel decken allgemeine Anwendungsfälle ab und veranschaulichen die Verwendung der Features von JMESPath.
+Das Argument `--query` wird von allen Befehlen der Azure-Befehlszeilenschnittstelle unterstützt. In diesem Artikel wird anhand einer Reihe von kleinen, einfachen Beispielen beschrieben, wie die Features von JMESPath verwendet werden.
 
-## <a name="work-with-dictionary-output"></a>Verwenden einer Wörterbuchausgabe
+## <a name="dictionary-and-list-cli-results"></a>CLI-Ergebnisse im Wörterbuch- und Listenformat
 
-Befehle, die ein JSON-Wörterbuch zurückgeben, können allein anhand ihrer Schlüsselnamen durchsucht werden. Bei Schlüsselpfaden wird als Trennzeichen das `.`-Zeichen verwendet. Im folgenden Beispiel wird mithilfe von Pull eine Liste mit den öffentlichen SSH-Schlüsseln abgerufen, die beim Herstellen einer Verbindung mit einem virtuellen Linux-Computer zulässig sind:
+Selbst wenn Sie ein anderes Ausgabeformat als JSON verwenden, werden die Ergebnisse von CLI-Befehlen für Abfragen zunächst als JSON-Ausgabe behandelt. CLI-Ergebnisse werden in Form eines JSON-Arrays oder -Wörterbuchs zurückgegeben. Arrays sind Sequenzen von Objekten, die indiziert werden können, und Wörterbücher sind unsortierte Objekte, auf die mit Schlüsseln zugegriffen wird. Befehle, die mehr als ein Objekt zurückgeben _können_, geben ein Array zurück, und Befehle, die _immer_ _nur_ ein einzelnes Objekt zurückgeben, geben ein Wörterbuch zurück.
+
+## <a name="get-properties-in-a-dictionary"></a>Abrufen von Eigenschaften in einem Wörterbuch
+
+Bei der Arbeit mit Ergebnissen im Wörterbuchformat können Sie auf Eigenschaften der obersten Ebene nur mit dem Schlüssel zugreifen. Das Zeichen `.` (__Teilausdruck__) wird verwendet, um auf Eigenschaften von geschachtelten Wörterbüchern zuzugreifen. Bevor wir uns mit Abfragen befassen, werfen wir einen Blick auf die unveränderte Ausgabe des Befehls `az vm show`:
 
 ```azurecli-interactive
-az vm show -g QueryDemo -n TestVM --query osProfile.linuxConfiguration.ssh.publicKeys
+az vm show -g QueryDemo -n TestVM -o json
 ```
 
-Mehrere Werte können in einem sortierten Array platziert werden. Das folgende Beispiel zeigt das Abrufen des Azure-Imageangebotsnamens und der Größe des Betriebssystemdatenträgers:
+Der Befehl gibt ein Wörterbuch aus. Teile des Inhalts wurden hier weggelassen.
+
+```json
+{
+  "additionalCapabilities": null,
+  "availabilitySet": null,
+  "diagnosticsProfile": {
+    "bootDiagnostics": {
+      "enabled": true,
+      "storageUri": "https://xxxxxx.blob.core.windows.net/"
+    }
+  },
+  ...
+  "osProfile": {
+    "adminPassword": null,
+    "adminUsername": "azureuser",
+    "allowExtensionOperations": true,
+    "computerName": "TestVM",
+    "customData": null,
+    "linuxConfiguration": {
+      "disablePasswordAuthentication": true,
+      "provisionVmAgent": true,
+      "ssh": {
+        "publicKeys": [
+          {
+            "keyData": "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDMobZNJTqgjWn/IB5xlilvE4Y+BMYpqkDnGRUcA0g9BYPgrGSQquCES37v2e3JmpfDPHFsaR+CPKlVr2GoVJMMHeRcMJhj50ZWq0hAnkJBhlZVWy8S7dwdGAqPyPmWM2iJDCVMVrLITAJCno47O4Ees7RCH6ku7kU86b1NOanvrNwqTHr14wtnLhgZ0gQ5GV1oLWvMEVg1YFMIgPRkTsSQKWCG5lLqQ45aU/4NMJoUxGyJTL9i8YxMavaB1Z2npfTQDQo9+womZ7SXzHaIWC858gWNl9e5UFyHDnTEDc14hKkf1CqnGJVcCJkmSfmrrHk/CkmF0ZT3whTHO1DhJTtV stramer@contoso",
+            "path": "/home/azureuser/.ssh/authorized_keys"
+          }
+        ]
+      }
+    },
+    "secrets": [],
+    "windowsConfiguration": null
+  },
+  ....
+}
+```
+
+Der folgende Befehl ruft durch Hinzufügen einer Abfrage die öffentlichen SSH-Schlüssel ab, die zum Herstellen einer Verbindung mit der VM autorisiert sind:
 
 ```azurecli-interactive
-az vm show -g QueryDemo -n TestVM --query 'storageProfile.[imageReference.offer, osDisk.diskSizeGb]'
+az vm show -g QueryDemo -n TestVM --query osProfile.linuxConfiguration.ssh.publicKeys -o json
 ```
 
 ```json
 [
-  "UbuntuServer",
-  30
+  {
+    "keyData": "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDMobZNJTqgjWn/IB5xlilvE4Y+BMYpqkDnGRUcA0g9BYPgrGSQquCES37v2e3JmpfDPHFsaR+CPKlVr2GoVJMMHeRcMJhj50ZWq0hAnkJBhlZVWy8S7dwdGAqPyPmWM2iJDCVMVrLITAJCno47O4Ees7RCH6ku7kU86b1NOanvrNwqTHr14wtnLhgZ0gQ5GV1oLWvMEVg1YFMIgPRkTsSQKWCG5lLqQ45aU/4NMJoUxGyJTL9i8YxMavaB1Z2npfTQDQo9+womZ7SXzHaIWC858gWNl9e5UFyHDnTEDc14hKkf1CqnGJVcCJkmSfmrrHk/CkmF0ZT3whTHO1DhJTtV stramer@contoso",
+    "path": "/home/azureuser/.ssh/authorized_keys"
+  }
 ]
 ```
 
-Wenn die Ausgabe Schlüssel enthalten soll, können Sie eine alternative Wörterbuchsyntax verwenden.  Bei der Auswahl von Elementen in einem Wörterbuch wird das Format `{displayKey:keyPath, ...}` verwendet, um nach dem `keyPath`-JMESPath-Ausdruck zu filtern. In den Ausgabewerten werden die Schlüssel-Wert-Paare in `{displayKey: value}` geändert. Das nächste Beispiel baut auf der Abfrage des letzten Beispiels auf und weist der Ausgabe Schlüssel zu, um sie deutlicher zu machen:
+Um mehrere Eigenschaften abzurufen, schließen Sie Ausdrücke als durch Trennzeichen getrennte Liste in eckige Klammern `[ ]` (eine __Mehrfachauswahlliste__) ein. Mit dem folgenden Befehl können Sie den Namen der VM, den Administrator und den SSH-Schlüssel gleichzeitig abrufen:
 
 ```azurecli-interactive
-az vm show -g QueryDemo -n TestVM --query 'storageProfile.{image:imageReference.offer, diskSize:osDisk.diskSizeGb}'
+az vm show -g QueryDemo -n TestVM --query '[name, osProfile.adminUsername, osProfile.linuxConfiguration.ssh.publicKeys[0].keyData]' -o json
+```
+
+```json
+[
+  "TestVM",
+  "azureuser",
+  "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDMobZNJTqgjWn/IB5xlilvE4Y+BMYpqkDnGRUcA0g9BYPgrGSQquCES37v2e3JmpfDPHFsaR+CPKlVr2GoVJMMHeRcMJhj50ZWq0hAnkJBhlZVWy8S7dwdGAqPyPmWM2iJDCVMVrLITAJCno47O4Ees7RCH6ku7kU86b1NOanvrNwqTHr14wtnLhgZ0gQ5GV1oLWvMEVg1YFMIgPRkTsSQKWCG5lLqQ45aU/4NMJoUxGyJTL9i8YxMavaB1Z2npfTQDQo9+womZ7SXzHaIWC858gWNl9e5UFyHDnTEDc14hKkf1CqnGJVcCJkmSfmrrHk/CkmF0ZT3whTHO1DhJTtV stramer@contoso"
+]
+```
+
+Diese Werte werden im Ergebnisarray in der Reihenfolge aufgeführt, in der sie in der Abfrage übergeben wurden. Da das Ergebnis ein Array ist, sind keine Schlüssel mit den Ergebnissen verknüpft.
+
+## <a name="rename-properties-in-a-query"></a>Umbenennen von Eigenschaften in einer Abfrage
+
+Um beim Abfragen mehrerer Werte ein Wörterbuch anstelle eines Arrays abzurufen, verwenden Sie den Operator `{ }` (__Mehrfachauswahl-Hash__).
+Das Format für einen Mehrfachauswahl-Hash ist `{displayName:JMESPathExpression, ...}`.
+`displayName` ist die in der Ausgabe angezeigte Zeichenfolge, und `JMESPathExpression` ist der JMESPath-Ausdruck, der ausgewertet werden soll. Im Folgenden wird wieder das Beispiel aus dem letzten Abschnitt verwendet, aber die Mehrfachauswahlliste in einen Hash geändert:
+
+```azurecli-interactive
+az vm show -g QueryDemo -n TestVM --query '{VMName:name, admin:osProfile.adminUsername, sshKey:osProfile.linuxConfiguration.ssh.publicKeys[0].keyData }' -o json
 ```
 
 ```json
 {
-  "diskSize": 30,
-  "image": "UbuntuServer"
+  "VMName": "TestVM",
+  "admin": "azureuser",
+  "ssh-key": "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDMobZNJTqgjWn/IB5xlilvE4Y+BMYpqkDnGRUcA0g9BYPgrGSQquCES37v2e3JmpfDPHFsaR+CPKlVr2GoVJMMHeRcMJhj50ZWq0hAnkJBhlZVWy8S7dwdGAqPyPmWM2iJDCVMVrLITAJCno47O4Ees7RCH6ku7kU86b1NOanvrNwqTHr14wtnLhgZ0gQ5GV1oLWvMEVg1YFMIgPRkTsSQKWCG5lLqQ45aU/4NMJoUxGyJTL9i8YxMavaB1Z2npfTQDQo9+womZ7SXzHaIWC858gWNl9e5UFyHDnTEDc14hKkf1CqnGJVcCJkmSfmrrHk/CkmF0ZT3whTHO1DhJTtV stramer@contoso"
 }
 ```
 
-Beim Anzeigen von Informationen im Ausgabeformat `table` ermöglicht die Wörterbuchanzeige das Festlegen eigener Spaltenüberschriften. Weitere Informationen zu Ausgabeformaten finden Sie unter [Ausgabeformate für Azure CLI-Befehle](/cli/azure/format-output-azure-cli).
+## <a name="get-properties-in-an-array"></a>Abrufen von Eigenschaften in einem Array
+
+Ein Array verfügt nicht über eigene Eigenschaften, kann aber indiziert werden. Dieses Feature wird im letzten Beispiel mit dem Ausdruck `publicKeys[0]` veranschaulicht, der das erste Element des `publicKeys`-Arrays abruft. Es gibt keine Garantie, dass die CLI-Ausgabe sortiert ist. Sie sollten daher die Indizierung nur dann verwenden, wenn Sie die Reihenfolge kennen oder das zurückgegebene Element für Sie nicht von Bedeutung ist. Um auf die Eigenschaften von Elementen in einem Array zuzugreifen, führen Sie einen von zwei Vorgängen aus: _Vereinfachen_ und _Filtern_. In diesem Abschnitt wird beschrieben, wie ein Array vereinfacht wird.
+
+Zum Vereinfachen eines Arrays wird der JMESPath-Operator `[]` verwendet. Alle Ausdrücke nach dem `[]`-Operator werden auf jedes Element im aktuellen Array angewendet.
+Wenn `[]` am Anfang der Abfrage steht, wird das Ergebnis des CLI-Befehls vereinfacht. Die Ergebnisse von `az vm list` können mit diesem Feature überprüft werden.
+Mit der folgenden Abfrage werden der Name, das Betriebssystem und der Administratorname für jede VM in einer Ressourcengruppe abgerufen:
+
+```azurecli-interactive
+az vm list -g QueryDemo --query '[].{Name:name, OS:storageProfile.osDisk.osType, admin:osProfile.adminUsername}' -o json
+```
+
+```json
+[
+  {
+    "Name": "Test-2",
+    "OS": "Linux",
+    "admin": "sttramer"
+  },
+  {
+    "Name": "TestVM",
+    "OS": "Linux",
+    "admin": "azureuser"
+  },
+  {
+    "Name": "WinTest",
+    "OS": "Windows",
+    "admin": "winadmin"
+  }
+]
+```
+
+Wird diese Abfrage mit dem Ausgabeformat `--output table` kombiniert, entsprechen die Spaltennamen dem `displayKey`-Wert des Mehrfachauswahl-Hashes:
+
+```azurecli-interactive
+az vm list -g QueryDemo --query '[].{Name:name, OS:storageProfile.osDisk.osType, Admin:osProfile.adminUsername}' --output table
+```
+
+```output
+Name     OS       Admin
+-------  -------  ---------
+Test-2   Linux    sttramer
+TestVM   Linux    azureuser
+WinTest  Windows  winadmin
+```
 
 > [!NOTE]
-> Bestimmte Schlüssel werden herausgefiltert und nicht in der Tabellenansicht gedruckt. Diese Schlüssel sind `id`, `type` und `etag`. Wenn Sie diese Informationen benötigen, können Sie den Schlüsselnamen ändern und so die Filterung umgehen.
+>
+> Bestimmte Schlüssel werden herausgefiltert und nicht in der Tabellenansicht gedruckt. Diese Schlüssel sind `id`, `type` und `etag`. Um diese Werte anzuzeigen, können Sie den Schlüsselnamen in einem Mehrfachauswahl-Hash ändern.
 >
 > ```azurecli-interactive
 > az vm show -g QueryDemo -n TestVM --query "{objectID:id}" -o table
 > ```
 
-## <a name="work-with-list-output"></a>Verwenden von Listenausgaben
-
-CLI-Befehle, die mehrere Werte zurückgeben können, geben ein Array zurück. Auf Arrayelemente wird über einen Index zugegriffen, und sie werden unter Umständen nicht jedes Mal in der gleichen Reihenfolge zurückgegeben. Sie können alle Arrayelemente gleichzeitig abfragen, indem Sie sie mit dem Operator `[]` vereinfachen. Der Operator wird nach dem Array oder als erstes Element in einen Ausdruck eingefügt. Bei einem vereinfachten Array wird die darauffolgende Abfrage für jedes Arrayelement ausgeführt.
-
-Im folgenden Beispiel werden jeweils der Name und das Betriebssystem der virtuellen Computer in einer Ressourcengruppe ausgegeben.
+Jedes Array kann vereinfacht werden, nicht nur das vom Befehl zurückgegebene Ergebnis der obersten Ebene. Im letzten Abschnitt wurde der Ausdruck `osProfile.linuxConfiguration.ssh.publicKeys[0].keyData` verwendet, um den öffentlichen SSH-Schlüssel für die Anmeldung abzurufen. Zum Abrufen _aller_ öffentlichen SSH-Schlüssel könnte der Ausdruck stattdessen als `osProfile.linuxConfiguration.ssh.publicKeys[].keyData` geschrieben werden.
+Dieser Abfrageausdruck vereinfacht das Array `osProfile.linuxConfiguration.ssh.publicKeys` und führt dann den Ausdruck `keyData` für jedes Element aus:
 
 ```azurecli-interactive
-az vm list -g QueryDemo --query '[].{name:name, image:storageProfile.imageReference.offer}'
+az vm show -g QueryDemo -n TestVM --query '{VMName:name, admin:osProfile.adminUsername, sshKeys:osProfile.linuxConfiguration.ssh.publicKeys[].keyData }' -o json
+```
+
+```json
+{
+  "VMName": "TestVM",
+  "admin": "azureuser",
+  "sshKeys": [
+    "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDMobZNJTqgjWn/IB5xlilvE4Y+BMYpqkDnGRUcA0g9BYPgrGSQquCES37v2e3JmpfDPHFsaR+CPKlVr2GoVJMMHeRcMJhj50ZWq0hAnkJBhlZVWy8S7dwdGAqPyPmWM2iJDCVMVrLITAJCno47O4Ees7RCH6ku7kU86b1NOanvrNwqTHr14wtnLhgZ0gQ5GV1oLWvMEVg1YFMIgPRkTsSQKWCG5lLqQ45aU/4NMJoUxGyJTL9i8YxMavaB1Z2npfTQDQo9+womZ7SXzHaIWC858gWNl9e5UFyHDnTEDc14hKkf1CqnGJVcCJkmSfmrrHk/CkmF0ZT3whTHO1DhJTtV stramer@contoso\n"
+  ]
+}
+```
+
+## <a name="filter-arrays"></a>Filtern von Arrays
+
+Der zweite Vorgang zum Abrufen von Daten aus einem Array ist das _Filtern_. Zum Filtern wird der JMESPath-Operator `[?...]` verwendet.
+Dieser Operator akzeptiert ein Prädikat als Inhalt. Ein Prädikat ist eine beliebige Anweisung, die zu `true` oder `false` ausgewertet werden kann. Ausdrücke, bei denen das Prädikat zu `true` ausgewertet wird, sind in der Ausgabe enthalten.
+
+JMESPath bietet die standardmäßigen Vergleichsoperatoren und logischen Operatoren. Dazu zählen `<`, `<=`, `>`, `>=`, `==` und `!=`. JMESPath unterstützt auch logisches AND (`&&`), OR (`||`) und NOT (`!`). Ausdrücke können zum Erstellen komplexerer Prädikatausdrücke in Klammern gruppiert werden. Ausführliche Informationen zu Prädikaten und logischen Vorgängen finden Sie in der [JMESPath-Spezifikation](http://jmespath.org/specification.html).
+
+Im letzten Abschnitt haben wir ein Array vereinfacht, um die vollständige Liste aller VMs in einer Ressourcengruppe abzurufen. Mithilfe von Filtern kann diese Ausgabe auf Linux-VMs beschränkt werden:
+
+```azurecli-interactive
+az vm list -g QueryDemo --query "[?storageProfile.osDisk.osType=='Linux'].{Name:name,  admin:osProfile.adminUsername}" --output table
+```
+
+```output
+Name    Admin
+------  ---------
+Test-2  sttramer
+TestVM  azureuser
+```
+
+> [!IMPORTANT]
+>
+> In JMESPath werden Zeichenfolgen immer in einfache Anführungszeichen (`'`) gesetzt. Wenn Sie in einem Filterprädikat doppelte Anführungszeichen innerhalb einer Zeichenfolge verwenden, ist die Ausgabe leer.
+
+JMESPath verfügt auch über integrierte Funktionen, die das Filtern erleichtern. Eine dieser Funktionen ist `contains(string, substring)`. Diese Funktion überprüft, ob eine Zeichenfolge eine Teilzeichenfolge enthält. Ausdrücke werden vor dem Aufrufen der Funktion ausgewertet. Das erste Argument kann daher ein vollständiger JMESPath-Ausdruck sein. Im nächsten Beispiel werden alle VMs mit SSD-Speicher für den Betriebssystemdatenträger abgerufen:
+
+```azurecli-interactive
+az vm list -g QueryDemo --query "[?contains(storageProfile.osDisk.managedDisk.storageAccountType,'SSD')].{Name:name, Storage:storageProfile.osDisk.managedDisk.storageAccountType}" -o json
 ```
 
 ```json
 [
   {
-    "image": "CentOS",
-    "name": "CentBox"
+    "Name": "TestVM",
+    "Storage": "StandardSSD_LRS"
   },
   {
-    "image": "openSUSE-Leap",
-    "name": "SUSEBox"
-  },
-  {
-    "image": "UbuntuServer",
-    "name": "TestVM"
-  },
-  {
-    "image": "UbuntuServer",
-    "name": "Test2"
-  },
-  {
-    "image": "WindowsServer",
-    "name": "WinServ"
+    "Name": "WinTest",
+    "Storage": "StandardSSD_LRS"
   }
 ]
 ```
 
-Auch Arrays, die einem Schlüsselpfad angehören, können vereinfacht werden. Die folgende Abfrage ruft die Azure-Objekt-IDs für die NICs ab, mit denen ein virtueller Computer verbunden ist.
+Diese Abfrage ist relativ lang. Der Schlüssel `storageProfile.osDisk.managedDisk.storageAccountType` wird zweimal erwähnt und in der Ausgabe neu erstellt. Eine Möglichkeit zum Kürzen der Abfrage besteht darin, den Filter nach dem Vereinfachen und Auswählen von Daten anzuwenden.
 
 ```azurecli-interactive
-az vm show -g QueryDemo -n TestVM --query 'networkProfile.networkInterfaces[].id'
-```
-
-## <a name="filter-array-output-with-predicates"></a>Filtern der Arrayausgabe mit Prädikaten
-
-JMESPath bietet [Filterausdrücke](http://jmespath.org/specification.html#filterexpressions) zum Herausfiltern der angezeigten Daten. Diese Ausdrücke sind besonders hilfreich, wenn sie mit [integrierten JMESPath-Funktionen](http://jmespath.org/specification.html#built-in-functions) kombiniert werden, um teilweise Übereinstimmungen zu ermitteln oder Daten in ein Standardformat zu konvertieren. Filterausdrücke können nur für Arraydaten verwendet werden. In allen anderen Fällen geben Sie den Wert `null` zurück. Sie können beispielsweise die Ausgabe von Befehlen wie `vm list` filtern, um nach bestimmten Arten von virtuellen Computern zu suchen. Das folgende Beispiel baut auf dem vorherigen Beispiel auf und filtert den VM-Typ heraus, um nur virtuelle Windows-Computer zu erfassen und deren Namen auszugeben.
-
-```azurecli-interactive
-az vm list --query '[?osProfile.windowsConfiguration!=null].name'
+az vm list -g QueryDemo --query "[].{Name:name, Storage:storageProfile.osDisk.managedDisk.storageAccountType}[?contains(Storage,'SSD')]" -o json
 ```
 
 ```json
 [
-  "WinServ"
+  {
+    "Name": "TestVM",
+    "Storage": "StandardSSD_LRS"
+  },
+  {
+    "Name": "WinTest",
+    "Storage": "StandardSSD_LRS"
+  }
 ]
 ```
 
+Bei großen Arrays lässt sich der Vorgang möglicherweise beschleunigen, indem der Filter vor der Auswahl von Daten angewendet wird.
+
+Die vollständige Liste der Funktionen finden Sie in der JMESPath-Spezifikation unter [Built-in Functions](http://jmespath.org/specification.html#built-in-functions) (Integrierte Funktionen).
+
+## <a name="change-output"></a>Änder der Ausgabe
+
+JMESPath-Funktionen haben zudem einen weiteren Zweck: das Bearbeiten bzw. Ändern der Ergebnisse einer Abfrage. Jede Funktion, die einen nicht booleschen Wert zurückgibt, ändert das Ergebnis eines Ausdrucks.
+Mit `sort_by(array, &sort_expression)` können Sie Daten beispielsweise nach einem Eigenschaftswert sortieren. JMESPath verwendet einen speziellen Operator (`&`) für Ausdrücke, die später im Rahmen einer Funktion ausgewertet werden sollen. Das nächste Beispiel zeigt, wie Sie eine VM-Liste nach der Größe des Betriebssystemdatenträgers sortieren:
+
+```azurecli-interactive
+az vm list -g QueryDemo --query "sort_by([].{Name:name, Size:storageProfile.osDisk.diskSizeGb}, &Size)" --output table
+```
+
+```output
+Name     Size
+-------  ------
+TestVM   30
+Test-2   32
+WinTest  127
+```
+
+Die vollständige Liste der Funktionen finden Sie in der JMESPath-Spezifikation unter [Built-in Functions](http://jmespath.org/specification.html#built-in-functions) (Integrierte Funktionen).
+
 ## <a name="experiment-with-queries-interactively"></a>Interaktives Experimentieren mit Abfragen
 
-Wenn Sie sich mit JMESPath vertraut machen möchten, können Sie in der interaktiven Umgebung des Python-Pakets [JMESPath-terminal](https://github.com/jmespath/jmespath.terminal) mit Abfragen experimentieren. Daten werden als Eingabe übergeben. Anschließend werden programminterne Abfragen geschrieben und bearbeitet, um die Daten zu extrahieren.
+Für Ihre ersten Experimente mit JMESPath bietet das Python-Paket [JMESPath-terminal](https://github.com/jmespath/jmespath.terminal) eine interaktive Umgebung zur Verwendung von Abfragen. Daten werden als Eingabe übergeben, und anschließend werden Abfragen geschrieben und im Editor ausgeführt.
 
 ```bash
 pip install jmespath-terminal

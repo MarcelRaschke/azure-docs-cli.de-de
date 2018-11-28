@@ -4,19 +4,69 @@ description: Enthält Informationen zu den aktuellen Updates der Azure CLI.
 author: sptramer
 ms.author: sttramer
 manager: carmonm
-ms.date: 11/06/2018
+ms.date: 11/20/2018
 ms.topic: article
 ms.prod: azure
 ms.technology: azure-cli
 ms.devlang: azure-cli
-ms.openlocfilehash: 51b8b8cad6d25f916006b8e68b8f300587f5d45b
-ms.sourcegitcommit: 0d6b08048b5b35bf0bb3d7b91ff567adbaab2a8b
+ms.openlocfilehash: 36b57d52a5851275fd317240e5c2c95171a99e7e
+ms.sourcegitcommit: 22b73d56602c1c4e647ed2c5af3d596a2f6a7ed5
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 11/07/2018
-ms.locfileid: "51222564"
+ms.lasthandoff: 11/21/2018
+ms.locfileid: "52267329"
 ---
 # <a name="azure-cli-release-notes"></a>Versionshinweise für die Azure CLI
+## <a name="november-20-2018"></a>20. November 2018
+
+Version 2.0.51
+### <a name="core"></a>Core
+* MSI-Anmeldung geändert, sodass der Abonnementname nicht in der Identität wiederverwendet wird
+
+### <a name="acr"></a>ACR
+* Kontexttoken zum Aufgabenschritt hinzugefügt
+* Unterstützung für das Festlegen von Geheimnissen in „acr run“ zum Spiegeln der ACR-Aufgabe hinzugefügt
+* Unterstützung für `--top` und `--orderby` für die Befehle `show-tags` und `show-manifests` verbessert
+
+### <a name="appservice"></a>AppService
+* Standardtimeout der ZIP-Bereitstellung für das Abrufen des Status auf fünf Minuten erhöht und Timeout-Eigenschaft zum Anpassen dieses Werts hinzugefügt
+* Aktualisierung der standardmäßigen `node_version`. Während eines Austauschvorgangs mit zwei Phasen werden bei der Austauschaktion zum Zurücksetzen des Slots alle App-Einstellungen und Verbindungszeichenfolgen beibehalten.
+* Clientseitige SKU-Überprüfung für die Erstellung eines Linux-App Service-Plans entfernt
+* Behebung eines Fehlers beim Abrufen des ZipDeploy-Status
+
+### <a name="iotcentral"></a>IotCentral
+* Verfügbarkeitsprüfung für Unterdomänen beim Erstellen einer IoT Central-Anwendung hinzugefügt
+
+### <a name="keyvault"></a>KeyVault
+* Behebung eines Fehlers, aufgrund dessen Fehler mitunter ignoriert wurden
+
+### <a name="network"></a>Netzwerk
+* `root-cert`-Unterbefehle zum Behandeln von vertrauenswürdigen Stammzertifikaten zu `application-gateway` hinzugefügt
+* Optionen `--min-capacity` und `--custom-error-pages` zu `application-gateway [create|update]` hinzugefügt:
+* `--zones` zur Unterstützung von Verfügbarkeitszonen zu `application-gateway create` hinzugefügt 
+* Argumente `--file-upload-limit`, `--max-request-body-size` und `--request-body-check` zu `application-gateway waf-config set` hinzugefügt
+
+### <a name="rdbms"></a>Rdbms
+* MariaDB-VNET-Befehle hinzugefügt
+
+### <a name="rbac"></a>RBAC
+* Problem beim Aktualisieren unveränderlicher Anmeldeinformationen in `ad app update` behoben
+* Ausgabewarnungen zur Ankündigung bevorstehender Breaking Changes für `ad [app|sp] list` hinzugefügt 
+
+### <a name="storage"></a>Speicher
+* Behandlung von Ausnahmefällen für Speicherkopierbefehle verbessert
+* Problem behoben, aufgrund dessen `storage blob copy start-batch` bei identischen Ziel- und Quellkonten keine Anmeldeinformationen verwendete
+* Fehler bei `storage [blob|file] url` behoben, aufgrund dessen `sas_token` nicht in die URL eingebunden wurde
+* Breaking Change-Warnung zu `[blob|container] list` hinzugefügt: In Kürze werden standardmäßig nur die ersten 5.000 Ergebnisse ausgegeben.
+
+### <a name="vm"></a>VM
+* Unterstützung für die separate Angabe einer Speicherkonto-SKU für verwaltete Betriebssystemdatenträger und Datenträger zu `[vm|vmss] create --storage-sku` hinzugefügt
+* Parameter für den Versionsnamen von `sig image-version` in `--image-version -e` geändert
+* `sig image-version`-Argument `--image-version-name` als veraltet markiert und durch `--image-version` ersetzt
+* Unterstützung für die Verwendung des lokalen Betriebssystemdatenträgers für `[vm|vmss] create --ephemeral-os-disk` hinzugefügt
+* Unterstützung für `--no-wait` zu `snapshot create/update` hinzugefügt
+* Befehl `snapshot wait` hinzugefügt
+* Unterstützung für die Verwendung von Instanznamen mit `[vm|vmss] extension set --extension-instance-name` hinzugefügt
 
 ## <a name="november-6-2018"></a>6. November 2018
 
