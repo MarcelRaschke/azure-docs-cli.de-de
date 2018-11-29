@@ -9,12 +9,12 @@ ms.topic: conceptual
 ms.prod: azure
 ms.technology: azure-cli
 ms.devlang: azure-cli
-ms.openlocfilehash: a73576a9caeb7d016f49bb1d90f1903cbd515c63
-ms.sourcegitcommit: 6d9169ed547df151f99e5a3ac86578634486419a
+ms.openlocfilehash: bb60b807df29833a74b1dab4def6f5ced58c8ffe
+ms.sourcegitcommit: a8aac038e6ede0b1b352ca6163a04b61ff4eed5b
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 10/23/2018
-ms.locfileid: "49652446"
+ms.lasthandoff: 11/28/2018
+ms.locfileid: "52450274"
 ---
 # <a name="install-azure-cli-with-zypper"></a>Installieren der Azure CLI mit zypper
 
@@ -53,6 +53,13 @@ Sie können dann die Azure CLI mit dem Befehl `az` ausführen. Verwenden Sie den
 [!INCLUDE [interactive-login](includes/interactive-login.md)]
 
 Weitere Informationen zu verschiedenen Authentifizierungsmethoden finden Sie unter [Anmelden mit der Azure CLI](authenticate-azure-cli.md).
+
+## <a name="troubleshooting"></a>Problembehandlung
+
+In diesem Abschnitt finden Sie einige allgemeine Probleme, die bei der Installation mit `zypper` auftreten können. Falls ein Problem auftritt, das hier nicht behandelt wird, [melden Sie es auf GitHub](https://github.com/Azure/azure-cli/issues).
+
+[!INCLUDE[troubleshoot-wsl.md](includes/troubleshoot-wsl.md)]
+
 
 ## <a name="update"></a>Aktualisieren
 
