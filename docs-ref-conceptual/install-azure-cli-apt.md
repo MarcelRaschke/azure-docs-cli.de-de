@@ -4,17 +4,17 @@ description: Installieren der Azure CLI mit dem apt-Paket-Manager
 author: sptramer
 ms.author: sttramer
 manager: carmonm
-ms.date: 11/12/2018
+ms.date: 11/27/2018
 ms.topic: conceptual
 ms.prod: azure
 ms.technology: azure-cli
 ms.devlang: azure-cli
-ms.openlocfilehash: 0d4311e88fec9903c1aab1410cc71328f896dc65
-ms.sourcegitcommit: 728a050f13d3682122be4a8993596cc4185a45ce
+ms.openlocfilehash: c33c3e75991979a72a7b82183dd88b87715907ae
+ms.sourcegitcommit: a8aac038e6ede0b1b352ca6163a04b61ff4eed5b
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 11/15/2018
-ms.locfileid: "51680933"
+ms.lasthandoff: 11/28/2018
+ms.locfileid: "52450257"
 ---
 # <a name="install-azure-cli-with-apt"></a>Installieren der Azure CLI mit apt
 
@@ -62,9 +62,15 @@ Weitere Informationen zu verschiedenen Authentifizierungsmethoden finden Sie unt
 
 In diesem Abschnitt finden Sie einige allgemeine Probleme, die bei der Installation mit `apt` auftreten können. Falls ein Problem auftritt, das hier nicht behandelt wird, [melden Sie es auf GitHub](https://github.com/Azure/azure-cli/issues).
 
-### <a name="lsbrelease-does-not-return-the-base-distribution-version"></a>„lsb_release“ gibt nicht die Basisdistributionsversion zurück.
+### <a name="lsbrelease-does-not-return-the-correct-base-distribution-version"></a>„lsb_release“ gibt nicht die richtige Basisdistributionsversion zurück.
 
 Einige von Ubuntu oder Debian abgeleiteten Distributionen wie Linux Mint geben über `lsb_release` unter Umständen nicht den richtigen Versionsnamen zurück. Mit diesem Wert wird im Installationsprozess das zu installierende Pakete ermittelt. Wenn Sie den Namen der Version kennen, von der Ihre Distribution abgeleitet ist, können Sie im [Installationsschritt 1](#install-step-1) den Wert `AZ_REPO` manuell festlegen. Sehen Sie sich andernfalls Informationen dazu an, wie Sie für Ihre Distribution den Basisdistributionsnamen ermitteln, und legen Sie `AZ_REPO` auf den richtigen Wert fest.
+
+### <a name="no-package-for-your-distribution"></a>Kein Paket für Ihre Distribution
+
+Manchmal dauert es nach der Veröffentlichung einer Ubuntu-Distribution etwas, bis ein Azure CLI-Paket dafür zur Verfügung gestellt wird. Die Azure CLI ist im Hinblick auf zukünftige Abhängigkeitsversionen resilient konzipiert und nutzt daher möglichst wenige dieser Abhängigkeiten. Ist für Ihre Basisdistribution kein Paket verfügbar, verwenden Sie ein Paket für eine ältere Distribution.
+
+Legen Sie dazu im [Installationsschritt 1](#install-step-1) den Wert für `AZ_REPO` manuell fest. Verwenden Sie für Ubuntu-Distributionen das Repository `bionic` und für Debian-Distributionen `stretch`. Distributionen, die vor Ubuntu Trusty und Debian Wheezy veröffentlicht wurden, werden nicht unterstützt.
 
 ### <a name="apt-key-fails-with-no-dirmngr"></a>Fehler „No dirmngr“ beim Ausführen von „apt-key“
 
@@ -95,6 +101,8 @@ sudo apt-key --keyring /etc/apt/trusted.gpg.d/Microsoft.gpg adv \
 ```
 
 Um zu ermitteln, ob ein Proxy eingerichtet ist, wenden Sie sich an Ihren Systemadministrator. Wenn für den Proxy keine Anmeldung erforderlich ist, lassen Sie Benutzer und Kennwort weg.
+
+[!INCLUDE[troubleshoot-wsl.md](includes/troubleshoot-wsl.md)]
 
 ## <a name="update"></a>Aktualisieren
 
