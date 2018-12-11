@@ -9,14 +9,37 @@ ms.topic: article
 ms.prod: azure
 ms.technology: azure-cli
 ms.devlang: azure-cli
-ms.openlocfilehash: 36b57d52a5851275fd317240e5c2c95171a99e7e
-ms.sourcegitcommit: 22b73d56602c1c4e647ed2c5af3d596a2f6a7ed5
+ms.openlocfilehash: 7a2ab41dd6696d658d05ab76e44abf97626761aa
+ms.sourcegitcommit: 14aa16beeec59e51890a6cba4906bdc8e19b94d0
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 11/21/2018
-ms.locfileid: "52267329"
+ms.lasthandoff: 12/05/2018
+ms.locfileid: "52892682"
 ---
 # <a name="azure-cli-release-notes"></a>Versionshinweise für die Azure CLI
+## <a name="december-4-2018"></a>4. Dezember 2018
+
+Version 2.0.52
+### <a name="core"></a>Core
+* Unterstützung für mandantenübergreifende Ressourcenbereitstellung für mehrinstanzenfähigen Dienstprinzipal hinzugefügt
+* Behebung eines Fehlers, aufgrund dessen IDs, die von einem Befehl mit Ausgabe im TSV-Format weitergeleitet wurden, nicht ordnungsgemäß analysiert wurden
+
+### <a name="appservice"></a>AppService
+* [VORSCHAU] Befehl `webapp up` hinzugefügt, der Benutzer beim Erstellen und Bereitstellen von Inhalten in Apps unterstützt
+* Behebung eines Fehlers in einer containerbasierten Windows-App, der aufgrund einer Back-End-Änderung auftrat
+
+### <a name="network"></a>Netzwerk
+* Argument `--exclusion` zu `application-gateway waf-config set` hinzugefügt, um WAF-Ausschlüsse zu unterstützen
+
+### <a name="role"></a>Rolle
+* Unterstützung für benutzerdefinierte Bezeichner für Kennwortanmeldeinformation hinzugefügt 
+
+### <a name="vm"></a>VM
+* [VERALTET] Parameter `vm extension [show|wait] --expand` als veraltet markiert
+* Parameter `--force` zu `vm restart` hinzugefügt, um nicht reagierende virtuelle Computer erneut bereitzustellen
+* `[vm|vmss] create --authentication-type` geändert, um „all“ zu akzeptieren und einen virtuellen Computer mit Kennwort- und SSH-Authentifizierung zu erstellen
+* Parameter `image create --os-disk-caching` hinzugefügt, um die Zwischenspeicherung von Betriebssystemdatenträgern für ein Image festzulegen
+
 ## <a name="november-20-2018"></a>20. November 2018
 
 Version 2.0.51

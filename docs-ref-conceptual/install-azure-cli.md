@@ -10,18 +10,18 @@ ms.topic: conceptual
 ms.prod: azure
 ms.technology: azure-cli
 ms.devlang: azure-cli
-ms.openlocfilehash: 29baa488bfe6e71dbd3b95220a6562a216d038ae
-ms.sourcegitcommit: a8aac038e6ede0b1b352ca6163a04b61ff4eed5b
+ms.openlocfilehash: 62b696e61b2c2037e8dc30e5885a637a5a74bdc1
+ms.sourcegitcommit: 14aa16beeec59e51890a6cba4906bdc8e19b94d0
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 11/28/2018
-ms.locfileid: "52450240"
+ms.lasthandoff: 12/05/2018
+ms.locfileid: "52892716"
 ---
 # <a name="install-the-azure-cli"></a>Installieren der Azure CLI
 
 Die Azure CLI ist ein praktisches Befehlszeilentool für die Verwaltung von Azure-Ressourcen. Sie vereinfacht unter anderem die Verwendung von Skripts, ermöglicht Datenabfragen, unterstützt Vorgänge mit langer Ausführungsdauer und vieles mehr. Probieren Sie sie am besten gleich aus, und entdecken Sie die vielfältigen Möglichkeiten der CLI!
 
-Die aktuelle CLI-Version ist __2.0.51__. Informationen zur neuesten Version finden Sie in den [Versionshinweisen](release-notes-azure-cli.md).
+Die aktuelle CLI-Version ist __2.0.52__. Informationen zur neuesten Version finden Sie in den [Versionshinweisen](release-notes-azure-cli.md).
 
 * [Installieren unter Windows](install-azure-cli-windows.md)
 * [Installieren unter macOS](install-azure-cli-macos.md)
