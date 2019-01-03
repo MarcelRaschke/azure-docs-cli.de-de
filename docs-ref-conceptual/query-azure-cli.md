@@ -8,13 +8,13 @@ ms.date: 11/12/2018
 ms.topic: conceptual
 ms.prod: azure
 ms.technology: azure-cli
-ms.devlang: azure-cli
-ms.openlocfilehash: 53aa2d1011eb76c27a503e6b15c20aa05e13b448
-ms.sourcegitcommit: f92d5b3ccd409be126f1e7c06b9f1adc98dad78b
+ms.devlang: azurecli
+ms.openlocfilehash: 1605b072a68d9aa781290fd862f1d67a847f571e
+ms.sourcegitcommit: f40bd067ece4e6ec13e259782ed8db3e33b61a75
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 11/20/2018
-ms.locfileid: "52159387"
+ms.lasthandoff: 12/18/2018
+ms.locfileid: "53593301"
 ---
 # <a name="query-azure-cli-command-output"></a>Abfragen der Azure CLI-Befehlsausgabe
 
