@@ -9,13 +9,13 @@ ms.date: 09/07/2018
 ms.topic: conceptual
 ms.prod: azure
 ms.technology: azure-cli
-ms.devlang: azure-cli
-ms.openlocfilehash: 0ba204063c00bf706f6af5a14dc59ba317385f95
-ms.sourcegitcommit: c4462456dfb17993f098d47c37bc19f4d78b8179
+ms.devlang: azurecli
+ms.openlocfilehash: 4f203f94e9b26e1219bfe69ec0ddd73228d30b64
+ms.sourcegitcommit: f40bd067ece4e6ec13e259782ed8db3e33b61a75
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 09/25/2018
-ms.locfileid: "47178115"
+ms.lasthandoff: 12/18/2018
+ms.locfileid: "53593267"
 ---
 # <a name="use-extensions-with-azure-cli"></a>Verwenden von Erweiterungen mit der Azure CLI 
 
@@ -94,8 +94,8 @@ Anhand der Dokumentation und der Versionsverwaltung können Sie erkennen, ob es 
 
 ### <a name="can-extensions-depend-upon-each-other"></a>Können Erweiterungen voneinander abhängig sein?
 
-Nein. Da die CLI keine Ladereihenfolge garantiert, werden Abhängigkeiten unter Umständen nicht ordnungsgemäß berücksichtigt. Das Entfernen einer Erweiterung wirkt sich nicht auf andere Erweiterungen aus.
+ Nein. Da die CLI keine Ladereihenfolge garantiert, werden Abhängigkeiten unter Umständen nicht ordnungsgemäß berücksichtigt. Das Entfernen einer Erweiterung wirkt sich nicht auf andere Erweiterungen aus.
 
 ### <a name="are-extensions-updated-along-with-the-cli"></a>Werden Erweiterungen zusammen mit der CLI aktualisiert?
 
-Nein. Erweiterungen müssen separat aktualisiert werden, wie unter [Aktualisieren von Erweiterungen](#update-extensions) beschrieben.
+ Nein. Erweiterungen müssen separat aktualisiert werden, wie unter [Aktualisieren von Erweiterungen](#update-extensions) beschrieben.
