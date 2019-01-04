@@ -1,6 +1,6 @@
 ---
 title: Übersicht über die Azure CLI
-description: Enthält eine Übersicht über die Azure CLI.
+description: Übersicht über die Azure-Befehlszeilenschnittstelle (CLI)
 author: sptramer
 ms.author: sttramer
 manager: carmonm
@@ -8,20 +8,21 @@ ms.date: 09/07/2018
 ms.topic: conceptual
 ms.prod: azure
 ms.technology: azure-cli
-ms.devlang: azure-cli
-ms.openlocfilehash: 8ab8435f2d8337f63a73aef39472646dc8ebcd74
-ms.sourcegitcommit: 0d6b08048b5b35bf0bb3d7b91ff567adbaab2a8b
+ms.devlang: azurecli
+ms.openlocfilehash: 285567b00d8c303af3e78a01dc80946a08e4e8f8
+ms.sourcegitcommit: 614811ea63ceb0e71bd99323846dc1b754e15255
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 11/07/2018
-ms.locfileid: "51222292"
+ms.lasthandoff: 12/28/2018
+ms.locfileid: "53805906"
 ---
-# <a name="azure-cli"></a>Azure-Befehlszeilenschnittstelle
+# <a name="azure-command-line-interface-cli"></a>Azure-Befehlszeilenschnittstelle (CLI)
 
-Die Azure CLI ist die plattformübergreifende Befehlszeilenumgebung von Microsoft zum Verwalten von Azure-Ressourcen.
+Die Azure-Befehlszeilenschnittstelle (CLI) ist die plattformübergreifende Befehlszeilenumgebung von Microsoft zum Verwalten von Azure-Ressourcen.
 Sie können sie in Ihrem Browser mit [Azure Cloud Shell](/azure/cloud-shell/overview) verwenden oder unter macOS, Linux oder Windows [installieren](install-azure-cli.md) und über die Befehlszeile ausführen.
 
-Der Einstieg in die Azure CLI ist einfach, und sie eignet sich am besten für die Erstellung von Automatisierungsskripts für Azure Resource Manager. Mit der Azure CLI können Sie VMs in Azure erstellen, indem Sie einfach den folgenden Befehl eingeben:
+Der Einstieg in die Azure CLI ist einfach, und sie eignet sich am besten für die Erstellung von Automatisierungsskripts für Azure Resource Manager.
+Mit der Azure CLI können Sie VMs in Azure erstellen, indem Sie einfach den folgenden Befehl eingeben:
 
 ```azurecli-interactive
 az vm create -n MyLinuxVM -g MyResourceGroup --image UbuntuLTS
@@ -29,7 +30,7 @@ az vm create -n MyLinuxVM -g MyResourceGroup --image UbuntuLTS
 
 > [!NOTE]
 >
-> In Skripts und auf der Microsoft-Dokumentationswebsite sind Azure CLI-Beispiele für die `bash`-Shell geschrieben. Einzeilige Beispiele können auf jeder Plattform ausgeführt werden. Längere oder kompliziertere Beispiele mit Zeilenfortsetzungen (`\`) oder Variablenzuweisung müssen angepasst werden, damit sie in anderen Shells verwendet werden können (einschließlich PowerShell).
+> In Skripts und auf der Microsoft-Dokumentationswebsite sind Azure CLI-Beispiele für die `bash`-Shell geschrieben. Einzeilige Beispiele können auf jeder Plattform ausgeführt werden. Längere Beispiele mit Zeilenfortsetzungen (`\`) oder Variablenzuweisung müssen angepasst werden, damit sie in anderen Shells verwendet werden können (einschließlich PowerShell).
 
 ## <a name="run-or-install"></a>Ausführen oder Installieren
 
