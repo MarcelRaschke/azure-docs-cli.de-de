@@ -4,19 +4,88 @@ description: Enthält Informationen zu den aktuellen Updates der Azure CLI.
 author: sptramer
 ms.author: sttramer
 manager: carmonm
-ms.date: 11/20/2018
+ms.date: 12/18/2018
 ms.topic: article
 ms.prod: azure
 ms.technology: azure-cli
-ms.devlang: azure-cli
-ms.openlocfilehash: 7a2ab41dd6696d658d05ab76e44abf97626761aa
-ms.sourcegitcommit: 14aa16beeec59e51890a6cba4906bdc8e19b94d0
+ms.devlang: azurecli
+ms.openlocfilehash: 10663ad8e85a15b8fedb5ac12c5d17256d07e523
+ms.sourcegitcommit: 614811ea63ceb0e71bd99323846dc1b754e15255
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 12/05/2018
-ms.locfileid: "52892682"
+ms.lasthandoff: 12/28/2018
+ms.locfileid: "53805957"
 ---
 # <a name="azure-cli-release-notes"></a>Versionshinweise für die Azure CLI
+
+## <a name="december-20-2018"></a>20. Dezember 2018
+
+Version 2.0.54
+### <a name="appservice"></a>AppService
+* Problem behoben, bei dem `webapp up` nicht erneut bereitgestellt werden konnte
+* Unterstützung für das Auflisten und Wiederherstellen von Web-App-Momentaufnahmen hinzugefügt
+* Unterstützung für das Flag `--runtime` zu Windows-Funktions-Apps hinzugefügt
+
+### <a name="iotcentral"></a>IoTCentral
+* Fehler bei API-Aufruf für update-Befehl behoben
+
+### <a name="role"></a>Rolle
+* [WICHTIGE ÄNDERUNG] `ad [app|sp] list` geändert, damit standardmäßig nur die ersten 100 Objekte aufgelistet werden
+
+### <a name="sql"></a>SQL
+* Unterstützung für die benutzerdefinierte Sortierung auf verwalteten Instanzen hinzugefügt
+
+### <a name="vm"></a>VM
+* Parameter `---os-type` zu `disk create` hinzugefügt
+
+## <a name="december-18-2018"></a>18. Dezember 2018
+
+Version 2.0.53
+### <a name="acr"></a>ACR
+* Unterstützung für Imageimport aus externen Containerregistrierungen hinzugefügt
+* Tabellenlayout für Aufgabenliste komprimiert
+* Unterstützung für Azure DevOps-URLs hinzugefügt
+
+### <a name="acs"></a>ACS
+* Virtuelle Knoten (Vorschau) hinzugefügt
+* „(PREVIEW)“ aus AAD-Argumenten für `aks create` entfernt
+* [VERALTET] `az acs`-Befehle als veraltet gekennzeichnet. ACS wird am 31. Januar 2020 eingestellt
+* Unterstützung für Netzwerkrichtlinie bei der Erstellung neuer AKS-Cluster hinzugefügt
+* Anforderung des Arguments `--nodepool-name` bei nur einem Knotenpool für `aks scale` entfernt
+
+### <a name="appservice"></a>AppService
+* Problem behoben, bei dem für `webapp config container` der Parameter `--slot` nicht berücksichtigt wurde
+
+### <a name="botservice"></a>Botservice
+* Unterstützung für Analyse von `.bot`-Dateien beim Aufrufen von `bot show` hinzugefügt
+* Fehler bei der AppInsights-Bereitstellung behoben
+* Leerzeichenfehler bei Dateipfaden behoben
+* Kudu-Netzwerkaufrufe reduziert
+* Allgemeine Verbesserungen bei Befehlen der Benutzeroberfläche durchgeführt
+
+### <a name="consumption"></a>Nutzung
+* Fehler für Budget-API zum Anzeigen von Benachrichtigungen behoben
+
+### <a name="cosmosdb"></a>CosmosDB
+* Unterstützung für die Aktualisierung des Kontos von „Singlemaster“ auf „Multimaster“ hinzugefügt
+
+### <a name="maps"></a>Karten
+* Unterstützung für SKU „S1“ für `maps account [create|update]` hinzugefügt
+
+### <a name="network"></a>Netzwerk
+* Unterstützung für `--format` und `--log-version` für `watcher flow-log configure` hinzugefügt
+* Problem mit `dns zone update` behoben, bei dem die Verwendung von "" zum Löschen von Auflösungs- und Registrierungs-VNETs nicht funktionierte
+
+### <a name="resource"></a>Ressource
+* Verarbeitung des Bereichsparameters für Verwaltungsgruppen in `policy assignment [create|list|delete|show|update]` behoben 
+* Neuen Befehl `resource wait` hinzugefügt
+
+### <a name="storage"></a>Storage
+*  Möglichkeit zum Aktualisieren der Protokollschemaversion für Speicherdienste in `storage logging update` hinzugefügt
+
+### <a name="vm"></a>VM
+* Absturz in `vm identity remove` behoben, der aufgetreten ist, wenn der angegebenen VM keine verwalteten Dienstidentitäten zugewiesen waren
+
 ## <a name="december-4-2018"></a>4. Dezember 2018
 
 Version 2.0.52
@@ -76,7 +145,7 @@ Version 2.0.51
 * Problem beim Aktualisieren unveränderlicher Anmeldeinformationen in `ad app update` behoben
 * Ausgabewarnungen zur Ankündigung bevorstehender Breaking Changes für `ad [app|sp] list` hinzugefügt 
 
-### <a name="storage"></a>Speicher
+### <a name="storage"></a>Storage
 * Behandlung von Ausnahmefällen für Speicherkopierbefehle verbessert
 * Problem behoben, aufgrund dessen `storage blob copy start-batch` bei identischen Ziel- und Quellkonten keine Anmeldeinformationen verwendete
 * Fehler bei `storage [blob|file] url` behoben, aufgrund dessen `sas_token` nicht in die URL eingebunden wurde
@@ -172,7 +241,7 @@ Version 2.0.50
 * `ad sp create-for-rbac` geändert, um „displayName“ und Dienstprinzipalname besser unterscheiden zu können
 * Unterstützung der Gewährung von Berechtigungen für AAD-Apps hinzugefügt
 
-### <a name="storage"></a>Speicher
+### <a name="storage"></a>Storage
 * Möglichkeit hinzugefügt, allein mit SAS und Endpunkten (ohne Kontoname oder Schlüssel) eine Verbindung mit Speicherdiensten herzustellen, wie unter `Configure Azure Storage connection strings <https://docs.microsoft.com/azure/storage/common/storage-configure-connection-string>` beschrieben
 
 ### <a name="vm"></a>VM
@@ -237,7 +306,7 @@ Version 2.0.49
 ### <a name="sql"></a>SQL
 * `sql failover-group create` und `sql failover-group update` korrigiert, damit die Verwendung einer Richtlinie für manuelles Failover möglich ist
 
-### <a name="storage"></a>Speicher
+### <a name="storage"></a>Storage
 * Formatierung der `az storage cors list`-Ausgabe korrigiert, sodass alle Elemente den richtigen Dienstschlüssel anzeigen
 * `--bypass-immutability-policy`-Parameter für das Löschen von durch Unveränderlichkeitsrichtlinien blockierten Containern hinzugefügt
 
@@ -411,7 +480,7 @@ Version 2.0.46
 ### <a name="signalr"></a>SignalR
 * Erste Version
 
-### <a name="storage"></a>Speicher
+### <a name="storage"></a>Storage
 * Parameter `--auth-mode login` für die Verwendung der Anmeldeinformationen des Benutzers für die Blob- und Warteschlangenautorisierung hinzugefügt
 * `storage container immutability-policy/legal-hold` für die Verwaltung von unveränderlichem Speicher hinzugefügt
 
@@ -473,7 +542,7 @@ Version 2.0.45
 
 * `provider operation show` geändert, um bei fehlender Ressource mit Code 3 zu beenden
 
-### <a name="storage"></a>Speicher
+### <a name="storage"></a>Storage
 
 * `storage share policy show` geändert, um bei fehlender Ressource mit Code 3 zu beenden
 
@@ -547,7 +616,7 @@ Version 2.0.44
 
 * Befehle vom Typ `sql failover-group` hinzugefügt
 
-### <a name="storage"></a>Speicher
+### <a name="storage"></a>Storage
 
 * [WICHTIGE ÄNDERUNG] `storage account show-usage` geändert, um Parameter `--location` erforderlich zu machen. Auflistung nach Region
 * Parameter `--resource-group` geändert, sodass er für `storage account`-Befehle optional ist
@@ -605,7 +674,7 @@ Version 2.0.43
   *  `--enable-batched-operations` und `--enable-dead-lettering-on-message-expiration` in `queue`
   *  `--dead-letter-on-filter-exceptions` in `subscriptions`
 
-### <a name="storage"></a>Speicher
+### <a name="storage"></a>Storage
 
 * Unterstützung für den Download großer Dateien über eine einzelne Verbindung hinzugefügt
 * `show`-Befehle konvertiert, bei denen im Falle einer fehlenden Ressource kein Fehler mit dem Exitcode 3 ausgelöst wurde
@@ -676,7 +745,7 @@ Version 2.0.42
 * Konfigurieren des Standard-SQL Servers durch Ausführen von `az configure --defaults sql-server=<name>` zulässig
 * Tabellenformatierer für Befehle `sql server`, `sql server firewall-rule`, `sql list-usages` und `sql show-usage` hinzugefügt
 
-### <a name="storage"></a>Speicher
+### <a name="storage"></a>Storage
 
 * `pageRanges`-Eigenschaft zu `storage blob show`-Ausgabe hinzugefügt, die für Seitenblobs ausgefüllt wird
 
@@ -844,7 +913,7 @@ Version 2.0.38
 
 * Verwirrender Fehler behoben, der beim Ausführen von `az sql db list-editions` für einen Ort auftrat, der für Ihr Abonnement nicht verfügbar ist
 
-### <a name="storage"></a>Speicher
+### <a name="storage"></a>Storage
 
 * Lesbarkeit der Tabellenausgabe für `storage blob download` verbessert
 
@@ -939,7 +1008,7 @@ Version 2.0.34
   * `sql midb restore`
   * `sql midb delete`
 
-### <a name="storage"></a>Speicher
+### <a name="storage"></a>Storage
 
 * Zusätzliche MimeTypes für JSON und JavaScript hinzugefügt (abzuleiten aus Dateierweiterungen)
 
@@ -1008,7 +1077,7 @@ Version 2.0.33
 * Die Parameter `--family` und `--capacity` wurden zu den `db`-, `dw`- und `elastic-pool`-Befehlen hinzugefügt.
 * Den `db`-, `dw`- und `elastic-pool`-Befehlen wurden Tabellenformatierer hinzugefügt.
 
-### <a name="storage"></a>Speicher
+### <a name="storage"></a>Storage
 
 * Vervollständigung für das Argument `--account-name` hinzugefügt
 * Problem mit `storage entity query` behoben
@@ -1126,7 +1195,7 @@ Version 2.0.32
 
 * [WICHTIGE ÄNDERUNG] Veralteter Befehl `ad sp reset-credentials` entfernt
 
-### <a name="storage"></a>Speicher
+### <a name="storage"></a>Storage
 
 * Zulassen, dass das Ziel-SAS-Token für die Blobkopie auf die Quelle angewendet wird, wenn Quell-SAS und Kontoschlüssel nicht angegeben werden
 * Verfügbar gemacht: Socket-Timeout für Blobuploads und -downloads
@@ -1254,7 +1323,7 @@ Version 2.0.31
 
 * `sql elastic-pool op list` und `sql elastic-pool op cancel` hinzugefügt
 
-### <a name="storage"></a>Speicher
+### <a name="storage"></a>Storage
 
 * Fehlermeldungen für falsch formatierte Verbindungszeichenfolgen verbessert
 
@@ -1336,7 +1405,7 @@ Version 2.0.30
 ### <a name="monitor"></a>Überwachen
 
 * Unterstützung für `--top`, `--orderby` und `--namespace` zu `metrics list` hinzugefügt ([#5785](https://github.com/Azure/azure-cli/issues/5785))
-* [#4529](https://github.com/Azure/azure-cli/issues/5785) behoben: `metrics list` akzeptiert eine durch Leerzeichen getrennte Liste von abzurufenden Metriken.
+* [#4529](https://github.com/Azure/azure-cli/issues/5785) behoben: `metrics list` akzeptiert eine durch Leerzeichen getrennte Liste von abzurufenden Metriken
 * Unterstützung für `--namespace` zu `metrics list-definitions` hinzugefügt ([#5785](https://github.com/Azure/azure-cli/issues/5785))
 
 ### <a name="network"></a>Netzwerk
@@ -1363,10 +1432,10 @@ Version 2.0.30
 * [WICHTIGE ÄNDERUNG] „properties“ aus `az role assignment [list|show]`-Ausgabe entfernt
 * Unterstützung für `dataActions`- und `notDataActions`-Berechtigungen zu `role definition` hinzugefügt
 
-### <a name="storage"></a>Speicher
+### <a name="storage"></a>Storage
 
 * Problem beim Hochladen von Dateien mit einer Größe von 195 GB bis 200 GB behoben
-* [#4049](https://github.com/Azure/azure-cli/issues/4049) behoben: Probleme bei Uploads von Anfügeblobs behoben, die ein Ignorieren der Bedingungsparameter verursachten
+* [#4049](https://github.com/Azure/azure-cli/issues/4049) behoben: Probleme bei Uploads von Anfügeblobs behoben, die ein Ignorieren der Bedingungsparameter verursacht haben
 
 ### <a name="vm"></a>VM
 
@@ -1415,7 +1484,7 @@ Version 2.0.29
 
 * [#5625](https://github.com/Azure/azure-cli/issues/5625) behoben: Verlauf über verschiedene Sitzungen hinweg beibehalten
 * [#3016](https://github.com/Azure/azure-cli/issues/3016) behoben: Verlauf nicht aufgezeichnet, obwohl er innerhalb des Bereichs liegt
-* [#5688](https://github.com/Azure/azure-cli/issues/5688) behoben: Abschlüsse nicht angezeigt, wenn beim Laden der Befehlstabelle Ausnahme auftrat
+* [#5688](https://github.com/Azure/azure-cli/issues/5688) behoben: Abschlüsse wurden nicht angezeigt, wenn beim Laden der Befehlstabelle eine Ausnahme aufgetreten ist
 * Statusanzeige für lang ausgeführte Vorgänge korrigiert
 
 ### <a name="monitor"></a>Überwachen
@@ -1450,10 +1519,10 @@ Version 2.0.29
 
 * Erste Version
 
-### <a name="storage"></a>Speicher
+### <a name="storage"></a>Storage
 
 * [#4971](https://github.com/Azure/azure-cli/issues/4971) behoben: `storage blob copy` unterstützt jetzt andere Azure-Clouds.
-* [#5286](https://github.com/Azure/azure-cli/issues/5286) behoben: `storage blob [delete-batch|download-batch|upload-batch]`-Batchbefehle lösen bei Vorbedingungsfehlern keinen Fehler mehr aus.
+* [#5286](https://github.com/Azure/azure-cli/issues/5286) behoben: Batchbefehle `storage blob [delete-batch|download-batch|upload-batch]` lösen bei Vorbedingungsfehlern keinen Fehler mehr aus
 
 ### <a name="vm"></a>VM
 
@@ -1468,7 +1537,7 @@ Version 2.0.28
 
 ### <a name="core"></a>Core
 
-* [5184](https://github.com/Azure/azure-cli/issues/5184) (Problem beim Installieren von Homebrew) behoben
+* [#5184](https://github.com/Azure/azure-cli/issues/5184) behoben: Problem beim Installieren von Homebrew
 * Unterstützung für Erweiterungstelemetrie mit benutzerdefinierten Schlüsseln hinzugefügt
 * HTTP-Protokollierung zu `--debug` hinzugefügt
 
@@ -1499,7 +1568,7 @@ Version 2.0.28
 
 ### <a name="network"></a>Netzwerk
 
-* [5559](https://github.com/Azure/azure-cli/issues/5559) behoben: Fehlender Client in `network vnet-gateway vpn-client generate`
+* [#5559](https://github.com/Azure/azure-cli/issues/5559) behoben: Fehlender Client in `network vnet-gateway vpn-client generate`
 
 ### <a name="resource"></a>Ressource
 
@@ -1513,7 +1582,7 @@ Version 2.0.28
 
 * Zonenredundanzunterstützung für Datenbanken und Pools für elastische Datenbanken hinzugefügt (bei Erstellung und Aktualisierung)
 
-### <a name="storage"></a>Speicher
+### <a name="storage"></a>Storage
 
 * Angabe von Zielpfad/Präfix für `storage blob [upload-batch|download-batch]` ermöglicht
 
@@ -1612,7 +1681,7 @@ Version 2.0.27
 * `sql db rename` hinzugefügt
 * Unterstützung für das Argument `--ids` für alle SQL-Befehle hinzugefügt
 
-### <a name="storage"></a>Speicher
+### <a name="storage"></a>Storage
 
 * Befehle `storage blob service-properties delete-policy` und `storage blob undelete` hinzugefügt, um vorläufiges Löschen zu ermöglichen
 
@@ -1677,7 +1746,7 @@ Version 2.0.26
 
 * Fehler mit `deployment [create|validate]` korrigiert, aufgrund dessen fälschlich eine Warnung angezeigt wurde, wenn ein Vorlagenfeld „Typ“ Werte in Großbuchstaben enthielt
 
-### <a name="storage"></a>Speicher
+### <a name="storage"></a>Storage
 
 * Problem mit der Migration von Storage V1-Konten zu Storage V2 behoben
 * Statusberichterstellung für alle Upload-/Downloadbefehle hinzugefügt
@@ -1804,7 +1873,7 @@ Version 2.0.23
 * Argument `--disable-bgp-route-propagation` zu `route-table [create|update]` hinzugefügt
 * Argument `--ip-tags` zu `public-ip [create|update]` hinzugefügt
 
-### <a name="storage"></a>Speicher
+### <a name="storage"></a>Storage
 
 * Unterstützung für Storage V2 hinzugefügt
 
@@ -1959,7 +2028,7 @@ Version 2.0.21
 
 * Parameter `--ignore-missing-vnet-service-endpoint` zu `sql server vnet-rule [create|update]` hinzugefügt
 
-### <a name="storage"></a>Speicher
+### <a name="storage"></a>Storage
 
 * `storage account create` geändert, sodass die SKU `Standard_RAGRS` als Standard verwendet wird
 * Fehler im Zusammenhang mit Datei-/Blobnamen korrigiert, die ASCII-fremde Zeichen enthalten
@@ -2063,7 +2132,7 @@ Version 2.0.19
 * Der Befehl `db list-deleted` und der Parameter `db restore --deleted-time` wurden hinzugefügt, um die Ermittlung und Wiederherstellung gelöschter Datenbanken zu ermöglichen.
 * `db op list` und `db op cancel` wurden hinzugefügt, um das Auflisten und Abbrechen ausgeführter Vorgänge für eine Datenbank zu ermöglichen.
 
-### <a name="storage"></a>Speicher
+### <a name="storage"></a>Storage
 
 * Unterstützung für Momentaufnahme von Dateifreigaben hinzugefügt
 
@@ -2097,7 +2166,7 @@ Version 2.0.18
 * Argumente `--ddos-protection` und `--vm-protection` zu `vnet [create|update]` hinzugefügt
 * Befehle vom Typ `network [vnet-gateway|vpn-client|show-url]` hinzugefügt
 
-### <a name="storage"></a>Speicher
+### <a name="storage"></a>Storage
 
 * Problem behoben, das nach der Aktualisierung des SDK unter Umständen einen Fehler der `storage account network-rule`-Befehle zur Folge hatte
 
@@ -2205,7 +2274,7 @@ Version 2.0.16
 
 * Alle Befehle wurden durch die Service Fabric-Befehlszeilenschnittstelle (sfctl) ersetzt.
 
-### <a name="storage"></a>Speicher
+### <a name="storage"></a>Storage
 
 * Problem behoben, aufgrund dessen Speicherkonten nicht in Regionen erstellt werden konnten, die die NetworkACLs-Funktion nicht unterstützen
 * Festlegen des Inhaltstyps und der Inhaltscodierung während Blob- und Dateiuploads, wenn weder Inhaltstyp noch Inhaltscodierung angegeben sind
@@ -2234,7 +2303,7 @@ Version 2.0.15
 
 ### <a name="iot"></a>IoT
 
-* Behoben (3934): Richtlinienerstellung führt nicht mehr zur Löschung bereits vorhandener Richtlinien
+* #3934 behoben: Richtlinienerstellung führt nicht mehr zur Löschung bereits vorhandener Richtlinien
 
 ### <a name="network"></a>Netzwerk
 
@@ -2255,7 +2324,7 @@ Version 2.0.15
 * Kennwortanforderung für Benutzer trotz Parameterübergabe behoben
 * Unterstützung für leere Registrierungsanmeldeinformationen (`registry_cred`) hinzugefügt
 
-### <a name="storage"></a>Speicher
+### <a name="storage"></a>Storage
 
 * Festlegen des Blobtarifs ermöglicht
 * Argumente `--bypass` und `--default-action` zur Unterstützung von Diensttunneling zu `storage account [create|update]` hinzugefügt
@@ -2326,7 +2395,7 @@ Version 2.0.13
 
 ### <a name="network"></a>Netzwerk
 
-* `lb`: Problem behoben, aufgrund dessen bestimmte Namen untergeordneter Ressourcen bei Auslassung nicht ordnungsgemäß aufgelöst wurden
+* `lb`: Problem behoben, aufgrund dessen bestimmte Namen untergeordneter Ressourcen bei Auslassung nicht richtig aufgelöst wurden
 * `application-gateway {subresource} delete`: Problem behoben, aufgrund dessen `--no-wait` nicht berücksichtigt wurde
 * `application-gateway http-settings update`: Problem behoben, aufgrund dessen `--connection-draining-timeout` nicht deaktiviert werden konnte
 * Fehler behoben: Unerwartetes Schlüsselwortargument `sa_data_size_kilobyes` bei `az network vpn-connection ipsec-policy add`
@@ -2335,7 +2404,7 @@ Version 2.0.13
 
 * `account list`: `--refresh` hinzugefügt, um die neuesten Abonnements vom Server zu synchronisieren
 
-### <a name="storage"></a>Speicher
+### <a name="storage"></a>Storage
 
 * Aktualisieren des Speicherkontos mit vom System zugewiesener Identität ermöglicht
 
@@ -2543,7 +2612,7 @@ vm (2.0.11)
 * Argument `--redirect-config` zu `application-gateway rule create` und `application-gateway rule update` hinzugefügt
 * Unterstützung für `--accelerated-networking` zu `nic create` und `nic update` hinzugefügt
 * Argument `--internal-dns-name-suffix` von `nic create` entfernt
-* Unterstützung für `--dns-servers` zu `nic update` und `nic create` hinzugefügt: Unterstützung für „--dns-servers“ hinzugefügt
+* Unterstützung für `--dns-servers` zu `nic update` und `nic create` hinzugefügt: Hinzufügung von Unterstützung für --dns-servers
 * Fehler korrigiert, aufgrund dessen `--local-address-prefixes` von `local-gateway create` ignoriert wurde
 * Unterstützung für `--dns-servers` zu `vnet update` hinzugefügt
 * Fehler beim Erstellen eines Peerings ohne Routenfilterung mit `express-route peering create` korrigiert
@@ -2600,7 +2669,7 @@ vm (2.0.11)
 * Kennwortwerte aus der Befehlsausgabe von `sql server create` und `sql server update` entfernt
 * Befehle `sql db list-editions` und `sql elastic-pool list-editions` hinzugefügt
 
-### <a name="storage"></a>Speicher
+### <a name="storage"></a>Storage
 
 * Option `--marker` für die Befehle `storage blob list`, `storage container list` und `storage share list` entfernt (3745)
 * Erstellung eines reinen HTTPS-Speicherkontos ermöglicht
@@ -2750,7 +2819,7 @@ vm (2.0.6)
 
 ### <a name="monitor"></a>Überwachen
 
-* Programmfehlerbehebung: Modellieren von `--actions` von `az alert-rules create` zum Verarbeiten von JSON-Zeichenfolgen ([#3009](https://github.com/Azure/azure-cli/issues/3009))
+* Fehlerbehebung: Modellieren von `--actions` von `az alert-rules create` zum Verarbeiten von JSON-Zeichenfolgen ([#3009](https://github.com/Azure/azure-cli/issues/3009))
 * Programmfehlerbehebung: Beim Erstellen von Diagnoseeinstellungen werden Protokolle/Metriken aus Anzeigebefehlen nicht akzeptiert ([#2913](https://github.com/Azure/azure-cli/issues/2913))
 
 ### <a name="network"></a>Netzwerk
@@ -2805,7 +2874,7 @@ vm (2.0.6)
 * Hinzufügen der Befehle „az sql server list-usages“ und „az sql db list-usages“
 * SQL: Möglichkeit zur direkten Verbindung mit Ressourcenanbieter ([#2832](https://github.com/Azure/azure-cli/issues/2832))
 
-### <a name="storage"></a>Speicher
+### <a name="storage"></a>Storage
 
 * Festlegen des Ressourcengruppenstandorts als Standardstandort für `storage account create`
 * Hinzufügen von Unterstützung für das inkrementelle Kopieren von Blobs
@@ -2816,7 +2885,7 @@ vm (2.0.6)
 
 * avail-set: Festlegen der UD- und FD-Domänenanzahl als optional
 
-  Hinweis zu VM-Befehlen in unabhängigen Clouds: Vermeiden Sie Features im Zusammenhang mit verwalteten Datenträgern, einschließlich der folgenden:
+  Hinweis: VM-Befehle in unabhängigen Clouds: Vermeiden Sie Features im Zusammenhang mit verwalteten Datenträgern, einschließlich der folgenden:
   1. az disk/snapshot/image
   2. az vm/vmss disk
   3. Verwenden Sie in „az vm/vmss create“ den Befehl „—use-unmanaged-disk“, um verwaltete Datenträger zu vermeiden. Andere Befehle sollten funktionieren.
@@ -2912,7 +2981,7 @@ Diese Version der Azure CLI 2.0 ist die erste „allgemein verfügbare“ Versio
 - Container Service (acs)
 - Compute (einschließlich Resource Manager, VM, VM-Skalierungsgruppen, Managed Disks)
 - Netzwerk
-- Speicher
+- Storage
 
 Diese Befehlsmodule können in der Produktion verwendet werden und verfügen über Unterstützung durch eine Standard-SLA von Microsoft. Sie können Anfragen zu Problemen direkt beim Microsoft-Support oder in der [GitHub-Liste mit Problemen](https://github.com/azure/azure-cli/issues/) öffnen. Sie haben die Möglichkeit, Fragen in [StackOverflow mit dem Tag „azure-cli“](http://stackoverflow.com/questions/tagged/azure-cli) zu stellen oder sich unter [azfeedback@microsoft.com](mailto:azfeedback@microsoft.com) an das Produktteam zu wenden. Außerdem können Sie über die Befehlszeile mit dem Befehl `az feedback` Feedback senden.
 
