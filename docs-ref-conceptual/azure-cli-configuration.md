@@ -9,13 +9,13 @@ ms.date: 06/11/2018
 ms.topic: conceptual
 ms.prod: azure
 ms.technology: azure-cli
-ms.devlang: azure-cli
-ms.openlocfilehash: f4f1e89e5541d741ef4e02f309a49eece033af5d
-ms.sourcegitcommit: c4462456dfb17993f098d47c37bc19f4d78b8179
+ms.devlang: azurecli
+ms.openlocfilehash: d23f576a1f7447ffab0606b4554a81ae5c536e85
+ms.sourcegitcommit: f40bd067ece4e6ec13e259782ed8db3e33b61a75
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 09/25/2018
-ms.locfileid: "47177979"
+ms.lasthandoff: 12/18/2018
+ms.locfileid: "53593777"
 ---
 # <a name="azure-cli-configuration"></a>Azure CLI-Konfiguration
 
@@ -62,8 +62,8 @@ Konfigurationsdateien sind im INI-Dateiformat geschrieben. Dieses Dateiformat wi
 
 Bei booleschen Werten wird die Groß-/Kleinschreibung nicht beachtet, und sie werden durch folgende Werte dargestellt:
 
-* __True:__ 1, yes, true, on
-* __False:__ 0, no, false, off
+* __True__: 1, yes, true, on
+* __False__: 0, no, false, off
 
 Das folgende Beispiel zeigt eine CLI-Konfigurationsdatei, die sämtliche Bestätigungsaufforderungen deaktiviert und eine Protokollierung im Verzeichnis `/var/log/azure` einrichtet.
 

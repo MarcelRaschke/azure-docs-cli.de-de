@@ -7,13 +7,13 @@ manager: carmonm
 ms.date: 09/07/2018
 ms.topic: conceptual
 ms.technology: azure-cli
-ms.devlang: azure-cli
-ms.openlocfilehash: 40ff3b54cdd1f4908b59479e317092ee62b05bb0
-ms.sourcegitcommit: f92d5b3ccd409be126f1e7c06b9f1adc98dad78b
+ms.devlang: azurecli
+ms.openlocfilehash: 6cce8fb47dd2b57180487441055333343fff8330
+ms.sourcegitcommit: 614811ea63ceb0e71bd99323846dc1b754e15255
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 11/20/2018
-ms.locfileid: "52159370"
+ms.lasthandoff: 12/28/2018
+ms.locfileid: "53805872"
 ---
 # <a name="create-an-azure-service-principal-with-azure-cli"></a>Erstellen eines Azure-Dienstprinzipals mit der Azure CLI
 
@@ -23,10 +23,15 @@ Wenn Sie eine separate Anmeldung mit Zugriffseinschränkungen erstellen möchten
 
 Verwenden Sie den Befehl [az ad sp create-for-rbac](/cli/azure/ad/sp#az-ad-sp-create-for-rbac), um einen Dienstprinzipal zu erstellen. Der Name des Dienstprinzipals ist nicht mit dem vorhandenen Namen einer Anwendung oder eines Benutzers verknüpft. Sie können einen Dienstprinzipal mit dem gewünschten Authentifizierungstyp erstellen.
 
-* `--password` wird für die kennwortbasierte Authentifizierung verwendet. Halten Sie sich an die Vorgaben unter [Kennwortrichtlinien und -einschränkungen in Azure Active Directory](/azure/active-directory/active-directory-passwords-policy), um ein sicheres Kennwort zu erstellen. Falls Sie kein Kennwort angeben, wird eines für Sie erstellt.
+* `--password` wird für die kennwortbasierte Authentifizierung verwendet. Wenn kein Argument angegeben ist, mit dem der Authentifizierungstyp festgelegt wird, wird standardmäßig „--password“ verwendet, und es wird ein Kennwort für Sie erstellt. Falls Sie die kennwortbasierte Authentifizierung verwenden möchten, empfehlen wir Ihnen die Verwendung dieses Befehls, damit das Kennwort für Sie erstellt wird.  
 
   ```azurecli-interactive
-  az ad sp create-for-rbac --name ServicePrincipalName --password PASSWORD
+  az ad sp create-for-rbac --name ServicePrincipalName 
+  ```
+  Wenn Sie das Kennwort selbst wählen und nicht die automatische Erstellung nutzen möchten (aus Sicherheitsgründen nicht empfohlen), können Sie diesen Befehl verwenden. Halten Sie sich an die Vorgaben unter [Kennwortrichtlinien und -einschränkungen in Azure Active Directory](/azure/active-directory/active-directory-passwords-policy), um ein sicheres Kennwort zu erstellen. Bei der Option zum Wählen des Kennworts besteht die Möglichkeit, dass ein nicht sicheres Kennwort verwendet oder ein Kennwort erneut genutzt wird. Es ist geplant, dass diese Option in einer zukünftigen Version der Azure CLI als veraltet eingestuft wird. 
+
+  ```azurecli-interactive
+  az ad sp create-for-rbac --name ServicePrincipalName --password <Choose a strong password>
   ```
 
 * `--cert` wird für die zertifikatbasierte Authentifizierung für ein vorhandenes Zertifikat verwendet (entweder als öffentliche PEM- oder DER-Zeichenfolge oder als `@{file}` zum Laden einer Datei).
@@ -80,7 +85,7 @@ Die Azure CLI enthält die folgenden Befehle zum Verwalten von Rollenzuweisungen
 * [az role assignment create](/cli/azure/role/assignment#az-role-assignment-create)
 * [az role assignment delete](/cli/azure/role/assignment#az-role-assignment-delete)
 
-Standardmäßig hat ein Dienstprinzipal die Rolle **Mitwirkender**. Diese Rolle besitzt uneingeschränkte Berechtigungen für Lese- und Schreibvorgänge in einem Azure-Konto und eignet sich nicht für Anwendungen. Die Rolle **Leser** ist stärker eingeschränkt und bietet schreibgeschützten Zugriff.  Weitere Informationen zur rollenbasierten Zugriffssteuerung (Role-Based Access Control, RBAC) und zu Rollen finden Sie unter [Integrierte Rollen für die rollenbasierte Zugriffssteuerung in Azure](/azure/active-directory/role-based-access-built-in-roles).
+Standardmäßig hat ein Dienstprinzipal die Rolle **Mitwirkender**. Diese Rolle besitzt uneingeschränkte Berechtigungen für Lese- und Schreibvorgänge in einem Azure-Konto und eignet sich nicht für Anwendungen. Die Rolle **Leser** ist stärker eingeschränkt und bietet schreibgeschützten Zugriff.  Weitere Informationen zur rollenbasierten Zugriffssteuerung (Role-Based Access Control, RBAC) finden Sie unter [Rollenbasierte Zugriffssteuerung: Integrierte Rollen](/azure/active-directory/role-based-access-built-in-roles).
 
 Dieses Beispiel fügt die Rolle **Leser** hinzu und löscht die Rolle **Mitwirkender**.
 
@@ -121,5 +126,5 @@ az login --service-principal --username APP_ID --tenant TENANT_ID --password PAT
 Falls Sie die Anmeldeinformationen für einen Dienstprinzipal vergessen, können sie mit dem Befehl [az ad sp credential reset](/cli/azure/ad/sp/credential#az-ad-sp-credential-reset) zurückgesetzt werden. Hier gelten die gleichen Einschränkungen und Optionen wie beim Erstellen eines neuen Dienstprinzipals.
 
 ```azurecli-interactive
-az ad sp credential reset --name APP_ID --password NEW_PASSWORD
+az ad sp credential reset --name APP_ID 
 ```
