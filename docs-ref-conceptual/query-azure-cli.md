@@ -9,12 +9,12 @@ ms.topic: conceptual
 ms.prod: azure
 ms.technology: azure-cli
 ms.devlang: azurecli
-ms.openlocfilehash: 1605b072a68d9aa781290fd862f1d67a847f571e
-ms.sourcegitcommit: f40bd067ece4e6ec13e259782ed8db3e33b61a75
+ms.openlocfilehash: eed121ce7ce8f8c1eba5079eb438190d3e4d13db
+ms.sourcegitcommit: 7f79860c799e78fd8a591d7a5550464080e07aa9
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 12/18/2018
-ms.locfileid: "53593301"
+ms.lasthandoff: 02/12/2019
+ms.locfileid: "56158399"
 ---
 # <a name="query-azure-cli-command-output"></a>Abfragen der Azure CLI-Befehlsausgabe
 
@@ -197,7 +197,8 @@ az vm show -g QueryDemo -n TestVM --query '{VMName:name, admin:osProfile.adminUs
 Der zweite Vorgang zum Abrufen von Daten aus einem Array ist das _Filtern_. Zum Filtern wird der JMESPath-Operator `[?...]` verwendet.
 Dieser Operator akzeptiert ein Prädikat als Inhalt. Ein Prädikat ist eine beliebige Anweisung, die zu `true` oder `false` ausgewertet werden kann. Ausdrücke, bei denen das Prädikat zu `true` ausgewertet wird, sind in der Ausgabe enthalten.
 
-JMESPath bietet die standardmäßigen Vergleichsoperatoren und logischen Operatoren. Dazu zählen `<`, `<=`, `>`, `>=`, `==` und `!=`. JMESPath unterstützt auch logisches AND (`&&`), OR (`||`) und NOT (`!`). Ausdrücke können zum Erstellen komplexerer Prädikatausdrücke in Klammern gruppiert werden. Ausführliche Informationen zu Prädikaten und logischen Vorgängen finden Sie in der [JMESPath-Spezifikation](http://jmespath.org/specification.html).
+JMESPath bietet die standardmäßigen Vergleichsoperatoren und logischen Operatoren. Dazu zählen `<`, `<=`, `>`, `>=`, `==` und `!=`.
+JMESPath unterstützt auch logisches AND (`&&`), OR (`||`) und NOT (`!`). Ausdrücke können zum Erstellen komplexerer Prädikatausdrücke in Klammern gruppiert werden. Ausführliche Informationen zu Prädikaten und logischen Vorgängen finden Sie in der [JMESPath-Spezifikation](http://jmespath.org/specification.html).
 
 Im letzten Abschnitt haben wir ein Array vereinfacht, um die vollständige Liste aller VMs in einer Ressourcengruppe abzurufen. Mithilfe von Filtern kann diese Ausgabe auf Linux-VMs beschränkt werden:
 

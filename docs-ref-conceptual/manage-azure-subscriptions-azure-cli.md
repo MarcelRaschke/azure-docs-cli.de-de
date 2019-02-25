@@ -6,15 +6,15 @@ ms.author: sttramer
 manager: carmonm
 ms.date: 09/09/2018
 ms.topic: conceptual
-ms.produdct: azure
+ms.product: azure
 ms.technology: azure-cli
 ms.devlang: azurecli
-ms.openlocfilehash: 27f094b68812cb68a6a33a6977d4fd58e4178731
-ms.sourcegitcommit: f40bd067ece4e6ec13e259782ed8db3e33b61a75
+ms.openlocfilehash: 4c196b8376b0044e315cfee2b3958f2f4b476df7
+ms.sourcegitcommit: 7f79860c799e78fd8a591d7a5550464080e07aa9
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 12/18/2018
-ms.locfileid: "53593658"
+ms.lasthandoff: 02/12/2019
+ms.locfileid: "56158323"
 ---
 # <a name="use-multiple-azure-subscriptions"></a>Verwenden mehrerer Azure-Abonnements
 
@@ -28,7 +28,7 @@ Ein Benutzer hat möglicherweise Zugriff auf mehrere _Abonnements_. Hierbei hand
 Weitere Informationen zu den Unterschieden zwischen Mandanten, Benutzern und Abonnements finden Sie im [Microsoft Azure-Glossar](/azure/azure-glossary-cloud-terminology).  Informationen zum Hinzufügen eines neuen Abonnements zu Ihrem Azure Active Directory-Mandanten finden Sie unter [Hinzufügen eines Azure-Abonnements zu Azure Active Directory](/azure/active-directory/active-directory-how-subscriptions-associated-directory).
 Informationen zum Anmelden bei einem bestimmten Mandanten finden Sie unter [Anmelden mit Azure CLI 2.0](/cli/azure/authenticate-azure-cli).
 
-## <a name="change-the-active-subscription"></a>Ändern des aktiven Abonnements 
+## <a name="change-the-active-subscription"></a>Ändern des aktiven Abonnements
 
 Wechseln Sie für den Zugriff auf die Ressourcen eines Abonnements Ihr aktives Abonnement, oder verwenden Sie das Argument `--subscription`. Der Wechsel Ihres Abonnements für alle Befehle wird mit [az account set](/cli/azure/account#az-account-set) ausgeführt.
 
