@@ -9,13 +9,8 @@ ms.topic: conceptual
 ms.prod: azure
 ms.technology: azure-cli
 ms.devlang: azurecli
-ms.openlocfilehash: 285567b00d8c303af3e78a01dc80946a08e4e8f8
-ms.sourcegitcommit: 614811ea63ceb0e71bd99323846dc1b754e15255
-ms.translationtype: HT
-ms.contentlocale: de-DE
-ms.lasthandoff: 12/28/2018
-ms.locfileid: "53805906"
 ---
+
 # <a name="azure-command-line-interface-cli"></a>Azure-Befehlszeilenschnittstelle (CLI)
 
 Die Azure-Befehlszeilenschnittstelle (CLI) ist die plattformübergreifende Befehlszeilenumgebung von Microsoft zum Verwalten von Azure-Ressourcen.
@@ -34,7 +29,7 @@ az vm create -n MyLinuxVM -g MyResourceGroup --image UbuntuLTS
 
 ## <a name="run-or-install"></a>Ausführen oder Installieren
 
-Sie können die CLI lokal installieren oder im Browser mit Azure Cloud Shell oder in einem Docker-Container ausführen.
+Sie können die CLI lokal installieren oder im Browser mit Azure Cloud Shell oder in einem Docker-Container ausführen. Führen Sie zum Abrufen der aktuellen Version der CLI `az --version` aus.
 
 * Informationen zum Ausführen im Browser mit Azure Cloud Shell finden Sie unter [Schnellstart für Bash in Azure Cloud Shell](/azure/cloud-shell/quickstart) oder [Schnellstartanleitung für PowerShell in Azure Cloud Shell](/azure/cloud-shell/quickstart-powershell).
 * Informationen zur Installation der Azure CLI finden Sie unter [Installieren der Azure CLI](install-azure-cli.md).
