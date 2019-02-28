@@ -9,12 +9,12 @@ ms.topic: conceptual
 ms.prod: azure
 ms.technology: azure-cli
 ms.devlang: azurecli
-ms.openlocfilehash: 1973c933cbffa494cbe9c0749346450251feefcb
-ms.sourcegitcommit: 9bd90875a324908ec7195fc4c4f63ebf124760f9
+ms.openlocfilehash: 45e1e7468e5817d0138c9b87da83c5a5228e4965
+ms.sourcegitcommit: 1987a39809f9865034b27130e56f30b2bd1eb72c
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 01/02/2019
-ms.locfileid: "53982585"
+ms.lasthandoff: 02/19/2019
+ms.locfileid: "56421931"
 ---
 # <a name="install-azure-cli-with-apt"></a>Installieren der Azure CLI mit apt
 
@@ -22,6 +22,12 @@ Wenn Sie eine Distribution mit `apt` verwenden (etwa Ubuntu oder Debian), steht 
 
 * Ubuntu Trusty, Xenial, Artful und Bionic
 * Debian Wheezy, Jessie und Stretch
+
+[!INCLUDE [current-version](includes/current-version.md)]
+
+> [!NOTE]
+>
+> Das `.deb`-Paket für Azure CLI installiert einen eigenen Python-Interpreter und verwendet nicht die Python-Version des Systems. Daher ist eine lokale Python-Version nicht explizit erforderlich.
 
 ## <a name="install"></a>Installieren
 

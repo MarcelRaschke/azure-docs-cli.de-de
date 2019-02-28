@@ -9,14 +9,14 @@ ms.topic: conceptual
 ms.prod: azure
 ms.technology: azure-cli
 ms.devlang: azurecli
-ms.openlocfilehash: e62523ba310f071020f0d66042e39e6f1867c56b
-ms.sourcegitcommit: f40bd067ece4e6ec13e259782ed8db3e33b61a75
+ms.openlocfilehash: 14f51e068c4d2b332b0de93406822e148d734701
+ms.sourcegitcommit: 032f35d553754fbac78b218259a8d6a697ac220e
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 12/18/2018
-ms.locfileid: "53593845"
+ms.lasthandoff: 02/21/2019
+ms.locfileid: "56458687"
 ---
-# <a name="select-clouds-with-the-azure-cli"></a>Auswählen von Clouds mit der Azure CLI 
+# <a name="select-clouds-with-the-azure-cli"></a>Auswählen von Clouds mit der Azure CLI
 
 Wenn Sie regionsübergreifend arbeiten oder [Azure Stack](https://docs.microsoft.com/azure/azure-stack/user/) verwenden, müssen Sie möglicherweise mehrere Clouds verwenden. Hierzu stellt Ihnen Microsoft Clouds zur Verfügung, die mit regionalen Gesetzen in Einklang stehen. In diesem Artikel erfahren Sie, wie Sie Informationen zu Clouds abrufen, wie Sie die aktuelle Cloud ändern und wie Sie neue Clouds registrieren bzw. ihre Registrierung aufheben.
 
@@ -88,7 +88,7 @@ az cloud set --name AzureChinaCloud
 
 Registrieren Sie eine neue Cloud, wenn Sie über eigene Endpunkte für Azure Stack verfügen. Eine Cloud wird mit dem Befehl [az cloud register](/cli/azure/cloud#az-cloud-register) erstellt. Dieser Befehl erfordert einen Namen und eine Reihe von Dienstendpunkten. Informationen zum Registrieren einer Cloud für die Verwendung mit Azure Stack finden Sie unter [Verwenden von API-Versionsprofilen mit der Azure CLI in Azure Stack](/azure/azure-stack/user/azure-stack-version-profiles-azurecli2#connect-to-azure-stack).
 
-Für China, US Government oder deutsche Regionen müssen Sie Ihre eigene Cloud nicht registrieren. Diese Clouds werden von Microsoft verwaltet und sind standardmäßig verfügbar.  Weitere Informationen zu allen verfügbaren Endpunkteinstellungen finden Sie in der [Dokumentation für `az cloud register`](/cli/azure/cloud#az-cloud-register).
+Für China, US Government oder deutsche Regionen müssen Sie keine Informationen registrieren. Diese Clouds werden von Microsoft verwaltet und sind standardmäßig verfügbar.  Weitere Informationen zu allen verfügbaren Endpunkteinstellungen finden Sie in der [Dokumentation für `az cloud register`](/cli/azure/cloud#az-cloud-register).
 
 Durch Registrieren einer Cloud wird nicht automatisch zu dieser Cloud gewechselt. Wählen Sie die neu erstellte Cloud mithilfe des Befehls `az cloud set` aus.
 

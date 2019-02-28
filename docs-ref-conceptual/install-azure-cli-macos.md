@@ -9,16 +9,18 @@ ms.topic: conceptual
 ms.prod: azure
 ms.technology: azure-cli
 ms.devlang: azurecli
-ms.openlocfilehash: 40415bc7bec056dc1564c58c8df3f7263bee348c
-ms.sourcegitcommit: f40bd067ece4e6ec13e259782ed8db3e33b61a75
+ms.openlocfilehash: 61be6c31e7251c8b374bf09072a9ecba9b914342
+ms.sourcegitcommit: 1987a39809f9865034b27130e56f30b2bd1eb72c
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 12/18/2018
-ms.locfileid: "53593165"
+ms.lasthandoff: 02/19/2019
+ms.locfileid: "56422050"
 ---
 # <a name="install-azure-cli-on-macos"></a>Installieren der Azure CLI unter macOS
 
 Bei Verwendung der macOS-Plattform können Sie die Azure CLI mit dem [Homebrew-Paket-Manager](https://brew.sh) installieren. Mit Homebrew können Sie Ihre CLI-Installation ganz einfach auf dem neuesten Stand halten. Das CLI-Paket wurde ab der macOS-Version 10.9 getestet.
+
+[!INCLUDE [current-version](includes/current-version.md)]
 
 ## <a name="install"></a>Installieren
 
@@ -30,6 +32,10 @@ Sie können die CLI installieren, indem Sie die Homebrew-Repositoryinformationen
 ```bash
 brew update && brew install azure-cli
 ```
+
+> [!IMPORTANT]
+>
+> Die Azure CLI ist vom `python3`-Paket in Homebrew abhängig und installiert dieses Paket auch dann in Ihrem System, wenn Python 2 verfügbar ist. Die Azure CLI ist garantiert kompatibel mit der aktuellen Version von `python3`, die auf Homebrew veröffentlicht wurde.
 
 Sie können dann die Azure CLI mit dem Befehl `az` ausführen. Verwenden Sie den Befehl [az login](/cli/azure/reference-index#az-login), um sich anzumelden.
 
