@@ -4,17 +4,17 @@ description: Eine vollständige Liste mit den offiziell unterstützten Erweiteru
 author: sptramer
 ms.author: sttramer
 manager: carmonm
-ms.date: 02/27/2019
+ms.date: 03/05/2019
 ms.topic: article
 ms.prod: azure
 ms.technology: azure-cli
 ms.devlang: azure-cli
-ms.openlocfilehash: a7eec3fc523b4c24b16802d831566fd272ae63fc
-ms.sourcegitcommit: 943598f8bf05ee058593ca0d72aec507aa26c242
+ms.openlocfilehash: 07a067fb24d263760cdeaa0109ffc5fa949f75df
+ms.sourcegitcommit: d3be678e60132083b2a2257ac7a97eb0e1e23798
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 02/28/2019
-ms.locfileid: "56963441"
+ms.lasthandoff: 03/05/2019
+ms.locfileid: "57430255"
 ---
 # <a name="available-extensions-for-the-azure-cli"></a>Verfügbare Erweiterungen für die Azure CLI
 
@@ -31,13 +31,14 @@ az extension list-available --output table
 | [aem](https://github.com/Azure/azure-cli-extensions) | 0.1.1 | Verwalten der Azure-Erweiterungen zur verbesserten Überwachung für SAP |  |
 | [aks-preview](https://github.com/Azure/azure-cli-extensions/tree/master/src/aks-preview) | 0.2.3 | Bietet eine Vorschau für zukünftige AKS-Features | Ja |
 | [alias](https://github.com/Azure/azure-cli-extensions) | 0.5.2 | Unterstützung für Befehlsaliase | Ja |
+| [anf-preview](https://github.com/Azure/azure-cli-extensions/tree/master/src/anf-preview) | 0.1.0 | Stellt eine Vorschau für neue Funktionen von Azure NetApp Files (ANF) bereit. | Ja |
 | [appconfig](https://github.com/Azure/azure-cli-extensions) | 0.4.0 | Bietet eine Vorschau für zukünftige App-Konfigurationsfunktionen. | Ja |
-| [azure-batch-cli-extensions](https://github.com/Azure/azure-batch-cli-extensions) | 3.0.1 | Zusätzliche Befehle für die Verwendung des Azure Batch-Diensts |  |
+| [azure-batch-cli-extensions](https://github.com/Azure/azure-batch-cli-extensions) | 3.0.2 | Zusätzliche Befehle für die Verwendung des Azure Batch-Diensts |  |
 | [azure-cli-iot-ext](https://github.com/azure/azure-iot-cli-extension) | 0.6.1 | Stellt die Befehlsebene der Datenebene für Azure IoT Hub, IoT Edge und den IoT Device Provisioning-Dienst bereit |  |
 | [azure-devops](https://github.com/Microsoft/azure-devops-cli-extension) | 0.3.0 | Tools zum Verwalten von Azure DevOps | Ja |
 | [azure-firewall](https://github.com/Azure/azure-cli-extensions/tree/master/src/azure-firewall) | 0.1.1 | Verwalten von Azure Firewall-Ressourcen | Ja |
 | [botservice](https://github.com/Azure/azure-cli-extensions) | 0.4.3 | Fehlerbehebungen für Probleme im nativen botservice-CLI-Befehlsmodul. | Ja |
-| [db-up](https://github.com/Azure/azure-cli-extensions/tree/master/src/db-up) | 0.1.6 | Zusätzliche Befehle zum Vereinfachen von Azure Database-Workflows. | Ja |
+| [db-up](https://github.com/Azure/azure-cli-extensions/tree/master/src/db-up) | 0.1.7 | Zusätzliche Befehle zum Vereinfachen von Azure Database-Workflows. | Ja |
 | [dev-spaces-preview](https://github.com/Azure/azure-cli-extensions) | 0.1.6 | Dev Spaces ermöglicht eine schnelle, iterative Kubernetes-Bereitstellung für Teams. | Ja |
 | [dms-preview](https://github.com/Azure/azure-cli-extensions/tree/master/src/dms-preview) | 0.6.0 | Unterstützung für neue Database Migration Service-Szenarien. | Ja |
 | [dns](https://github.com/Azure/azure-cli-extensions) | 0.0.2 | Eine Azure CLI-Erweiterung für DNS-Zonen |  |
