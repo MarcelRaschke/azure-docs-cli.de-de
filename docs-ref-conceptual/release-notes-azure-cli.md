@@ -9,14 +9,77 @@ ms.topic: article
 ms.prod: azure
 ms.technology: azure-cli
 ms.devlang: azurecli
-ms.openlocfilehash: 9f35084eeecab491e5be63eb856b0bb64a6157d0
-ms.sourcegitcommit: 9fb008f2802ca6a58f33e01263bf55a80d01f031
+ms.openlocfilehash: 4337f2203841d6247e4b487d245138424c63e448
+ms.sourcegitcommit: 71c0ccd475524cf4d6db45bba8139fef3262d764
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 02/27/2019
-ms.locfileid: "56891210"
+ms.lasthandoff: 03/19/2019
+ms.locfileid: "58175132"
 ---
 # <a name="azure-cli-release-notes"></a>Versionshinweise für die Azure CLI
+## <a name="march-12-2019"></a>12. März 2019
+
+Version 2.0.60
+
+### <a name="core"></a>Core
+
+* Falsche Fehlermeldung in `cloud set` zu nicht gefundenem Abonnement korrigiert
+
+### <a name="acr"></a>ACR
+
+* Redundante Quellen im Imageimport korrigiert
+
+### <a name="acs"></a>ACS
+
+* Geändert, sodass das Argument `--listen-address` für `aks browse` ignoriert wird, wenn es von `kubectl` nicht unterstützt wird
+
+### <a name="appservice"></a>AppService
+
+* `[webapp|functionapp] deployment list-publishing-credentials` hinzugefügt, um die Kudu-Veröffentlichungs-URL und die entsprechenden Anmeldeinformationen abzurufen
+* Fehlerhafte Ausgabeanweisung für `webapp auth update` entfernt
+* `functionapp` korrigiert, um das korrekte Image für die Runtime in App Service-Plänen unter Linux festzulegen
+* Vorschau-Tag für `webapp up` entfernt und Verbesserungen am Befehl implementiert
+
+### <a name="botservice"></a>Botservice
+
+* `SCM_DO_BUILD_DURING_DEPLOYMENT` zu den Anwendungseinstellungen der ARM-Vorlage für Web-App-Bot (v4) hinzugefügt
+* `Microsoft-BotFramework-AppId` und `Microsoft-BotFramework-AppPassword` zu den Anwendungseinstellungen der ARM-Vorlage für Web-App-Bot (v4) hinzugefügt
+* Einfache Anführungszeichen aus der Befehlsausgabe von `bot publish` am Ende von `bot create` entfernt
+* `bot publish` wurde geändert und ist jetzt asynchron.
+
+### <a name="container"></a>Container
+
+* Argument `--no-wait` zu `container [start|restart]` hinzugefügt
+
+### <a name="eventhub"></a>EventHub
+
+* Flag `--skip-empty-archives` zu `eventhub create|update` hinzugefügt, um leere Archive in der Aufzeichnung zu unterstützen
+
+### <a name="find"></a>Suchen
+
+* Umfangreiches Funktionsupdate
+
+### <a name="hdinsight"></a>HDInsight
+
+* Parameter `--storage-account-managed-identity` zu `hdinsight create` hinzugefügt, um MSI in ADLS Gen2 zu unterstützen
+
+### <a name="network"></a>Netzwerk
+
+* Problem mit `vpn-connection update` behoben, aufgrund dessen die Aktualisierung einer VPN-Verbindung zwischen Gateways in verschiedenen Abonnements fehlschlug
+
+### <a name="rdbms"></a>Rdbms
+
+* Kleinere Korrekturen, um den Standardspeicherort aus der Ressourcengruppe abzurufen, wenn er für die Erstellung von Servern nicht angegeben wurde, und um eine Überprüfung für die Aufbewahrungstage hinzuzufügen
+
+### <a name="role"></a>Rolle
+
+* `role definition update` wurde korrigiert und nutzt nun die ID, um die Definition korrekt aufzulösen.
+* `ad app credential reset` geändert, um die Annahme zu entfernen, dass der Dienstprinzipal der App stets vorhanden ist
+
+### <a name="service-fabric"></a>Service Fabric
+
+* Das Problem, dass `sf cluster list` nicht wiederholbar war, wurde behoben.
+
 ## <a name="february-26-2019"></a>26. Februar 2019
 
 Version 2.0.59
