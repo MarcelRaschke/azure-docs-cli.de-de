@@ -4,19 +4,88 @@ description: Enthält Informationen zu den aktuellen Updates der Azure CLI.
 author: sptramer
 ms.author: sttramer
 manager: carmonm
-ms.date: 02/15/2019
+ms.date: 03/26/2019
 ms.topic: article
 ms.prod: azure
 ms.technology: azure-cli
 ms.devlang: azurecli
-ms.openlocfilehash: 4337f2203841d6247e4b487d245138424c63e448
-ms.sourcegitcommit: 71c0ccd475524cf4d6db45bba8139fef3262d764
+ms.openlocfilehash: d8307ca9797a9a780d7e08d6d21cb66446c7e289
+ms.sourcegitcommit: 6d9e8ee6dd07cfd07239a2948304d7f50ef781cc
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 03/19/2019
-ms.locfileid: "58175132"
+ms.lasthandoff: 03/27/2019
+ms.locfileid: "58508901"
 ---
 # <a name="azure-cli-release-notes"></a>Versionshinweise für die Azure CLI
+## <a name="march-26-2019"></a>26. März 2019
+
+### <a name="core"></a>Core
+* Probleme mit der Inkompatibilität der Entwicklungserweiterung behoben
+* Die Fehlerbehandlung verweist Kunden jetzt auf die Problemseite.
+
+### <a name="cloud"></a>Cloud
+* Fehler „Abonnement nicht gefunden“ in `cloud set` behoben
+
+### <a name="acr"></a>ACR
+* Redundante Quellen im Imageimport korrigiert
+* `--auth-mode` wurde den Befehlen `acr build`, `acr run`, `acr task create` und `acr task update` hinzugefügt.
+* Befehlsgruppe „acr task credential“ zum Verwalten von Anmeldeinformationen für eine Aufgabe hinzugefügt
+* „--no-wait“ zum Befehl `acr build` hinzugefügt
+
+### <a name="appservice"></a>AppService
+* Problem behoben, das dazu führte, dass die Ausführung aus einem leeren Verzeichnis oder ein Szenario mit unbekannten Code von `webapp up` nicht korrekt behandelt wurde
+* Problem behoben, aufgrund dessen Slots für `[webapp|functionapp] config ssl bind` nicht verwendet werden konnten
+
+### <a name="bot-service"></a>Bot Service
+* `bot prepare-deploy` hinzugefügt, um die Bereitstellung von Bots über `webapp` vorzubereiten
+* `bot create --kind registration` geändert, um das Kennwort anzuzeigen, falls kein Kennwort angegeben wurde
+* [BREAKING CHANGE] `--endpoint` wurde in `bot create --kind registration` geändert, sodass nun standardmäßig eine leere Zeichenfolge verwendet wird, anstatt eine Angabe zu erfordern.
+* `SCM_DO_BUILD_DURING_DEPLOYMENT` zu den Anwendungseinstellungen der ARM-Vorlage für Web-App-Bot (v4) hinzugefügt
+
+### <a name="cdn"></a>CDN
+* Unterstützung für `--no-wait` zu `cdn endpoint [create|update|start|stop|delete|load|purge]` hinzugefügt  
+* [BREAKING CHANGE] Das standardmäßige Zwischenspeicherverhalten für Abfragezeichenfolgen von `cdn endpoint create` wurde geändert. Es wird nicht mehr standardmäßig „IgnoreQueryString“ festgelegt. Er wird jetzt vom Dienst festgelegt.
+
+### <a name="cosmosdb"></a>Cosmosdb
+* Unterstützung für `--enable-multiple-write-locations` bei Kontoaktualisierung hinzugefügt
+* Untergruppe `network-rule` mit Befehlen `add`, `remove` und `list` zum Verwalten von VNET-Regeln eines Cosmos DB-Kontos hinzugefügt
+
+### <a name="interactive"></a>Interactive
+* Inkompatibilität mit der über azdev installierten interaktiven Erweiterung korrigiert
+
+### <a name="monitor"></a>Überwachen
+* Geändert, sodass der Dimensionswert `*` für `monitor metrics alert [create|update]` zulässig ist
+
+### <a name="network"></a>Netzwerk
+* Befehlsgruppe `rewrite-rule` zu `application-gateway` hinzugefügt
+
+### <a name="profile"></a>Profil
+* Kontounterstützung auf Mandantenebene für verwaltete Dienstidentität zu `login` hinzugefügt
+
+### <a name="postgres"></a>Postgres 
+* postgresql-Befehle vom Typ `replica` und Befehl `restart server` hinzugefügt
+* Änderungen vorgenommen, um den Standardspeicherort aus der Ressourcengruppe abzurufen, wenn er für die Erstellung von Servern nicht angegeben wurde, und um eine Überprüfung für die Aufbewahrungstage hinzuzufügen
+
+### <a name="resource"></a>Ressource
+* Verbesserte Tabellenausgabe für `deployment [create|list|show]`
+* Problem mit `deployment [create|validate]` behoben, aufgrund dessen der Typ „secureObject“ nicht erkannt wurde
+
+### <a name="graph"></a>Graph
+* Unterstützung für `--end-date` zu `ad [app|sp] credential reset` hinzugefügt
+* Unterstützung für das Hinzufügen von Berechtigungen mit `ad app permission add` hinzugefügt
+* Fehler mit `ad app permission list` behoben, wenn keine Berechtigungen vorlagen
+* Änderung an `ad sp delete` vorgenommen, um das Entfernen einer Rollenzuweisung zu überspringen, wenn das aktuelle Konto kein Abonnement enthält
+* `ad app create` geändert, sodass ohne Angabe für `--identifier-uris` standardmäßig eine leere Liste verwendet wird
+
+### <a name="storage"></a>storage
+* `--snapshot` zu `storage file download-batch` für den Download von einer Freigabemomentaufnahme hinzugefügt
+* Statusanzeige für `storage blob [download-batch|upload-batch]` geändert, damit sie weniger ausführlich dargestellt wird und das aktuelle Blob angibt
+* Problem mit `storage account update` behoben, das beim Aktualisieren von Verschlüsselungsparametern auftrat
+* Problem behoben, bei dem für `storage blob show` ein Fehler auftrat, wenn oauth (`--auth-mode=login`) verwendet wurde
+
+### <a name="vm"></a>VM
+* Befehl `image update` hinzugefügt
+
 ## <a name="march-12-2019"></a>12. März 2019
 
 Version 2.0.60
@@ -102,10 +171,10 @@ Version 2.0.59
 * Befehl `functionapp devops-build` hinzugefügt
 
 ### <a name="batch"></a>Batch
-* [WICHTIGE ÄNDERUNG] Befehl `batch pool upgrade os` entfernt
-* [WICHTIGE ÄNDERUNG] `Pacakges`-Eigenschaft aus `Application`-Antworten entfernt
+* [BREAKING CHANGE] Befehl `batch pool upgrade os` entfernt
+* [BREAKING CHANGE] `Pacakges`-Eigenschaft aus `Application`-Antworten entfernt
 * Befehl `batch application package list` zum Auflisten von Paketen einer Anwendung hinzugefügt
-* [WICHTIGE ÄNDERUNG] `--application-id` in allen `batch application`-Befehlen in `--application-name` geändert 
+* [BREAKING CHANGE] `--application-id` in allen `batch application`-Befehlen in `--application-name` geändert 
 * Argument `--json-file` für Befehle zum Anfordern der unformatierten API-Antwort hinzugefügt
 * Validierung aktualisiert, sodass das `https://`-Element automatisch in alle Endpunkte aufgenommen wird, wenn es fehlt
 
@@ -115,7 +184,7 @@ Version 2.0.59
 
 ### <a name="kusto"></a>Kusto
 
-* [WICHTIGE ÄNDERUNG] Typen `hot_cache_period` und `soft_delete_period` für Datenbank in Format der Zeitspanne nach ISO8601 geändert
+* [BREAKING CHANGE] Typen `hot_cache_period` und `soft_delete_period` für Datenbank in Format der Zeitspanne nach ISO8601 geändert
 
 ### <a name="network"></a>Netzwerk
 
@@ -153,8 +222,8 @@ Version 2.0.58
 * Die Regression, dass `--ids` nicht mehr mit JSON-Ausgaben verwendet werden konnte, wurde behoben.
 
 ### <a name="acr"></a>ACR
-* [WICHTIGE ÄNDERUNG] Die Befehlsgruppe `acr build-task` wurde entfernt.
-* [WICHTIGE ÄNDERUNG] Die Optionen `--tag` und `--manifest` wurden aus `acr repository delete` entfernt.
+* [BREAKING CHANGE] Die Befehlsgruppe `acr build-task` wurde entfernt.
+* [BREAKING CHANGE] Die Optionen `--tag` und `--manifest` wurden aus `acr repository delete` entfernt.
 
 ### <a name="acs"></a>ACS
 * Unterstützung für Namen ohne Berücksichtigung von Groß-/Kleinschreibung wurde zu `aks [enable-addons|disable-addons]` hinzugefügt.
@@ -207,12 +276,12 @@ Version 2.0.58
 * Befehle zum Verwalten von „server-link“ (erstellen, aktualisieren, löschen, anzeigen, auflisten) wurden hinzugefügt.
 * Befehle zum Verwalten von „patch-schedule“ (erstellen, aktualisieren, löschen, anzeigen, auflisten) wurden hinzugefügt.
 * Unterstützung für Verfügbarkeitszonen und TLS-Mindestversion wurden zu „redis create“ hinzugefügt.
-* [WICHTIGE ÄNDERUNG] Befehle `redis update-settings` und `redis list-all` wurden entfernt.
-* [WICHTIGE ÄNDERUNG] Parameter für `redis create`: „Mandanteneinstellungen“ werden im Format „Schlüssel[=Wert] nicht akzeptiert.
+* [BREAKING CHANGE] Befehle `redis update-settings` und `redis list-all` wurden entfernt.
+* [BREAKING CHANGE] Parameter für `redis create`: „Mandanteneinstellungen“ werden im Format „Schlüssel[=Wert] nicht akzeptiert.
 * [VERALTET] Warnmeldung für die Deaktivierung von des Befehls `redis import-method` wurde hinzugefügt.
 
 ### <a name="role"></a>Rolle
-* [WICHTIGE ÄNDERUNG] Befehl `az identity` wurde aus den `vm`-Befehlen hierher verschoben.
+* [BREAKING CHANGE] Befehl `az identity` wurde aus den `vm`-Befehlen hierher verschoben.
 
 ### <a name="sql-vm"></a>SQL-VM
 * [VERALTET] Das `--boostrap-acc-pwd`-Argument wurde aufgrund eines Tippfehlers als veraltet markiert.
@@ -221,7 +290,7 @@ Version 2.0.58
 * `vm list-skus` wurde so geändert, dass `--all` anstelle von `--all true` verwendet werden kann.
 * `vmss run-command [invoke | list | show]` hinzugefügt
 * Ein Fehler wurde behoben, aufgrund dessen bei der Ausführung von `vmss encryption enable` bisher ein Fehler auftrat.
-* [WICHTIGE ÄNDERUNG] Die Befehle vom Typ `az identity` wurden zu `role`-Befehlen verschoben.
+* [BREAKING CHANGE] Die Befehle vom Typ `az identity` wurden zu `role`-Befehlen verschoben.
 
 ## <a name="january-31-2019"></a>31. Januar 2019
 
@@ -244,8 +313,8 @@ Version 2.0.56
 * Unterstützung für den Dienstprinzipal-Updatevorgang mit `aks update-credentials -reset-service-principal` wurde hinzugefügt.
 
 ### <a name="ams"></a>AMS
-* [WICHTIGE ÄNDERUNG] `ams asset get-streaming-locators` in `ams asset list-streaming-locators` umbenannt
-* [WICHTIGE ÄNDERUNG] `ams streaming-locator get-content-keys` in `ams streaming-locator list-content-keys` umbenannt
+* [BREAKING CHANGE] `ams asset get-streaming-locators` in `ams asset list-streaming-locators` umbenannt
+* [BREAKING CHANGE] `ams streaming-locator get-content-keys` in `ams streaming-locator list-content-keys` umbenannt
 
 ### <a name="appservice"></a>AppService
 * Unterstützung für App-Erkenntnisse in `functionapp create` wurde hinzugefügt.
@@ -264,8 +333,8 @@ Version 2.0.56
 * Parameter „source-resource-id“ wurde für alle Befehle im Zusammenhang mit Ereignisabonnements hinzugefügt, und alle anderen Parameter im Zusammenhang mit Quellressourcen wurden als veraltet markiert.
 
 ### <a name="hdinsight"></a>HDInsight
-* [WICHTIGE ÄNDERUNG] Die Parameter `--virtual-network` und `--subnet-name` wurden aus `hdinsight [application] create` entfernt.
-* [WICHTIGE ÄNDERUNG] `hdinsight create --storage-account` wurde so geändert, dass der Name oder die ID eines Speicherkontos anstellen von Blobendpunkten akzeptiert wird.
+* [BREAKING CHANGE] Die Parameter `--virtual-network` und `--subnet-name` wurden aus `hdinsight [application] create` entfernt.
+* [BREAKING CHANGE] `hdinsight create --storage-account` wurde so geändert, dass der Name oder die ID eines Speicherkontos anstellen von Blobendpunkten akzeptiert wird.
 * Parameter `--vnet-name` und `--subnet-name` zu `hdinsight create` hinzugefügt
 * Unterstützung für das Enterprise-Sicherheitspaket und Datenträgerverschlüsselung wurde zu `hdinsight create` hinzugefügt. 
 * Befehl `hdinsight rotate-disk-encryption-key` hinzugefügt
@@ -337,7 +406,7 @@ Version 2.0.55
 * Befehle zum Verwalten von Skriptaktionen wurden hinzugefügt.
 * Befehle zum Verwalten von der Operations Management Suite (OMS) wurden hinzugefügt.
 * Unterstützung zum Auflisten der regionalen Nutzung wurde zu `hdinsight list-usage` hinzugefügt.
-* [WICHTIGE ÄNDERUNG] Standardclustertyp wurde aus `hdinsight create` entfernt.
+* [BREAKING CHANGE] Standardclustertyp wurde aus `hdinsight create` entfernt.
 
 ### <a name="network"></a>Netzwerk
 * Argumente `--custom-headers` und `--status-code-ranges` zu `traffic-manager profile [create|update]` hinzugefügt
@@ -352,7 +421,7 @@ Version 2.0.55
 * Erste Version
 
 ### <a name="storage"></a>Storage
-* [WICHTIGE ÄNDERUNG] Die Standardanzahl von Ergebnissen wurde für `storage [blob|file|container|share] list` in 5.000 geändert. Verwenden Sie `--num-results *` für das ursprüngliche Verhalten, alle Ergebnisse zurückzugeben.
+* [BREAKING CHANGE] Die Standardanzahl von Ergebnissen wurde für `storage [blob|file|container|share] list` in 5.000 geändert. Verwenden Sie `--num-results *` für das ursprüngliche Verhalten, alle Ergebnisse zurückzugeben.
 * Parameter `--marker` zu `storage [blob|file|container|share] list` hinzugefügt
 * Ein Protokollmarker für die nächste Seite wurde zur STDERR für `storage [blob|file|container|share] list` hinzugefügt. 
 * Der Befehl `storage blob service-properties update` mit Unterstützung für statische Websites wurde hinzugefügt.
@@ -377,7 +446,7 @@ Version 2.0.54
 * Fehler bei API-Aufruf für update-Befehl behoben
 
 ### <a name="role"></a>Rolle
-* [WICHTIGE ÄNDERUNG] `ad [app|sp] list` geändert, damit standardmäßig nur die ersten 100 Objekte aufgelistet werden
+* [BREAKING CHANGE] `ad [app|sp] list` geändert, damit standardmäßig nur die ersten 100 Objekte aufgelistet werden
 
 ### <a name="sql"></a>SQL
 * Unterstützung für die benutzerdefinierte Sortierung auf verwalteten Instanzen hinzugefügt
@@ -519,7 +588,7 @@ Version 2.0.50
 * Auf Verwendung des Standard-Dockerfiles umgestellt, falls im Erstellungsbefehl kein Dockerfile angegeben wurde
 
 ### <a name="acs"></a>ACS
-* [WICHTIGE ÄNDERUNG] `enable_cloud_console_aks_browse` entfernt, um standardmäßig „az aks browse“ zu aktivieren
+* [BREAKING CHANGE] `enable_cloud_console_aks_browse` entfernt, um standardmäßig „az aks browse“ zu aktivieren
 
 ### <a name="advisor"></a>Advisor
 * Allgemein verfügbares Release
@@ -544,12 +613,12 @@ Version 2.0.50
 * Argumente `--correlation-data` und `--label` zur Befehlsgruppe `ams job` hinzugefügt
 * Argumente `--storage-account` und `--container` zur Befehlsgruppe `ams asset` hinzugefügt
 * Standardwerte für Ablaufzeit (aktueller Zeitpunkt + 23 Std.) und Berechtigungen (Lesen) im Befehl `ams asset get-sas-url` hinzugefügt 
-* [WICHTIGE ÄNDERUNG] Befehl `ams streaming locator` durch `ams streaming-locator` ersetzt
-* [WICHTIGE ÄNDERUNG] Argument `--content-keys` von `ams streaming locator` aktualisiert
-* [WICHTIGE ÄNDERUNG] `--content-policy-name` im Befehl `ams streaming locator` in `--content-key-policy-name` umbenannt
-* [WICHTIGE ÄNDERUNG] Befehl `ams streaming policy` durch `ams streaming-policy` ersetzt
-* [WICHTIGE ÄNDERUNG] Das Argument `--preset-names` wurde in der Befehlsgruppe `--preset` durch `ams transform` ersetzt. Ab sofort kann nur noch eine einzelne Ausgabe/Voreinstellung festgelegt werden. (Wenn Sie weitere hinzufügen möchten, müssen Sie `ams transform output add` ausführen.) Darüber hinaus können Sie eine benutzerdefinierte Voreinstellung für den Standard-Encoder (StandardEncoderPreset) festlegen, indem Sie den Pfad an Ihr benutzerdefiniertes JSON-Objekt übergeben.
-* [WICHTIGE ÄNDERUNG] `--output-asset-names ` wurde im Befehl `ams job start` in `--output-assets` umbenannt. Ab sofort wird eine durch Leerzeichen getrennte Ressourcenliste im Format „assetName=Bezeichnung“ akzeptiert. Ressourcen ohne Bezeichnung können wie folgt gesendet werden: „assetName=“.
+* [BREAKING CHANGE] Befehl `ams streaming locator` durch `ams streaming-locator` ersetzt
+* [BREAKING CHANGE] Argument `--content-keys` von `ams streaming locator` aktualisiert
+* [BREAKING CHANGE] `--content-policy-name` im Befehl `ams streaming locator` in `--content-key-policy-name` umbenannt
+* [BREAKING CHANGE] Befehl `ams streaming policy` durch `ams streaming-policy` ersetzt
+* [BREAKING CHANGE] Das Argument `--preset-names` wurde in der Befehlsgruppe `--preset` durch `ams transform` ersetzt. Ab sofort kann nur noch eine einzelne Ausgabe/Voreinstellung festgelegt werden. (Wenn Sie weitere hinzufügen möchten, müssen Sie `ams transform output add` ausführen.) Darüber hinaus können Sie eine benutzerdefinierte Voreinstellung für den Standard-Encoder (StandardEncoderPreset) festlegen, indem Sie den Pfad an Ihr benutzerdefiniertes JSON-Objekt übergeben.
+* [BREAKING CHANGE] `--output-asset-names ` wurde im Befehl `ams job start` in `--output-assets` umbenannt. Ab sofort wird eine durch Leerzeichen getrennte Ressourcenliste im Format „assetName=Bezeichnung“ akzeptiert. Ressourcen ohne Bezeichnung können wie folgt gesendet werden: „assetName=“.
 
 ### <a name="appservice"></a>AppService
 * Fehler in `az webapp config backup update` behoben, der dazu führte, dass kein Sicherungszeitplan festgelegt werden konnte, wenn noch keiner festgelegt war
@@ -610,7 +679,7 @@ Version 2.0.49
 * Problem mit der ACR Build-Codierung in Python2 behoben
 
 ### <a name="cdn"></a>CDN
-* [WICHTIGE ÄNDERUNG] Standardverhalten beim Zwischenspeichern der Abfragezeichenfolge von `cdn endpoint create` so geändert, dass der Standardwert nicht mehr „IgnoreQueryString“ ist. Er wird jetzt vom Dienst festgelegt.
+* [BREAKING CHANGE] Standardverhalten beim Zwischenspeichern der Abfragezeichenfolge von `cdn endpoint create` so geändert, dass der Standardwert nicht mehr „IgnoreQueryString“ ist. Er wird jetzt vom Dienst festgelegt.
 
 ### <a name="container"></a>Container
 * `Private` als gültiger Typ für die Übergabe an „--ip-address“ hinzugefügt
@@ -629,7 +698,7 @@ Version 2.0.49
 
 ### <a name="iot-central"></a>IoT Central
 * Optionen für Vorlagen und Anzeigenamen für die Erstellung von IoT Central-Anwendungen hinzugefügt
-* [WICHTIGE ÄNDERUNG] Unterstützung für F1-SKU entfernt; stattdessen ist die S1-SKU zu verwenden.
+* [BREAKING CHANGE] Unterstützung für F1-SKU entfernt; stattdessen ist die S1-SKU zu verwenden.
 
 ### <a name="monitor"></a>Überwachen
 * Änderungen an `monitor activity-log list`:
@@ -691,7 +760,7 @@ Version 2.0.47
 
 ### <a name="event-hub"></a>Event Hub
 * Befehl `eventhub update` korrigiert
-* [WICHTIGE ÄNDERUNG] `list`-Befehle geändert, sodass Fehler von Typ „NotFound(404)“ für Ressourcen mit der typische Vorgehensweise behandelt werden, anstatt eine leere Liste anzuzeigen
+* [BREAKING CHANGE] `list`-Befehle geändert, sodass Fehler von Typ „NotFound(404)“ für Ressourcen mit der typische Vorgehensweise behandelt werden, anstatt eine leere Liste anzuzeigen
 
 ### <a name="extensions"></a>Erweiterungen
 * Problem beim Hinzufügen einer Erweiterung behoben, die bereits installiert ist
@@ -721,7 +790,7 @@ Version 2.0.47
 * `ad sp create-for-rbac` geändert, um sicherzustellen, dass der Homepage-URI immer „https“ ist
 
 ### <a name="service-bus"></a>Service Bus
-* [WICHTIGE ÄNDERUNG] `list`-Befehle geändert, sodass Fehler von Typ „NotFound(404)“ für Ressourcen mit der typische Vorgehensweise behandelt werden, anstatt eine leere Liste anzuzeigen
+* [BREAKING CHANGE] `list`-Befehle geändert, sodass Fehler von Typ „NotFound(404)“ für Ressourcen mit der typische Vorgehensweise behandelt werden, anstatt eine leere Liste anzuzeigen
 
 ### <a name="vm"></a>VM
 * Leeres `accessSas`-Feld in `disk grant-access` korrigiert
@@ -939,7 +1008,7 @@ Version 2.0.44
 
 ### <a name="iot"></a>IoT
 
-* [WICHTIGE ÄNDERUNG] Veraltete Befehle entfernt, die in die IoT-Erweiterung verschoben wurden
+* [BREAKING CHANGE] Veraltete Befehle entfernt, die in die IoT-Erweiterung verschoben wurden
 * Elemente aktualisiert, um nicht die Domäne `azure-devices.net` anzunehmen
 
 ### <a name="iot-central"></a>Iot Central
@@ -965,7 +1034,7 @@ Version 2.0.44
 
 ### <a name="storage"></a>Storage
 
-* [WICHTIGE ÄNDERUNG] `storage account show-usage` geändert, um Parameter `--location` erforderlich zu machen. Auflistung nach Region
+* [BREAKING CHANGE] `storage account show-usage` geändert, um Parameter `--location` erforderlich zu machen. Auflistung nach Region
 * Parameter `--resource-group` geändert, sodass er für `storage account`-Befehle optional ist
 * Warnungen vom Typ „Fehler bei Vorbedingung“ für einzelne Fehler in Batch-Befehlen für eine aggregiert Nachricht entfernt
 * `[blob|file] delete-batch`-Befehle geändert, sodass kein Array mit Null-Werten mehr ausgegeben wird
@@ -1031,7 +1100,7 @@ Version 2.0.43
 * Unterstützung zum Auflisten von Verfügbarkeitsgruppen nach Abonnement hinzugefügt
 * Unterstützung für `StandardSSD_LRS` wurde hinzugefügt.
 * Unterstützung für Anwendungssicherheitsgruppe beim Erstellen einer VM-Skalierungsgruppe hinzugefügt
-* [WICHTIGE ÄNDERUNG] `[vm|vmss] create`, `[vm|vmss] identity assign` und `[vm|vmss] identity remove` wurden geändert, um vom Benutzer zugewiesene Identitäten im Wörterbuchformat auszugeben.
+* [BREAKING CHANGE] `[vm|vmss] create`, `[vm|vmss] identity assign` und `[vm|vmss] identity remove` wurden geändert, um vom Benutzer zugewiesene Identitäten im Wörterbuchformat auszugeben.
 
 ## <a name="july-18-2018"></a>18. Juli 2018
 
@@ -1041,11 +1110,11 @@ Version 2.0.42
 
 * Unterstützung für browserbasierte Anmeldung WSL-Bash-Fenster hinzugefügt
 * `--force-string`-Flag für alle generischen Updatebefehle hinzugefügt
-* [WICHTIGE ÄNDERUNG] Befehle vom Typ „show“ so geändert, dass die Fehlermeldung protokolliert wird und der Vorgang bei einer fehlenden Ressource mit dem Exitcode 3 fehlschlägt
+* [BREAKING CHANGE] Befehle vom Typ „show“ so geändert, dass die Fehlermeldung protokolliert wird und der Vorgang bei einer fehlenden Ressource mit dem Exitcode 3 fehlschlägt
 
 ### <a name="acr"></a>ACR
 
-* [WICHTIGE ÄNDERUNG] „--no-push“ in Befehl „acr build“ in reines Flag geändert
+* [BREAKING CHANGE] „--no-push“ in Befehl „acr build“ in reines Flag geändert
 * Befehle `show` und `update` unter Gruppe `acr repository` hinzugefügt
 * `--detail`-Flag für `show-manifests` und `show-tags` hinzugefügt, um ausführlichere Informationen anzuzeigen
 * Parameter `--image` zur Unterstützung des Abrufs von Builddetails oder Protokollen anhand eines Images hinzugefügt
@@ -1098,7 +1167,7 @@ Version 2.0.42
 
 ### <a name="vm"></a>VM
 
-* [WICHTIGE ÄNDERUNG] `vmss create` so geändert, dass `Standard_DS1_v2` als standardmäßige Instanzgröße verwendet wird
+* [BREAKING CHANGE] `vmss create` so geändert, dass `Standard_DS1_v2` als standardmäßige Instanzgröße verwendet wird
 * Unterstützung für `--no-wait` zu `vm extension [set|delete]` und `vmss extension [set|delete]` hinzugefügt
 * `vm extension wait` hinzugefügt
 
@@ -1126,7 +1195,7 @@ Version 2.0.40
 
 ### <a name="acs"></a>ACS
 
-* [WICHTIGE ÄNDERUNG] Standardmäßiges Aktivieren der rollenbasierten Zugriffssteuerung für Kubernetes
+* [BREAKING CHANGE] Standardmäßiges Aktivieren der rollenbasierten Zugriffssteuerung für Kubernetes
 * Argument `--disable-rbac` hinzugefügt und `--enable-rbac` als veraltet festgelegt, da es nun der Standard ist
 * Optionen für Befehl `aks browse` wurden aktualisiert. Unterstützung für `--listen-port` hinzugefügt
 * Standardmäßiges Helm-Diagrammpaket für Befehl `aks install-connector` wurde aktualisiert. Verwenden von „virtual-kubelet-for-aks-latest.tgz“
@@ -1222,13 +1291,13 @@ Version 2.0.38
 * Unterstützung für das Konfigurieren von `/dev/shm` für Aufträge hinzugefügt, die in einem Docker-Container ausgeführt werden
 * Die Befehle `batchai cluster node exec` und `batchai job node exec` wurden hinzugefügt. Diese Befehle ermöglichen die Ausführung aller Befehle direkt auf Knoten und bieten Funktionen zur Portweiterleitung.
 * Unterstützung für `--ids` zu `batchai`-Befehlen hinzugefügt
-* [WICHTIGE ÄNDERUNG] Alle Cluster und Dateiserver müssen unter Arbeitsbereichen erstellt werden.
-* [WICHTIGE ÄNDERUNG] Aufträge müssen unter Experimenten erstellt werden.
-* [WICHTIGE ÄNDERUNG] `--nfs-resource-group` wurde aus den Befehlen `cluster create` und `job create` entfernt. Geben Sie zum Bereitstellen eines NFS, das einem anderen Arbeitsbereich/einer anderen Ressourcengruppe angehört, die ARM-ID des Dateiservers über die Option `--nfs` an.
-* [WICHTIGE ÄNDERUNG] `--cluster-resource-group` wurde aus dem Befehl `job create` entfernt. Geben Sie zum Übermitteln eines Auftrags, der einem anderen Arbeitsbereich/einer anderen Ressourcengruppe angehört, die ARM-ID des Clusters über die Option `--cluster` an.
-* [WICHTIGE ÄNDERUNG] Attribut `location` wurde aus Aufträgen, Clustern und Dateiservern entfernt. „Location“ ist jetzt ein Attribut eines Arbeitsbereichs.
-* [WICHTIGE ÄNDERUNG] `--location` wurde aus den Befehlen `job create`, `cluster create` und `file-server create` entfernt.
-* [WICHTIGE ÄNDERUNG] Namen von Kurzoptionen wurden geändert, um die Schnittstelle konsistenter zu machen:
+* [BREAKING CHANGE] Alle Cluster und Dateiserver müssen unter Arbeitsbereichen erstellt werden.
+* [BREAKING CHANGE] Aufträge müssen unter Experimenten erstellt werden.
+* [BREAKING CHANGE] `--nfs-resource-group` wurde aus den Befehlen `cluster create` und `job create` entfernt. Geben Sie zum Bereitstellen eines NFS, das einem anderen Arbeitsbereich/einer anderen Ressourcengruppe angehört, die ARM-ID des Dateiservers über die Option `--nfs` an.
+* [BREAKING CHANGE] `--cluster-resource-group` wurde aus dem Befehl `job create` entfernt. Geben Sie zum Übermitteln eines Auftrags, der einem anderen Arbeitsbereich/einer anderen Ressourcengruppe angehört, die ARM-ID des Clusters über die Option `--cluster` an.
+* [BREAKING CHANGE] Attribut `location` wurde aus Aufträgen, Clustern und Dateiservern entfernt. „Location“ ist jetzt ein Attribut eines Arbeitsbereichs.
+* [BREAKING CHANGE] `--location` wurde aus den Befehlen `job create`, `cluster create` und `file-server create` entfernt.
+* [BREAKING CHANGE] Namen von Kurzoptionen wurden geändert, um die Schnittstelle konsistenter zu machen:
   - [`--config`, `-c`] in [`--config-file`, `-f`] umbenannt
   - [`--cluster`, `-r`] in [`--cluster`, `-c`] umbenannt
   - [`--cluster`, `-n`] in [`--cluster`, `-c`] umbenannt
@@ -1236,7 +1305,7 @@ Version 2.0.38
 
 ### <a name="maps"></a>Karten
 
-* [WICHTIGE ÄNDERUNG] `maps account create` wurde so geändert, dass Nutzungsbedingungen entweder durch interaktive Eingabeaufforderung oder `--accept-tos`-Flag akzeptiert werden müssen.
+* [BREAKING CHANGE] `maps account create` wurde so geändert, dass Nutzungsbedingungen entweder durch interaktive Eingabeaufforderung oder `--accept-tos`-Flag akzeptiert werden müssen.
 
 ### <a name="network"></a>Netzwerk
 
@@ -1245,11 +1314,11 @@ Version 2.0.38
 
 ### <a name="reservations"></a>Reservations
 
-* [WICHTIGE ÄNDERUNG] Erforderlicher Parameter `ReservedResourceType` zu `reservations catalog show` hinzugefügt
+* [BREAKING CHANGE] Erforderlicher Parameter `ReservedResourceType` zu `reservations catalog show` hinzugefügt
 * Parameter `Location` zu `reservations catalog show` hinzugefügt
-* [WICHTIGE ÄNDERUNG] `kind` aus `ReservationProperties` entfernt
-* [WICHTIGE ÄNDERUNG] `capabilities` wurde in `Catalog` in `sku_properties` umbenannt
-* [WICHTIGE ÄNDERUNG] Eigenschaften `size` und `tier` aus `Catalog` entfernt
+* [BREAKING CHANGE] `kind` aus `ReservationProperties` entfernt
+* [BREAKING CHANGE] `capabilities` wurde in `Catalog` in `sku_properties` umbenannt
+* [BREAKING CHANGE] Eigenschaften `size` und `tier` aus `Catalog` entfernt
 * Parameter `InstanceFlexibility` zu `reservations reservation update` hinzugefügt
 
 ### <a name="role"></a>Rolle
@@ -1408,15 +1477,15 @@ Version 2.0.33
 
 ### <a name="sql"></a>SQL
 
-* [WICHTIGE ÄNDERUNG] Von den Befehlen `db` und `dw` zurückgegebene Antwortobjekte geändert:
+* [BREAKING CHANGE] Von den Befehlen `db` und `dw` zurückgegebene Antwortobjekte geändert:
     * Eigenschaft `serviceLevelObjective` in `currentServiceObjectiveName` umbenannt
     * Eigenschaften `currentServiceObjectiveId` und `requestedServiceObjectiveId` entfernt
     * Eigenschaft `maxSizeBytes` geändert (ist nun keine Zeichenfolge mehr, sondern ein Ganzzahlwert)
-* [WICHTIGE ÄNDERUNG] Die folgenden `db`- und `dw`-Eigenschaften wurden geändert und sind jetzt schreibgeschützt:
+* [BREAKING CHANGE] Die folgenden `db`- und `dw`-Eigenschaften wurden geändert und sind jetzt schreibgeschützt:
     * `requestedServiceObjectiveName`.  Verwenden Sie zum Aktualisieren den Parameter `--service-objective`, oder legen Sie die Eigenschaft `sku.name` fest.
     * `edition`. Verwenden Sie zum Aktualisieren den Parameter `--edition`, oder legen Sie die Eigenschaft `sku.tier` fest.
     * `elasticPoolName`. Verwenden Sie zum Aktualisieren den Parameter `--elastic-pool`, oder legen Sie die Eigenschaft `elasticPoolId` fest.
-* [WICHTIGE ÄNDERUNG] Die folgenden `elastic-pool`-Eigenschaften wurden geändert und sind jetzt schreibgeschützt:
+* [BREAKING CHANGE] Die folgenden `elastic-pool`-Eigenschaften wurden geändert und sind jetzt schreibgeschützt:
     * `edition`. Verwenden Sie zum Aktualisieren den Parameter `--edition`.
     * `dtu`. Verwenden Sie zum Aktualisieren den Parameter `--capacity`.
     *  `databaseDtuMin`. Verwenden Sie zum Aktualisieren den Parameter `--db-min-capacity`.
@@ -1431,7 +1500,7 @@ Version 2.0.33
 
 ### <a name="vm"></a>VM
 
-* [WICHTIGE ÄNDERUNG] `--write-accelerator` aus `vm create` entfernt. Die gleiche Unterstützung kann über `vm update` oder `vm disk attach` erzielt werden.
+* [BREAKING CHANGE] `--write-accelerator` aus `vm create` entfernt. Die gleiche Unterstützung kann über `vm update` oder `vm disk attach` erzielt werden.
 * Erweiterungsimageabgleich in `[vm|vmss] extension` korrigiert
 * `--boot-diagnostics-storage` zu `vm create` zur Erfassung des Startprotokolls hinzugefügt
 * `--license-type` zu `[vm|vmss] update` hinzugefügt
@@ -1516,7 +1585,7 @@ Version 2.0.32
 
 ### <a name="network"></a>Netzwerk
 
-* [WICHTIGE ÄNDERUNG] Parameter `--ids` entfernt für:
+* [BREAKING CHANGE] Parameter `--ids` entfernt für:
   * `express-route auth list`
   * `express-route peering list`
   * `nic ip-config list`
@@ -1528,7 +1597,7 @@ Version 2.0.32
 ### <a name="profile"></a>Profil
 
 * Quellerkennung für `disk create` korrigiert
-* [WICHTIGE ÄNDERUNG] `--msi-port` und `--identity-port` entfernt, da sie nicht mehr verwendet werden
+* [BREAKING CHANGE] `--msi-port` und `--identity-port` entfernt, da sie nicht mehr verwendet werden
 * Tippfehler in kurzer Zusammenfassung für `account get-access-token` korrigiert
 
 ### <a name="redis"></a>Redis
@@ -1540,7 +1609,7 @@ Version 2.0.32
 
 ### <a name="role"></a>Rolle
 
-* [WICHTIGE ÄNDERUNG] Veralteter Befehl `ad sp reset-credentials` entfernt
+* [BREAKING CHANGE] Veralteter Befehl `ad sp reset-credentials` entfernt
 
 ### <a name="storage"></a>Storage
 
@@ -1554,9 +1623,9 @@ Version 2.0.32
 
 * Ungültige Erkennungslogik für nicht verwalteten Blob-URI korrigiert
 * Unterstützung für Datenträgerverschlüsselung ohne vom Benutzer bereitgestellte Dienstprinzipale hinzugefügt
-* [WICHTIGE ÄNDERUNG] Verwenden Sie nicht „ManagedIdentityExtension“ des virtuellen Computers für MSI-Unterstützung.
+* [BREAKING CHANGE] Verwenden Sie nicht „ManagedIdentityExtension“ des virtuellen Computers für MSI-Unterstützung.
 * Unterstützung für Entfernungsrichtlinie zu `vmss` hinzugefügt
-* [WICHTIGE ÄNDERUNG] `--ids` entfernt aus:
+* [BREAKING CHANGE] `--ids` entfernt aus:
   * `vm extension list`
   * `vm secret list`
   * `vm unmanaged-disk list`
@@ -1581,7 +1650,7 @@ Version 2.0.31
 
 ### <a name="appservice"></a>AppService
 
-* [WICHTIGE ÄNDERUNG]: Removed `assign-identity`
+* [BREAKING CHANGE]: Removed `assign-identity`
 * Nicht abgefangene Ausnahme für nicht vorhandene Web-App-Pläne behoben
 
 ### <a name="batchai"></a>Batch AI
@@ -1610,8 +1679,8 @@ Version 2.0.31
 * Option `--use-auto-storage` für die Clustererstellung hinzugefügt. Diese Option erleichtert die Verwaltung von Speicherkonten und die Bereitstellung von Azure-Dateifreigaben und Azure-Blobcontainern in Clustern.
 * `--generate-ssh-keys` für `cluster create` und `file-server create` hinzugefügt
 * Möglichkeit zum Angeben der Knotensetupaufgabe über die Befehlszeile
-* [WICHTIGE ÄNDERUNG] Befehl `job stream-file` und `job list-files` in die Gruppe `job file` verschoben
-* [WICHTIGE ÄNDERUNG] `--admin-user-name` im Befehl `file-server create` in `--user-name` umbenannt, um Einheitlichkeit mit dem Befehl `cluster create` zu erzielen
+* [BREAKING CHANGE] Befehl `job stream-file` und `job list-files` in die Gruppe `job file` verschoben
+* [BREAKING CHANGE] `--admin-user-name` im Befehl `file-server create` in `--user-name` umbenannt, um Einheitlichkeit mit dem Befehl `cluster create` zu erzielen
 
 ### <a name="billing"></a>Abrechnung
 
@@ -1620,11 +1689,11 @@ Version 2.0.31
 ### <a name="consumption"></a>Nutzung
 
 * Befehle vom Typ `marketplace` hinzugefügt
-* [WICHTIGE ÄNDERUNG] `reservations summaries` in `reservation summary` umbenannt
-* [WICHTIGE ÄNDERUNG] `reservations details` in `reservation detail` umbenannt
-* [WICHTIGE ÄNDERUNG] Kurzoptionen `--reservation-order-id` und `--reservation-id` für `reservation`-Befehle entfernt
-* [WICHTIGE ÄNDERUNG] `--grain`-Kurzoptionen für `reservation summary`-Befehle entfernt
-* [WICHTIGE ÄNDERUNG] `--include-meter-details`-Kurzoptionen für `pricesheet`-Befehle entfernt
+* [BREAKING CHANGE] `reservations summaries` in `reservation summary` umbenannt
+* [BREAKING CHANGE] `reservations details` in `reservation detail` umbenannt
+* [BREAKING CHANGE] Kurzoptionen `--reservation-order-id` und `--reservation-id` für `reservation`-Befehle entfernt
+* [BREAKING CHANGE] `--grain`-Kurzoptionen für `reservation summary`-Befehle entfernt
+* [BREAKING CHANGE] `--include-meter-details`-Kurzoptionen für `pricesheet`-Befehle entfernt
 
 ### <a name="container"></a>Container
 
@@ -1654,7 +1723,7 @@ Version 2.0.31
 ### <a name="profile"></a>Profil
 
 * Unterstützung für klassische Azure-Konten in `account list` hinzugefügt
-* [WICHTIGE ÄNDERUNG] `--msi` & `--msi-port`-Argumente entfernt
+* [BREAKING CHANGE] `--msi` & `--msi-port`-Argumente entfernt
 
 ### <a name="rdbms"></a>RDBMS
 
@@ -1678,7 +1747,7 @@ Version 2.0.31
 
 * Unterstützung für die Konfiguration der Plattform-Fehlerdomänenanzahl für `vmss create` hinzugefügt
 * `vmss create` geändert, damit standardmäßig „Standard LB“ für zonales, großes oder per einzelner Platzierungsgruppe deaktiviertes Scale Set festgelegt wird
-* [WICHTIGE ÄNDERUNG]: Removed `vm assign-identity`, `vm remove-identity and `vm format-secret`
+* [BREAKING CHANGE]: Removed `vm assign-identity`, `vm remove-identity and `vm format-secret`
 * Unterstützung für SKU mit öffentlicher IP für `vm create` hinzugefügt
 * Argumente `--keyvault` und `--resource-group` für `vm secret format` hinzugefügt, um Szenarien zu unterstützen, bei denen der Befehl die Tresor-ID nicht auflösen kann. [#5718](https://github.com/Azure/azure-cli/issues/5718)
 * Bessere Fehler für `[vm|vmss create]`, wenn der Standort einer Ressourcengruppe keine Zonenunterstützung aufweist
@@ -1736,7 +1805,7 @@ Version 2.0.30
 
 * Meldung für `extension add` hinzugefügt, wenn sich die Erweiterung in der Vorschauphase befindet
 * `extension list-available` geändert, um vollständige Erweiterungsdaten mit `--show-details` anzuzeigen
-* [WICHTIGE ÄNDERUNG] `extension list-available` geändert, um standardmäßig vereinfachte Erweiterungsdaten anzuzeigen
+* [BREAKING CHANGE] `extension list-available` geändert, um standardmäßig vereinfachte Erweiterungsdaten anzuzeigen
 
 ### <a name="interactive"></a>Interactive
 
@@ -1769,14 +1838,14 @@ Version 2.0.30
 
 ### <a name="resource"></a>Ressource
 
-* [WICHTIGE ÄNDERUNG]: Changed `provider operation [list|show]` to not require `--api-version`
+* [BREAKING CHANGE]: Changed `provider operation [list|show]` to not require `--api-version`
 
 ### <a name="role"></a>Rolle
 
 * Unterstützung für erforderliche Zugriffskonfigurationen und native Clients zu `az ad app create` hinzugefügt
 * `rbac`-Befehle geändert, um maximal 1.000 IDs für Objektauflösung zurückzugeben
 * Befehle zur Verwaltung von Anmeldeinformationen (`ad sp credential [reset|list|delete]`) hinzugefügt
-* [WICHTIGE ÄNDERUNG] „properties“ aus `az role assignment [list|show]`-Ausgabe entfernt
+* [BREAKING CHANGE] „properties“ aus `az role assignment [list|show]`-Ausgabe entfernt
 * Unterstützung für `dataActions`- und `notDataActions`-Berechtigungen zu `role definition` hinzugefügt
 
 ### <a name="storage"></a>Storage
@@ -1786,10 +1855,10 @@ Version 2.0.30
 
 ### <a name="vm"></a>VM
 
-* Warnung für anstehende wichtige Änderungen für Sätze mit mehr als 100 Instanzen zu `vmss create` hinzugefügt
+* Warnung für anstehende BREAKING CHANGEen für Sätze mit mehr als 100 Instanzen zu `vmss create` hinzugefügt
 * Unterstützung der Zonenresilienz zu `vm [snapshot|image]` hinzugefügt
 * Datenträgerinstanzansicht geändert, um besseren Verschlüsselungsstatus zu melden
-* [WICHTIGE ÄNDERUNG] `vm extension delete` geändert, um keine Ausgabe mehr zurückzugeben
+* [BREAKING CHANGE] `vm extension delete` geändert, um keine Ausgabe mehr zurückzugeben
 
 ## <a name="march-13-2018"></a>13. März 2018
 
@@ -1808,9 +1877,9 @@ Version 2.0.29
 
 ### <a name="advisor"></a>Advisor
 
-* [WICHTIGE ÄNDERUNG] `advisor configuration get` in `advisor configuration list` umbenannt
-* [WICHTIGE ÄNDERUNG] `advisor configuration set` in `advisor configuration update` umbenannt
-* [WICHTIGE ÄNDERUNG] `advisor recommendation generate` entfernt
+* [BREAKING CHANGE] `advisor configuration get` in `advisor configuration list` umbenannt
+* [BREAKING CHANGE] `advisor configuration set` in `advisor configuration update` umbenannt
+* [BREAKING CHANGE] `advisor recommendation generate` entfernt
 * Parameter `--refresh` zu `advisor recommendation list` hinzugefügt
 * Befehl `advisor recommendation show` hinzugefügt
 
@@ -1843,7 +1912,7 @@ Version 2.0.29
 
 ### <a name="network"></a>Netzwerk
 
-* [WICHTIGE ÄNDERUNG] Parameter `--tags` aus `route-filter rule create` entfernt
+* [BREAKING CHANGE] Parameter `--tags` aus `route-filter rule create` entfernt
 * Einige fehlerhafte Standardwerte für die folgenden Befehle entfernt:
   * `network express-route update`
   * `network nsg rule update`
@@ -1948,7 +2017,7 @@ Version 2.0.27
 
 ### <a name="acs"></a>ACS
 
-* [WICHTIGE ÄNDERUNG] `aks get-versions` aus Gründen der Genauigkeit in `aks get-upgrades` umbenannt
+* [BREAKING CHANGE] `aks get-versions` aus Gründen der Genauigkeit in `aks get-upgrades` umbenannt
 * `aks get-versions` zur Anzeige der verfügbaren Kubernetes-Versionen für `aks create` geändert
 * Standardwerte von `aks create` in Auswahl der Kubernetes-Version durch den Server geändert
 * Hilfemeldungen zu dem von AKS generierten Dienstprinzipal aktualisiert
@@ -2151,9 +2220,9 @@ Version 2.0.25
 
 ### <a name="event-grid"></a>Event Grid
 
-* [WICHTIGE ÄNDERUNG] Die Befehle vom Typ `az eventgrid topic event-subscription` wurden in `eventgrid event-subscription` verschoben.
-* [WICHTIGE ÄNDERUNG] Die Befehle vom Typ `az eventgrid resource event-subscription` wurden in `eventgrid event-subscription` verschoben.
-* [WICHTIGE ÄNDERUNG] Der Befehl `eventgrid event-subscription show-endpoint-url` wurde entfernt. Verwenden Sie stattdessen `eventgrid event-subscription show --include-full-endpoint-url`.
+* [BREAKING CHANGE] Die Befehle vom Typ `az eventgrid topic event-subscription` wurden in `eventgrid event-subscription` verschoben.
+* [BREAKING CHANGE] Die Befehle vom Typ `az eventgrid resource event-subscription` wurden in `eventgrid event-subscription` verschoben.
+* [BREAKING CHANGE] Der Befehl `eventgrid event-subscription show-endpoint-url` wurde entfernt. Verwenden Sie stattdessen `eventgrid event-subscription show --include-full-endpoint-url`.
 * Befehl `eventgrid topic update` hinzugefügt
 * Befehl `eventgrid event-subscription update` hinzugefügt
 * Parameter `--ids` für Befehle vom Typ `eventgrid topic` hinzugefügt
@@ -2197,8 +2266,8 @@ Version 2.0.25
 ### <a name="vm"></a>VM
 
 * [VORSCHAUVERSION] Zonenübergreifende Unterstützung für `vmss`
-* [WICHTIGE ÄNDERUNG] Standard für Einzelzone (`vmss`) in Standardlastenausgleich geändert
-* [WICHTIGE ÄNDERUNG] `externalIdentities` in `userAssignedIdentities` geändert für EMSI
+* [BREAKING CHANGE] Standard für Einzelzone (`vmss`) in Standardlastenausgleich geändert
+* [BREAKING CHANGE] `externalIdentities` in `userAssignedIdentities` geändert für EMSI
 * [VORSCHAUVERSION] Unterstützung für Austausch des Betriebssystemdatenträgers hinzugefügt
 * Unterstützung der Verwendung von VM-Images aus anderen Abonnements hinzugefügt
 * Argumente `--plan-name`, `--plan-product`, `--plan-promotion-code` und `--plan-publisher` zu `[vm|vmss] create` hinzugefügt
@@ -2501,7 +2570,7 @@ Version 2.0.18
 * Unterstützung für das Anzeigen integrierter Richtliniendefinitionen hinzugefügt
 * Unterstützungsmodusparameter zum Erstellen von Richtliniendefinitionen hinzugefügt
 * Unterstützung für UI-Definitionen und -Vorlagen zu `managedapp definition create` hinzugefügt
-* [WICHTIGE ÄNDERUNG] Der Ressourcentyp `managedapp` wurde von `appliances` in `applications` und von `applianceDefinitions` in `applicationDefinitions` geändert.
+* [BREAKING CHANGE] Der Ressourcentyp `managedapp` wurde von `appliances` in `applications` und von `applianceDefinitions` in `applicationDefinitions` geändert.
 
 ### <a name="network"></a>Netzwerk
 
@@ -2642,7 +2711,7 @@ Version 2.0.15
 
 ### <a name="appservice"></a>AppService
 
-* [WICHTIGE ÄNDERUNG] Inkonsistenzen in der Ausgabe von `az webapp config appsettings [delete|set]` behoben
+* [BREAKING CHANGE] Inkonsistenzen in der Ausgabe von `az webapp config appsettings [delete|set]` behoben
 * Neuen Alias (`-i`) für `az webapp config container set --docker-custom-image-name` hinzugefügt
 * `az webapp log show` verfügbar gemacht
 * Neue Argumente aus `az webapp delete` verfügbar gemacht, um App Service-Plan, Metriken oder DNS-Registrierung beizubehalten
@@ -2654,8 +2723,8 @@ Version 2.0.15
 
 ### <a name="network"></a>Netzwerk
 
-* [WICHTIGE ÄNDERUNG] `vnet list-private-access-services` in `vnet list-endpoint-services` umbenannt
-* [WICHTIGE ÄNDERUNG] Option `--private-access-services` für `--service-endpoints` in `vnet subnet [create|update]` umbenannt
+* [BREAKING CHANGE] `vnet list-private-access-services` in `vnet list-endpoint-services` umbenannt
+* [BREAKING CHANGE] Option `--private-access-services` für `--service-endpoints` in `vnet subnet [create|update]` umbenannt
 * Unterstützung für mehrere IP- und Portbereiche zu `nsg rule [create|update]` hinzugefügt
 * Unterstützung für SKU zu `lb create` hinzugefügt
 * Unterstützung für SKU zu `public-ip create` hinzugefügt
@@ -2677,7 +2746,7 @@ Version 2.0.15
 * Argumente `--bypass` und `--default-action` zur Unterstützung von Diensttunneling zu `storage account [create|update]` hinzugefügt
 * Befehle zum Hinzufügen von VNet-Regeln und IP-basierten Regeln zu `storage account network-rule` hinzugefügt
 * Dienstverschlüsselung durch vom Kunden verwalteten Schlüssel ermöglicht
-* [WICHTIGE ÄNDERUNG] Option `--encryption` für Befehl `az storage account create and az storage account update` in `--encryption-services` umbenannt
+* [BREAKING CHANGE] Option `--encryption` für Befehl `az storage account create and az storage account update` in `--encryption-services` umbenannt
 * Behoben (4220): `az storage account update encryption` – Syntaxkonflikt
 
 ### <a name="vm"></a>VM
