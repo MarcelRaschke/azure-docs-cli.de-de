@@ -10,12 +10,12 @@ ms.topic: conceptual
 ms.prod: azure
 ms.technology: azure-cli
 ms.devlang: azurecli
-ms.openlocfilehash: ddee71f39500b63065a3f71d01b3bed1a7311a52
-ms.sourcegitcommit: 943598f8bf05ee058593ca0d72aec507aa26c242
+ms.openlocfilehash: 003576ba22cdc4fc64977b653d0fb6859cd38446
+ms.sourcegitcommit: cf47338210116437d7dc0f6037d2dabd5c5e6a4b
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 02/28/2019
-ms.locfileid: "56963458"
+ms.lasthandoff: 04/09/2019
+ms.locfileid: "59429029"
 ---
 # <a name="get-started-with-azure-cli"></a>Erste Schritte mit der Azure CLI
 
@@ -48,7 +48,7 @@ Die folgende Tabelle enthält einige allgemeine Befehle, die in der CLI verwende
 | [Ressourcengruppe](/azure/azure-resource-manager/resource-group-overview) | [az group](/cli/azure/group) |
 | [Virtuelle Computer](/azure/virtual-machines) | [az vm](/cli/azure/vm) |
 | [Speicherkonten](/azure/storage/common/storage-introduction) | [az storage account](/cli/azure/storage/account) |
-| [Schlüsseltresor](/azure/key-vault/key-vault-whatis) | [az keyvault](/cli/azure/keyvault) |
+| [Key Vault](/azure/key-vault/key-vault-whatis) | [az keyvault](/cli/azure/keyvault) |
 | [Webanwendungen](/azure/app-service) | [az webapp](/cli/azure/webapp) |
 | [SQL-Datenbanken](/azure/sql-database) | [az sql server](/cli/azure/sql/server) |
 | [CosmosDB](/azure/cosmos-db) | [az cosmosdb](/cli/azure/cosmosdb) |
@@ -60,7 +60,7 @@ Befehle in der CLI werden als _Befehle_ von _Gruppen_ organisiert. Jede Gruppe s
 Suchen Sie Befehle mithilfe von [az find](/cli/azure/reference-index#az-find). Verwenden Sie den folgenden Befehl, um beispielsweise nach Befehlsnamen zu suchen, die `secret` enthalten:
 
 ```azurecli-interactive
-az find -q secret
+az find secret
 ```
 
 Verwenden Sie das Argument `--help`, um eine vollständige Liste der Befehle und Untergruppen einer Gruppe abzurufen. Geben Sie beispielsweise Folgendes ein, um die CLI-Befehle für die Verwendung mit Netzwerksicherheitsgruppen (NSGs) zu ermitteln:
@@ -78,8 +78,8 @@ Es gibt einige Argumente, die für jeden Befehl verfügbar sind.
 * `--help` gibt CLI-Referenzinformationen zu Befehlen und ihren Argumenten zurück und führt verfügbare Untergruppen und Befehle auf.
 * `--output` ändert das Ausgabeformat. Verfügbare Ausgabeformate: `json`, `jsonc` (farbiger JSON-Code), `tsv` (per Tabulator getrennte Werte), `table` (für Menschen lesbare ASCII-Tabellen) und `yaml`. Die CLI gibt standardmäßig `json` aus. Weitere Informationen zu den verfügbaren Ausgabeformaten finden Sie unter [Ausgabeformate für die Azure CLI](format-output-azure-cli.md).
 * `--query` verwendet die [JMESPath-Abfragesprache](http://jmespath.org/) zum Filtern der von Azure-Diensten zurückgegebenen Ausgabe. Weitere Informationen zu Abfragen finden Sie unter [Abfragen von Befehlsergebnissen mit der Azure CLI](query-azure-cli.md) und im [JMESPath-Tutorial](http://jmespath.org/tutorial.html).
-* `--verbose` gibt Informationen zu Ressourcen, die in Azure während eines Vorgangs erstellt werden, und andere nützliche Informationen aus.
-* `--debug` gibt noch mehr Informationen zu CLI-Vorgängen aus, die zum Debuggen verwendet werden. Wenn ein Fehler auftritt, stellen Sie beim Übermitteln eines Fehlerberichts die mit dem Flag `--debug` generierte Ausgabe bereit.
+* `--verbose` gibt Informationen zu Ressourcen, die während eines Vorgangs in Azure erstellt werden, und andere nützliche Informationen aus.
+* `--debug` gibt noch mehr Informationen zu CLI-Vorgängen aus (wird zum Debuggen verwendet). Wenn ein Fehler auftritt, stellen Sie beim Übermitteln eines Fehlerberichts die mit dem Flag `--debug` generierte Ausgabe bereit.
 
 ## <a name="interactive-mode"></a>Interaktiver Modus
 
@@ -98,14 +98,14 @@ Darüber hinaus gibt es ein [Visual Studio Code-Plug-In](https://marketplace.vis
 Sehen Sie sich zu den ersten Schritten mit der Azure CLI ein ausführliches Tutorial an, in dem Sie lernen, wie Sie virtuelle Computer einrichten und die Funktionen der CLI zum Abfragen von Azure-Ressourcen nutzen.
 
 > [!div class="nextstepaction"]
-> [Erstellen von virtuellen Computern mit der Azure CLI](azure-cli-vm-tutorial.yml)
+> [Tutorial: Erstellen von VMs mit der Azure CLI](azure-cli-vm-tutorial.yml)
 
 Es gibt auch Schnellstartanleitungen für andere beliebte Dienste.
 
 * [Erstellen eines Speicherkontos mit der Azure-Befehlszeilenschnittstelle](/azure/storage/common/storage-quickstart-create-storage-account-cli)
-* [Transfer objects to/from Azure Blob storage using the CLI](/azure/storage/blobs/storage-quickstart-blobs-cli) (Übertragen von Objekten in/aus Azure Blob Storage mit der CLI)
-* [Erstellen einer einzelnen Azure SQL-Datenbank mithilfe der Azure CLI](/azure/sql-database/sql-database-get-started-cli)
-* [Erstellen eines Azure Database for MySQL-Servers mithilfe der Azure CLI](/azure/mysql/quickstart-create-mysql-server-database-using-azure-cli)
+* [Übertragen von Objekten in/aus Azure Blob Storage mithilfe der Azure CLI](/azure/storage/blobs/storage-quickstart-blobs-cli)
+* [Erstellen einer einzelnen Azure SQL-Datenbank mithilfe der Azure CLI.](/azure/sql-database/sql-database-get-started-cli)
+* [Erstellen eines Azure Database for MySQL-Servers mithilfe der Azure CLI](/azure/mysql/quickstart-create-mysql-server-database-using-azure-cli)
 * [Erstellen einer Azure-Datenbank für PostgreSQL mithilfe der Azure-CLI](/azure/postgresql/quickstart-create-server-database-azure-cli)
 * [Erstellen einer Python-Web-App in Azure](/azure/app-service/app-service-web-get-started-python)
 * [Ausführen eines benutzerdefinierten Image von Docker-Hubs in Azure-Web-Apps für Container](/azure/app-service/containers/quickstart-custom-docker-image)
