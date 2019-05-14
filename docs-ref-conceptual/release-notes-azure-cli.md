@@ -4,19 +4,90 @@ description: Enthält Informationen zu den aktuellen Updates der Azure CLI.
 author: sptramer
 ms.author: sttramer
 manager: carmonm
-ms.date: 04/09/2019
+ms.date: 05/06/2019
 ms.topic: article
 ms.prod: azure
 ms.technology: azure-cli
 ms.devlang: azurecli
-ms.openlocfilehash: df665565130322504c4794462098980b1064a6c7
-ms.sourcegitcommit: 02b139375a2cbbb472b12d4ca36d51a77a010dbf
+ms.openlocfilehash: ce11abccc23ee1f150916ef2f91dc895d4664d31
+ms.sourcegitcommit: 65bf8561a6e047e4eab52186e066a2e8c21f1d40
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 04/15/2019
-ms.locfileid: "59479996"
+ms.lasthandoff: 05/07/2019
+ms.locfileid: "65240509"
 ---
 # <a name="azure-cli-release-notes"></a>Versionshinweise für die Azure CLI
+
+## <a name="may-6-2019"></a>6. Mai 2019
+
+Version 2.0.64
+
+### <a name="appservice"></a>AppService
+* `functionapp devops-build`-Befehl als veraltet markiert
+  * Umbenannt in `functionapp devops-pipeline`
+* Fehler beim Abrufen des richtigen Benutzernamens für Cloud Shell behoben, der einen Fehler von `webapp up` verursachte
+* Dokumentation von `appservice plan --sku` mit den unterstützten App Service-Plänen aktualisiert
+* Optionale Argumente für Ressourcengruppe und Plan zu `webapp up` hinzugefügt
+* Unterstützung zur Berücksichtigung der Umgebungsvariablen `AZURE_CLI_DISABLE_CONNECTION_VERIFICATION` zu `webapp ssh` hinzugefügt
+* Unterstützung für `appserviceplan create` für die kostenlose Linux-SKU hinzugefügt
+* `webapp up` geändert, um nach dem Festlegen der App-Einstellung `SCM_DO_BUILD_DURING_DEPLOYMENT=true` zum Verarbeiten des Kudu-Kaltstarts für 30 Sekunden in den Energiesparmodus zu wechseln
+* Unterstützung für die `powershell`-Runtime zu `functionapp create` unter Windows hinzugefügt
+* Befehl `create-remote-connection` hinzugefügt
+
+### <a name="role"></a>Rolle
+* [VERALTET]: Ausblenden des „--password"-Arguments von `create-for-rbac` geändert; Unterstützung wird im Mai 2019 entfernt
+
+## <a name="april-23-2019"></a>23. April 2019
+
+Version 2.0.63
+
+### <a name="acs"></a>ACS
+* `aks get-credentials` zur Anzeige einer Eingabeaufforderung zum Überschreiben doppelter Werte geändert
+* `(PREVIEW)` aus Dev Spaces-Befehlen „aks use-dev-spaces“ und „aks remove-dev-spaces“ entfernt
+
+### <a name="ams"></a>AMS
+* Fehler bei der Objekt- und Kontofilteraktualisierung behoben
+
+### <a name="appservice"></a>AppService
+* Unterstützung für die App Service-Umgebung (App Service Environment, ASE) und Zeitlimit zu `webapp ssh` hinzugefügt
+* Unterstützung für die Einrichtung von CI/CD für eine Azure DevOps-Pipeline aus einem GitHub-Repository zu Funktions-Apps hinzugefügt
+* `--github-pat`-Argument zu `functionapp devops-build create` hinzugefügt, um persönliche GitHub-Zugriffstoken zu akzeptieren
+* `--github-repository`-Argument zu `functionapp devops-build create` hinzugefügt, um das GitHub-Repository mit dem Quellcode einer Funktions-App zu akzeptieren
+* Problem behoben, aufgrund dessen bei `az webapp up --logs` ein Fehler auftrat und die .NET Core-Standardversion auf 2.1 aktualisiert wurde
+* Unnötige Funktions-App-Einstellungen beim Erstellen einer Funktions-App mit Verbrauchsplan entfernt
+* `webapp up` geändert, sodass die ASP-Standardzeichenfolge jetzt eine Zahl am Ende anfügt, um einen neuen ASP basierend auf SKU-Optionen zu erstellen
+* `-b` als Option für `webapp up` hinzugefügt, um die App im Browser zu starten
+* `webapp deployment source config zip` geändert, um die `AZURE_CLI_DISABLE_CONNECTION_VERIFICATION`-Umgebungsvariable zu behandeln
+
+### <a name="deployment-manager"></a>Bereitstellungs-Manager
+* [VORSCHAUVERSIPN] Erstellen und Verwalten von Artefakten, die Rollouts unterstützen
+
+### <a name="lab"></a>Labor
+* Fehler behoben, der zu einer vorzeitigen Beendigung führen würde
+
+### <a name="network"></a>Netzwerk
+* Automatische Delegierung des Namenservers im übergeordneten Element während der Erstellung der untergeordneten Zone zu `dns zone create` hinzugefügt
+
+### <a name="resource"></a>Resource
+* [VERALTET]: Argumente `--link-id`, `--target-id` und `--filter-string` von `resource link` als veraltet markiert
+  * Verwenden Sie stattdessen die Argumente `--link`, `--target` und `--filter`.
+* Problem behoben, aufgrund dessen `resource link [create|update]`-Befehle nicht verwendet werden konnten
+* Problem behoben, aufgrund dessen das Löschen anhand einer Ressourcen-ID bei einem Fehler zu einem Absturz führen konnte
+
+### <a name="sql"></a>SQL
+* Unterstützung für benutzerdefinierte Zeitzonen auf verwalteten Instanzen hinzugefügt
+* Geändert, um die Verwendung des Namens eines Pools für elastische Datenbanken mit `sql db update` zuzulassen
+* Unterstützung für `--no-wait` zu `sql server [create|update]` hinzugefügt
+* Befehl `sql server wait` hinzugefügt
+
+### <a name="storage"></a>Storage
+* Problem mit doppelt codierten SAS-Token in `storage blob generate-sas` behoben
+
+### <a name="vm"></a>VM
+* `--skip-shutdown`-Flag zum Ausschalten von VMs ohne Herunterfahren zu `vm|vmss stop` hinzugefügt
+* `--storage-account-type`-Argument zum Festlegen des Kontotyps des Veröffentlichungsprofils zu `sig image-version create` hinzugefügt
+* `--target-regions`-Argument zu `sig image-version create` hinzugefügt, um das Festlegen von regionsspezifischen Speicherkontotypen zuzulassen
+
 ## <a name="april-9-2019"></a>9. April 2019
 
 ### <a name="core"></a>Core
@@ -60,7 +131,7 @@ ms.locfileid: "59479996"
 ### <a name="privatedns"></a>PrivateDNS
 * `network private-dns` für private DNS-Zonen hinzugefügt
 
-### <a name="resource"></a>Ressource
+### <a name="resource"></a>Resource
 * Problem mit `deployment create` und `group deployment create` behoben, aufgrund dessen eine Parameterdatei mit leerem Parametersatz nicht verwendet werden konnte
 
 ### <a name="role"></a>Rolle
@@ -126,7 +197,7 @@ ms.locfileid: "59479996"
 * postgresql-Befehle vom Typ `replica` und Befehl `restart server` hinzugefügt
 * Änderungen vorgenommen, um den Standardspeicherort aus der Ressourcengruppe abzurufen, wenn er für die Erstellung von Servern nicht angegeben wurde, und um eine Überprüfung für die Aufbewahrungstage hinzuzufügen
 
-### <a name="resource"></a>Ressource
+### <a name="resource"></a>Resource
 * Verbesserte Tabellenausgabe für `deployment [create|list|show]`
 * Problem mit `deployment [create|validate]` behoben, aufgrund dessen der Typ „secureObject“ nicht erkannt wurde
 
@@ -256,7 +327,7 @@ Version 2.0.59
 * Argument `--gateway-default-site` zu `vnet-gateway [create|update]` hinzugefügt
 * Befehle vom Typ `ipsec-policy` zu `vnet-gateway` hinzugefügt
 
-### <a name="resource"></a>Ressource
+### <a name="resource"></a>Resource
 
 * Problem mit `deployment create` behoben, aufgrund dessen beim Feld „Typ“ die Groß-/Kleinschreibung beachtet wurde
 * Unterstützung für URI-basierte Parameterdatei zu `policy assignment create` hinzugefügt
@@ -416,7 +487,7 @@ Version 2.0.56
 * Ein Problem mit `express-route update` wurde behoben, aufgrund dessen das Argument `--bandwidth` ignoriert wurde.
 * Ein Problem mit `ddos-protection update` wurde behoben, aufgrund dessen das festgelegte Verständnis zu einer Stapelüberwachung führte.
 
-### <a name="resource"></a>Ressource
+### <a name="resource"></a>Resource
 * Unterstützung für die URI-Parameterdatei wurde zu `group deployment create` hinzugefügt.
 * Unterstützung für verwaltete Identitäten wurde zu `policy assignment [create|list|show]` hinzugefügt.
 
@@ -552,7 +623,7 @@ Version 2.0.53
 * Unterstützung für `--format` und `--log-version` für `watcher flow-log configure` hinzugefügt
 * Problem mit `dns zone update` behoben, bei dem die Verwendung von "" zum Löschen von Auflösungs- und Registrierungs-VNETs nicht funktionierte
 
-### <a name="resource"></a>Ressource
+### <a name="resource"></a>Resource
 * Verarbeitung des Bereichsparameters für Verwaltungsgruppen in `policy assignment [create|list|delete|show|update]` behoben 
 * Neuen Befehl `resource wait` hinzugefügt
 
@@ -709,7 +780,7 @@ Version 2.0.50
 ### <a name="rdbms"></a>RDBMS
 * MySQL-Replikatbefehle hinzugefügt
 
-### <a name="resource"></a>Ressource
+### <a name="resource"></a>Resource
 * Unterstützung für Verwaltungsgruppen und Abonnements zu Befehlen vom Typ `policy definition|set-definition` hinzugefügt
 
 ### <a name="role"></a>Rolle
@@ -1014,7 +1085,7 @@ Version 2.0.45
 
 * `network application-gateway ssl-policy predefined show` geändert, um bei fehlender Ressource mit Code 3 zu beenden
 
-### <a name="resource"></a>Ressource
+### <a name="resource"></a>Resource
 
 * `provider operation show` geändert, um bei fehlender Ressource mit Code 3 zu beenden
 
@@ -1129,7 +1200,7 @@ Version 2.0.43
 
 * DNS-Unterstützung zu „2017-03-09-profile“ für Azure Stack hinzugefügt 
 
-### <a name="resource"></a>Ressource
+### <a name="resource"></a>Resource
 
 * `--rollback-on-error` zu `group deployment create` hinzugefügt, um bei einem Fehler eine als funktionierend bekannte Bereitstellung auszuführen
 * Problem behoben, aufgrund dessen `--parameters {}` mit `group deployment create` zu einem Fehler führte
@@ -1208,7 +1279,7 @@ Version 2.0.42
 * `--ids`-Argument für `network vnet [subnet|peering] list` als veraltet markiert
 * `--include-default`-Flag hinzugefügt, um Standardsicherheitsregeln in die Ausgabe von `network nsg rule list` aufzunehmen  
 
-### <a name="resource"></a>Ressource
+### <a name="resource"></a>Resource
 
 * Unterstützung für `--no-wait` zu `group deployment delete` hinzugefügt
 * Unterstützung für `--no-wait` zu `deployment delete` hinzugefügt
@@ -1296,7 +1367,7 @@ Version 2.0.40
 
 * Befehle vom Typ `[postgres|myql] server vnet-rule` hinzugefügt
 
-### <a name="resource"></a>Ressource
+### <a name="resource"></a>Resource
 
 * Neue Vorgangsgruppe `deployment` hinzugefügt
 
@@ -1790,7 +1861,7 @@ Version 2.0.31
 * Befehl `georestore` hinzugefügt
 * Speichergrößenbeschränkung aus Befehl `create` entfernt
 
-### <a name="resource"></a>Ressource
+### <a name="resource"></a>Resource
 
 * Unterstützung für `--metadata` zu `policy definition create` hinzugefügt
 * Unterstützung von `--metadata`, `--set`, `--add`, `--remove` für `policy definition update` hinzugefügt
@@ -1896,7 +1967,7 @@ Version 2.0.30
 
 * GA-API-Version 2017-12-01 (Geschäftsmodell) hinzugefügt
 
-### <a name="resource"></a>Ressource
+### <a name="resource"></a>Resource
 
 * [BREAKING CHANGE]: Changed `provider operation [list|show]` to not require `--api-version`
 
@@ -2046,7 +2117,7 @@ Version 2.0.28
 
 * [#5559](https://github.com/Azure/azure-cli/issues/5559) behoben: Fehlender Client in `network vnet-gateway vpn-client generate`
 
-### <a name="resource"></a>Ressource
+### <a name="resource"></a>Resource
 
 * `group deployment export` geändert, um eine partielle Vorlage und ggf. Fehler anzuzeigen, wenn der Vorgang nicht erfolgreich war
 
@@ -2143,7 +2214,7 @@ Version 2.0.27
 
 * `az login` im interaktiven Modus aktiviert
 
-### <a name="resource"></a>Ressource
+### <a name="resource"></a>Resource
 
 * `feature show` wieder hinzugefügt
 
@@ -2218,7 +2289,7 @@ Version 2.0.26
 
 * `get-access-token` zur Verwendung auf einer VM mit Identität korrigiert
 
-### <a name="resource"></a>Ressource
+### <a name="resource"></a>Resource
 
 * Fehler mit `deployment [create|validate]` korrigiert, aufgrund dessen fälschlich eine Warnung angezeigt wurde, wenn ein Vorlagenfeld „Typ“ Werte in Großbuchstaben enthielt
 
@@ -2396,7 +2467,7 @@ Version 2.0.22
 
 * Unterstützung mehrerer Dimensionen zu Metrikbefehl hinzugefügt
 
-### <a name="resource"></a>Ressource
+### <a name="resource"></a>Resource
 
 * Argument `--include-response-body` zu `resource show` hinzugefügt
 
@@ -2496,7 +2567,7 @@ Version 2.0.21
 
 * Erste Vorschauversion
 
-### <a name="resource"></a>Ressource
+### <a name="resource"></a>Resource
 
 * Unterstützung für Ressourcen-IDs zum Parameter `--resource` und Sperren auf Ressourcenebene hinzugefügt
 
@@ -2553,7 +2624,7 @@ Version 2.0.20
 
 * Befehle vom Typ `action-group` hinzugefügt
 
-### <a name="resource"></a>Ressource
+### <a name="resource"></a>Resource
 
 * Inkompatibilität mit der aktuellen Version der msrest-Abhängigkeit in `group export` behoben
 * Problem mit `policy assignment create` behoben, sodass der Befehl mit integrierten Richtliniendefinitionen und Richtliniensatzdefinitionen verwendet werden kann
@@ -2595,7 +2666,7 @@ Version 2.0.19
 * Das Argument `--server` von `application-gateway address-pool create` ist nun optional, sodass leere Adresspools zulässig sind.
 * `traffic-manager` wurde aktualisiert, um aktuelle Features zu unterstützen.
 
-### <a name="resource"></a>Ressource
+### <a name="resource"></a>Resource
 
 * Zusätzliche Unterstützung für `--resource-group/-g`-Optionen für Ressourcengruppennamen zu `group` hinzugefügt
 * Befehle für `account lock` hinzugefügt, um die Verwendung mit Sperren auf Abonnementebene zu ermöglichen.
@@ -2625,7 +2696,7 @@ Version 2.0.19
 
 Version 2.0.18
 
-### <a name="resource"></a>Ressource
+### <a name="resource"></a>Resource
 
 * Unterstützung für das Anzeigen integrierter Richtliniendefinitionen hinzugefügt
 * Unterstützungsmodusparameter zum Erstellen von Richtliniendefinitionen hinzugefügt
@@ -2719,7 +2790,7 @@ Version 2.0.17
 * Unterstützung für SKU zu `lb create` hinzugefügt
 * Unterstützung für SKU zu `public-ip create` hinzugefügt
 
-### <a name="resource"></a>Ressource
+### <a name="resource"></a>Resource
 
 * Übergabe von Parameterdefinitionen für Ressourcenrichtlinien in `policy definition create` und `policy definition update` zulassen
 * Übergabe von Parameterwerten für `policy assignment create` zulassen
@@ -3115,7 +3186,7 @@ vm (2.0.11)
 * Dokumentquellenzuordnung behoben und CI-Aufgabe zur Überprüfung hinzugefügt (3361)
 * MySQL- und PostgreSQL-Hilfe korrigiert (3369)
 
-### <a name="resource"></a>Ressource
+### <a name="resource"></a>Resource
 
 * Eingabeaufforderungen bei fehlenden Parametern für `group deployment create` verbessert
 * Analyse der Syntax `--parameters KEY=VALUE` verbessert
@@ -3327,7 +3398,7 @@ vm (2.0.6)
 * Hinzufügen des Updatebefehls, durch den auch die Möglichkeit zum Skalieren für Redis Cache hinzugefügt wird
 * Verwerfen des Befehls „update-settings“
 
-### <a name="resource"></a>Ressource
+### <a name="resource"></a>Resource
 
 * Hinzufügen der Befehle „managedapp“ und „managedapp definition“ ([#2985](https://github.com/Azure/azure-cli/issues/2985))
 * Unterstützung für die „provider operation“-Befehle ([#2908](https://github.com/Azure/azure-cli/issues/2908))
