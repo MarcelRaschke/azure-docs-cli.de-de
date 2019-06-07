@@ -9,12 +9,12 @@ ms.topic: conceptual
 ms.prod: azure
 ms.technology: azure-cli
 ms.devlang: azurecli
-ms.openlocfilehash: eed121ce7ce8f8c1eba5079eb438190d3e4d13db
-ms.sourcegitcommit: 7f79860c799e78fd8a591d7a5550464080e07aa9
+ms.openlocfilehash: 5e187025e97b1d882bc575fd51970a8250f6210e
+ms.sourcegitcommit: bf69c95abf3ed3d589b202c7ff04d8782e2a81ac
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 02/12/2019
-ms.locfileid: "56158399"
+ms.lasthandoff: 05/21/2019
+ms.locfileid: "65993033"
 ---
 # <a name="query-azure-cli-command-output"></a>Abfragen der Azure CLI-Befehlsausgabe
 
@@ -102,6 +102,41 @@ az vm show -g QueryDemo -n TestVM --query '[name, osProfile.adminUsername, osPro
 ```
 
 Diese Werte werden im Ergebnisarray in der Reihenfolge aufgeführt, in der sie in der Abfrage übergeben wurden. Da das Ergebnis ein Array ist, sind keine Schlüssel mit den Ergebnissen verknüpft.
+
+## <a name="get-a-single-value"></a>Abrufen eines einzelnen Werts
+
+Es kommt recht häufig vor, dass Sie nur _einen_ Wert aus einem CLI-Befehl abrufen müssen, wie etwa eine Azure-Ressourcen-ID, einen Ressourcennamen, einen Benutzernamen oder ein Kennwort. In dem Fall soll der Wert oft auch in einer lokalen Umgebungsvariablen gespeichert werden. Zum Abrufen einer einzelnen Eigenschaft stellen Sie zunächst sicher, dass Sie nur eine Eigenschaft aus der Abfrage abrufen. Ändern des letzten Beispiels, um nur den Administratorbenutzernamen abzurufen:
+
+```azurecli-interactive
+az vm show -g QueryDemo -n TestVM --query 'osProfile.adminUsername' -o json
+```
+
+```JSON
+"azureuser"
+```
+
+Dies sieht wie ein gültiger einzelner Wert aus, beachten Sie jedoch, dass die Zeichen `"` als Teil der Ausgabe zurückgegeben werden. Dies weist darauf hin, dass das Objekt eine JSON-Zeichenfolge ist. Beachten Sie dabei, dass die Anführungszeichen von der Shell unter Umständen __nicht__ interpretiert werden, wenn Sie diesen Wert einer Umgebungsvariablen direkt als Ausgabe vom Befehl zuweisen:
+
+```bash
+USER=$(az vm show -g QueryDemo -n TestVM --query 'osProfile.adminUsername' -o json)
+echo $USER
+```
+
+```output
+"azureuser"
+```
+
+Dies ist sicherlich nicht erwünscht. Verwenden Sie in dem Fall besser ein Ausgabeformat, das die zurückgegebenen Werte nicht in die Typinformationen einschließt. `tsv`, per Tabulator getrennte Werte, stellen die beste Ausgabeoption dar, die die CLI für diesen Zweck bietet. Insbesondere beim Abrufen eines Werts, der nur ein einzelner Wert ist (keine Wörterbücher oder Listen), enthält die Ausgabe `tsv` definitiv keine Anführungszeichen.
+
+```azurecli-interactive
+az vm show -g QueryDemo -n TestVM --query 'osProfile.adminUsername' -o tsv
+```
+
+```output
+azureuser
+```
+
+Weitere Informationen zum `tsv`-Ausgabeformat finden Sie unter [Ausgabeformate – TSV-Ausgabeformat](format-output-azure-cli.md#tsv-output-format).
 
 ## <a name="rename-properties-in-a-query"></a>Umbenennen von Eigenschaften in einer Abfrage
 

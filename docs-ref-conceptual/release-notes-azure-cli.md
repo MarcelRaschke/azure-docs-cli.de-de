@@ -4,26 +4,86 @@ description: Enthält Informationen zu den aktuellen Updates der Azure CLI.
 author: sptramer
 ms.author: sttramer
 manager: carmonm
-ms.date: 05/06/2019
+ms.date: 05/21/2019
 ms.topic: article
 ms.prod: azure
 ms.technology: azure-cli
 ms.devlang: azurecli
-ms.openlocfilehash: ce11abccc23ee1f150916ef2f91dc895d4664d31
-ms.sourcegitcommit: 65bf8561a6e047e4eab52186e066a2e8c21f1d40
+ms.openlocfilehash: 5b4bcde8c4a66ccc378abc00468cbdb423f07fa4
+ms.sourcegitcommit: 3fe3502ec5af89939155285bb5e741b08af604cd
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 05/07/2019
-ms.locfileid: "65240509"
+ms.lasthandoff: 05/24/2019
+ms.locfileid: "66197796"
 ---
 # <a name="azure-cli-release-notes"></a>Versionshinweise für die Azure CLI
+
+## <a name="may-21-2019"></a>21. Mai 2019
+
+Version 2.0.65
+
+### <a name="core"></a>Core
+* Besseres Feedback für Authentifizierungsfehler hinzugefügt
+* Problem behoben, aufgrund dessen die CLI Erweiterungen lädt, die nicht mit der Core-Version kompatibel waren
+* Problem beim Starten behoben, wenn `clouds.config` beschädigt ist
+
+### <a name="acr"></a>ACR
+* Unterstützung für verwaltete Identitäten zu Aufgaben hinzugefügt
+
+### <a name="acs"></a>ACS
+* `openshift create`-Befehl bei der Verwendung mit dem AAD-Kundenclient korrigiert
+
+### <a name="appservice"></a>AppService
+* [VERALTET] Befehl `functionapp devops-build` als veraltet gekennzeichnet – wird in der nächsten Version entfernt
+* `functionapp devops-pipeline` geändert, um das Buildprotokoll von Azure DevOps im ausführlichen Modus abzurufen
+* [BREAKING CHANGE] Flag `--use_local_settings` aus dem Befehl `functionapp devops-pipeline` entfernt – kein Vorgang wurde ausgeführt
+* `webapp up` geändert, sodass die JSON-Ausgabe zurückgegeben wird, wenn `--logs` nicht verwendet wird
+* Unterstützung hinzugefügt zum Schreiben von Standardressourcen in die lokale Konfiguration für `webapp up`
+* Unterstützung zu `webapp up` hinzugefügt für die erneute Bereitstellung einer App ohne Verwendung des `--location`-Arguments
+* Problem behoben, bei dem für die ASP-Erstellung der Linux-SKU „Free“ der SKU-Wert „Free“ nicht funktioniert hat
+
+### <a name="botservice"></a>BotService
+* Geändert, sodass Groß-/Kleinschreibung für `--lang`-Parameter für Befehle zulässig ist
+* Beschreibung für das Befehlsmodul aktualisiert
+
+### <a name="consumption"></a>Nutzung
+* Fehlende erforderliche Parameter bei der Ausführung von `consumption usage list --billing-period-name` hinzugefügt
+
+### <a name="iot"></a>IoT
+* Unterstützung für das Auflisten aller Schlüssel hinzugefügt
+
+### <a name="network"></a>Netzwerk
+* [BREAKING CHANGE]: Removed `network interface-endpoints` command group - use `network private-endpoints` 
+* `--nat-gateway`-Argument zu `network vnet subnet [create|update]` für das Anfügen an ein NAT-Gateway hinzugefügt
+* Problem mit `dns zone import` behoben, aufgrund dessen Eintragsnamen keinem Datensatztyp entsprochen haben
+
+### <a name="rdbms"></a>RDBMS
+* Postgres- und MySLQ-Unterstützung für die Georeplikation hinzugefügt
+
+### <a name="rbac"></a>RBAC
+* Unterstützung für den Verwaltungsgruppenumfang zu `role assignment` hinzugefügt
+
+### <a name="storage"></a>Storage
+* `storage blob sync`: Synchronisierungsbefehl für Speicherblob hinzugefügt
+
+### <a name="compute"></a>Compute
+* `--computer-name` zu `vm create` zum Festlegen des Computernamens eines virtuellen Computers hinzugefügt
+* `--ssh-key-value` umbenannt in `--ssh-key-values` für `[vm|vmss] create`: Jetzt können mehrere öffentliche SSH-Schlüsselwerte oder -pfade akzeptiert werden.
+  * __Hinweis__: Dies ist **kein** Breaking Change: `--ssh-key-value` wird korrekt analysiert, da nur eine Übereinstimmung mit `--ssh-key-values` besteht.
+* `--type`-Argument von `ppg create` in optionales Argument geändert
 
 ## <a name="may-6-2019"></a>6. Mai 2019
 
 Version 2.0.64
 
+### <a name="acs"></a>ACS
+* [BREAKING CHANGE] Flag `--fqdn` aus den `openshift`-Befehlen entfernt
+* Geändert, sodass die allgemein verfügbare Azure Red Hat Openshift-API-Version verwendet wird
+* Flag `customer-admin-group-id` wurde zu `openshift create` hinzugefügt.
+* [ALLGEMEIN VERFÜGBAR] `(PREVIEW)` aus der `aks create`-Option `--network-policy` entfernt
+
 ### <a name="appservice"></a>AppService
-* `functionapp devops-build`-Befehl als veraltet markiert
+* [VERALTET] Befehl `functionapp devops-build` als veraltet gekennzeichnet
   * Umbenannt in `functionapp devops-pipeline`
 * Fehler beim Abrufen des richtigen Benutzernamens für Cloud Shell behoben, der einen Fehler von `webapp up` verursachte
 * Dokumentation von `appservice plan --sku` mit den unterstützten App Service-Plänen aktualisiert
@@ -34,8 +94,61 @@ Version 2.0.64
 * Unterstützung für die `powershell`-Runtime zu `functionapp create` unter Windows hinzugefügt
 * Befehl `create-remote-connection` hinzugefügt
 
+### <a name="batch"></a>Batch
+* Fehler im Validierungssteuerelement für `--application-package-references`-Optionen korrigiert
+
+### <a name="botservice"></a>Botservice
+* [BREAKING CHANGE] `bot create -v v4 -k webapp` geändert, sodass standardmäßig eine leerer Web-App-Bot erstellt wird (d. h. kein Bot wird in App Service bereitgestellt)
+* `--echo`-Flag zu `bot create` hinzugefügt, sodass das alte Verhalten mit `-v v4` verwendet wird
+* [BREAKING CHANGE] Standardwert von `--version` in `v4` geändert
+  * __HINWEIS:__ `bot prepare-publish` verwendet weiterhin den alten Standard.
+* [BREAKING CHANGE] `--lang` geändert, sodass der Standard nicht mehr `Csharp` ist. Wenn der Befehl `--lang` erfordert und dies nicht angegeben ist, wird der Befehl nun mit Fehler beendet.
+* [BREAKING CHANGE] `--appid`- und `--password`-Argumente für `bot create` in erforderlich geändert, sie können jetzt über `ad app create` erstellt werden.
+* `--appid`- und `--password`-Validierung hinzugefügt
+* [BREAKING CHANGE] `bot create -v v4` geändert, sodass kein Speicherkonto bzw. keine Application Insights-Instanz erstellt oder verwendet wird
+* [BREAKING CHANGE] `bot create -v v3` geändert, sodass eine Region erforderlich ist, in der Application Insights verfügbar ist
+* [BREAKING CHANGE] `bot update` geändert, sodass es sich jetzt nur auf spezifische Eigenschaften eines Bots auswirkt
+* [BREAKING CHANGE] `--lang`-Flags geändert, sodass `Javascript` anstelle von `Node` akzeptiert wird
+* [BREAKING CHANGE] `Node` als zulässiger `--lang`-Wert entfernt.
+* [BREAKING CHANGE] `bot create -v v4 -k webapp` geändert, sodass `SCM_DO_BUILD_DURING_DEPLOYMENT` nicht mehr auf TRUE festgelegt ist. Alle Bereitstellungen über Kudu fungieren ihrem Standardverhalten entsprechend.
+* `bot download` für Bots ohne `.bot`-Dateien geändert, sodass die sprachspezifische Konfigurationsdatei mit Werten aus den Anwendungseinstellungen für den Bot erstellt wird.
+* Unterstützung für `Typescript` zu `bot prepare-deploy` hinzugefügt
+* Warnmeldung zu `bot prepare-deploy` für `Javascript`- und `Typescript`-Bots hinzugefügt, wenn `package.json` in `--code-dir` nicht enthalten ist
+* `bot prepare-deploy` geändert, sodass bei Erfolg `true` zurückgegeben wird
+* Ausführliche Protokollierung zu `bot prepare-deploy` hinzugefügt
+* Mehr verfügbare Application Insights-Regionen zu `az bot create -v v3` hinzugefügt
+
+### <a name="configure"></a>Konfigurieren
+* Unterstützung für die ordnerbasierte Argument-Standardwertkonfigurationen hinzugefügt
+
+### <a name="eventhubs"></a>Event Hubs
+* Befehle vom Typ `namespace network-rule` hinzugefügt
+* `--default-action`-Argument für Netzwerkregeln zu `namespace [create|update]` hinzugefügt
+
+### <a name="network"></a>Netzwerk
+* [BREAKING CHANGE] `--cache`-Argument mit `--defer` für `vnet [create|update]` ersetzt 
+
+### <a name="policy-insights"></a>Policy Insights
+* Unterstützung für `--expand PolicyEvaluationDetails` hinzugefügt, sodass Richtlinienauswertungsdetails von der Ressource abgefragt werden
+
 ### <a name="role"></a>Rolle
 * [VERALTET]: Ausblenden des „--password"-Arguments von `create-for-rbac` geändert; Unterstützung wird im Mai 2019 entfernt
+
+### <a name="service-bus"></a>Service Bus
+* Befehle vom Typ `namespace network-rule` hinzugefügt
+* `--default-action`-Argument für Netzwerkregeln zu `namespace [create|update]` hinzugefügt
+* `topic [create|update]` korrigiert, sodass `--max-size`-Unterstützung für 10-, 20-, 40- und 80-GB-Werte mit Premium-SKU zulässig ist
+
+### <a name="sql"></a>SQL
+* Befehle vom Typ `sql virtual-cluster [list|show|delete]` hinzugefügt
+
+### <a name="vm"></a>VM
+* `--protect-from-scale-in` und `--protect-from-scale-set-actions` zu `vmss update` hinzugefügt, sodass Aktualisierungen der Schutzrichtlinie von VMSS-VM-Instanzen aktiviert sind
+* `--instance-id` zu `vmss update` hinzugefügt, sodass allgemeine Aktualisierungen von VMSS-VM-Instanzen aktiviert sind
+* `--instance-id` zu `vmss wait` hinzugefügt
+* Neue `ppg`-Befehlsgruppe für die Verwaltung von Näherungsplatzierungsgruppen hinzugefügt
+* `--ppg` zu `[vm|vmss] create` und `vm availability-set create` für die Verwaltung von PPGs hinzugefügt
+* Parameter `--hyper-v-generation` zu `image create` hinzugefügt
 
 ## <a name="april-23-2019"></a>23. April 2019
 
