@@ -9,16 +9,18 @@ ms.topic: conceptual
 ms.product: azure
 ms.technology: azure-cli
 ms.devlang: azurecli
-ms.openlocfilehash: 4c196b8376b0044e315cfee2b3958f2f4b476df7
-ms.sourcegitcommit: 7f79860c799e78fd8a591d7a5550464080e07aa9
+ms.openlocfilehash: 37ef0c1d7cca90c99aa6f832c6dc6dc29a1806a3
+ms.sourcegitcommit: 08043c47d3ccf23522b91e6bba3932e312c04c7f
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 02/12/2019
-ms.locfileid: "56158323"
+ms.lasthandoff: 06/04/2019
+ms.locfileid: "66516205"
 ---
 # <a name="use-multiple-azure-subscriptions"></a>Verwenden mehrerer Azure-Abonnements
 
 Die meisten Azure-Benutzer verwenden nur ein einzelnes Abonnement. Wenn Sie allerdings mehreren Organisationen angehören oder Ihre Organisation den Zugriff auf bestimmte Ressourcen über Gruppierungen aufgeteilt hat, besitzen Sie möglicherweise mehrere Abonnements in Azure. Die CLI unterstützt sowohl die globale Auswahl eines Abonnements als auch die Auswahl per Befehl.
+
+Ausführliche Informationen zu Abonnements, der Abrechnung und der Kostenverwaltung finden Sie in der [Dokumentation zur Abrechnungs- und Kostenverwaltung in Azure](/azure/billing/).
 
 ## <a name="tenants-users-and-subscriptions"></a>Mandanten, Benutzer und Abonnements
 
