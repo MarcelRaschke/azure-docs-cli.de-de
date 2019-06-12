@@ -4,19 +4,52 @@ description: Enthält Informationen zu den aktuellen Updates der Azure CLI.
 author: sptramer
 ms.author: sttramer
 manager: carmonm
-ms.date: 05/21/2019
+ms.date: 06/05/2019
 ms.topic: article
 ms.prod: azure
 ms.technology: azure-cli
 ms.devlang: azurecli
-ms.openlocfilehash: 5b4bcde8c4a66ccc378abc00468cbdb423f07fa4
-ms.sourcegitcommit: 3fe3502ec5af89939155285bb5e741b08af604cd
+ms.openlocfilehash: b79d76480c3e6619427d6a7e3960f53b691889cc
+ms.sourcegitcommit: 6aca5a788b9731e6cbeeb497c83a9197ebb7d36e
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 05/24/2019
-ms.locfileid: "66197796"
+ms.lasthandoff: 06/06/2019
+ms.locfileid: "66750232"
 ---
 # <a name="azure-cli-release-notes"></a>Versionshinweise für die Azure CLI
+
+## <a name="june-4-2019"></a>4. Juni 2019
+
+Version 2.0.66
+
+### <a name="core"></a>Core
+* Fehler behoben, aufgrund dessen bei Befehlen ein Fehler auftrat, wenn `--output yaml` mit `--query` verwendet wurde
+
+### <a name="acr"></a>ACR
+* Befehlsgruppe „acr pack“ zum Erstellen von Aufgaben zur Schnellerstellung mit Buildpacks hinzugefügt
+
+### <a name="acs"></a>ACS
+* Zulassen der Aktivierung/Deaktivierung des AKS-Add-Ons für das Kube-Dashboard
+* Ausgeben einer benutzerfreundlichen Nachricht, wenn das Abonnement nicht in der Whitelist zur Verwendung von Azure Red Hat OpenShift enthalten ist
+
+### <a name="batch"></a>Batch
+* Bessere Fehlerbehandlung, wenn der Benutzer nicht bei einem Konto angemeldet ist \[[#9165](https://github.com/Azure/azure-cli/issues/9165)\]\[[#8978](https://github.com/Azure/azure-cli/issues/8978)\]
+
+### <a name="iot"></a>IoT
+* Unterstützung für manuelles Failover hinzugefügt
+
+### <a name="network"></a>Netzwerk
+* Befehle vom Typ `network application-gateway waf-policy` hinzugefügt, um benutzerdefinierte WAF-Regeln zu unterstützen
+* Argumente `--waf-policy` und `--max-capacity` zu `network application-gateway [create|update]` hinzugefügt 
+
+### <a name="resource"></a>Resource
+* Verbesserte Fehlermeldungen aus `deployment create`, wenn TTY nicht verfügbar ist
+
+### <a name="role"></a>Rolle
+* Hilfetext aktualisiert
+
+### <a name="compute"></a>Compute
+* Unterstützung zu `vm create` für virtuelle Computer aus einem verwalteten Image mit Datenträger-LUNs hinzugefügt, die nicht bei 0 beginnen oder die Nummern überspringen
 
 ## <a name="may-21-2019"></a>21. Mai 2019
 
