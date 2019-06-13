@@ -18,7 +18,7 @@ ms.locfileid: "66750232"
 ---
 # <a name="azure-cli-release-notes"></a>Versionshinweise für die Azure CLI
 
-## <a name="june-4-2019"></a>4. Juni 2019
+## <a name="june-4-2019"></a>4\. Juni 2019
 
 Version 2.0.66
 
@@ -51,7 +51,7 @@ Version 2.0.66
 ### <a name="compute"></a>Compute
 * Unterstützung zu `vm create` für virtuelle Computer aus einem verwalteten Image mit Datenträger-LUNs hinzugefügt, die nicht bei 0 beginnen oder die Nummern überspringen
 
-## <a name="may-21-2019"></a>21. Mai 2019
+## <a name="may-21-2019"></a>21\. Mai 2019
 
 Version 2.0.65
 
@@ -105,7 +105,7 @@ Version 2.0.65
   * __Hinweis__: Dies ist **kein** Breaking Change: `--ssh-key-value` wird korrekt analysiert, da nur eine Übereinstimmung mit `--ssh-key-values` besteht.
 * `--type`-Argument von `ppg create` in optionales Argument geändert
 
-## <a name="may-6-2019"></a>6. Mai 2019
+## <a name="may-6-2019"></a>6\. Mai 2019
 
 Version 2.0.64
 
@@ -183,7 +183,7 @@ Version 2.0.64
 * `--ppg` zu `[vm|vmss] create` und `vm availability-set create` für die Verwaltung von PPGs hinzugefügt
 * Parameter `--hyper-v-generation` zu `image create` hinzugefügt
 
-## <a name="april-23-2019"></a>23. April 2019
+## <a name="april-23-2019"></a>23\. April 2019
 
 Version 2.0.63
 
@@ -234,7 +234,7 @@ Version 2.0.63
 * `--storage-account-type`-Argument zum Festlegen des Kontotyps des Veröffentlichungsprofils zu `sig image-version create` hinzugefügt
 * `--target-regions`-Argument zu `sig image-version create` hinzugefügt, um das Festlegen von regionsspezifischen Speicherkontotypen zuzulassen
 
-## <a name="april-9-2019"></a>9. April 2019
+## <a name="april-9-2019"></a>9\. April 2019
 
 ### <a name="core"></a>Core
 * Problem behoben, aufgrund dessen einige Erweiterungen mit der Version `Unknown` angezeigt wurden und nicht aktualisiert werden konnten
@@ -293,7 +293,7 @@ Version 2.0.63
 * `--file-snapshot` zu `storage file copy start` hinzugefügt, um die Datei aus der Momentaufnahme zu kopieren
 * `storage blob copy cancel` geändert, um anstelle der Ausnahme für „NoPendingCopyOperation“ nur den Fehler anzuzeigen
 
-## <a name="march-26-2019"></a>26. März 2019
+## <a name="march-26-2019"></a>26\. März 2019
 
 
 ### <a name="core"></a>Core
@@ -363,7 +363,7 @@ Version 2.0.63
 ### <a name="vm"></a>VM
 * Befehl `image update` hinzugefügt
 
-## <a name="march-12-2019"></a>12. März 2019
+## <a name="march-12-2019"></a>12\. März 2019
 
 Version 2.0.60
 
@@ -426,7 +426,7 @@ Version 2.0.60
 
 * Das Problem, dass `sf cluster list` nicht wiederholbar war, wurde behoben.
 
-## <a name="february-26-2019"></a>26. Februar 2019
+## <a name="february-26-2019"></a>26\. Februar 2019
 
 Version 2.0.59
 
@@ -489,7 +489,7 @@ Version 2.0.59
 
 * Problem mit `vm create where ` behoben, aufgrund dessen der beschleunigte Netzwerkbetrieb für Ubuntu 18.0 nicht standardmäßig aktiviert war
 
-## <a name="february-12-2019"></a>12. Februar 2019
+## <a name="february-12-2019"></a>12\. Februar 2019
 
 Version 2.0.58
 
@@ -569,7 +569,7 @@ Version 2.0.58
 * Ein Fehler wurde behoben, aufgrund dessen bei der Ausführung von `vmss encryption enable` bisher ein Fehler auftrat.
 * [BREAKING CHANGE] Die Befehle vom Typ `az identity` wurden zu `role`-Befehlen verschoben.
 
-## <a name="january-31-2019"></a>31. Januar 2019
+## <a name="january-31-2019"></a>31\. Januar 2019
 
 Version 2.0.57
 
@@ -577,7 +577,7 @@ Version 2.0.57
 
 * Hotfix für [Problem 8399](https://github.com/Azure/azure-cli/issues/8399).
 
-## <a name="january-28-2019"></a>28. Januar 2019
+## <a name="january-28-2019"></a>28\. Januar 2019
 
 Version 2.0.56
 
@@ -648,7 +648,7 @@ Version 2.0.56
 * `vm encryption enable` wurde geändert, um den Schlüsseltresor für die Datenträgerverschlüsselung zu überprüfen und sicherzustellen, dass der Schlüsseltresor für die Schlüsselverschlüsselung vorhanden ist.
 * Flag `--force` wurde zu `vm encryption enable` hinzugefügt.
 
-## <a name="january-15-2019"></a>15. Januar 2019
+## <a name="january-15-2019"></a>15\. Januar 2019
 
 Version 2.0.55
 
@@ -711,7 +711,7 @@ Version 2.0.55
 * Argument `--replica-count` wurde zu `sig image-version update` hinzugefügt, um die Standardanzahl für die Replikation festzulegen.
 * Fehler bei `image create --source` wurde behoben, aufgrund dessen, der Quellbetriebssystem-Datenträger für einen virtuellen Computer mit dem gleichen Namen gehalten wurde, selbst wenn die vollständige Ressourcen-ID angegeben war.
 
-## <a name="december-20-2018"></a>20. Dezember 2018
+## <a name="december-20-2018"></a>20\. Dezember 2018
 
 Version 2.0.54
 ### <a name="appservice"></a>AppService
@@ -731,7 +731,7 @@ Version 2.0.54
 ### <a name="vm"></a>VM
 * Parameter `---os-type` zu `disk create` hinzugefügt
 
-## <a name="december-18-2018"></a>18. Dezember 2018
+## <a name="december-18-2018"></a>18\. Dezember 2018
 
 Version 2.0.53
 ### <a name="acr"></a>ACR
@@ -779,7 +779,7 @@ Version 2.0.53
 ### <a name="vm"></a>VM
 * Absturz in `vm identity remove` behoben, der aufgetreten ist, wenn der angegebenen VM keine verwalteten Dienstidentitäten zugewiesen waren
 
-## <a name="december-4-2018"></a>4. Dezember 2018
+## <a name="december-4-2018"></a>4\. Dezember 2018
 
 Version 2.0.52
 ### <a name="core"></a>Core
@@ -802,7 +802,7 @@ Version 2.0.52
 * `[vm|vmss] create --authentication-type` geändert, um „all“ zu akzeptieren und einen virtuellen Computer mit Kennwort- und SSH-Authentifizierung zu erstellen
 * Parameter `image create --os-disk-caching` hinzugefügt, um die Zwischenspeicherung von Betriebssystemdatenträgern für ein Image festzulegen
 
-## <a name="november-20-2018"></a>20. November 2018
+## <a name="november-20-2018"></a>20\. November 2018
 
 Version 2.0.51
 ### <a name="core"></a>Core
@@ -853,7 +853,7 @@ Version 2.0.51
 * Befehl `snapshot wait` hinzugefügt
 * Unterstützung für die Verwendung von Instanznamen mit `[vm|vmss] extension set --extension-instance-name` hinzugefügt
 
-## <a name="november-6-2018"></a>6. November 2018
+## <a name="november-6-2018"></a>6\. November 2018
 
 Version 2.0.50
 
@@ -944,7 +944,7 @@ Version 2.0.50
 * `vm secret format` geändert, um JSON/JSONC-Ausgabe erforderlich zu machen. Der Benutzer wird gewarnt, und es wird standardmäßig die JSON-Ausgabe verwendet, wenn ein unzulässiges Ausgabeformat ausgewählt wird.
 * Argumentüberprüfung für `vm create --image` verbessert
 
-## <a name="october-23-2018"></a>23. Oktober 2018
+## <a name="october-23-2018"></a>23\. Oktober 2018
 
 Version 2.0.49
 
@@ -1008,14 +1008,14 @@ Version 2.0.49
 * Liste der unterstützten Größen für unterstützenden Netzwerkbeschleuniger für `vm create` aktualisiert
 * Stark typisierte Argumente für UltraSSD-IOPS und MBit/s-Konfigurationen für `disk create` hinzugefügt
 
-## <a name="october-16-2018"></a>16. Oktober 2018
+## <a name="october-16-2018"></a>16\. Oktober 2018
 
 Version 2.0.48
 
 ### <a name="vm"></a>VM
 * SDK-Problem behoben, das ein Fehlschlagen der Homebrew-Installation verursacht hat
 
-## <a name="october-9-2018"></a>9. Oktober 2018
+## <a name="october-9-2018"></a>9\. Oktober 2018
 
 Version 2.0.47
 
@@ -1077,7 +1077,7 @@ Version 2.0.47
 * `vm list-ip-addresses` geändert, sodass die Verfügbarkeitszone von öffentlichen IP-Adressen angezeigt wird
 * `[vm|vmss] disk attach` geändert, sodass die Standard-LUN eines Datenträgers standardmäßig auf die erste verfügbare Stelle festgelegt wird
 
-## <a name="september-21-2018"></a>21. September 2018
+## <a name="september-21-2018"></a>21\. September 2018
 
 Version 2.0.46
 
@@ -1106,7 +1106,7 @@ Version 2.0.46
 * `--max-tasks-per-node-option` zu `batch pool create` hinzugefügt
 * Verhalten von `batch account` geändert, um das aktuell angemeldete Konto anzuzeigen, wenn keine Optionen angegeben wurden
 
-### <a name="batch-ai"></a>Batch AI 
+### <a name="batch-ai"></a>Batch KI 
 * Fehler bei der automatischen Speicherkontoerstellung im Befehl `batchai cluster create` behoben
 
 ### <a name="cognitive-services"></a>Cognitive Services
@@ -1181,7 +1181,7 @@ Version 2.0.46
 * Problem behoben, das dazu führte, dass die Datei mit dem privaten Schlüssel durch `vm create --generate-ssh-keys` überschrieben wird, wenn die Datei mit dem privaten Schlüssel fehlt (Nr. 4725, 6780)
 * Unterstützung für den gemeinsamen Image-Katalog über `az sig` hinzugefügt
 
-## <a name="august-28-2018"></a>28. August 2018
+## <a name="august-28-2018"></a>28\. August 2018
 
 Version 2.0.45
 
@@ -1244,7 +1244,7 @@ Version 2.0.45
 * `vm/vmss identity show` geändert, um bei fehlender Ressource mit Code 3 zu beenden 
 * `--storage-caching` für `vm create` eingestellt
 
-## <a name="auguest-14-2018"></a>14. August 2018
+## <a name="auguest-14-2018"></a>14\. August 2018
 
 Version 2.0.44
 
@@ -1321,7 +1321,7 @@ Version 2.0.44
 
 * Allgemeine Filter zu `vm list-skus` für höhere Benutzerfreundlichkeit hinzugefügt
 
-## <a name="july-31-2018"></a>31. Juli 2018
+## <a name="july-31-2018"></a>31\. Juli 2018
 
 Version 2.0.43
 
@@ -1379,7 +1379,7 @@ Version 2.0.43
 * Unterstützung für Anwendungssicherheitsgruppe beim Erstellen einer VM-Skalierungsgruppe hinzugefügt
 * [BREAKING CHANGE] `[vm|vmss] create`, `[vm|vmss] identity assign` und `[vm|vmss] identity remove` wurden geändert, um vom Benutzer zugewiesene Identitäten im Wörterbuchformat auszugeben.
 
-## <a name="july-18-2018"></a>18. Juli 2018
+## <a name="july-18-2018"></a>18\. Juli 2018
 
 Version 2.0.42
 
@@ -1409,7 +1409,7 @@ Version 2.0.42
 * Korrektur eines Fehlers bei der Verwendung von Anmeldeinformationen im Cloud Shell-Modus
 * JSON-Eingabe so geändert, dass Groß-/Kleinschreibung nicht beachtet wird
 
-### <a name="batch-ai"></a>Batch AI
+### <a name="batch-ai"></a>Batch KI
 
 * Befehl `az batchai job exec` korrigiert
 
@@ -1448,7 +1448,7 @@ Version 2.0.42
 * Unterstützung für `--no-wait` zu `vm extension [set|delete]` und `vmss extension [set|delete]` hinzugefügt
 * `vm extension wait` hinzugefügt
 
-## <a name="july-3-2018"></a>3. Juli 2018
+## <a name="july-3-2018"></a>3\. Juli 2018
 
 Version 2.0.41
 
@@ -1456,7 +1456,7 @@ Version 2.0.41
 
 * Überwachung geändert, sodass Abonnement-ID verwendet wird
 
-## <a name="july-3-2018"></a>3. Juli 2018
+## <a name="july-3-2018"></a>3\. Juli 2018
 
 Version 2.0.40
 
@@ -1521,7 +1521,7 @@ Version 2.0.40
 
 * Unterstützung für das Entfernen der vom System zugewiesenen Identität hinzugefügt
 
-## <a name="june-25-2018"></a>25. Juni 2018
+## <a name="june-25-2018"></a>25\. Juni 2018
 
 Version 2.0.39
 
@@ -1529,7 +1529,7 @@ Version 2.0.39
 
 * Dateieinschränkung in MSI-Installer aktualisiert, um Problem mit der Erweiterungsinstallation zu beheben
 
-## <a name="june-19-2018"></a>19. Juni 2018
+## <a name="june-19-2018"></a>19\. Juni 2018
 
 Version 2.0.38
 
@@ -1561,7 +1561,7 @@ Version 2.0.38
 
 * `azure-batch-extensions`-Abhängigkeit entfernt
 
-### <a name="batch-ai"></a>Batch AI
+### <a name="batch-ai"></a>Batch KI
 
 * Unterstützung für Arbeitsbereiche wurde hinzugefügt. Arbeitsbereiche ermöglichen das Zusammenfassen von Clustern, Dateiservern und Experimenten in Gruppen ohne Beschränkung der Anzahl von Ressourcen, die erstellt werden können.
 * Unterstützung für Experimente wurde hinzugefügt. Experimente ermöglichen das Zusammenfassen von Aufträgen in Sammlungen ohne Beschränkung der Anzahl von erstellten Aufträgen.
@@ -1616,7 +1616,7 @@ Version 2.0.38
 * Warnung für `vmss create` hinzugefügt, dass die VM-Standardgröße von `Standard_D1_v2` auf `Standard_DS1_v2` umgestellt wird
 * `--force-update` zu `[vm|vmss] extension set` hinzugefügt, um die Erweiterung auch dann zu aktualisieren, wenn die Konfiguration nicht geändert wurde
 
-## <a name="june-13-2018"></a>13. Juni 2018
+## <a name="june-13-2018"></a>13\. Juni 2018
 
 Version 2.0.37
 
@@ -1624,7 +1624,7 @@ Version 2.0.37
 
 * Verbesserte interaktive Telemetrie
 
-## <a name="june-13-2018"></a>13. Juni 2018
+## <a name="june-13-2018"></a>13\. Juni 2018
 
 Version 2.0.36
 
@@ -1640,7 +1640,7 @@ Version 2.0.36
 
 * Problem mit inkompatiblen urllib-Versionen behoben
 
-## <a name="june-5-2018"></a>5. Juni 2018
+## <a name="june-5-2018"></a>5\. Juni 2018
 
 Version 2.0.35
 
@@ -1648,7 +1648,7 @@ Version 2.0.35
 
 * Grenzwerte für die Abhängigkeiten des interaktiven Modus hinzugefügt
 
-## <a name="june-5-2018"></a>5. Juni 2018
+## <a name="june-5-2018"></a>5\. Juni 2018
 
 Version 2.0.34
 
@@ -1711,7 +1711,7 @@ Version 2.0.34
 * Option `--accelerated-networking` zu `vm create` hinzugefügt
 * `--tags` zu `identity create` hinzugefügt
 
-## <a name="may-22-2018"></a>22. Mai 2018
+## <a name="may-22-2018"></a>22\. Mai 2018
 
 Version 2.0.33
 
@@ -1782,7 +1782,7 @@ Version 2.0.33
 * `--boot-diagnostics-storage` zu `vm create` zur Erfassung des Startprotokolls hinzugefügt
 * `--license-type` zu `[vm|vmss] update` hinzugefügt
 
-## <a name="may-7-2018"></a>7. Mai 2018
+## <a name="may-7-2018"></a>7\. Mai 2018
 
 Version 2.0.32
 
@@ -1821,7 +1821,7 @@ Version 2.0.32
 * Unterstützung für „min\_tls\_version“ und „https2.0“ hinzugefügt
 * Unterstützung für mehrere Container hinzugefügt
 
-### <a name="batch-ai"></a>Batch AI
+### <a name="batch-ai"></a>Batch KI
 
 * `batchai create cluster` wurde geändert, um die in der Konfigurationsdatei des Clusters konfigurierte VM-Priorität zu berücksichtigen.
 
@@ -1913,7 +1913,7 @@ Version 2.0.32
 * `vm resize` geändert, um zu überprüfen, ob die angeforderte Größe von der derzeit festgelegten Größe abweicht, und nur bei einer Änderung eine Aktualisierung auszuführen
 
 
-## <a name="april-10-2018"></a>10. April 2018
+## <a name="april-10-2018"></a>10\. April 2018
 
 Version 2.0.31
 
@@ -1945,11 +1945,11 @@ Version 2.0.31
   - Unterstützung für pyTorch-Toolkit hinzugefügt
 
 * Befehl `job wait` hinzugefügt, der das Warten auf die Auftragsfertigstellung ermöglicht und den Code für die Auftragsbeendigung meldet
-* Befehl `usage show` hinzugefügt, mit dem die aktuelle Nutzung von Batch AI-Ressourcen und die Grenzwerte für verschiedene Regionen aufgelistet werden
+* Befehl `usage show` hinzugefügt, mit dem die aktuelle Nutzung von Batch KI-Ressourcen und die Grenzwerte für verschiedene Regionen aufgelistet werden
 * Nationale Clouds werden unterstützt
 * Befehlszeilenargumente für Aufträge hinzugefügt, um das Bereitstellen von Dateisystemen auf Auftragsebene zusätzlich zu Konfigurationsdateien zu ermöglichen
 * Weitere Optionen zum Anpassen von Clustern hinzugefügt – VM-Priorität, Subnetz, anfängliche Knotenanzahl für Cluster mit automatischer Skalierung, Angeben eines benutzerdefinierten Images
-* Befehlszeilenoption zum Angeben des Cachetyps für NFS mit Verwaltung per Batch AI hinzugefügt
+* Befehlszeilenoption zum Angeben des Cachetyps für NFS mit Verwaltung per Batch KI hinzugefügt
 * Angeben der Bereitstellung von Dateisystemen in Konfigurationsdateien vereinfacht. Weglassen von Anmeldeinformationen für Azure-Dateifreigaben und Azure-Blobcontainer ist jetzt möglich. Die CLI füllt fehlende Anmeldeinformationen auf, indem der Speicherkontoschlüssel verwendet wird, der über Befehlszeilenparameter oder per Umgebungsvariable angegeben wird, oder der Schlüssel wird über Azure Storage abgefragt (sofern das Speicherkonto zum aktuellen Abonnement gehört).
 * Der Befehl zum Streamen von Auftragsdateien wird jetzt automatisch abgeschlossen, nachdem der Auftrag beendet ist (Erfolg, Fehler, Beendigung oder Löschung)
 * Verbesserte `table`-Ausgabe für `show`-Vorgänge
@@ -2030,7 +2030,7 @@ Version 2.0.31
 * Bessere Fehler für `[vm|vmss create]`, wenn der Standort einer Ressourcengruppe keine Zonenunterstützung aufweist
 
 
-## <a name="march-27-2018"></a>27. März 2018
+## <a name="march-27-2018"></a>27\. März 2018
 
 Version 2.0.30
 
@@ -2137,7 +2137,7 @@ Version 2.0.30
 * Datenträgerinstanzansicht geändert, um besseren Verschlüsselungsstatus zu melden
 * [BREAKING CHANGE] `vm extension delete` geändert, um keine Ausgabe mehr zurückzugeben
 
-## <a name="march-13-2018"></a>13. März 2018
+## <a name="march-13-2018"></a>13\. März 2018
 
 Version 2.0.29
 
@@ -2224,7 +2224,7 @@ Version 2.0.29
 * Befehle `vm identity [assign|remove|show]` und `vmss identity [assign|remove|show]` als Ersatz für veraltete Befehle hinzugefügt
 * Standardpriorität in `vmss create` auf „Keine“ geändert
 
-## <a name="february-27-2018"></a>27. Februar 2018
+## <a name="february-27-2018"></a>27\. Februar 2018
 
 Version 2.0.28
 
@@ -2284,7 +2284,7 @@ Version 2.0.28
 * Unterstützung für das Anfügen/Trennen von Datenträgern für eine einzelne VMSS-Instanz hinzugefügt
 
 
-## <a name="february-13-2018"></a>13. Februar 2018
+## <a name="february-13-2018"></a>13\. Februar 2018
 
 Version 2.0.27
 
@@ -2385,7 +2385,7 @@ Version 2.0.27
 * `vm boot-diagnostics get-boot-log` (feststehend)
 
 
-## <a name="january-31-2018"></a>31. Januar 2018
+## <a name="january-31-2018"></a>31\. Januar 2018
 
 Version 2.0.26
 
@@ -2455,7 +2455,7 @@ Version 2.0.26
 * Schutz für `--admin-password` zu `[vm|vmss] create` hinzugefügt
 
 
-## <a name="january-17-2018"></a>17. Januar 2018
+## <a name="january-17-2018"></a>17\. Januar 2018
 
 Version 2.0.25
 
@@ -2551,7 +2551,7 @@ Version 2.0.25
 * Fehlerbedingte Probleme mit `[vm|vmss] create` behoben
 * Übermäßige Ressourcenverwendung durch `vm image list --all` behoben
 
-## <a name="december-19-2017"></a>19. Dezember 2017
+## <a name="december-19-2017"></a>19\. Dezember 2017
 
 Version 2.0.23
 
@@ -2575,7 +2575,7 @@ Version 2.0.23
 * [VORSCHAUVERSION] Unterstützung für durch Benutzer zugewiesene Identitäten für virtuelle Computer und VMSSs hinzugefügt
 
 
-## <a name="december-5-2017"></a>5. Dezember 2017
+## <a name="december-5-2017"></a>5\. Dezember 2017
 
 Version 2.0.22
 
@@ -2633,7 +2633,7 @@ Version 2.0.22
 * Zoneninformationen zu `az vm list-skus` hinzugefügt
 
 
-## <a name="november-14-2017"></a>14. November 2017
+## <a name="november-14-2017"></a>14\. November 2017
 
 Version 2.0.21
 
@@ -2739,7 +2739,7 @@ Version 2.0.21
 * `vm format-secret` in `vm secret format` umbenannt
 * Argument `--encrypt format` zu `vm encryption enable` hinzugefügt
 
-## <a name="october-24-2017"></a>24. Oktober 2017
+## <a name="october-24-2017"></a>24\. Oktober 2017
 
 Version 2.0.20
 
@@ -2780,7 +2780,7 @@ Version 2.0.20
 * Argument `--accelerated-networking` zu `vmss create` hinzugefügt
 
 
-## <a name="october-9-2017"></a>9. Oktober 2017
+## <a name="october-9-2017"></a>9\. Oktober 2017
 
 Version 2.0.19
 
@@ -2801,7 +2801,7 @@ Version 2.0.19
 
 ### <a name="batchai"></a>BatchAI
 
-* Erste Version des Batch AI-Moduls
+* Erste Version des Batch KI-Moduls
 
 ### <a name="keyvault"></a>KeyVault
 
@@ -2838,7 +2838,7 @@ Version 2.0.19
 * Parameter `--license-type` für Windows zu `vmss create` hinzugefügt
 
 
-## <a name="september-22-2017"></a>22. September 2017
+## <a name="september-22-2017"></a>22\. September 2017
 
 Version 2.0.18
 
@@ -2898,7 +2898,7 @@ Version 2.0.18
 * Vorschauversion
 
 
-## <a name="september-11-2017"></a>11. September 2017
+## <a name="september-11-2017"></a>11\. September 2017
 
 Version 2.0.17
 
@@ -2955,7 +2955,7 @@ Version 2.0.17
 * Behoben: Speicher-SKU vom Typ `[vm|vmss] create` wird nicht auf Datenträger mit einem Image angewendet.
 * Behoben: `vm format-secret --secrets` akzeptierte keine durch neue Zeilen getrennte IDs.
 
-## <a name="august-31-2017"></a>31. August 2017
+## <a name="august-31-2017"></a>31\. August 2017
 
 Version 2.0.16
 
@@ -2972,7 +2972,7 @@ Version 2.0.16
 * Problem behoben, aufgrund dessen Speicherkonten nicht in Regionen erstellt werden konnten, die die NetworkACLs-Funktion nicht unterstützen
 * Festlegen des Inhaltstyps und der Inhaltscodierung während Blob- und Dateiuploads, wenn weder Inhaltstyp noch Inhaltscodierung angegeben sind
 
-## <a name="august-28-2017"></a>28. August 2017
+## <a name="august-28-2017"></a>28\. August 2017
 
 Version 2.0.15
 
@@ -3036,7 +3036,7 @@ Version 2.0.15
 * Problem behoben, aufgrund dessen das Argument `--no-wait` nicht mit `vm availability-set create` verwendet werden konnte
 
 
-## <a name="august-15-2017"></a>15. August 2017
+## <a name="august-15-2017"></a>15\. August 2017
 
 Version 2.0.14
 
@@ -3052,7 +3052,7 @@ Version 2.0.14
 
 * SDK-Abhängigkeiten hinzugefügt
 
-## <a name="august-11-2017"></a>11. August 2017
+## <a name="august-11-2017"></a>11\. August 2017
 
 Version 2.0.13
 
@@ -3110,7 +3110,7 @@ Version 2.0.13
 * Standardmäßiger Betriebssystemdatenträger-Name und Speicher-SKU bei Verwendung verwalteter Datenträger entfernt
 
 
-## <a name="july-28-2017"></a>28. Juli 2017
+## <a name="july-28-2017"></a>28\. Juli 2017
 
 Version 2.0.12
 
@@ -3380,7 +3380,7 @@ vm (2.0.11)
 * Festlegung, dass die LUN von mit `vm image create` erstellten Datenträgern mit 0 beginnt
 
 
-## <a name="may-10-2017"></a>10. Mai 2017
+## <a name="may-10-2017"></a>10\. Mai 2017
 
 Version 2.0.6
 
@@ -3586,7 +3586,7 @@ vm (2.0.6)
 * vm/vmss: Unterstützen der Erstellung über ein Marketplace-Image, für das Planinformationen erforderlich sind ([#1209](https://github.com/Azure/azure-cli/issues/1209))
 
 
-## <a name="april-3-2017"></a>3. April 2017
+## <a name="april-3-2017"></a>3\. April 2017
 
 Version 2.0.2
 
@@ -3666,7 +3666,7 @@ vm (2.0.2)
 * Hinzufügen – Geheimnisse für virtuellen Computer und VM-Skalierungsgruppe ([#2212}(<https://github.com/Azure/azure-cli/pull/2212>))
 * Zulassen der VM-Erstellung mit spezialisierter VHD ([#2256](https://github.com/Azure/azure-cli/pull/2256))
 
-## <a name="february-27-2017"></a>27. Februar 2017
+## <a name="february-27-2017"></a>27\. Februar 2017
 
 Version 2.0.0
 
