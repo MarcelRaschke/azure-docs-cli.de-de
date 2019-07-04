@@ -8,12 +8,12 @@ ms.date: 02/15/2019
 ms.topic: conceptual
 ms.technology: azure-cli
 ms.devlang: azurecli
-ms.openlocfilehash: 7ead12b35cefd7cba9e06f7905c9267c569d98dd
-ms.sourcegitcommit: 014d89aa21f90561eb69792ad01947e481ea640a
+ms.openlocfilehash: 6d88400b8d7070cf2f9dba2f3e124edfe2e3163d
+ms.sourcegitcommit: e06d34682710e77840b0c51f4718184101bd8a03
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 02/23/2019
-ms.locfileid: "56741716"
+ms.lasthandoff: 07/02/2019
+ms.locfileid: "67527329"
 ---
 # <a name="create-an-azure-service-principal-with-azure-cli"></a>Erstellen eines Azure-Dienstprinzipals mit der Azure CLI
 
@@ -35,21 +35,14 @@ Für Dienstprinzipale stehen zwei Authentifizierungstypen zur Verfügung: Kennwo
 
 ### <a name="password-based-authentication"></a>Kennwortbasierte Authentifizierung
 
-Ohne jegliche Authentifizierungsparameter wird die kennwortbasierte Authentifizierung mit einem für Sie erstellten zufälligen Kennwort verwendet. Diese Methode wird empfohlen, wenn Sie die kennwortbasierte Authentifizierung verwenden möchten.
+Ohne jegliche Authentifizierungsparameter wird die kennwortbasierte Authentifizierung mit einem für Sie erstellten zufälligen Kennwort verwendet.
 
   ```azurecli-interactive
   az ad sp create-for-rbac --name ServicePrincipalName
   ```
 
-Verwenden Sie für ein vom Benutzer angegebenes Kennwort das Argument `--password`. Halten Sie sich beim Erstellen eines Kennworts unbedingt an die Vorgaben unter [Kennwortrichtlinien und -einschränkungen in Azure Active Directory](/azure/active-directory/active-directory-passwords-policy). Verwenden Sie kein unsicheres Kennwort, und verwenden Sie ein Kennwort nicht erneut.
-
-  ```azurecli-interactive
-  az ad sp create-for-rbac --name ServicePrincipalName --password <Choose a strong password>
-  ```
-
-  > [!IMPORTANT]
-  >
-  > Aus Sicherheitsgründen gilt das Argument `--password` für die Dienstprinzipalerstellung in einem zukünftigen Release als veraltet. Wenn Sie die kennwortbasierte Authentifizierung verwenden möchten, vermeiden Sie `--password`, und lassen Sie sich von der CLI ein sicheres Kennwort erstellen.
+> [!IMPORTANT]
+> Ab Azure CLI 2.0.68 wird der Parameter `--password` zum Erstellen eines Dienstprinzipals mit einem benutzerdefinierten Kennwort __nicht mehr unterstützt__, um die versehentliche Verwendung von unsicheren Kennwörtern zu verhindern.
 
 Die Ausgabe für einen Dienstprinzipal mit Kennwortauthentifizierung enthält den Schlüssel `password`. Kopieren Sie diesen Wert __unbedingt__, da er nicht abgerufen werden kann. Wenn Sie das Kennwort vergessen haben, [setzen Sie die Anmeldeinformationen des Dienstprinzipals zurück](#reset-credentials).
 

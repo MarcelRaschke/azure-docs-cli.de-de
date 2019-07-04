@@ -4,19 +4,96 @@ description: Enthält Informationen zu den aktuellen Updates der Azure CLI.
 author: sptramer
 ms.author: sttramer
 manager: carmonm
-ms.date: 06/18/2019
+ms.date: 07/02/2019
 ms.topic: article
 ms.prod: azure
 ms.technology: azure-cli
 ms.devlang: azurecli
-ms.openlocfilehash: 8431946b169b550bfd3f5120cf26e2feeb5c9f2c
-ms.sourcegitcommit: 399f0a2997675fbb280243e4234cf63c3bbca819
+ms.openlocfilehash: 26757193628cff65603a04e440f9e2aa7bf5a248
+ms.sourcegitcommit: e06d34682710e77840b0c51f4718184101bd8a03
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 06/18/2019
-ms.locfileid: "67194861"
+ms.lasthandoff: 07/02/2019
+ms.locfileid: "67527301"
 ---
 # <a name="azure-cli-release-notes"></a>Versionshinweise für die Azure CLI
+
+## <a name="july-2-2019"></a>2\. Juli 2019
+
+Version 2.0.68
+
+### <a name="core"></a>Core
+
+* Befehlsmodule sind jetzt in einer einzelnen verteilbaren Python-Komponente zusammengefasst. Die direkte Verwendung zahlreicher Pakete vom Typ `azure-cli-` in PyPI ist daher veraltet.
+  Dadurch sollte sich die Installationsgröße reduzieren. Darüber hinaus sollte es nur Benutzer betreffen, die eine direkte Installation über `pip` ausgeführt haben.
+
+### <a name="acr"></a>ACR
+
+* Unterstützung für Trigger mit Timer zu Aufgabe hinzugefügt
+
+### <a name="appservice"></a>AppService
+
+* `functionapp create` wurde so geändert, das Application Insights standardmäßig aktiviert wird.
+* [BREAKING CHANGE] Veralteter Befehl `functionapp devops-build` entfernt.
+  *  Verwenden Sie stattdessen den neuen Befehl `az functionapp devops-pipeline`.
+* Unterstützung des Funktions-App-Plans für Linux-Verbrauch zu `functionapp deployment config-zip` hinzugefügt
+
+### <a name="cosmos-db"></a>Cosmos DB
+
+* Unterstützung für das Deaktivieren von TTL hinzugefügt
+
+### <a name="dls"></a>DLS
+
+* Aktualisierte ADLS-Version (0.0.45)
+
+### <a name="feedback"></a>Feedback
+
+* Wird ein fehlgeschlagener Erweiterungsbefehl gemeldet, versucht `az feedback` nun, über den Index die Projekt-/Repository-URL der Erweiterung im Browser zu öffnen.
+
+### <a name="hdinsight"></a>HDInsight
+
+* [BREAKING CHANGE] Der Befehlsgruppenname `oms` wurde in `monitor` geändert.
+* [BREAKING CHANGE] `--http-password/-p` als erforderlicher Parameter festgelegt 
+* Vervollständigungen für `--cluster-admin-account` und `cluster-users-group-dns` hinzugefügt 
+* Parameter `cluster-users-group-dns` so geändert, dass er erforderlich ist, wenn `—esp` vorhanden ist
+* Timeout für alle vorhandenen automatischen Argumentvervollständigungen hinzugefügt
+* Timeout für das Transformieren des Ressourcennamens in eine Ressourcen-ID hinzugefügt
+* Die automatischen Vervollständigungen wurden so geändert, dass Ressourcen aus einer beliebigen Ressourcengruppe ausgewählt werden. Dabei kann es sich um eine andere Ressourcengruppe als die mit `-g` angegebene Gruppe handeln.
+* Unterstützung für die Parameter `--sub-domain-suffix` und `--disable_gateway_auth` im Befehl `hdinsight application create` hinzugefügt
+
+### <a name="managed-services"></a>Verwaltete Dienste
+
+* Befehlsmodul für verwaltete Dienste als Vorschau eingeführt
+
+### <a name="profile"></a>Profil
+* Argument `--subscription` für Abmeldebefehl unterdrückt
+
+### <a name="rbac"></a>RBAC
+
+* [BREAKING CHANGE] Argument `--password` für `create-for-rbac` entfernt
+* Parameter `--assignee-principal-type` zum Befehl `create` hinzugefügt, um zeitweilige Fehler zu vermeiden, die durch die Replikationswartezeit des AAD-Graph-Servers verursacht werden
+* Absturz in `ad signed-in-user` beim Auflisten von in Besitz befindlichen Objekten behoben
+* Problem behoben, aufgrund dessen `ad sp` nicht die richtige Anwendung über einen Dienstprinzipal fand
+
+### <a name="rdbms"></a>RDBMS
+
+* Unterstützung für die Replikation für MariaDB hinzugefügt
+
+### <a name="sql"></a>SQL
+
+* Zulässige Werte für `sql db create --sample-name` dokumentiert
+
+### <a name="storage"></a>Storage
+
+* Unterstützung von SAS-Token für die Benutzerdelegierung mit `--as-user` zu `storage blob generate-sas` hinzugefügt 
+* Unterstützung von SAS-Token für die Benutzerdelegierung mit `--as-user` zu `storage container generate-sas` hinzugefügt 
+
+### <a name="vm"></a>VM
+
+* Fehler behoben, aufgrund dessen `vmss create` bei der Ausführung mit `--no-wait` eine Fehlermeldung zurückgab
+* Die clientseitige Validierung für `vmss create --single-placement-group` wurde entfernt. Es tritt kein Fehler auf, wenn `--single-placement-group` auf `true` und für `--instance-count` ein größerer Wert als 100 festgelegt wird oder wenn Verfügbarkeitszonen angegeben werden. Diese Validierung wird jedoch dem Computedienst überlassen.
+* Problem behoben, aufgrund dessen bei der Verwendung von `--latest` für `[vm|vmss] extension image list` ein Fehler auftrat
+
 
 ## <a name="june-18-2019"></a>18. Juni 2019
 
@@ -130,7 +207,7 @@ Version 2.0.66
 ### <a name="resource"></a>Resource
 * Verbesserte Fehlermeldungen aus `deployment create`, wenn TTY nicht verfügbar ist
 
-### <a name="role"></a>Rolle
+### <a name="role"></a>Role
 * Hilfetext aktualisiert
 
 ### <a name="compute"></a>Compute
@@ -249,7 +326,7 @@ Version 2.0.64
 ### <a name="policy-insights"></a>Policy Insights
 * Unterstützung für `--expand PolicyEvaluationDetails` hinzugefügt, sodass Richtlinienauswertungsdetails von der Ressource abgefragt werden
 
-### <a name="role"></a>Rolle
+### <a name="role"></a>Role
 * [VERALTET]: Ausblenden des „--password"-Arguments von `create-for-rbac` geändert; Unterstützung wird im Mai 2019 entfernt
 
 ### <a name="service-bus"></a>Service Bus
@@ -365,7 +442,7 @@ Version 2.0.63
 ### <a name="resource"></a>Resource
 * Problem mit `deployment create` und `group deployment create` behoben, aufgrund dessen eine Parameterdatei mit leerem Parametersatz nicht verwendet werden konnte
 
-### <a name="role"></a>Rolle
+### <a name="role"></a>Role
 * `create-for-rbac` korrigiert, um `--years` korrekt zu verarbeiten
 * [BREAKING CHANGE] `role assignment delete` geändert, um eine Eingabeaufforderung anzuzeigen, wenn alle Zuweisungen im Abonnement ohne Bedingungen gelöscht werden
 
@@ -502,7 +579,7 @@ Version 2.0.60
 
 * Kleinere Korrekturen, um den Standardspeicherort aus der Ressourcengruppe abzurufen, wenn er für die Erstellung von Servern nicht angegeben wurde, und um eine Überprüfung für die Aufbewahrungstage hinzuzufügen
 
-### <a name="role"></a>Rolle
+### <a name="role"></a>Role
 
 * `role definition update` wurde korrigiert und nutzt nun die ID, um die Definition korrekt aufzulösen.
 * `ad app credential reset` geändert, um die Annahme zu entfernen, dass der Dienstprinzipal der App stets vorhanden ist
@@ -566,7 +643,7 @@ Version 2.0.59
 * Verarbeitung von Parametern und Regeln für `policy definition update` korrigiert
 * Problem mit `resource show/update/delete/tag/invoke-action` behoben, aufgrund dessen bei abonnementübergreifenden IDs die Abonnement-ID nicht ordnungsgemäß berücksichtigt wurde
 
-### <a name="role"></a>Rolle
+### <a name="role"></a>Role
 
 * Unterstützung für App-Rollen zu `ad app [create|update]` hinzugefügt
 
@@ -642,7 +719,7 @@ Version 2.0.58
 * [BREAKING CHANGE] Parameter für `redis create`: „Mandanteneinstellungen“ werden im Format „Schlüssel[=Wert] nicht akzeptiert.
 * [VERALTET] Warnmeldung zur Markierung des Befehls `redis import-method` als veraltet hinzugefügt
 
-### <a name="role"></a>Rolle
+### <a name="role"></a>Role
 * [BREAKING CHANGE] Befehl `az identity` wurde aus den `vm`-Befehlen hierher verschoben.
 
 ### <a name="sql-vm"></a>SQL-VM
@@ -776,7 +853,7 @@ Version 2.0.55
 * Argumente `--custom-headers` und `--subnets` zu `traffic-manager endpoint [create|update]` hinzugefügt  
 * Eine Problem wurde behoben, aufgrund dessen die Angabe von `--vnets ""` für `ddos-protection update` einen Fehler verursacht hat.
 
-### <a name="role"></a>Rolle
+### <a name="role"></a>Role
 * [VERALTET] Argument `--password` als veraltet markiert für `create-for-rbac`. Verwenden Sie stattdessen sichere, von der CLI generierte Kennwörter.
 
 ### <a name="security"></a>Sicherheit
@@ -807,7 +884,7 @@ Version 2.0.54
 ### <a name="iotcentral"></a>IoTCentral
 * Fehler bei API-Aufruf für update-Befehl behoben
 
-### <a name="role"></a>Rolle
+### <a name="role"></a>Role
 * [BREAKING CHANGE] `ad [app|sp] list` geändert, damit standardmäßig nur die ersten 100 Objekte aufgelistet werden
 
 ### <a name="sql"></a>SQL
@@ -878,7 +955,7 @@ Version 2.0.52
 ### <a name="network"></a>Netzwerk
 * Argument `--exclusion` zu `application-gateway waf-config set` hinzugefügt, um WAF-Ausschlüsse zu unterstützen
 
-### <a name="role"></a>Rolle
+### <a name="role"></a>Role
 * Unterstützung für benutzerdefinierte Bezeichner für Kennwortanmeldeinformation hinzugefügt 
 
 ### <a name="vm"></a>VM
@@ -1014,7 +1091,7 @@ Version 2.0.50
 ### <a name="resource"></a>Resource
 * Unterstützung für Verwaltungsgruppen und Abonnements zu Befehlen vom Typ `policy definition|set-definition` hinzugefügt
 
-### <a name="role"></a>Rolle
+### <a name="role"></a>Role
 * Unterstützung für die API-Berechtigungsverwaltung, den angemeldeten Benutzer und die Verwaltung von Anwendungskennwörtern und Zertifikatanmeldeinformationen hinzugefügt
 * `ad sp create-for-rbac` geändert, um „displayName“ und Dienstprinzipalname besser unterscheiden zu können
 * Unterstützung der Gewährung von Berechtigungen für AAD-Apps hinzugefügt
@@ -1145,7 +1222,7 @@ Version 2.0.47
 * Problem mit `network application-gateway create` behoben, das die Erstellung von Gateways mit der SKU `WAF_v2` oder `Standard_v2` verhindert hat
 * `--service-endpoint-policy`-Argument für Benutzerfreundlichkeit zu `network vnet subnet update` hinzugefügt
 
-### <a name="role"></a>Rolle
+### <a name="role"></a>Role
 * Unterstützung für das Auflisten von Azure AD-App-Besitzern in `ad app owner` hinzugefügt
 * Unterstützung für das Auflisten von Azure AD-Dienstprinzipalbesitzern in `ad sp owner` hinzugefügt
 * Geändert, um sicherzustellen, dass die Erstellungs- und Aktualisierungsbefehle für die Rollendefinition Konfigurationen mit mehreren Berechtigungen akzeptieren
@@ -1252,7 +1329,7 @@ Version 2.0.46
 * Fehler in `managedapp create --kind MarketPlace` korrigiert, der zum Absturz der Instanzerstellung einer verwalteten Marketplace-App führte
 * Befehle vom Typ `feature` geändert, um sie auf unterstützte Profile zu beschränken
 
-### <a name="role"></a>Rolle
+### <a name="role"></a>Role
 * Unterstützung für das Auflisten der Gruppenmitgliedschaften des Benutzers hinzugefügt
 
 ### <a name="signalr"></a>SignalR
@@ -1436,7 +1513,7 @@ Version 2.0.43
 * `--rollback-on-error` zu `group deployment create` hinzugefügt, um bei einem Fehler eine als funktionierend bekannte Bereitstellung auszuführen
 * Problem behoben, aufgrund dessen `--parameters {}` mit `group deployment create` zu einem Fehler führte
 
-### <a name="role"></a>Rolle
+### <a name="role"></a>Role
 
 * Unterstützung für das Stack-Profil „2017-03-09-profile“ hinzugefügt
 * Problem behoben, aufgrund dessen das generische Update von Parametern auf `app update` nicht funktionierte
@@ -1683,7 +1760,7 @@ Version 2.0.38
 * [BREAKING CHANGE] Eigenschaften `size` und `tier` aus `Catalog` entfernt
 * Parameter `InstanceFlexibility` zu `reservations reservation update` hinzugefügt
 
-### <a name="role"></a>Rolle
+### <a name="role"></a>Role
 
 * Fehlerbehandlung verbessert
 
@@ -1969,7 +2046,7 @@ Version 2.0.32
 * `redis import-method` wurde durch `redis import` ersetzt.
 * Unterstützung für `--ids` zu verschiedenen Befehlen hinzugefügt
 
-### <a name="role"></a>Rolle
+### <a name="role"></a>Role
 
 * [BREAKING CHANGE] Veralteter Befehl `ad sp reset-credentials` entfernt
 
@@ -2202,7 +2279,7 @@ Version 2.0.30
 
 * [BREAKING CHANGE]: Changed `provider operation [list|show]` to not require `--api-version`
 
-### <a name="role"></a>Rolle
+### <a name="role"></a>Role
 
 * Unterstützung für erforderliche Zugriffskonfigurationen und native Clients zu `az ad app create` hinzugefügt
 * `rbac`-Befehle geändert, um maximal 1.000 IDs für Objektauflösung zurückzugeben
@@ -2352,7 +2429,7 @@ Version 2.0.28
 
 * `group deployment export` geändert, um eine partielle Vorlage und ggf. Fehler anzuzeigen, wenn der Vorgang nicht erfolgreich war
 
-### <a name="role"></a>Rolle
+### <a name="role"></a>Role
 
 * `role assignment list-changelogs` hinzugefügt, um die Überprüfung von Dienstprinzipalrollen zu ermöglichen
 
@@ -2449,7 +2526,7 @@ Version 2.0.27
 
 * `feature show` wieder hinzugefügt
 
-### <a name="role"></a>Rolle
+### <a name="role"></a>Role
 
 * Argument `--available-to-other-tenants` zu `ad app update` hinzugefügt
 
@@ -2616,7 +2693,7 @@ Version 2.0.25
 
 * Unterstützung für die Anmeldung mit durch Benutzer zugewiesenen Identitäten hinzugefügt
 
-### <a name="role"></a>Rolle
+### <a name="role"></a>Role
 
 * Argument `--assignee-object-id` zu `role assignment create` hinzugefügt, um Graph-Abfrage zu umgehen
 
@@ -2702,7 +2779,7 @@ Version 2.0.22
 
 * Argument `--include-response-body` zu `resource show` hinzugefügt
 
-### <a name="role"></a>Rolle
+### <a name="role"></a>Role
 
 * Anzeige von Standardzuweisungen für „klassische“ Administratoren zu `role assignment list` hinzugefügt
 * Unterstützung für das Hinzufügen (anstelle der Überschreibung) von Anmeldeinformationen zu `ad sp reset-credentials` hinzugefügt
@@ -3428,7 +3505,7 @@ vm (2.0.11)
 * Parameterüberprüfung für Vorlagenlinkvorlagen hinzugefügt (3629)
 * Unterstützung für die Angabe von Bereitstellungsparametern mit der Syntax `KEY=VALUE` hinzugefügt
 
-### <a name="role"></a>Rolle
+### <a name="role"></a>Role
 
 * Unterstützung der Ausgabe im SDK-Authentifizierungsdateiformat für `create-for-rbac`
 * Rollenzuweisungen und dazugehörige AAD-Anwendung beim Löschen eines Dienstprinzipals bereinigt (3610)
@@ -3640,7 +3717,7 @@ vm (2.0.6)
 * [Compute] Beheben von Problemen mit dem Update von VMSS- und VM-Verfügbarkeitsgruppen ([#2773](https://github.com/Azure/azure-cli/issues/2773))
 * Korrigieren des Erstellungs- und Löschvorgangs für Sperren, wenn „parent-resource-path“ auf „None“ festgelegt ist ([#2742](https://github.com/Azure/azure-cli/issues/2742))
 
-### <a name="role"></a>Rolle
+### <a name="role"></a>Role
 
 * create-for-rbac: Sicherstellen, dass das SP-Enddatum nicht das Ablaufdatum des Zertifikats überschreitet ([#2989](https://github.com/Azure/azure-cli/issues/2989))
 * RBAC: Hinzufügen vollständiger Unterstützung für „ad group“ ([#2016](https://github.com/Azure/azure-cli/issues/2016))
