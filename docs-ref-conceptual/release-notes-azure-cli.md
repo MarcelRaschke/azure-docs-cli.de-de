@@ -4,19 +4,63 @@ description: Enthält Informationen zu den aktuellen Updates der Azure CLI.
 author: sptramer
 ms.author: sttramer
 manager: carmonm
-ms.date: 07/02/2019
+ms.date: 07/16/2019
 ms.topic: article
 ms.prod: azure
 ms.technology: azure-cli
 ms.devlang: azurecli
-ms.openlocfilehash: 26757193628cff65603a04e440f9e2aa7bf5a248
-ms.sourcegitcommit: e06d34682710e77840b0c51f4718184101bd8a03
+ms.openlocfilehash: 8cb0e2f43a3f40fdf15a00ebc7bdb931bf8f41f0
+ms.sourcegitcommit: 49e1dea60942fce02d9c3ce249ac633a83f303e7
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 07/02/2019
-ms.locfileid: "67527301"
+ms.lasthandoff: 07/16/2019
+ms.locfileid: "68246920"
 ---
 # <a name="azure-cli-release-notes"></a>Versionshinweise für die Azure CLI
+
+## <a name="july-16-2019"></a>16. Juli 2019
+
+Version 2.0.69
+
+### <a name="appservice"></a>AppService
+
+* `webapp identity`-Befehle geändert, um eine korrekte Fehlermeldung zurückzugeben, wenn „ResourceGroupName“ oder der App-Name ungültig sind
+* `webapp list` korrigiert, sodass der korrekte Wert für „numberOfSites“ zurückgegeben wird, wenn „ResourceGroup“ nicht angegeben wurde
+* Nebeneffekte von `appservice plan create` und `webapp create` behoben
+
+### <a name="core"></a>Core
+
+* Problem behoben, aufgrund dessen `--subscription` angezeigt wurde, obwohl nicht anwendbar
+
+### <a name="batch"></a>Batch
+
+* [BREAKING CHANGE] `batch pool node-agent-skus list` durch `batch pool supported-images list` ersetzt
+* Unterstützung für Sicherheitsregeln hinzugefügt, die den Netzwerkzugriff auf einen Pool basierend auf dem Quellport des Datenverkehrs blockieren, wenn die Option `--json-file` von `batch pool create network` verwendet wird
+* Unterstützung für die Ausführung der Aufgabe im Arbeitsverzeichnis des Containers oder der Batch-Aufgabe hinzugefügt, wenn die Option `--json-file` von `batch task create` verwendet wird
+* Fehler in Option `--application-package-references` von `batch pool create` behoben, aufgrund dessen nur Standardeinstellungen möglich waren
+
+### <a name="eventhubs"></a>Event Hubs
+
+* Validierung für Parameter `--rights` von `authorizationrule`-Befehlen hinzugefügt
+
+### <a name="rdbms"></a>RDBMS
+
+* Optionaler Parameter zum Angeben der Replikat-SKU für den Befehl zum Erstellen von Replikaten hinzugefügt
+* Problem mit CI-Testfehler bei der Erstellung von MySQL-Replikaten behoben
+
+### <a name="relay"></a>Relay
+
+* Problem mit Hybridverbindung behoben, wenn die Client-Autorisierung deaktiviert ist [#8775](https://github.com/azure/azure-cli/issues/8775)
+* Parameter `--requires-transport-security` zu `relay wcfrelay create` hinzugefügt
+
+### <a name="servicebus"></a>ServiceBus
+
+* Validierung für Parameter `--rights` von `authorizationrule`-Befehlen hinzugefügt
+
+### <a name="storage"></a>Storage
+
+* AADDS für Files für Speicherkontoaktualisierung aktiviert
+* Problem `storage blob service-properties update --set` behoben
 
 ## <a name="july-2-2019"></a>2\. Juli 2019
 
