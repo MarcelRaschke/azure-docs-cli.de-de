@@ -4,19 +4,64 @@ description: Enthält Informationen zu den aktuellen Updates der Azure CLI.
 author: sptramer
 ms.author: sttramer
 manager: carmonm
-ms.date: 07/16/2019
+ms.date: 07/30/2019
 ms.topic: article
 ms.prod: azure
 ms.technology: azure-cli
 ms.devlang: azurecli
-ms.openlocfilehash: 8cb0e2f43a3f40fdf15a00ebc7bdb931bf8f41f0
-ms.sourcegitcommit: 49e1dea60942fce02d9c3ce249ac633a83f303e7
+ms.openlocfilehash: 673014c3fd86e20148fe5ffa9fa5160e490da0cb
+ms.sourcegitcommit: d29d86d33916d5551b4aeb984b06d7a85c4f6b06
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 07/16/2019
-ms.locfileid: "68246920"
+ms.lasthandoff: 07/30/2019
+ms.locfileid: "68658934"
 ---
 # <a name="azure-cli-release-notes"></a>Versionshinweise für die Azure CLI
+
+## <a name="july-30-2019"></a>30. Juli 2019
+
+Version 2.0.70
+
+### <a name="acr"></a>ACR
+
+* Problem #9952 behoben (Regression im Befehl `acr pack build`)
+* Standardname des Generatorimages in `acr pack build` entfernt
+
+### <a name="appservice"></a>AppService
+
+* `webapp config ssl` geändert, um eine Meldung anzuzeigen, wenn eine Ressource nicht gefunden wurde
+* Problem behoben, aufgrund dessen `functionapp create` den Speicherkontotypen `Standard_RAGRS` nicht akzeptiert hat
+* Problem behoben, aufgrund dessen für `webapp up` ein Fehler auftrat, wenn für die Ausführung ältere Python-Versionen verwendet wurden
+
+### <a name="network"></a>Netzwerk
+
+* Ungültiger Parameter `--ids` aus `network nic ip-config add` entfernt (Fehlerbehebungen #9861)
+* Fehlerbehebungen #9604. Parameter `--root-certs` zu `network application-gateway http-settings [create|update]` hinzugefügt, um vom Benutzer zugewiesene vertrauenswürdige Stammzertifikate zu unterstützen.
+* Argument `--subscription` für `network dns record-set ns create` korrigiert (#9965)
+
+### <a name="rbac"></a>RBAC
+
+* Befehl `user update` hinzugefügt
+* [VERALTET] `--upn-or-object-id` in benutzerbezogenen Befehlen als veraltet markiert
+    * Verwenden Sie das Ersatzargument `--id`.
+* Argument `--id` zu benutzerbezogenen Befehlen hinzugefügt
+
+### <a name="sql"></a>SQL
+
+* Verwaltungsbefehle für Schlüssel verwalteter Instanzen und TDE-Schutzvorrichtung hinzugefügt
+
+### <a name="storage"></a>Storage
+
+* Befehl `storage remove` hinzugefügt
+* Problem mit `storage blob update` behoben
+
+### <a name="vm"></a>VM
+
+* `list-skus` wurde geändert, um eine neuere API-Version für die Ausgabe von Zonendetails zu verwenden.
+* Standardwert `--single-placement-group` für `vmss create` in `false` geändert
+* Möglichkeit zum Auswählen von ZRS-Speicher-SKUs für `[snapshot|disk] create` hinzugefügt
+* Neue Befehlsgruppe `vm host` zur Unterstützung dedizierter Hosts hinzugefügt
+* Parameter `--host` und `--host-group` für `vm create` hinzugefügt, um den dedizierten VM-Host festzulegen
 
 ## <a name="july-16-2019"></a>16. Juli 2019
 
