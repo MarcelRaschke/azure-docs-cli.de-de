@@ -4,19 +4,98 @@ description: Enthält Informationen zu den aktuellen Updates der Azure CLI.
 author: sptramer
 ms.author: sttramer
 manager: carmonm
-ms.date: 07/30/2019
+ms.date: 08/13/2019
 ms.topic: article
 ms.prod: azure
 ms.technology: azure-cli
 ms.devlang: azurecli
-ms.openlocfilehash: 673014c3fd86e20148fe5ffa9fa5160e490da0cb
-ms.sourcegitcommit: d29d86d33916d5551b4aeb984b06d7a85c4f6b06
+ms.openlocfilehash: d315046287a552e89112fa415e1219f9a97d4944
+ms.sourcegitcommit: b00555c528697c0a6419cf23380e48c8705026db
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 07/30/2019
-ms.locfileid: "68658934"
+ms.lasthandoff: 08/13/2019
+ms.locfileid: "68974263"
 ---
 # <a name="azure-cli-release-notes"></a>Versionshinweise für die Azure CLI
+
+## <a name="august-13-2019"></a>13. August 2019
+
+Version 2.0.71
+
+### <a name="appservice"></a>AppService
+
+* Problem behoben, aufgrund dessen bei Befehlen vom Typ `webapp webjob continuous` für Slots Fehler auftraten
+
+### <a name="botservice"></a>BotService
+
+* [BREAKING CHANGE] Unterstützung für die Erstellung von Bots der Version 3 entfernt
+
+### <a name="cognitiveservices"></a>CognitiveServices
+
+* Befehle vom Typ `cognitiveservices account network-rule` hinzugefügt
+
+### <a name="cosmos-db"></a>Cosmos DB
+
+* Beim Aktualisieren mehrerer Schreibstandorte wurde eine Warnung entfernt.
+* CRUD-Befehle für CosmosDB SQL-, MongoDB-, Cassandra-, Gremlin- und Tabellenressourcen sowie den Ressourcendurchsatz hinzugefügt
+
+### <a name="hdinsight"></a>HDInsight
+
+Dieses Release enthält zahlreiche wichtige Änderungen.
+
+* [BREAKING CHANGE] Parameter für `hdinsight create` umbenannt:
+  * `--storage-default-container` in `--storage-container` umbenannt
+  * `--storage-default-filesystem` in `--storage-filesystem` umbenannt
+* [BREAKING CHANGE] Das Argument `--name` von `application create` wurde so geändert, dass es den Anwendungsnamen anstelle des Clusternamens darstellt.
+* Argument `--cluster-name` zu `application create` hinzugefügt, um die alte Funktion `--name` zu ersetzen
+* [BREAKING CHANGE] Parameter für `application create` umbenannt:
+  * `--application-type` in `--type` umbenannt
+  * `--marketplace-identifier` in `--marketplace-id` umbenannt
+  * `--https-endpoint-access-mode` in `--access-mode` umbenannt
+  * `--https-endpoint-destination-port` in `--destination-port` umbenannt
+* [BREAKING CHANGE] Parameter für `application create` entfernt:
+  * `--https-endpoint-location`
+  * `--https-endpoint-public-port`
+  * `--ssh-endpoint-destination-port`
+  * `--ssh-endpoint-location`
+  * `--ssh-endpoint-public-port`
+* [WICHTIGE ÄNDERUNG] `--target-instance-count` für `hdinsight resize` in `--workernode-count` umbenannt
+* [BREAKING CHANGE] Alle Befehle in der Gruppe `hdinsight script-action` wurden so geändert, dass sie den Parameter `--name` als Namen der Skriptaktion verwenden.
+* Argument `--cluster-name` zu allen Befehlen vom Typ `hdinsight script-action` hinzugefügt, um die alte Funktion `--name` zu ersetzen
+* [BREAKING CHANGE] `--script-execution-id` für alle Befehle vom Typ `hdinsight script-action` in `--execution-id` umbenannt
+* [BREAKING CHANGE] `hdinsight script-action show` in `hdinsight script-action show-execution-details` umbenannt
+* [WICHTIGE ÄNDERUNG] Parameter in `hdinsight script-action execute --roles` geändert, sodass sie durch Leerzeichen anstelle von Kommas getrennt sind
+* [BREAKING CHANGE] Parameter `--persisted` für `hdinsight script-action list` entfernt
+* Der Parameter `hdinsight create --cluster-configurations` wurde so geändert, dass er einen Pfad zu einer lokalen JSON-Datei oder JSON-Zeichenfolge akzeptiert.
+* Befehl `hdinsight script-action list-execution-history` hinzugefügt
+* `hdinsight monitor enable --workspace` geändert, um die ID oder den Namen eines Log Analytics-Arbeitsbereichs zu akzeptieren
+* Argument `hdinsight monitor enable --primary-key` hinzugefügt. Dieses Argument wird benötigt, wenn eine Arbeitsbereichs-ID als Parameter angegeben wird.
+* Weitere Beispiele und aktualisierte Beschreibungen für Hilfemeldungen hinzugefügt
+
+### <a name="interactive"></a>Interactive
+
+* Ladefehler behoben
+
+### <a name="kubernetes"></a>kubernetes
+
+* Änderung, um `https` zu verwenden, wenn der Dashboardcontainerport `https` verwendet
+
+### <a name="network"></a>Netzwerk
+
+* Argument `--yes` hinzugefügt zu `network dns record-set cname delete`
+
+### <a name="profile"></a>Profil
+
+* Argument `--resource-type` zu `account get-access-token` zum Abrufen von Ressourcenzugriffstoken hinzugefügt
+
+### <a name="servicefabric"></a>ServiceFabric
+
+* Alle unterstützten Betriebssystemversionen für „sf cluster create“ hinzugefügt
+* Fehler beim Überprüfen des primären Zertifikats behoben
+
+### <a name="storage"></a>Storage
+
+* Befehl `storage copy` hinzugefügt
 
 ## <a name="july-30-2019"></a>30. Juli 2019
 
