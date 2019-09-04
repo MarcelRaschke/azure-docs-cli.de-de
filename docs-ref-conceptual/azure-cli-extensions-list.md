@@ -4,17 +4,17 @@ description: Eine vollständige Liste mit den offiziell unterstützten Erweiteru
 author: sptramer
 ms.author: sttramer
 manager: carmonm
-ms.date: 08/25/2019
+ms.date: 08/30/2019
 ms.topic: article
 ms.prod: azure
 ms.technology: azure-cli
 ms.devlang: azure-cli
-ms.openlocfilehash: 36a2fe84aa1f5f4e903451a48aa9f59998bafffa
-ms.sourcegitcommit: df2be5609a6cbeecb9f8ef0928a9fabfb207e7f9
+ms.openlocfilehash: 60291b02a642e26bbd3e3bb2a4453dd6d6bfab6e
+ms.sourcegitcommit: ef447bd23fda6346657932cd69d136c1d83e9d45
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 08/27/2019
-ms.locfileid: "70047313"
+ms.lasthandoff: 09/03/2019
+ms.locfileid: "70238571"
 ---
 # <a name="available-extensions-for-the-azure-cli"></a>Verfügbare Erweiterungen für die Azure CLI
 
@@ -29,7 +29,7 @@ az extension list-available --output table
 | NAME | Version | Zusammenfassung | Vorschau |
 |------|---------|---------|---------|
 | [aem](https://github.com/Azure/azure-cli-extensions) | 0.1.1 | Verwalten der Azure-Erweiterungen zur verbesserten Überwachung für SAP |  |
-| [aks-preview](https://github.com/Azure/azure-cli-extensions/tree/master/src/aks-preview) | 0.4.10 | Bietet eine Vorschau für zukünftige AKS-Features | Ja |
+| [aks-preview](https://github.com/Azure/azure-cli-extensions/tree/master/src/aks-preview) | 0.4.12 | Bietet eine Vorschau für zukünftige AKS-Features | Ja |
 | [alias](https://github.com/Azure/azure-cli-extensions) | 0.5.2 | Unterstützung für Befehlsaliase | Ja |
 | [appconfig](https://github.com/Azure/azure-cli-extensions) | 0.5.0 | Bietet eine Vorschau für zukünftige App-Konfigurationsfunktionen. | Ja |
 | [application-insights](https://github.com/Azure/azure-cli-extensions/tree/master/src/application-insights) | 0.1.1 | Unterstützung für die Verwaltung von Application Insights-Komponenten und die Abfrage von Metriken, Ereignissen und Protokollen von diesen Komponenten | Ja |
@@ -48,6 +48,7 @@ az extension list-available --output table
 | [express-route-cross-connection](https://github.com/Azure/azure-cli-extensions/tree/master/src/express-route-cross-connection) | 0.1.1 | Verwalten von benutzerdefinierten ExpressRoute-Verbindungen mithilfe einer ExpressRoute-Querverbindung |  |
 | [find](https://github.com/Azure/azure-cli-extensions/tree/master/src/find) | 0.3.0 | Intelligentes Abfragen von CLI-Informationen | Ja |
 | [front-door](https://github.com/Azure/azure-cli-extensions/tree/master/src/front-door) | 1.0.0 | Verwalten von Front Door-Instanzen für Netzwerke |  |
+| [healthcare](https://github.com/Azure/azure-cli-extensions) | 0.1.0 | Erweiterung für das Gesundheitswesen der Microsoft Azure-Befehlszeilentools | Ja |
 | [image-copy-extension](https://github.com/Azure/azure-cli-extensions) | 0.2.1 | Unterstützung für das Kopieren verwalteter VM-Images zwischen Regionen |  |
 | [Interaktiv](https://github.com/Azure/azure-cli) | 0.4.3 | Interaktive Shell der Microsoft Azure-Befehlszeilenschnittstelle | Ja |
 | [keyvault-preview](https://github.com/Azure/azure-keyvault-cli-extension) | 0.1.3 | Zeigen Sie eine Vorschau der Azure Key Vault-Befehle an. | Ja |
@@ -64,5 +65,5 @@ az extension list-available --output table
 | [Abonnement](https://github.com/Azure/azure-cli-extensions) | 0.1.3 | Unterstützung für die Abonnementverwaltung (Vorschauversion) |  |
 | [virtual-network-tap](https://github.com/Azure/azure-cli-extensions/tree/master/src/virtual-network-tap) | 0.1.0 | Verwalten von TAPs für virtuelle Netzwerke (VTAP) | Ja |
 | [virtual-wan](https://github.com/Azure/azure-cli-extensions/tree/master/src/virtual-wan) | 0.1.0 | Verwalten von virtuellen WANs, Hubs, VPN-Gateways und VPN-Standorten | Ja |
-| [vm-repair](https://github.com/Azure/azure-cli-extensions/tree/master/src/vm-repair) | 0.1.2 | Automatische Reparaturbefehle zur Problembehebung bei VMs |  |
+| [vm-repair](https://github.com/Azure/azure-cli-extensions/tree/master/src/vm-repair) | 0.2.0 | Automatische Reparaturbefehle zur Problembehebung bei VMs |  |
 | [webapp](https://github.com/Azure/azure-cli-extensions/tree/master/src/webapp) | 0.2.24 | Zusätzliche Befehle für Azure App Service | Ja |
