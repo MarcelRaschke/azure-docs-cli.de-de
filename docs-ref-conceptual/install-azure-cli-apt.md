@@ -9,12 +9,12 @@ ms.topic: conceptual
 ms.prod: azure
 ms.technology: azure-cli
 ms.devlang: azurecli
-ms.openlocfilehash: af20c31f6b387768e93158f1116b3f486f4aedfc
-ms.sourcegitcommit: 52f0a62892c68b5728090f1bfceef7a612104529
+ms.openlocfilehash: 923629d53983f7dbbd34bf7e79f28380a05937c2
+ms.sourcegitcommit: 5a29ce9c0a3d7b831f22b1a13b1ae2e239e5549f
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 07/23/2019
-ms.locfileid: "68415163"
+ms.lasthandoff: 09/19/2019
+ms.locfileid: "71144076"
 ---
 # <a name="install-azure-cli-with-apt"></a>Installieren der Azure CLI mit apt
 
@@ -59,8 +59,8 @@ Falls Sie ein Skript nicht als Superuser ausführen möchten, oder falls das All
 2. Laden Sie den Microsoft-Signaturschlüssel herunter, und installieren Sie ihn.
 
     ```bash
-    curl -sL https://packages.microsoft.com/keys/microsoft.asc | \
-        gpg --dearmor | \
+    curl -sL https://packages.microsoft.com/keys/microsoft.asc | 
+        gpg --dearmor | 
         sudo tee /etc/apt/trusted.gpg.d/microsoft.asc.gpg > /dev/null
     ```
 
@@ -68,7 +68,7 @@ Falls Sie ein Skript nicht als Superuser ausführen möchten, oder falls das All
 
     ```bash
     AZ_REPO=$(lsb_release -cs)
-    echo "deb [arch=amd64] https://packages.microsoft.com/repos/azure-cli/ $AZ_REPO main" | \
+    echo "deb [arch=amd64] https://packages.microsoft.com/repos/azure-cli/ $AZ_REPO main" | 
         sudo tee /etc/apt/sources.list.d/azure-cli.list
     ```
 
@@ -89,7 +89,7 @@ Weitere Informationen zu verschiedenen Authentifizierungsmethoden finden Sie unt
 
 In diesem Abschnitt finden Sie einige allgemeine Probleme, die bei der Installation mit `apt` auftreten können. Falls ein Problem auftritt, das hier nicht behandelt wird, [melden Sie es auf GitHub](https://github.com/Azure/azure-cli/issues).
 
-### <a name="lsbrelease-does-not-return-the-correct-base-distribution-version"></a>„lsb_release“ gibt nicht die richtige Basisdistributionsversion zurück.
+### <a name="lsb_release-does-not-return-the-correct-base-distribution-version"></a>„lsb_release“ gibt nicht die richtige Basisdistributionsversion zurück.
 
 Einige von Ubuntu oder Debian abgeleiteten Distributionen wie Linux Mint geben über `lsb_release` unter Umständen nicht den richtigen Versionsnamen zurück. Mit diesem Wert wird im Installationsprozess das zu installierende Pakete ermittelt. Wenn Sie den Codenamen der Ubuntu- oder Debian-Version kennen, von der Ihre Distribution abgeleitet ist, können Sie beim [Hinzufügen des Repositorys](#set-release) den Wert `AZ_REPO` manuell festlegen. Sehen Sie sich andernfalls Informationen dazu an, wie Sie für Ihre Distribution den Basisdistributions-Codenamen ermitteln, und legen Sie `AZ_REPO` auf den richtigen Wert fest.
 
@@ -155,7 +155,7 @@ Verwenden Sie `apt-get upgrade` zum Aktualisieren des CLI-Pakets.
    sudo rm /etc/apt/sources.list.d/azure-cli.list
    ```
 
-3. Entfernen Sie den Signaturschlüssel:
+3. Wenn Sie keine anderen Pakete von Microsoft verwenden, entfernen Sie den Signaturschlüssel:
 
     ```bash
     sudo rm /etc/apt/trusted.gpg.d/microsoft.asc.gpg

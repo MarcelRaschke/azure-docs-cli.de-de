@@ -9,12 +9,12 @@ ms.topic: conceptual
 ms.prod: azure
 ms.technology: azure-cli
 ms.devlang: azurecli
-ms.openlocfilehash: bc3ae41ea04ae8d7f62242b2bfe415c8a3bfea33
-ms.sourcegitcommit: 08043c47d3ccf23522b91e6bba3932e312c04c7f
+ms.openlocfilehash: 270be4c41bdb3c913e41ef1b2bb0c7c0b393aa20
+ms.sourcegitcommit: 5a29ce9c0a3d7b831f22b1a13b1ae2e239e5549f
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 06/04/2019
-ms.locfileid: "66516296"
+ms.lasthandoff: 09/19/2019
+ms.locfileid: "71144037"
 ---
 # <a name="install-azure-cli-with-yum"></a>Installieren der Azure CLI mit yum
 
@@ -35,7 +35,12 @@ Für Linux-Distributionen mit `yum` (etwa RHEL, Fedora oder CentOS) ist ein Pake
 2. Erstellen Sie lokale `azure-cli`-Repositoryinformationen.
 
    ```bash
-   sudo sh -c 'echo -e "[azure-cli]\nname=Azure CLI\nbaseurl=https://packages.microsoft.com/yumrepos/azure-cli\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/azure-cli.repo'
+   sudo sh -c 'echo -e "[azure-cli]
+   name=Azure CLI
+   baseurl=https://packages.microsoft.com/yumrepos/azure-cli
+   enabled=1
+   gpgcheck=1
+   gpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/azure-cli.repo'
    ```
 
 3. Installieren Sie mit dem Befehl `yum install`.
@@ -44,7 +49,7 @@ Für Linux-Distributionen mit `yum` (etwa RHEL, Fedora oder CentOS) ist ein Pake
    sudo yum install azure-cli
    ```
 
-Sie können dann die Azure CLI mit dem Befehl `az` ausführen. Verwenden Sie den Befehl [az login](/cli/azure/reference-index#az-login), um sich anzumelden.
+Führen Sie die Azure CLI mit dem Befehl `az` aus. Verwenden Sie den Befehl [az login](/cli/azure/reference-index#az-login), um sich anzumelden.
 
 [!INCLUDE [interactive-login](includes/interactive-login.md)]
 
@@ -98,7 +103,7 @@ sudo yum update azure-cli
    sudo rm /etc/yum.repos.d/azure-cli.repo
    ```
 
-3. Entfernen Sie auch den Microsoft GPG-Signaturschlüssel, falls Sie die Repositoryinformationen entfernt haben.
+3. Wenn Sie keine anderen Microsoft-Pakete verwenden, entfernen Sie den Signaturschlüssel.
 
    ```bash
    MSFT_KEY=`rpm -qa gpg-pubkey /* --qf "%{version}-%{release} %{summary}\n" | grep Microsoft | awk '{print $1}'`
