@@ -8,12 +8,12 @@ ms.date: 02/15/2019
 ms.topic: conceptual
 ms.technology: azure-cli
 ms.devlang: azurecli
-ms.openlocfilehash: 6d88400b8d7070cf2f9dba2f3e124edfe2e3163d
-ms.sourcegitcommit: e06d34682710e77840b0c51f4718184101bd8a03
+ms.openlocfilehash: 45374a29c45d8e9fa2d39aebf2d9bab556ef3b50
+ms.sourcegitcommit: b42ce26476b135bb2047c8d9d787580c858f8b6b
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 07/02/2019
-ms.locfileid: "67527329"
+ms.lasthandoff: 10/09/2019
+ms.locfileid: "72163837"
 ---
 # <a name="create-an-azure-service-principal-with-azure-cli"></a>Erstellen eines Azure-Dienstprinzipals mit der Azure CLI
 
@@ -99,10 +99,10 @@ Mit [az ad sp list](/cli/azure/ad/sp#az-ad-sp-list) kann eine Liste der Dienstpr
 * `--show-mine` fordert nur Dienstprinzipale an, die vom angemeldeten Benutzer erstellt wurden.
 * `--filter` akzeptiert einen OData-Filter und führt die _serverseitige_ Filterung aus. Diese Methode wird anstelle der clientseitigen Filterung mit dem Argument `--query` der CLI empfohlen. Weitere Informationen zu OData-Filtern finden Sie unter [OData-Ausdruckssyntax für Filter und Sortierklauseln in Azure Search](/rest/api/searchservice/odata-expression-syntax-for-azure-search).
 
-Für Dienstprinzipalobjekte werden ausführliche Informationen zurückgegeben. Verwenden Sie die Abfragezeichenfolge `[].{"id":"appId", "tenant":"appOwnerTenantId"}`, um nur die für die Anmeldung erforderlichen Informationen abzurufen. Die Anmeldeinformationen für alle Dienstprinzipale, die vom derzeit angemeldeten Benutzer erstellt wurden, rufen Sie beispielsweise wie folgt ab:
+Für Dienstprinzipalobjekte werden ausführliche Informationen zurückgegeben. Verwenden Sie die Abfragezeichenfolge `[].{id:appId, tenant:appOwnerTenantId}`, um nur die für die Anmeldung erforderlichen Informationen abzurufen. Die Anmeldeinformationen für alle Dienstprinzipale, die vom derzeit angemeldeten Benutzer erstellt wurden, rufen Sie beispielsweise wie folgt ab:
 
 ```azurecli-interactive
-az ad sp list --show-mine --query '[].{"id":"appId", "tenant":"appOwnerTenantId"}'
+az ad sp list --show-mine --query "[].{id:appId, tenant:appOwnerTenantId}"
 ```
 
 > [!IMPORTANT]
