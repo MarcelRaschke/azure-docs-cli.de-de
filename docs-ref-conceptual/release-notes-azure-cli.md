@@ -4,19 +4,78 @@ description: Enthält Informationen zu den aktuellen Updates der Azure CLI.
 author: sptramer
 ms.author: sttramer
 manager: carmonm
-ms.date: 09/05/2019
+ms.date: 10/15/2019
 ms.topic: article
 ms.prod: azure
 ms.technology: azure-cli
 ms.devlang: azurecli
-ms.openlocfilehash: 1f829ba3d9ecdb158e96512bde5bcf1565cc205c
-ms.sourcegitcommit: 5b9b4446c08b94256ced7f63c145b493ba8b50df
+ms.openlocfilehash: 32137c5e6ef403461114b0e09970f93c9248c100
+ms.sourcegitcommit: 69f52b032167a01509fdf15431e3e4e89a7e20ef
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 09/24/2019
-ms.locfileid: "71217411"
+ms.lasthandoff: 10/15/2019
+ms.locfileid: "72324021"
 ---
 # <a name="azure-cli-release-notes"></a>Versionshinweise für die Azure CLI
+
+## <a name="october-15-2019"></a>15. Oktober 2019
+
+Version 2.0.75
+
+### <a name="aks"></a>AKS
+
+* Standardwert `--load-balancer-sku` in `standard` geändert, sofern von der Kubernetes-Version unterstützt
+* Standardwert `--vm-set-type` in `virtualmachinescalesets` geändert, sofern von der Kubernetes-Version unterstützt
+
+### <a name="ams"></a>AMS
+
+* [BREAKING CHANGE] Name von `job start` in `job create` geändert
+* [BREAKING CHANGE] Parameter `--ask` von `content-key-policy create` geändert, sodass eine hexadezimale Zeichenfolge mit 32 Zeichen anstelle von UTF8 verwendet wird
+
+### <a name="appservice"></a>AppService
+
+* Befehle vom Typ `webapp config access-restriction show|set|add|remove` hinzugefügt
+* Bessere Fehlerbehandlung zu `webapp up` hinzugefügt
+* Unterstützung für SKU `Isolated` zu `appservice plan update` hinzugefügt
+
+### <a name="arm"></a>ARM
+
+* Parameter `--handle-extended-json-format` zu `deployment create` hinzugefügt, um mehrere Zeilen und Kommentare in der JSON-Vorlage zu unterstützen
+
+### <a name="compute"></a>Compute
+
+* Parameter `--enable-agent` zu `vm create` hinzugefügt
+* `vm create` geändert, um bei der Verwendung von Zonen die SKU „Standard“ für die öffentliche IP-Adresse zu verwenden
+* `vm create` geändert, um automatisch einen gültigen Computernamen für eine VM zu erstellen, falls keiner angegeben wurde
+* Parameter `--computer-name-prefix` zu `vmss create` hinzugefügt, um das benutzerdefinierte Computernamenspräfix virtueller Computer in VMSS zu unterstützen
+* Parameter `--workspace` zu `vm create` hinzugefügt, um automatisch einen Log Analytics-Arbeitsbereich zu aktivieren
+* API-Version für Kataloge auf 2019-07-01 aktualisiert
+
+### <a name="core"></a>Core
+
+* Syntaxprüfung für Parameter `--set` im generischen Updatebefehl hinzugefügt
+
+### <a name="iot"></a>IoT
+
+* Problem behoben, bei dem für `iot hub show` der Fehler „Ressource nicht gefunden.“ zurückgegeben wurde
+
+### <a name="monitor"></a>Überwachen
+
+* Unterstützung für CRUD zu `monitor log-analytics workspace` hinzugefügt
+
+### <a name="network"></a>Netzwerk
+
+* Unterstützung für mandantenübergreifende virtuelle Verbindung zu `network private-dns link vnet [create|update]` hinzugefügt
+* [BREAKING CHANGE] `network vnet subnet list` geändert, um Parameter `--resource-group` und `--vnet-name` vorauszusetzen
+
+### <a name="sql"></a>SQL
+
+* Befehle zu `sql mi ad-admin` hinzugefügt, die das Festlegen eines AAD-Administrators für verwaltete Instanzen unterstützen
+
+### <a name="storage"></a>Storage
+
+* Parameter `--preserve-s2s-access-tier` zu `storage copy` hinzugefügt, um die Zugriffsebene beim Kopieren von Dienst zu Dienst beizubehalten
+* Parameter `--enable-large-file-share` zu `storage account [create|update]` hinzugefügt, um große Dateifreigaben für ein Speicherkonto zu unterstützen
 
 ## <a name="september-24-2019"></a>24. September 2019
 
