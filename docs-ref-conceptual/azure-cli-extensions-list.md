@@ -4,17 +4,17 @@ description: Eine vollständige Liste mit den offiziell unterstützten Erweiteru
 author: sptramer
 ms.author: sttramer
 manager: carmonm
-ms.date: 10/06/2019
+ms.date: 10/12/2019
 ms.topic: article
 ms.prod: azure
 ms.technology: azure-cli
 ms.devlang: azure-cli
-ms.openlocfilehash: 921d3d48e4be466335d2e8dc85cdc57853fc2eb9
-ms.sourcegitcommit: b42ce26476b135bb2047c8d9d787580c858f8b6b
+ms.openlocfilehash: 6b21ec098fb39611f62161a4b562242ad90d1e7c
+ms.sourcegitcommit: 69f52b032167a01509fdf15431e3e4e89a7e20ef
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 10/09/2019
-ms.locfileid: "72163870"
+ms.lasthandoff: 10/15/2019
+ms.locfileid: "72324052"
 ---
 # <a name="available-extensions-for-the-azure-cli"></a>Verfügbare Erweiterungen für die Azure CLI
 
@@ -34,7 +34,7 @@ az extension list-available --output table
 | [appconfig](https://github.com/Azure/azure-cli-extensions) | 0.5.0 | Bietet eine Vorschau für zukünftige App-Konfigurationsfunktionen. | Ja |
 | [application-insights](https://github.com/Azure/azure-cli-extensions/tree/master/src/application-insights) | 0.1.1 | Unterstützung für die Verwaltung von Application Insights-Komponenten und die Abfrage von Metriken, Ereignissen und Protokollen von diesen Komponenten | Ja |
 | [azure-batch-cli-extensions](https://github.com/Azure/azure-batch-cli-extensions) | 5.0.0 | Zusätzliche Befehle für die Verwendung des Azure Batch-Diensts |  |
-| [azure-cli-iot-ext](https://github.com/azure/azure-iot-cli-extension) | 0.8.2 | Stellt die Befehlsebene der Datenebene für Azure IoT Hub, IoT Edge und den IoT Device Provisioning-Dienst bereit |  |
+| [azure-cli-iot-ext](https://github.com/azure/azure-iot-cli-extension) | 0.8.3 | Stellt die Befehlsebene der Datenebene für Azure IoT Hub, IoT Edge und den IoT Device Provisioning-Dienst bereit |  |
 | [azure-cli-ml](https://docs.microsoft.com/azure/machine-learning/service/) | 1.0.65 | AzureML-Befehlsmodul der Microsoft Azure-Befehlszeilentools |  |
 | [azure-devops](https://github.com/Microsoft/azure-devops-cli-extension) | 0.13.0 | Tools zum Verwalten von Azure DevOps |  |
 | [azure-firewall](https://github.com/Azure/azure-cli-extensions/tree/master/src/azure-firewall) | 0.1.3 | Verwalten von Azure Firewall-Ressourcen | Ja |
@@ -47,7 +47,7 @@ az extension list-available --output table
 | [express-route](https://github.com/Azure/azure-cli-extensions/tree/master/src/express-route) | 0.1.3 | Verwalten von Expressroute mit Previewfunktionen | Ja |
 | [express-route-cross-connection](https://github.com/Azure/azure-cli-extensions/tree/master/src/express-route-cross-connection) | 0.1.1 | Verwalten von benutzerdefinierten ExpressRoute-Verbindungen mithilfe einer ExpressRoute-Querverbindung |  |
 | [find](https://github.com/Azure/azure-cli-extensions/tree/master/src/find) | 0.3.0 | Intelligentes Abfragen von CLI-Informationen | Ja |
-| [front-door](https://github.com/Azure/azure-cli-extensions/tree/master/src/front-door) | 1.0.0 | Verwalten von Front Door-Instanzen für Netzwerke |  |
+| [front-door](https://github.com/Azure/azure-cli-extensions/tree/master/src/front-door) | 1.0.1 | Verwalten von Front Door-Instanzen für Netzwerke |  |
 | [healthcareapis](https://github.com/Azure/azure-cli-extensions) | 0.1.1 | HealthCareApis-Erweiterung der Microsoft Azure-Befehlszeilentools | Ja |
 | [image-copy-extension](https://github.com/Azure/azure-cli-extensions) | 0.2.1 | Unterstützung für das Kopieren verwalteter VM-Images zwischen Regionen |  |
 | [Interaktiv](https://github.com/Azure/azure-cli) | 0.4.3 | Interaktive Shell der Microsoft Azure-Befehlszeilenschnittstelle | Ja |
