@@ -4,17 +4,17 @@ description: Eine vollständige Liste mit den offiziell unterstützten Erweiteru
 author: sptramer
 ms.author: sttramer
 manager: carmonm
-ms.date: 10/22/2019
+ms.date: 11/01/2019
 ms.topic: article
 ms.prod: azure
 ms.technology: azure-cli
 ms.devlang: azure-cli
-ms.openlocfilehash: e32ef6b1623c4fb64c31111e4b237fd8997f5d5f
-ms.sourcegitcommit: 269eb3589059c145c3fef0b723a72b5a25feb71c
+ms.openlocfilehash: 9c1b8cb78faffaa6308e0d586e41565e4bdcfa5c
+ms.sourcegitcommit: a9d5711cd919d2ffe2a1d189218635843d533e10
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 10/23/2019
-ms.locfileid: "72783680"
+ms.lasthandoff: 11/02/2019
+ms.locfileid: "73441587"
 ---
 # <a name="available-extensions-for-the-azure-cli"></a>Verfügbare Erweiterungen für die Azure CLI
 
@@ -29,15 +29,16 @@ az extension list-available --output table
 | NAME | Version | Zusammenfassung | Vorschau |
 |------|---------|---------|---------|
 | [aem](https://github.com/Azure/azure-cli-extensions) | 0.1.1 | Verwalten der Azure-Erweiterungen zur verbesserten Überwachung für SAP |  |
-| [aks-preview](https://github.com/Azure/azure-cli-extensions/tree/master/src/aks-preview) | 0.4.17 | Bietet eine Vorschau für zukünftige AKS-Features | Ja |
+| [aks-preview](https://github.com/Azure/azure-cli-extensions/tree/master/src/aks-preview) | 0.4.19 | Bietet eine Vorschau für zukünftige AKS-Features | Ja |
 | [alias](https://github.com/Azure/azure-cli-extensions) | 0.5.2 | Unterstützung für Befehlsaliase | Ja |
 | [appconfig](https://github.com/Azure/azure-cli-extensions) | 0.5.0 | Bietet eine Vorschau für zukünftige App-Konfigurationsfunktionen. | Ja |
 | [application-insights](https://github.com/Azure/azure-cli-extensions/tree/master/src/application-insights) | 0.1.1 | Unterstützung für die Verwaltung von Application Insights-Komponenten und die Abfrage von Metriken, Ereignissen und Protokollen von diesen Komponenten | Ja |
 | [azure-batch-cli-extensions](https://github.com/Azure/azure-batch-cli-extensions) | 5.0.0 | Zusätzliche Befehle für die Verwendung des Azure Batch-Diensts |  |
-| [azure-cli-iot-ext](https://github.com/azure/azure-iot-cli-extension) | 0.8.3 | Stellt die Befehlsebene der Datenebene für Azure IoT Hub, IoT Edge und den IoT Device Provisioning-Dienst bereit |  |
-| [azure-cli-ml](https://docs.microsoft.com/azure/machine-learning/service/) | 1.0.69 | AzureML-Befehlsmodul der Microsoft Azure-Befehlszeilentools |  |
+| [azure-cli-iot-ext](https://github.com/azure/azure-iot-cli-extension) | 0.8.5 | Stellt die Befehlsebene der Datenebene für Azure IoT Hub, IoT Edge und den IoT Device Provisioning-Dienst bereit |  |
+| [azure-cli-ml](https://docs.microsoft.com/azure/machine-learning/service/) | 1.0.72 | AzureML-Befehlsmodul der Microsoft Azure-Befehlszeilentools |  |
 | [azure-devops](https://github.com/Microsoft/azure-devops-cli-extension) | 0.13.0 | Tools zum Verwalten von Azure DevOps |  |
-| [azure-firewall](https://github.com/Azure/azure-cli-extensions/tree/master/src/azure-firewall) | 0.1.3 | Verwalten von Azure Firewall-Ressourcen | Ja |
+| [azure-firewall](https://github.com/Azure/azure-cli-extensions/tree/master/src/azure-firewall) | 0.1.4 | Verwalten von Azure Firewall-Ressourcen | Ja |
+| [connectedmachine](https://github.com/Azure/azure-cli-extensions) | 0.1.0 | Connectedmachine-Erweiterung der Microsoft Azure-Befehlszeilentools | Ja |
 | [db-up](https://github.com/Azure/azure-cli-extensions/tree/master/src/db-up) | 0.1.13 | Zusätzliche Befehle zum Vereinfachen von Azure Database-Workflows. | Ja |
 | [dev-spaces](https://github.com/Azure/azure-cli-extensions) | 1.0.3 | Dev Spaces ermöglicht eine schnelle, iterative Kubernetes-Bereitstellung für Teams. |  |
 | [dev-spaces-preview](https://github.com/Azure/azure-cli-extensions) | 0.1.6 | Dev Spaces ermöglicht eine schnelle, iterative Kubernetes-Bereitstellung für Teams. | Ja |
@@ -52,6 +53,8 @@ az extension list-available --output table
 | [healthcareapis](https://github.com/Azure/azure-cli-extensions) | 0.1.2 | HealthCareApis-Erweiterung der Microsoft Azure-Befehlszeilentools |  |
 | [image-copy-extension](https://github.com/Azure/azure-cli-extensions) | 0.2.1 | Unterstützung für das Kopieren verwalteter VM-Images zwischen Regionen |  |
 | [Interaktiv](https://github.com/Azure/azure-cli) | 0.4.3 | Interaktive Shell der Microsoft Azure-Befehlszeilenschnittstelle | Ja |
+| [internet-analyzer](https://github.com/Azure/azure-cli-extensions) | 0.1.0rc2 | Internet Analyzer-Erweiterung der Microsoft Azure-Befehlszeilentools | Ja |
+| [ip-group](https://github.com/Azure/azure-cli-extensions) | 0.1.0 | IpGroup-Erweiterung der Microsoft Azure-Befehlszeilentools |  |
 | [keyvault-preview](https://github.com/Azure/azure-keyvault-cli-extension) | 0.1.3 | Zeigen Sie eine Vorschau der Azure Key Vault-Befehle an. | Ja |
 | [log-analytics](https://github.com/Azure/azure-cli-extensions/tree/master/src/log-analytics) | 0.1.3 | Unterstützung für Azure Log Analytics-Abfragefunktionen | Ja |
 | [managementgroups](https://github.com/Azure/azure-cli-extensions) | 0.1.0 | Eine Azure CLI-Erweiterung für Verwaltungsgruppen |  |
@@ -59,13 +62,15 @@ az extension list-available --output table
 | [mesh](https://github.com/Azure/azure-cli-extensions) | 0.10.6 | Unterstützung für Microsoft Azure Service Fabric Mesh: Öffentliche Vorschau | Ja |
 | [mixed-reality](https://github.com/Azure/azure-cli-extensions) | 0.0.1 | Azure CLI-Erweiterung für Mixed Reality. |  |
 | [netappfiles-preview](https://github.com/Azure/azure-cli-extensions/tree/master/src/netappfiles-preview) | 0.3.2 | Stellt eine Vorschau für neue Funktionen von Azure NetApp Files (ANF) bereit. | Ja |
+| [peering](https://github.com/Azure/azure-cli-extensions) | 0.1.0rc1 | Peering-Erweiterung der Microsoft Azure-Befehlszeilentools | Ja |
 | [privatedns](https://github.com/Azure/azure-cli-extensions) | 0.1.1 | Befehle zum Verwalten von privaten DNS-Zonen | Ja |
 | [resource-graph](https://github.com/Azure/azure-cli-extensions/tree/master/src/resource-graph) | 1.0.0 | Unterstützung für das Abfragen von Azure-Ressourcen mit Resource Graph. |  |
 | [sap-hana](https://github.com/Azure/azure-hanaonazure-cli-extension) | 0.5.5 | Zusätzliche Befehle für die Verwendung von SAP-HanaOnAzure-Instanzen. |  |
+| [spring-cloud](https://github.com/Azure/azure-cli-extensions) | 0.1.0 | spring-cloud-Erweiterung der Microsoft Azure-Befehlszeilentools | Ja |
 | [storage-preview](https://github.com/Azure/azure-cli-extensions/tree/master/src/storage-preview) | 0.2.8 | Bietet eine Vorschau für zukünftige Speicherfeatures. | Ja |
 | [Abonnement](https://github.com/Azure/azure-cli-extensions) | 0.1.3 | Unterstützung für die Abonnementverwaltung (Vorschauversion) |  |
 | [virtual-network-tap](https://github.com/Azure/azure-cli-extensions/tree/master/src/virtual-network-tap) | 0.1.0 | Verwalten von TAPs für virtuelle Netzwerke (VTAP) | Ja |
-| [virtual-wan](https://github.com/Azure/azure-cli-extensions/tree/master/src/virtual-wan) | 0.1.0 | Verwalten von virtuellen WANs, Hubs, VPN-Gateways und VPN-Standorten | Ja |
+| [virtual-wan](https://github.com/Azure/azure-cli-extensions/tree/master/src/virtual-wan) | 0.1.1 | Verwalten von virtuellen WANs, Hubs, VPN-Gateways und VPN-Standorten | Ja |
 | [vm-repair](https://github.com/Azure/azure-cli-extensions/tree/master/src/vm-repair) | 0.2.2 | Automatische Reparaturbefehle zur Problembehebung bei VMs |  |
-| [vmware-cs](https://github.com/Azure/az-vmware-cli) | 0.1.0 | Verwalten der Azure VMware-Lösung | Ja |
+| [vmware-cs](https://github.com/Azure/az-vmware-cli) | 0.2.0 | Verwalten der Azure VMware-Lösung | Ja |
 | [webapp](https://github.com/Azure/azure-cli-extensions/tree/master/src/webapp) | 0.2.24 | Zusätzliche Befehle für Azure App Service | Ja |

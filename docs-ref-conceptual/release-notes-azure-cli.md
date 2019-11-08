@@ -4,19 +4,129 @@ description: Enthält Informationen zu den aktuellen Updates der Azure CLI.
 author: sptramer
 ms.author: sttramer
 manager: carmonm
-ms.date: 10/15/2019
+ms.date: 11/04/2019
 ms.topic: article
 ms.prod: azure
 ms.technology: azure-cli
 ms.devlang: azurecli
-ms.openlocfilehash: 0eb1ccccdeff8c3d9b97167ee74f3380d983a552
-ms.sourcegitcommit: e99b39e2f14a38c9bcae1b2b5921c6d8b464ef31
+ms.openlocfilehash: 3061d4b5519cfafbde92df68ecdee4d88d0bddff
+ms.sourcegitcommit: b854f9b6acfdb814ba1d6ba87aac03e2d547d998
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 10/17/2019
-ms.locfileid: "72549700"
+ms.lasthandoff: 11/04/2019
+ms.locfileid: "73536786"
 ---
 # <a name="azure-cli-release-notes"></a>Versionshinweise für die Azure CLI
+
+## <a name="november-4-2019"></a>4\. November 2019
+
+Version 2.0.76
+
+### <a name="acr"></a>ACR
+
+* Vorschauparameter `--pack-image-tag` wurde dem Befehl `az acr pack build` hinzugefügt.
+* Unterstützung der Aktivierung der Überwachung beim Erstellen einer Registrierung
+* Unterstützung von RBAC mit Repositoryumfang
+
+### <a name="aks"></a>AKS
+
+* `--enable-cluster-autoscaler`, `--min-count` und `--max-count` wurden dem Befehl `az aks create` hinzugefügt, sodass die automatische Clusterskalierung für den Knotenpool aktiviert ist.
+* Die obigen Flags sowie `--update-cluster-autoscaler` und `--disable-cluster-autoscaler` wurden dem Befehl `az aks update` hinzugefügt, sodass Updates der automatischen Clusterskalierung zulässig sind.
+
+### <a name="appconfig"></a>AppConfig
+
+* Befehlsgruppe der AppConfig-Funktion zum Verwalten von in einer App Configuration-Instanz gespeicherten Featureflags wurde hinzugefügt.
+* Geringfügiger Programmfehler für Befehl „appconfig kv export to file“ wurde behoben. Das Lesen der Zieldateiinhalte wird während des Exports angehalten.
+
+### <a name="appservice"></a>AppService
+
+* `az appservice plan create`: Unterstützung für das Festlegen von „persitescalung“ beim Erstellen eines App-Serviceplans wurde hinzugefügt.
+* Ein Problem wurde behoben, aufgrund dessen der Vorgang „webapp config ssl bind“ vorhandene Tags aus der Ressource entfernt hat.
+* Flag `--build-remote` wurde für `az functionapp deployment source config-zip` hinzugefügt, um die Remotebuildaktion während der Funktions-App-Bereitstellung zu unterstützen.
+* Die Standardknotenversion in Funktions-Apps wurde für Windows in ~ 10 geändert.
+* `--runtime-version`-Eigenschaft zu `az functionapp create` hinzugefügt
+
+### <a name="arm"></a>ARM
+
+* `az deployment/group deployment validate`: Parameter `--handle-extended-json-format` wurde hinzugefügt, um bei der Bereitstellung mehrere Zeilen und Kommentare in der JSON-Vorlage zu unterstützen.
+* „azure-mgmt-resource“ auf „2019-07-01“ festgelegt
+
+### <a name="backup"></a>Backup
+
+* Unterstützung für AzureFiles-Sicherung hinzugefügt
+
+### <a name="compute"></a>Compute
+
+* `az vm create`: Beim gleichzeitigen Festlegen von beschleunigtem Netzwerkbetrieb und einer vorhandenen NIC wurde eine Warnung hinzugefügt.
+* `az vm create`: `--vmss` hinzugefügt, um eine vorhandene VM-Skalierungsgruppe anzugeben, welcher der virtuelle Computer zugewiesen werden soll.
+* `az vm/vmss create`: Eine lokale Kopie der Imagealiasdatei wurde hinzugefügt, sodass in einer eingeschränkten Netzwerkumgebung darauf zugegriffen werden kann.
+* `az vmss create`: `--orchestration-mode` hinzugefügt, um anzugeben, wie virtuelle Computer von der Skalierungsgruppe verwaltet werden.
+* `az vm/vmss update`: `--ultra-ssd-enabled` hinzugefügt, um das Aktualisieren der SSD-Einstellung zuzulassen.
+* [BREAKING CHANGE] `az vm extension set`: Ein Fehler wurde behoben, aufgrund dessen Benutzer mit `--ids` keine Erweiterung auf einem virtuellen Computer festlegen konnten.
+* Neue Befehle wurden zu `az vm image terms accept/cancel/show` hinzugefügt , um Azure Marketplace-Imagebedingungen zu verwalten.
+* VMAccessForLinux auf Version 1.5 aktualisiert
+
+### <a name="cosmosdb"></a>CosmosDB
+
+* [BREAKING CHANGE] `az sql container create`: `--partition-key-path` in erforderlichen Parameter geändert
+* [BREAKING CHANGE] `az gremlin graph create`: `--partition-key-path` in erforderlichen Parameter geändert
+* `az sql container create`: `--unique-key-policy` und `--conflict-resolution-policy` hinzugefügt
+* `az sql container create/update`: Aktualisierung des `--idx`-Standardschemas
+* `gremlin graph create`: `--conflict-resolution-policy` hinzugefügt
+* `gremlin graph create/update`: Aktualisierung des `--idx`-Standardschemas
+* Tippfehler in Hilfemeldung korrigiert
+* Datenbank: Ablaufinformationen hinzugefügt
+* Auflistung: Ablaufinformationen hinzugefügt
+
+### <a name="iot"></a>IoT
+
+* Neuer Routingquelltyp hinzugefügt: DigitalTwinChangeEvents
+* Fehlende Features in `az iot hub create` behoben
+
+### <a name="key-vault"></a>Key Vault
+
+* Ein unerwarteter Fehler wurde behoben, bei dem keine Zertifikatdatei vorhanden war.
+* Funktionsunfähigkeit von `az keyvault recover/purge` behoben
+
+### <a name="netappfiles"></a>NetAppFiles
+
+* „azure-mgmt-netapp“ wurde auf 0.6.0 aktualisiert, um API-Version 2019-07-01 zu verwenden. Diese neue API-Version umfasst:
+
+    - Volumeerstellung `--protocol-types` akzeptiert jetzt „NFSv4.1“ anstelle von „NFSv4“.
+    - Die Richtlinie der Volumeexportrichtlinie heißt jetzt „nfsv41“ anstelle von „nfsv4“.
+    - Volume `--creation-token` wurde in `--file-path` umbenannt.
+    - Das Erstellungsdatum einer Momentaufnahme heißt jetzt einfach „erstellt“.
+
+### <a name="network"></a>Netzwerk
+
+* `az network private-dns link vnet create/update`: Unterstützung für mandantenübergreifende Verknüpfung virtueller Netzwerke.
+* [BREAKING CHANGE] `az network vnet subnet list`: `--resource-group` und `--vnet-name` wurden geändert und sind jetzt erforderlich.
+* `az network public-ip prefix create`: Unterstützung der Angabe der IP-Adressversion (IPv4, IPv6) bei der Erstellung
+* „azure-mgmt-network“ auf 7.0.0 und „api-version“ auf 2019-09-01 festgelegt
+* `az network vrouter`: Unterstützung für neuen virtuellen Dienstrouter und virtuelles Routerpeering
+* `az network express-route gateway connection`: Unterstützung von `--internet-security`
+
+### <a name="profile"></a>Profil
+
+* Funktionsunfähigkeit von `az account get-access-token --resource-type ms-graph` behoben
+* Warnung aus `az login` entfernt
+
+### <a name="rbac"></a>RBAC
+
+* Funktionsunfähigkeit von `az ad app update --id {} --display-name {}` behoben
+
+### <a name="servicefabric"></a>ServiceFabric
+
+* `az sf cluster create`: Ein Problem wurde behoben, indem die Compute-VMSS von „template.json“ für Service Fabric unter Linux und Windows von Standarddatenträgern auf verwaltete Datenträger umgestellt wurde.
+
+### <a name="sql"></a>SQL
+
+* Die Parameter `--compute-model`, `--auto-pause-delay` und `--min-capacity` wurden hinzugefügt, um CRUD-Vorgänge für das neue SQL-Datenbank-Angebot zu unterstützen: Serverloses Computemodell.
+
+### <a name="storage"></a>Storage
+
+* `az storage account create/update`: Parameter „--enable-files-adds“ und Azure Active Directory-Eigenschaftenargumentgruppe hinzugefügt, um Active Directory Domain-Dienstauthentifizierung für Azure Files zu unterstützen.
+* `az storage account keys list/renew` wurde erweitert, um die Auflistung oder erneute Generierung von Kerberos-Schlüsseln des Speicherkontos zu unterstützen.
 
 ## <a name="october-15-2019"></a>15. Oktober 2019
 
