@@ -4,19 +4,33 @@ description: Enthält Informationen zu den aktuellen Updates der Azure CLI.
 author: dbradish-microsoft
 ms.author: dbradish
 manager: barbkess
-ms.date: 01/07/2020
+ms.date: 01/13/2020
 ms.topic: article
 ms.prod: azure
 ms.technology: azure-cli
 ms.devlang: azurecli
-ms.openlocfilehash: 9fc54add3bfb2a75d1912c47f0a2571d9d065ec0
-ms.sourcegitcommit: 5646008e7a521dd9a8a627418f57bd92ee180352
+ms.openlocfilehash: 3ecb6fb41ee0ae60af58a02c934f2c295133f998
+ms.sourcegitcommit: 18973ac471bbd12af2c8f8fa32a233b0abe5b020
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 01/07/2020
-ms.locfileid: "75694273"
+ms.lasthandoff: 01/13/2020
+ms.locfileid: "75913716"
 ---
 # <a name="azure-cli-release-notes"></a>Versionshinweise für die Azure CLI
+
+## <a name="january-13-2020"></a>13. Januar 2020
+
+Version 2.0.80
+
+### <a name="compute"></a>Compute
+
+* Datenträgeraktualisierung: „--disk-encryption-set“ und „--encryption-type“ hinzugefügt
+* Momentaufnahmeerstellung/-aktualisierung: „--disk-encryption-set“ und „--encryption-type“ hinzugefügt
+
+### <a name="storage"></a>Storage
+
+* „azure-mgmt-storage“ auf Version 7.1.0 aktualisiert
+* `az storage account create`: `--encryption-key-type-for-table` und `--encryption-key-type-for-queue` zur Unterstützung des Tabellen- und Warteschlangenverschlüsselungsdiensts hinzugefügt
 
 ## <a name="january-07-2020"></a>7\. Januar 2020
 
@@ -53,6 +67,11 @@ Version 2.0.79
 * Fehler `vm create` in Azure Stack-Profil behoben.
 * vm monitor metrics tail/list-definitions: Unterstützung einer Abfragemetrik und von Listendefinitionen für eine VM.
 * Neue Aktion des Befehls zum erneuten Anwenden für „az vm“ hinzugefügt
+
+### <a name="hdinsight"></a>HDInsight
+
+* Unterstützung für das Erstellen eines Kafka-Clusters mit Kafka-REST-Proxy
+* „azure-mgmt-hdinsight“ auf 1.3.0 aktualisiert
 
 ### <a name="misc"></a>Verschiedenes:
 
@@ -2702,14 +2721,14 @@ Version 2.0.33
     * Eigenschaften `currentServiceObjectiveId` und `requestedServiceObjectiveId` entfernt
     * Eigenschaft `maxSizeBytes` geändert (ist nun keine Zeichenfolge mehr, sondern ein Ganzzahlwert)
 * [BREAKING CHANGE] Die folgenden `db`- und `dw`-Eigenschaften wurden geändert und sind jetzt schreibgeschützt:
-    * [https://login.microsoftonline.com/consumers/](`requestedServiceObjectiveName`).  Verwenden Sie zum Aktualisieren den Parameter `--service-objective`, oder legen Sie die Eigenschaft `sku.name` fest.
-    * [https://login.microsoftonline.com/consumers/](`edition`). Verwenden Sie zum Aktualisieren den Parameter `--edition`, oder legen Sie die Eigenschaft `sku.tier` fest.
-    * [https://login.microsoftonline.com/consumers/](`elasticPoolName`). Verwenden Sie zum Aktualisieren den Parameter `--elastic-pool`, oder legen Sie die Eigenschaft `elasticPoolId` fest.
+    * `requestedServiceObjectiveName`.  Verwenden Sie zum Aktualisieren den Parameter `--service-objective`, oder legen Sie die Eigenschaft `sku.name` fest.
+    * `edition`. Verwenden Sie zum Aktualisieren den Parameter `--edition`, oder legen Sie die Eigenschaft `sku.tier` fest.
+    * `elasticPoolName`. Verwenden Sie zum Aktualisieren den Parameter `--elastic-pool`, oder legen Sie die Eigenschaft `elasticPoolId` fest.
 * [BREAKING CHANGE] Die folgenden `elastic-pool`-Eigenschaften wurden geändert und sind jetzt schreibgeschützt:
-    * [https://login.microsoftonline.com/consumers/](`edition`). Verwenden Sie zum Aktualisieren den Parameter `--edition`.
-    * [https://login.microsoftonline.com/consumers/](`dtu`). Verwenden Sie zum Aktualisieren den Parameter `--capacity`.
-    *  [https://login.microsoftonline.com/consumers/](`databaseDtuMin`). Verwenden Sie zum Aktualisieren den Parameter `--db-min-capacity`.
-    *  [https://login.microsoftonline.com/consumers/](`databaseDtuMax`). Verwenden Sie zum Aktualisieren den Parameter `--db-max-capacity`.
+    * `edition`. Verwenden Sie zum Aktualisieren den Parameter `--edition`.
+    * `dtu`. Verwenden Sie zum Aktualisieren den Parameter `--capacity`.
+    *  `databaseDtuMin`. Verwenden Sie zum Aktualisieren den Parameter `--db-min-capacity`.
+    *  `databaseDtuMax`. Verwenden Sie zum Aktualisieren den Parameter `--db-max-capacity`.
 * Die Parameter `--family` und `--capacity` wurden zu den `db`-, `dw`- und `elastic-pool`-Befehlen hinzugefügt.
 * Den `db`-, `dw`- und `elastic-pool`-Befehlen wurden Tabellenformatierer hinzugefügt.
 

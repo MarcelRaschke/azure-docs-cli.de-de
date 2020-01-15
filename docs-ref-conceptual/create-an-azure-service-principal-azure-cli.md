@@ -1,19 +1,19 @@
 ---
 title: Verwenden von Azure-Dienstprinzipalen mit der Azure CLI
 description: Hier erfahren Sie, wie Sie mit der Azure-Befehlszeilenschnittstelle Dienstprinzipale erstellen und verwenden.
-author: sptramer
-ms.author: sttramer
-manager: carmonm
+author: dbradish-microsoft
+ms.author: dbradish
+manager: barbkess
 ms.date: 02/15/2019
 ms.topic: conceptual
 ms.technology: azure-cli
 ms.devlang: azurecli
-ms.openlocfilehash: 45374a29c45d8e9fa2d39aebf2d9bab556ef3b50
-ms.sourcegitcommit: b42ce26476b135bb2047c8d9d787580c858f8b6b
+ms.openlocfilehash: 0969b89895ffba0ff473a9d788360609524813df
+ms.sourcegitcommit: 18973ac471bbd12af2c8f8fa32a233b0abe5b020
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 10/09/2019
-ms.locfileid: "72163837"
+ms.lasthandoff: 01/13/2020
+ms.locfileid: "75913580"
 ---
 # <a name="create-an-azure-service-principal-with-azure-cli"></a>Erstellen eines Azure-Dienstprinzipals mit der Azure CLI
 
@@ -75,7 +75,7 @@ Verwenden Sie das Argument `--create-cert`, um ein _selbstsigniertes_ Zertifikat
 az ad sp create-for-rbac --name ServicePrincipalName --create-cert
 ```
 
-Das Argument `--keyvault` kann hinzugefügt werden, um das Zertifikat in Azure Key Vault zu speichern. Bei Verwendung von `--keyvault` ist das Argument `--cert` __erforderlich__.
+Das Argument `--keyvault` kann hinzugefügt werden, um das Zertifikat in Azure Key Vault zu speichern. Bei Verwendung von `--keyvault` ist das Argument `--cert`__erforderlich__.
 
 ```azurecli-interactive
 az ad sp create-for-rbac --name ServicePrincipalName --create-cert --cert CertName --keyvault VaultName

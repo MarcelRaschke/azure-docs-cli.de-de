@@ -1,20 +1,20 @@
 ---
 title: Verfügbare Erweiterungen für die Azure CLI
 description: Eine vollständige Liste mit den offiziell unterstützten Erweiterungen für die Azure CLI
-author: sptramer
-ms.author: sttramer
-manager: carmonm
+author: dbradish-microsoft
+ms.author: dbradish
+manager: barbkess
 ms.date: 11/26/2019
 ms.topic: article
 ms.prod: azure
 ms.technology: azure-cli
 ms.devlang: azure-cli
-ms.openlocfilehash: cdeb281cbb085cd22104d5a04005a992e74a5de1
-ms.sourcegitcommit: 4712ae02526ad0f1a90aef118a4a2a181077628b
+ms.openlocfilehash: 60240bd73d80a2a10f82d71c36dca90a40bff83d
+ms.sourcegitcommit: 18973ac471bbd12af2c8f8fa32a233b0abe5b020
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 12/03/2019
-ms.locfileid: "74784288"
+ms.lasthandoff: 01/13/2020
+ms.locfileid: "75913651"
 ---
 # <a name="available-extensions-for-the-azure-cli"></a>Verfügbare Erweiterungen für die Azure CLI
 
@@ -26,7 +26,7 @@ Die Liste der Erweiterungen ist auch über die CLI verfügbar. Führen Sie zum A
 az extension list-available --output table
 ```
 
-| NAME | Version | Zusammenfassung | Vorschau |
+| Name | Version | Zusammenfassung | Vorschau |
 |------|---------|---------|---------|
 | [aem](https://github.com/Azure/azure-cli-extensions) | 0.1.1 | Verwalten der Azure-Erweiterungen zur verbesserten Überwachung für SAP |  |
 | [aks-preview](https://github.com/Azure/azure-cli-extensions/tree/master/src/aks-preview) | 0.4.23 | Bietet eine Vorschau für zukünftige AKS-Features | Ja |
