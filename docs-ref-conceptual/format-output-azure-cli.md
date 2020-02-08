@@ -9,24 +9,25 @@ ms.topic: conceptual
 ms.prod: azure
 ms.technology: azure-cli
 ms.devlang: azurecli
-ms.openlocfilehash: 7bc31ba89234dbdb7b939f3a09886f31184ac65f
-ms.sourcegitcommit: 18973ac471bbd12af2c8f8fa32a233b0abe5b020
+ms.openlocfilehash: adb488081076715eb080d1972bba18d285402e95
+ms.sourcegitcommit: a233bb75e27a5c8772c173f195e74d12381b7a64
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 01/13/2020
-ms.locfileid: "75913551"
+ms.lasthandoff: 01/30/2020
+ms.locfileid: "76890455"
 ---
 # <a name="output-formats-for-azure-cli-commands"></a>Ausgabeformate für Azure CLI-Befehle
 
 Die Azure CLI verwendet JSON als Standardausgabeformat, aber es sind auch andere Formate möglich.  Verwenden Sie den Parameter `--output` (`--out` oder `-o`) zum Formatieren der CLI-Ausgabe. Die Argumentwerte und Typen der Ausgabe lauten wie folgt:
 
---output | BESCHREIBUNG
+--output | Beschreibung
 ---------|-------------------------------
 `json`   | JSON-Zeichenfolge. Dies ist die Standardeinstellung.
-`jsonc`  | Farbiger JSON-Code.
-`yaml`   | YAML, eine maschinenlesbare Alternative zu JSON.
-`table`  | ASCII-Tabelle mit Schlüsseln als Spaltenüberschriften.
+`jsonc`  | Farbiger JSON-Code
+`yaml`   | YAML, eine maschinenlesbare Alternative zu JSON
+`table`  | ASCII-Tabelle mit Schlüsseln als Spaltenüberschriften
 `tsv`    | Per Tabulator getrennte Werte ohne Schlüssel
+`none`   | Keine andere Ausgabe als Fehler und Warnungen
 
 ## <a name="json-output-format"></a>JSON-Ausgabeformat
 
@@ -177,7 +178,7 @@ az vm list --out tsv --query '[].[id, location, resourceGroup, name]'
 
 Das nächste Beispiel zeigt, wie die `tsv`-Ausgabe an andere Befehle in Bash übergeben werden können. Mit der Abfrage wird die Ausgabe gefiltert und die Sortierung erzwungen. `grep` wählt Elemente aus, die den Text „RGD“ enthalten, und anschließend wird mit dem Befehl `cut` das vierte Feld für die Anzeige des Namens des virtuellen Computers in der Ausgabe ausgewählt.
 
-```bash
+```azurecli-interactive
 az vm list --out tsv --query '[].[id, location, resourceGroup, name]' | grep RGD | cut -f4
 ```
 

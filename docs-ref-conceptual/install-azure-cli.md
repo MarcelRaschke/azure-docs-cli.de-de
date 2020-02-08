@@ -2,24 +2,26 @@
 title: Installieren der Azure CLI
 description: Referenz zur Installation der Azure CLI
 keywords: Azure CLI,Azure CLI installieren
-author: sptramer
-ms.author: sttramer
-manager: carmonm
-ms.date: 02/12/2019
+author: dbradish-microsoft
+ms.author: dbradish
+manager: barbkess
+ms.date: 01/30/2020
 ms.topic: conceptual
 ms.prod: azure
 ms.technology: azure-cli
 ms.devlang: azurecli
-ms.openlocfilehash: cacaa77845708f318b3743024d7f87e658368069
-ms.sourcegitcommit: 1987a39809f9865034b27130e56f30b2bd1eb72c
+ms.openlocfilehash: a4cdc3d745b673d88fa9b9554775b781af3b4048
+ms.sourcegitcommit: d0b2763cc856eef44a6ecb78f6b8c64291625750
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 02/19/2019
-ms.locfileid: "56421897"
+ms.lasthandoff: 02/04/2020
+ms.locfileid: "77013187"
 ---
 # <a name="install-the-azure-cli"></a>Installieren der Azure CLI
 
-Die Azure CLI ist ein praktisches Befehlszeilentool für die Verwaltung von Azure-Ressourcen. Sie vereinfacht unter anderem die Verwendung von Skripts, ermöglicht Datenabfragen, unterstützt Vorgänge mit langer Ausführungsdauer und vieles mehr. Probieren Sie sie am besten gleich aus, und entdecken Sie die vielfältigen Möglichkeiten der CLI!
+Die Azure CLI ist für die Installation in Windows-, macOS- und Linux-Umgebungen verfügbar.  Sie kann auch in einem Docker-Container und Azure Cloud Shell ausgeführt werden.
+
+## <a name="install"></a>Installieren
 
 [!INCLUDE [current-version](includes/current-version.md)]
 
@@ -31,6 +33,11 @@ Die Azure CLI ist ein praktisches Befehlszeilentool für die Verwaltung von Azur
   * [Installieren mit zypper unter openSUSE oder SLE ](install-azure-cli-zypper.md)
   * [Installieren per Skript](install-azure-cli-linux.md)
 * [Ausführen in Docker-Container](run-azure-cli-docker.md)
+* [Ausführen in Azure Cloud Shell](/azure/cloud-shell/quickstart)
 
 > [!NOTE]
 > [Installieren Sie die klassische Azure CLI](install-classic-cli.md), wenn Sie das klassische Azure-Bereitstellungsmodell verwenden.
+
+## <a name="next-steps"></a>Nächste Schritte
+
+Informationen zu den Hauptmerkmalen finden Sie unter [Worum handelt es sich bei der Azure CLI?](what-is-azure-cli.md).

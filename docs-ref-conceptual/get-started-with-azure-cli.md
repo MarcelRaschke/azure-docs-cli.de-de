@@ -5,21 +5,21 @@ keywords: Azure CLI, CLI Hilfe, Azure Hilfe, Abfrage, Automatisierung,
 author: dbradish-microsoft
 ms.author: dbradish
 manager: barbkess
-ms.date: 09/07/2018
+ms.date: 01/30/2020
 ms.topic: conceptual
 ms.prod: azure
 ms.technology: azure-cli
 ms.devlang: azurecli
-ms.openlocfilehash: af9b8ea52ded9d3bb27262ae0625ebdd1aedf189
-ms.sourcegitcommit: 18973ac471bbd12af2c8f8fa32a233b0abe5b020
+ms.openlocfilehash: 741d092121bbd448595301000acb9a5f51d87ace
+ms.sourcegitcommit: d0b2763cc856eef44a6ecb78f6b8c64291625750
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 01/13/2020
-ms.locfileid: "75913559"
+ms.lasthandoff: 02/04/2020
+ms.locfileid: "77013249"
 ---
 # <a name="get-started-with-azure-cli"></a>Erste Schritte mit der Azure CLI
 
-Willkommen bei der Azure CLI! Die CLI ist ein Tool, das die schnelle und effiziente Verwendung von Azure-Diensten ermöglichen soll. Der Fokus liegt dabei auf der Automatisierung. Dieser Artikel stellt Features der CLI vor und enthält Links zu Ressourcen, die Sie dabei unterstützen, produktiv zu sein.
+Willkommen bei der Azure CLI!  Dieser Artikel bietet eine Einführung in die CLI und Links zu den ersten Schritten.
 
 > [!NOTE]
 >
