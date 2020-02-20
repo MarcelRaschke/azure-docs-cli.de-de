@@ -4,19 +4,108 @@ description: Enthält Informationen zu den aktuellen Updates der Azure CLI.
 author: dbradish-microsoft
 ms.author: dbradish
 manager: barbkess
-ms.date: 02/04/2020
+ms.date: 02/18/2020
 ms.topic: article
 ms.prod: azure
 ms.technology: azure-cli
 ms.devlang: azurecli
-ms.openlocfilehash: eafd18344ac4c1c0124ff53864a45510070b6fe7
-ms.sourcegitcommit: d0b2763cc856eef44a6ecb78f6b8c64291625750
+ms.openlocfilehash: 6c07b93752df2dab6ca0b210675a48b5c7b85c1c
+ms.sourcegitcommit: 91c1e5423bd054a948620999b559bc3a9828a688
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 02/04/2020
-ms.locfileid: "77013283"
+ms.lasthandoff: 02/19/2020
+ms.locfileid: "77453476"
 ---
 # <a name="azure-cli-release-notes"></a>Versionshinweise für die Azure CLI
+
+## <a name="february-18-2020"></a>18. Februar 2020
+
+Version 2.1.0
+
+### <a name="acr"></a>ACR
+
+* Neues Argument `--expose-token` für `az acr login` hinzugefügt
+* Falsche Ausgabe für `az acr task identity show -n Name -r Registry -o table` korrigiert
+* az acr login: Auslösen von „CLIError“, wenn vom Docker-Befehl Fehler zurückgegeben werden
+
+### <a name="acs"></a>ACS
+
+* aks create/update: Validierung für `--vnet-subnet-id` hinzugefügt
+
+### <a name="aladdin"></a>Aladdin
+
+* Analysieren der generierten Beispiele in „_help.py“ der Befehle
+
+### <a name="ams"></a>AMS
+
+* az ams ist jetzt allgemein verfügbar.
+
+### <a name="appconfig"></a>AppConfig
+
+* Hilfenachricht überarbeitet, um nicht unterstützte Schlüssel-/Bezeichnungsfilter auszuschließen
+* Vorschautag für die meisten Befehle entfernt (mit Ausnahme der Flags für verwaltete Identitäten und Features)
+* Kundenseitig verwalteter Schlüssel beim Aktualisieren der Speicher hinzugefügt
+
+### <a name="appservice"></a>AppService
+
+* az webapp list-runtimes: Fehler bei „list-runtimes“ behoben
+* „az webapp|functionapp config ssl create“ hinzugefügt
+* Unterstützung für v3-Funktions-Apps und Node 12
+
+### <a name="arm"></a>ARM
+
+* az policy assignment create: Fehlermeldung korrigiert, die angezeigt wird, wenn der Parameter `--policy` ungültig ist
+* az group deployment create: Fehler „stat: path too long for Windows" korrigiert, der angezeigt wird, wenn eine zu große Datei vom Typ „parameters.json“ verwendet wird
+
+### <a name="backup"></a>Backup
+
+* Korrektur des Wiederherstellungsflows auf Elementebene am ursprünglichen Speicherort
+* Unterstützung von „Als Dateien wiederherstellen“ für SQL- und SAP-Datenbanken hinzugefügt
+
+### <a name="compute"></a>Compute
+
+* vm/vmss/availability-set update: „--ppg“ hinzugefügt, um die Aktualisierung von „ProximityPlacementGroup“ zu ermöglichen
+* vmss create: „--data-disk-iops“ und „--data-disk-mbps“ hinzugefügt
+* az vm host: Vorschautag für `vm host` und `vm host group` entfernt
+* [BREAKING CHANGE] Behebung Nr. 10728: `az vm create`: Automatisches Erstellen des Subnetzes, wenn das VNET angegeben wird und das Subnetz nicht vorhanden ist
+* Erhöhen der Stabilität von „vm image list“
+
+### <a name="eventhub"></a>Eventhub
+
+* Azure Stack-Unterstützung für Profil „2019-03-01-hybrid“
+
+### <a name="keyvault"></a>KeyVault
+
+* az keyvault key create: neuer Wert `import` für Parameter `--ops` hinzugefügt
+* az keyvault key list-versions: Unterstützung des Parameters `--id` für die Angabe von Schlüsseln
+* Unterstützung für Verbindungen mit privaten Endpunkten
+
+### <a name="network"></a>Netzwerk
+
+* Geändert in „azure-mgmt-network 9.0.0“
+* az network private-link-service update/create: Unterstützung von „--enable-proxy-protocol“
+* Feature für Version 2 von Verbindungsmonitor hinzugefügt
+
+### <a name="packaging"></a>Verpackung
+
+* [BREAKING CHANGE] Unterstützung für Python 2.7 eingestellt
+
+### <a name="profile"></a>Profil
+
+* Vorschau: Neue Attribute `homeTenantId` und `managedByTenants` zu Abonnementkonten hinzugefügt. Führen Sie `az login` erneut aus, damit die Änderungen wirksam werden.
+* az login: Eine Warnung wird angezeigt, wenn ein Abonnement von mehren Mandanten aufgeführt wird und der erste als Standard festgelegt wird. Fügen Sie `--tenant` in `az login` ein, um beim Zugreifen auf dieses Abonnement einen bestimmten Mandanten auszuwählen.
+
+### <a name="role"></a>Role
+
+* az role assignment create: Problem behoben, das beim Zuweisen einer Rolle zu einem Dienstprinzipal nach Anzeigename einen Fehler vom Typ „HTTP 400“ verursachte
+
+### <a name="sql"></a>SQL
+
+* Cmdlet `az sql mi update` der verwalteten SQL-Instanz mit zwei neuen Parametern aktualisiert: tier und family
+
+### <a name="storage"></a>Storage
+
+* [BREAKING CHANGE] `az storage account create`: Art des Standardspeicherkontos in StorageV2 geändert
 
 ## <a name="february-04-2020"></a>04. Februar 2020
 
