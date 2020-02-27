@@ -4,17 +4,17 @@ description: Eine vollständige Liste mit den offiziell unterstützten Erweiteru
 author: sptramer
 ms.author: sttramer
 manager: carmonm
-ms.date: 02/05/2020
+ms.date: 02/17/2020
 ms.topic: article
 ms.prod: azure
 ms.technology: azure-cli
 ms.devlang: azure-cli
-ms.openlocfilehash: c11f43f2cabd0b7d2cef41cdecfead24791661e8
-ms.sourcegitcommit: c332e9d6eeb4c0a8fbf587bd750002086f8ff0db
+ms.openlocfilehash: bac834704f4e965d44a8790f5a4fa59254357373
+ms.sourcegitcommit: aff84ab984e2d129927888e6b854ed7a5ccaaf59
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 02/06/2020
-ms.locfileid: "77038225"
+ms.lasthandoff: 02/21/2020
+ms.locfileid: "77520770"
 ---
 # <a name="available-extensions-for-the-azure-cli"></a>Verfügbare Erweiterungen für die Azure CLI
 
@@ -29,7 +29,7 @@ az extension list-available --output table
 | Name | Version | Zusammenfassung | Vorschau |
 |------|---------|---------|---------|
 | [aem](https://github.com/Azure/azure-cli-extensions) | 0.1.1 | Verwalten der Azure-Erweiterungen zur verbesserten Überwachung für SAP |  |
-| [aks-preview](https://github.com/Azure/azure-cli-extensions/tree/master/src/aks-preview) | 0.4.27 | Bietet eine Vorschau für zukünftige AKS-Features | Ja |
+| [aks-preview](https://github.com/Azure/azure-cli-extensions/tree/master/src/aks-preview) | 0.4.29 | Bietet eine Vorschau für zukünftige AKS-Features | Ja |
 | [alias](https://github.com/Azure/azure-cli-extensions) | 0.5.2 | Unterstützung für Befehlsaliase | Ja |
 | [appconfig](https://github.com/Azure/azure-cli-extensions) | 0.5.0 | Bietet eine Vorschau für zukünftige App-Konfigurationsfunktionen. | Ja |
 | [application-insights](https://github.com/Azure/azure-cli-extensions/tree/master/src/application-insights) | 0.1.3 | Unterstützung für die Verwaltung von Application Insights-Komponenten und die Abfrage von Metriken, Ereignissen und Protokollen von diesen Komponenten | Ja |
@@ -37,7 +37,7 @@ az extension list-available --output table
 | [azure-cli-iot-ext](https://github.com/azure/azure-iot-cli-extension) | 0.8.9 | Die Azure IoT-Erweiterung für die Azure CLI |  |
 | [azure-cli-ml](https://docs.microsoft.com/azure/machine-learning/service/) | 1.0.85 | AzureML-Befehlsmodul der Microsoft Azure-Befehlszeilentools |  |
 | [azure-devops](https://github.com/Microsoft/azure-devops-cli-extension) | 0.17.0 | Tools zum Verwalten von Azure DevOps |  |
-| [azure-firewall](https://github.com/Azure/azure-cli-extensions/tree/master/src/azure-firewall) | 0.1.9 | Verwalten von Azure Firewall-Ressourcen | Ja |
+| [azure-firewall](https://github.com/Azure/azure-cli-extensions/tree/master/src/azure-firewall) | 0.3.0 | Verwalten von Azure Firewall-Ressourcen | Ja |
 | [connectedmachine](https://github.com/Azure/azure-cli-extensions) | 0.1.0 | Connectedmachine-Erweiterung der Microsoft Azure-Befehlszeilentools | Ja |
 | [connection-monitor-preview](https://github.com/Azure/azure-cli-extensions/tree/master/src/connection-monitor-preview) | 0.1.0 | Erweiterung für Version 2 von Verbindungsmonitor der Microsoft Azure-Befehlszeile | Ja |
 | [db-up](https://github.com/Azure/azure-cli-extensions/tree/master/src/db-up) | 0.1.13 | Zusätzliche Befehle zum Vereinfachen von Azure Database-Workflows. | Ja |
@@ -58,7 +58,6 @@ az extension list-available --output table
 | [keyvault-preview](https://github.com/Azure/azure-keyvault-cli-extension) | 0.1.3 | Zeigen Sie eine Vorschau der Azure Key Vault-Befehle an. | Ja |
 | [log-analytics](https://github.com/Azure/azure-cli-extensions/tree/master/src/log-analytics) | 0.1.4 | Unterstützung für Azure Log Analytics-Abfragefunktionen | Ja |
 | [maintenance](https://github.com/Azure/azure-cli-extensions) | 1.0.0 | Unterstützung für die Vorschauversion der Azure-Wartungsverwaltung | Ja |
-| [managementgroups](https://github.com/Azure/azure-cli-extensions) | 0.1.0 | Eine Azure CLI-Erweiterung für Verwaltungsgruppen |  |
 | [managementpartner](https://github.com/Azure/azure-cli-extensions) | 0.1.2 | Unterstützung für Verwaltungspartner (Vorschauversion) |  |
 | [mesh](https://github.com/Azure/azure-cli-extensions) | 0.10.6 | Unterstützung für Microsoft Azure Service Fabric Mesh: Öffentliche Vorschau | Ja |
 | [mixed-reality](https://github.com/Azure/azure-cli-extensions) | 0.0.1 | Azure CLI-Erweiterung für Mixed Reality. |  |
