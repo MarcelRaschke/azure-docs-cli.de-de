@@ -6,15 +6,14 @@ ms.author: dbradish
 manager: barbkess
 ms.date: 02/18/2020
 ms.topic: article
-ms.prod: azure
-ms.technology: azure-cli
+ms.service: azure-cli
 ms.devlang: azurecli
-ms.openlocfilehash: 6c07b93752df2dab6ca0b210675a48b5c7b85c1c
-ms.sourcegitcommit: 91c1e5423bd054a948620999b559bc3a9828a688
+ms.openlocfilehash: 49bb108372225146be8ffc6bb38cf793da8cdb74
+ms.sourcegitcommit: 7caa6673f65e61deb8d6def6386e4eb9acdac923
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 02/19/2020
-ms.locfileid: "77453476"
+ms.lasthandoff: 02/28/2020
+ms.locfileid: "77779940"
 ---
 # <a name="azure-cli-release-notes"></a>Versionshinweise für die Azure CLI
 
@@ -592,8 +591,8 @@ Version 2.0.76
 * `gremlin graph create`: `--conflict-resolution-policy` hinzugefügt
 * `gremlin graph create/update`: Aktualisierung des `--idx`-Standardschemas
 * Tippfehler in Hilfemeldung korrigiert
-* Datenbank: Ablaufinformationen hinzugefügt
-* Auflistung: Ablaufinformationen hinzugefügt
+* Datenbank: Informationen zur eingestellten Unterstützung hinzugefügt
+* Auflistung: Informationen zur eingestellten Unterstützung hinzugefügt
 
 ### <a name="iot"></a>IoT
 
