@@ -1,21 +1,19 @@
 ---
 title: Installieren der Azure CLI
 description: Referenz zur Installation der Azure CLI
-keywords: Azure CLI,Azure CLI installieren
 author: dbradish-microsoft
 ms.author: dbradish
 manager: barbkess
-ms.date: 01/30/2020
+ms.date: 02/12/2019
 ms.topic: conceptual
-ms.prod: azure
-ms.technology: azure-cli
+ms.service: azure-cli
 ms.devlang: azurecli
-ms.openlocfilehash: a4cdc3d745b673d88fa9b9554775b781af3b4048
-ms.sourcegitcommit: d0b2763cc856eef44a6ecb78f6b8c64291625750
+ms.openlocfilehash: 438adc67b6c43b8cd0a452a522657dc7f336bd9c
+ms.sourcegitcommit: 7caa6673f65e61deb8d6def6386e4eb9acdac923
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 02/04/2020
-ms.locfileid: "77013187"
+ms.lasthandoff: 02/28/2020
+ms.locfileid: "77779498"
 ---
 # <a name="install-the-azure-cli"></a>Installieren der Azure CLI
 

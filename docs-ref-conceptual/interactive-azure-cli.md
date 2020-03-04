@@ -1,20 +1,19 @@
 ---
 title: Azure CLI – Interaktiver Modus
 description: Verwenden Sie die Azure CLI im interaktiven Modus.
-author: sptramer
-ms.author: sttramer
-manager: carmonm
+author: dbradish-microsoft
+ms.author: dbradish
+manager: barbkess
 ms.date: 09/09/2018
 ms.topic: conceptual
-ms.prod: azure
-ms.technology: azure-cli
+ms.service: azure-cli
 ms.devlang: azurecli
-ms.openlocfilehash: a325b799c7384037ae336093aa5274c7cbf53cbc
-ms.sourcegitcommit: 334a1da92a73e42e715e33470057f4194f10b2ea
+ms.openlocfilehash: 7b3ee1e284e7f771c661bb65bf8b8ab53dafd77f
+ms.sourcegitcommit: 7caa6673f65e61deb8d6def6386e4eb9acdac923
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 04/17/2019
-ms.locfileid: "59429012"
+ms.lasthandoff: 02/28/2020
+ms.locfileid: "77779515"
 ---
 # <a name="azure-cli-interactive-mode"></a>Azure CLI – Interaktiver Modus
 
@@ -43,7 +42,7 @@ Sie können die Anzeige von Standardwerten für Parameter über `F2` aktivieren 
 
 ![Tastenkombinationen](./media/interactive-azure-cli/gestures.png)
 
-## <a name="scope"></a>Bereich
+## <a name="scope"></a>`Scope`
 
 Sie können den Bereich Ihres interaktiven Modus auf eine bestimmte Befehlsgruppe wie `vm` oder `vm image` festlegen.
 In diesem Fall werden alle Befehle für diesen Bereich interpretiert.
@@ -80,7 +79,7 @@ az vm image>> %%
 az>>
 ```
 
-## <a name="query"></a>Abfragen
+## <a name="query"></a>Abfrage
 
 Sie können eine JMESPath-Abfrage für die Ergebnisse des zuletzt ausgeführten Befehls ausführen, indem Sie `??` gefolgt von einer JMESPath-Abfrage verwenden.
 Nach dem Erstellen einer Gruppe können Sie beispielsweise die ID der neuen Gruppe abrufen.

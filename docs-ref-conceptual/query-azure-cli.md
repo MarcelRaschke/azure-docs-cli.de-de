@@ -1,20 +1,19 @@
 ---
 title: Abfragen von Befehlsergebnissen mit der Azure CLI
 description: Es wird beschrieben, wie Sie JMESPath-Abfragen für die Ausgabe von Azure CLI-Befehlen ausführen.
-author: sptramer
-ms.author: sttramer
-manager: carmonm
+author: dbradish-microsoft
+ms.author: dbradish
+manager: barbkess
 ms.date: 09/23/2019
 ms.topic: conceptual
-ms.prod: azure
-ms.technology: azure-cli
+ms.service: azure-cli
 ms.devlang: azurecli
-ms.openlocfilehash: 39f7c885a0971db9359926a6b2f80d0a763dc4fe
-ms.sourcegitcommit: 5b9b4446c08b94256ced7f63c145b493ba8b50df
+ms.openlocfilehash: c9f0afdd626ac8d9af027db02275e5a553595473
+ms.sourcegitcommit: 7caa6673f65e61deb8d6def6386e4eb9acdac923
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 09/24/2019
-ms.locfileid: "71217433"
+ms.lasthandoff: 02/28/2020
+ms.locfileid: "77780076"
 ---
 # <a name="query-azure-cli-command-output"></a>Abfragen der Azure CLI-Befehlsausgabe
 
