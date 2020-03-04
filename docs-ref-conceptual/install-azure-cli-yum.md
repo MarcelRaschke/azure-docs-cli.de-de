@@ -1,38 +1,37 @@
 ---
 title: Installieren der Azure CLI unter Linux mit yum
 description: Installieren der Azure CLI mit yum
-author: sptramer
-ms.author: sttramer
-manager: carmonm
+author: dbradish-microsoft
+ms.author: dbradish
+manager: barbkess
 ms.date: 11/26/2019
 ms.topic: conceptual
-ms.prod: azure
-ms.technology: azure-cli
+ms.service: azure-cli
 ms.devlang: azurecli
-ms.openlocfilehash: 53d480c24e624d87ff0cc67ac143c2172344edf4
-ms.sourcegitcommit: 91c1e5423bd054a948620999b559bc3a9828a688
+ms.openlocfilehash: ad773a58cf784c46a1c605e7e7eca58de8a4a722
+ms.sourcegitcommit: 7caa6673f65e61deb8d6def6386e4eb9acdac923
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 02/19/2020
-ms.locfileid: "77453724"
+ms.lasthandoff: 02/28/2020
+ms.locfileid: "77780110"
 ---
-# <a name="install-azure-cli-with-yum"></a><span data-ttu-id="df448-103">Installieren der Azure CLI mit yum</span><span class="sxs-lookup"><span data-stu-id="df448-103">Install Azure CLI with yum</span></span>
+# <a name="install-azure-cli-with-yum"></a><span data-ttu-id="4512d-103">Installieren der Azure CLI mit yum</span><span class="sxs-lookup"><span data-stu-id="4512d-103">Install Azure CLI with yum</span></span>
 
-<span data-ttu-id="df448-104">Für Linux-Distributionen mit `yum` (etwa RHEL, Fedora oder CentOS) ist ein Paket für die Azure CLI verfügbar.</span><span class="sxs-lookup"><span data-stu-id="df448-104">For Linux distributions with `yum` such as RHEL, Fedora, or CentOS, there's a package for the Azure CLI.</span></span> <span data-ttu-id="df448-105">Dieses Paket wurde mit RHEL 7.7, RHEL 8, Fedora 24 (und höher), CentOS 7 und CentOS 8 getestet.</span><span class="sxs-lookup"><span data-stu-id="df448-105">This package has been tested with RHEL 7.7, RHEL 8, Fedora 24 and higher, CentOS 7 and CentOS 8.</span></span>
+<span data-ttu-id="4512d-104">Für Linux-Distributionen mit `yum` (etwa RHEL, Fedora oder CentOS) ist ein Paket für die Azure CLI verfügbar.</span><span class="sxs-lookup"><span data-stu-id="4512d-104">For Linux distributions with `yum` such as RHEL, Fedora, or CentOS, there's a package for the Azure CLI.</span></span> <span data-ttu-id="4512d-105">Dieses Paket wurde mit RHEL 7.7, RHEL 8, Fedora 24 (und höher), CentOS 7 und CentOS 8 getestet.</span><span class="sxs-lookup"><span data-stu-id="4512d-105">This package has been tested with RHEL 7.7, RHEL 8, Fedora 24 and higher, CentOS 7 and CentOS 8.</span></span>
 
 [!INCLUDE [current-version](includes/current-version.md)]
 
 [!INCLUDE [rpm-warning](includes/rpm-warning.md)]
 
-## <a name="install"></a><span data-ttu-id="df448-106">Installieren</span><span class="sxs-lookup"><span data-stu-id="df448-106">Install</span></span>
+## <a name="install"></a><span data-ttu-id="4512d-106">Installieren</span><span class="sxs-lookup"><span data-stu-id="4512d-106">Install</span></span>
 
-1. <span data-ttu-id="df448-107">Importieren Sie den Microsoft-Repositoryschlüssel.</span><span class="sxs-lookup"><span data-stu-id="df448-107">Import the Microsoft repository key.</span></span>
+1. <span data-ttu-id="4512d-107">Importieren Sie den Microsoft-Repositoryschlüssel.</span><span class="sxs-lookup"><span data-stu-id="4512d-107">Import the Microsoft repository key.</span></span>
 
    ```bash
    sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
    ```
 
-2. <span data-ttu-id="df448-108">Erstellen Sie lokale `azure-cli`-Repositoryinformationen.</span><span class="sxs-lookup"><span data-stu-id="df448-108">Create local `azure-cli` repository information.</span></span>
+2. <span data-ttu-id="4512d-108">Erstellen Sie lokale `azure-cli`-Repositoryinformationen.</span><span class="sxs-lookup"><span data-stu-id="4512d-108">Create local `azure-cli` repository information.</span></span>
 
    ```bash
    sudo sh -c 'echo -e "[azure-cli]
@@ -43,36 +42,36 @@ ms.locfileid: "77453724"
    gpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/azure-cli.repo'
    ```
 
-3. <span data-ttu-id="df448-109">Installieren Sie mit dem Befehl `yum install`.</span><span class="sxs-lookup"><span data-stu-id="df448-109">Install with the `yum install` command.</span></span>
+3. <span data-ttu-id="4512d-109">Installieren Sie mit dem Befehl `yum install`.</span><span class="sxs-lookup"><span data-stu-id="4512d-109">Install with the `yum install` command.</span></span>
 
    ```bash
    sudo yum install azure-cli
    ```
 
-<span data-ttu-id="df448-110">Führen Sie die Azure CLI mit dem Befehl `az` aus.</span><span class="sxs-lookup"><span data-stu-id="df448-110">Run the Azure CLI with the `az` command.</span></span> <span data-ttu-id="df448-111">Verwenden Sie den Befehl [az login](/cli/azure/reference-index#az-login), um sich anzumelden.</span><span class="sxs-lookup"><span data-stu-id="df448-111">To sign in, use [az login](/cli/azure/reference-index#az-login) command.</span></span>
+<span data-ttu-id="4512d-110">Führen Sie die Azure CLI mit dem Befehl `az` aus.</span><span class="sxs-lookup"><span data-stu-id="4512d-110">Run the Azure CLI with the `az` command.</span></span> <span data-ttu-id="4512d-111">Verwenden Sie den Befehl [az login](/cli/azure/reference-index#az-login), um sich anzumelden.</span><span class="sxs-lookup"><span data-stu-id="4512d-111">To sign in, use [az login](/cli/azure/reference-index#az-login) command.</span></span>
 
 [!INCLUDE [interactive-login](includes/interactive-login.md)]
 
-<span data-ttu-id="df448-112">Weitere Informationen zu verschiedenen Authentifizierungsmethoden finden Sie unter [Anmelden mit der Azure CLI](authenticate-azure-cli.md).</span><span class="sxs-lookup"><span data-stu-id="df448-112">To learn more about different authentication methods, see [Sign in with Azure CLI](authenticate-azure-cli.md).</span></span>
+<span data-ttu-id="4512d-112">Weitere Informationen zu verschiedenen Authentifizierungsmethoden finden Sie unter [Anmelden mit der Azure CLI](authenticate-azure-cli.md).</span><span class="sxs-lookup"><span data-stu-id="4512d-112">To learn more about different authentication methods, see [Sign in with Azure CLI](authenticate-azure-cli.md).</span></span>
 
-## <a name="troubleshooting"></a><span data-ttu-id="df448-113">Problembehandlung</span><span class="sxs-lookup"><span data-stu-id="df448-113">Troubleshooting</span></span>
+## <a name="troubleshooting"></a><span data-ttu-id="4512d-113">Problembehandlung</span><span class="sxs-lookup"><span data-stu-id="4512d-113">Troubleshooting</span></span>
 
-<span data-ttu-id="df448-114">In diesem Abschnitt finden Sie einige allgemeine Probleme, die bei der Installation mit `yum` auftreten können.</span><span class="sxs-lookup"><span data-stu-id="df448-114">Here are some common problems seen when installing with `yum`.</span></span> <span data-ttu-id="df448-115">Falls ein Problem auftritt, das hier nicht behandelt wird, [melden Sie es auf GitHub](https://github.com/Azure/azure-cli/issues).</span><span class="sxs-lookup"><span data-stu-id="df448-115">If you experience a problem not covered here, [file an issue on github](https://github.com/Azure/azure-cli/issues).</span></span>
+<span data-ttu-id="4512d-114">In diesem Abschnitt finden Sie einige allgemeine Probleme, die bei der Installation mit `yum` auftreten können.</span><span class="sxs-lookup"><span data-stu-id="4512d-114">Here are some common problems seen when installing with `yum`.</span></span> <span data-ttu-id="4512d-115">Falls ein Problem auftritt, das hier nicht behandelt wird, [melden Sie es auf GitHub](https://github.com/Azure/azure-cli/issues).</span><span class="sxs-lookup"><span data-stu-id="4512d-115">If you experience a problem not covered here, [file an issue on github](https://github.com/Azure/azure-cli/issues).</span></span>
 
-### <a name="install-on-rhel-76-or-other-systems-without-python-3"></a><span data-ttu-id="df448-116">Installieren auf RHEL 7.6 oder anderen Systemen ohne Python 3</span><span class="sxs-lookup"><span data-stu-id="df448-116">Install on RHEL 7.6 or other systems without Python 3</span></span>
+### <a name="install-on-rhel-76-or-other-systems-without-python-3"></a><span data-ttu-id="4512d-116">Installieren auf RHEL 7.6 oder anderen Systemen ohne Python 3</span><span class="sxs-lookup"><span data-stu-id="4512d-116">Install on RHEL 7.6 or other systems without Python 3</span></span>
 
-<span data-ttu-id="df448-117">Führen Sie wenn möglich ein Upgrade Ihres Systems auf eine Version mit offizieller Unterstützung für `python3`-Pakete durch.</span><span class="sxs-lookup"><span data-stu-id="df448-117">If you can, please upgrade your system to a verison with official support for `python3` package.</span></span> <span data-ttu-id="df448-118">Andernfalls müssen Sie zuerst ein `python3`-Paket installieren, um entweder [einen Buildvorgang aus der Quelle durchzuführen](https://github.com/linux-on-ibm-z/docs/wiki/Building-Python-3.6.x) oder über ein [zusätzliches Repository](https://developers.redhat.com/blog/2018/08/13/install-python3-rhel/) zu installieren.</span><span class="sxs-lookup"><span data-stu-id="df448-118">Otherwise, you need to first install a `python3` package, either [build from source](https://github.com/linux-on-ibm-z/docs/wiki/Building-Python-3.6.x) or install through some [additional repo](https://developers.redhat.com/blog/2018/08/13/install-python3-rhel/).</span></span> <span data-ttu-id="df448-119">Anschließend können Sie das Paket herunterladen und ohne Abhängigkeit installieren.</span><span class="sxs-lookup"><span data-stu-id="df448-119">Then you can download the package and install it without dependency.</span></span>
+<span data-ttu-id="4512d-117">Führen Sie wenn möglich ein Upgrade Ihres Systems auf eine Version mit offizieller Unterstützung für `python3`-Pakete durch.</span><span class="sxs-lookup"><span data-stu-id="4512d-117">If you can, please upgrade your system to a version with official support for `python3` package.</span></span> <span data-ttu-id="4512d-118">Andernfalls müssen Sie zuerst ein `python3`-Paket installieren, um entweder [einen Buildvorgang aus der Quelle durchzuführen](https://github.com/linux-on-ibm-z/docs/wiki/Building-Python-3.6.x) oder über ein [zusätzliches Repository](https://developers.redhat.com/blog/2018/08/13/install-python3-rhel/) zu installieren.</span><span class="sxs-lookup"><span data-stu-id="4512d-118">Otherwise, you need to first install a `python3` package, either [build from source](https://github.com/linux-on-ibm-z/docs/wiki/Building-Python-3.6.x) or install through some [additional repo](https://developers.redhat.com/blog/2018/08/13/install-python3-rhel/).</span></span> <span data-ttu-id="4512d-119">Anschließend können Sie das Paket herunterladen und ohne Abhängigkeit installieren.</span><span class="sxs-lookup"><span data-stu-id="4512d-119">Then you can download the package and install it without dependency.</span></span>
 ```bash
 $ sudo yum install yum-utils
 $ sudo yumdownloader azure-cli
 $ sudo rpm -ivh --nodeps azure-cli-*.rpm
 ```
 
-### <a name="proxy-blocks-connection"></a><span data-ttu-id="df448-120">Der Proxy blockiert die Verbindung.</span><span class="sxs-lookup"><span data-stu-id="df448-120">Proxy blocks connection</span></span>
+### <a name="proxy-blocks-connection"></a><span data-ttu-id="4512d-120">Der Proxy blockiert die Verbindung.</span><span class="sxs-lookup"><span data-stu-id="4512d-120">Proxy blocks connection</span></span>
 
 [!INCLUDE[configure-proxy](includes/configure-proxy.md)]
 
-<span data-ttu-id="df448-121">Konfigurieren Sie `yum` explizit so, dass dieser Proxy immer verwendet wird.</span><span class="sxs-lookup"><span data-stu-id="df448-121">You may also want to explicitly configure `yum` to use this proxy at all times.</span></span> <span data-ttu-id="df448-122">Stellen Sie sicher, dass die folgenden Zeilen im Abschnitt `[main]` von `/etc/yum.conf` erscheinen:</span><span class="sxs-lookup"><span data-stu-id="df448-122">Make sure that the following lines appear under the `[main]` section of `/etc/yum.conf`:</span></span>
+<span data-ttu-id="4512d-121">Konfigurieren Sie `yum` explizit so, dass dieser Proxy immer verwendet wird.</span><span class="sxs-lookup"><span data-stu-id="4512d-121">You may also want to explicitly configure `yum` to use this proxy at all times.</span></span> <span data-ttu-id="4512d-122">Stellen Sie sicher, dass die folgenden Zeilen im Abschnitt `[main]` von `/etc/yum.conf` erscheinen:</span><span class="sxs-lookup"><span data-stu-id="4512d-122">Make sure that the following lines appear under the `[main]` section of `/etc/yum.conf`:</span></span>
 
 ```yum.conf
 [main]
@@ -82,46 +81,46 @@ proxy_username=[username] # Only required for basic auth
 proxy_password=[password] # Only required for basic auth
 ```
 
-<span data-ttu-id="df448-123">Zum Abrufen des Microsoft-Signaturschlüssels und des Pakets von unserem Repository muss Ihr Proxy HTTPS-Verbindungen mit der folgenden Adresse zulassen:</span><span class="sxs-lookup"><span data-stu-id="df448-123">In order to get the Microsoft signing key and get the package from our repository, your proxy needs to allow HTTPS connections to the following address:</span></span>
+<span data-ttu-id="4512d-123">Zum Abrufen des Microsoft-Signaturschlüssels und des Pakets von unserem Repository muss Ihr Proxy HTTPS-Verbindungen mit der folgenden Adresse zulassen:</span><span class="sxs-lookup"><span data-stu-id="4512d-123">In order to get the Microsoft signing key and get the package from our repository, your proxy needs to allow HTTPS connections to the following address:</span></span>
 
 * `https://packages.microsoft.com`
 
 [!INCLUDE[troubleshoot-wsl.md](includes/troubleshoot-wsl.md)]
 
-## <a name="update"></a><span data-ttu-id="df448-124">Aktualisieren</span><span class="sxs-lookup"><span data-stu-id="df448-124">Update</span></span>
+## <a name="update"></a><span data-ttu-id="4512d-124">Aktualisieren</span><span class="sxs-lookup"><span data-stu-id="4512d-124">Update</span></span>
 
-<span data-ttu-id="df448-125">Aktualisieren Sie die Azure CLI mit dem Befehl `yum update`.</span><span class="sxs-lookup"><span data-stu-id="df448-125">Update the Azure CLI with the `yum update` command.</span></span>
+<span data-ttu-id="4512d-125">Aktualisieren Sie die Azure CLI mit dem Befehl `yum update`.</span><span class="sxs-lookup"><span data-stu-id="4512d-125">Update the Azure CLI with the `yum update` command.</span></span>
 
 ```bash
 sudo yum update azure-cli
 ```
 
-## <a name="uninstall"></a><span data-ttu-id="df448-126">Deinstallieren</span><span class="sxs-lookup"><span data-stu-id="df448-126">Uninstall</span></span>
+## <a name="uninstall"></a><span data-ttu-id="4512d-126">Deinstallieren</span><span class="sxs-lookup"><span data-stu-id="4512d-126">Uninstall</span></span>
 
 [!INCLUDE [uninstall-boilerplate.md](includes/uninstall-boilerplate.md)]
 
-1. <span data-ttu-id="df448-127">Entfernen Sie das Paket aus Ihrem System.</span><span class="sxs-lookup"><span data-stu-id="df448-127">Remove the package from your system.</span></span>
+1. <span data-ttu-id="4512d-127">Entfernen Sie das Paket aus Ihrem System.</span><span class="sxs-lookup"><span data-stu-id="4512d-127">Remove the package from your system.</span></span>
 
    ```bash
    sudo yum remove azure-cli
    ```
 
-2. <span data-ttu-id="df448-128">Entfernen Sie die Repositoryinformationen, wenn Sie nicht planen, die CLI neu zu installieren.</span><span class="sxs-lookup"><span data-stu-id="df448-128">If you don't plan to reinstall the CLI, remove the repository information.</span></span>
+2. <span data-ttu-id="4512d-128">Entfernen Sie die Repositoryinformationen, wenn Sie nicht planen, die CLI neu zu installieren.</span><span class="sxs-lookup"><span data-stu-id="4512d-128">If you don't plan to reinstall the CLI, remove the repository information.</span></span>
 
    ```bash
    sudo rm /etc/yum.repos.d/azure-cli.repo
    ```
 
-3. <span data-ttu-id="df448-129">Wenn Sie keine anderen Microsoft-Pakete verwenden, entfernen Sie den Signaturschlüssel.</span><span class="sxs-lookup"><span data-stu-id="df448-129">If you don't use any other Microsoft packages, remove the signing key.</span></span>
+3. <span data-ttu-id="4512d-129">Wenn Sie keine anderen Microsoft-Pakete verwenden, entfernen Sie den Signaturschlüssel.</span><span class="sxs-lookup"><span data-stu-id="4512d-129">If you don't use any other Microsoft packages, remove the signing key.</span></span>
 
    ```bash
    MSFT_KEY=`rpm -qa gpg-pubkey /* --qf "%{version}-%{release} %{summary}\n" | grep Microsoft | awk '{print $1}'`
    sudo rpm -e --allmatches gpg-pubkey-$MSFT_KEY
    ```
 
-## <a name="next-steps"></a><span data-ttu-id="df448-130">Nächste Schritte</span><span class="sxs-lookup"><span data-stu-id="df448-130">Next Steps</span></span>
+## <a name="next-steps"></a><span data-ttu-id="4512d-130">Nächste Schritte</span><span class="sxs-lookup"><span data-stu-id="4512d-130">Next Steps</span></span>
 
-<span data-ttu-id="df448-131">Machen Sie sich nach der Installation der Azure-Befehlszeilenschnittstelle kurz mit den Features sowie mit häufig verwendeten Befehlen vertraut.</span><span class="sxs-lookup"><span data-stu-id="df448-131">Now that you've installed the Azure CLI, take a short tour of its features and common commands.</span></span>
+<span data-ttu-id="4512d-131">Machen Sie sich nach der Installation der Azure-Befehlszeilenschnittstelle kurz mit den Features sowie mit häufig verwendeten Befehlen vertraut.</span><span class="sxs-lookup"><span data-stu-id="4512d-131">Now that you've installed the Azure CLI, take a short tour of its features and common commands.</span></span>
 
 > [!div class="nextstepaction"]
-> [<span data-ttu-id="df448-132">Erste Schritte mit Azure CLI 2.0</span><span class="sxs-lookup"><span data-stu-id="df448-132">Get started with the Azure CLI</span></span>](get-started-with-azure-cli.md)
+> [<span data-ttu-id="4512d-132">Erste Schritte mit Azure CLI 2.0</span><span class="sxs-lookup"><span data-stu-id="4512d-132">Get started with the Azure CLI</span></span>](get-started-with-azure-cli.md)
