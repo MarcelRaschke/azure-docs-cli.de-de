@@ -6,21 +6,20 @@ ms.author: dbradish
 manager: barbkess
 ms.date: 09/23/2019
 ms.topic: conceptual
-ms.prod: azure
-ms.technology: azure-cli
+ms.service: azure-cli
 ms.devlang: azurecli
-ms.openlocfilehash: adb488081076715eb080d1972bba18d285402e95
-ms.sourcegitcommit: a233bb75e27a5c8772c173f195e74d12381b7a64
+ms.openlocfilehash: 7f28a5cc7acd7e5d41e1ab91424a9f360a25b702
+ms.sourcegitcommit: 7caa6673f65e61deb8d6def6386e4eb9acdac923
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 01/30/2020
-ms.locfileid: "76890455"
+ms.lasthandoff: 02/28/2020
+ms.locfileid: "77779957"
 ---
 # <a name="output-formats-for-azure-cli-commands"></a>Ausgabeformate für Azure CLI-Befehle
 
 Die Azure CLI verwendet JSON als Standardausgabeformat, aber es sind auch andere Formate möglich.  Verwenden Sie den Parameter `--output` (`--out` oder `-o`) zum Formatieren der CLI-Ausgabe. Die Argumentwerte und Typen der Ausgabe lauten wie folgt:
 
---output | Beschreibung
+--output | BESCHREIBUNG
 ---------|-------------------------------
 `json`   | JSON-Zeichenfolge. Dies ist die Standardeinstellung.
 `jsonc`  | Farbiger JSON-Code

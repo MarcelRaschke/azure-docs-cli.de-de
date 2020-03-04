@@ -1,20 +1,19 @@
 ---
 title: Installieren der Azure-Befehlszeilenschnittstelle für Windows
 description: Installieren der Azure CLI unter Windows
-author: sptramer
-ms.author: sttramer
-manager: carmonm
+author: dbradish-microsoft
+ms.author: dbradish
+manager: barbkess
 ms.date: 05/01/2019
 ms.topic: conceptual
-ms.prod: azure
-ms.technology: azure-cli
+ms.service: azure-cli
 ms.devlang: azurecli
-ms.openlocfilehash: 6c972ba69344f9e8bcd14a96a90e9dadb6cd8132
-ms.sourcegitcommit: 61965f5d95d0dae3752ad6a0e5a93db27a623c28
+ms.openlocfilehash: f88e9d6650354ace9d9e03a33a6bbb2642069bbd
+ms.sourcegitcommit: 7caa6673f65e61deb8d6def6386e4eb9acdac923
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 08/06/2019
-ms.locfileid: "68830972"
+ms.lasthandoff: 02/28/2020
+ms.locfileid: "77779566"
 ---
 # <a name="install-azure-cli-on-windows"></a>Installieren der Azure CLI unter Windows
 
@@ -72,10 +71,10 @@ Zum Abrufen der MSI muss Ihr Proxy HTTPS-Verbindungen mit den folgenden Adressen
 
 Sie deinstallieren die Azure-Befehlszeilenschnittstelle über die Liste „Apps und Features“ in Windows. Gehen Sie zum Deinstallieren wie folgt vor:
 
-| Plattform | Anleitung |
+| Plattform | Instructions |
 |---|---|
 | Windows 10 | Start > Einstellungen > Apps |
-| Windows 8<br/>Windows 7 | Start > Systemsteuerung > Programme > Programm deinstallieren |
+| Windows 8<br/>Windows 7 | Start > Systemsteuerung > Programme > Programm deinstallieren |
 
 Geben Sie auf diesem Bildschirm __Azure CLI__ in die Suchleiste des Programms ein. Das Programm zum Deinstallieren wird als __Microsoft CLI 2.0 for Azure__ angezeigt. Wählen Sie diese Anwendung aus, und klicken Sie dann auf die Schaltfläche `Uninstall`.
 

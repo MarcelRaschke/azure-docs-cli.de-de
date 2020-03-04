@@ -1,21 +1,19 @@
 ---
 title: Erste Schritte mit der Azure CLI
 description: Erste Schritte mit der Azure CLI durch das Erlernen der Befehlsgrundlagen.
-keywords: Azure CLI, CLI Hilfe, Azure Hilfe, Abfrage, Automatisierung,
 author: dbradish-microsoft
 ms.author: dbradish
 manager: barbkess
 ms.date: 01/30/2020
 ms.topic: conceptual
-ms.prod: azure
-ms.technology: azure-cli
+ms.service: azure-cli
 ms.devlang: azurecli
-ms.openlocfilehash: 741d092121bbd448595301000acb9a5f51d87ace
-ms.sourcegitcommit: d0b2763cc856eef44a6ecb78f6b8c64291625750
+ms.openlocfilehash: bef8ef96ffefd6214bc924d7378971348d528304
+ms.sourcegitcommit: 7caa6673f65e61deb8d6def6386e4eb9acdac923
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 02/04/2020
-ms.locfileid: "77013249"
+ms.lasthandoff: 02/28/2020
+ms.locfileid: "77779634"
 ---
 # <a name="get-started-with-azure-cli"></a>Erste Schritte mit der Azure CLI
 
@@ -32,6 +30,9 @@ Am einfachsten können Sie die Azure-Befehlszeilenschnittstelle in einer Azure C
 Wenn Sie zur Installation der Befehlszeilenschnittstelle bereit sind, lesen Sie die [Installationsanweisungen](install-azure-cli.md).
 
 Führen Sie nach der Erstinstallation der CLI `az --version` aus, um zu überprüfen, ob sie installiert wurde und die korrekte Version aufweist.
+
+> [!NOTE]
+> [Installieren Sie die klassische Azure CLI](install-classic-cli.md), wenn Sie das klassische Azure-Bereitstellungsmodell verwenden.
 
 ## <a name="sign-in"></a>Anmelden
 

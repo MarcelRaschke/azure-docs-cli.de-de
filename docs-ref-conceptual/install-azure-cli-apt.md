@@ -1,20 +1,19 @@
 ---
 title: Installieren der Azure CLI unter Linux mit apt
 description: Installieren der Azure CLI mit dem apt-Paket-Manager
-author: sptramer
-ms.author: sttramer
-manager: carmonm
+author: dbradish-microsoft
+ms.author: dbradish
+manager: barbkess
 ms.date: 10/14/2019
 ms.topic: conceptual
-ms.prod: azure
-ms.technology: azure-cli
+ms.service: azure-cli
 ms.devlang: azurecli
-ms.openlocfilehash: 782d88bc2487c24bd0574b6a106f109368191f6b
-ms.sourcegitcommit: 69f52b032167a01509fdf15431e3e4e89a7e20ef
+ms.openlocfilehash: c84d5093f670b397a3035dc0f08edc22fa990ff4
+ms.sourcegitcommit: 7caa6673f65e61deb8d6def6386e4eb9acdac923
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 10/15/2019
-ms.locfileid: "72324032"
+ms.lasthandoff: 02/28/2020
+ms.locfileid: "77780127"
 ---
 # <a name="install-azure-cli-with-apt"></a>Installieren der Azure CLI mit apt
 
@@ -49,7 +48,7 @@ curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
 
 Falls Sie ein Skript nicht als Superuser ausführen möchten, oder falls das All-in-One-Skript fehlschlägt, führen Sie die folgenden Schritte zum Installieren der Azure CLI aus.
 
-1. Laden Sie die für die Installation erforderlichen Pakete herunter:
+1. Rufen Sie die für die Installation erforderlichen Pakete ab:
 
     ```bash
     sudo apt-get update
