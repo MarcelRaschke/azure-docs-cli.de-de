@@ -8,12 +8,12 @@ ms.date: 09/09/2018
 ms.topic: conceptual
 ms.service: azure-cli
 ms.devlang: azurecli
-ms.openlocfilehash: 40312c2b6a741d3373d335b6db4797126ee2f3b3
-ms.sourcegitcommit: 7caa6673f65e61deb8d6def6386e4eb9acdac923
+ms.openlocfilehash: d07fe2e807bd6e1fac6d0e9f883bcc8092be46bb
+ms.sourcegitcommit: 21bc2a7125b6c38bf1c4def0a0e66e6673de4805
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 02/28/2020
-ms.locfileid: "77779549"
+ms.lasthandoff: 03/10/2020
+ms.locfileid: "79037971"
 ---
 # <a name="install-azure-cli-with-zypper"></a>Installieren der Azure CLI mit zypper
 
@@ -46,8 +46,9 @@ Für Linux-Distributionen mit `zypper` wie openSUSE oder SLES ist ein Paket für
 4. Aktualisieren Sie den `zypper`-Paketindex, und führen Sie die Installation durch:
 
    ```bash
-   sudo zypper install --from azure-cli -y azure-cli
+   sudo zypper install --from azure-cli azure-cli
    ```
+   2 eingeben, um die Installation fortzusetzen, indem einige Abhängigkeiten ignoriert werden.
 
 Sie können dann die Azure CLI mit dem Befehl `az` ausführen. Verwenden Sie den Befehl [az login](/cli/azure/reference-index#az-login), um sich anzumelden.
 
