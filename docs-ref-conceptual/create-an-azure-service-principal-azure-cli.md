@@ -8,14 +8,14 @@ ms.date: 02/15/2019
 ms.topic: conceptual
 ms.service: azure-cli
 ms.devlang: azurecli
-ms.openlocfilehash: 1bde944f1c443ef1a8d5aa918575fa09e6bb4714
-ms.sourcegitcommit: 7caa6673f65e61deb8d6def6386e4eb9acdac923
+ms.openlocfilehash: c18adbee84fd3e5c73367b07bbd0b03ac61008cd
+ms.sourcegitcommit: b5ecfc168489cd0d96462d6decf83e8b26a10194
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 02/28/2020
-ms.locfileid: "77779617"
+ms.lasthandoff: 03/31/2020
+ms.locfileid: "80417869"
 ---
-# <a name="create-an-azure-service-principal-with-azure-cli"></a>Erstellen eines Azure-Dienstprinzipals mit der Azure CLI
+# <a name="create-an-azure-service-principal-with-the-azure-cli"></a>Erstellen eines Azure-Dienstprinzipals mit der Azure-Befehlszeilenschnittstelle
 
 Für automatisierte Tools, die Azure-Dienste verwenden, sollten stets eingeschränkte Berechtigungen festgelegt sein. Azure bietet Dienstprinzipale, damit Anwendungen nicht als Benutzer mit uneingeschränkten Berechtigungen angemeldet werden müssen.
 
@@ -25,7 +25,7 @@ In diesem Artikel wird Schritt für Schritt erläutert, wie Sie mit der Azure C
 
 ## <a name="create-a-service-principal"></a>Erstellen eines Dienstprinzipals
 
-Erstellen Sie mit dem Befehl [az ad sp create-for-rbac](/cli/azure/ad/sp#az-ad-sp-create-for-rbac) einen Dienstprinzipal. Beim Erstellen eines Dienstprinzipals wählen Sie den Typ der von ihm verwendeten Anmeldeauthentifizierung aus. 
+Erstellen Sie mit dem Befehl [az ad sp create-for-rbac](/cli/azure/ad/sp#az-ad-sp-create-for-rbac) einen Dienstprinzipal. Beim Erstellen eines Dienstprinzipals wählen Sie den Typ der von ihm verwendeten Anmeldeauthentifizierung aus.
 
 > [!NOTE]
 >
@@ -53,6 +53,9 @@ Notieren Sie die Werte. Sie können jedoch auch jederzeit mit [az ad sp list](/c
 
 Verwenden Sie für die zertifikatbasierte Authentifizierung das Argument `--cert`. Bei Verwendung dieses Arguments muss bereits ein Zertifikat vorhanden sein. Vergewissern Sie sich, dass alle Tools, die diesen Dienstprinzipal verwenden, Zugriff auf den privaten Schlüssel des Zertifikats haben. Zertifikate müssen in einem ASCII-Format vorliegen, etwa PEM, CER oder DER. Übergeben Sie das Zertifikat als Zeichenfolge, oder verwenden Sie das Format `@path`, um das Zertifikat aus einer Datei zu laden.
 
+> [!NOTE]
+> Bei Verwendung einer PEM-Datei muss das Zertifikat (**CERTIFICATE**) an den privaten Schlüssel (**PRIVATE KEY**) in der Datei angefügt werden.
+
 ```azurecli-interactive
 az ad sp create-for-rbac --name ServicePrincipalName --cert "-----BEGIN CERTIFICATE-----
 ...
@@ -74,6 +77,35 @@ Verwenden Sie das Argument `--create-cert`, um ein _selbstsigniertes_ Zertifikat
 ```azurecli-interactive
 az ad sp create-for-rbac --name ServicePrincipalName --create-cert
 ```
+
+Konsolenausgabe:
+
+```
+Creating a role assignment under the scope of "/subscriptions/myId"
+Please copy C:\myPath\myNewFile.pem to a safe place.
+When you run 'az login', provide the file path in the --password argument
+{
+  "appId": "myAppId",
+  "displayName": "myDisplayName",
+  "fileWithCertAndPrivateKey": "C:\\myPath\\myNewFile.pem",
+  "name": "http://myName",
+  "password": null,
+  "tenant": "myTenantId"
+}
+```
+
+Inhalt der neuen PEM-Datei:
+```
+-----BEGIN PRIVATE KEY-----
+myPrivateKeyValue
+-----END PRIVATE KEY-----
+-----BEGIN CERTIFICATE-----
+myCertificateValue
+-----END CERTIFICATE-----
+```
+
+> [!NOTE]
+> Mit dem Befehl `az ad sp create-for-rbac --create-cert` werden der Dienstprinzipal und eine PEM-Datei erstellt. Die PEM-Datei enthält einen ordnungsgemäß formatierten privaten Schlüssel (**PRIVATE KEY**) und ein ordnungsgemäß formatiertes Zertifikat (**CERTIFICATE**).
 
 Das Argument `--keyvault` kann hinzugefügt werden, um das Zertifikat in Azure Key Vault zu speichern. Bei Verwendung von `--keyvault` ist das Argument `--cert`__erforderlich__.
 
@@ -149,7 +181,7 @@ So melden Sie sich mit einem Dienstprinzipal und einem Kennwort an:
 az login --service-principal --username APP_ID --password PASSWORD --tenant TENANT_ID
 ```
 
-Um sich mit einem Zertifikat anmelden zu können, muss es lokal als PEM- oder DER-Datei im ASCII-Format verfügbar sein:
+Um sich mit einem Zertifikat anmelden zu können, muss es lokal als PEM- oder DER-Datei im ASCII-Format verfügbar sein. Bei Verwendung einer PEM-Datei müssen der private Schlüssel (**PRIVATE KEY**) und das Zertifikat (**CERTIFICATE**) gemeinsam innerhalb der Datei angefügt werden.
 
 ```azurecli-interactive
 az login --service-principal --username APP_ID --tenant TENANT_ID --password /path/to/cert

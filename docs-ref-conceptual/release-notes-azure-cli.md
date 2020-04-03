@@ -4,18 +4,143 @@ description: Enthält Informationen zu den aktuellen Updates der Azure CLI.
 author: dbradish-microsoft
 ms.author: dbradish
 manager: barbkess
-ms.date: 03/10/2020
+ms.date: 03/31/2020
 ms.topic: article
 ms.service: azure-cli
 ms.devlang: azurecli
-ms.openlocfilehash: ff3a1da2343b96bfd78b20742c2c15707932f3d7
-ms.sourcegitcommit: 21bc2a7125b6c38bf1c4def0a0e66e6673de4805
+ms.openlocfilehash: aed043bcb900937a405fd71dafe24016fa0972d7
+ms.sourcegitcommit: b5ecfc168489cd0d96462d6decf83e8b26a10194
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 03/10/2020
-ms.locfileid: "79037947"
+ms.lasthandoff: 03/31/2020
+ms.locfileid: "80417824"
 ---
 # <a name="azure-cli-release-notes"></a>Versionshinweise für die Azure CLI
+
+## <a name="march-31-2020"></a>31. März 2020
+
+Version 2.3.0
+
+### <a name="acr"></a>ACR
+
+* „az acr task update“: NULL-Zeiger-Ausnahme
+* `az acr import`: Hilfe und Fehlermeldung geändert, um die Verwendung von „--source“ und „--registry“ zu verdeutlichen
+* Überprüfung für das Argument „registry_name“ hinzugefügt
+* `az acr login`: Vorschauflag für „--expose-token“ entfernt
+* [BREAKING CHANGE] Branch-Parameter „az acr task create/update“ entfernt
+* „az acr task update“: Kunde kann nun Kontext, Git-Token und/oder Trigger einzeln aktualisieren
+* „az acr agentpool“: Neues Feature
+
+### <a name="aks"></a>AKS
+
+* „apiServerAccessProfile“ bei der Aktualisierung von „--api-server-authorized-ip-ranges“ korrigiert
+* aks update: Überschreibung ausgehender IP-Adressen mit Eingabewerten bei der Aktualisierung
+* Keine SPN-Erstellung für MSI-Cluster sowie Unterstützung der Anfügung von ACR an MSI-Cluster
+
+### <a name="ams"></a>AMS
+
+* Fix 12469: Hinzufügen von „content-key-policy“ für Fairplay aufgrund von Problemen mit dem Parameter „ask“ nicht erfolgreich
+
+### <a name="appconfig"></a>AppConfig
+
+* „--skip-keyvault“ für „kv export“ hinzugefügt
+
+### <a name="appservice"></a>AppService
+
+* Fix 12509: Tag für „az webapp up“ standardmäßig entfernt
+* az functionapp create: Hilfemenü für „--runtime-version“ aktualisiert und Warnung hinzugefügt, wenn der Benutzer „--runtime-version“ für .NET angibt
+* az functionapp create: Methode zum Festlegen von „javaVersion“ für Windows-Funktions-Apps aktualisiert
+
+### <a name="arm"></a>ARM
+
+* az deployment create/validate: Standardmäßige Verwendung von „--handle-extended-json-format“
+* az lock create: Beispiele für die Erstellung einer Unterressource in der Hilfedokumentation hinzugefügt
+* az deployment {group/mg/sub/tenant} list: Unterstützung der provisioningState-Filterung
+* az deployment: Analysefehler für Kommentar unter letztem Argument behoben
+
+### <a name="backup"></a>Backup
+
+* Mehrere Dateiwiederherstellungsfunktionen hinzugefügt
+* Unterstützung der ausschließlichen Sicherung von Betriebssystemdatenträgern hinzugefügt
+* Parameter „restore-as-unmanaged-disk“ für die Angabe einer nicht verwalteten Wiederherstellung hinzugefügt
+
+### <a name="compute"></a>Compute
+
+* az vm create: Option „NONE“ von „--nsg-rule“ hinzugefügt
+* az vmss create/update: Vorschautag für automatische VMSS-Reparaturen entfernt
+* az vm update: Unterstützung von „--workspace“
+* Fehler im VirtualMachineScaleSetExtension-Initialisierungscode behoben
+* Upgrade der VMAccessAgent-Version auf 2.4 durchgeführt
+* az vmss set-orchestration-service-state: Unterstützung zum Festlegen des Orchestrierungdienstzustands für VMSS
+* Upgrade der Datenträger-API-Version auf 2019-11-01 durchgeführt
+* az disk create: add --disk-iops-read-only, --disk-mbps-read-only, --max-shares, --image-reference, --image-reference-lun, --gallery-image-reference, --gallery-image-reference-lun
+
+### <a name="cosmos-db"></a>Cosmos DB
+
+* Fehlende Option „--type“ für Veraltungsumleitungen korrigiert
+
+### <a name="docker"></a>Docker
+
+* Update auf Alpine 3.11 und Python 3.6.10 durchgeführt
+
+### <a name="extension"></a>Erweiterung
+
+* Laden von Erweiterungen im Systempfad mittels Paketen ermöglicht
+
+### <a name="hdinsight"></a>HDInsight
+
+* (az hdinsight create:) Unterstützung der Angabe der unterstützten TLS-Mindestversion durch Kunden unter Verwendung des Parameters `--minimal-tls-version`. Zulässiger Wert: 1.0,1.1,1.2
+
+### <a name="iot"></a>IoT
+
+* Codebesitzer hinzugefügt
+* az iot hub create: Standard-SKU von F1 in S1 geändert
+* iot hub: Unterstützung von „IotHub“ im Profil „2019-03-01-hybrid“
+
+### <a name="iotcentral"></a>IoTCentral
+
+* Fehlerdetails sowie Standardanwendungsvorlage und Aufforderungsmeldung aktualisiert
+
+### <a name="keyvault"></a>KeyVault
+
+* Unterstützung von Zertifikatsicherung/-wiederherstellung
+* keyvault create/update: Unterstützung von „--retention-days“
+* Keine Anzeige von verwalteten Schlüsseln/Geheimnissen bei der Auflistung mehr
+* az keyvault create: Unterstützung von `--network-acls`, `--network-acls-ips` und `--network-acls-vnets` zur Angabe von Netzwerkregeln bei der Tresorerstellung
+
+### <a name="lock"></a>Sperre
+
+* Fehlerbehebung für „az lock delete“: „az lock delete“ funktioniert für „Microsoft.DocumentDB“ nicht.
+
+### <a name="monitor"></a>Überwachen
+
+* az monitor clone: Unterstützung des Klonens von Metrikregeln zwischen Ressourcen
+* Fix IcM179210086: Erstellung einer benutzerdefinierten Metrikwarnung für die Application Insights-Metrik nicht möglich
+
+### <a name="netappfiles"></a>NetAppFiles
+
+* az volume create: Datenschutzvolumes zum Hinzufügen von Replikationsvorgängen zugelassen: Genehmigen, Aussetzen, Fortsetzen, Status, Entfernen
+
+### <a name="network"></a>Netzwerk
+
+* az network application-gateway waf-policy managed-rule rule-set add: Unterstützung von „ Microsoft_BotManagerRuleSet“
+* network watcher flow-log show: Falsche Veraltungsinformationen behoben
+* Unterstützung von Hostnamen im Application Gateway-Listener
+* az network nat gateway: Unterstützung der Erstellung einer leeren Ressource ohne öffentliche IP-Adresse oder Präfix für öffentliche IP-Adressen
+* Unterstützung der VPN-Gateway-Generierung
+* Unterstützung von `--if-none-match` in `az network dns record-set {} add-record`
+
+### <a name="packaging"></a>Verpackung
+
+* Unterstützung von Python 3.5 eingestellt
+
+### <a name="profile"></a>Profil
+
+* az login: Warnung für MFA-Fehler
+
+### <a name="rdbms"></a>RDBMS
+
+* Befehle zur Verwaltung von Verschlüsselungsschlüsseln für Serverdaten für PostgreSQL und MySQL hinzugefügt
 
 ## <a name="march-10-2020"></a>10. März 2020
 
@@ -1548,7 +1673,7 @@ Version 2.0.63
 * [BREAKING CHANGE] Flag `--local-git` für den Befehl `devops-build` entfernt; lokale Git-Erkennung und -Verarbeitung sind zum Erstellen von Azure DevOps-Pipelines obligatorisch
 * Unterstützung für das Erstellen von Linux-Functions-Plänen hinzugefügt
 * Möglichkeit zum Wechseln eines Plans unter einer Funktions-App mit `functionapp update --plan` hinzugefügt
-* Unterstützung für Einstellungen zum horizontalen Hochskalieren für den Azure Functions-Premium-Plan hinzugefügt
+* Unterstützung für Einstellungen zum Aufskalieren für den Azure Functions-Premium-Plan hinzugefügt
 
 ### <a name="cdn"></a>CDN
 * Unterstützung hinzugefügt für `Microsoft_Standard` und `Standard_ChinaCdn`

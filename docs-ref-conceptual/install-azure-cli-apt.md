@@ -8,12 +8,12 @@ ms.date: 10/14/2019
 ms.topic: conceptual
 ms.service: azure-cli
 ms.devlang: azurecli
-ms.openlocfilehash: c84d5093f670b397a3035dc0f08edc22fa990ff4
-ms.sourcegitcommit: 7caa6673f65e61deb8d6def6386e4eb9acdac923
+ms.openlocfilehash: 302b98717ee422de9bd60a57b18d900bcf5fcaf9
+ms.sourcegitcommit: b5ecfc168489cd0d96462d6decf83e8b26a10194
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 02/28/2020
-ms.locfileid: "77780127"
+ms.lasthandoff: 03/31/2020
+ms.locfileid: "80417913"
 ---
 # <a name="install-azure-cli-with-apt"></a>Installieren der Azure CLI mit apt
 
@@ -58,8 +58,8 @@ Falls Sie ein Skript nicht als Superuser ausführen möchten, oder falls das All
 2. Laden Sie den Microsoft-Signaturschlüssel herunter, und installieren Sie ihn.
 
     ```bash
-    curl -sL https://packages.microsoft.com/keys/microsoft.asc | 
-        gpg --dearmor | 
+    curl -sL https://packages.microsoft.com/keys/microsoft.asc |
+        gpg --dearmor |
         sudo tee /etc/apt/trusted.gpg.d/microsoft.asc.gpg > /dev/null
     ```
 
@@ -67,7 +67,7 @@ Falls Sie ein Skript nicht als Superuser ausführen möchten, oder falls das All
 
     ```bash
     AZ_REPO=$(lsb_release -cs)
-    echo "deb [arch=amd64] https://packages.microsoft.com/repos/azure-cli/ $AZ_REPO main" | 
+    echo "deb [arch=amd64] https://packages.microsoft.com/repos/azure-cli/ $AZ_REPO main" |
         sudo tee /etc/apt/sources.list.d/azure-cli.list
     ```
 
@@ -97,6 +97,22 @@ Einige von Ubuntu oder Debian abgeleiteten Distributionen wie Linux Mint geben �
 Manchmal dauert es nach der Veröffentlichung einer Distribution etwas, bis ein Azure CLI-Paket dafür zur Verfügung gestellt wird. Die Azure CLI ist im Hinblick auf zukünftige Abhängigkeitsversionen resilient konzipiert und nutzt daher möglichst wenige dieser Abhängigkeiten. Ist für Ihre Basisdistribution kein Paket verfügbar, verwenden Sie ein Paket für eine ältere Distribution.
 
 Legen Sie dazu beim [Hinzufügen des Repositorys](#set-release) den Wert `AZ_REPO` manuell fest. Verwenden Sie für Ubuntu-Distributionen das Repository `bionic` und für Debian-Distributionen `stretch`. Distributionen, die vor Ubuntu Trusty und Debian Wheezy veröffentlicht wurden, werden nicht unterstützt.
+
+### <a name="elementary-os-eos-fails-to-install-the-azure-cli"></a>Installation der Azure-Befehlszeilenschnittstelle durch EOS (Elementary OS) nicht möglich
+
+Die Azure-Befehlszeilenschnittstelle kann von EOS nicht installiert werden, da `lsb_release` den Wert `HERA` (Name des EOS-Release) zurückgibt.  Zur Lösung des Problems muss die Datei `/etc/apt/sources.list.d/azure-cli.list` korrigiert und `hera main` in `bionic main` geändert werden.
+
+Ursprünglicher Dateiinhalt:
+
+```
+deb [arch=amd64] https://packages.microsoft.com/repos/azure-cli/ hera main
+```
+
+Geänderter Dateiinhalt:
+
+```
+deb [arch=amd64] https://packages.microsoft.com/repos/azure-cli/ bionic main
+```
 
 ### <a name="proxy-blocks-connection"></a>Der Proxy blockiert die Verbindung.
 
@@ -133,7 +149,7 @@ Verwenden Sie `apt-get upgrade` zum Aktualisieren des CLI-Pakets.
 > [!NOTE]
 > Durch diesen Befehl werden alle installierten Pakete auf Ihrem System aktualisiert, deren Abhängigkeiten nicht geändert wurden.
 > Wenn Sie nur ein Upgrade für die CLI durchführen möchten, verwenden Sie `apt-get install`.
-> 
+>
 > ```bash
 > sudo apt-get update && sudo apt-get install --only-upgrade -y azure-cli
 > ```
