@@ -4,18 +4,30 @@ description: Enthält Informationen zu den aktuellen Updates der Azure CLI.
 author: dbradish-microsoft
 ms.author: dbradish
 manager: barbkess
-ms.date: 03/31/2020
+ms.date: 04/01/2020
 ms.topic: article
 ms.service: azure-cli
 ms.devlang: azurecli
-ms.openlocfilehash: aed043bcb900937a405fd71dafe24016fa0972d7
-ms.sourcegitcommit: b5ecfc168489cd0d96462d6decf83e8b26a10194
+ms.openlocfilehash: cca6f42f29467126553c6e8a332907b1ad1ebc74
+ms.sourcegitcommit: 712c8ca6457552b6b7a8866c1370a6ec51d07f2c
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 03/31/2020
-ms.locfileid: "80417824"
+ms.lasthandoff: 04/01/2020
+ms.locfileid: "80525263"
 ---
 # <a name="azure-cli-release-notes"></a>Versionshinweise für die Azure CLI
+
+## <a name="april-01-2020"></a>01. April 2020
+
+Version 2.3.1
+
+### <a name="acr"></a>ACR
+
+* Falsche Version von „azure-mgmt-containerregistry“ für Linux korrigiert
+
+### <a name="profile"></a>Profil
+
+* az login: Anmeldefehler behoben, der auftrat, wenn nicht das Cloudprofil `latest` verwendet wurde
 
 ## <a name="march-31-2020"></a>31. März 2020
 
@@ -83,7 +95,7 @@ Version 2.3.0
 
 * Update auf Alpine 3.11 und Python 3.6.10 durchgeführt
 
-### <a name="extension"></a>Erweiterung
+### <a name="extension"></a>Durchwahl
 
 * Laden von Erweiterungen im Systempfad mittels Paketen ermöglicht
 
@@ -5138,4 +5150,3 @@ Sie können für die abendlichen Vorschaubuilds wie folgt Probleme melden:
 - Über die [GitHub-Liste mit Problemen](https://github.com/azure/azure-cli/issues/)
 - Per Kontaktaufnahme mit dem Produktteam unter [azfeedback@microsoft.com](mailto:azfeedback@microsoft.com)
 - Senden von Feedback über die Befehlszeile mit dem Befehl `az feedback`
-
