@@ -8,12 +8,12 @@ ms.date: 02/22/2019
 ms.topic: conceptual
 ms.service: azure-cli
 ms.devlang: azurecli
-ms.openlocfilehash: 9c01c0e42edc0c4199349e0bc5d454d7cd3ddc71
-ms.sourcegitcommit: b5ecfc168489cd0d96462d6decf83e8b26a10194
+ms.openlocfilehash: 26112c9a7f338a7f178dc627d89f6e1f33d97714
+ms.sourcegitcommit: 85e1fe2f122236279e3d59f3af9f7230e63c947e
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 03/31/2020
-ms.locfileid: "80417939"
+ms.lasthandoff: 04/10/2020
+ms.locfileid: "81006855"
 ---
 # <a name="sign-in-with-azure-cli"></a>Anmelden mit der Azure CLI 
 
@@ -57,7 +57,7 @@ az login -u <username> -p <password>
 
 ## <a name="sign-in-with-a-service-principal"></a>Anmelden mit einem Dienstprinzipal
 
-Dienstprinzipale sind Konten, die nicht an einen bestimmten Benutzer gebunden sind und über Berechtigungen verfügen können, die ihnen über vordefinierte Rollen zugewiesen werden. Die Authentifizierung mit einem Dienstprinzipal ist die beste Methode zum Schreiben sicherer Skripts oder Programme und ermöglicht das Anwenden von Berechtigungseinschränkungen und lokal gespeicherten statischen Anmeldeinformationen. Weitere Informationen zu Dienstprinzipalen finden Sie unter [Erstellen eines Azure-Dienstprinzipals mit Azure CLI 2.0](/cli/azure/create-an-azure-service-principal-azure-cli.md).
+Dienstprinzipale sind Konten, die nicht an einen bestimmten Benutzer gebunden sind und über Berechtigungen verfügen können, die ihnen über vordefinierte Rollen zugewiesen werden. Die Authentifizierung mit einem Dienstprinzipal ist die beste Methode zum Schreiben sicherer Skripts oder Programme und ermöglicht das Anwenden von Berechtigungseinschränkungen und lokal gespeicherten statischen Anmeldeinformationen. Weitere Informationen zu Dienstprinzipalen finden Sie unter [Erstellen eines Azure-Dienstprinzipals mit Azure CLI 2.0](/cli/azure/create-an-azure-service-principal-azure-cli#sign-in-using-a-service-principal).
 
 Für die Anmeldung mit einem Dienstprinzipal benötigen Sie Folgendes:
 
@@ -66,7 +66,7 @@ Für die Anmeldung mit einem Dienstprinzipal benötigen Sie Folgendes:
 * Den dem Dienstprinzipal zugeordneten Mandanten, als `.onmicrosoft.com`-Domäne oder Azure-Objekt-ID
 
 > [!NOTE]
-> In einer PEM-Datei muss ein Zertifikat (**CERTIFICATE**) an den privaten Schlüssel (**PRIVATE KEY**) angefügt werden.  Ein Beispiel für ein PEM-Dateiformat finden Sie unter [Erstellen eines Azure-Dienstprinzipals mit der Azure-Befehlszeilenschnittstelle](create-an-azure-service-principal-azure-cli#sign-in-using-a-service-principal). 
+> In einer PEM-Datei muss ein Zertifikat (**CERTIFICATE**) an den privaten Schlüssel (**PRIVATE KEY**) angefügt werden.  Ein Beispiel für ein PEM-Dateiformat finden Sie unter [Erstellen eines Azure-Dienstprinzipals mit der Azure-Befehlszeilenschnittstelle](/cli/azure/create-an-azure-service-principal-azure-cli#sign-in-using-a-service-principal). 
 >
 
 > [!IMPORTANT]
