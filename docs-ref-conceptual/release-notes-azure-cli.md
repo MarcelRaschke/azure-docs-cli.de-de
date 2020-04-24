@@ -4,18 +4,129 @@ description: Enthält Informationen zu den aktuellen Updates der Azure CLI.
 author: dbradish-microsoft
 ms.author: dbradish
 manager: barbkess
-ms.date: 04/01/2020
+ms.date: 04/21/2020
 ms.topic: article
 ms.service: azure-cli
 ms.devlang: azurecli
-ms.openlocfilehash: cca6f42f29467126553c6e8a332907b1ad1ebc74
-ms.sourcegitcommit: 712c8ca6457552b6b7a8866c1370a6ec51d07f2c
+ms.openlocfilehash: 10dfdc316ba00f8a7019f0724aab231e344c1c6d
+ms.sourcegitcommit: 89ec9fa7ebd2170b55201cd51fb386fd9351d7ca
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 04/01/2020
-ms.locfileid: "80525263"
+ms.lasthandoff: 04/21/2020
+ms.locfileid: "81728600"
 ---
 # <a name="azure-cli-release-notes"></a>Versionshinweise für die Azure CLI
+
+## <a name="april-21-2020"></a>21. April 2020
+
+Version 2.4.0
+
+### <a name="acr"></a>ACR
+
+* `az acr run --cmd`: Deaktivieren der Arbeitsverzeichnisaußerkraftsetzung
+* Unterstützung dedizierter Datenendpunkte
+
+### <a name="aks"></a>AKS
+
+* `az aks list -o table` sollte „privateFqdn“ als FQDN für private Cluster anzeigen.
+* „--uptime-sla“ hinzugefügt
+* containerservice-Paket aktualisiert
+* Unterstützung für öffentliche IP-Adressen für Knoten hinzugefügt
+* Tippfehler im help-Befehl korrigiert
+
+### <a name="appconfig"></a>AppConfig
+
+* Schlüsseltresorverweis für die Befehle „kv list“ und „kv export“ aufgelöst
+* Fehlerbehebung für die Werte für das Auflisten von Schlüsseln
+
+### <a name="appservice"></a>AppService
+
+* `az functionapp create`: Vorgehensweise zum Festlegen von „linuxFxVersion“ für Linux-Funktions-Apps (.NET) geändert. Dadurch sollte der Fehler behoben sein, der die Erstellung von Linux-Verbrauchs-Apps (.NET) verhindert hat.
+* [BREAKING CHANGE] `az webapp create`: Korrektur vorgenommen, um vorhandene App-Einstellungen (AppSettings) für „az webapp create“ beizubehalten
+* [BREAKING CHANGE] `az webapp up`: Korrektur vorgenommen, um bei Verwendung des Flags „-g“ eine RG für den Befehl „az webapp up“ zu erstellen
+* [BREAKING CHANGE] `az webapp config`: Korrektur vorgenommen, um Werte für Nicht-JSON-Ausgaben mit „az webapp config connection-string list“ anzuzeigen
+
+### <a name="arm"></a>ARM
+
+* `az deployment create/validate`: Parameter `--no-prompt` hinzugefügt, um das Überspringen der Eingabeaufforderung für fehlende Parameter für die ARM-Vorlage zu unterstützen
+* `az deployment group/mg/sub/tenant validate`: Unterstützung von Kommentaren in der Bereitstellungsparameterdatei
+* `az deployment`: `is_preview` für Parameter `--handle-extended-json-format` entfernt
+* `az deployment group/mg/sub/tenant cancel`: Unterstützung für den Abbruch der Bereitstellung für ARM-Vorlagen
+* `az deployment group/mg/sub/tenant validate`: Fehlermeldung bei einem Fehler der Bereitstellungsüberprüfung verbessert
+* `az deployment-scripts`: Neue Befehle für DeploymentScripts hinzugefügt
+* `az resource tag`: Parameter `--is-incremental` hinzugefügt, um das inkrementelle Hinzufügen von Tags zur Ressource zu unterstützen
+
+### <a name="aro"></a>ARO
+
+* `az aro`:  ARO-Befehlsmodul von Azure RedHat OpenShift V4 hinzugefügt
+
+### <a name="batch"></a>Batch
+
+* Batch-API aktualisiert
+
+### <a name="compute"></a>Compute
+
+* `az sig image-version create`: Speicherkontotyp „Premium_LRS“ hinzugefügt
+* `az vmss update`: Problem behoben, das beim Aktualisieren der Beendigungsbenachrichtigung auftrat
+* `az vm/vmss create`: Unterstützung für spezialisierte Imageversion hinzugefügt
+* SIG-API-Version 2019-12-01
+* `az sig image-version create`: „--target-region-encryption“ hinzugefügt
+* Fehler bei Serientestausführung behoben, der auf die Duplizierung des Schlüsseltresornamens im globalen In-Memory-Cache zurückzuführen war.
+
+### <a name="cosmosdb"></a>CosmosDB
+
+* Unterstützung für `az cosmosdb private-link-resource/private-endpoint-connection`
+
+### <a name="iot-central"></a>IoT Central
+
+* `az iotcentral` als veraltet gekennzeichnet
+* Befehlsmodul `az iot central` hinzugefügt
+
+### <a name="monitor"></a>Überwachen
+
+* Unterstützung eines Private Link-Szenarios für die Überwachung
+* Falsche Simulationsmethode in „test_monitor_general_operations.py“ korrigiert
+
+### <a name="network"></a>Netzwerk
+
+* SKU für den Befehl zur Aktualisierung der öffentlichen IP-Adresse als veraltet gekennzeichnet
+* `az network private-endpoint`: Unterstützung für private DNS-Zonengruppe
+* Feature für lokalen Kontext für VNET-/Subnetzparameter aktiviert
+* Falsches Verwendungsbeispiel in „test_nw_flow_log_delete“ korrigiert
+
+### <a name="packaging"></a>Verpackung
+
+* Unterstützung für Ubuntu-/Disco-Paket eingestellt
+
+### <a name="rbac"></a>RBAC
+
+* `az ad app create/update`: Unterstützung von „--optional-claims“ als Parameter
+
+### <a name="rdbms"></a>RDBMS
+
+* Azure Active Directory-Administratorbefehle für PostgreSQL und MySQL hinzugefügt
+
+### <a name="service-fabric"></a>Service Fabric
+
+* Fehlerbehebung Nr. 12891: `az sf application update --application-parameters` entfernt alte Parameter, die nicht in der Anforderung enthalten sind.
+* Fehlerbehebung Nr. 12470: az sf create cluster: Fehler im Zusammenhang mit der Dauerhaftigkeit und Zuverlässigkeit von Updates sowie im Zusammenhang mit der codebasierten Suche der VMSS unter Angabe eines bestimmten Knotentypnamens behoben
+
+### <a name="sql"></a>SQL
+
+* `az sql mi op list`, `az sql mi op get`, `az sql mi op cancel` hinzugefügt
+* `az sql midb`: Aktualisieren/Anzeigen der Richtlinie zur langfristigen Aufbewahrung, Anzeigen/Löschen von Sicherungen zur langfristigen Aufbewahrung, Wiederherstellen von Sicherungen zur langfristigen Aufbewahrung
+
+### <a name="storage"></a>Storage
+
+* „azure-mgmt-storage“ auf 9.0.0 aktualisiert
+* `az storage logging off`: Unterstützung für das Ausschalten der Protokollierung für ein Speicherkonto
+* `az storage account update`: Automatische Rotation von Schlüsseln für CMK aktiviert
+* `az storage account encryption-scope create/update/list/show`: Unterstützung zum Anpassen des Verschlüsselungsbereichs hinzugefügt
+* `az storage container create`: „--default-encryption-scope“ und „--deny-encryption-scope-override“ hinzugefügt, um den Verschlüsselungsbereich für die Containerebene festzulegen
+
+### <a name="survey"></a>Umfrage
+
+* Switch zum Deaktivieren des Umfragelinks hinzugefügt
 
 ## <a name="april-01-2020"></a>01. April 2020
 
