@@ -4,18 +4,72 @@ description: Enthält Informationen zu den aktuellen Updates der Azure CLI.
 author: dbradish-microsoft
 ms.author: dbradish
 manager: barbkess
-ms.date: 04/21/2020
+ms.date: 04/28/2020
 ms.topic: article
 ms.service: azure-cli
 ms.devlang: azurecli
-ms.openlocfilehash: 10dfdc316ba00f8a7019f0724aab231e344c1c6d
-ms.sourcegitcommit: 89ec9fa7ebd2170b55201cd51fb386fd9351d7ca
+ms.openlocfilehash: 032039cc5a51f0d158fbd3616a30263df139f53b
+ms.sourcegitcommit: 1e5d8f04091803d68ac6833d2e2af37a863486ac
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 04/21/2020
-ms.locfileid: "81728600"
+ms.lasthandoff: 04/28/2020
+ms.locfileid: "82199392"
 ---
 # <a name="azure-cli-release-notes"></a>Versionshinweise für die Azure CLI
+
+## <a name="april-28-2020"></a>28. April 2020
+
+Version 2.5.0
+
+### <a name="acs"></a>ACS
+
+* [BREAKING CHANGE] az openshift create: Parameter „--vnet-peer“ entfernt
+* `az openshift create`: Flags zur Unterstützung des privaten Clusters hinzugefügt
+* `az openshift`: Upgrade auf API-Version `2019-10-27-preview`
+* `az openshift`: Befehl `update` hinzugefügt
+
+### <a name="aks"></a>AKS
+
+* `az aks create`: Unterstützung für Windows hinzugefügt
+
+### <a name="appservice"></a>AppService
+
+* `az webapp deployment source config-zip`: Energiesparmodus nach „request.get()“ entfernt
+
+### <a name="arm"></a>ARM
+
+* Was-wäre-wenn-Befehle für Vorlagenbereitstellung hinzugefügt
+
+### <a name="aro"></a>ARO
+
+* `az aro`: Tabellenausgabe korrigiert
+
+### <a name="ci"></a>CI
+
+* pytest integriert und nose für Automatisierungstest als veraltet gekennzeichnet
+
+### <a name="compute"></a>Compute
+
+* `az vmss disk detach`: Datenträgerfehler „NoneType“ behoben
+* `az vm availability-set list`: Unterstützung zum Anzeigen der VM-Liste
+* `az vm list-skus`: Anzeigeproblem des Tabellenformats behoben
+
+### <a name="keyvault"></a>KeyVault
+
+* Neuer Parameter `--enable-rbac-authorization` bei Erstellung oder Aktualisierung hinzugefügt
+
+### <a name="monitor"></a>Überwachen
+
+* Unterstützung der CMK-Features für LA-Cluster
+* `az monitor log-analytics workspace linked-storage`: Unterstützung für BYOS-Features
+
+### <a name="network"></a>Netzwerk
+
+* `az network security-partner`: Unterstützung des Sicherheitspartneranbieters
+
+### <a name="privatedns"></a>PrivateDNS
+
+* Funktion in privater DNS-Zone zum Importieren der Exportzonendatei hinzugefügt
 
 ## <a name="april-21-2020"></a>21. April 2020
 
@@ -28,7 +82,7 @@ Version 2.4.0
 
 ### <a name="aks"></a>AKS
 
-* `az aks list -o table` sollte „privateFqdn“ als FQDN für private Cluster anzeigen.
+* `az aks list -o table` sollte „privateFqdn“ als FQDN für private Cluster anzeigen
 * „--uptime-sla“ hinzugefügt
 * containerservice-Paket aktualisiert
 * Unterstützung für öffentliche IP-Adressen für Knoten hinzugefügt

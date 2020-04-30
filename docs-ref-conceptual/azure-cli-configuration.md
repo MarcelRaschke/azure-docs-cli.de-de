@@ -8,12 +8,12 @@ ms.date: 06/11/2018
 ms.topic: conceptual
 ms.service: azure-cli
 ms.devlang: azurecli
-ms.openlocfilehash: ff5f9f5a5add52bc05009a42aeb00855eb2703fa
-ms.sourcegitcommit: 7caa6673f65e61deb8d6def6386e4eb9acdac923
+ms.openlocfilehash: 97f9fe767d8f7a6a1360c9068985b2fcfe1b7c6f
+ms.sourcegitcommit: 1e5d8f04091803d68ac6833d2e2af37a863486ac
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 02/28/2020
-ms.locfileid: "77779651"
+ms.lasthandoff: 04/28/2020
+ms.locfileid: "82199426"
 ---
 # <a name="azure-cli-configuration"></a>Azure CLI-Konfiguration
 
@@ -78,7 +78,7 @@ Ausführliche Informationen zu allen verfügbaren Konfigurationswerten und zu de
 
 ## <a name="cli-configuration-values-and-environment-variables"></a>CLI-Konfigurationswerte und Umgebungsvariablen
 
-Die folgende Tabelle enthält sämtliche Abschnitte und Optionsnamen, die in einer Konfigurationsdatei verwendet werden können. Die entsprechenden Umgebungsvariablen werden als `AZURE_{section}_{name}` (in Großbuchstaben) festgelegt. Der `storage_account`-Standardwert für `batchai` wird beispielsweise in der Variablen `AZURE_BATCHAI_STORAGE_ACCOUNT` festgelegt.
+Die folgende Tabelle enthält sämtliche Abschnitte und Optionsnamen, die in einer Konfigurationsdatei verwendet werden können. Die entsprechenden Umgebungsvariablen werden als `AZURE_{section}_{name}` (in Großbuchstaben) festgelegt. Der `output`-Standardwert für `core` wird beispielsweise in der Variable `AZURE_CORE_OUTPUT` und der `storage_account`-Standardwert für `batchai` in der Variable `AZURE_BATCHAI_STORAGE_ACCOUNT` festgelegt.
 
 Wenn Sie einen Standardwert angeben, wird dieses Argument von keinem Befehl mehr benötigt. Stattdessen wird der Standardwert verwendet.
 
@@ -87,6 +87,8 @@ Wenn Sie einen Standardwert angeben, wird dieses Argument von keinem Befehl mehr
 | __core__ | output | Zeichenfolge | Das Standardausgabeformat. Mögliche Optionen: `json`, `jsonc`, `tsv` oder `table`. |
 | | disable\_confirm\_prompt | boolean | Dient zum Aktivieren/Deaktivieren von Bestätigungsaufforderungen. |
 | | collect\_telemetry | boolean | Erlaubt Microsoft das Sammeln anonymer Daten zur Verwendung der CLI. Informationen zum Datenschutz finden Sie in den [Nutzungsbedingungen für die Azure CLI](https://aka.ms/AzureCliLegal). |
+| | only\_show\_errors | boolean | Fehler nur beim Befehlsaufruf anzeigen. Anders ausgedrückt: In `stderr` werden nur Fehler geschrieben. Warnungen aus der Vorschau bzw. aus veralteten und experimentellen Befehlen werden unterdrückt. Auch für einzelne Befehle mit dem Parameter `--only-show-errors` verfügbar |
+| | no\_color | boolean | Farbe deaktivieren. Ursprünglich farbigen Nachrichten wird das Präfix `DEBUG`, `INFO`, `WARNING` und `ERROR` vorangestellt. Dadurch wird das Problem im Zusammenhang mit einer Drittanbieterbibliothek umgangen, bei der die Farbe des Terminals nach einer `stdout`-Umleitung nicht wiederhergestellt werden kann. |
 | __logging__ | enable\_log\_file | boolean | Dient zum Aktivieren/Deaktivieren der Protokollierung. |
 | | log\_dir | Zeichenfolge | Das Verzeichnis, in das Protokolle geschrieben werden sollen. Standardmäßig ist dieser Wert auf `${AZURE_CONFIG_DIR}/logs` festgelegt. |
 | __storage__ | connection\_string | Zeichenfolge | Die Standardverbindungszeichenfolge für `az storage`-Befehle. |
