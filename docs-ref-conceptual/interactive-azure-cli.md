@@ -9,10 +9,10 @@ ms.topic: conceptual
 ms.service: azure-cli
 ms.devlang: azurecli
 ms.openlocfilehash: 7b3ee1e284e7f771c661bb65bf8b8ab53dafd77f
-ms.sourcegitcommit: 7caa6673f65e61deb8d6def6386e4eb9acdac923
+ms.sourcegitcommit: ee64dc738cfe689a2a479e32a87bf420f96c31c8
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 02/28/2020
+ms.lasthandoff: 05/06/2020
 ms.locfileid: "77779515"
 ---
 # <a name="azure-cli-interactive-mode"></a>Azure CLI – Interaktiver Modus
@@ -64,7 +64,7 @@ az vm>>list -o table
 ```
 
 Sie können den Bereich auch auf Befehlsgruppen einer niedrigeren Ebene beschränken.
-Mit `%%vm image` können Sie den Bereich auf `vm image` festlegen.
+Mit `vm image` können Sie den Bereich auf `%%vm image` festlegen.
 Da der Bereich bereits auf `vm` festgelegt ist, verwenden wir in diesem Fall `%%image`.
 
 ```azurecli
@@ -72,7 +72,7 @@ az vm>> %%image
 az vm image>>
 ```
 
-An diesem Punkt können wir den Bereich mit `%%..` wieder auf `vm` erweitern oder einfach mit `%%` auf das Stammverzeichnis festlegen.
+An diesem Punkt können wir den Bereich mit `vm` wieder auf `%%..` erweitern oder einfach mit `%%` auf das Stammverzeichnis festlegen.
 
 ```azurecli
 az vm image>> %%
