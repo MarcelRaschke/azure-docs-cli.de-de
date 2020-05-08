@@ -4,18 +4,55 @@ description: Enthält Informationen zu den aktuellen Updates der Azure CLI.
 author: dbradish-microsoft
 ms.author: dbradish
 manager: barbkess
-ms.date: 04/28/2020
+ms.date: 04/30/2020
 ms.topic: article
 ms.service: azure-cli
 ms.devlang: azurecli
-ms.openlocfilehash: 032039cc5a51f0d158fbd3616a30263df139f53b
-ms.sourcegitcommit: 1e5d8f04091803d68ac6833d2e2af37a863486ac
+ms.openlocfilehash: efb17acb25b2268496efe313cac0a8189a78930a
+ms.sourcegitcommit: ee64dc738cfe689a2a479e32a87bf420f96c31c8
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 04/28/2020
-ms.locfileid: "82199392"
+ms.lasthandoff: 05/06/2020
+ms.locfileid: "82591423"
 ---
 # <a name="azure-cli-release-notes"></a>Versionshinweise für die Azure CLI
+
+## <a name="april-30-2020"></a>30. April 2020
+
+Version 2.5.1
+
+### <a name="acr"></a>ACR
+
+* `az acr check-health`: „DOCKER_PULL_ERROR“ unter Windows behoben
+
+### <a name="compute"></a>Compute
+
+* `az vm list-ip-addresses`: Fehlerbehandlung
+* Fehler behoben, der bei der VM-Erstellung auftrat, wenn „endpoint_vm_image_alias_doc“ im Cloudprofil nicht festgelegt war
+* `az vmss create`: „--os-disk-size-gb“ hinzugefügt
+
+### <a name="cosmos-db"></a>Cosmos DB
+
+* `az cosmosdb create/update`: Unterstützung für „--enable-public-network“ hinzugefügt
+
+### <a name="extension"></a>Durchwahl
+
+* Laden der falschen Metadaten für die Radtyperweiterung korrigiert
+
+### <a name="packaging"></a>Verpackung
+
+* Az-Skript für Git Bash/Cygwin unter Windows hinzugefügt
+
+### <a name="sql"></a>SQL
+
+* `az sql instance-pool`: Befehlsgruppe für Instanzpools hinzugefügt
+
+### <a name="storage"></a>Storage
+
+* Paket „azure-multiapi-storage“ auf 0.3.0 aktualisiert
+* Unterstützung von GZRS für Speicherkontoerstellung und -aktualisierung
+* `az storage account failover`: Unterstützung für das Failover von GRS/GZRS-Speicherkonten hinzugefügt
+* `az storage blob upload`: Parameter „--encryption-scope“ hinzugefügt, um die Angabe von Informationen zum Verschlüsselungsbereich zu unterstützen
 
 ## <a name="april-28-2020"></a>28. April 2020
 
