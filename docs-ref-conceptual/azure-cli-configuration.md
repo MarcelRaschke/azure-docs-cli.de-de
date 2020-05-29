@@ -8,12 +8,12 @@ ms.date: 06/11/2018
 ms.topic: conceptual
 ms.service: azure-cli
 ms.devlang: azurecli
-ms.openlocfilehash: 97f9fe767d8f7a6a1360c9068985b2fcfe1b7c6f
-ms.sourcegitcommit: ee64dc738cfe689a2a479e32a87bf420f96c31c8
+ms.openlocfilehash: 24a798e9b3c08f3cd9e66c017cc45f5346d8995e
+ms.sourcegitcommit: d05660a42b2a77c4b05a7f96c386e656bd2db0fe
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 05/06/2020
-ms.locfileid: "82199426"
+ms.lasthandoff: 05/19/2020
+ms.locfileid: "83569169"
 ---
 # <a name="azure-cli-configuration"></a>Azure CLI-Konfiguration
 
@@ -86,7 +86,7 @@ Wenn Sie einen Standardwert angeben, wird dieses Argument von keinem Befehl mehr
 |---------|-----------|------|------------|
 | __core__ | output | Zeichenfolge | Das Standardausgabeformat. Mögliche Optionen: `json`, `jsonc`, `tsv` oder `table`. |
 | | disable\_confirm\_prompt | boolean | Dient zum Aktivieren/Deaktivieren von Bestätigungsaufforderungen. |
-| | collect\_telemetry | boolean | Erlaubt Microsoft das Sammeln anonymer Daten zur Verwendung der CLI. Informationen zum Datenschutz finden Sie in den [Nutzungsbedingungen für die Azure CLI](https://aka.ms/AzureCliLegal). |
+| | collect\_telemetry | boolean | Erlaubt Microsoft das Sammeln anonymer Daten zur Verwendung der CLI. Informationen zum Datenschutz finden Sie in der [MIT-Lizenz für die Azure CLI](https://github.com/Azure/azure-cli/blob/dev/LICENSE). |
 | | only\_show\_errors | boolean | Fehler nur beim Befehlsaufruf anzeigen. Anders ausgedrückt: In `stderr` werden nur Fehler geschrieben. Warnungen aus der Vorschau bzw. aus veralteten und experimentellen Befehlen werden unterdrückt. Auch für einzelne Befehle mit dem Parameter `--only-show-errors` verfügbar |
 | | no\_color | boolean | Farbe deaktivieren. Ursprünglich farbigen Nachrichten wird das Präfix `DEBUG`, `INFO`, `WARNING` und `ERROR` vorangestellt. Dadurch wird das Problem im Zusammenhang mit einer Drittanbieterbibliothek umgangen, bei der die Farbe des Terminals nach einer `stdout`-Umleitung nicht wiederhergestellt werden kann. |
 | __logging__ | enable\_log\_file | boolean | Dient zum Aktivieren/Deaktivieren der Protokollierung. |
