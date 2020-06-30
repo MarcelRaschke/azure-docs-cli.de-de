@@ -8,12 +8,12 @@ ms.date: 10/14/2019
 ms.topic: conceptual
 ms.service: azure-cli
 ms.devlang: azurecli
-ms.openlocfilehash: 302b98717ee422de9bd60a57b18d900bcf5fcaf9
-ms.sourcegitcommit: ee64dc738cfe689a2a479e32a87bf420f96c31c8
+ms.openlocfilehash: 12382d93304995b958e5095edba53cf5cdd17cc7
+ms.sourcegitcommit: bc31f6faacab22f39aed6a11393c8be02e01c9cb
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 05/06/2020
-ms.locfileid: "80417913"
+ms.lasthandoff: 06/23/2020
+ms.locfileid: "85241793"
 ---
 # <a name="install-azure-cli-with-apt"></a>Installieren der Azure CLI mit apt
 
@@ -60,7 +60,7 @@ Falls Sie ein Skript nicht als Superuser ausführen möchten, oder falls das All
     ```bash
     curl -sL https://packages.microsoft.com/keys/microsoft.asc |
         gpg --dearmor |
-        sudo tee /etc/apt/trusted.gpg.d/microsoft.asc.gpg > /dev/null
+        sudo tee /etc/apt/trusted.gpg.d/microsoft.gpg > /dev/null
     ```
 
 3. <div id="set-release"/>Fügen Sie das Azure CLI-Softwarerepository hinzu:
@@ -173,7 +173,7 @@ Verwenden Sie `apt-get upgrade` zum Aktualisieren des CLI-Pakets.
 3. Wenn Sie keine anderen Pakete von Microsoft verwenden, entfernen Sie den Signaturschlüssel:
 
     ```bash
-    sudo rm /etc/apt/trusted.gpg.d/microsoft.asc.gpg
+    sudo rm /etc/apt/trusted.gpg.d/microsoft.gpg
     ```
 
 4. Entfernen Sie alle nicht benötigten Pakete:
