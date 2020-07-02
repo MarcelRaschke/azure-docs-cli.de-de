@@ -4,16 +4,17 @@ description: Installieren der Azure CLI unter Windows
 author: dbradish-microsoft
 ms.author: dbradish
 manager: barbkess
-ms.date: 05/01/2019
+ms.prod: azure
+ms.date: 06/16/2020
 ms.topic: conceptual
-ms.service: azure-cli
 ms.devlang: azurecli
-ms.openlocfilehash: c5e9118a04b0dc608309093866307fdc7083f591
-ms.sourcegitcommit: ee64dc738cfe689a2a479e32a87bf420f96c31c8
+ms.technology: azure-cli
+ms.openlocfilehash: 555df1bcec74648ad1857832ae2cae1202ae650b
+ms.sourcegitcommit: bc31f6faacab22f39aed6a11393c8be02e01c9cb
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 05/06/2020
-ms.locfileid: "80417838"
+ms.lasthandoff: 06/23/2020
+ms.locfileid: "85241749"
 ---
 # <a name="install-azure-cli-on-windows"></a>Installieren der Azure CLI unter Windows
 
@@ -24,19 +25,47 @@ Bei der Installation für ein Windows-Subsystem für Linux (WSL) sind Pakete fü
 
 ## <a name="install-or-update"></a>Installieren oder Aktualisieren
 
-Das verteilbare MSI-Installationsprogramm wird zum Installieren oder Aktualisieren der Azure-Befehlszeilenschnittstelle (Azure Command Line Interface, Azure CLI) unter Windows verwendet. Sie müssen keine aktuellen Versionen deinstallieren, bevor Sie das MSI-Installationsprogramm ausführen.
+Das verteilbare MSI-Installationsprogramm wird zum Installieren oder Aktualisieren der Azure-Befehlszeilenschnittstelle (Azure Command Line Interface, Azure CLI) unter Windows verwendet. Sie müssen aktuelle Versionen nicht deinstallieren, bevor Sie das MSI-Installationsprogramm verwenden, da mit der MSI-Datei vorhandene Versionen aktualisiert werden.
 
-> [!div class="nextstepaction"]
-> [MSI-Installationsprogramm herunterladen](https://aka.ms/installazurecliwindows)
+# <a name="microsoft-installer-msi"></a>[Microsoft Installer (MSI)](#tab/azure-cli)
 
 Wenn das Installationsprogramm fragt, ob Änderungen am Computer vorgenommen werden dürfen, klicken Sie auf „Ja“.
+
+### <a name="azure-cli-current-version"></a>Aktuelle Version der Azure CLI
+
+Laden Sie die aktuelle Version der Azure CLI herunter, und installieren Sie sie.  
+
+> [!div class="nextstepaction"]
+> [Aktuelle Version der Azure CLI](https://aka.ms/installazurecliwindows)
+
+### <a name="azure-cli-beta-version"></a>Azure CLI-Betaversion
+
+Die Betaversion der Azure CLI unterstützt alle CLI-Befehle, die in der aktuellen veröffentlichten Version verfügbar sind. Die Betaversion ist eine Migration der veröffentlichten Azure CLI, da die AAD-Authentifizierungsplattform (v1.0) nicht mehr unterstützt wird.  [Microsoft Identity Platform (v2.0)](/azure/active-directory/develop/v2-overview) ist die neue Authentifizierungsmethode und wird von der Betaversion der Azure CLI verwendet.  Es wird empfohlen, die Betaversion vorab zu testen.  
+
+Weitere Informationen zur Azure CLI-Betaversion finden Sie in den [Versionshinweisen](release-notes-azure-cli?tabs=azure-cli-beta).
+
+> [!IMPORTANT]
+>
+> Die Betaversion garantiert keine Qualität auf Produktebene, daher sollte sie nicht in der Produktionsumgebung verwendet werden.
+
+Laden Sie die Betaversion der Azure CLI herunter, und installieren Sie sie.
+
+> [!div class="nextstepaction"]
+> [Betaversion der Azure CLI](https://aka.ms/installazurecliwindowsbeta)
+
+# <a name="microsoft-installer-msi-with-powershell"></a>[Microsoft Installer (MSI) mit PowerShell](#tab/azure-powershell)
 
 Sie können die Azure-Befehlszeilenschnittstelle auch mithilfe von PowerShell installieren. Starten Sie PowerShell als Administrator, und führen Sie den folgenden Befehl aus:
 
    ```PowerShell
    Invoke-WebRequest -Uri https://aka.ms/installazurecliwindows -OutFile .\AzureCLI.msi; Start-Process msiexec.exe -Wait -ArgumentList '/I AzureCLI.msi /quiet'; rm .\AzureCLI.msi
    ```
-Dadurch wird die aktuelle Version der Azure-Befehlszeilenschnittstelle für Windows heruntergeladen und installiert. Haben Sie bereits eine Version installiert, wird diese aktualisiert. Nach Abschluss der Installation müssen Sie PowerShell erneut öffnen, damit die Azure-Befehlszeilenschnittstelle verwendet werden kann.
+
+Dadurch wird die aktuelle Version der Azure-Befehlszeilenschnittstelle für Windows heruntergeladen und installiert. Haben Sie bereits eine Version installiert, wird die vorhandene Version vom Installationsprogramm aktualisiert. Nach Abschluss der Installation müssen Sie PowerShell erneut öffnen, damit die Azure-Befehlszeilenschnittstelle verwendet werden kann.
+
+---
+
+## <a name="run-the-azure-cli"></a>Ausführen der Azure CLI
 
 Sie können nun mit dem Befehl `az` über die Windows-Eingabeaufforderung oder PowerShell die Azure CLI ausführen. In PowerShell stehen einige Features zur Vervollständigung mit der TAB-TASTE zur Verfügung, die an der Windows-Eingabeaufforderung nicht verfügbar sind. Führen Sie den Befehl [az login](/cli/azure/reference-index#az-login) aus, um sich anzumelden.
 
@@ -74,7 +103,7 @@ Sie deinstallieren die Azure-Befehlszeilenschnittstelle über die Liste „Apps 
 | Plattform | Instructions |
 |---|---|
 | Windows 10 | Start > Einstellungen > Apps |
-| Windows 8<br/>Windows 7 | Start > Systemsteuerung > Programme > Programm deinstallieren |
+| Windows 8 und Windows 7 | Start > Systemsteuerung > Programme > Programm deinstallieren |
 
 Geben Sie auf diesem Bildschirm __Azure CLI__ in die Suchleiste des Programms ein. Das Programm zum Deinstallieren wird als __Microsoft CLI 2.0 for Azure__ angezeigt. Wählen Sie diese Anwendung aus, und klicken Sie dann auf die Schaltfläche `Uninstall`.
 

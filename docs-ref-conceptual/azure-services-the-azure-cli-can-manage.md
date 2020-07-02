@@ -1,6 +1,6 @@
 ---
 title: Azure-Dienste, die von der Azure CLI verwaltet werden können
-description: Links zu Diensten, die Azure CLI-Referenzen anbieten, App Configuration, App Service, Active Directory (AD), Backup, Cognitive Search, Cosmos DB, Data Lake Storage, Datenbank, MariaDB, MySQL, PostgreSQL, PostgreSQL, DevOps, DevTest Labs, DNS, Functions, IoT, IoT Central, IoT Edge, IoT Hub, Kubernetes Service (AKS), Lab Services, Machine Learning, Managed Applications, Private Link, Resource Manager, Spring Cloud, SQL-Datenbank, Batch, Cognitive Services, Container Instances, Container Registry, Data Lake Analytics, Event Grid, Event Hubs, HDInsight, Key Vault, Load Balancer, Managed Disks, Media Services, Notification Hubs, Service Bus, Service Fabric, Speicherkonten, Traffic Manager, Virtual Machine Scale Sets, Virtual Network, Compute, Netzwerk, Internet der Dinge, Entwicklertools, Datenbanken, Analytics, Verwaltung und Governance, Hybrid, Storage, Sicherheit, KI, KI und Machine Learning
+description: Links zu Diensten, die Azure CLI-Referenzen anbieten, App Configuration, App Service, Active Directory (AD), Backup, Cognitive Search, Cosmos DB, Data Lake Storage, Datenbank, MariaDB, MySQL, PostgreSQL, PostgreSQL, DevOps, DevTest Labs, DNS, Functions, IoT, IoT Central, IoT Edge, IoT Hub, Kubernetes Service (AKS), Lab Services, Machine Learning, Managed Applications, Private Link, Resource Manager, Spring Cloud, SQL-Datenbank, Batch, Cognitive Services, Container Instances, Container Registry, Data Lake Analytics, Event Grid, Event Hubs, HDInsight, Key Vault, Load Balancer, Managed Disks, Media Services, Notification Hubs, Service Bus, Service Fabric, Speicherkonten, Traffic Manager, Virtual Machine Scale Sets, Virtual Network, Compute, Netzwerk, Internet der Dinge, Entwicklertools, Datenbanken, Analytics, Verwaltung und Governance, Hybrid, Storage, Sicherheit, KI, KI und Machine Learning, Azure Data Explorer
 author: dbradish-microsoft
 ms.author: dbradish
 manager: barbkess
@@ -9,12 +9,12 @@ ms.topic: conceptual
 ms.prod: azure
 ms.technology: azure-cli
 ms.devlang: azurecli
-ms.openlocfilehash: aaf9969030512668b22c1b5bbfbd2a9a7d7ae47d
-ms.sourcegitcommit: ee64dc738cfe689a2a479e32a87bf420f96c31c8
+ms.openlocfilehash: 04957e3f0da96e1523867da98ade27b80fe45e22
+ms.sourcegitcommit: 252e80dc48481f3c51267dd3c35f8665632d4f04
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 05/06/2020
-ms.locfileid: "80417892"
+ms.lasthandoff: 06/17/2020
+ms.locfileid: "84902182"
 ---
 # <a name="azure-services-the-azure-cli-can-manage"></a>Azure-Dienste, die von der Azure CLI verwaltet werden können
 
@@ -26,7 +26,8 @@ Azure CLI-Referenzen sind für Folgendes verfügbar:
 |-|-|
 |[KI und Machine Learning](/cli/azure/popular-articles-using-the-azure-cli?#ai--machine-learning)| [Azure Machine Learning](/azure/machine-learning/)
 ||[Cognitive Services](/azure/cognitive-services/)
-|[Analyse](/cli/azure/popular-articles-using-the-azure-cli?#analytics)|[Azure Data Lake-Speicher](/azure/storage/blobs/data-lake-storage-introduction/)
+|[Analyse](/cli/azure/popular-articles-using-the-azure-cli?#analytics)|[Azure Data Explorer](/azure/data-explorer/)
+||[Azure Data Lake-Speicher](/azure/storage/blobs/data-lake-storage-introduction/)
 ||[Data Lake Analytics](/azure/data-lake-analytics/)
 ||[Event Hubs](/azure/event-hubs/)
 ||[HDInsight](/azure/hdinsight/)
@@ -81,7 +82,7 @@ Azure CLI-Referenzen sind für Folgendes verfügbar:
 ||[Load Balancer](/azure/load-balancer/)
 ||[Traffic Manager](/azure/traffic-manager/)
 ||[Virtual Network](/azure/virtual-network/)
-|[Sicherheit](/cli/azure/popular-articles-using-the-azure-cli?#security)|[Azure Active Directory (AD)](/azure/active-directory/)
+|[Security](/cli/azure/popular-articles-using-the-azure-cli?#security)|[Azure Active Directory (AD)](/azure/active-directory/)
 ||[Schlüsseltresor](/azure/key-vault/)
 |[Storage](/cli/azure/popular-articles-using-the-azure-cli?#storage)|[Azure Backup](/azure/backup/)
 ||[Azure Data Lake-Speicher](/azure/storage/blobs/data-lake-storage-introduction/)

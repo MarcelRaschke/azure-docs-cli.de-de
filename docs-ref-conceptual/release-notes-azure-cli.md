@@ -4,18 +4,162 @@ description: Enthält Informationen zu den aktuellen Updates der Azure CLI.
 author: dbradish-microsoft
 ms.author: dbradish
 manager: barbkess
-ms.date: 06/02/2020
+ms.date: 06/23/2020
 ms.topic: article
 ms.service: azure-cli
 ms.devlang: azurecli
-ms.openlocfilehash: be0db24ca312825aba03256119d1b5e43afbd902
-ms.sourcegitcommit: 62355a77ca59addf7b19db6b95027676e52fd936
+ms.openlocfilehash: 68ba21af45850bc11b7568860607dc5bcb379b9f
+ms.sourcegitcommit: a13a02e99e8eefb91f11e4a40f5fa0d3b5e758e0
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 06/02/2020
-ms.locfileid: "84275061"
+ms.lasthandoff: 06/23/2020
+ms.locfileid: "85256319"
 ---
 # <a name="azure-cli-release-notes"></a>Versionshinweise für die Azure CLI
+
+# <a name="current-release-notes"></a>[Aktuelle Versionshinweise](#tab/azure-cli)
+
+## <a name="june-23-2020"></a>23. Juni 2020
+
+Version 2.8.0
+
+### <a name="acr"></a>ACR
+
+* Unterstützung für Deaktivierung des Regionsendpunkts/Routings hinzugefügt
+* [BREAKING CHANGE] `az acr login --expose-token` akzeptiert Benutzername und Kennwort nicht.
+
+### <a name="acs"></a>ACS
+
+* Privater Cluster und API „2019-10-27-preview“ entfernt
+
+### <a name="aks"></a>AKS
+
+* Unterstützung: Ja, für „az aks upgrade“
+* „Änderung der Standard-VM-SKU in Standard_D2s_v3 (Nr. 13541)“ wiederhergestellt
+* „az aks update --uptime-sla“ hinzugefügt
+* Tippfehler im Befehl „az aks update“ korrigiert
+* Änderung, um einen Agentpool mit 0 Knoten zu unterstützen und die manuelle Skalierung für einen Pool mit CAS-Aktivierung zu blockieren
+* Tippfehler in VirtualMachineScaleSets korrigiert und Verweise auf Kubernetes-Versionen aktualisiert
+
+### <a name="ams"></a>AMS
+
+* ÄNDERUNG: Hilfetext für Parameter „--expiry“
+
+### <a name="appservice"></a>AppService
+
+* `az webapp log deployment show`: Anzeigen des aktuellen Bereitstellungsprotokolls oder der Bereitstellungsprotokolle einer bestimmten Bereitstellung, wenn die Bereitstellungs-ID angegeben ist
+* `az webapp log deployment list`: Liste der verfügbaren Bereitstellungsprotokolle
+* Behebung: Oberflächenfehler bei Angabe eines ungültigen Web-App-Namens
+* Nr. 13261 korrigiert: „az webapp list-runtimes“ nutzt eine statische Liste, bis die neue API für verfügbare Stapel zur Verfügung steht
+* `az appservice ase create`: Erstellungsproblem behoben (Nr. 13361)
+* `az appservice ase list-addresses`: SDK-Änderung korrigiert (Nr. 13140)
+* Web-App-/Sloterstellung für Windows-Container korrigiert
+* `az webapp auth update`: Optionaler Parameter zum Aktualisieren der Laufzeitversion hinzugefügt
+* Unterstützung für das Auflisten, Löschen, Genehmigen und Ablehnen der Verbindung mit privatem Endpunkt für eine Web-App in der CLI
+* Behebung Nr. 13888: Unterstützung für Static Web Apps hinzugefügt: Befehle zum Abrufen, Auflisten und Erstellen
+* Fehlermeldungen für die SSH-Tunnelverbindung verbessert
+
+### <a name="arm"></a>ARM
+
+* `az tag`: Beispiele für „-h“ hinzugefügt
+* `az deployment group/sub what-if`: Parameter „--exclude-change-types/-x“ hinzugefügt
+* `az deployment group/sub/mg/tenant create`: Parameter „--what-if-exclude-change-types/-x“ hinzugefügt
+* `az deployment group/sub/mg/tenant validate`: Anzeigen von Fehlermeldungen in einem besseren Format
+* `az group export`: Neue Parameter `--skip-resource-name-params` und `--skip-all-params` hinzugefügt, um das Überspringen der Parametrisierung zu unterstützen
+* API „az feature unregister“ hinzugefügt
+
+### <a name="aro"></a>ARO
+
+* „Public“/„Private“ zu Parametern zur Unterstützung bei Eingangs-/APIServer-Sichtbarkeit hinzugefügt
+
+### <a name="batch"></a>Batch
+
+* `az batch account create`: Neuer Parameter `--public-network-access` hinzugefügt
+* `az batch account create`: Neuer Parameter `--identity-type` hinzugefügt
+* `az batch account set`: Neuer Parameter `--identity-type` hinzugefügt
+* [BREAKING CHANGE] az batch pool create: Bei der Erstellung eines Pools mithilfe eines benutzerdefinierten Images kann die Eigenschaft „--image“ nun ausschließlich auf ein Shared Image Gallery-Image verweisen.
+* [BREAKING CHANGE] az batch pool create: Bei der Erstellung eines Pools mit der Option „--json-file“ und Angabe einer Netzwerkkonfiguration (networkConfiguration) wurde die Eigenschaft „publicIPs“ in die neue Eigenschaft „publicIPAddressConfiguration“ verschoben. Diese neue Eigenschaft unterstützt außerdem die neue Eigenschaft „ipAddressProvisioningType“. Diese gibt an, wie der Pool IP-Adressen und die Eigenschaft „publicIPs“ zuordnen muss, um die Konfiguration einer Liste mit PublicIP-Ressourcen zu ermöglichen, die bei der Festlegung von „ipAddressProvisioningType“ auf „UserManaged“ verwendet werden sollen.
+* `az network private-link-resource`: Unterstützung für die Microsoft.Batch-Ressource „batchAccount“ hinzugefügt
+* `az network private-endpoint-connection`: Unterstützung für die Microsoft.Batch-Ressource „batchAccount“ hinzugefügt
+
+### <a name="cdn"></a>CDN
+
+* `az cdn custom-domain enable-https`: Unterstützung für BYOC hinzugefügt
+* `az cdn custom-domain enable-https`: Aktivierung von benutzerdefiniertem HTTPS mit CDN-verwalteten Zertifikaten für die SKUs Standard_Verizon und Standard_Microsoft korrigiert
+
+### <a name="cognitive-services"></a>Cognitive Services
+
+* [BREAKING CHANGE] `az cognitiveservices account` besitzt nun eine einheitliche Struktur für alle Befehle.
+* `az cognitiveservices account identity`: Identitätsverwaltung für Cognitive Services hinzugefügt
+
+### <a name="compute"></a>Compute
+
+* `az image builder`: API-Version auf 2020-02-14 aktualisiert
+* `az image builder create`: `--identity` zur Unterstützung der Identitätskonfiguration hinzugefügt
+* `az image builder customizer add`: Unterstützung für Windows Update-Anpassung
+* Neuer Befehl `az image builder cancel`
+* Anzeigen einer Warnung, wenn ein Benutzer eine VMSS bereitstellt, die an eine bestimmte (und nicht an die neueste) Imageversion angeheftet ist
+
+### <a name="cosmos-db"></a>Cosmos DB
+
+* `az cosmosdb`: Befehl „exists“ zu Datenbank- und Containergruppen hinzugefügt
+* Zulassen der Erstellung fester Sammlungen
+
+### <a name="eventhub"></a>EventHub
+
+* `az eventhubs namespace create` : Parameter für verwaltete Identität hinzugefügt
+
+### <a name="extension"></a>Durchwahl
+
+* „--version“ hinzugefügt, um die Installation über eine bestimmte Version zu unterstützen
+* CLI-Erweiterungen dürfen nun Pakete im Namespace „azure“ enthalten.
+
+### <a name="iot-hub"></a>IoT Hub
+
+* [BREAKING CHANGE] az iot hub job: Veraltete job-Befehle entfernt
+
+### <a name="keyvault"></a>KeyVault
+
+* `az keyvault key import`: Unterstützt das Importieren aus Zeichenfolgen über zwei neue Parameter.
+* Unterstützung der Ver- und Entschlüsselung von Zeichenfolgen/Bytes mit gespeicherten Schlüsseln
+
+### <a name="monitor"></a>Überwachen
+
+* Unterstützung für „no wait“ bei der Clustererstellung
+* `az monitor log-analytics workspace saved-search`: Unterstützung neuer Befehle für gespeicherte Suche
+
+### <a name="network"></a>Netzwerk
+
+* `az network application-gateway address-pool update`: Hilfenachricht optimiert und Beispiele hinzugefügt
+* `az network vnet create`: Unterstützung für das Argument „--nsg“
+* `az network lb address-pool`: Unterstützung für das Erstellen eines Back-End-Pools des Lastenausgleichs mit Back-End-Adresse
+* `az network application-gateway address-pool`: Korrektur für das Argument „--add“
+
+### <a name="rbac"></a>RBAC
+
+* `az ad sp create-for-rabc`: Unterstützung von Namen mit Leerzeichen, Schrägstrich und umgekehrtem Schrägstrich
+* `az ad sp create-for-rbac`: Fehlermeldung optimiert, die angezeigt wird, wenn Benutzer einen ungültigen Bereich angeben
+
+### <a name="security"></a>Sicherheit
+
+* Befehle für Sicherheitsbewertungen hinzugefügt
+
+### <a name="sql"></a>SQL
+
+* `az sql db ltr-policy/ltr-backup`: Aktualisieren/Anzeigen der Richtlinie zur langfristigen Aufbewahrung, Anzeigen/Löschen von Sicherungen zur langfristigen Aufbewahrung, Wiederherstellen von Sicherungen zur langfristigen Aufbewahrung
+
+### <a name="storage"></a>Storage
+
+* Authentifizierungsproblem behoben, um das Abrufen eines Tokens für „--subscription“ zu unterstützen
+* `az storage remove`: Problem Nr. 13459 behoben, um eine Ausnahme bei einem Vorgangsfehler auszulösen
+* Probleme Nr. 13012, 13632 und 13657 behoben, um nicht verwendete Argumente für Befehle im Zusammenhang mit „generate-sas“ zu entfernen
+* `az storage logging update`: Überprüfung für Protokollierungsversion hinzugefügt
+* `az storage blob show`: Weitere Eigenschaften für Blob mit Track 2 SDK hinzugefügt
+* Behebung Nr. 13708: Warnmeldung für Anmeldeinformationen optimiert
+* `az storage share-rm create/update`: Unterstützung für NFS-Protokoll und Root-Squash hinzugefügt
+* `az storage account create`: Unterstützung für doppelte Verschlüsselung hinzugefügt
+* [BREAKING CHANGE] `az storage blob/container/file/share/table/queue generate-sas`: „--expiry“ und „--permissions“ als erforderlich festgelegt
+* `az storage blob set-tier`: Migration zu Track 2, um das Festlegen der Aktivierungspriorität zu unterstützen
 
 ## <a name="june-02-2020"></a>2\. Juni 2020
 
@@ -5536,3 +5680,22 @@ Sie können für die abendlichen Vorschaubuilds wie folgt Probleme melden:
 - Über die [GitHub-Liste mit Problemen](https://github.com/azure/azure-cli/issues/)
 - Per Kontaktaufnahme mit dem Produktteam unter [azfeedback@microsoft.com](mailto:azfeedback@microsoft.com)
 - Senden von Feedback über die Befehlszeile mit dem Befehl `az feedback`
+
+# <a name="beta-release-notes"></a>[Versionshinweise zur Betaversion](#tab/azure-cli-beta)
+
+Die Azure CLI-Betaversion ist eine Migration der Authentifizierungsmethode der AAD-Plattform (v1.0) zu [Microsoft Identity Platform (v2.0)](/azure/active-directory/develop/v2-overview).
+
+## <a name="june-23-2020"></a>23. Juni 2020
+
+### <a name="things-to-know-about-the-new-azure-cli-beta-release"></a>Wissenswertes über die neue Azure CLI-Betaversion
+
+-   Die Betaversion der Azure CLI unterstützt alle CLI-Befehle, die in der aktuellen veröffentlichten Version verfügbar sind.
+-   Nach der Installation der Betaversion ist eine erneute Anmeldung erforderlich.
+-   Die Betaversion unterstützt nur die Windows-Plattform.
+-   Azure Stack wird nicht unterstützt.
+-   Der Parameter `--use-cert-sn-issuer` wird nicht unterstützt, wenn für die Authentifizierung ein Dienstprinzipalschlüssel verwendet wird.
+-   Das Überspringen der SSL-Überprüfung über die Umgebung `ADAL_PYTHON_SSL_NO_VERIFY` wird nicht unterstützt.
+
+Sollten Probleme in der Betaversion auftreten, können Sie auf [GitHub](https://github.com/Azure/azure-cli/issues/new/choose) gerne Kommentare für das Azure CLI-Entwicklungsteam hinterlassen.
+
+---
