@@ -4,20 +4,40 @@ description: Enthält Informationen zu den aktuellen Updates der Azure CLI.
 author: dbradish-microsoft
 ms.author: dbradish
 manager: barbkess
-ms.date: 07/14/2020
+ms.date: 07/16/2020
 ms.topic: article
 ms.service: azure-cli
 ms.devlang: azurecli
-ms.openlocfilehash: cf9c4e1a86b3315d45a7533f67b731ee2f3d6bc0
-ms.sourcegitcommit: 857d0f19fd87d37d134efdf0dda0e7003260938b
+ms.openlocfilehash: d8f134b28c3c2c288a0a0faa0fcb64c109cb1970
+ms.sourcegitcommit: c473377d1c08ac4efd2480bf852c30dbf1044a57
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 07/14/2020
-ms.locfileid: "86308677"
+ms.lasthandoff: 07/16/2020
+ms.locfileid: "86415313"
 ---
 # <a name="azure-cli-release-notes"></a>Versionshinweise für die Azure CLI
 
 # <a name="current-release-notes"></a>[Aktuelle Versionshinweise](#tab/azure-cli)
+
+## <a name="july-16-2020"></a>16. Juli 2020
+
+Version 2.9.1
+
+### <a name="aks"></a>AKS
+
+* Explizite Einstellung von VMSS im Windows-Beispielbefehl entfernt, da dies jetzt die Standardeinstellung ist
+
+### <a name="iot"></a>IoT
+
+* [BREAKING CHANGE] `az iot pnp`: IoT-PNP-Vorschaubefehle aus Core-CLI entfernt
+
+### <a name="rest"></a>REST
+
+* Behebung Nr. 14152: `az rest`: ARM-URLs ohne Abonnement-ID werden nun akzeptiert.
+
+### <a name="storage"></a>Storage
+
+* Behebung Nr. 14138: Einige Berechtigungen sind nun optional.
 
 ## <a name="july-14-2020"></a>14. Juli 2020
 
