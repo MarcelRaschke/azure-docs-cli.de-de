@@ -4,17 +4,17 @@ description: Eine vollständige Liste mit den offiziell unterstützten Erweiteru
 author: haroldrandom
 ms.author: jianzen
 manager: yonzhan,yungezz
-ms.date: 07/28/2020
+ms.date: 08/01/2020
 ms.topic: article
 ms.prod: azure
 ms.technology: azure-cli
 ms.devlang: azure-cli
-ms.openlocfilehash: 9232bab4f17222e67101cb379967753f3d19dfe5
-ms.sourcegitcommit: 05ef6cb6cf049d8c8eb54dd408f56cb145fb5905
+ms.openlocfilehash: 39e4d797f98a16fcf9ef5a3b0a4c9d1c13441acc
+ms.sourcegitcommit: bf84dfb62e910ea246586481863bb43d09d07795
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 07/29/2020
-ms.locfileid: "87374370"
+ms.lasthandoff: 08/04/2020
+ms.locfileid: "87551369"
 ---
 # <a name="available-extensions-for-the-azure-cli"></a>Verfügbare Erweiterungen für die Azure CLI
 
@@ -64,7 +64,7 @@ az extension list-available --output table
 | [eventgrid](https://github.com/Azure/azure-cli-extensions) | 0.4.9 | EventGrid-Befehlsmodul der Microsoft Azure-Befehlszeilentools | Ja |
 | [express-route](https://github.com/Azure/azure-cli-extensions/tree/master/src/express-route) | 0.1.3 | Verwalten von Expressroute mit Previewfunktionen | Ja |
 | [express-route-cross-connection](https://github.com/Azure/azure-cli-extensions/tree/master/src/express-route-cross-connection) | 0.1.1 | Verwalten von benutzerdefinierten ExpressRoute-Verbindungen mithilfe einer ExpressRoute-Querverbindung |  |
-| [front-door](https://github.com/Azure/azure-cli-extensions/tree/master/src/front-door) | 1.0.8 | Verwalten von Front Door-Instanzen für Netzwerke |  |
+| [front-door](https://github.com/Azure/azure-cli-extensions/tree/master/src/front-door) | 1.0.9 | Verwalten von Front Door-Instanzen für Netzwerke |  |
 | [hack](https://github.com/Azure/azure-cli-extensions) | 0.4.2 | Hack-Erweiterung der Microsoft Azure-Befehlszeilentools | Ja |
 | [hardware-security-modules](https://github.com/Azure/azure-cli-extensions) | 0.1.0 | AzureDedicatedHSMResourceProvider-Erweiterung der Microsoft Azure-Befehlszeilentools |  |
 | [healthcareapis](https://github.com/Azure/azure-cli-extensions) | 0.2.0 | HealthcareApisManagementClient-Erweiterung der Microsoft Azure-Befehlszeilentools |  |
@@ -94,7 +94,7 @@ az extension list-available --output table
 | [sap-hana](https://github.com/Azure/azure-hanaonazure-cli-extension) | 0.6.4 | Zusätzliche Befehle für die Verwendung von SAP-HanaOnAzure-Instanzen. |  |
 | [spring-cloud](https://github.com/Azure/azure-cli-extensions) | 0.3.1 | spring-cloud-Erweiterung der Microsoft Azure-Befehlszeilentools | Ja |
 | [storage-or-preview](https://github.com/Azure/azure-cli-extensions) | 0.4.0 | Erweiterung „Storage-ors-preview“ der Microsoft Azure-Befehlszeilentools | Ja |
-| [storage-preview](https://github.com/Azure/azure-cli-extensions/tree/master/src/storage-preview) | 0.2.11 | Bietet eine Vorschau für zukünftige Speicherfeatures. | Ja |
+| [storage-preview](https://github.com/Azure/azure-cli-extensions/tree/master/src/storage-preview) | 0.2.12 | Bietet eine Vorschau für zukünftige Speicherfeatures. | Ja |
 | [storagesync](https://github.com/Azure/azure-cli-extensions) | 0.1.0 | MicrosoftStorageSync-Erweiterung der Microsoft Azure-Befehlszeilentools |  |
 | [stream-analytics](https://github.com/Azure/azure-cli-extensions) | 0.1.0 | stream-analytics-Erweiterung der Microsoft Azure-Befehlszeilentools |  |
 | [Abonnement](https://github.com/Azure/azure-cli-extensions) | 0.1.4 | Unterstützung für die Abonnementverwaltung (Vorschauversion) | Ja |
