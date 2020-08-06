@@ -4,20 +4,119 @@ description: Enthält Informationen zu den aktuellen Updates der Azure CLI.
 author: dbradish-microsoft
 ms.author: dbradish
 manager: barbkess
-ms.date: 07/16/2020
+ms.date: 08/04/2020
 ms.topic: article
 ms.service: azure-cli
 ms.devlang: azurecli
-ms.openlocfilehash: d8f134b28c3c2c288a0a0faa0fcb64c109cb1970
-ms.sourcegitcommit: c473377d1c08ac4efd2480bf852c30dbf1044a57
+ms.openlocfilehash: 68cd2632e33dcd4e35f818d2a330f009fcbfbdbc
+ms.sourcegitcommit: bf84dfb62e910ea246586481863bb43d09d07795
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 07/16/2020
-ms.locfileid: "86415313"
+ms.lasthandoff: 08/04/2020
+ms.locfileid: "87551556"
 ---
 # <a name="azure-cli-release-notes"></a>Versionshinweise für die Azure CLI
 
 # <a name="current-release-notes"></a>[Aktuelle Versionshinweise](#tab/azure-cli)
+
+## <a name="august-04-2020"></a>04. August 2020
+
+Version 2.10.0
+
+### <a name="aks"></a>AKS
+
+* `az aks update`: Argument „--enable-aad“ geändert, um einen RBAC-fähigen AAD-fremden Cluster zu einem von AKS-verwalteten AAD-Cluster zu migrieren
+* `az aks install-cli`: Argumente „--kubelogin-version“ und „--kubelogin-install-location“ zum Installieren von kubelogin hinzugefügt
+* Befehl „az aks nodepool get-upgrades“ hinzugefügt
+
+### <a name="ams"></a>AMS
+
+* Korrektur 14021: „az ams account sp“ ist nicht idempotent.
+
+### <a name="apim"></a>APIM
+
+* APIM-API-Import: API-Importunterstützung und Erweiterung anderer CLI-Befehle auf der API-Ebene
+
+### <a name="app-service"></a>App Service
+
+* Korrektur 13035: Zugriffsbeschränkungsüberprüfung für „az webapp config“ hinzugefügt, um Duplikate zu vermeiden
+
+### <a name="appconfig"></a>AppConfig
+
+* Bei fehlender Angabe wird die Standard-SKU verwendet.
+* [BREAKING CHANGE] Einstellungen mit JSON-Inhaltstyp werden unterstützt.
+
+### <a name="arm"></a>ARM
+
+* `az resource tag`: Fehler im Zusammenhang mit managedApp-Kennzeichnung sowie einige damit zusammenhängende Testprobleme behoben
+* `az deployment mg/tenant what-if`: Unterstützung für die Bereitstellung auf Verwaltungsgruppen- und Mandantenebene hinzugefügt (Was-wäre-wenn)
+* `az deployment mg/tenant create`: Parameter „--confirm-with-what-if/-c“ hinzugefügt
+* `az deployment mg/tenant create`: Parameter „--what-if-result-format/-r“ hinzugefügt
+* `az deployment mg/tenant create`: Parameter „--what-if-exclude-change-types/-x“ hinzugefügt
+* `az tag`: Unterstützung von „az tag“ für Ressourcen-ID-Parameter
+
+### <a name="backup"></a>Backup
+
+* Auslösung von AFS-Container-/Elementerkennung nur bei Bedarf
+
+### <a name="cdn"></a>CDN
+
+* Private Link-Felder zu Ursprung hinzugefügt
+
+### <a name="compute"></a>Compute
+
+* `az vm/vmss create`: Wahl eines gültigen Benutzernamens für den Benutzer bei ungültigem Standardbenutzernamen
+* `az vm update`: Unterstützung mandantenübergreifender Images
+* `az disk-access`: Neue Befehlsgruppe für die Verwendung der Datenträgerzugriffsressource hinzugefügt
+* Unterstützung der automatischen Platzierung dedizierter Hostgruppen
+* Unterstützung von PPG und SPG im VMSS-Orchestrierungsmodus
+
+### <a name="config"></a>Config
+
+* `az config`: Neuer Befehl (`config`) hinzugefügt
+
+### <a name="extension"></a>Durchwahl
+
+* Unterstützung der automatischen Installation einer Erweiterung, wenn die Erweiterung eines Befehls nicht installiert ist
+
+### <a name="hdinsight"></a>HDInsight
+
+* Drei Parameter zum Befehl `az hdinsight create` hinzugefügt, um Private Link und Verschlüsselung während der Übertragung zu unterstützen:
+
+### <a name="iot-hub"></a>IoT Hub
+
+* Korrektur 7792: „iot hub create“ ist nicht idempotent.
+
+### <a name="iot-central"></a>IoT Central
+
+* Parameteroptionenliste für IoT Central hinzugefügt
+
+### <a name="keyvault"></a>KeyVault
+
+* `az keyvault key encrypt/decrypt`: Parameter `--data-type` zum expliziten Angeben der Art von Originaldaten hinzugefügt
+
+### <a name="monitor"></a>Überwachen
+
+* `az monitor log-analytics workspace data-export`: Unterstützung des Event Hub-Namespace als Ziel
+* `az monitor autoscale`: Unterstützung von Namespace und Dimensionen für „--condition“
+
+### <a name="netappfiles"></a>NetAppFiles
+
+* `az volume revert`:  Volumewiederherstellung hinzugefügt, um ein Volume auf eine der zugehörigen Momentaufnahmen zurückzusetzen
+* [BREAKING CHANGE] `az netappfiles mount-target` entfernt
+* `az volume show`: Standort zu Active Directory-Eigenschaften hinzugefügt
+
+### <a name="network"></a>Netzwerk
+
+* `az application-gateway private-link add`: Unterstützung der Angabe eines vorhandenen Subnetzes nach ID
+* `az network application-gateway waf-policy create`: Unterstützung von Version und Typ
+
+### <a name="storage"></a>Storage
+
+* Korrektur 10302: Unterstützung der Ermittlung des wahrscheinlichen Inhaltstyps beim Synchronisieren von Dateien
+* `az storage blob lease`: Neue API-Version für Blobleasevorgänge angewendet
+* `az storage fs access`: Unterstützung von AAD-Anmeldeinformationen bei der Verwaltung der Zugriffssteuerung für das ADLS Gen2-Konto
+* `az storage share-rm create/update`: „--access-tier“ hinzugefügt, um die Zugriffsebene zu unterstützen
 
 ## <a name="july-16-2020"></a>16. Juli 2020
 

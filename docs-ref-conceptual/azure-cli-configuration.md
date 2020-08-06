@@ -8,12 +8,12 @@ ms.date: 06/11/2018
 ms.topic: conceptual
 ms.service: azure-cli
 ms.devlang: azurecli
-ms.openlocfilehash: 24a798e9b3c08f3cd9e66c017cc45f5346d8995e
-ms.sourcegitcommit: d05660a42b2a77c4b05a7f96c386e656bd2db0fe
+ms.openlocfilehash: 09300c2b0da50e326fc3a7651741b71708c89ec8
+ms.sourcegitcommit: bf84dfb62e910ea246586481863bb43d09d07795
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 05/19/2020
-ms.locfileid: "83569169"
+ms.lasthandoff: 08/04/2020
+ms.locfileid: "87551182"
 ---
 # <a name="azure-cli-configuration"></a>Azure CLI-Konfiguration
 
@@ -102,6 +102,8 @@ Wenn Sie einen Standardwert angeben, wird dieses Argument von keinem Befehl mehr
 | | endpoint | Zeichenfolge | Der Standardendpunkt für `az batch`-Befehle, mit dem eine Verbindung hergestellt werden soll. |
 | | auth\_mode | Zeichenfolge | Der Autorisierungsmodus für `az batch`-Befehle. Kann `shared_key` oder `aad` sein. |
 | __cloud__ | name | Zeichenfolge | Die Standardcloud für alle `az`-Befehle.  Die möglichen Werte sind `AzureCloud` (Standard) oder `AzureChinaCloud`, `AzureUSGovernment`, `AzureGermanCloud`. Zum Ändern von Clouds können Sie den Befehl `az cloud set –name` verwenden.  Ein Beispiel finden Sie unter [Verwalten von Clouds mit der Azure CLI](manage-clouds-azure-cli.md). |
+| __extension__ | use_dynamic_install | Zeichenfolge | Installiert eine Erweiterung, wenn sie noch nicht hinzugefügt wurde und ein Befehl über sie ausgeführt wird. Mögliche Werte: `no` (Standard), `yes_prompt`, `yes_without_prompt`. |
+| | run_after_dynamic_install | boolean | Setzt die Befehlsausführung fort, wenn eine Erweiterung dynamisch für ihn installiert wird. Der Standardwert ist `False`. |
 
 > [!NOTE]
 > In Ihrer Konfigurationsdatei begegnen Ihnen möglicherweise noch andere Werte, diese werden jedoch direkt über CLI-Befehle verwaltet (einschließlich `az configure`). Abgesehen von den in der obigen Tabelle aufgeführten Werten sollten Sie keine anderen Werte selbst ändern.
