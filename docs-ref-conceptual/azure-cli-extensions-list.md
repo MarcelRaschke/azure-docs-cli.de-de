@@ -4,17 +4,17 @@ description: Eine vollständige Liste mit den offiziell unterstützten Erweiteru
 author: haroldrandom
 ms.author: jianzen
 manager: yonzhan,yungezz
-ms.date: 08/01/2020
+ms.date: 08/05/2020
 ms.topic: article
 ms.prod: azure
 ms.technology: azure-cli
 ms.devlang: azure-cli
-ms.openlocfilehash: 39e4d797f98a16fcf9ef5a3b0a4c9d1c13441acc
-ms.sourcegitcommit: bf84dfb62e910ea246586481863bb43d09d07795
+ms.openlocfilehash: 974ab535a89b09485c16c1535e93bcfaa1d72a59
+ms.sourcegitcommit: 04d3b43d7c960ff0e6188c9672d27046b45da6ed
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 08/04/2020
-ms.locfileid: "87551369"
+ms.lasthandoff: 08/06/2020
+ms.locfileid: "87855898"
 ---
 # <a name="available-extensions-for-the-azure-cli"></a>Verfügbare Erweiterungen für die Azure CLI
 
@@ -31,8 +31,8 @@ az extension list-available --output table
 | [Konto](https://github.com/Azure/azure-cli-extensions) | 0.1.0 | SubscriptionClient-Erweiterung der Microsoft Azure-Befehlszeilentools |  |
 | [aem](https://github.com/Azure/azure-cli-extensions) | 0.1.1 | Verwalten der Azure-Erweiterungen zur verbesserten Überwachung für SAP |  |
 | [ai-did-you-mean-this](https://github.com/Azure/azure-cli-extensions/tree/master/src/ai-did-you-mean-this) | 0.2.1 | Empfohlene Wiederherstellungsoptionen bei einem Fehler |  |
-| [ai-examples](https://github.com/Azure/azure-cli-extensions/tree/master/src/ai-examples) | 0.2.2 | Hinzufügen von KI-gestützten Beispielen zum Hilfeinhalt. | Ja |
-| [aks-preview](https://github.com/Azure/azure-cli-extensions/tree/master/src/aks-preview) | 0.4.57 | Bietet eine Vorschau für zukünftige AKS-Features | Ja |
+| [ai-examples](https://github.com/Azure/azure-cli-extensions/tree/master/src/ai-examples) | 0.2.3 | Hinzufügen von KI-gestützten Beispielen zum Hilfeinhalt. | Ja |
+| [aks-preview](https://github.com/Azure/azure-cli-extensions/tree/master/src/aks-preview) | 0.4.58 | Bietet eine Vorschau für zukünftige AKS-Features | Ja |
 | [alertsmanagement](https://github.com/Azure/azure-cli-extensions) | 0.1.0 | Warnungserweiterung der Microsoft Azure-Befehlszeilentools |  |
 | [alias](https://github.com/Azure/azure-cli-extensions) | 0.5.2 | Unterstützung für Befehlsaliase | Ja |
 | [application-insights](https://github.com/Azure/azure-cli-extensions/tree/master/src/application-insights) | 0.1.9 | Unterstützung für die Verwaltung von Application Insights-Komponenten und die Abfrage von Metriken, Ereignissen und Protokollen von diesen Komponenten | Ja |
@@ -52,7 +52,7 @@ az extension list-available --output table
 | [csvmware](https://github.com/Azure/az-vmware-cli) | 0.3.0 | Verwalten von Azure VMware Solution by CloudSimple | Ja |
 | [custom-providers](https://github.com/Azure/azure-cli-extensions) | 0.1.0 | Erweiterung der Microsoft Azure-Befehlszeilentools für benutzerdefinierte Anbieter |  |
 | [databox](https://github.com/Azure/azure-cli-extensions) | 0.1.0 | DataBox-Erweiterung der Microsoft Azure-Befehlszeilentools |  |
-| [databricks](https://github.com/Azure/azure-cli-extensions) | 0.4.0 | DatabricksClient-Erweiterung der Microsoft Azure-Befehlszeilentools | Ja |
+| [databricks](https://github.com/Azure/azure-cli-extensions) | 0.5.0 | DatabricksClient-Erweiterung der Microsoft Azure-Befehlszeilentools | Ja |
 | [datafactory](https://github.com/Azure/azure-cli-extensions/tree/master/src/datafactory) | 0.1.0 | DataFactoryManagementClient-Erweiterung der Microsoft Azure-Befehlszeilentools |  |
 | [datashare](https://github.com/Azure/azure-cli-extensions) | 0.1.0 | DataShareManagementClient-Erweiterung der Microsoft Azure-Befehlszeilentools |  |
 | [db-up](https://github.com/Azure/azure-cli-extensions/tree/master/src/db-up) | 0.1.15 | Zusätzliche Befehle zum Vereinfachen von Azure Database-Workflows. | Ja |
@@ -65,6 +65,7 @@ az extension list-available --output table
 | [express-route](https://github.com/Azure/azure-cli-extensions/tree/master/src/express-route) | 0.1.3 | Verwalten von Expressroute mit Previewfunktionen | Ja |
 | [express-route-cross-connection](https://github.com/Azure/azure-cli-extensions/tree/master/src/express-route-cross-connection) | 0.1.1 | Verwalten von benutzerdefinierten ExpressRoute-Verbindungen mithilfe einer ExpressRoute-Querverbindung |  |
 | [front-door](https://github.com/Azure/azure-cli-extensions/tree/master/src/front-door) | 1.0.9 | Verwalten von Front Door-Instanzen für Netzwerke |  |
+| [guestconfig](https://github.com/Azure/azure-cli-extensions/tree/master/src/guestconfig) | 0.1.0 | GuestConfigurationClient-Erweiterung der Microsoft Azure-Befehlszeilentools |  |
 | [hack](https://github.com/Azure/azure-cli-extensions) | 0.4.2 | Hack-Erweiterung der Microsoft Azure-Befehlszeilentools | Ja |
 | [hardware-security-modules](https://github.com/Azure/azure-cli-extensions) | 0.1.0 | AzureDedicatedHSMResourceProvider-Erweiterung der Microsoft Azure-Befehlszeilentools |  |
 | [healthcareapis](https://github.com/Azure/azure-cli-extensions) | 0.2.0 | HealthcareApisManagementClient-Erweiterung der Microsoft Azure-Befehlszeilentools |  |
@@ -92,7 +93,7 @@ az extension list-available --output table
 | [privatedns](https://github.com/Azure/azure-cli-extensions) | 0.1.1 | Befehle zum Verwalten von privaten DNS-Zonen | Ja |
 | [resource-graph](https://github.com/Azure/azure-cli-extensions/tree/master/src/resource-graph) | 1.1.0 | Unterstützung für das Abfragen von Azure-Ressourcen mit Resource Graph. | Ja |
 | [sap-hana](https://github.com/Azure/azure-hanaonazure-cli-extension) | 0.6.4 | Zusätzliche Befehle für die Verwendung von SAP-HanaOnAzure-Instanzen. |  |
-| [spring-cloud](https://github.com/Azure/azure-cli-extensions) | 0.3.1 | spring-cloud-Erweiterung der Microsoft Azure-Befehlszeilentools | Ja |
+| [spring-cloud](https://github.com/Azure/azure-cli-extensions) | 0.4.0 | spring-cloud-Erweiterung der Microsoft Azure-Befehlszeilentools | Ja |
 | [storage-or-preview](https://github.com/Azure/azure-cli-extensions) | 0.4.0 | Erweiterung „Storage-ors-preview“ der Microsoft Azure-Befehlszeilentools | Ja |
 | [storage-preview](https://github.com/Azure/azure-cli-extensions/tree/master/src/storage-preview) | 0.2.12 | Bietet eine Vorschau für zukünftige Speicherfeatures. | Ja |
 | [storagesync](https://github.com/Azure/azure-cli-extensions) | 0.1.0 | MicrosoftStorageSync-Erweiterung der Microsoft Azure-Befehlszeilentools |  |
@@ -102,7 +103,7 @@ az extension list-available --output table
 | [synapse](https://github.com/Azure/azure-cli-extensions) | 0.3.0 | Synapse-Erweiterung der Microsoft Azure-Befehlszeilentools | Ja |
 | [timeseriesinsights](https://github.com/Azure/azure-cli-extensions/src/timeseriesinsights) | 0.1.2 | TimeSeriesInsightsClient-Erweiterung der Microsoft Azure-Befehlszeilentools |  |
 | [virtual-network-tap](https://github.com/Azure/azure-cli-extensions/tree/master/src/virtual-network-tap) | 0.1.0 | Verwalten von TAPs für virtuelle Netzwerke (VTAP) | Ja |
-| [virtual-wan](https://github.com/Azure/azure-cli-extensions/tree/master/src/virtual-wan) | 0.1.3 | Verwalten von virtuellen WANs, Hubs, VPN-Gateways und VPN-Standorten | Ja |
+| [virtual-wan](https://github.com/Azure/azure-cli-extensions/tree/master/src/virtual-wan) | 0.2.0 | Verwalten von virtuellen WANs, Hubs, VPN-Gateways und VPN-Standorten | Ja |
 | [vm-repair](https://github.com/Azure/azure-cli-extensions/tree/master/src/vm-repair) | 0.3.1 | Automatische Reparaturbefehle zur Problembehebung bei VMs |  |
 | [vmware](https://github.com/virtustream/azure-vmware-virtustream-cli-extension) | 0.6.0 | Vorschau der Befehle der Azure-VMware-Lösung | Ja |
 | [webapp](https://github.com/Azure/azure-cli-extensions/tree/master/src/webapp) | 0.2.24 | Zusätzliche Befehle für Azure App Service | Ja |

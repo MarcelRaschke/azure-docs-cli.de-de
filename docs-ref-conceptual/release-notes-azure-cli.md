@@ -4,20 +4,46 @@ description: Enthält Informationen zu den aktuellen Updates der Azure CLI.
 author: dbradish-microsoft
 ms.author: dbradish
 manager: barbkess
-ms.date: 08/04/2020
+ms.date: 08/06/2020
 ms.topic: article
 ms.service: azure-cli
 ms.devlang: azurecli
-ms.openlocfilehash: 68cd2632e33dcd4e35f818d2a330f009fcbfbdbc
-ms.sourcegitcommit: bf84dfb62e910ea246586481863bb43d09d07795
+ms.openlocfilehash: f81f5a69bd5806d2081a8eaa9b62a5b00b56edf9
+ms.sourcegitcommit: 04d3b43d7c960ff0e6188c9672d27046b45da6ed
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 08/04/2020
-ms.locfileid: "87551556"
+ms.lasthandoff: 08/06/2020
+ms.locfileid: "87855932"
 ---
 # <a name="azure-cli-release-notes"></a>Versionshinweise für die Azure CLI
 
 # <a name="current-release-notes"></a>[Aktuelle Versionshinweise](#tab/azure-cli)
+
+## <a name="august-11-2020"></a>11. August 2020
+
+Version 2.10.1
+
+### <a name="app-service"></a>App Service
+
+* Behebung Nr. 9887: webapp und functionapp, Unterstützung für das Zuweisen/Entfernen einer benutzerseitig verwalteten Identität
+* Behebung Nr. 1382, Nr. 14055: Fehlermeldungen für „az webapp create“ und „az webapp config container set“ aktualisiert
+* `az webapp up`: Standardmäßige ASP-Auswahllogik korrigiert, wenn der Parameter „--plan“ nicht angegeben wird
+
+### <a name="appconfig"></a>AppConfig
+
+* Unterstützung für die Aktivierung/Deaktivierung von PublicNetworkAccess während der Speichererstellung
+
+### <a name="compute"></a>Compute
+
+* Unterstützung für das Zuordnen einer Datenträgerzugriffsressource für Datenträger und Momentaufnahmen
+
+### <a name="lab"></a>Labor
+
+* Fehlerbehebung Nr. 7904: Fehler bei der Datumsüberprüfung bei der Lab-VM-Erstellung
+
+### <a name="storage"></a>Storage
+
+* `az storage blob upload-batch`: Problembehebung Nr. 14660 mit nicht positionellen Argumenten
 
 ## <a name="august-04-2020"></a>04. August 2020
 
