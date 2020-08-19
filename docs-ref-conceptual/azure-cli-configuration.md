@@ -8,12 +8,12 @@ ms.date: 06/11/2018
 ms.topic: conceptual
 ms.service: azure-cli
 ms.devlang: azurecli
-ms.openlocfilehash: 09300c2b0da50e326fc3a7651741b71708c89ec8
-ms.sourcegitcommit: bf84dfb62e910ea246586481863bb43d09d07795
+ms.openlocfilehash: 465a7c86a883c27e94ca21412bdb59476203afa5
+ms.sourcegitcommit: 58d839589858acc1a7a9f114af7f4fce13d883ea
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 08/04/2020
-ms.locfileid: "87551182"
+ms.lasthandoff: 08/19/2020
+ms.locfileid: "88601864"
 ---
 # <a name="azure-cli-configuration"></a>Azure CLI-Konfiguration
 
@@ -78,7 +78,7 @@ Ausführliche Informationen zu allen verfügbaren Konfigurationswerten und zu de
 
 ## <a name="cli-configuration-values-and-environment-variables"></a>CLI-Konfigurationswerte und Umgebungsvariablen
 
-Die folgende Tabelle enthält sämtliche Abschnitte und Optionsnamen, die in einer Konfigurationsdatei verwendet werden können. Die entsprechenden Umgebungsvariablen werden als `AZURE_{section}_{name}` (in Großbuchstaben) festgelegt. Der `output`-Standardwert für `core` wird beispielsweise in der Variable `AZURE_CORE_OUTPUT` und der `storage_account`-Standardwert für `batchai` in der Variable `AZURE_BATCHAI_STORAGE_ACCOUNT` festgelegt.
+Die folgende Tabelle enthält sämtliche Abschnitte und Optionsnamen, die in einer Konfigurationsdatei verwendet werden können. Die entsprechenden Umgebungsvariablen werden als `AZURE_{section}_{name}` (in Großbuchstaben) festgelegt. Der `output`-Standardwert für `core` wird beispielsweise in der Variablen `AZURE_CORE_OUTPUT`, der `storage_account`-Standardwert für `batchai` in der Variablen `AZURE_BATCHAI_STORAGE_ACCOUNT` und der `location`-Standardwert in der Variablen `AZURE_DEFAULTS_LOCATION` festgelegt.
 
 Wenn Sie einen Standardwert angeben, wird dieses Argument von keinem Befehl mehr benötigt. Stattdessen wird der Standardwert verwendet.
 
@@ -91,6 +91,8 @@ Wenn Sie einen Standardwert angeben, wird dieses Argument von keinem Befehl mehr
 | | no\_color | boolean | Farbe deaktivieren. Ursprünglich farbigen Nachrichten wird das Präfix `DEBUG`, `INFO`, `WARNING` und `ERROR` vorangestellt. Dadurch wird das Problem im Zusammenhang mit einer Drittanbieterbibliothek umgangen, bei der die Farbe des Terminals nach einer `stdout`-Umleitung nicht wiederhergestellt werden kann. |
 | __logging__ | enable\_log\_file | boolean | Dient zum Aktivieren/Deaktivieren der Protokollierung. |
 | | log\_dir | Zeichenfolge | Das Verzeichnis, in das Protokolle geschrieben werden sollen. Standardmäßig ist dieser Wert auf `${AZURE_CONFIG_DIR}/logs` festgelegt. |
+| __defaults__ | group | Zeichenfolge | Die Standardressourcengruppe für alle Befehle. |
+| | location | Zeichenfolge | Der Standardstandort für alle Befehle. |
 | __storage__ | connection\_string | Zeichenfolge | Die Standardverbindungszeichenfolge für `az storage`-Befehle. |
 | | account | Zeichenfolge | Der Standardkontoname für `az storage`-Befehle. |
 | | Schlüssel | Zeichenfolge | Der Standardkontoschlüssel für `az storage`-Befehle. |

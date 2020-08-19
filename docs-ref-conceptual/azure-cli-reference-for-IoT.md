@@ -9,12 +9,12 @@ ms.date: 06/05/2020
 ms.author: dbradish
 ms.service: azure-cli
 ms.reviewer: paymaun.heidari
-ms.openlocfilehash: aa4653ceaba41709cd54a098f649a9c922e93fa8
-ms.sourcegitcommit: 05ef6cb6cf049d8c8eb54dd408f56cb145fb5905
+ms.openlocfilehash: b3042b569267233f00a2bc1ea4b65089dae9cae5
+ms.sourcegitcommit: b9b310407d99662296998b6e23d3903d61cc3756
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 07/29/2020
-ms.locfileid: "87374387"
+ms.lasthandoff: 08/14/2020
+ms.locfileid: "88216535"
 ---
 # <a name="azure-cli-for-azure-iot"></a>Azure CLI für Azure IoT
 
@@ -48,7 +48,7 @@ Die IoT-**Erweiterung** bietet umfangreiche Features und Funktionen zum Verwalte
 | [az iot dps](/cli/azure/ext/azure-iot/iot/dps) | ja | Verwalten von Entitäten in Device Provisioning Service in Azure IoT Hub
 | [az iot edge](/cli/azure/ext/azure-iot/iot/edge) | | Verwalten von IoT-Lösungen am Edge
 | [az iot hub](/cli/azure/ext/azure-iot/iot/hub) | ja | Verwalten von Entitäten in einer Azure IoT Hub-Instanz
-| [az iot pnp](/cli/azure/ext/azure-iot/iot/pnp) | ja | Verwalten der Entitäten eines IoT Plug & Play-Modellrepositorys
+| [az iot pnp](/cli/azure/ext/azure-iot/iot/pnp) | | Verwalten der Entitäten eines IoT Plug & Play-Modellrepositorys
 
 ### <a name="additional-cli-commands-for-azure-services-used-by-iot"></a>Weitere CLI-Befehle für von IoT verwendete Azure-Dienste
 
