@@ -4,17 +4,17 @@ description: Verwenden von Erweiterungen mit der Azure CLI
 author: dbradish-microsoft
 ms.author: dbradish
 manager: barbkess
-ms.date: 09/07/2018
+ms.date: 08/06/2020
 ms.topic: conceptual
 ms.service: azure-cli
 ms.devlang: azurecli
 ms.custom: devx-track-azurecli
-ms.openlocfilehash: 16d88ebab47e1572b967911dd9554fb2efb0d756
-ms.sourcegitcommit: bf84dfb62e910ea246586481863bb43d09d07795
+ms.openlocfilehash: 72e5ca67f9d1d7a754dae098d89f2eb76d108b0b
+ms.sourcegitcommit: fd8c3e32f0f50feb6fea33ead636a80a050bcf2a
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 08/04/2020
-ms.locfileid: "87551522"
+ms.lasthandoff: 08/21/2020
+ms.locfileid: "88713093"
 ---
 # <a name="use-extensions-with-azure-cli"></a>Verwenden von Erweiterungen mit der Azure CLI 
 
@@ -33,6 +33,8 @@ Auf der Dokumentationswebsite wird darüber hinaus eine [Liste der Erweiterungen
 
 ## <a name="install-extensions"></a>Installieren von Erweiterungen
 
+### <a name="install-extensions-manually"></a>Manuelles Installieren von Erweiterungen
+
 Nachdem Sie eine zu installierende Erweiterung gefunden haben, können Sie [az extension add](https://docs.microsoft.com/cli/azure/extension#az-extension-add) verwenden, um sie abzurufen. Wenn die Erweiterung in `az extension list-available` aufgeführt wird, können Sie die Erweiterung anhand des Namens installieren.
 
 ```azurecli-interactive
@@ -46,6 +48,28 @@ az extension add --source <URL-or-path>
 ```
 
 Nach der Installation einer Erweiterung befindet sich diese unter dem Wert der Shellvariablen `$AZURE_EXTENSION_DIR`. Wenn diese Variable nicht festgelegt ist, befindet sich der Wert standardmäßig unter `$HOME/.azure/cliextensions` (Linux und macOS) bzw. `%USERPROFILE%\.azure\cliextensions` (Windows).
+
+### <a name="install-extensions-automatically"></a>Automatisches Installieren von Erweiterungen
+
+Wenn Sie einen nicht installierten Erweiterungsbefehl ausführen, kann die Azure CLI ab der Version `2.10.0` den auszuführenden Befehl erkennen und die Erweiterung automatisch für Sie installieren. Diese Funktion wird als **dynamische Installation** bezeichnet und kann in der Konfiguration aktiviert werden.
+```azurecli-interactive
+az config set extension.use_dynamic_install=yes_prompt
+```
+
+Verwenden Sie den folgenden Konfigurationsbefehl, um die dynamische Installation ohne Aufforderung zu aktivieren:
+```azurecli-interactive
+az config set extension.use_dynamic_install=yes_without_prompt
+```
+
+Verwenden Sie den folgenden Konfigurationsbefehl, um die dynamische Installation zu deaktivieren und zum Standardverhalten zurückzukehren: Ist die Erweiterung nicht installiert, wird vom Erweiterungsbefehl ein Fehler aufgrund eines nicht gefundenen Befehls zurückgegeben.
+```azurecli-interactive
+az config set extension.use_dynamic_install=no
+```
+
+Erweiterungsbefehle, die eine dynamische Installation initiieren, werden standardmäßig nicht fortgesetzt. Dieses Standardverhalten kann geändert werden, sodass der jeweilige Befehl weiter ausgeführt wird. Legen Sie hierzu die Eigenschaft `run_after_dynamic_install` auf `yes` fest:
+```azurecli-interactive
+az config set extension.run_after_dynamic_install=yes
+```
 
 ## <a name="update-extensions"></a>Aktualisieren von Erweiterungen
 
