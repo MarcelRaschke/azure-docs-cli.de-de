@@ -4,20 +4,165 @@ description: Enthält Informationen zu den aktuellen Updates der Azure CLI.
 author: dbradish-microsoft
 ms.author: dbradish
 manager: barbkess
-ms.date: 08/06/2020
+ms.date: 08/28/2020
 ms.topic: article
 ms.service: azure-cli
 ms.devlang: azurecli
-ms.openlocfilehash: f81f5a69bd5806d2081a8eaa9b62a5b00b56edf9
-ms.sourcegitcommit: 04d3b43d7c960ff0e6188c9672d27046b45da6ed
+ms.openlocfilehash: cc1ed8d904571fa7583445a8b7e7e79fa4f00b37
+ms.sourcegitcommit: 28e3282487dab68f9a4635f8bec161fbc412c3b9
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 08/06/2020
-ms.locfileid: "87855932"
+ms.lasthandoff: 08/28/2020
+ms.locfileid: "89054613"
 ---
 # <a name="azure-cli-release-notes"></a>Versionshinweise für die Azure CLI
 
 # <a name="current-release-notes"></a>[Aktuelle Versionshinweise](#tab/azure-cli)
+
+## <a name="august-28-2020"></a>28. August 2020
+
+Version 2.11.1
+
+### <a name="acr"></a>ACR
+
+* Dienstebene „Isoliert“ zum Agentpool hinzugefügt
+* Quellkontext des OCI-Artefakts hinzugefügt
+
+### <a name="aks"></a>AKS
+
+* Problem bei der Erstellung des AKS-Clusters behoben
+
+### <a name="cognitive-services"></a>Cognitive Services
+
+* [BREAKING CHANGE] Anzeigen zusätzlicher rechtlicher Bedingungen für bestimmte APIs
+
+### <a name="network"></a>Netzwerk
+
+* [BREAKING CHANGE] Erstellung öffentlicher und privater IP-Adressen beim Erstellen einer Application Gateway-Instanz zulässig
+* `az network list-service-tags`: Details zur Verwendung des Standortparameters zur Hilfemeldung hinzugefügt
+
+### <a name="storage"></a>Storage
+
+* `az storage blob list`: Unterstützung der OR-Eigenschaften mit neuer API-Version
+
+## <a name="august-25-2020"></a>25. August 2020
+
+Version 2.11.0
+
+### <a name="aks"></a>AKS
+
+* Vorschautag aus dem Add-On für virtuelle Knoten entfernt
+* AKS-CMK-Argument bei Clustererstellung hinzugefügt
+* Netzwerkprofil bei Verwendung des Lastenausgleichs im Basic-Tarif festgelegt
+* Überprüfung der maximalen Pods aus CLI entfernt, wird nun durch Preflight verarbeitet
+* Add-Ons korrigiert, die in der Hilfemeldung in `az aks create` verfügbar sind
+* Unterstützung für das Autoskalierungsprofil für Cluster in Core-CLI hinzugefügt
+
+### <a name="appservice"></a>AppService
+
+* `az webapp`: Befehl „list-instances“ hinzugefügt
+* `az webapp ssh`: Parameter „--instance“ für die Verbindungsherstellung mit einer bestimmten Instanz hinzugefügt
+* `az webapp create-remote-connection`: Parameter „--instance“ für die Verbindungsherstellung mit einer bestimmten Instanz hinzugefügt
+* Fehlerbehebung Nr. 14758: Fehler bei „az webapp create“ beim Erstellen von Windows-Apps mit „--runtime dotnetcore“
+* Fehlerbehebung Nr. 14701: „functionapp create --assign-identity“ implementiert
+* Fehlerbehebung Nr. 11244: `az webapp auth update`: Optionaler Parameter zum Aktualisieren von „client-secret-certificate-thumbprint“ hinzugefügt
+* `az functionapp keys`: Befehle hinzugefügt, mit denen Benutzer die Funktions-App-Schlüssel verwalten können
+* `az functionapp function`: Befehle hinzugefügt, mit denen Benutzer die einzelnen Funktionen verwalten können
+* `az functionapp function keys`: Befehle hinzugefügt, mit denen Benutzer die Funktionsschlüssel verwalten können
+* Fehlerbehebung Nr. 14788: Mit „az webapp create“ kann nicht die richtige Web-App abgerufen werden, wenn es sich bei den Namen um Teilzeichenfolgen handelt.
+* `az functionapp create`: Möglichkeit zum Erstellen von 2.x-Funktionen in Regionen entfernt, in denen sie nicht unterstützt werden
+
+### <a name="arm"></a>ARM
+
+* `az resource list`: Rückgabedaten von `createdTime`, `changedTime` und `provisioningState` erweitert
+* `az resource`: Parameter `--latest-include-preview` hinzugefügt, um die Verwendung der neuesten API-Version zu unterstützen, unabhängig davon, ob es sich dabei um eine Vorschauversion handelt
+
+### <a name="aro"></a>ARO
+
+* CLI-Erweiterungen, einschließlich Berechtigungen für die Überprüfung von Routingtabellen
+
+### <a name="cloud"></a>Cloud
+
+* `az cloud register`: Registrierung von Clouds mit einer Konfigurationsdatei korrigiert
+
+### <a name="compute"></a>Compute
+
+* VM-SKUs aktualisiert, die den beschleunigten Netzwerkbetrieb unterstützen
+* `az vm create`: Automatische Patches auf Gastsystemen
+* `az image builder create`: „--vm-size“, „--os-disk-size“, „--vnet“ und „--subnet“ hinzugefügt
+* Neuer Befehl „az vm assess-patches“
+
+### <a name="container"></a>Container
+
+* Fehlerbehebung Nr. 6235: Hilfetext für ports-Parameter bei der Containererstellung aktualisiert
+
+### <a name="datalake-store"></a>Data Lake-Speicher
+
+* Fehlerbehebung Nr. 14545 für Data Lake-Verknüpfungsvorgang
+
+### <a name="eventhub"></a>EventHub
+
+* `az eventhubs eventhub create/update`: Dokumentation zu „destination_name“ geändert
+
+### <a name="extension"></a>Erweiterung
+
+* Befehl `az extension list-versions` hinzugefügt, um alle verfügbaren Versionen einer Erweiterung aufzulisten
+
+### <a name="hdinsight"></a>HDInsight
+
+* Unterstützung für das Erstellen von Clustern mit Autoskalierungskonfiguration und Unterstützung für die Verwaltung der Autoskalierungskonfiguration
+* Unterstützung für das Erstellen eines Clusters mit Verschlüsselung auf dem Host
+
+### <a name="iotcentral"></a>IoTCentral
+
+* Verbesserungen bei der CLI-Dokumentation
+
+### <a name="monitor"></a>Überwachen
+
+* `az monitor metrics alert create`: Unterstützung von „RG“ und „Sub“ als Bereichswerte
+
+### <a name="netappfiles"></a>NetAppFiles
+
+* [BREAKING CHANGE] az netappfiles snapshot create: „file-system-id“ aus Parametern entfernt
+* [BREAKING CHANGE] az netappfiles snapshot show: Die Momentaufnahme enthält nicht länger den Parameter „file-system-id“.
+* `az netappfiles account`: Das Modell „ActiveDirectory“ verfügt nun über den neuen Parameter „backup_operators“.
+* `az netappfiles volume show`: Das Modell „dataProtection“ verfügt nun über den neuen Parameter „snapshot“.
+* `az netappfiles volume show`: Das Modell „Volume“ verfügt nun über den neuen Parameter „snapshot_directory_visible“.
+
+### <a name="network"></a>Netzwerk
+
+* `az network dns export`: Für MX, PTR, NS und SRV wird nun der FQDN anstelle des relativen Pfads exportiert.
+* Unterstützung privater Links für verwaltete Datenträger
+* `az network application-gateway auth-cert show`: Beispiel zur Veranschaulichung des Zertifikatformats hinzugefügt
+* `az network private-endpoint-connection`: Unterstützung der App-Konfiguration
+
+### <a name="rbac"></a>RBAC
+
+* `az ad group create`: Unterstützung der Angabe einer Beschreibung beim Erstellen einer Gruppe
+* `az role definition create`: Ausgabe einer lesbaren Nachricht anstelle einer Ausnahme, wenn „assignableScope“ ein leeres Array ist
+* [BREAKING CHANGE] `az ad sp create-for-rbac`: Standardberechtigung des erstellten Zertifikats geändert
+
+### <a name="sql"></a>SQL
+
+* `az sql server audit-policy`: Unterstützung für SQL Server-Überwachung hinzugefügt
+
+### <a name="storage"></a>Storage
+
+* `az storage blob copy start-batch`: Fehlerbehebung Nr. 6018 für „--source-sas“
+* `az storage account or-policy`: Unterstützung für die Objektreplikationsrichtlinie für Speicherkonten
+* Fehlerbehebung Nr. 14083, um die Version des Pakets „azure-multiapi-storage“ aufgrund eines Paketproblems zu aktualisieren und neue API-Versionen zu unterstützen
+* `az storage blob generate-sas`: Beispiele für „--ip“ hinzugefügt und Fehlermeldung optimiert
+* `az storage blob list`: Problem bei „next_marker“ behoben
+
+### <a name="synapse"></a>Synapse
+
+* Cmdlets für Arbeitsbereich, Spark-Pool und SQL-Pool hinzugefügt
+* Befehle im Zusammenhang mit Spark-Aufträgen basierend auf track2 SDK hinzugefügt
+* Befehle im Zusammenhang mit accesscontrol-Feature basierend auf track2 SDK hinzugefügt
+
+### <a name="upgrade"></a>Aktualisieren
+
+* Befehl `az upgrade` zum Aktualisieren der Azure CLI und von Erweiterungen hinzugefügt
 
 ## <a name="august-11-2020"></a>11. August 2020
 
