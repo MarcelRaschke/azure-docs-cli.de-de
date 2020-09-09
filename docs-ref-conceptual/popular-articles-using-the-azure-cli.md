@@ -9,12 +9,13 @@ ms.topic: conceptual
 ms.prod: azure
 ms.technology: azure-cli
 ms.devlang: azurecli
-ms.openlocfilehash: 3a0b2e315e0eaf6c352aa2737f33da043b5feb7d
-ms.sourcegitcommit: ee64dc738cfe689a2a479e32a87bf420f96c31c8
+ms.custom: devx-track-azurecli
+ms.openlocfilehash: 42e9de630530568a15bc6f9f05d2442d790d8b68
+ms.sourcegitcommit: 2da241715d25407ed22c1065c0c793acfd865996
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 05/06/2020
-ms.locfileid: "80075932"
+ms.lasthandoff: 09/09/2020
+ms.locfileid: "89563143"
 ---
 # <a name="popular-articles-using-the-azure-cli"></a>Beliebte Artikel zur Azure CLI
 
@@ -42,7 +43,7 @@ Die Azure CLI wird in vielen Azure-Diensten verwendet, was dazu führt, dass Art
 
 | | | | |
 |-|-|-|-|
-|Virtual Network|Schnellstart | [Schnellstart: Erstellen eines virtuellen Netzwerks mithilfe der Azure-Befehlszeilenschnittstelle](/azure/virtual-network/quick-create-cli) | Erstellen Sie ein virtuelles Netzwerk, stellen Sie zwei VMs im virtuellen Netzwerk bereit, und stellen Sie über das Internet eine Verbindung mit den VMs her.
+|Virtual Network|Schnellstart | [Erstellen eines virtuellen Netzwerks über die Azure-Befehlszeilenschnittstelle](/azure/virtual-network/quick-create-cli) | Erstellen Sie ein virtuelles Netzwerk, stellen Sie zwei VMs im virtuellen Netzwerk bereit, und stellen Sie über das Internet eine Verbindung mit den VMs her.
 |Virtual Network|Schrittanleitung | [Erstellen eines virtuellen Linux-Computers mit beschleunigtem Netzwerkbetrieb mithilfe der Azure CLI](/azure/virtual-network/create-vm-accelerated-networking-cli) | Erstellen Sie eine Linux-VM, verwalten Sie die dynamische Bindung und die Sperrung der virtuellen Funktion, und aktivieren Sie den beschleunigten Netzwerkbetrieb.
 
 ## <a name="internet-of-things"></a>Internet der Dinge
@@ -65,7 +66,7 @@ Die Azure CLI wird in vielen Azure-Diensten verwendet, was dazu führt, dass Art
 | | | | |
 |-|-|-|-|
 |SQL-Datenbank| Beispiel |[Azure CLI-Beispiele für Azure SQL-Datenbank](/azure/sql-database/sql-database-cli-samples?tabs=single-database) | Azure CLI-Beispiele für Azure SQL-Datenbank
-|MySQL|Schnellstart |[Erstellen eines Azure Database for MySQL-Servers mithilfe der Azure CLI](/azure/mysql/quickstart-create-mysql-server-database-using-azure-cli) | Erstellen eines Azure-Datenbank für MySQL-Servers  Konfigurieren Sie eine Firewallregel und SSL-Einstellungen.  Rufen Sie Datenbankverbindungsinformationen ab, und verwenden Sie diese.
+|MySQL|Schnellstart |[Erstellen eines Azure Database for MySQL-Servers mithilfe der Azure CLI](/azure/mysql/quickstart-create-mysql-server-database-using-azure-cli) | Erstellen eines Azure-Datenbank für MySQL-Servers  Konfigurieren Sie eine Firewallregel und SSL-Einstellungen.  Rufen Sie Datenbankverbindungsinformationen ab, und verwenden Sie diese.
 |Cosmos DB |Schrittanleitung |[Verwalten von Azure Cosmos-Ressourcen mit der Azure CLI](/azure/cosmos-db/manage-with-cli) | Verwenden Sie gängige Befehle zum Automatisieren der Verwaltung Ihrer Azure Cosmos DB-Konten und -Container.
 |Cosmos DB |Beispiel |[Azure CLI-Beispiele für Azure Cosmos DB: SQL-API (Core-API)](/azure/cosmos-db/cli-samples) | Rufen Sie Links zu Azure CLI-Beispielskripts für die Azure Cosmos DB-SQL-API (Core) ab.
 
@@ -83,7 +84,7 @@ HDInsight |Lernprogramm |[Verwalten von Azure HDInsight-Clustern mit der Azure-B
 |-|-|-|-|
 Resource Manager-Vorlagen |Schrittanleitung |[Bereitstellen von Ressourcen mit Azure Resource Manager-Vorlagen und Azure-CLI](/azure/azure-resource-manager/templates/deploy-cli) | Stellen Sie Ihre Ressourcen mithilfe von Vorlagen in Azure bereit.
 Resource Manager-Gruppen |Schrittanleitung |[Verwalten von Azure Resource Manager-Gruppen mithilfe der Azure CLI](/azure/azure-resource-manager/management/manage-resource-groups-cli) | Verwenden Sie Azure Resource Manager, um Ihre Azure Resource Manager-Gruppen zu verwalten.
-Ressourcendiagramm |Schnellstart |[Schnellstart: Ausführen Ihrer ersten Resource Graph-Abfrage mithilfe der Azure CLI](/azure/governance/resource-graph/first-query-azurecli) | Fügen Sie Ihrer installierten Azure CLI-Instanz Azure Resource Graph hinzu, und führen Sie Ihre erste Resource Graph-Abfrage aus.
+Resource Graph |Schnellstart |[Schnellstart: Ausführen Ihrer ersten Resource Graph-Abfrage mithilfe der Azure CLI](/azure/governance/resource-graph/first-query-azurecli) | Fügen Sie Ihrer installierten Azure CLI-Instanz Azure Resource Graph hinzu, und führen Sie Ihre erste Resource Graph-Abfrage aus.
 Richtlinienzuweisung |Schnellstart |[Schnellstart: Erstellen einer Richtlinienzuweisung zum Identifizieren nicht konformer Ressourcen mit Azure CLI](/azure/governance/policy/assign-policy-azurecli) | Erstellen Sie eine Richtlinienzuweisung zur Identifizierung von VMs, die keine verwalteten Datenträger verwenden.
 
 ## <a name="hybrid"></a>Hybrid
@@ -107,7 +108,7 @@ File Storage |Schnellstart |[Schnellstart: Erstellen, Herunterladen und Aufliste
 
 | | | | |
 |-|-|-|-|
-Dienstprinzipal |Schrittanleitung |[Erstellen eines Azure-Dienstprinzipals mit der Azure CLI](/cli/azure/create-an-azure-service-principal-azure-cli) | Mit der Azure CLI können Sie einen Dienstprinzipal erstellen, Informationen darüber abrufen und ihn zurücksetzen.
+Dienstprinzipal |Schrittanleitung |[Erstellen eines Azure-Dienstprinzipals mit der Azure-Befehlszeilenschnittstelle](/cli/azure/create-an-azure-service-principal-azure-cli) | Mit der Azure CLI können Sie einen Dienstprinzipal erstellen, Informationen darüber abrufen und ihn zurücksetzen.
 RBAC |Schrittanleitung |[Hinzufügen oder Entfernen von Rollenzuweisungen mithilfe von Azure RBAC und der Azure-Befehlszeilenschnittstelle](/azure/role-based-access-control/role-assignments-cli) | Weisen Sie der rollenbasierten Zugriffskontrolle von Azure Rollen zu.
 Key Vault |Schrittanleitung |[Verwalten von Key Vault mit der Azure CLI](/azure/key-vault/key-vault-manage-with-cli2) | Erstellen und verwalten Sie eine Azure Key Vault-Instanz.  Registrieren und autorisieren Sie eine Anwendung, legen Sie erweiterte Zugriffsrichtlinien fest, und lernen Sie plattformübergreifende Befehle der Befehlszeilenschnittstelle kennen.
 Key Vault |Lernprogramm |[Verwalten von Speicherkontoschlüsseln mit Key Vault und der Azure-Befehlszeilenschnittstelle](/azure/key-vault/key-vault-ovw-storage-keys) | Verwalten Sie Speicherkontoschlüssel, und generieren Sie Token für Shared Acces Signatures.
@@ -116,8 +117,8 @@ Key Vault |Lernprogramm |[Verwalten von Speicherkontoschlüsseln mit Key Vault u
 
 | | | | |
 |-|-|-|-|
-Machine Learning |Verweis |[Verwenden der Azure CLI-Erweiterung für Azure Machine Learning](/azure/machine-learning/reference-azure-machine-learning-cli) | Führen Sie Experimente durch, um Machine Learning-Modelle zu erstellen und Machine Learning-Modelle für die Nutzung durch Kunden zu registrieren.  Lesen Sie, wie Sie Machine Learning-Modelle packen und bereitstellen und ihren Lebenszyklus nachverfolgen.
-Cognitive Services |Leitfaden |[Erstellen einer Cognitive Services-Ressource mithilfe der Azure-Befehlszeilenschnittstelle (CLI)](/azure/cognitive-services/cognitive-services-apis-create-account-cli) | Registrieren Sie sich für Azure Cognitive Services, und erstellen Sie ein Konto mit einem Abonnement mit einem einzelnen Dienst oder mit mehreren Diensten.  Verwenden Sie die Schlüssel den generierten Endpunkt, die für Sie zum Authentifizieren Ihrer Anwendungen generiert wurden.
+Machine Learning |Reference |[Verwenden der Azure CLI-Erweiterung für Azure Machine Learning](/azure/machine-learning/reference-azure-machine-learning-cli) | Führen Sie Experimente durch, um Machine Learning-Modelle zu erstellen und Machine Learning-Modelle für die Nutzung durch Kunden zu registrieren.  Lesen Sie, wie Sie Machine Learning-Modelle packen und bereitstellen und ihren Lebenszyklus nachverfolgen.
+Cognitive Services |Leitfaden |[Erstellen einer Cognitive Services-Ressource mithilfe der Azure-Befehlszeilenschnittstelle](/azure/cognitive-services/cognitive-services-apis-create-account-cli) | Registrieren Sie sich für Azure Cognitive Services, und erstellen Sie ein Konto mit einem Abonnement mit einem einzelnen Dienst oder mit mehreren Diensten.  Verwenden Sie die Schlüssel den generierten Endpunkt, die für Sie zum Authentifizieren Ihrer Anwendungen generiert wurden.
 Azure Monitor |Schrittanleitung |[Erstellen eines Log Analytics-Arbeitsbereichs mit der Azure CLI](/azure/azure-monitor/learn/quick-create-workspace-cli) | Erstellen Sie einen Log Analytics-Arbeitsbereich, und stellen Sie ihn bereit.
 
 ## <a name="geographies"></a>Geografische Regionen
