@@ -9,12 +9,12 @@ ms.topic: conceptual
 ms.service: azure-cli
 ms.devlang: azurecli
 ms.custom: devx-track-azurecli
-ms.openlocfilehash: 2b6b3c5faef66e714cddf7b07126ba14af8c149b
-ms.sourcegitcommit: fd8c3e32f0f50feb6fea33ead636a80a050bcf2a
+ms.openlocfilehash: 5f2ad8b4347257ee075d788d3cb500f464408724
+ms.sourcegitcommit: 2da241715d25407ed22c1065c0c793acfd865996
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 08/21/2020
-ms.locfileid: "88714343"
+ms.lasthandoff: 09/09/2020
+ms.locfileid: "89563109"
 ---
 # <a name="overview-azure-cli-reference-types-and-status"></a>Übersicht: Azure CLI-Verweistypen und -status
 
@@ -22,13 +22,13 @@ Die Azure CLI verfügt über verschiedene Verweistypen, die manchmal synonym al
 
 ## <a name="azure-cli-syntax-components"></a>Komponenten der Azure CLI-Syntax
 
-Die Azure CLI-Syntax ist eine Kombination aus Verweisen, Befehlen und Parametern.  Der gesamte Verweisbefehl wird häufig einfach als **Befehl** bezeichnet.
+Die Azure CLI-Syntax ist eine Kombination aus Verweisen, Befehlen und Parametern.  Der **gesamte Verweisbefehl** wird häufig als **Befehl** bezeichnet.
 
 | Azure-Dienst | Verweis | Subdienst für den Verweis | Get-Help | Vollständiger Verweisbefehl | Parameterbeispiele
 |-|-|-|-|-|-|
 | Azure CLI | [az configure](/cli/azure/reference-index#az-configure) | | | az configure | --defaults, --list-default, --scope
 | Azure-Netzwerk | [az network](/cli/azure/network) | application-gateway | create | [az network application-gateway create](/cli/azure/network/application-gateway#az-network-application-gateway-create) | --name, --resource-group, --capacity
-| Azure DevOps | [az pipelines](/cli/azure/pipelines) | Agent | list | [az pipelines agent list](/cli/azure/pipelines/agent) | --pool-id, --agent-name, --demands
+| Azure DevOps Server | [az pipelines](/cli/azure/pipelines) | Agent | list | [az pipelines agent list](/cli/azure/pipelines/agent) | --pool-id, --agent-name, --demands
 
 ## <a name="reference-types"></a>Verweistypen
 
@@ -39,7 +39,7 @@ Ein Verweistyp gibt Aufschluss darüber, ob der Verweisbefehl Teil des primären
 | **Referenzen** | Teil des primären Azure CLI-Diensts | Optionale Verweisbefehle, die installiert werden müssen
 | **Installieren** | Gemeinsam mit dem [MSI-Installationsprogramm]() | Einzeln mit [az extension add]()|
 | **Veröffentlicht** | Nach einem Zeitplan | Wenn neue Features oder Updates verfügbar werden
-| **Status** | Allgemein verfügbar, Vorschauversion oder experimentell | Allgemein verfügbar, Vorschauversion oder experimentell
+| **Status** | Kann „Allgemein verfügbar“, „Public Preview“ oder „Experimentell“ lauten. | Allgemein verfügbar, Vorschauversion oder experimentell
 
 Alle Azure CLI-Verweise können unter Windows, macOS und Linux sowie in Docker und Azure Cloud Shell ausgeführt werden.
 
@@ -69,10 +69,10 @@ Azure CLI-Verweise fallen unabhängig von ihrem Typ in drei Statuskategorien: *
 
 | | Allgemein verfügbar  | Public Preview | Experimentell
 |-|-|-|-|
-| **Stabilität** | Dauerhaft | Unterliegt den Bedingungen für [Microsoft Azure-Vorschauversionen](/support/legal/preview-supplemental-terms/) | Wird in die Public Preview übernommen oder entfernt
+| **Stabilität** | Dauerhaft | Kann als Reaktion auf Kundenfeedback geändert werden.  Unterliegt den Bedingungen für [Microsoft Azure-Vorschauversionen](/support/legal/preview-supplemental-terms/). | Kann als Reaktion auf Kundenfeedback geändert werden.  Wird häufig zur öffentlichen Vorschau migriert.  Kann entfernt werden.
 | **Supportebene** | Vollständig | Partial | Keine
 
-Die meisten Befehle und Parameter für einen Verweis haben zwar einen einzelnen Status, dies ist jedoch nicht immer der Fall.  Ein allgemein verfügbarer Verweis, der für weitere Befehle erweitert wird, kann über Verweisbefehle mit dem Status „Allgemein verfügbar“, „Vorschau“ und „Experimentell“ verfügen.  Darüber hinaus kann auch ein einzelner Befehl über Parameter verfügen, die in unterschiedliche Statuskategorien fallen. Dies ist in der Regel der Fall, wenn öffentliches Feedback implementiert und neue Parameter hinzugefügt werden, um den Funktionsumfang zu erweitern.  Die folgende Tabelle enthält Beispiele für Verweise mit verschiedenen Statuswerten:
+Die meisten Befehle und Parameter für einen Verweis haben zwar einen einzelnen Status, dies ist jedoch nicht immer der Fall.  Ein allgemein verfügbarer Verweis, der für weitere Befehle erweitert wird, kann über Verweisbefehle mit dem Status „Allgemein verfügbar“, „Vorschau“ und „Experimentell“ verfügen. Darüber hinaus kann ein einzelner Befehl über Parameter verfügen, die in unterschiedliche Statuskategorien fallen. Dies ist der Fall, wenn neue Parameter hinzugefügt werden, um den Funktionsumfang zu erweitern.  Die folgende Tabelle enthält Beispiele für Verweise mit verschiedenen Statuswerten:
 
 | Vollständiger Verweisbefehl | Parameter | type | Allgemein verfügbar | Public Preview | Experimentell
 |-|-|-|-|-|-|
