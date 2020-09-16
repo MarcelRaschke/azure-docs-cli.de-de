@@ -1,5 +1,5 @@
 ---
-title: Tipps für die effektive Verwendung der Azure CLI
+title: Effektive Verwendung der Azure CLI
 description: Tipps für die effektive Verwendung der Azure CLI
 author: dbradish-microsoft
 ms.author: dbradish
@@ -9,14 +9,14 @@ ms.topic: conceptual
 ms.service: azure-cli
 ms.devlang: azurecli
 ms.custom: devx-track-azurecli
-ms.openlocfilehash: 720e0866b97db0d56417db95f2518d5567836571
-ms.sourcegitcommit: 2da241715d25407ed22c1065c0c793acfd865996
+ms.openlocfilehash: 53fa51e3d17069c9d3af62d53214d366f33779b4
+ms.sourcegitcommit: 6c3032b1d74c65a8f186b3063ab6b301350e3704
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 09/09/2020
-ms.locfileid: "89563058"
+ms.lasthandoff: 09/11/2020
+ms.locfileid: "90012730"
 ---
-# <a name="tips-for-using-azure-cli-effectively"></a>Tipps für die effektive Verwendung der Azure CLI
+# <a name="use-azure-cli-effectively"></a>Effektive Verwendung der Azure CLI
 
 Aus Gründen der Übersichtlichkeit werden Bash-Skripts inline verwendet. Windows-Batch- bzw. PowerShell-Beispiele, mit denen Sie ähnliche Beispiele erstellen können, sind im Anhang angegeben.
 
