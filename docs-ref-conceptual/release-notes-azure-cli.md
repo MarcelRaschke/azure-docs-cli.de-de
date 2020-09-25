@@ -4,21 +4,151 @@ description: Enthält Informationen zu den aktuellen Updates der Azure CLI.
 author: dbradish-microsoft
 ms.author: dbradish
 manager: barbkess
-ms.date: 08/28/2020
+ms.date: 09/22/2020
 ms.topic: article
 ms.service: azure-cli
 ms.devlang: azurecli
 ms.custom: devx-track-azurecli
-ms.openlocfilehash: 896e62b8db9597ee3ff02cec333031ac59f20705
-ms.sourcegitcommit: 2da241715d25407ed22c1065c0c793acfd865996
+ms.openlocfilehash: 54befd19d810d84dd076241bd0718c933b3ff2d8
+ms.sourcegitcommit: a0cc51d7b2b39a52c402af1d98d3b48ff369bd16
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 09/09/2020
-ms.locfileid: "89563092"
+ms.lasthandoff: 09/22/2020
+ms.locfileid: "90875929"
 ---
 # <a name="azure-cli-release-notes"></a>Versionshinweise für die Azure CLI
 
 # <a name="current-release-notes"></a>[Aktuelle Versionshinweise](#tab/azure-cli)
+
+## <a name="september-22-2020"></a>22. September 2020
+
+Version 2.12.0
+
+### <a name="acr"></a>ACR
+
+* Fehlerbehebung Nr. 14811: Hinzufügen von Unterstützung für die Außerkraftsetzung von „dockerignore“
+
+### <a name="aks"></a>AKS
+
+* Die CLI sollte eine leere kubeconfig-Datei tolerieren.
+* Fehlerbehebung Nr. 12871: az aks enable-addons: Das automatisch generierte Hilfebeispiel ist für die Option „virtual-node“ falsch.
+* Legacyaktionen für ACI-Connectors entfernt
+* Unterstützung für Richtlinien-Add-On in der Azure CLI
+* Problem mit Groß-/Kleinbuchstaben für AKS-Dashboard-Add-On behoben
+* „mgmt-containerservice“ auf 9.4.0 aktualisiert und 09-01-API aktiviert
+
+### <a name="apim"></a>APIM
+
+* Unterstützung der Befehle für die Entitäten „product“/„productapi“/„namedValue“ und SDK-Version aktualisiert
+
+### <a name="app-config"></a>App-Konfiguration
+
+* Unterstützung für die Aktivierung/Deaktivierung von PublicNetworkAccess für vorhandene Speicher
+
+### <a name="app-service"></a>App Service
+
+* Unterstützung für den Tarif „Premium V3“ hinzugefügt
+* Fehlerbehebung Nr. 12653: az webapp log config --application-logging: keine Deaktivierung, wenn „false“ festgelegt ist
+* Fehlerbehebung Nr. 14684: Entfernen von „access-restriction“ nach IP-Adresse funktioniert nicht. Fehlerbehebung Nr. 13837: -az webapp create – Beispiel für verschiedene RSgroups für Plan und WebApp
+* functionapp: Unterstützung für benutzerdefinierte Handler hinzugefügt. Powershell 6.2 wurde als veraltet markiert.
+* functionapp: Problem behoben, das dazu führte, dass die App-Einstellung für benutzerdefinierte Linux-Images falsch festgelegt wurde
+
+### <a name="arm"></a>ARM
+
+* `az deployment group/sub/mg/tenant what-if`: Ignorierte Ressourcenänderungen als letztes anzeigen
+
+### <a name="compute"></a>Compute
+
+* Neuer Lizenztyp bei VM-Erstellung/-Aktualisierung hinzugefügt: RHEL_BYOS, SLES_BYOS
+* Upgrade der Datenträger-API-Version auf 2020-06-30 durchgeführt
+* Datenträgererstellung: „--logical-sector-size“ und „--tier“ hinzugefügt
+* Datenträgeraktualisierung: Unterstützung für „--disk-iops-read-only“, „--disk-mbps-read-only“, „--max-shares“
+* Neuer Befehl: disk-encryption-set list-associated-resources
+* vm boot-diagnostics enable: „--storage“ wird optional.
+* Neuer Befehl: vm boot-diagnostics get-boot-log-uris
+* vm boot-diagnostics get-boot-log: Unterstützung für verwalteten Speicher
+
+### <a name="config"></a>Konfigurationen
+
+* „local-context“ in „config param-persist“ umbenannt
+
+### <a name="cosmos-db"></a>Cosmos DB
+
+* Unterstützung für Migrations-APIs für Durchsatzressource für das Autoskalierungsfeature in CosmosDB
+
+### <a name="eventhub"></a>Eventhub
+
+Clusterbefehle und Parameter „trusted_service_access_enabled“ für Networkruleset hinzugefügt
+
+### <a name="extension"></a>Durchwahl
+
+* `az extension add`: Option `--upgrade` hinzugefügt, um die Erweiterung zu aktualisieren, sofern sie bereits installiert ist
+* Dynamische Installation standardmäßig aktivieren
+
+### <a name="iot"></a>IoT
+
+* Minimale TLS-Version bei IoT Hub-Erstellung zulässig
+
+### <a name="iot-central"></a>IoT Central
+
+* Der Vorgang zum Löschen der App ist jetzt ein zeitintensiver Vorgang.
+
+### <a name="iot-hub"></a>IoT Hub
+
+* Befehl „show-connection-string“ als veraltet markiert
+
+### <a name="key-vault"></a>Key Vault
+
+* Public Preview von verwaltetem HSM
+* Problem behoben, dass `--maxresults` beim Auflisten von Ressourcen oder Ressourcenversionen nicht wirksam wird
+
+### <a name="kusto"></a>Kusto
+
+* Nachricht zur Einstellung hinzugefügt
+
+### <a name="monitor"></a>Überwachen
+
+* `az monitor log-analytics workspace linked-storage`: detaillierte Fehlermeldung für Kunden verfügbar gemacht
+
+### <a name="network"></a>Netzwerk
+
+* `az network vnet subnet`: Unterstützung für „--disable-private-endpoint-network-policies“ und „--disable-private-link-service-network-policies“
+* Problem behoben, das beim Aktualisieren von „flow-log“ auftrat, wenn die untergeordnete Eigenschaft „network_watcher_flow_analytics_configuration“ auf „None“ festgelegt war
+* Aktualisierung der API-Version auf 2020-06-01
+* Unterstützung für „--tcp-port-behavior“ beim Konfigurieren einer TCP-Konfiguration von Verbindungsmonitor V2
+* Unterstützung für mehr Typen und Abdeckungsebenen beim Erstellen eines Endpunkts von Verbindungsmonitor V2
+* Unterstützung für „--host-subnet“, um VirtualHub unter VirtualRouter zu erstellen
+
+### <a name="rdbms"></a>RDBMS
+
+* Aktualisierungen der Verwaltungsebene für PostgreSQL und MySQL
+
+### <a name="role"></a>Role
+
+* `az role assignment create/update`: Unterstützung für `--description`, `--condition` und `--condition-version`
+* `az ad app permission delete`: Unterstützung für `--api-permissions` zum Löschen spezifischer `ResourceAccess`-Elemente
+
+### <a name="service-fabric"></a>Service Fabric
+
+* Befehle für verwaltete Cluster und Knotentypen hinzugefügt
+
+### <a name="sql"></a>SQL
+
+* „azure-mgmt-sql“ auf 0.20.0 aktualisiert
+* Optionaler Parameter für Redundanz des Sicherungsspeichers zum Cmdlet „mi create“ hinzugefügt
+
+### <a name="storage"></a>Storage
+
+* `az storage share-rm stats`: Abrufen der Nutzung (in Bytes) der auf der Freigabe gespeicherten Daten
+* Allgemein verfügbares Release für Zeitpunktwiederherstellung von Speicherblobs
+* `az storage blob query`: Unterstützung für Azure Storage-Abfragebeschleunigung
+* Unterstützung des vorläufigen Löschens für Dateifreigaben
+* `az storage copy`: Unterstützung für Kontoanmeldeinformationen hinzugefügt und `--source-local-path`, `--destination-local-path` und `--destination-account-name` als veraltet markiert
+* `az storage account blob-service-properties update`: Unterstützung der Aufbewahrungsrichtlinie für Containerlöschungen hinzugefügt
+
+### <a name="synapse"></a>Synapse
+
+* Tippfehler im Beispiel für „az synapse role assignment create“ und „az synapse role assignment delete“ korrigiert
 
 ## <a name="august-28-2020"></a>28. August 2020
 
