@@ -9,19 +9,19 @@ ms.topic: conceptual
 ms.service: azure-cli
 ms.devlang: azurecli
 ms.custom: devx-track-azurecli
-ms.openlocfilehash: 0c522e30bfc55ea9c87cbea3ffa56762f63d5025
-ms.sourcegitcommit: 2da241715d25407ed22c1065c0c793acfd865996
+ms.openlocfilehash: 5159716ac8e9ba0d09697035b6d0e3dd2a2286c2
+ms.sourcegitcommit: 5d29362589078b66d15f5cd494fe903a5195658d
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 09/09/2020
-ms.locfileid: "89562871"
+ms.lasthandoff: 09/25/2020
+ms.locfileid: "91225965"
 ---
 # <a name="sign-in-with-azure-cli"></a>Anmelden mit der Azure CLI 
 
 Es gibt mehrere Authentifizierungstypen für die Azure CLI. Den einfachsten Einstieg ermöglicht der [Azure Cloud Shell](/azure/cloud-shell/overview)-Dienst, der Sie automatisch anmeldet.
 Lokal können Sie sich interaktiv über Ihren Browser mit dem Befehl [az login](/cli/azure/reference-index#az-login) anmelden. Beim Schreiben von Skripts wird die Verwendung von Dienstprinzipalen empfohlen. Indem Sie einem Dienstprinzipal nur die erforderlichen Mindestberechtigungen erteilen, können Sie Ihre Automatisierung schützen.
 
-Ihre Anmeldeinformationen werden nicht von der CLI gespeichert. Stattdessen wird von Azure ein [Authentifizierungsaktualisierungstoken](https://docs.microsoft.com/azure/active-directory/develop/v1-id-and-access-tokens#refresh-tokens) generiert und gespeichert. Ab August 2018 wird dieses Token nach 90-tägiger Inaktivität widerrufen. Dieser Wert kann jedoch von Microsoft oder von Ihrem Mandantenadministrator geändert werden. Wenn das Token widerrufen wurde, werden Sie von der Befehlszeilenschnittstelle aufgefordert, sich erneut anzumelden.
+Ihre Anmeldeinformationen werden nicht von der CLI gespeichert. Stattdessen wird von Azure ein [Authentifizierungsaktualisierungstoken](/azure/active-directory/develop/v1-id-and-access-tokens#refresh-tokens) generiert und gespeichert. Ab August 2018 wird dieses Token nach 90-tägiger Inaktivität widerrufen. Dieser Wert kann jedoch von Microsoft oder von Ihrem Mandantenadministrator geändert werden. Wenn das Token widerrufen wurde, werden Sie von der Befehlszeilenschnittstelle aufgefordert, sich erneut anzumelden.
 
 Nach der Anmeldung werden CLI-Befehle für Ihr Standardabonnement ausgeführt. Sollten Sie über mehrere Abonnements verfügen, können Sie das [Standardabonnement ändern](manage-azure-subscriptions-azure-cli.md).
 
@@ -58,7 +58,7 @@ az login -u <username> -p <password>
 
 ## <a name="sign-in-with-a-service-principal"></a>Anmelden mit einem Dienstprinzipal
 
-Dienstprinzipale sind Konten, die nicht an einen bestimmten Benutzer gebunden sind und über Berechtigungen verfügen können, die ihnen über vordefinierte Rollen zugewiesen werden. Die Authentifizierung mit einem Dienstprinzipal ist die beste Methode zum Schreiben sicherer Skripts oder Programme und ermöglicht das Anwenden von Berechtigungseinschränkungen und lokal gespeicherten statischen Anmeldeinformationen. Weitere Informationen zu Dienstprinzipalen finden Sie unter [Erstellen eines Azure-Dienstprinzipals mit Azure CLI 2.0](/cli/azure/create-an-azure-service-principal-azure-cli#sign-in-using-a-service-principal).
+Dienstprinzipale sind Konten, die nicht an einen bestimmten Benutzer gebunden sind und über Berechtigungen verfügen können, die ihnen über vordefinierte Rollen zugewiesen werden. Die Authentifizierung mit einem Dienstprinzipal ist die beste Methode zum Schreiben sicherer Skripts oder Programme und ermöglicht das Anwenden von Berechtigungseinschränkungen und lokal gespeicherten statischen Anmeldeinformationen. Weitere Informationen zu Dienstprinzipalen finden Sie unter [Erstellen eines Azure-Dienstprinzipals mit Azure CLI 2.0](./create-an-azure-service-principal-azure-cli.md#sign-in-using-a-service-principal).
 
 Für die Anmeldung mit einem Dienstprinzipal benötigen Sie Folgendes:
 
@@ -67,7 +67,7 @@ Für die Anmeldung mit einem Dienstprinzipal benötigen Sie Folgendes:
 * Den dem Dienstprinzipal zugeordneten Mandanten, als `.onmicrosoft.com`-Domäne oder Azure-Objekt-ID
 
 > [!NOTE]
-> In einer PEM-Datei muss ein Zertifikat (**CERTIFICATE**) an den privaten Schlüssel (**PRIVATE KEY**) angefügt werden.  Ein Beispiel für ein PEM-Dateiformat finden Sie unter [Erstellen eines Azure-Dienstprinzipals mit der Azure-Befehlszeilenschnittstelle](/cli/azure/create-an-azure-service-principal-azure-cli#sign-in-using-a-service-principal). 
+> In einer PEM-Datei muss ein Zertifikat (**CERTIFICATE**) an den privaten Schlüssel (**PRIVATE KEY**) angefügt werden.  Ein Beispiel für ein PEM-Dateiformat finden Sie unter [Erstellen eines Azure-Dienstprinzipals mit der Azure-Befehlszeilenschnittstelle](./create-an-azure-service-principal-azure-cli.md#sign-in-using-a-service-principal). 
 >
 
 > [!IMPORTANT]
@@ -108,4 +108,4 @@ Auf Ressourcen, die für verwaltete Identitäten von Azure-Ressourcen konfigurie
 az login --identity
 ```
 
-Weitere Informationen zu verwalteten Identitäten für Azure-Ressourcen finden Sie unter [Konfigurieren von verwalteten Identitäten für Azure-Ressourcen auf einem virtuellen Azure-Computer mithilfe der Azure-Befehlszeilenschnittstelle](https://docs.microsoft.com/azure/active-directory/managed-identities-azure-resources/qs-configure-cli-windows-vm) und [Verwenden von verwalteten Identitäten für Azure-Ressourcen auf einem virtuellen Azure-Computer für die Anmeldung](https://docs.microsoft.com/azure/active-directory/managed-identities-azure-resources/how-to-use-vm-sign-in).
+Weitere Informationen zu verwalteten Identitäten für Azure-Ressourcen finden Sie unter [Konfigurieren von verwalteten Identitäten für Azure-Ressourcen auf einem virtuellen Azure-Computer mithilfe der Azure-Befehlszeilenschnittstelle](/azure/active-directory/managed-identities-azure-resources/qs-configure-cli-windows-vm) und [Verwenden von verwalteten Identitäten für Azure-Ressourcen auf einem virtuellen Azure-Computer für die Anmeldung](/azure/active-directory/managed-identities-azure-resources/how-to-use-vm-sign-in).
