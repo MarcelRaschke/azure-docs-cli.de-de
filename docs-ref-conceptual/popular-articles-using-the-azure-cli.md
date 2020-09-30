@@ -10,12 +10,12 @@ ms.prod: azure
 ms.technology: azure-cli
 ms.devlang: azurecli
 ms.custom: devx-track-azurecli
-ms.openlocfilehash: 42e9de630530568a15bc6f9f05d2442d790d8b68
-ms.sourcegitcommit: 2da241715d25407ed22c1065c0c793acfd865996
+ms.openlocfilehash: 1b58fa03d93769a66ea4c02678a7409f27262fd7
+ms.sourcegitcommit: 5d29362589078b66d15f5cd494fe903a5195658d
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 09/09/2020
-ms.locfileid: "89563143"
+ms.lasthandoff: 09/25/2020
+ms.locfileid: "91225506"
 ---
 # <a name="popular-articles-using-the-azure-cli"></a>Beliebte Artikel zur Azure CLI
 
@@ -32,7 +32,7 @@ Die Azure CLI wird in vielen Azure-Diensten verwendet, was dazu führt, dass Art
 |Virtual Machines | Schrittanleitung: Linux | [Erstellen eines Katalogs mit freigegebenen Images mit der Azure-Befehlszeilenschnittstelle](/azure/virtual-machines/linux/shared-images) | Erstellen Sie eine Shared Image Gallery-Instanz benutzerdefinierter VM-Images mit anderen Personen in Ihrer Organisation, innerhalb einer Region, regionsübergreifend oder innerhalb eines Azure Active Directory-Mandanten.
 |Virtual Machines | Schrittanleitung: Linux | [Vorschau: Bereitstellen von Spot-VMs mithilfe der Azure-Befehlszeilenschnittstelle](/azure/virtual-machines/linux/spot-cli) | Stellen Sie eine Linux-Spot-VM bereit, die nicht basierend auf dem Preis entfernt wird.
 |Virtual Machines | Schnellstart: Windows | [Schnellstart: Erstellen eines virtuellen Windows-Computers mit der Azure-Befehlszeilenschnittstelle](/azure/virtual-machines/windows/quick-create-cli) | Stellen Sie eine VM in Azure bereit, auf der Windows Server 2016 ausgeführt wird.
-|Virtual Machines | Lernmodul | [Verwalten von virtuellen Computern mit der Azure CLI](https://docs.microsoft.com/learn/modules/manage-virtual-machines-with-azure-cli/) | Erstellen, starten und beenden Sie zusätzliche Verwaltungsaufgaben im Zusammenhang mit VMs, und führen Sie diese Aufgaben aus.
+|Virtual Machines | Lernmodul | [Verwalten von virtuellen Computern mit der Azure CLI](/learn/modules/manage-virtual-machines-with-azure-cli/) | Erstellen, starten und beenden Sie zusätzliche Verwaltungsaufgaben im Zusammenhang mit VMs, und führen Sie diese Aufgaben aus.
 |Azure Kubernetes Service (AKS)| Schnellstart | [Schnellstart: Bereitstellen eines AKS-Clusters (Azure Kubernetes Service) über die Azure-Befehlszeilenschnittstelle](/azure/aks/kubernetes-walkthrough) | Stellen Sie AKS-Cluster bereit, und verwalten Sie diese.  Erfahren Sie, wie Sie den Zustand des Clusters und der Pods überwachen können, in denen Ihre Anwendung ausgeführt wird.
 |Azure Batch|Beispiel | [CLI-Beispiel: Ausführen eines Auftrags und von Aufgaben mit Azure Batch](/azure/batch/scripts/batch-cli-sample-run-job) | Erstellen Sie einen Batch-Auftrag, und fügen Sie dem Auftrag eine Reihe von Aufgaben hinzu. Überwachen Sie einen Auftrag und die zugehörigen Aufgaben.
 |Azure Batch|Beispiel | [CLI-Beispiel: Erstellen und Verwalten eines Windows-Pools in Azure Batch](/azure/batch/scripts/batch-cli-sample-manage-windows-pool) | Erstellen und verwalten Sie einen Pool von Windows-Computeknoten mit einer Cloud Services-Konfiguration.
@@ -108,7 +108,7 @@ File Storage |Schnellstart |[Schnellstart: Erstellen, Herunterladen und Aufliste
 
 | | | | |
 |-|-|-|-|
-Dienstprinzipal |Schrittanleitung |[Erstellen eines Azure-Dienstprinzipals mit der Azure-Befehlszeilenschnittstelle](/cli/azure/create-an-azure-service-principal-azure-cli) | Mit der Azure CLI können Sie einen Dienstprinzipal erstellen, Informationen darüber abrufen und ihn zurücksetzen.
+Dienstprinzipal |Schrittanleitung |[Erstellen eines Azure-Dienstprinzipals mit der Azure-Befehlszeilenschnittstelle](./create-an-azure-service-principal-azure-cli.md) | Mit der Azure CLI können Sie einen Dienstprinzipal erstellen, Informationen darüber abrufen und ihn zurücksetzen.
 RBAC |Schrittanleitung |[Hinzufügen oder Entfernen von Rollenzuweisungen mithilfe von Azure RBAC und der Azure-Befehlszeilenschnittstelle](/azure/role-based-access-control/role-assignments-cli) | Weisen Sie der rollenbasierten Zugriffskontrolle von Azure Rollen zu.
 Key Vault |Schrittanleitung |[Verwalten von Key Vault mit der Azure CLI](/azure/key-vault/key-vault-manage-with-cli2) | Erstellen und verwalten Sie eine Azure Key Vault-Instanz.  Registrieren und autorisieren Sie eine Anwendung, legen Sie erweiterte Zugriffsrichtlinien fest, und lernen Sie plattformübergreifende Befehle der Befehlszeilenschnittstelle kennen.
 Key Vault |Lernprogramm |[Verwalten von Speicherkontoschlüsseln mit Key Vault und der Azure-Befehlszeilenschnittstelle](/azure/key-vault/key-vault-ovw-storage-keys) | Verwalten Sie Speicherkontoschlüssel, und generieren Sie Token für Shared Acces Signatures.

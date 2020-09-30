@@ -9,12 +9,12 @@ ms.topic: conceptual
 ms.service: azure-cli
 ms.devlang: azurecli
 ms.custom: devx-track-azurecli
-ms.openlocfilehash: dac21aa06817e18d29a181a5b1cb32069b8ea1f3
-ms.sourcegitcommit: 2da241715d25407ed22c1065c0c793acfd865996
+ms.openlocfilehash: 8f9e24a5770ad4793add9564e8f30b1bf68ba132
+ms.sourcegitcommit: 5d29362589078b66d15f5cd494fe903a5195658d
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 09/09/2020
-ms.locfileid: "89562480"
+ms.lasthandoff: 09/25/2020
+ms.locfileid: "91225574"
 ---
 # <a name="use-multiple-azure-subscriptions"></a>Verwenden mehrerer Azure-Abonnements
 
@@ -28,7 +28,7 @@ Möglicherweise sind Sie sich nicht ganz über den Unterschied zwischen Mandante
 Ein Benutzer hat möglicherweise Zugriff auf mehrere _Abonnements_. Hierbei handelt es sich um die Vereinbarungen mit Microsoft, die die Verwendung von Clouddiensten wie Azure regeln. Jede Ressource ist einem Abonnement zugeordnet.
 
 Weitere Informationen zu den Unterschieden zwischen Mandanten, Benutzern und Abonnements finden Sie im [Microsoft Azure-Glossar](/azure/azure-glossary-cloud-terminology).  Informationen zum Hinzufügen eines neuen Abonnements zu Ihrem Azure Active Directory-Mandanten finden Sie unter [Zuordnen oder Hinzufügen eines Azure-Abonnements zu Ihrem Azure Active Directory-Mandanten](/azure/active-directory/active-directory-how-subscriptions-associated-directory).
-Informationen zum Anmelden bei einem bestimmten Mandanten finden Sie unter [Anmelden mit Azure CLI 2.0](/cli/azure/authenticate-azure-cli).
+Informationen zum Anmelden bei einem bestimmten Mandanten finden Sie unter [Anmelden mit Azure CLI 2.0](./authenticate-azure-cli.md).
 
 ## <a name="change-the-active-subscription"></a>Ändern des aktiven Abonnements
 

@@ -10,16 +10,16 @@ ms.author: dbradish
 ms.service: azure-cli
 ms.reviewer: paymaun.heidari
 ms.custom: devx-track-azurecli
-ms.openlocfilehash: 9190140c64f6a9863666329206839bb2553ffe79
-ms.sourcegitcommit: 2da241715d25407ed22c1065c0c793acfd865996
+ms.openlocfilehash: 0d1c117274d4e363c921d9161fbbf1051d0b078b
+ms.sourcegitcommit: 5d29362589078b66d15f5cd494fe903a5195658d
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 09/09/2020
-ms.locfileid: "89562786"
+ms.lasthandoff: 09/25/2020
+ms.locfileid: "91225455"
 ---
 # <a name="azure-cli-for-azure-iot"></a>Azure CLI für Azure IoT
 
-Die Azure-Befehlszeilenschnittstelle ([Azure CLI](/cli/azure/what-is-azure-cli)) setzt sich aus Befehlen zum Erstellen und Verwalten von Azure-Ressourcen zusammen.  Sie ist in vielen Azure-Diensten verfügbar, darunter auch Azure IoT.  Es gibt mehr als 100 Referenzen für Azure IoT, die Sie bei der effektiven Verwendung von IoT-Diensten über eine Befehlszeile unterstützen.
+Die Azure-Befehlszeilenschnittstelle ([Azure CLI](./what-is-azure-cli.md)) setzt sich aus Befehlen zum Erstellen und Verwalten von Azure-Ressourcen zusammen.  Sie ist in vielen Azure-Diensten verfügbar, darunter auch Azure IoT.  Es gibt mehr als 100 Referenzen für Azure IoT, die Sie bei der effektiven Verwendung von IoT-Diensten über eine Befehlszeile unterstützen.
 
 ## <a name="references-for-iot"></a>Referenzen für IoT
 
@@ -35,7 +35,7 @@ Die IoT-**Erweiterung** bietet umfangreiche Features und Funktionen zum Verwalte
 |-|-|-|
 | [az iot](/cli/azure/iot) | ja  | Alle verfügbaren Azure CLI Core-Befehle für Azure IoT
 | [az iot central](/cli/azure/iot/central) | ja | Verwalten von IoT Central-Objekten
-| [az iot dps](/en-us/cli/azure/iot/dps) | ja | Verwalten von Device Provisioning Service in Azure IoT Hub
+| [az iot dps](/cli/azure/iot/dps) | ja | Verwalten von Device Provisioning Service in Azure IoT Hub
 | [az iot hub](/cli/azure/iot/hub) | ja | Verwalten der Azure IoT Hub-Infrastruktur
 
 ### <a name="extension-reference-commands"></a>Erweiterungsreferenz – Befehle
@@ -60,7 +60,7 @@ Die IoT-**Erweiterung** bietet umfangreiche Features und Funktionen zum Verwalte
 
 ### <a name="extension-reference-installation"></a>Erweiterungsreferenz – Installation
 
-Azure CLI-Erweiterungsreferenzen müssen vor der Verwendung installiert werden.  Verwenden Sie den Befehl [az extension add](/cli/azure/azure-cli-extensions-overview), um eine Erweiterungsreferenz anhand des Namens zu installieren.  Weitere Informationen zu Erweiterungen finden Sie unter [Verwenden von Erweiterungen mit der Azure CLI](/cli/azure/azure-cli-extensions-overview).
+Azure CLI-Erweiterungsreferenzen müssen vor der Verwendung installiert werden.  Verwenden Sie den Befehl [az extension add](./azure-cli-extensions-overview.md), um eine Erweiterungsreferenz anhand des Namens zu installieren.  Weitere Informationen zu Erweiterungen finden Sie unter [Verwenden von Erweiterungen mit der Azure CLI](./azure-cli-extensions-overview.md).
 
 ```azurecli
 # install the Azure CLI extension reference for Azure IoT
@@ -103,6 +103,6 @@ az iot hub create --resource-group MyResourceGroup --name MyIotHub --location we
 
 ## <a name="see-also"></a>Weitere Informationen
 
-- Unter [Erste Schritte mit der Azure CLI](/cli/azure/get-started-with-azure-cli) erhalten Sie Informationen zur Installation und Anmeldung.
+- Unter [Erste Schritte mit der Azure CLI](./get-started-with-azure-cli.md) erhalten Sie Informationen zur Installation und Anmeldung.
 
-- Entdecken Sie weitere [veröffentlichte Referenzen](/cli/azure/reference-index) und Referenzen zu [Erweiterungen](/cli/azure/azure-cli-extensions-list) in der Azure CLI-Dokumentation.
+- Entdecken Sie weitere [veröffentlichte Referenzen](/cli/azure/reference-index) und Referenzen zu [Erweiterungen](./azure-cli-extensions-list.md) in der Azure CLI-Dokumentation.

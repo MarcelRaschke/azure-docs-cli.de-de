@@ -9,16 +9,16 @@ ms.topic: conceptual
 ms.service: azure-cli
 ms.devlang: azurecli
 ms.custom: devx-track-azurecli
-ms.openlocfilehash: 74297c7deaa080bf030cba3326e63ef3b1c9d9bb
-ms.sourcegitcommit: 2da241715d25407ed22c1065c0c793acfd865996
+ms.openlocfilehash: b59da347069f0df61756eac958c6a0119a31be18
+ms.sourcegitcommit: 5d29362589078b66d15f5cd494fe903a5195658d
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 09/09/2020
-ms.locfileid: "89562990"
+ms.lasthandoff: 09/25/2020
+ms.locfileid: "91225319"
 ---
 # <a name="select-clouds-with-the-azure-cli"></a>Auswählen von Clouds mit der Azure CLI
 
-Wenn Sie regionsübergreifend arbeiten oder [Azure Stack](https://docs.microsoft.com/azure/azure-stack/user/) verwenden, müssen Sie möglicherweise mehrere Clouds verwenden. Hierzu stellt Ihnen Microsoft Clouds zur Verfügung, die mit regionalen Gesetzen in Einklang stehen. In diesem Artikel erfahren Sie, wie Sie Informationen zu Clouds abrufen, wie Sie die aktuelle Cloud ändern und wie Sie neue Clouds registrieren bzw. ihre Registrierung aufheben.
+Wenn Sie regionsübergreifend arbeiten oder [Azure Stack](/azure/azure-stack/user/) verwenden, müssen Sie möglicherweise mehrere Clouds verwenden. Hierzu stellt Ihnen Microsoft Clouds zur Verfügung, die mit regionalen Gesetzen in Einklang stehen. In diesem Artikel erfahren Sie, wie Sie Informationen zu Clouds abrufen, wie Sie die aktuelle Cloud ändern und wie Sie neue Clouds registrieren bzw. ihre Registrierung aufheben.
 
 ## <a name="list-available-clouds"></a>Auflisten verfügbarer Clouds
 
@@ -74,7 +74,7 @@ az cloud show --name AzureChinaCloud --output json
 
 ## <a name="switch-the-active-cloud"></a>Wechseln der aktiven Cloud
 
-Informationen zum Festlegen der Standardcloud mithilfe einer Konfigurationsdatei finden Sie unter [CLI-Konfigurationswerte und Umgebungsvariablen](/cli/azure/azure-cli-configuration?view=azure-cli-latest#cli-configuration-values-and-environment-variables).  Führen Sie zum Wechseln der Cloud den Befehl [az cloud set](/cli/azure/cloud#az-cloud-set) aus. Dieser Befehl erfordert ein Argument: den Namen der Cloud.
+Informationen zum Festlegen der Standardcloud mithilfe einer Konfigurationsdatei finden Sie unter [CLI-Konfigurationswerte und Umgebungsvariablen](./azure-cli-configuration.md?view=azure-cli-latest#cli-configuration-values-and-environment-variables).  Führen Sie zum Wechseln der Cloud den Befehl [az cloud set](/cli/azure/cloud#az-cloud-set) aus. Dieser Befehl erfordert ein Argument: den Namen der Cloud.
 
 ```azurecli-interactive
 az cloud set --name AzureChinaCloud

@@ -10,16 +10,16 @@ ms.author: dbradish
 ms.service: azure-cli
 ms.reviewer: mohnader
 ms.custom: devx-track-azurecli
-ms.openlocfilehash: 27329dd3cb056ff386fb29f0d0143c27c3e62522
-ms.sourcegitcommit: 2da241715d25407ed22c1065c0c793acfd865996
+ms.openlocfilehash: 2155be0bca6b6aa297e4be07a685a379892523c6
+ms.sourcegitcommit: 5d29362589078b66d15f5cd494fe903a5195658d
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 09/09/2020
-ms.locfileid: "89562922"
+ms.lasthandoff: 09/25/2020
+ms.locfileid: "91225914"
 ---
 # <a name="azure-cli-for-azure-network"></a>Azure CLI für das Azure-Netzwerk
 
-Die Azure-Befehlszeilenschnittstelle ([Azure CLI](/cli/azure/what-is-azure-cli)) setzt sich aus Befehlen zum Erstellen und Verwalten von Azure-Ressourcen zusammen.  Die CLI steht in vielen Azure-Diensten zur Verfügung – unter anderem auch im Azure-Netzwerk, um die Verwaltung von Netzwerkdiensten über die Befehlszeile zu ermöglichen.
+Die Azure-Befehlszeilenschnittstelle ([Azure CLI](./what-is-azure-cli.md)) setzt sich aus Befehlen zum Erstellen und Verwalten von Azure-Ressourcen zusammen.  Die CLI steht in vielen Azure-Diensten zur Verfügung – unter anderem auch im Azure-Netzwerk, um die Verwaltung von Netzwerkdiensten über die Befehlszeile zu ermöglichen.
 
 ## <a name="references-for-azure-network"></a>Referenzen für das Azure-Netzwerk
 
@@ -101,7 +101,7 @@ Unter [az network](/cli/azure/network) finden Sie eine vollständige Liste der A
 
 ## <a name="installing-extension-references"></a>Installieren von Erweiterungspaketen
 
-Azure CLI-Erweiterungsreferenzen müssen vor der Verwendung installiert werden.  Mit dem Befehl [az extension add](/cli/azure/azure-cli-extensions-overview) wird eine Erweiterungsreferenz anhand des Namens installiert.  Weitere Informationen zu Erweiterungen finden Sie unter [Verwenden von Erweiterungen mit der Azure CLI](/cli/azure/azure-cli-extensions-overview).
+Azure CLI-Erweiterungsreferenzen müssen vor der Verwendung installiert werden.  Mit dem Befehl [az extension add](./azure-cli-extensions-overview.md) wird eine Erweiterungsreferenz anhand des Namens installiert.  Weitere Informationen zu Erweiterungen finden Sie unter [Verwenden von Erweiterungen mit der Azure CLI](./azure-cli-extensions-overview.md).
 
 ```azurecli
 ## get a list of available Azure CLI extensions
@@ -139,8 +139,8 @@ az extension add --name peering
 
 ## <a name="see-also"></a>Weitere Informationen
 
-- Unter [Erste Schritte mit der Azure CLI](/cli/azure/get-started-with-azure-cli) erhalten Sie Informationen zur Installation und Anmeldung.
+- Unter [Erste Schritte mit der Azure CLI](./get-started-with-azure-cli.md) erhalten Sie Informationen zur Installation und Anmeldung.
 
-- Entdecken Sie weitere [Befehle](/cli/azure/reference-index) und [Erweiterungen](/cli/azure/azure-cli-extensions-list) in der Azure CLI-Dokumentation.
+- Entdecken Sie weitere [Befehle](/cli/azure/reference-index) und [Erweiterungen](./azure-cli-extensions-list.md) in der Azure CLI-Dokumentation.
 
 - Verwalten Sie virtuelle Linux- oder Windows-Computer mit [az vm](/cli/azure/vm).

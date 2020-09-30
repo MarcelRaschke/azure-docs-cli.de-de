@@ -10,16 +10,16 @@ ms.author: dbradish
 ms.service: azure-cli
 ms.reviewer: robb
 ms.custom: devx-track-azurecli
-ms.openlocfilehash: 59d1c816c97c8f1463dc2579a2763bc2b073e238
-ms.sourcegitcommit: 2da241715d25407ed22c1065c0c793acfd865996
+ms.openlocfilehash: d16c745656b3d92942e66cfbcb6764d219d971ec
+ms.sourcegitcommit: 5d29362589078b66d15f5cd494fe903a5195658d
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 09/09/2020
-ms.locfileid: "89562803"
+ms.lasthandoff: 09/25/2020
+ms.locfileid: "91225438"
 ---
 # <a name="azure-cli-for-azure-monitor"></a>Azure CLI für Azure Monitor
 
-Die Azure-Befehlszeilenschnittstelle ([Azure CLI](/cli/azure/what-is-azure-cli)) setzt sich aus Befehlen zum Erstellen und Verwalten von Azure-Ressourcen zusammen.  Sie ist in vielen Azure-Diensten verfügbar, darunter auch Azure Monitor.  Es gibt mehr als 100 Referenzen für Azure Monitor, die Sie bei der effektiven Verwendung von Überwachungsdiensten über eine Befehlszeile unterstützen.
+Die Azure-Befehlszeilenschnittstelle ([Azure CLI](./what-is-azure-cli.md)) setzt sich aus Befehlen zum Erstellen und Verwalten von Azure-Ressourcen zusammen.  Sie ist in vielen Azure-Diensten verfügbar, darunter auch Azure Monitor.  Es gibt mehr als 100 Referenzen für Azure Monitor, die Sie bei der effektiven Verwendung von Überwachungsdiensten über eine Befehlszeile unterstützen.
 
 ## <a name="references-for-azure-monitor"></a>Referenzen für Azure Monitor
 
@@ -48,7 +48,7 @@ Die [Azure Monitor](/azure/azure-monitor/)-CLI-Umgebung setzt sich aus zwei Teil
 
 ### <a name="installing-extension-references"></a>Installieren von Erweiterungspaketen
 
-Azure CLI-Erweiterungsreferenzen müssen vor der Verwendung installiert werden.  Mit dem Befehl [az extension add](/cli/azure/azure-cli-extensions-overview) wird eine Erweiterungsreferenz anhand des Namens installiert.
+Azure CLI-Erweiterungsreferenzen müssen vor der Verwendung installiert werden.  Mit dem Befehl [az extension add](./azure-cli-extensions-overview.md) wird eine Erweiterungsreferenz anhand des Namens installiert.
 
 ```azurecli
 # install the extension for az monitor app-insights
@@ -86,8 +86,8 @@ az monitor activity-log alert create --name MyAlertName --resource-group MyResou
 
 ## <a name="see-also"></a>Weitere Informationen
 
-- Unter [Erste Schritte mit der Azure CLI](/cli/azure/get-started-with-azure-cli) erhalten Sie Informationen zur Installation und Anmeldung.
+- Unter [Erste Schritte mit der Azure CLI](./get-started-with-azure-cli.md) erhalten Sie Informationen zur Installation und Anmeldung.
 
-- Entdecken Sie weitere [veröffentlichte Referenzen](/cli/azure/reference-index) und Referenzen zu [Erweiterungen](/cli/azure/azure-cli-extensions-list) in der Azure CLI-Dokumentation.
+- Entdecken Sie weitere [veröffentlichte Referenzen](/cli/azure/reference-index) und Referenzen zu [Erweiterungen](./azure-cli-extensions-list.md) in der Azure CLI-Dokumentation.
 
-- Weitere Informationen zu Erweiterungen finden Sie unter [Verwenden von Erweiterungen mit der Azure CLI](/cli/azure/azure-cli-extensions-overview).
+- Weitere Informationen zu Erweiterungen finden Sie unter [Verwenden von Erweiterungen mit der Azure CLI](./azure-cli-extensions-overview.md).

@@ -9,12 +9,12 @@ ms.topic: conceptual
 ms.service: azure-cli
 ms.devlang: azurecli
 ms.custom: devx-track-azurecli
-ms.openlocfilehash: d4cc869aa7e23f87cf6f13b8aca9f10cbbca82b5
-ms.sourcegitcommit: 2da241715d25407ed22c1065c0c793acfd865996
+ms.openlocfilehash: fd505aa70b847595d1b3dd02b6d88b60ca95db4c
+ms.sourcegitcommit: 5d29362589078b66d15f5cd494fe903a5195658d
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 09/09/2020
-ms.locfileid: "89563160"
+ms.lasthandoff: 09/25/2020
+ms.locfileid: "91225863"
 ---
 # <a name="output-formats-for-azure-cli-commands"></a>Ausgabeformate für Azure CLI-Befehle
 
@@ -138,7 +138,7 @@ RGDEMO001   KBDemo020
 > az vm list --query "[].{objectID:id}" -o table
 > ```
 
-Weitere Informationen zum Verwenden von Abfragen für die Filterung von Daten finden Sie unter [Verwenden von JMESPath-Abfragen mit der Azure CLI](/cli/azure/query-azure-cli).
+Weitere Informationen zum Verwenden von Abfragen für die Filterung von Daten finden Sie unter [Verwenden von JMESPath-Abfragen mit der Azure CLI](./query-azure-cli.md).
 
 ## <a name="tsv-output-format"></a>TSV-Ausgabeformat
 
@@ -215,4 +215,4 @@ What default output format would you like?
 Please enter a choice [1]:
 ```
 
-Weitere Informationen zum Konfigurieren der Umgebung finden Sie unter [Azure CLI-Konfiguration](/cli/azure/azure-cli-configuration).
+Weitere Informationen zum Konfigurieren der Umgebung finden Sie unter [Azure CLI-Konfiguration](./azure-cli-configuration.md).
