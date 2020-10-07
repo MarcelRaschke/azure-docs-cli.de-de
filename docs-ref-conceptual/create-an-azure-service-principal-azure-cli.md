@@ -9,12 +9,12 @@ ms.topic: conceptual
 ms.service: azure-cli
 ms.devlang: azurecli
 ms.custom: devx-track-azurecli
-ms.openlocfilehash: 3acf4272392d9ef9be37db74b2e7a5087cbeaefb
-ms.sourcegitcommit: 2da241715d25407ed22c1065c0c793acfd865996
+ms.openlocfilehash: f3fb0e589c4a32cc8a8e9e53c0fa3e69bf9576c2
+ms.sourcegitcommit: 5d29362589078b66d15f5cd494fe903a5195658d
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 09/09/2020
-ms.locfileid: "89562531"
+ms.lasthandoff: 09/25/2020
+ms.locfileid: "91225948"
 ---
 # <a name="create-an-azure-service-principal-with-the-azure-cli"></a>Erstellen eines Azure-Dienstprinzipals mit der Azure-Befehlszeilenschnittstelle
 
@@ -189,6 +189,49 @@ az login --service-principal --username APP_ID --tenant TENANT_ID --password /pa
 ```
 
 Weitere Informationen zum Anmelden mit einem Dienstprinzipal finden Sie unter [Anmelden mit der Azure CLI](authenticate-azure-cli.md).
+
+## <a name="create-a-resource-using-service-principal"></a>Erstellen einer Ressource mithilfe des Dienstprinzipals
+
+Der folgende Abschnitt enthält ein Beispiel für die Erstellung einer Ressource für [Azure Storage](/azure/storage/) mit einem Dienstprinzipal. Dazu werden die folgenden Befehle verwendet:
+
+* [az login](/cli/azure/reference-index?view=azure-cli-latest#az_login)
+* [az group create](/cli/azure/group?view=azure-cli-latest#az_group_create)
+* [az storage account create](/cli/azure/storage/account?view=azure-cli-latest#az_storage_account_create)
+* [az storage account keys list](/cli/azure/storage/account/keys?view=azure-cli-latest#az_storage_account_keys_list)
+
+Für die Anmeldung mit einem Dienstprinzipal benötigen Sie die Werte für `appId`, `tenant` und `password`, die beim [Erstellen des Dienstprinzipals](#sign-in-using-a-service-principal) als Antwort zurückgegeben wurden.
+
+1. Melden Sie sich als Dienstprinzipal an.
+
+    ```azurecli-interactive
+    az login --service-principal --username APP_ID --password PASSWORD --tenant TENANT_ID
+    ```
+
+1. Erstellen Sie eine Ressourcengruppe für alle Ressourcen, die für den gleichen Schnellstart, das gleiche Tutorial oder das gleiche Entwicklungsprojekt verwendet werden.
+
+    ```azurecli-interactive
+    az group create --location WESTUS --name MY_RESOURCE_GROUP
+    ```
+
+1. Erstellen Sie eine Ressource für einen Azure-Dienst. Ersetzen Sie `<SERVICENAME>` durch den Namen des Azure-Diensts.
+
+    Für Azure Storage sind folgende Werte für den Parameter `<KIND>` zulässig:
+
+    * BlobStorage
+    * BlockBlobStorage
+    * FileStorage
+    * Storage
+    * StorageV2
+
+    ```azurecli-interactive
+    az storage account create --name MY_RESOURCE_<SERVICENAME> --resource-group MY_RESOURCE_GROUP --kind <KIND> --sku F0 --location WESTUS --yes
+    ```
+
+1. Rufen Sie Ressourcenschlüssel für die neue Ressource ab. Sie verwenden ihn in Ihrem Code zum Authentifizieren beim Azure-Dienst.
+
+    ```azurecli-interactive
+    az storage account keys list --name MY_RESOURCE_<SERVICENAME> --resource-group MY_RESOURCE_GROUP
+    ```
 
 ## <a name="reset-credentials"></a>Zurücksetzen von Anmeldeinformation
 

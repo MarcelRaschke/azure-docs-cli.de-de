@@ -5,17 +5,17 @@ author: dbradish-microsoft
 ms.author: dbradish
 manager: barbkess
 ms.prod: azure
-ms.date: 06/16/2020
+ms.date: 09/25/2020
 ms.topic: conceptual
 ms.devlang: azurecli
 ms.technology: azure-cli
 ms.custom: devx-track-azurecli
-ms.openlocfilehash: 39668b267d3374dd1bdb5f7b1f5e0f0847d2c2fa
-ms.sourcegitcommit: 5d29362589078b66d15f5cd494fe903a5195658d
+ms.openlocfilehash: 26e7f55d661928af78e645e820990a3617724644
+ms.sourcegitcommit: aa44ec97af5c0e7558d254b3159f95921e22ff1c
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 09/25/2020
-ms.locfileid: "91225812"
+ms.lasthandoff: 10/01/2020
+ms.locfileid: "91625379"
 ---
 # <a name="install-azure-cli-on-windows"></a>Installieren der Azure CLI unter Windows
 
@@ -54,7 +54,9 @@ Laden Sie die Betaversion der Azure CLI herunter, und installieren Sie sie.
 > [!div class="nextstepaction"]
 > [Betaversion der Azure CLI](https://aka.ms/installazurecliwindowsbeta)
 
-# <a name="microsoft-installer-msi-with-powershell"></a>[Microsoft Installer (MSI) mit PowerShell](#tab/azure-powershell)
+# <a name="microsoft-installer-msi-with-command"></a>[Microsoft Installer (MSI) mit Befehl](#tab/azure-powershell)
+
+### <a name="powershell-command"></a>PowerShell-Befehl
 
 Sie können die Azure-Befehlszeilenschnittstelle auch mithilfe von PowerShell installieren. Starten Sie PowerShell als Administrator, und führen Sie den folgenden Befehl aus:
 
@@ -63,6 +65,9 @@ Sie können die Azure-Befehlszeilenschnittstelle auch mithilfe von PowerShell in
    ```
 
 Dadurch wird die aktuelle Version der Azure-Befehlszeilenschnittstelle für Windows heruntergeladen und installiert. Haben Sie bereits eine Version installiert, wird die vorhandene Version vom Installationsprogramm aktualisiert. Nach Abschluss der Installation müssen Sie PowerShell erneut öffnen, damit die Azure-Befehlszeilenschnittstelle verwendet werden kann.
+
+### <a name="azure-cli-command-for-update-only"></a>Azure CLI-Befehl (nur für die Aktualisierung)
+[!INCLUDE [az-upgrade](includes/az-upgrade.md)]
 
 ---
 

@@ -4,17 +4,17 @@ description: Installieren der Azure CLI mit yum
 author: dbradish-microsoft
 ms.author: dbradish
 manager: barbkess
-ms.date: 11/26/2019
+ms.date: 09/25/2020
 ms.topic: conceptual
 ms.service: azure-cli
 ms.devlang: azurecli
 ms.custom: devx-track-azurecli
-ms.openlocfilehash: ad04bf283e9f8b1ed72281ec010ec42986dcd252
-ms.sourcegitcommit: 5d29362589078b66d15f5cd494fe903a5195658d
+ms.openlocfilehash: 08ef942ace04f018d52cf1f6f7b20dc344953485
+ms.sourcegitcommit: aa44ec97af5c0e7558d254b3159f95921e22ff1c
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 09/25/2020
-ms.locfileid: "91225829"
+ms.lasthandoff: 10/01/2020
+ms.locfileid: "91625362"
 ---
 # <a name="install-azure-cli-with-yum"></a>Installieren der Azure CLI mit yum
 
@@ -95,7 +95,9 @@ Zum Abrufen des Microsoft-Signaturschlüssels und des Pakets von unserem Reposit
 
 ## <a name="update"></a>Aktualisieren
 
-Aktualisieren Sie die Azure CLI mit dem Befehl `yum update`.
+[!INCLUDE [az-upgrade](includes/az-upgrade.md)]
+
+Sie können die Azure CLI auch mit dem Befehl `yum update` aktualisieren.
 
 ```bash
 sudo yum update azure-cli

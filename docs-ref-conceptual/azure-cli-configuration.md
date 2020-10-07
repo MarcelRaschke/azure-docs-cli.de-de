@@ -4,17 +4,17 @@ description: Konfigurieren der Azure CLI
 author: dbradish-microsoft
 ms.author: dbradish
 manager: barbkess
-ms.date: 06/11/2018
+ms.date: 09/30/2020
 ms.topic: conceptual
 ms.service: azure-cli
 ms.devlang: azurecli
 ms.custom: devx-track-azurecli
-ms.openlocfilehash: 8a431f3303d900cc5d2f8787d531d17d41a68a9e
-ms.sourcegitcommit: 5d29362589078b66d15f5cd494fe903a5195658d
+ms.openlocfilehash: 232e08faca59c0cc0a7c4f2d94bce732bbeb9ebb
+ms.sourcegitcommit: aa44ec97af5c0e7558d254b3159f95921e22ff1c
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 09/25/2020
-ms.locfileid: "91225302"
+ms.lasthandoff: 10/01/2020
+ms.locfileid: "91625226"
 ---
 # <a name="azure-cli-configuration"></a>Azure CLI-Konfiguration
 
@@ -94,6 +94,10 @@ Wenn Sie einen Standardwert angeben, wird dieses Argument von keinem Befehl mehr
 | | log\_dir | Zeichenfolge | Das Verzeichnis, in das Protokolle geschrieben werden sollen. Standardmäßig ist dieser Wert auf `${AZURE_CONFIG_DIR}/logs` festgelegt. |
 | __defaults__ | group | Zeichenfolge | Die Standardressourcengruppe für alle Befehle. |
 | | location | Zeichenfolge | Der Standardstandort für alle Befehle. |
+| | Web- | Zeichenfolge | Der Standard-App-Name für `az webapp`-Befehle. |
+| | vm | Zeichenfolge | Der Standard-VM-Name für `az vm`-Befehle. |
+| | vmss | Zeichenfolge | Der Standardname einer VM-Skalierungsgruppe (VMSS), der für `az vmss`-Befehle verwendet wird |
+| | acr | Zeichenfolge | Der standardmäßige Containerregistrierungsname für `az acr`-Befehle. |
 | __storage__ | connection\_string | Zeichenfolge | Die Standardverbindungszeichenfolge für `az storage`-Befehle. |
 | | account | Zeichenfolge | Der Standardkontoname für `az storage`-Befehle. |
 | | Schlüssel | Zeichenfolge | Der Standardkontoschlüssel für `az storage`-Befehle. |

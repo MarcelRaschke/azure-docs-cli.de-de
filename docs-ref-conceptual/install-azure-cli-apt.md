@@ -4,30 +4,32 @@ description: Installieren der Azure CLI mit dem apt-Paket-Manager
 author: dbradish-microsoft
 ms.author: dbradish
 manager: barbkess
-ms.date: 10/14/2019
+ms.date: 09/29/2020
 ms.topic: conceptual
 ms.service: azure-cli
 ms.devlang: azurecli
 ms.custom: devx-track-azurecli
-ms.openlocfilehash: d098e8fe1016977cd10e3a7a89c28b59df8b3fca
-ms.sourcegitcommit: 5d29362589078b66d15f5cd494fe903a5195658d
+ms.openlocfilehash: 242c634717cf964af718873ab9ecf84ff707db3d
+ms.sourcegitcommit: aa44ec97af5c0e7558d254b3159f95921e22ff1c
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 09/25/2020
-ms.locfileid: "91225897"
+ms.lasthandoff: 10/01/2020
+ms.locfileid: "91625413"
 ---
 # <a name="install-azure-cli-with-apt"></a>Installieren der Azure CLI mit apt
 
 Wenn Sie eine Distribution mit `apt` verwenden (etwa Ubuntu oder Debian), steht ein x86_64-Paket für die Azure CLI zur Verfügung. Dieses Paket wurde mit folgenden Produkten getestet und wird für diese unterstützt:
 
-* Ubuntu Trusty, Senial, Artful, Bionic und Disco
-* Debian Wheezy, Jessie, Stretch und Buster
+* Ubuntu Trusty, Xenial, Bionic, Eoan und Focal
+* Debian Jessie, Stretch und Buster
 
 [!INCLUDE [current-version](includes/current-version.md)]
 
 > [!NOTE]
 >
-> Das Paket für die Azure CLI installiert einen eigenen Python-Interpreter und verwendet nicht die Python-Version des Systems.
+> Das Paket für die Azure CLI installiert einen eigenen Python-Interpreter und verwendet nicht die Python-Version des Systems. 
+>
+> Unter Ubuntu 20.04 (Focal) ist ein vom `focal/universe`-Repository bereitgestelltes `azure-cli`-Paket mit der Version `2.0.81` verfügbar. Es ist veraltet und wird nicht empfohlen. Wenn Sie es bereits installiert haben, entfernen Sie es zunächst durch Ausführen von `sudo apt remove azure-cli -y && sudo apt autoremove -y`, bevor Sie die folgenden Schritte zum Installieren des aktuellen `azure-cli`-Pakets ausführen.
 
 ## <a name="install"></a>Installieren
 
@@ -89,6 +91,9 @@ Weitere Informationen zu verschiedenen Authentifizierungsmethoden finden Sie unt
 
 In diesem Abschnitt finden Sie einige allgemeine Probleme, die bei der Installation mit `apt` auftreten können. Falls ein Problem auftritt, das hier nicht behandelt wird, [melden Sie es auf GitHub](https://github.com/Azure/azure-cli/issues).
 
+### <a name="no-module-issue-on-ubuntu-2004-focalwsl"></a>Problem vom Typ „Kein Modul“ unter Ubuntu 20.04 (Focal)/WSL
+Wenn Sie `azure-cli` unter `Focal` installiert haben, ohne das Azure CLI-Softwarerepository in [Schritt 3](#set-release) der Anweisungen für die manuelle Installation hinzuzufügen oder unser [Skript](#install-with-one-command) zu verwenden, treten unter Umständen Probleme auf, etwa das Problem „Kein Modul mit dem Namen 'decorator' or 'antlr4'“. Das ist darauf zurückzuführen, dass es sich beim installierten Paket um das veraltete Paket `azure-cli 2.0.81` aus dem Repository `focal/universe` handelt. Entfernen Sie das Paket zuerst, indem Sie `sudo apt remove azure-cli -y && sudo apt autoremove -y` ausführen. Befolgen Sie anschließend die obigen [Anweisungen](#install) zum Installieren des aktuellen `azure-cli`-Pakets.
+
 ### <a name="lsb_release-does-not-return-the-correct-base-distribution-version"></a>„lsb_release“ gibt nicht die richtige Basisdistributionsversion zurück.
 
 Einige von Ubuntu oder Debian abgeleiteten Distributionen wie Linux Mint geben über `lsb_release` unter Umständen nicht den richtigen Versionsnamen zurück. Mit diesem Wert wird im Installationsprozess das zu installierende Pakete ermittelt. Wenn Sie den Codenamen der Ubuntu- oder Debian-Version kennen, von der Ihre Distribution abgeleitet ist, können Sie beim [Hinzufügen des Repositorys](#set-release) den Wert `AZ_REPO` manuell festlegen. Sehen Sie sich andernfalls Informationen dazu an, wie Sie für Ihre Distribution den Basisdistributions-Codenamen ermitteln, und legen Sie `AZ_REPO` auf den richtigen Wert fest.
@@ -140,8 +145,9 @@ Zum Abrufen des Microsoft-Signaturschlüssels und des Pakets von unserem Reposit
 [!INCLUDE[troubleshoot-wsl.md](includes/troubleshoot-wsl.md)]
 
 ## <a name="update"></a>Aktualisieren
+[!INCLUDE [az-upgrade](includes/az-upgrade.md)]
 
-Verwenden Sie `apt-get upgrade` zum Aktualisieren des CLI-Pakets.
+Sie können auch `apt-get upgrade` zum Aktualisieren des CLI-Pakets verwenden.
 
    ```bash
    sudo apt-get update && sudo apt-get upgrade

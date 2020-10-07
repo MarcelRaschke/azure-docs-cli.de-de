@@ -4,21 +4,29 @@ description: Enthält Informationen zu den aktuellen Updates der Azure CLI.
 author: dbradish-microsoft
 ms.author: dbradish
 manager: barbkess
-ms.date: 09/22/2020
+ms.date: 09/29/2020
 ms.topic: article
 ms.service: azure-cli
 ms.devlang: azurecli
 ms.custom: devx-track-azurecli
-ms.openlocfilehash: 54befd19d810d84dd076241bd0718c933b3ff2d8
-ms.sourcegitcommit: a0cc51d7b2b39a52c402af1d98d3b48ff369bd16
+ms.openlocfilehash: 613411f9565298e606812af258486acb4b722fc0
+ms.sourcegitcommit: dd42eae9469c48f3cce66347e8e1cac317887a3a
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 09/22/2020
-ms.locfileid: "90875929"
+ms.lasthandoff: 09/29/2020
+ms.locfileid: "91422510"
 ---
 # <a name="azure-cli-release-notes"></a>Versionshinweise für die Azure CLI
 
 # <a name="current-release-notes"></a>[Aktuelle Versionshinweise](#tab/azure-cli)
+
+## <a name="september-29-2020"></a>29. September 2020
+
+Version 2.12.1
+
+### <a name="rdbms"></a>RDBMS
+
+* Hotfix: `az postgres flexible-server create`: VnetName zum Ausschließen des Servernamens aktualisiert und Standardregion für MySQL aktualisiert
 
 ## <a name="september-22-2020"></a>22. September 2020
 
