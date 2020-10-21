@@ -9,12 +9,12 @@ ms.topic: conceptual
 ms.service: azure-cli
 ms.devlang: azurecli
 ms.custom: devx-track-azurecli
-ms.openlocfilehash: 53fa51e3d17069c9d3af62d53214d366f33779b4
-ms.sourcegitcommit: 6c3032b1d74c65a8f186b3063ab6b301350e3704
+ms.openlocfilehash: 4ffd47b7d88dafc717f496fe40d9db68c7af28a3
+ms.sourcegitcommit: ce10a134cb3c73aec32bb4f5887b09d08f9bde53
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 09/11/2020
-ms.locfileid: "90012730"
+ms.lasthandoff: 10/21/2020
+ms.locfileid: "92308062"
 ---
 # <a name="use-azure-cli-effectively"></a>Effektive Verwendung der Azure CLI
 
@@ -254,6 +254,8 @@ Ein Proxy wird in Unternehmensnetzwerken häufig im Hintergrund genutzt oder ist
     ```
 
    Es wird häufig gefragt, ob die Umgebungsvariablen `HTTP_PROXY` bzw. `HTTPS_PROXY` festgelegt werden sollten. Die Antwort ist, dass dies vom jeweiligen Fall abhängt. Bei Verwendung von Fiddler unter Windows fungiert die Anwendung beim Start standardmäßig als Systemproxy, sodass Sie nichts festlegen müssen. Wenn die Option deaktiviert ist oder wenn Sie andere Tools verwenden, die nicht als Systemproxy fungieren, sollten Sie die Variablen festlegen. Da fast der gesamte Datenverkehr von der CLI SSL-basiert ist, sollte nur `HTTPS_PROXY` festgelegt werden. Falls Sie unsicher sind, können Sie auch einfach beide Variablen festlegen. Denken Sie aber daran, dies rückgängig zu machen, nachdem der Proxy heruntergefahren wurde. Der Standardwert für Fiddler ist `http://localhost:8888`.
+
+   Für einige Proxys ist Authentifizierung erforderlich. Daher muss das Format der Umgebungsvariablen `HTTP_PROXY` oder `HTTPS_PROXY` die Authentifizierung beinhalten, z. B. `HTTPS_PROXY="https://username:password@proxy-server:port"`. Es wird von den zugrunde liegenden Python-Bibliotheken benötigt. Ausführliche Informationen finden Sie unter [Konfigurieren von Proxys für die Azure-Bibliotheken](https://docs.microsoft.com/azure/developer/python/azure-sdk-configure-proxy?tabs=bash). 
 
    Weitere Informationen finden Sie im [Blog von Stefan](https://blog.jhnr.ch/2018/05/16/working-with-azure-cli-behind-ssl-intercepting-proxy-server/).
 
