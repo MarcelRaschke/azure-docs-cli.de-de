@@ -4,21 +4,119 @@ description: Enthält Informationen zu den aktuellen Updates der Azure CLI.
 author: dbradish-microsoft
 ms.author: dbradish
 manager: barbkess
-ms.date: 09/29/2020
+ms.date: 10/13/2020
 ms.topic: article
 ms.service: azure-cli
 ms.devlang: azurecli
 ms.custom: devx-track-azurecli
-ms.openlocfilehash: 613411f9565298e606812af258486acb4b722fc0
-ms.sourcegitcommit: dd42eae9469c48f3cce66347e8e1cac317887a3a
+ms.openlocfilehash: bc77b0601222b4956a6f5bed4159859fca4c3a81
+ms.sourcegitcommit: 19c24ebcd1e15ac23ca40ebc28b8c4804bd1327f
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 09/29/2020
-ms.locfileid: "91422510"
+ms.lasthandoff: 10/14/2020
+ms.locfileid: "92029658"
 ---
 # <a name="azure-cli-release-notes"></a>Versionshinweise für die Azure CLI
 
 # <a name="current-release-notes"></a>[Aktuelle Versionshinweise](#tab/azure-cli)
+
+## <a name="october-13-2020"></a>13. Oktober 2020
+
+Version 2.13.0
+
+### <a name="acr"></a>ACR
+
+* `az acr helm`: URL zur eingestellten Unterstützung aktualisiert
+* logtemplate- und systemtask-Änderungen für ACR Tasks hinzugefügt
+
+### <a name="aks"></a>AKS
+
+* Unterstützung von „virtual-node“ bei „aks create“: `az aks create --enable-addons virtual-node`
+* Option nur für Knotenimages für CLI hinzugefügt
+* Es wird erwartet, dass das Add-On „kube-dashboard“ standardmäßig deaktiviert wird.
+* `az aks create/update`: LicenseType-Unterstützung für Windows hinzugefügt
+* Unterstützung für das Hinzufügen eines Spot-Knotenpools
+* Beachten der in der Azure CLI definierten Add-On-Namen
+
+### <a name="ams"></a>AMS
+
+* Fehlerbehebung Nr. 14687: Gemischte Ressourcengruppen- und Kontonamen im Befehl „az ams streaming-endpoint show“
+
+### <a name="app-config"></a>App-Konfiguration
+
+* Testfehler behoben
+* Unterstützung der AAD-Authentifizierung für Datenvorgänge
+
+### <a name="app-service"></a>App Service
+
+* `az functionapp deployment source config-zip`: Es wurde ein Problem behoben, das dazu führte, dass „config-zip“ bei Erfolg unter Linux ggf. eine Ausnahme auslöste.
+* Fehlerbehebung: Bessere Fehlermeldungen für Befehle vom Typ „webapp“
+* `az appservice domain create, show-terms`: Option zum Erstellen einer App Service-Domäne hinzugefügt
+* `az functionapp create`: Vorschauflag aus Java 11 beim Erstellen einer neuen Funktions-App entfernt
+* [BREAKING CHANGE:] az webapp create, az webapp up – verfügbare webapp-Runtimes aktualisiert
+
+### <a name="arm"></a>ARM
+
+* `az ts`: Neue Befehle für Vorlagenspezifikationen hinzugefügt
+* `az deployment` : Unterstützung für „--template-spec -s“ hinzugefügt
+
+### <a name="compute"></a>Compute
+
+* Beschränkung der FD-Anzahl bei der Hostgruppenerstellung korrigiert
+* Neuer Befehl hinzugefügt, um das Upgrade von Erweiterungen für VMSS zu unterstützen
+* Problem des fehlenden Imageverweises behoben
+
+### <a name="hdinsight"></a>HDInsight
+
+* `az hdinsight create`: Informationen zur Einstellung für Argument „--public-networrk-access-type“ und „--outbound-public-network-access-type“ hinzugefügt
+* `az hdinsight create`: Informationen zur Einstellung für Argument `--public-networrk-access-type` und `--outbound-public-network-access-type` hinzugefügt
+* `az hdinsight create`: Parameter `--idbroker` hinzugefügt, um die Erstellung von ESP-Clustern mit HDInsight-Identitätsbroker für Kunden zu unterstützen
+
+### <a name="iot-central"></a>IoT Central
+
+* Veraltetes Befehlsmodul „az iotcentral“ entfernt
+
+### <a name="key-vault"></a>Key Vault
+
+* Unterstützung von `--hsm-name` für `az keyvault key encrypt/decrypt`
+
+### <a name="lab"></a>Labor
+
+* Fehlerbehebung Nr. 14127: `__init__()` akzeptiert ein positionelles Argument, angegeben wurden jedoch zwei.
+
+### <a name="network"></a>Netzwerk
+
+* `az network application-gateway ssl-cert show`: Beispiel zur Veranschaulichung des Zertifikatformats und der Abrufinformationen hinzugefügt
+* `az network application-gateway rule`: Unterstützung für die Option „--priority“
+* `az network application-gateway create`: Fehler behoben, dass die Erstellung ohne Angabe der öffentlichen IP-Adresse nicht möglich ist
+* `az network application-gateway waf-policy managed-rule rule-set add`: Verfügbarmachen des Serverfehlers für den Benutzer, um eine intuitivere Hinweismeldung zu ermöglich
+* `az network application-gateway waf-policy managed-rule rule-set update`: Unterstützung zur Änderung der Typversion des Regelsatzes
+
+### <a name="rdbms"></a>RDBMS
+
+* Fehlerbehebung: az postgres flexible-server create – hartcodierte API-Version aus Netzwerkclient entfernt
+
+### <a name="role"></a>Role
+
+* Fehlerbehebung Nr. 15278: `az role assignment list/delete`: Leere Zeichenfolgenargumente verboten
+
+### <a name="sql"></a>SQL
+
+* `az sql midb log-replay`: Unterstützung für den Protokollwiedergabedienst in der verwalteten Datenbank
+* Ignorieren der Groß-/Kleinschreibung im Parameterwert für die Sicherungsspeicherredundanz für verwaltete Instanzen
+* [BREAKING CHANGE:] az sql db create: Parameter „--backup-storage-redundancy“ hinzugefügt. Warnung, wenn folgende Angabe fehlt: bsr/bsr == Geo
+
+### <a name="sql-vm"></a>SQL-VM
+
+* `az sql vm show`: Konfigurationsoptionen für das Flag „--expand“ hinzugefügt
+
+### <a name="storage"></a>Storage
+
+* [BREAKING CHANGE] `az storage blob copy start`: Formatproblem für `--destination-if-modified-since` und `--destination-if-unmodified-since` behoben
+* [BREAKING CHANGE] `az storage blob incremental-copy start`: Formatproblem für `--destination-if-modified-since` und `--destination-if-unmodified-since` behoben
+* `az storage fs`: Problem mit Verbindungszeichenfolge behoben
+* `az storage share-rm`: Zugriffsebene der GA-Version
+* `az storage container-rm`: Neue Befehlsgruppe hinzugefügt, um den Ressourcenanbieter „Microsoft.Storage“ für Verwaltungsvorgänge für Container zu verwenden
 
 ## <a name="september-29-2020"></a>29. September 2020
 
