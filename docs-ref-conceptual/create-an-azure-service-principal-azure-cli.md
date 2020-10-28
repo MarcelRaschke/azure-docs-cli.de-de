@@ -9,12 +9,12 @@ ms.topic: conceptual
 ms.service: azure-cli
 ms.devlang: azurecli
 ms.custom: devx-track-azurecli
-ms.openlocfilehash: f3fb0e589c4a32cc8a8e9e53c0fa3e69bf9576c2
-ms.sourcegitcommit: 5d29362589078b66d15f5cd494fe903a5195658d
+ms.openlocfilehash: 17f550e2ce1df2e171d51c262d7a5e0428965039
+ms.sourcegitcommit: 1187fb75b68426c46e84b3f294c509ee7b7da9be
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 09/25/2020
-ms.locfileid: "91225948"
+ms.lasthandoff: 10/27/2020
+ms.locfileid: "92686998"
 ---
 # <a name="create-an-azure-service-principal-with-the-azure-cli"></a>Erstellen eines Azure-Dienstprinzipals mit der Azure-Befehlszeilenschnittstelle
 
@@ -43,9 +43,9 @@ Ohne jegliche Authentifizierungsparameter wird die kennwortbasierte Authentifizi
   ```
 
 > [!IMPORTANT]
-> Ab Azure CLI 2.0.68 wird der Parameter `--password` zum Erstellen eines Dienstprinzipals mit einem benutzerdefinierten Kennwort __nicht mehr unterstützt__, um die versehentliche Verwendung von unsicheren Kennwörtern zu verhindern.
+> Ab Azure CLI 2.0.68 wird der Parameter `--password` zum Erstellen eines Dienstprinzipals mit einem benutzerdefinierten Kennwort __nicht mehr unterstützt__ , um die versehentliche Verwendung von unsicheren Kennwörtern zu verhindern.
 
-Die Ausgabe für einen Dienstprinzipal mit Kennwortauthentifizierung enthält den Schlüssel `password`. Kopieren Sie diesen Wert __unbedingt__, da er nicht abgerufen werden kann. Wenn Sie das Kennwort vergessen haben, [setzen Sie die Anmeldeinformationen des Dienstprinzipals zurück](#reset-credentials).
+Die Ausgabe für einen Dienstprinzipal mit Kennwortauthentifizierung enthält den Schlüssel `password`. Kopieren Sie diesen Wert __unbedingt__ , da er nicht abgerufen werden kann. Wenn Sie das Kennwort vergessen haben, [setzen Sie die Anmeldeinformationen des Dienstprinzipals zurück](#reset-credentials).
 
 Die Schlüssel `appId` und `tenant` werden in der Ausgabe von `az ad sp create-for-rbac` angezeigt und bei der Dienstprinzipalauthentifizierung verwendet.
 Notieren Sie die Werte. Sie können jedoch auch jederzeit mit [az ad sp list](/cli/azure/ad/sp#az-ad-sp-list) abgerufen werden.
@@ -55,7 +55,7 @@ Notieren Sie die Werte. Sie können jedoch auch jederzeit mit [az ad sp list](/c
 Verwenden Sie für die zertifikatbasierte Authentifizierung das Argument `--cert`. Bei Verwendung dieses Arguments muss bereits ein Zertifikat vorhanden sein. Vergewissern Sie sich, dass alle Tools, die diesen Dienstprinzipal verwenden, Zugriff auf den privaten Schlüssel des Zertifikats haben. Zertifikate müssen in einem ASCII-Format vorliegen, etwa PEM, CER oder DER. Übergeben Sie das Zertifikat als Zeichenfolge, oder verwenden Sie das Format `@path`, um das Zertifikat aus einer Datei zu laden.
 
 > [!NOTE]
-> Bei Verwendung einer PEM-Datei muss das Zertifikat (**CERTIFICATE**) an den privaten Schlüssel (**PRIVATE KEY**) in der Datei angefügt werden.
+> Bei Verwendung einer PEM-Datei muss das Zertifikat ( **CERTIFICATE** ) an den privaten Schlüssel ( **PRIVATE KEY** ) in der Datei angefügt werden.
 
 ```azurecli-interactive
 az ad sp create-for-rbac --name ServicePrincipalName --cert "-----BEGIN CERTIFICATE-----
@@ -106,9 +106,9 @@ myCertificateValue
 ```
 
 > [!NOTE]
-> Mit dem Befehl `az ad sp create-for-rbac --create-cert` werden der Dienstprinzipal und eine PEM-Datei erstellt. Die PEM-Datei enthält einen ordnungsgemäß formatierten privaten Schlüssel (**PRIVATE KEY**) und ein ordnungsgemäß formatiertes Zertifikat (**CERTIFICATE**).
+> Mit dem Befehl `az ad sp create-for-rbac --create-cert` werden der Dienstprinzipal und eine PEM-Datei erstellt. Die PEM-Datei enthält einen ordnungsgemäß formatierten privaten Schlüssel ( **PRIVATE KEY** ) und ein ordnungsgemäß formatiertes Zertifikat ( **CERTIFICATE** ).
 
-Das Argument `--keyvault` kann hinzugefügt werden, um das Zertifikat in Azure Key Vault zu speichern. Bei Verwendung von `--keyvault` ist das Argument `--cert`__erforderlich__.
+Das Argument `--keyvault` kann hinzugefügt werden, um das Zertifikat in Azure Key Vault zu speichern. Bei Verwendung von `--keyvault` ist das Argument `--cert`__erforderlich__ .
 
 ```azurecli-interactive
 az ad sp create-for-rbac --name ServicePrincipalName --create-cert --cert CertName --keyvault VaultName
@@ -152,9 +152,9 @@ Die Azure CLI enthält die folgenden Befehle zum Verwalten von Rollenzuweisungen
 * [az role assignment create](/cli/azure/role/assignment#az-role-assignment-create)
 * [az role assignment delete](/cli/azure/role/assignment#az-role-assignment-delete)
 
-Standardmäßig hat ein Dienstprinzipal die Rolle **Mitwirkender**. Diese Rolle besitzt uneingeschränkte Berechtigungen für Lese- und Schreibvorgänge in einem Azure-Konto. Die Rolle **Leser** ist stärker eingeschränkt und bietet schreibgeschützten Zugriff.  Weitere Informationen zur rollenbasierten Zugriffssteuerung (Role-Based Access Control, RBAC) finden Sie unter [Rollenbasierte Zugriffssteuerung: Integrierte Rollen](/azure/active-directory/role-based-access-built-in-roles).
+Standardmäßig hat ein Dienstprinzipal die Rolle **Mitwirkender** . Diese Rolle besitzt uneingeschränkte Berechtigungen für Lese- und Schreibvorgänge in einem Azure-Konto. Die Rolle **Leser** ist stärker eingeschränkt und bietet schreibgeschützten Zugriff.  Weitere Informationen zur rollenbasierten Zugriffssteuerung (Role-Based Access Control, RBAC) finden Sie unter [Rollenbasierte Zugriffssteuerung: Integrierte Rollen](/azure/active-directory/role-based-access-built-in-roles).
 
-Das folgende Beispiel fügt die Rolle **Leser** hinzu und entfernt die Rolle **Mitwirkender**:
+Das folgende Beispiel fügt die Rolle **Leser** hinzu und entfernt die Rolle **Mitwirkender** :
 
 ```azurecli-interactive
 az role assignment create --assignee APP_ID --role Reader
@@ -182,7 +182,7 @@ So melden Sie sich mit einem Dienstprinzipal und einem Kennwort an:
 az login --service-principal --username APP_ID --password PASSWORD --tenant TENANT_ID
 ```
 
-Um sich mit einem Zertifikat anmelden zu können, muss es lokal als PEM- oder DER-Datei im ASCII-Format verfügbar sein. Bei Verwendung einer PEM-Datei müssen der private Schlüssel (**PRIVATE KEY**) und das Zertifikat (**CERTIFICATE**) gemeinsam innerhalb der Datei angefügt werden.
+Um sich mit einem Zertifikat anmelden zu können, muss es lokal als PEM- oder DER-Datei im ASCII-Format verfügbar sein. Bei Verwendung einer PEM-Datei müssen der private Schlüssel ( **PRIVATE KEY** ) und das Zertifikat ( **CERTIFICATE** ) gemeinsam innerhalb der Datei angefügt werden.
 
 ```azurecli-interactive
 az login --service-principal --username APP_ID --tenant TENANT_ID --password /path/to/cert
@@ -194,10 +194,10 @@ Weitere Informationen zum Anmelden mit einem Dienstprinzipal finden Sie unter [A
 
 Der folgende Abschnitt enthält ein Beispiel für die Erstellung einer Ressource für [Azure Storage](/azure/storage/) mit einem Dienstprinzipal. Dazu werden die folgenden Befehle verwendet:
 
-* [az login](/cli/azure/reference-index?view=azure-cli-latest#az_login)
-* [az group create](/cli/azure/group?view=azure-cli-latest#az_group_create)
-* [az storage account create](/cli/azure/storage/account?view=azure-cli-latest#az_storage_account_create)
-* [az storage account keys list](/cli/azure/storage/account/keys?view=azure-cli-latest#az_storage_account_keys_list)
+* [az login](/cli/azure/reference-index?#az_login)
+* [az group create](/cli/azure/group#az_group_create)
+* [az storage account create](/cli/azure/storage/account#az_storage_account_create)
+* [az storage account keys list](/cli/azure/storage/account/keys#az_storage_account_keys_list)
 
 Für die Anmeldung mit einem Dienstprinzipal benötigen Sie die Werte für `appId`, `tenant` und `password`, die beim [Erstellen des Dienstprinzipals](#sign-in-using-a-service-principal) als Antwort zurückgegeben wurden.
 
@@ -240,3 +240,8 @@ Wenn Sie die Anmeldeinformationen für einen Dienstprinzipal vergessen haben, ve
 ```azurecli-interactive
 az ad sp credential reset --name APP_ID
 ```
+
+## <a name="see-also"></a>Weitere Informationen:
+
+* [Anwendungs- und Dienstprinzipalobjekte in Azure Active Directory](/azure/active-directory/develop/app-objects-and-service-principals)
+* [Verwalten von Dienstprinzipalen](/azure/developer/python/how-to-manage-service-principals)
