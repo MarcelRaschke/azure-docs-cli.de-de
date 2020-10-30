@@ -9,12 +9,12 @@ ms.topic: conceptual
 ms.service: azure-cli
 ms.devlang: azurecli
 ms.custom: devx-track-azurecli
-ms.openlocfilehash: 0bf5fb04c90cea7185b169af756db29f9a97b235
-ms.sourcegitcommit: aa44ec97af5c0e7558d254b3159f95921e22ff1c
+ms.openlocfilehash: e501d05985b0483442ab11f78343d773fd7e55bf
+ms.sourcegitcommit: 1187fb75b68426c46e84b3f294c509ee7b7da9be
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 10/01/2020
-ms.locfileid: "91625345"
+ms.lasthandoff: 10/27/2020
+ms.locfileid: "92687098"
 ---
 # <a name="install-azure-cli-with-zypper"></a>Installieren der Azure CLI mit zypper
 
@@ -61,23 +61,49 @@ Weitere Informationen zu verschiedenen Authentifizierungsmethoden finden Sie unt
 
 In diesem Abschnitt finden Sie einige allgemeine Probleme, die bei der Installation mit `zypper` auftreten können. Falls ein Problem auftritt, das hier nicht behandelt wird, [melden Sie es auf GitHub](https://github.com/Azure/azure-cli/issues).
 
+### <a name="notimplementederror-on-opensuse-15-vm"></a>NotImplementedError auf OpenSUSE 15-VM
+Auf der OpenSUSE 15-VM ist die Azure CLI mit Version `2.0.45` vorinstalliert. Diese ist veraltet, und es treten Probleme mit `az login` auf. Entfernen Sie sie zusammen mit den zugehörigen Abhängigkeiten, bevor Sie die [Installationsanweisungen](#install) zum Hinzufügen der aktuellen Azure CLI befolgen:
+```bash
+sudo zypper rm -y --clean-deps azure-cli
+```
+
+Wenn Sie die Azure CLI aktualisiert haben, ohne die Abhängigkeiten von Version `2.0.45` zu entfernen, beeinträchtigen die alten Abhängigkeiten unter Umständen die aktuelle Version der Azure CLI. Sie müssen die alte Version wieder hinzufügen, um eine Verknüpfung mit ihren Abhängigkeiten herzustellen, und anschließend `azure-cli` zusammen mit den Abhängigkeiten entfernen:
+```bash
+# The package name may vary on different system version, run 'zypper --no-refresh info azure-cli' to check the source package format
+sudo zypper install --oldpackage azure-cli-2.0.45-4.22.noarch
+
+sudo zypper rm -y --clean-deps azure-cli
+```
+
+
 ### <a name="install-on-sles-12-or-other-systems-without-python-36"></a>Installieren auf SLES 12 oder anderen Systemen ohne Python 3.6
 
-Auf SLES 12 ist das 3.4 das standardmäßige python3-Paket und wird von der Azure CLI nicht unterstützt. Sie können zuerst python3 mit einer höheren Version aus der Quelle erstellen. Anschließend können Sie das Azure CLI-Paket herunterladen und ohne Abhängigkeit installieren.
+Unter SLES 12 ist `3.4` das standardmäßige `python3`-Paket und wird von der Azure CLI nicht unterstützt. Sie können zuerst die Schritte 1 bis 3 der [Installationsanweisungen](#install) ausführen, um das Repository `azure-cli` hinzuzufügen. Erstellen Sie dann eine höhere Version von `python3` aus der Quelle. Abschließend können Sie das Azure CLI-Paket herunterladen und ohne Abhängigkeit installieren.
+
+Sie können den folgenden Befehl verwenden, um die Azure CLI zu installieren. (Beachten Sie, dass Ihre vorhandene Python 3-Version von Python 3.6 überschrieben wird.)
 ```bash
+curl -sL https://azurecliprod.blob.core.windows.net/sles12_install.sh | sudo bash
+```
+
+Alternativ können Sie Schritt für Schritt vorgehen:
+
+```bash
+# !Please add azure-cli repository first following step 1-3 of the install instruction before running below commands
+$ sudo zypper refresh
 $ sudo zypper install -y gcc gcc-c++ make ncurses patch wget tar zlib-devel zlib openssl-devel
 # Download Python source code
 $ PYTHON_VERSION="3.6.9"
 $ PYTHON_SRC_DIR=$(mktemp -d)
 $ wget -qO- https://www.python.org/ftp/python/$PYTHON_VERSION/Python-$PYTHON_VERSION.tgz | tar -xz -C "$PYTHON_SRC_DIR"
 # Build Python
-$ $PYTHON_SRC_DIR/*/configure
+# Please be aware that with --prefix=/usr, the command will override the existing Python 3 version
+$ $PYTHON_SRC_DIR/*/configure --prefix=/usr
 $ make
 $ sudo make install
-#Download azure-cli package 
+# Download azure-cli package 
 $ AZ_VERSION=$(zypper --no-refresh info azure-cli |grep Version | awk -F': ' '{print $2}' | awk '{$1=$1;print}')
 $ wget https://packages.microsoft.com/yumrepos/azure-cli/azure-cli-$AZ_VERSION.x86_64.rpm
-#Install without dependency
+# Install without dependency
 $ sudo rpm -ivh --nodeps azure-cli-$AZ_VERSION.x86_64.rpm
 ```
 
