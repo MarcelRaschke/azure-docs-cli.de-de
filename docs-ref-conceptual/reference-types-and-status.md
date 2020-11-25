@@ -4,17 +4,17 @@ description: Eine Erläuterung der Verweistypen und des Verweisstatus
 author: dbradish-microsoft
 ms.author: dbradish
 manager: barbkess
-ms.date: 08/14/2020
+ms.date: 11/19/2020
 ms.topic: conceptual
 ms.service: azure-cli
 ms.devlang: azurecli
 ms.custom: devx-track-azurecli
-ms.openlocfilehash: 30c964ae2724f56f4563c9e726affc154bcb22bf
-ms.sourcegitcommit: 5d29362589078b66d15f5cd494fe903a5195658d
+ms.openlocfilehash: ff77011db5a64e7c541dc67f2b2564301bfeebfb
+ms.sourcegitcommit: 6996f3d05d73f528a95b61fdce1422eee3c7a580
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 09/25/2020
-ms.locfileid: "91225336"
+ms.lasthandoff: 11/25/2020
+ms.locfileid: "95870150"
 ---
 # <a name="overview-azure-cli-reference-types-and-status"></a>Übersicht: Azure CLI-Verweistypen und -status
 
@@ -69,7 +69,7 @@ Azure CLI-Verweise fallen unabhängig von ihrem Typ in drei Statuskategorien: *
 
 | | Allgemein verfügbar  | Public Preview | Experimentell
 |-|-|-|-|
-| **Stabilität** | Dauerhaft | Kann als Reaktion auf Kundenfeedback geändert werden.  Unterliegt den Bedingungen für [Microsoft Azure-Vorschauversionen](/support/legal/preview-supplemental-terms/). | Kann als Reaktion auf Kundenfeedback geändert werden.  Wird häufig zur öffentlichen Vorschau migriert.  Kann entfernt werden.
+| **Stabilität** | Dauerhaft | Kann als Reaktion auf Kundenfeedback geändert werden.  Unterliegt den Bedingungen für [Microsoft Azure-Vorschauversionen](https://azure.microsoft.com/support/legal/preview-supplemental-terms/). | Kann als Reaktion auf Kundenfeedback geändert werden.  Wird häufig zur öffentlichen Vorschau migriert.  Kann entfernt werden.
 | **Supportebene** | Vollständig | Partial | Keine
 
 Die meisten Befehle und Parameter für einen Verweis haben zwar einen einzelnen Status, dies ist jedoch nicht immer der Fall.  Ein allgemein verfügbarer Verweis, der für weitere Befehle erweitert wird, kann über Verweisbefehle mit dem Status „Allgemein verfügbar“, „Vorschau“ und „Experimentell“ verfügen. Darüber hinaus kann ein einzelner Befehl über Parameter verfügen, die in unterschiedliche Statuskategorien fallen. Dies ist der Fall, wenn neue Parameter hinzugefügt werden, um den Funktionsumfang zu erweitern.  Die folgende Tabelle enthält Beispiele für Verweise mit verschiedenen Statuswerten:
