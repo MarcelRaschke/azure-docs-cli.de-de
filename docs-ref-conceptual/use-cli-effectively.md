@@ -4,17 +4,17 @@ description: Tipps für die effektive Verwendung der Azure CLI
 author: dbradish-microsoft
 ms.author: dbradish
 manager: barbkess
-ms.date: 09/07/2018
+ms.date: 11/18/2020
 ms.topic: conceptual
 ms.service: azure-cli
 ms.devlang: azurecli
 ms.custom: devx-track-azurecli
-ms.openlocfilehash: 4ffd47b7d88dafc717f496fe40d9db68c7af28a3
-ms.sourcegitcommit: ce10a134cb3c73aec32bb4f5887b09d08f9bde53
+ms.openlocfilehash: 0f1985425328492c96262a835eb7ffd8be333cc5
+ms.sourcegitcommit: 753de7d5c45062d5138be86ced7eacddd5696ca3
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 10/21/2020
-ms.locfileid: "92308062"
+ms.lasthandoff: 11/20/2020
+ms.locfileid: "94976899"
 ---
 # <a name="use-azure-cli-effectively"></a>Effektive Verwendung der Azure CLI
 
@@ -243,7 +243,7 @@ Hier sind einige Vorschläge angegeben, mit denen unerwartete Ergebnisse vermied
 
 Ein Proxy wird in Unternehmensnetzwerken häufig im Hintergrund genutzt oder ist aufgrund von Ablaufverfolgungstools wie Fiddler, mitmproxy usw. vorhanden. Wenn für den Proxy selbstsignierte Zertifikate verwendet werden, wird von der Python-Bibliothek mit den Anforderungen ([Requests](https://github.com/kennethreitz/requests)), die von der CLI genutzt wird, Folgendes ausgelöst: `SSLError("bad handshake: Error([('SSL routines', 'tls_process_server_certificate', 'certificate verify failed')],)",)`. Es gibt zwei Möglichkeiten, diesen Fehler zu behandeln:
 
-1. Legen Sie die Umgebungsvariable `REQUESTS_CA_BUNDLE` auf den Pfad der Bundlezertifikatdatei der Zertifizierungsstelle im PEM-Format fest. Wir empfehlen Ihnen diese Vorgehensweise, wenn Sie die CLI häufig hinter einem Unternehmensproxy verwenden. Die Standardbundledatei der Zertifizierungsstelle, die von der CLI verwendet wird, befindet sich bei Windows unter `C:\Program Files (x86)\Microsoft SDKs\Azure\CLI2\Lib\site-packages\certifi\cacert.pem` und bei Linux unter ` /opt/az/lib/python3.6/site-packages/certifi/cacert.pem`. Sie können das Zertifikat des Proxyservers an diese Datei anfügen oder den Inhalt in eine andere Zertifikatdatei kopieren und anschließend `REQUESTS_CA_BUNDLE` dafür festlegen. Beispiel:
+1. Legen Sie die Umgebungsvariable `REQUESTS_CA_BUNDLE` auf den Pfad der Bundlezertifikatdatei der Zertifizierungsstelle im PEM-Format fest. Wir empfehlen Ihnen diese Vorgehensweise, wenn Sie die CLI häufig hinter einem Unternehmensproxy verwenden. Die Standardbundledatei der Zertifizierungsstelle, die von der CLI verwendet wird, befindet sich bei Windows unter `C:\Program Files (x86)\Microsoft SDKs\Azure\CLI2\Lib\site-packages\certifi\cacert.pem`. Bei Ubuntu/Debian befindet sie sich unter ` /opt/az/lib/python3.6/site-packages/certifi/cacert.pem` und bei CentOS/RHEL/SUSE unter `/usr/lib64/az/lib/python3.6/site-packages/certifi/cacert.pem`. Sie können das Zertifikat des Proxyservers an diese Datei anfügen oder den Inhalt in eine andere Zertifikatdatei kopieren und anschließend `REQUESTS_CA_BUNDLE` dafür festlegen. Beispiel:
 
     ```
     <Original cacert.pem>

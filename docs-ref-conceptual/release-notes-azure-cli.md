@@ -4,21 +4,161 @@ description: Enthält Informationen zu den aktuellen Updates der Azure CLI.
 author: dbradish-microsoft
 ms.author: dbradish
 manager: barbkess
-ms.date: 11/09/2020
+ms.date: 11/20/2020
 ms.topic: article
 ms.service: azure-cli
 ms.devlang: azurecli
 ms.custom: devx-track-azurecli
-ms.openlocfilehash: 02a7cf83bbd3de7dba69a75eeff0d6676d1e0952
-ms.sourcegitcommit: 133d53a85073e3ce526a3de8de668e7bca79f48e
+ms.openlocfilehash: b28bfc9ef06b7bac5e789cdeb2b53ded0afea273
+ms.sourcegitcommit: 753de7d5c45062d5138be86ced7eacddd5696ca3
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 11/11/2020
-ms.locfileid: "94484008"
+ms.lasthandoff: 11/20/2020
+ms.locfileid: "94976933"
 ---
 # <a name="azure-cli-release-notes"></a>Versionshinweise für die Azure CLI
 
 # <a name="current-release-notes"></a>[Aktuelle Versionshinweise](#tab/azure-cli)
+
+## <a name="november-20-2020"></a>20. November 2020
+
+Version 2.15.1
+
+### <a name="profile"></a>Profil
+
+* Hotfix: Fehlerbehebung Nr. 15961: az login: UnboundLocalError: Verweis auf lokale Variable „token_entry“ vor Zuweisung
+
+## <a name="november-17-2020"></a>17. November 2020
+
+Version 2.15.0
+
+### <a name="acs"></a>ACS
+
+* Veraltungswarnungen für Version 3 hinzugefügt
+
+### <a name="aks"></a>AKS
+
+* Funktionen für kurzlebiges Betriebssystem hinzugefügt
+* Entwicklungsverbesserung: Add-On-Zeichenfolgen durch Konstanten ersetzt
+* `az aks install-cli`: Unterstützung der Anpassung der Download-URL
+* `az aks browse`: Verweis auf Kubernetes-Ressourcenansicht im Azure-Portal, wenn k8s >= 1.19 oder „kube-dashboard“ nicht aktiviert ist
+* Unterstützung der Verwendung einer eigenen Steuerungsebenenidentität
+* `az aks use-dev-spaces`: Angabe, dass Dev-Spaces-Befehle veraltet sind
+
+### <a name="ams"></a>AMS
+
+* „Region“ wurde in der Ausgabezeichenfolge in „Standort“ geändert: az ams account sp create
+
+### <a name="app-config"></a>App-Konfiguration
+
+* Schlüsseltresor-Clientinitialisierung korrigiert
+
+### <a name="app-service"></a>App Service
+
+* Fehlerbehebung Nr. 13646: Erstellung des App Service-Plans in einer anderen Ressourcengruppe für die App Service-Umgebung nicht möglich
+* Fehlerbehebungen Nr. 11698, 15198, 14862 und 15409: az webapp/functionapp config access-restriction add
+* `az functionapp create`: Unterstützung der Vorschauversion von Node 14 hinzugefügt
+* `az functionapp create`: Vorschauflag aus benutzerdefinierten Handlern entfernt
+* [BREAKING CHANGE] az functionapp update: Für die Migration einer Funktions-App von einem Premium- zu einem Verbrauchstarif wird nun das Flag „--force“ benötigt.
+* `az functionapp update`: Fehlermeldung für den Fall hinzugefügt, dass die Migration einer Funktions-App Tarife unter Linux umfasst
+* `az functionapp update`: Aussagekräftigere Fehlermeldung für den Fall hinzugefügt, dass die Migration einer Funktions-App nicht erfolgreich war
+
+### <a name="arm"></a>ARM
+
+* Problem behoben, das dazu führte, dass bei Verwendung von „Was-wäre-wenn“ zwei Ressourcengruppenbereiche mit unterschiedlicher Groß-/Kleinschreibung angezeigt wurden
+* `az deployment`: Ausgabe von Fehlerdetails für die Bereitstellung
+
+### <a name="backup"></a>Backup
+
+* Fehlerbehebung Nr. 14976: „KeyError“ behoben und Hilfetext verbessert
+
+### <a name="batch"></a>Batch
+
+* Fehlerbehebung Nr. 15464: Überprüfung für PFX-Datei ohne Kennwort in Batch „create_certificate“ aktualisiert
+
+### <a name="billing"></a>Abrechnung
+
+* [BREAKING CHANGE] az billing invoice: Eigenschaften „BillingPeriodsNames“ und „DownloadUrlExpiry“ aus der Antwort entfernt
+* `az billing invoice`: Unterstützung vieler weiterer Bereiche wie „BillingAccount“, „BillingProfile“ und vorhandenes Abonnement
+* `az billing account`: Neue Befehle zur Unterstützung der Anzeige und Aktualisierung vorhandener Abrechnungskonten
+* `az billing balance`: Neue Befehle zur Unterstützung der Anzeige des Saldos eines Abrechnungsprofils
+* `az billing customer`: Neue Befehle zur Unterstützung der Anzeige des Kunden des Abrechnungskontos
+* `az billing policy`: Neue Befehle zur Unterstützung der Anzeige und Aktualisierung der Richtlinie eines Kunden oder Abrechnungsprofils
+* `az billing product`: Neue Befehle zum Verwalten der Produkte eines Abrechnungskontos
+* `az billing profile`: Neue Befehle zum Verwalten eines Abrechnungsprofils
+* `az billing property`: Neue Befehle zum Anzeigen und Aktualisieren der Eigenschaften eines Abrechnungskontos
+* `az billing subscription`: Neue Befehle zum Verwalten der Abonnements für ein Abrechnungskonto
+* `az billing transaction`: Neue Befehle zum Auflisten der Transaktionen einer Rechnung
+* `az billing agreement`: Neue Befehle zum Verwalten der Abrechnungsvereinbarung
+* `az billing permission`: Neue Befehle zum Verwalten der Abrechnungsberechtigung
+* `az billing role-assignment`: Neue Befehle zum Verwalten der Rollenzuweisung
+* `az billing role-definition`: Neue Befehle zum Anzeigen der Rollendefinition
+* `az billing instruction`: Neue Befehle zum Verwalten der Abrechnungsanweisungen
+
+### <a name="compute"></a>Compute
+
+* Problem bei der Updateberechtigungsüberprüfung behoben
+* Erweiterung des Tabellenformats für „vm list-skus“
+* vm host group create: „--platform-fault-domain-count“ ist nun erforderlich, und die Hilfe wurde aktualisiert.
+* Unterstützung der Aktualisierung der VM-/Imageversion bei Verwendung mandantenübergreifender Images
+
+### <a name="dps"></a>DPS
+
+* Im Befehl „iot dps create“ können nun Tags verwendet werden.
+
+### <a name="hdinsight"></a>HDInsight
+
+* az hdinsight create: Zwei Parameter (`--resource-provider-connection` und `--enable-private-link`) hinzugefügt, um ausgehende Relayverbindungen und das Private Link-Feature zu unterstützen
+
+### <a name="key-vault"></a>Key Vault
+
+* Fehlermeldungen für HSM (`list-deleted` und `purge`) optimiert
+* Unterstützung selektiver Schlüsselwiederherstellung für verwaltete HSMs
+
+### <a name="netappfiles"></a>NetAppFiles
+
+* [BREAKING CHANGE] az netappfiles pool update: „service-level“ aus Parametern entfernt
+* `az netappfiles pool update`: Optionalen Parameter hinzugefügt: qos-type
+* `az netappfiles pool create`: Optionalen Parameter hinzugefügt: qos-type
+* `az netappfiles volume replication suspend`: „force-break-replication“ als optionalen Parameter hinzugefügt
+* „az netappfiles volume replication re-initialize“ hinzugefügt: Neuer Befehl zum erneuten Initialisieren der Replikation
+* „az netappfiles volume pool-change“ hinzugefügt: Neuer Befehl zum Ändern des Pools eines Volumes
+* „az netappfiles snapshot policy“ hinzugefügt: Neue Befehlsgruppe mit Befehlen zum Auflisten, Löschen, Aktualisieren, Anzeigen, Erstellen sowie mit Volumebefehlen
+* „az netappfiles account backup“ hinzugefügt: Neue Befehlsgruppe mit Befehlen zum Anzeigen, Auflisten und Löschen
+* „az netappfiles volume backups“ hinzugefügt: Neue Befehlsgruppe mit Befehlen zum Anzeigen, Auflisten, Löschen, Aktualisieren und Erstellen
+* „az netappfiles account backup-policy“ hinzugefügt: Neue Befehlsgruppe mit Befehlen zum Anzeigen, Auflisten, Löschen und Aktualisieren
+* „az netappfiles vault list“ hinzugefügt: Neuen Befehl hinzugefügt
+* `az netappfiles account ad add`: Optionale Parameter „kdc-ip“, „ad-name“, „server-root-ca-certificate“ und „backup-operators“ hinzugefügt
+* `az netappfiles volumes create`: Optionale Parameter „snapshot-policy-id“, „backup-policy-id“, „backup-enabled“, „backup-id“, „policy-enforced“, „vault-id“, „kerberos-enabled“, „throughput-mibps“, „snapshot-directory-visible“, „security-style“, „kerberos5-read-only“, „kerberos5-read-write“, „kerberos5i-read-only“, „kerberos5i-read-write“, „kerberos5p-read-only“, „kerberos5p-read-write“ und „has-root-access“ hinzugefügt
+* `az netappfiles volume update`: Optionale Parameter „vault-id“, „backup-enabled“, „backup-policy-id“, „policy-enforced“ und „throughput-mibps“ hinzugefügt
+
+### <a name="network"></a>Netzwerk
+
+* Fehler korrigiert, der die Erstellung einer Standard_V2-Instanz von Application Gateway ohne private statische IP-Adresse verhindert hat
+* `az network dns zone import`: Auslösung von „FileOperationError“ anstelle von „FileNotFoundError“, wenn die Zonendatei nicht vorhanden ist
+* Absturz mit NoneType-Fehler beim Löschen nicht vorhandener Ressourcen von „ApplicationGateway“, „LoadBalancer“, „Nic“ behoben
+
+### <a name="private-dns"></a>Privates DNS
+
+* `az network private-dns zone import`: Auslösung von „FileOperationError“ anstelle von „FileNotFoundError“, wenn die Zonendatei nicht vorhanden ist
+
+### <a name="profile"></a>Profil
+
+* `az login`: Warnung, dass ein Browser geöffnet ist, wieder hinzugefügt
+
+### <a name="role"></a>Rolle
+
+* `az role assignment create`: `--description`, `--condition`, `--condition-version` als Vorschauversion festgelegt
+
+### <a name="security"></a>Sicherheit
+
+* `az security pricing`: Hilfe aktualisiert, um Aufruf der aktuellen API-Version widerzuspiegeln
+
+### <a name="storage"></a>Storage
+
+* Fehlerbehebung Nr. 15600: az storage fs exists: Wenn „fs“ nicht vorhanden ist, wird „ResourceNotFoundError“ zurückgegeben
+* Fehlerbehebung Nr. 15706: Die Beispiele für „storage container create“ sind nicht korrekt.
+* `az storage blob delete-batch`: Tippfehler in der Dokumentation korrigiert
 
 ## <a name="november-09-2020"></a>9\. November 2020
 
@@ -2819,7 +2959,7 @@ Version 2.0.65
 ### <a name="compute"></a>Compute
 * `--computer-name` zu `vm create` zum Festlegen des Computernamens eines virtuellen Computers hinzugefügt
 * `--ssh-key-value` umbenannt in `--ssh-key-values` für `[vm|vmss] create`: Jetzt können mehrere öffentliche SSH-Schlüsselwerte oder -pfade akzeptiert werden.
-  * __Hinweis__ : Dies ist **kein** Breaking Change: `--ssh-key-value` wird korrekt analysiert, da nur eine Übereinstimmung mit `--ssh-key-values` besteht.
+  * __Hinweis__: Dies ist **kein** Breaking Change: `--ssh-key-value` wird korrekt analysiert, da nur eine Übereinstimmung mit `--ssh-key-values` besteht.
 * `--type`-Argument von `ppg create` in optionales Argument geändert
 
 ## <a name="may-6-2019"></a>6\. Mai 2019
@@ -3994,7 +4134,7 @@ Version 2.0.44
 
 ### <a name="batchai"></a>Batch AI
 
-* Protokollierungsausgabe für die automatische Speicherkontoerstellung geändert, sodass nun „Ressourcen *gruppe* “ angegeben wird        
+* Protokollierungsausgabe für die automatische Speicherkontoerstellung geändert, sodass nun „Ressourcen *gruppe*“ angegeben wird        
 
 ### <a name="container"></a>Container
 
@@ -6429,7 +6569,7 @@ Python (Darwin) 2.7.10 (default, Jul 30 2016, 19:40:32)
 ```
 
 > [!Note]
-> Einige Befehlsmodule verfügen über das Postfix „b *n* “ oder „rc *n* “. Diese Befehlsmodule befinden sich noch in der Vorschauphase und werden später die allgemeine Verfügbarkeit erlangen.
+> Einige Befehlsmodule verfügen über das Postfix „b *n*“ oder „rc *n*“. Diese Befehlsmodule befinden sich noch in der Vorschauphase und werden später die allgemeine Verfügbarkeit erlangen.
 
 Außerdem werden jeden Abend Vorschaubuilds der CLI bereitgestellt. Informationen hierzu finden Sie in der [Anleitung zum Abrufen der abendlichen Builds](https://github.com/Azure/azure-cli#nightly-builds) und im Abschnitt zum [Setup für Entwickler und Beitragen von Code](https://github.com/Azure/azure-cli#developer-setup).
 

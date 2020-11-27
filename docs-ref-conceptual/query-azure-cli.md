@@ -9,12 +9,12 @@ ms.topic: conceptual
 ms.service: azure-cli
 ms.devlang: azurecli
 ms.custom: devx-track-azurecli
-ms.openlocfilehash: 17d62f7c6c5b819e34d6fce16caa0ded6faa53f0
-ms.sourcegitcommit: 2da241715d25407ed22c1065c0c793acfd865996
+ms.openlocfilehash: 780fc2dc87f949a1f36228af7a49cd987cb10cf6
+ms.sourcegitcommit: 753de7d5c45062d5138be86ced7eacddd5696ca3
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 09/09/2020
-ms.locfileid: "89563126"
+ms.lasthandoff: 11/20/2020
+ms.locfileid: "94976831"
 ---
 # <a name="query-azure-cli-command-output"></a>Abfragen der Azure CLI-Befehlsausgabe
 
@@ -22,9 +22,13 @@ Die Azure CLI verwendet das Argument `--query`, um eine [JMESPath-Abfrage](http:
 
 Das Argument `--query` wird von allen Befehlen der Azure-Befehlszeilenschnittstelle unterstützt. In diesem Artikel wird anhand einer Reihe von kleinen, einfachen Beispielen beschrieben, wie die Features von JMESPath verwendet werden.
 
+> [!NOTE]
+>
+> Wenn Sie die Azure CLI in PowerShell unter Windows verwenden, sind möglicherweise einige zusätzliche Escapezeichen für das Abfrageargument erforderlich. Ausführlichere Informationen finden Sie unter [Probleme mit Anführungszeichen bei PowerShell](https://github.com/Azure/azure-cli/blob/dev/doc/quoting-issues-with-powershell.md).
+
 ## <a name="dictionary-and-list-cli-results"></a>CLI-Ergebnisse im Wörterbuch- und Listenformat
 
-Selbst wenn Sie ein anderes Ausgabeformat als JSON verwenden, werden die Ergebnisse von CLI-Befehlen für Abfragen zunächst als JSON-Ausgabe behandelt. CLI-Ergebnisse werden in Form eines JSON-Arrays oder -Wörterbuchs zurückgegeben. Arrays sind Sequenzen von Objekten, die indiziert werden können, und Wörterbücher sind unsortierte Objekte, auf die mit Schlüsseln zugegriffen wird. Befehle, die mehr als ein Objekt zurückgeben _können_, geben ein Array zurück, und Befehle, die _immer_ _nur_ ein einzelnes Objekt zurückgeben, geben ein Wörterbuch zurück.
+Selbst wenn Sie ein anderes Ausgabeformat als JSON verwenden, werden die Ergebnisse von CLI-Befehlen für Abfragen zunächst als JSON-Ausgabe behandelt. CLI-Ergebnisse werden in Form eines JSON-Arrays oder -Wörterbuchs zurückgegeben. Arrays sind Sequenzen von Objekten, die indiziert werden können, und Wörterbücher sind unsortierte Objekte, auf die mit Schlüsseln zugegriffen wird. Befehle, die mehr als ein Objekt zurückgeben _können_, geben ein Array zurück, und Befehle, die _immer__nur_ ein einzelnes Objekt zurückgeben, geben ein Wörterbuch zurück.
 
 ## <a name="get-properties-in-a-dictionary"></a>Abrufen von Eigenschaften in einem Wörterbuch
 
