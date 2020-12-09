@@ -9,18 +9,18 @@ ms.topic: article
 ms.prod: azure
 ms.technology: azure-cli
 ms.devlang: azure-cli
-ms.openlocfilehash: 849be7b3e5ff61852d55312a2d5ce8f3b6081f09
-ms.sourcegitcommit: 753de7d5c45062d5138be86ced7eacddd5696ca3
+ms.openlocfilehash: 771f1123246c2e533323eb4c13d6d0aeee3c86ee
+ms.sourcegitcommit: 9beaf9abb794f1006a56acee4e1cfb8ea7fe2405
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 11/20/2020
-ms.locfileid: "94976865"
+ms.lasthandoff: 12/08/2020
+ms.locfileid: "96850166"
 ---
 # <a name="available-extensions-for-the-azure-cli"></a>Verfügbare Erweiterungen für die Azure CLI
 
 Dieser Artikel enthält eine vollständige Liste mit den verfügbaren Erweiterungen für die Azure CLI, die von Microsoft unterstützt werden.
 
-Die Liste der Erweiterungen ist auch über die CLI verfügbar. Führen Sie zum Abrufen [az extension list-available](/cli/azure/extension?view=azure-cli-latest#az-extension-list-available) aus:
+Die Liste der Erweiterungen ist auch über die CLI verfügbar. Führen Sie zum Abrufen [az extension list-available](/cli/azure/extension#az-extension-list-available) aus:
 
 ```azurecli-interactive
 az extension list-available --output table
@@ -39,7 +39,7 @@ az extension list-available --output table
 | [automation](https://github.com/Azure/azure-cli-extensions/tree/master/src/automation) | 0.1.0 | AutomationClient-Erweiterung der Microsoft Azure-Befehlszeilentools |  |
 | [azure-batch-cli-extensions](https://github.com/Azure/azure-batch-cli-extensions) | 6.0.0 | Zusätzliche Befehle für die Verwendung des Azure Batch-Diensts |  |
 | [azure-cli-iot-ext](https://github.com/azure/azure-iot-cli-extension) | 0.8.10 | Veraltet: Entfernen Sie „azure-cli-iot-ext“, und installieren Sie stattdessen die Erweiterung „azure-iot“. Die Legacyerweiterung „azure-cli-iot-ext“ wird am 15.09.2020 entfernt. |  |
-| [azure-cli-ml](https://docs.microsoft.com/python/api/overview/azure/ml/?view=azure-ml-py) | 1.18.0 | AzureML-Befehlsmodul der Microsoft Azure-Befehlszeilentools |  |
+| [azure-cli-ml](https://docs.microsoft.com/python/api/overview/azure/ml/) | 1.18.0 | AzureML-Befehlsmodul der Microsoft Azure-Befehlszeilentools |  |
 | [azure-devops](https://github.com/Microsoft/azure-devops-cli-extension) | 0.18.0 | Tools zum Verwalten von Azure DevOps |  |
 | [azure-firewall](https://github.com/Azure/azure-cli-extensions/tree/master/src/azure-firewall) | 0.7.0 | Verwalten von Azure Firewall-Ressourcen | Ja |
 | [azure-iot](https://github.com/azure/azure-iot-cli-extension) | 0.10.6 | Die Azure IoT-Erweiterung für die Azure CLI |  |

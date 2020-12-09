@@ -10,12 +10,12 @@ ms.topic: conceptual
 ms.devlang: azurecli
 ms.technology: azure-cli
 ms.custom: devex-track-azurecli
-ms.openlocfilehash: 9db3035c9a50a2a3cc356f3fd7a49ab4f28652ee
-ms.sourcegitcommit: 05b58a872cdd165805df62614000637144d80066
+ms.openlocfilehash: fc214285b947650e06ff9ee3db20e19c78e9b14e
+ms.sourcegitcommit: 9beaf9abb794f1006a56acee4e1cfb8ea7fe2405
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 12/01/2020
-ms.locfileid: "96470433"
+ms.lasthandoff: 12/08/2020
+ms.locfileid: "96850132"
 ---
 # <a name="tutorial-use-persisted-parameters-to-simplify-sequential-azure-cli-commands"></a>Tutorial: Verwenden von permanenten Parametern zum Vereinfachen von sequenziellen Azure CLI-Befehlen
 
@@ -56,7 +56,7 @@ Wenn Sie kein Azure-Abonnement besitzen, können Sie ein [kostenloses Konto](htt
      ```azurecli
      az login
      ```
-    - Für dieses Tutorial ist mindestens Version 2.12.0 der Azure CLI erforderlich.  Führen Sie [az version](/cli/azure/reference-index?#az_version) aus, um die installierte Version und die abhängigen Bibliotheken zu ermitteln. Führen Sie [az upgrade](/cli/azure/reference-index?#az_upgrade) aus, um das Upgrade auf die aktuelle Version durchzuführen.
+    - Für dieses Tutorial ist mindestens Version 2.12.0 der Azure CLI erforderlich.  Führen Sie [az version](/cli/azure/reference-index#az_version) aus, um die installierte Version und die abhängigen Bibliotheken zu ermitteln. Führen Sie [az upgrade](/cli/azure/reference-index#az_upgrade) aus, um das Upgrade auf die aktuelle Version durchzuführen.
 
 ## <a name="1-determine-your-local-directory"></a>1. Ermitteln Ihres lokalen Verzeichnisses
 

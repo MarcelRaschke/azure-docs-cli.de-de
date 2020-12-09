@@ -10,12 +10,12 @@ ms.author: dbradish
 ms.service: azure-cli
 ms.reviewer: robb
 ms.custom: devx-track-azurecli
-ms.openlocfilehash: d16c745656b3d92942e66cfbcb6764d219d971ec
-ms.sourcegitcommit: 5d29362589078b66d15f5cd494fe903a5195658d
+ms.openlocfilehash: 18b8dcb9d22cf4f0177e329f9080bf7693eade0e
+ms.sourcegitcommit: 9beaf9abb794f1006a56acee4e1cfb8ea7fe2405
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 09/25/2020
-ms.locfileid: "91225438"
+ms.lasthandoff: 12/08/2020
+ms.locfileid: "96850285"
 ---
 # <a name="azure-cli-for-azure-monitor"></a>Azure CLI für Azure Monitor
 
@@ -23,7 +23,7 @@ Die Azure-Befehlszeilenschnittstelle ([Azure CLI](./what-is-azure-cli.md)) setz
 
 ## <a name="references-for-azure-monitor"></a>Referenzen für Azure Monitor
 
-Die [Azure Monitor](/azure/azure-monitor/)-CLI-Umgebung setzt sich aus zwei Teilen zusammen: aus der Azure CLI (in der Regel als CLI-**Core** bezeichnet) und der Azure Monitor-CLI-**Erweiterung**.  Azure CLI-Erweiterungsreferenzen müssen vor der Verwendung installiert werden. Mit dem Befehl [az extension add](/cli/azure/extension?view=azure-cli-latest#az-extension-add) wird eine Erweiterungsreferenz anhand des Namens installiert.
+Die [Azure Monitor](/azure/azure-monitor/)-CLI-Umgebung setzt sich aus zwei Teilen zusammen: aus der Azure CLI (in der Regel als CLI-**Core** bezeichnet) und der Azure Monitor-CLI-**Erweiterung**.  Azure CLI-Erweiterungsreferenzen müssen vor der Verwendung installiert werden. Mit dem Befehl [az extension add](/cli/azure/extension#az-extension-add) wird eine Erweiterungsreferenz anhand des Namens installiert.
 
 > [!IMPORTANT]
 >
