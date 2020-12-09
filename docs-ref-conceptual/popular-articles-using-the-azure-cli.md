@@ -10,12 +10,12 @@ ms.prod: azure
 ms.technology: azure-cli
 ms.devlang: azurecli
 ms.custom: devx-track-azurecli
-ms.openlocfilehash: 1b58fa03d93769a66ea4c02678a7409f27262fd7
-ms.sourcegitcommit: 5d29362589078b66d15f5cd494fe903a5195658d
+ms.openlocfilehash: 87035ff34f1880627b38215b0b907acef78da67b
+ms.sourcegitcommit: 9beaf9abb794f1006a56acee4e1cfb8ea7fe2405
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 09/25/2020
-ms.locfileid: "91225506"
+ms.lasthandoff: 12/08/2020
+ms.locfileid: "96850251"
 ---
 # <a name="popular-articles-using-the-azure-cli"></a>Beliebte Artikel zur Azure CLI
 
@@ -23,7 +23,7 @@ Die Azure CLI wird in vielen Azure-Diensten verwendet, was dazu führt, dass Art
 
 ## <a name="compute"></a>Compute
 
-| | | | |
+| Bereich | Type | Link | BESCHREIBUNG |
 |-|-|-|-|
 |Virtual Machines | Tutorial: Linux | [Erstellen einer Linux-VM mit der Azure CLI](azure-cli-vm-tutorial.yml) | Erstellen Sie eine VM.  Erfahren Sie mehr über Ausgabeabfragen und das Festlegen von Umgebungsvariablen.
 |Virtual Machines | Schnellstart: Linux | [Erstellen eines virtuellen Linux-Computers mit der Azure CLI](/azure/virtual-machines/linux/quick-create-cli) | Erstellen Sie eine Linux-VM, und stellen Sie sie bereit.  Öffnen Sie einen Port für Webdatenverkehr, und installieren Sie einen Webserver.
@@ -41,29 +41,29 @@ Die Azure CLI wird in vielen Azure-Diensten verwendet, was dazu führt, dass Art
 
 ## <a name="networking"></a>Netzwerk
 
-| | | | |
+| Bereich | Type | Link | BESCHREIBUNG |
 |-|-|-|-|
 |Virtual Network|Schnellstart | [Erstellen eines virtuellen Netzwerks über die Azure-Befehlszeilenschnittstelle](/azure/virtual-network/quick-create-cli) | Erstellen Sie ein virtuelles Netzwerk, stellen Sie zwei VMs im virtuellen Netzwerk bereit, und stellen Sie über das Internet eine Verbindung mit den VMs her.
 |Virtual Network|Schrittanleitung | [Erstellen eines virtuellen Linux-Computers mit beschleunigtem Netzwerkbetrieb mithilfe der Azure CLI](/azure/virtual-network/create-vm-accelerated-networking-cli) | Erstellen Sie eine Linux-VM, verwalten Sie die dynamische Bindung und die Sperrung der virtuellen Funktion, und aktivieren Sie den beschleunigten Netzwerkbetrieb.
 
 ## <a name="internet-of-things"></a>Internet der Dinge
 
-| | | | |
+| Bereich | Type | Link | BESCHREIBUNG |
 |-|-|-|-|
 |IoT Hub|Lernprogramm | [Tutorial: Verwenden der Azure CLI zum Konfigurieren des IoT Hub-Nachrichtenroutings](/azure/iot-hub/tutorial-routing) | Richten Sie benutzerdefinierte Routingabfragen mit IoT Hub ein, und verwenden Sie diese.
 
 ## <a name="developer-tools"></a>Entwicklertools
 
-| | | | |
+| Bereich | Type | Link | BESCHREIBUNG |
 |-|-|-|-|
 |Azure App Configuration|Beispiele |[Azure CLI-Beispiele für Azure App Configuration](/azure/azure-app-configuration/cli-samples) | Hier finden Sie Links zu Bash-Skripts, die die Azure CLI für Azure App Configuration verwenden.
 |Azure DevOps| Erste Schritte: DevOps-Pipeline |[Erstellen Ihrer ersten Azure-Pipeline mit der Azure CLI](/azure/devops/pipelines/create-first-pipeline-cli) | Erstellen Sie eine neue Pipeline in einem geklonten GitHub-Verzeichnis, und verwalten und führen Sie Ihre Pipelines aus.
-|Azure DevOps| Schrittanleitung: DevOps-Pipeline |[Bereitstellungsaufgaben der Azure-Pipeline unter Verwendung der Azure CLI](/azure/devops/pipelines/tasks/deploy/azure-cli?view=azure-devops) | Führen Sie in einer Build- oder Releasepipeline ein Shell- oder Batch-Skript aus, das die Azure CLI enthält.  Befehle werden auf plattformübergreifenden Agents ausgeführt, die wiederum unter Linux, macOS oder Windows ausgeführt werden.
+|Azure DevOps| Schrittanleitung: DevOps-Pipeline |[Bereitstellungsaufgaben der Azure-Pipeline unter Verwendung der Azure CLI](/azure/devops/pipelines/tasks/deploy/azure-cli) | Führen Sie in einer Build- oder Releasepipeline ein Shell- oder Batch-Skript aus, das die Azure CLI enthält.  Befehle werden auf plattformübergreifenden Agents ausgeführt, die wiederum unter Linux, macOS oder Windows ausgeführt werden.
 |Azure DevOps| Tutorial: Jenkins-Pipeline |[Bereitstellen an Azure App Service mit Jenkins und der Azure CLI](/azure/jenkins/execute-cli-jenkins-pipeline) | Erstellen und konfigurieren Sie eine Jenkins-VM, erstellen Sie eine Web-App in Azure, und bereiten Sie ein GitHub-Repository vor.  Erstellen Sie die Jenkins-Pipeline, und führen Sie sie aus.
 
 ## <a name="databases"></a>Datenbanken
 
-| | | | |
+| Bereich | Type | Link | BESCHREIBUNG |
 |-|-|-|-|
 |SQL-Datenbank| Beispiel |[Azure CLI-Beispiele für Azure SQL-Datenbank](/azure/sql-database/sql-database-cli-samples?tabs=single-database) | Azure CLI-Beispiele für Azure SQL-Datenbank
 |MySQL|Schnellstart |[Erstellen eines Azure Database for MySQL-Servers mithilfe der Azure CLI](/azure/mysql/quickstart-create-mysql-server-database-using-azure-cli) | Erstellen eines Azure-Datenbank für MySQL-Servers  Konfigurieren Sie eine Firewallregel und SSL-Einstellungen.  Rufen Sie Datenbankverbindungsinformationen ab, und verwenden Sie diese.
@@ -72,7 +72,7 @@ Die Azure CLI wird in vielen Azure-Diensten verwendet, was dazu führt, dass Art
 
 ## <a name="analytics"></a>Analytics
 
-| | | | |
+| Bereich | Type | Link | BESCHREIBUNG |
 |-|-|-|-|
 Azure Event Hub |Schnellstart |[Schnellstart: Erstellen eines Event Hubs mithilfe der Azure CLI](/azure/event-hubs/event-hubs-quickstart-cli) | Erstellen Sie einen Event Hubs-Namespace und einen Event Hub.
 HDInsight |Leitfaden |[Erstellen von HDInsight-Clustern mit der Azure-Befehlszeilenschnittstelle](/azure/hdinsight/hdinsight-hadoop-create-linux-clusters-azure-cli) | Erstellen Sie einen HDInsight 3.6-Cluster.
@@ -80,7 +80,7 @@ HDInsight |Lernprogramm |[Verwalten von Azure HDInsight-Clustern mit der Azure-B
 
 ## <a name="management-and-governance"></a>Verwaltung und Governance
 
-| | | | |
+| Bereich | Type | Link | BESCHREIBUNG |
 |-|-|-|-|
 Resource Manager-Vorlagen |Schrittanleitung |[Bereitstellen von Ressourcen mit Azure Resource Manager-Vorlagen und Azure-CLI](/azure/azure-resource-manager/templates/deploy-cli) | Stellen Sie Ihre Ressourcen mithilfe von Vorlagen in Azure bereit.
 Resource Manager-Gruppen |Schrittanleitung |[Verwalten von Azure Resource Manager-Gruppen mithilfe der Azure CLI](/azure/azure-resource-manager/management/manage-resource-groups-cli) | Verwenden Sie Azure Resource Manager, um Ihre Azure Resource Manager-Gruppen zu verwalten.
@@ -89,7 +89,7 @@ Richtlinienzuweisung |Schnellstart |[Schnellstart: Erstellen einer Richtlinienzu
 
 ## <a name="hybrid"></a>Hybrid
 
-| | | | |
+| Bereich | Type | Link | BESCHREIBUNG |
 |-|-|-|-|
 Azure Stack Hub| Schnellstart: Linux-VM |[Schnellstart: Erstellen eines virtuellen Linux-Servers mithilfe der Azure CLI in Azure Stack Hub](/azure-stack/user/azure-stack-quick-create-vm-linux-cli) | Erstellen Sie eine Ubuntu Server 16.04 LTS-VM, stellen Sie über einen Remoteclient eine Verbindung mit der VM her, und installieren Sie einen NGINX-Webserver.
 Azure Stack Hub| Schnellstart: Windows-VM |[Schnellstart: Erstellen eines virtuellen Windows Server-Computers mithilfe der Azure CLI in Azure Stack Hub](/azure-stack/user/azure-stack-quick-create-vm-windows-cli) |Erstellen Sie eine Windows Server 2016-VM, stellen Sie über einen Remoteclient eine Verbindung mit der VM her, und installieren Sie den IIS-Webserver.
@@ -97,7 +97,7 @@ Azure Stack Hub| Schrittanleitung: ASDK-Ressourcen |[Verwalten und Bereitstellen
 
 ## <a name="storage"></a>Storage
 
-| | | | |
+| Bereich | Type | Link | BESCHREIBUNG |
 |-|-|-|-|
 Blob Storage |Schnellstart |  [Erstellen, Hochladen, Herunterladen und Auflisten von Blobs über die Azure CLI](/azure/storage/blobs/storage-quickstart-blobs-cli) | Laden Sie Dateien in Azure Blob Storage hoch und aus Azure Blob Storage herunter.
 Blob Storage |Schrittanleitung |[Autorisieren des Zugriffs auf Blob- oder Warteschlangendaten mit der Azure CLI](/azure/storage/common/authorize-data-operations-cli) | Geben Sie an, wie Datenvorgänge autorisiert werden, und legen Sie Umgebungsvariablen für Parameter fest.
@@ -106,7 +106,7 @@ File Storage |Schnellstart |[Schnellstart: Erstellen, Herunterladen und Aufliste
 
 ## <a name="security"></a>Sicherheit
 
-| | | | |
+| Bereich | Type | Link | BESCHREIBUNG |
 |-|-|-|-|
 Dienstprinzipal |Schrittanleitung |[Erstellen eines Azure-Dienstprinzipals mit der Azure-Befehlszeilenschnittstelle](./create-an-azure-service-principal-azure-cli.md) | Mit der Azure CLI können Sie einen Dienstprinzipal erstellen, Informationen darüber abrufen und ihn zurücksetzen.
 RBAC |Schrittanleitung |[Hinzufügen oder Entfernen von Rollenzuweisungen mithilfe von Azure RBAC und der Azure-Befehlszeilenschnittstelle](/azure/role-based-access-control/role-assignments-cli) | Weisen Sie der rollenbasierten Zugriffskontrolle von Azure Rollen zu.
@@ -115,7 +115,7 @@ Key Vault |Lernprogramm |[Verwalten von Speicherkontoschlüsseln mit Key Vault u
 
 ## <a name="ai--machine-learning"></a>KI und Machine Learning
 
-| | | | |
+| Bereich | Type | Link | BESCHREIBUNG |
 |-|-|-|-|
 Machine Learning |Reference |[Verwenden der Azure CLI-Erweiterung für Azure Machine Learning](/azure/machine-learning/reference-azure-machine-learning-cli) | Führen Sie Experimente durch, um Machine Learning-Modelle zu erstellen und Machine Learning-Modelle für die Nutzung durch Kunden zu registrieren.  Lesen Sie, wie Sie Machine Learning-Modelle packen und bereitstellen und ihren Lebenszyklus nachverfolgen.
 Cognitive Services |Leitfaden |[Erstellen einer Cognitive Services-Ressource mithilfe der Azure-Befehlszeilenschnittstelle](/azure/cognitive-services/cognitive-services-apis-create-account-cli) | Registrieren Sie sich für Azure Cognitive Services, und erstellen Sie ein Konto mit einem Abonnement mit einem einzelnen Dienst oder mit mehreren Diensten.  Verwenden Sie die Schlüssel den generierten Endpunkt, die für Sie zum Authentifizieren Ihrer Anwendungen generiert wurden.
@@ -123,7 +123,7 @@ Azure Monitor |Schrittanleitung |[Erstellen eines Log Analytics-Arbeitsbereichs 
 
 ## <a name="geographies"></a>Geografische Regionen
 
-| | | | |
+| Bereich | Type | Link | BESCHREIBUNG |
 |-|-|-|-|
 Azure Deutschland |Erste Schritte |[Herstellen einer Verbindung mit Azure Deutschland über die Azure CLI](/azure/germany/germany-get-started-connect-with-cli) | Verwalten Sie mit Azure Deutschland ein großes Abonnement über Skripts, und greifen Sie auf Funktionen zu, die derzeit nicht im globalen Azure-Portal verfügbar sind.
 Azure Government|Erste Schritte |[Herstellen einer Verbindung mit Azure Government über die Azure-Befehlszeilenschnittstelle](/azure/azure-government/documentation-government-get-started-connect-with-cli)|Greifen Sie auf Verwaltungsressourcen in Azure Government zu, und starten Sie diese.
