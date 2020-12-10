@@ -4,21 +4,113 @@ description: Enthält Informationen zu den aktuellen Updates der Azure CLI.
 author: dbradish-microsoft
 ms.author: dbradish
 manager: barbkess
-ms.date: 11/20/2020
+ms.date: 12/08/2020
 ms.topic: article
 ms.service: azure-cli
 ms.devlang: azurecli
 ms.custom: devx-track-azurecli
-ms.openlocfilehash: b28bfc9ef06b7bac5e789cdeb2b53ded0afea273
-ms.sourcegitcommit: 753de7d5c45062d5138be86ced7eacddd5696ca3
+ms.openlocfilehash: bcbf52e6321e283864fb585cd314be22c2241c9d
+ms.sourcegitcommit: 9beaf9abb794f1006a56acee4e1cfb8ea7fe2405
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 11/20/2020
-ms.locfileid: "94976933"
+ms.lasthandoff: 12/08/2020
+ms.locfileid: "96850302"
 ---
 # <a name="azure-cli-release-notes"></a>Versionshinweise für die Azure CLI
 
 # <a name="current-release-notes"></a>[Aktuelle Versionshinweise](#tab/azure-cli)
+
+## <a name="december-08-2020"></a>8\. Dezember 2020
+
+Version 2.16.0
+
+### <a name="acr"></a>ACR
+
+* Beschreibung für KEK-Parameter aktualisiert
+
+### <a name="aks"></a>AKS
+
+* `az aks nodepool add/update/upgrade`: Maximaler Anstiegsparameter übernommen
+* Unterstützung für AGIC-Add-On hinzugefügt
+* MSI-Cluster in Standardeinstellung geändert
+
+### <a name="apim"></a>APIM
+
+* `az apim restore`: Neuer Befehl zum Wiederherstellen einer Sicherung eines API Management-Diensts
+
+### <a name="app-service"></a>App Service
+
+* Fehlerbehebung Nr. 14857: Zulassen, dass Benutzer die Web-App-Konfiguration auch bei Zugriffsbeschränkung aktualisieren können
+* `az functionapp create`: `--runtime python` und `--runtime-version 3.9` als Azure Functions v3-Parameter akzeptiert
+* Fehlerbehebung Nr. 16041: „az webapp config ssl create“ führt zu einem unbekannten Fehler.
+
+### <a name="arm"></a>ARM
+
+* `az deployment-scripts`: Entfernen eines Vorschauflags
+
+### <a name="backup"></a>Backup
+
+* Fehlerbehebung Nr. 14976: Verbesserungen der Verarbeitung von CLI-Fehlern für die Fälle „ValueError“ und „AttributeError“
+* `az backup protection undelete`: Unterstützung für das Wiederherstellen gelöschter Elemente im Rahmen des Azure-Workloadschutzes mithilfe der CLI hinzugefügt
+* Fehler „Ungültige Anforderung“ für korrekte Eingabe des Arbeitsauslastungstyps behoben
+
+### <a name="cdn"></a>CDN
+
+* Unterstützung für die Vorschau mehrerer Ursprünge hinzugefügt
+* Automatische Rotation für BYOC hinzugefügt
+
+### <a name="key-vault"></a>Key Vault
+
+* `az keyvault key/secret list`: Parameter `--include-managed` zum Auflisten verwalteter Ressourcen hinzugefügt
+
+### <a name="monitor"></a>Überwachen
+
+* `az monitor metrics alert create`: Unterstützung dynamischer Schwellwerte für Bedingungsparameter
+* `az monitor metrics alert update`: Unterstützung dynamischer Schwellwerte für Bedingungsparameter
+* `az monitor metrics alert dimension create`: Erstellen einer Metrikwarnungsregel-Dimension
+* `az monitor metrics alert condition create`: Erstellen einer Metrikwarnungsregel-Bedingung
+
+### <a name="mysql"></a>MySQL
+
+* CLI für MySQL-Versionsupgrades hinzugefügt
+
+### <a name="netappfiles"></a>NetAppFiles
+
+* `az netappfiles account ad add`: Zwei optionale Parameter hinzugefügt: aes_encryption und ldap_signing
+* `az netappfiles account backup-policy update`: Drei optionale Parameter namens „tags“, „type“ und „id“ hinzugefügt
+* `az netappfiles snapshot policy create`: Optionaler Parameter mit dem Namen „provisioning_state“ hinzugefügt
+
+### <a name="network"></a>Netzwerk
+
+* `az network network watcher configure`: Fehler „NetworkWatcherCountLimitReached“ behoben, der durch die Groß-/Kleinschreibung des Standortwerts verursacht wurde
+* `az network application-gateway http-listener`: Fehler behoben, der dazu führte, dass mit dem WAF-Richtlinienname keine Erstellung oder Aktualisierung durchgeführt werden konnte
+* `az network route-table`: Routingtabelle V1 als veraltet gekennzeichnet
+* `az network cross-region-lb`: Unterstützung eines regionsübergreifenden Lastenausgleichs
+* `az network express-route port generate-loa`: Neuer Befehl zum Generieren und Herunterladen des PDF-Buchstabens der Autorisierung für ein ExpressRoutePort-Element
+
+### <a name="packaging"></a>Verpackung
+
+* Ubuntu-Groovy-Paket hinzugefügt
+
+### <a name="rdbms"></a>RDBMS
+
+* „show-connection-string“ für Einzelserver und Tests für Befehle vom Typ „local-context“ hinzugefügt (Servererstellung)
+
+### <a name="role"></a>Rolle
+
+* Lange Zusammenfassung/Warnung für Befehle hinzugefügt, mit denen Anmeldeinformationen generiert werden
+
+### <a name="search"></a>Suchen
+
+* SKU-Option hinzugefügt
+
+### <a name="service-fabric"></a>Service Fabric
+
+* SF-App-Dokumentation aktualisiert. Nur Unterstützung für per ARM bereitgestellte Ressourcen
+
+### <a name="synapse"></a>Synapse
+
+* Unterstützung für Cmdlets vom Typ „synapse sql dw“ und das Cmdlet „update az synapse workspace create“
 
 ## <a name="november-20-2020"></a>20. November 2020
 
