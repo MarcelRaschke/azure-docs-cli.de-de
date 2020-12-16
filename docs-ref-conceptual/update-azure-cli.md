@@ -9,12 +9,12 @@ ms.topic: conceptual
 ms.service: azure-cli
 ms.devlang: azurecli
 ms.custom: devx-track-azurecli
-ms.openlocfilehash: 91ed79b9f59af4ad070983eb7d0744bc85d09216
-ms.sourcegitcommit: 9beaf9abb794f1006a56acee4e1cfb8ea7fe2405
+ms.openlocfilehash: 475b58bca5ec9dca52a70416cb89860dcbd39278
+ms.sourcegitcommit: e1faf297ba2cdf2ba7e821fbeedff9c9a724c975
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 12/08/2020
-ms.locfileid: "96850874"
+ms.lasthandoff: 12/16/2020
+ms.locfileid: "97576784"
 ---
 # <a name="update-the-azure-cli"></a>Aktualisieren der Azure-Befehlszeilenschnittstelle
 
@@ -40,13 +40,13 @@ Die Azure CLI prüft regelmäßig auf neue Versionen und fordert Sie nach Abschl
 Die Aufforderungsmeldung und die Ausgabemeldungen während des Upgrades unterbrechen unter Umständen das Befehlsergebnis, wenn es einer Variablen oder in einem automatisierten Flow zugewiesen ist. Zur Vermeidung von Unterbrechungen können Sie die folgende Konfiguration verwenden, um zuzulassen, dass das Update automatisch ohne Bestätigung ausgeführt wird und nur Warnungen und Fehler während des Upgrades angezeigt werden.
 
 ```azurecli
-az config auto-upgrade.prompt=no
+az config set auto-upgrade.prompt=no
 ```
 
 Standardmäßig werden alle installierten Erweiterungen ebenfalls aktualisiert. Sie können die Aktualisierung von Erweiterungen über die Konfiguration deaktivieren.
 
 ```azurecli
-az config auto-upgrade.all=no
+az config set auto-upgrade.all=no
 ```
 
 > [!NOTE]
