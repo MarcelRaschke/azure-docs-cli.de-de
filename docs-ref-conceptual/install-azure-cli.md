@@ -9,12 +9,12 @@ ms.topic: conceptual
 ms.service: azure-cli
 ms.devlang: azurecli
 ms.custom: devx-track-azurecli
-ms.openlocfilehash: ade9772e9287fef2e937a7a2106f1fc0e949f773
-ms.sourcegitcommit: aa44ec97af5c0e7558d254b3159f95921e22ff1c
+ms.openlocfilehash: 2a3e2c96a9ec3a294f076fc8c86506e277425619
+ms.sourcegitcommit: 9beaf9abb794f1006a56acee4e1cfb8ea7fe2405
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 10/01/2020
-ms.locfileid: "91625283"
+ms.lasthandoff: 12/08/2020
+ms.locfileid: "97820206"
 ---
 # <a name="install-the-azure-cli"></a>Installieren der Azure CLI
 
@@ -37,9 +37,7 @@ Die Azure CLI ist für die Installation in Windows-, macOS- und Linux-Umgebungen
 > [!NOTE]
 > [Installieren Sie die klassische Azure CLI](install-classic-cli.md), wenn Sie das klassische Azure-Bereitstellungsmodell verwenden.
 
-## <a name="update"></a>Aktualisieren
-[!INCLUDE [az-upgrade](includes/az-upgrade.md)]
+## <a name="see-also"></a>Weitere Informationen
 
-## <a name="next-steps"></a>Nächste Schritte
-
-Informationen zu den Hauptmerkmalen finden Sie unter [Worum handelt es sich bei der Azure CLI?](what-is-azure-cli.md).
+* [Aktualisieren der Azure-Befehlszeilenschnittstelle](update-azure-cli.md)
+* [Worum handelt es sich bei der Azure CLI?](what-is-azure-cli.md)
