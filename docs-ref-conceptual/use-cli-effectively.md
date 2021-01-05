@@ -9,12 +9,12 @@ ms.topic: conceptual
 ms.service: azure-cli
 ms.devlang: azurecli
 ms.custom: devx-track-azurecli
-ms.openlocfilehash: 0f1985425328492c96262a835eb7ffd8be333cc5
-ms.sourcegitcommit: 753de7d5c45062d5138be86ced7eacddd5696ca3
+ms.openlocfilehash: 598d7498d17078bdd9f3f1aa9dc2ca4447ca97b2
+ms.sourcegitcommit: bd2dbc80328936dadd211764d25c32a14fc58083
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 11/20/2020
-ms.locfileid: "94976899"
+ms.lasthandoff: 01/04/2021
+ms.locfileid: "97857800"
 ---
 # <a name="use-azure-cli-effectively"></a>Effektive Verwendung der Azure CLI
 
@@ -123,9 +123,9 @@ Es kann vorkommen, das für einen Dienst, an dem Sie interessiert sind, keine CL
 
 Falls Ihre Anforderungen weder durch generische Updateargumente noch durch `az resource` erfüllt werden, können Sie die REST-API mit dem Befehl `az rest` aufrufen. Hierbei wird die Authentifizierung automatisch mit den bereits eingegebenen Anmeldeinformationen durchgeführt und der Header `Content-Type: application/json` festgelegt.
 
-Dies ist äußerst hilfreich, um die [Microsoft Graph-API](/graph/api/overview?toc=./ref/toc.json&view=graph-rest-1.0) aufzurufen, die von CLI-Befehlen derzeit nicht unterstützt wird ([#12946](https://github.com/Azure/azure-cli/issues/12946)).
+Dies ist äußerst hilfreich, um die [Microsoft Graph-API](/graph/api/overview?toc=./ref/toc.json) aufzurufen, die von CLI-Befehlen derzeit nicht unterstützt wird ([#12946](https://github.com/Azure/azure-cli/issues/12946)).
 
-Um beispielsweise `redirectUris` für eine [Anwendung](/graph/api/resources/application?view=graph-rest-1.0) aufzurufen, rufen wir die REST-API für die [Updateanwendung](/graph/api/application-update?view=graph-rest-1.0&tabs=http) wie folgt auf:
+Um beispielsweise `redirectUris` für eine [Anwendung](/graph/api/resources/application) aufzurufen, rufen wir die REST-API für die [Updateanwendung](/graph/api/application-update?tabs=http) wie folgt auf:
 
 ```sh
 # Line breaks for legibility only
@@ -142,7 +142,12 @@ az rest --method PATCH
 
 Bei Verwendung von `--uri-parameters` für Anforderungen in Form von OData sollten Sie darauf achten, `$` in unterschiedlichen Umgebungen mit Escapezeichen zu versehen: in `Bash` sollte `$` zu `\$` werden, und in `PowerShell` sollte `$` zu `` `$`` werden.
 
-## <a name="quoting-issues"></a>Probleme mit Anführungszeichen
+## <a name="pass-arguments"></a>Übergeben von Argumenten
+
+1. Wenn der Wert eines Arguments mit einem Bindestrich beginnt (z. B. `-VerySecret`), wird er als Option (ein Argumentname wie `-n`) von [argparse](https://docs.python.org/3/library/argparse.html) (https://bugs.python.org/issue9334) analysiert. Wenn Sie die Analyse als Wert erzwingen möchten, verwenden Sie `--password="-VerySecret"`. ([Azure/azure-cli#7054](https://github.com/Azure/azure-cli/issues/7054)).
+2. Wenn der Wert eines Arguments Sonderzeichen enthält, z. B. ein Leerzeichen (` `) oder Anführungszeichen (`"`, `'`), gelten bestimmte Regeln für Anführungszeichen. Weitere Informationen finden im folgenden Abschnitt:
+
+### <a name="quoting-issues"></a>Probleme mit Anführungszeichen
 
 Ein Problem kann sich ergeben, weil die Anführungszeichen und Leerzeichen von der Befehlsshell (Bash, Zsh, Windows-Eingabeaufforderung, PowerShell usw.) interpretiert werden, wenn diese den CLI-Befehl analysiert. Sehen Sie immer in den Dokumenten nach, wenn Sie bei der Nutzung einer Shell unsicher sind:
 

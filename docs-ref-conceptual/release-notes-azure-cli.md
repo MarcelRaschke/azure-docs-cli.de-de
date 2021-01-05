@@ -4,21 +4,138 @@ description: Enthält Informationen zu den aktuellen Updates der Azure CLI.
 author: dbradish-microsoft
 ms.author: dbradish
 manager: barbkess
-ms.date: 12/08/2020
+ms.date: 01/04/2021
 ms.topic: article
 ms.service: azure-cli
 ms.devlang: azurecli
 ms.custom: devx-track-azurecli
-ms.openlocfilehash: bcbf52e6321e283864fb585cd314be22c2241c9d
-ms.sourcegitcommit: 9beaf9abb794f1006a56acee4e1cfb8ea7fe2405
+ms.openlocfilehash: 9e7fd550f5ec6957287f0c7a865517eb5332a604
+ms.sourcegitcommit: bd2dbc80328936dadd211764d25c32a14fc58083
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 12/08/2020
-ms.locfileid: "96850302"
+ms.lasthandoff: 01/04/2021
+ms.locfileid: "97857868"
 ---
 # <a name="azure-cli-release-notes"></a>Versionshinweise für die Azure CLI
 
 # <a name="current-release-notes"></a>[Aktuelle Versionshinweise](#tab/azure-cli)
+
+## <a name="january-04-2021"></a>04. Januar 2021
+
+Version 2.17.1
+
+### <a name="rdbms"></a>RDBMS
+
+* Hotfix: `az mysql create`: Falschen Parameternamen „serv_name“ auf „service_name“ zurückgesetzt
+
+## <a name="december-29-2020"></a>29. Dezember 2020
+
+Version 2.17.0
+
+### <a name="acr"></a>ACR
+
+* Unterstützung von Zonenredundanz
+* `az acr connected-registry`: Neues Feature für lokale Azure Container Registry-Instanz
+* `az acr scope-map update`: „--add“ und „--remove“ sind veraltet; umbenannt in „--add-repo“ und „--remove-repo“
+* `az acr scope-map create/update`: Unterstützung für die Behandlung von Gatewayaktionen hinzugefügt
+* `az acr token create`: Unterstützung für Gatewayaktionen hinzugefügt
+
+### <a name="aks"></a>AKS
+
+* Fehlerbehebung: add-Argumente durch einen vorangehenden Pull Request entfernt
+* `az aks get-credentials`: Dokumentation für „get-credentials“ klarer formuliert
+
+### <a name="app-service"></a>App Service
+
+* Kunden können jetzt eine Python 3.9-Funktions-App erstellen.
+* Fehlerbehebung Nr. 14583: „az webapp up“ sollte den Standardnamen generieren, wenn kein Name angegeben ist.
+* Behebung: Die Fehlerbehandlung beim Erstellen doppelter ASP an einem anderen Speicherort wurde verbessert.
+
+### <a name="arm"></a>ARM
+
+* `az ts`:  Unterstützung für „--tags“ hinzugefügt
+* `az ts`: Unterstützung für das Löschen einer einzelnen Version
+* `az provider register`: „--accept-terms“ für die Registrierung von RPaaS hinzugefügt
+* Analyse von JSON-Dateien mit Multi-Linienzeichenfolgen korrigiert
+
+### <a name="aro"></a>ARO
+
+* `az aro delete`: RBAC-Validierung beim Löschen von Clustern hinzugefügt
+* `az aro update`: RBAC-Validierung beim Aktualisieren von Clustern hinzugefügt
+* Vor dem Abrufen der Subnetze sicherstellen, dass „worker_profile“ nicht „None“ ist
+
+### <a name="backup"></a>Backup
+
+* `az backup job list`: Fehler in „-o“-Tabelle behoben und „backup_management_type“ als Eingabebefehl hinzugefügt
+
+### <a name="batch"></a>Batch
+
+* Upgrade der Datenebene auf [Azure Batch 10.0.0](https://pypi.org/project/azure-batch/10.0.0/) durchgeführt
+* [BREAKING CHANGE] az batch job task-counts: Ausgabe eines JSON-Objekts geändert, das die Aufgabenanzahl an ein komplexes JSON-Objekt zurückgibt, das sowohl die Anzahl von Aufgaben (`taskCounts`) als auch die Anzahl von Aufgabenslots (`taskSlotCounts`) enthält
+
+### <a name="compute"></a>Compute
+
+* Neuer Lizenztyp RHEL_ELS_6
+* Adopt track2 SDK, azure-mgmt-compute==18.0.0
+
+### <a name="container"></a>Container
+
+* Rechtschreibfehler im CLI-Beispieltext für `az container create` behoben
+
+### <a name="databoxedge"></a>DataBoxEdge
+
+* Neues Befehlsmodul: Unterstützung für Data Box Edge-Geräte und -Verwaltung
+
+### <a name="iot"></a>IoT
+
+* Generierung von Geräteschlüsseln aktualisiert
+* Hub-Tests mit aktivierter Identität aktualisiert, um RBAC-Probleme des Endpunkts zu beheben
+
+### <a name="key-vault"></a>Key Vault
+
+* `az keyvault key import`: Unterstützung für `--kty` für das Importieren von BYOK-Schlüsseln
+
+### <a name="monitor"></a>Überwachen
+
+* `az monitor metrics alert create`: Umsetzbarkeit der Fehlermeldung verbessert
+
+### <a name="network"></a>Netzwerk
+
+* `az network private-endpoint create`: Weitere Deklaration von „--subnet“ und „--private-connection-resource-id“ hinzugefügt
+* Validierungssteuerelement von „application-gateway ssl-cert create“ geändert
+* Migration des Netzwerks zu track2 SDK
+* Fehler für „az network traffic-manager profile create“ bei der Verwendung von „--routing-method MultiValue“ behoben
+
+### <a name="profile"></a>Profil
+
+* Fehlen des Geheimnisses oder Zertifikats zum Authentifizieren über einen Dienstprinzipal behoben
+
+### <a name="role"></a>Role
+
+* `az ad sp create-for-rbac`: Das standardmäßige Erstellen der Rollenzuweisung „Mitwirkender“ ist veraltet.
+
+### <a name="security"></a>Sicherheit
+
+* Befehle für die Sicherheitsbewertung hinzugefügt
+* Befehl zum Aktualisieren von Warnungen korrigiert und Unterstützung für neuen Wert
+
+### <a name="sql"></a>SQL
+
+* `az sql dw update`: Argument für Sicherungsspeicherredundanz nicht akzeptieren
+* `az sql db update`: Sicherungsspeicherredundanz gemäß dem Befehl aktualisieren
+
+### <a name="storage"></a>Storage
+
+* Behebung von Problem Nr. 15965: Entfernen mehrerer Tags für die gesetzliche Aufbewahrungspflicht mit `az storage container legal-hold [clear|set]` näher erläutert
+* `az storage account encryption-scope`: Unterstützung für die allgemeine Verfügbarkeit
+* Behebung von Problem Nr. 9959: Fehler beim Versuch, eine Momentaufnahmeversion einer Dateifreigabe herunterzuladen, mit „ResourceNotFound“
+
+### <a name="synapse"></a>Synapse
+
+* Neue Cmdlets „az synapse sql ad-admin show/create/update/delete“ hinzugefügt
+* Neues Cmdlet „az synapse workspace firewall-rule update“ hinzugefügt
+* Neue Cmdlets „az synapse sql audit-policy show/update“ hinzugefügt
+* Integration Runtime-bezogene Cmdlets hinzugefügt
 
 ## <a name="december-08-2020"></a>8\. Dezember 2020
 
