@@ -4,21 +4,88 @@ description: Enthält Informationen zu den aktuellen Updates der Azure CLI.
 author: dbradish-microsoft
 ms.author: dbradish
 manager: barbkess
-ms.date: 01/04/2021
+ms.date: 01/19/2021
 ms.topic: article
 ms.service: azure-cli
 ms.devlang: azurecli
 ms.custom: devx-track-azurecli
-ms.openlocfilehash: 9e7fd550f5ec6957287f0c7a865517eb5332a604
-ms.sourcegitcommit: bd2dbc80328936dadd211764d25c32a14fc58083
+ms.openlocfilehash: 0eed53a8eec57c4329bce934c90e90b72282f548
+ms.sourcegitcommit: 59f08c5a7a967fa68adb9eefbf5beb92acda9e08
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 01/04/2021
-ms.locfileid: "97857868"
+ms.lasthandoff: 01/19/2021
+ms.locfileid: "98569026"
 ---
 # <a name="azure-cli-release-notes"></a>Versionshinweise für die Azure CLI
 
 # <a name="current-release-notes"></a>[Aktuelle Versionshinweise](#tab/azure-cli)
+
+## <a name="january-19-2021"></a>19. Januar 2021
+
+Version 2.18.0
+
+### <a name="acr"></a>ACR
+
+* `az acr create / update`: Fügen Sie `--allow-trusted-services`hinzu. Dieser Parameter bestimmt, ob vertrauenswürdige Azure-Dienste auf Registrierungen mit Netzwerkeinschränkungen zugreifen können. Standardmäßig ist der Zugriff erlaubt.
+
+### <a name="aks"></a>AKS
+
+* `az aks check-acr`: Neuer Befehl „check-acr“ hinzugefügt
+
+### <a name="app-service"></a>App Service
+
+* Fehlerbehebung Nr. 13907: `az webapp config ssl import`: Befehl geändert, sodass auch App Service Certificate importiert wird
+* Fehlerbehebung Nr. 16125: `az webapp ssh`: Bei Verwendung eines Windows-Clients wird der Browser mit einem SCM-Link geöffnet.
+* Fehlerbehebung Nr. 13291: `az webapp deployment slot swap`: Der Befehl sollte die Beibehaltung des VNet unterstützen.
+* [BREAKING CHANGE] Korrektur der Regression, bei der keine Runtimeversion mit Leerzeichen im Namen verwendet werden konnte
+
+### <a name="arm"></a>ARM
+
+* `az deployment`: Unterstützung für `--query-string` hinzugefügt
+* `az ts`: Verbesserung der Fehlerbehandlung für `--template-file` ohne `--version` unzulässig
+
+### <a name="backup"></a>Backup
+
+* `az backup protection backup-now`: Standardaufbewahrungszeitraum auf 30 Tage festgelegt
+
+### <a name="compute"></a>Computer:
+
+* Problem mit fehlendem Speicherprofil behoben
+* Bessere Fehlerbehandlung externer Token
+* Problem bei VMSS-Reimaging behoben
+* `az vm/vmss extension set`: Neuer Parameter `--enable-auto-upgrade`
+
+### <a name="container"></a>Container
+
+* `az container exec`: EOL-Überprüfung entfernt, um zu vermeiden, dass das Terminal unter Linux geschlossen wird, bevor es überhaupt gestartet wurde
+
+### <a name="dms"></a>DMS
+
+* `az dms project task create`: Tasktypparameter hinzugefügt, um zu unterscheiden, ob es sich bei einem Szenario um eine Onlinemigration oder eine Offlinemigration handelt
+* `az dms project task cutover`: Neuer Befehl hinzugefügt, der es ermöglicht, dass Tasks mit dem Onlinemigrations-Tasktyp eine Übernahme ausführen und die Migration beenden
+* `az dms project create/az dms project task create`: Erstellung von Projekten/Aufgaben in MySQL und PostgreSQL ermöglicht
+
+### <a name="iot"></a>Internet der Dinge
+
+* „--tags“ zu IoT Hub-Erstellung und -Aktualisierung hinzugefügt
+
+### <a name="monitor"></a>Überwachen
+
+* [BREAKING CHANGE] `az monitor log-analytics workspace data-export`: Veralteter Parameter `--export-all-tables` entfernt und Parameter `--tables` als erforderlich festgelegt
+
+### <a name="rdbms"></a>RDBMS
+
+* Vorschautag für Serverschlüssel und AD-Administratorbefehle für Postgres und MySQL entfernt
+
+### <a name="role"></a>Role
+
+* Fehlerbehebung Nr. 11594: `az role assignment create`: Nur unterstützte Werte für `--assignee-principal-type` angezeigt
+
+### <a name="storage"></a>Storage
+
+* Fehlerbehebung Nr. 16072: Hochladen von umfangreichen Dateien
+* Fehlerbehebung Nr. 12291: `--full-uri` wird von `az storage blob generate-sas` nicht ordnungsgemäß verschlüsselt.
+* Allgemein verfügbare PITR- und Blobdiensteigenschaften in SRP
 
 ## <a name="january-04-2021"></a>04. Januar 2021
 
