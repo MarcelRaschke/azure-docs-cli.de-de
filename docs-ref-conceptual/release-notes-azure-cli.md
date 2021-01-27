@@ -9,12 +9,12 @@ ms.topic: article
 ms.service: azure-cli
 ms.devlang: azurecli
 ms.custom: devx-track-azurecli
-ms.openlocfilehash: 0eed53a8eec57c4329bce934c90e90b72282f548
-ms.sourcegitcommit: 59f08c5a7a967fa68adb9eefbf5beb92acda9e08
+ms.openlocfilehash: ab837615dc4055abf7c08499dbab68c3ebefe515
+ms.sourcegitcommit: 2a0ae2ffc14ce325f9adb9c09d6b5eac534df8a6
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 01/19/2021
-ms.locfileid: "98569026"
+ms.lasthandoff: 01/27/2021
+ms.locfileid: "98887017"
 ---
 # <a name="azure-cli-release-notes"></a>Versionshinweise für die Azure CLI
 
@@ -2741,8 +2741,8 @@ Version 2.0.74
 ### <a name="batch"></a>Batch
 
 * Neue JSON-Konfigurationseinstellungen für `batch pool create` zu `--json-file` hinzugefügt:
-  * `MountConfigurations` für Dateisystemeinbindungen hinzugefügt (Details siehe https://docs.microsoft.com/rest/api/batchservice/pool/add#request-body )
-  * Optionale Eigenschaft `publicIPs` in `NetworkConfiguration` für öffentliche IP-Adressen für Pools hinzugefügt (Details siehe https://docs.microsoft.com/rest/api/batchservice/pool/add#request-body )
+  * `MountConfigurations` für Dateisystemeinbindungen hinzugefügt (Details siehe [Anforderungstext](/rest/api/batchservice/pool/add#request-body))
+  * Optionale Eigenschaft `publicIPs` in `NetworkConfiguration` für öffentliche IP-Adressen für Pools hinzugefügt (Details siehe [Anforderungstext](/rest/api/batchservice/pool/add#request-body))
 * Unterstützung für Kataloge mit freigegebenen Images zu `--image` hinzugefügt
 * [BREAKING CHANGE] Standardwert von `--start-task-wait-for-success` für `batch pool create` in `true` geändert
 * [BREAKING CHANGE] Standardwert von `Scope` für `AutoUserSpecification` geändert, damit immer „Pool“ verwendet wird (vormals `Task` für Windows-Knoten bzw. `Pool` für Linux-Knoten)
@@ -4068,7 +4068,7 @@ Version 2.0.50
 * Unterstützung der Gewährung von Berechtigungen für AAD-Apps hinzugefügt
 
 ### <a name="storage"></a>Storage
-* Möglichkeit hinzugefügt, allein mit SAS und Endpunkten (ohne Kontoname oder Schlüssel) eine Verbindung mit Speicherdiensten herzustellen, wie unter `Configure Azure Storage connection strings <https://docs.microsoft.com/azure/storage/common/storage-configure-connection-string>` beschrieben
+* Möglichkeit hinzugefügt, allein mit SAS und Endpunkten (ohne Kontoname oder Schlüssel) eine Verbindung mit Speicherdiensten herzustellen, wie unter [Konfigurieren von Azure Storage-Verbindungszeichenfolgen](/azure/storage/common/storage-configure-connection-string) beschrieben
 
 ### <a name="vm"></a>VM
 * Argument `storage-sku` zu `image create` hinzugefügt, um das Festlegen des standardmäßigen Speicherkontotyps für das Image zu ermöglichen
