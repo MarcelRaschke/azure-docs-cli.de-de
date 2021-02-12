@@ -9,29 +9,29 @@ ms.topic: conceptual
 ms.service: azure-cli
 ms.devlang: azurecli
 ms.custom: devx-track-azurecli
-ms.openlocfilehash: 2ca07510cf4f4cf1980d6a91f9fe880f371a0db6
-ms.sourcegitcommit: 59f08c5a7a967fa68adb9eefbf5beb92acda9e08
+ms.openlocfilehash: 845438664917698169f36021fb776780cad86542
+ms.sourcegitcommit: 4c41593455b473c796735c73590403d9b6be87a2
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 01/19/2021
-ms.locfileid: "98569057"
+ms.lasthandoff: 02/05/2021
+ms.locfileid: "99572747"
 ---
 # <a name="azure-cli-configuration"></a>Azure CLI-Konfiguration
 
 Die Azure CLI ermöglicht die Benutzerkonfiguration von Einstellungen, z.B. Protokollierung, Datensammlung und Standardargumentwerte.
-Die CLI verfügt über einen praktischen Befehl für die Verwaltung einiger Standardwerte: **az configure**. Andere Werte können in einer Konfigurationsdatei oder mit Umgebungsvariablen festgelegt werden.
+Die CLI bietet einen praktischen Befehl für die Verwaltung einiger Standardwerte: `az configure`. Andere Werte können in einer Konfigurationsdatei oder mit Umgebungsvariablen festgelegt werden.
 
 Von der CLI verwendete Konfigurationswerte werden in der folgenden Reihenfolge ausgewertet. Die Liste ist nach absteigender Priorität sortiert.
 
 1. Befehlszeilenparameter
-1. Permanente Parameterwerte, die mit **az config param-persist** festgelegt werden
+1. Permanente Parameterwerte, die mit `az config param-persist` festgelegt werden
 1. Umgebungsvariablen
-1. Werte in der Konfigurationsdatei, die mit **az configure** festgelegt werden
+1. Werte in der Konfigurationsdatei, die mit `az configure` festgelegt werden
 
 ## <a name="cli-configuration-with-az-configure"></a>CLI-Konfiguration mit „az configure“
 
 Standardwerte für die CLI werden mit dem Befehl [az configure](/cli/azure/reference-index#az-configure) festgelegt.
-Für diesen Befehl wird ein Argument ( **--defaults**) verwendet, bei dem es sich um eine Liste mit per Leerzeichen getrennten `key=value`-Paaren handelt. Die angegebenen Werte werden von der CLI anstelle von erforderlichen Argumenten verwendet.
+Dieser Befehl akzeptiert ein einzelnes Argument: `--defaults` (eine durch Leerzeichen getrennte Liste mit `key=value`-Paaren). Die angegebenen Werte werden von der CLI anstelle von erforderlichen Argumenten verwendet.
 
 Die folgende Tabelle enthält eine Liste der verfügbaren Konfigurationsschlüssel.
 
@@ -39,10 +39,10 @@ Die folgende Tabelle enthält eine Liste der verfügbaren Konfigurationsschlüss
 |------|-------------|
 | group | Die Standardressourcengruppe für alle Befehle. |
 | location | Der Standardstandort für alle Befehle. |
-| Web- | Der App-Standardname für **az webapp**-Befehle. |
-| vm | Der VM-Standardname für **az vm**-Befehle. |
-| vmss | Der Standardname einer VM-Skalierungsgruppe (VMSS) für **az vmss**-Befehle. |
-| acr | Der Standardname einer Containerregistrierung für **az acr**-Befehle. |
+| Web- | Der Standard-App-Name für `az webapp`-Befehle. |
+| vm | Der Standard-VM-Name für `az vm`-Befehle. |
+| vmss | Der Standardname einer VM-Skalierungsgruppe (VMSS), der für `az vmss`-Befehle verwendet wird |
+| acr | Der standardmäßige Containerregistrierungsname für `az acr`-Befehle. |
 
 Das folgende Beispiel zeigt, wie Sie die Standardressourcengruppe und den Standardstandort für alle Befehle festlegen.
 
@@ -52,7 +52,7 @@ az configure --defaults location=westus2 group=MyResourceGroup
 
 ## <a name="cli-configuration-file"></a>CLI-Konfigurationsdatei
 
-Die CLI-Konfigurationsdatei enthält weitere Einstellungen für die Verwaltung des CLI-Verhaltens. Die eigentliche Konfigurationsdatei befindet sich unter _$AZURE_CONFIG_DIR/config_. Der Standardwert von **AZURE_CONFIG_DIR** lautet unter Linux und macOS `$HOME/.azure` und unter Windows `%USERPROFILE%\.azure`.
+Die CLI-Konfigurationsdatei enthält weitere Einstellungen für die Verwaltung des CLI-Verhaltens. Sie befindet sich unter `$AZURE_CONFIG_DIR/config`. `AZURE_CONFIG_DIR` hat standardmäßig den Wert `$HOME/.azure` (Linux und macOS) bzw. `%USERPROFILE%\.azure` (Windows).
 
 Konfigurationsdateien sind im INI-Dateiformat geschrieben. Dieses Dateiformat wird durch Abschnittsheader gefolgt von einer Liste von Schlüssel-Wert-Einträgen definiert.
 
@@ -62,8 +62,8 @@ Konfigurationsdateien sind im INI-Dateiformat geschrieben. Dieses Dateiformat wi
 
 Bei booleschen Werten wird die Groß-/Kleinschreibung nicht beachtet, und sie werden durch folgende Werte dargestellt:
 
-* __True__: 1, yes, true, on
-* __False__: 0, no, false, off
+* __True__: `1`, `yes`, `true`, `on`
+* __False__: `0`, `no`, `false`, `off`
 
 Das folgende Beispiel zeigt eine CLI-Konfigurationsdatei, die sämtliche Bestätigungsaufforderungen deaktiviert und eine Protokollierung im Verzeichnis `/var/log/azure` einrichtet.
 
@@ -80,41 +80,41 @@ Ausführliche Informationen zu allen verfügbaren Konfigurationswerten und zu de
 
 ## <a name="cli-configuration-values-and-environment-variables"></a>CLI-Konfigurationswerte und Umgebungsvariablen
 
-Die folgende Tabelle enthält sämtliche Abschnitte und Optionsnamen, die in einer Konfigurationsdatei verwendet werden können. Die entsprechenden Umgebungsvariablen werden als **AZURE_{section}_{name}** (in Großbuchstaben) festgelegt. Der Standardwert `output` für `core` wird beispielsweise in der Variablen **AZURE_CORE_OUTPUT**, der Standardwert `storage_account` für `batchai` in der Variablen **AZURE_BATCHAI_STORAGE_ACCOUNT** und der Standardwert `location` in der Variablen **AZURE_DEFAULTS_LOCATION** festgelegt.
+Die folgende Tabelle enthält sämtliche Abschnitte und Optionsnamen, die in einer Konfigurationsdatei verwendet werden können. Die entsprechenden Umgebungsvariablen werden als `AZURE_{section}_{name}` (in Großbuchstaben) festgelegt. Der `output`-Standardwert für `core` wird beispielsweise in der Variablen `AZURE_CORE_OUTPUT`, der `storage_account`-Standardwert für `batchai` in der Variablen `AZURE_BATCHAI_STORAGE_ACCOUNT` und der `location`-Standardwert in der Variablen `AZURE_DEFAULTS_LOCATION` festgelegt.
 
 Wenn Sie einen Standardwert angeben, wird dieses Argument von keinem Befehl mehr benötigt. Stattdessen wird der Standardwert verwendet.
 
 | `Section` | Name      | type | BESCHREIBUNG|
 |---------|-----------|------|------------|
-| __core__ | output | Zeichenfolge | Das Standardausgabeformat. Dies kann **json**, **jsonc**, **tsv** oder **table** sein. |
+| __core__ | output | Zeichenfolge | Das Standardausgabeformat. Mögliche Optionen: `json`, `jsonc`, `tsv` oder `table`. |
 | | disable\_confirm\_prompt | boolean | Dient zum Aktivieren/Deaktivieren von Bestätigungsaufforderungen. |
 | | collect\_telemetry | boolean | Erlaubt Microsoft das Sammeln anonymer Daten zur Verwendung der CLI. Informationen zum Datenschutz finden Sie in der [MIT-Lizenz für die Azure CLI](https://github.com/Azure/azure-cli/blob/dev/LICENSE). |
-| | only\_show\_errors | boolean | Fehler nur beim Befehlsaufruf anzeigen. Anders ausgedrückt: Nur Fehler werden in **stderr** geschrieben. Warnungen aus der Vorschau bzw. aus veralteten und experimentellen Befehlen werden unterdrückt. Auch für einzelne Befehle mit dem Parameter **--only-show-errors** verfügbar. |
-| | no\_color | boolean | Farbe deaktivieren. Ursprünglich farbigen Nachrichten wird das Präfix `DEBUG`, `INFO`, `WARNING` und `ERROR` vorangestellt. Hierdurch wird für eine Drittanbieterbibliothek das Problem umgangen, bei dem die Farbe des Terminals nach einer **stdout**-Umleitung nicht wiederhergestellt werden kann. |
+| | only\_show\_errors | boolean | Fehler nur beim Befehlsaufruf anzeigen. Anders ausgedrückt: In `stderr` werden nur Fehler geschrieben. Warnungen aus der Vorschau bzw. aus veralteten und experimentellen Befehlen werden unterdrückt. Auch für einzelne Befehle mit dem Parameter `--only-show-errors` verfügbar |
+| | no\_color | boolean | Farbe deaktivieren. Ursprünglich farbigen Nachrichten wird das Präfix `DEBUG`, `INFO`, `WARNING` und `ERROR` vorangestellt. Dadurch wird das Problem im Zusammenhang mit einer Drittanbieterbibliothek umgangen, bei der die Farbe des Terminals nach einer `stdout`-Umleitung nicht wiederhergestellt werden kann. |
 | __logging__ | enable\_log\_file | boolean | Dient zum Aktivieren/Deaktivieren der Protokollierung. |
 | | log\_dir | Zeichenfolge | Das Verzeichnis, in das Protokolle geschrieben werden sollen. Standardmäßig ist dieser Wert auf `${AZURE_CONFIG_DIR}/logs*` festgelegt. |
 | __defaults__ | group | Zeichenfolge | Die Standardressourcengruppe für alle Befehle. |
 | | location | Zeichenfolge | Der Standardstandort für alle Befehle. |
-| | Web- | Zeichenfolge | Der App-Standardname für **az webapp**-Befehle. |
-| | vm | Zeichenfolge | Der VM-Standardname für **az vm**-Befehle. |
-| | vmss | Zeichenfolge | Der Standardname einer VM-Skalierungsgruppe (VMSS) für **az vmss**-Befehle. |
-| | acr | Zeichenfolge | Der Standardname einer Containerregistrierung für **az acr**-Befehle. |
-| __storage__ | connection\_string | Zeichenfolge | Die Standardverbindungszeichenfolge für **az storage**-Befehle. |
-| | account | Zeichenfolge | Der Standardkontoname für **az storage**-Befehle. |
-| | Schlüssel | Zeichenfolge | Der Standardkontoschlüssel für **az storage**-Befehle. |
-| | sas\_token | Zeichenfolge | Das SAS-Standardtoken für **az storage**-Befehle. |
-| __batchai__ | storage\_account | Zeichenfolge | Das Standardspeicherkonto für **az batchai**-Befehle. |
-| | storage\_key | Zeichenfolge | Der Standardspeicherschlüssel für **az batchai**-Befehle. |
-| __batch__ | account | Zeichenfolge | Der Azure Batch-Standardkontoname für **az batch**-Befehle. |
-| | access\_key | Zeichenfolge | Der Standardzugriffsschlüssel für **az batch**-Befehle. Wird nur für die `aad`-Autorisierung verwendet. |
-| | endpoint | Zeichenfolge | Der Standardendpunkt für **az batch**-Befehle, mit dem eine Verbindung hergestellt werden soll. |
-| | auth\_mode | Zeichenfolge | Der Autorisierungsmodus für **az batch**-Befehle. Kann `shared_key` oder `aad` sein. |
-| __cloud__ | name | Zeichenfolge | Die Standardcloud für alle **az**-Befehle.  Die möglichen Werte sind `AzureCloud` (Standard) oder `AzureChinaCloud`, `AzureUSGovernment`, `AzureGermanCloud`. Zum Ändern von Clouds können Sie den Befehl **az cloud set –name** verwenden.  Ein Beispiel finden Sie unter [Verwalten von Clouds mit der Azure CLI](manage-clouds-azure-cli.md). |
+| | Web- | Zeichenfolge | Der Standard-App-Name für `az webapp`-Befehle. |
+| | vm | Zeichenfolge | Der Standard-VM-Name für `az vm`-Befehle. |
+| | vmss | Zeichenfolge | Der Standardname einer VM-Skalierungsgruppe (VMSS), der für `az vmss`-Befehle verwendet wird |
+| | acr | Zeichenfolge | Der standardmäßige Containerregistrierungsname für `az acr`-Befehle. |
+| __storage__ | connection\_string | Zeichenfolge | Die Standardverbindungszeichenfolge für `az storage`-Befehle. |
+| | account | Zeichenfolge | Der Standardkontoname für `az storage`-Befehle. |
+| | Schlüssel | Zeichenfolge | Der Standardkontoschlüssel für `az storage`-Befehle. |
+| | sas\_token | Zeichenfolge | Das Standard-SAS-Token für `az storage`-Befehle. |
+| __batchai__ | storage\_account | Zeichenfolge | Das Standardspeicherkonto für `az batchai`-Befehle. |
+| | storage\_key | Zeichenfolge | Der Standardspeicherschlüssel für `az batchai`-Befehle. |
+| __batch__ | account | Zeichenfolge | Der Azure Batch-Standardkontoname für `az batch`-Befehle. |
+| | access\_key | Zeichenfolge | Der Standardzugriffsschlüssel für `az batch`-Befehle. Wird nur für die `aad`-Autorisierung verwendet. |
+| | endpoint | Zeichenfolge | Der Standardendpunkt für `az batch`-Befehle, mit dem eine Verbindung hergestellt werden soll. |
+| | auth\_mode | Zeichenfolge | Der Autorisierungsmodus für `az batch`-Befehle. Kann `shared_key` oder `aad` sein. |
+| __cloud__ | name | Zeichenfolge | Die Standardcloud für alle `az`-Befehle.  Die möglichen Werte sind `AzureCloud` (Standard) oder `AzureChinaCloud`, `AzureUSGovernment`, `AzureGermanCloud`. Zum Ändern von Clouds können Sie den Befehl `az cloud set –name` verwenden.  Ein Beispiel finden Sie unter [Verwalten von Clouds mit der Azure CLI](manage-clouds-azure-cli.md). |
 | __extension__ | use_dynamic_install | Zeichenfolge | Installiert eine Erweiterung, wenn sie noch nicht hinzugefügt wurde und ein Befehl über sie ausgeführt wird. Mögliche Werte: `no` (Standard), `yes_prompt`, `yes_without_prompt`. |
 | | run_after_dynamic_install | boolean | Setzt die Befehlsausführung fort, wenn eine Erweiterung dynamisch für ihn installiert wird. Der Standardwert ist `False`. |
 
 > [!NOTE]
-> In Ihrer Konfigurationsdatei begegnen Ihnen unter Umständen noch andere Werte, aber diese werden direkt über CLI-Befehle verwaltet (z. B. **az configure**). Abgesehen von den in der obigen Tabelle aufgeführten Werten sollten Sie keine anderen Werte selbst ändern.
+> In Ihrer Konfigurationsdatei begegnen Ihnen möglicherweise noch andere Werte, diese werden jedoch direkt über CLI-Befehle verwaltet (einschließlich `az configure`). Abgesehen von den in der obigen Tabelle aufgeführten Werten sollten Sie keine anderen Werte selbst ändern.
 
 ## <a name="see-also"></a>Siehe auch
 
