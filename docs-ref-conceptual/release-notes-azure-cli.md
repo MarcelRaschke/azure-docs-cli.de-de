@@ -4,21 +4,29 @@ description: Enthält Informationen zu den aktuellen Updates der Azure CLI.
 author: dbradish-microsoft
 ms.author: dbradish
 manager: barbkess
-ms.date: 02/09/2021
+ms.date: 02/10/2021
 ms.topic: article
 ms.service: azure-cli
 ms.devlang: azurecli
 ms.custom: devx-track-azurecli
-ms.openlocfilehash: f84a71be28b7128c904b3a30e9b13a91a56395d1
-ms.sourcegitcommit: df9d6597535ef9103775afbaee5a8282e0e218ee
+ms.openlocfilehash: 6f60c62974be947de8b1a2efbc7d0be9e9724e98
+ms.sourcegitcommit: a75bc3963fb815e8f19b7b3d575d3bd065b5b0cc
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 02/09/2021
-ms.locfileid: "99987201"
+ms.lasthandoff: 02/10/2021
+ms.locfileid: "100090240"
 ---
 # <a name="azure-cli-release-notes"></a>Versionshinweise für die Azure CLI
 
 # <a name="current-release-notes"></a>[Aktuelle Versionshinweise](#tab/azure-cli)
+
+## <a name="february-10-2021"></a>10. Februar 2021
+
+Version 2.19.1
+
+### <a name="key-vault"></a>Key Vault
+
+* Hotfix: Das Abhängigkeitspaket `azure-keyvault-administration` ist an 4.0.0b1 gebunden.
 
 ## <a name="february-09-2021"></a>9\. Februar 2021
 
@@ -118,6 +126,11 @@ Version 2.19.0
 ### <a name="search"></a>Suchen,
 
 * Upgrade zur Verwendung des aktuellen (8.0.0) Python SDK „azure-mgmt-search“
+* `az search create`: Unterstützung für die Suchdiensterstellung mit IP-Regeln, Zugriff über einen öffentlichen Endpunkt und/oder einer MSI hinzugefügt
+* `az search update`: Unterstützung für die Suchdienstaktualisierung mit IP-Regeln, Zugriff über einen öffentlichen Endpunkt und/oder einer MSI hinzugefügt
+* `az search private-endpoint-connection`: Verwalten einer privaten Endpunktverbindung mit einem Suchdienst
+* `az search shared-private-link-resource`: Verwalten von freigegebenen Private Link-Ressourcen in einem Suchdienst
+* `az search private-link-resource`: Auflisten verfügbarer Private Link-Ressourcen in einem Suchdienst
 
 ### <a name="security"></a>Sicherheit
 
