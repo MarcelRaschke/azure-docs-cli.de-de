@@ -9,12 +9,12 @@ ms.topic: conceptual
 ms.service: azure-cli
 ms.devlang: azurecli
 ms.custom: devx-track-azurecli
-ms.openlocfilehash: a17c0c24335dea634fb364dd5f1eab4bbac95eac
-ms.sourcegitcommit: 9beaf9abb794f1006a56acee4e1cfb8ea7fe2405
+ms.openlocfilehash: 6b64a8f781907977d6123561d91fb8266a0ebe08
+ms.sourcegitcommit: 594e9c620a6f74f5eaedf91a7f6a791e03a64c74
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 12/08/2020
-ms.locfileid: "96850200"
+ms.lasthandoff: 02/17/2021
+ms.locfileid: "100631066"
 ---
 # <a name="create-an-azure-service-principal-with-the-azure-cli"></a>Erstellen eines Azure-Dienstprinzipals mit der Azure-Befehlszeilenschnittstelle
 
@@ -28,11 +28,18 @@ In diesem Artikel wird Schritt für Schritt erläutert, wie Sie mit der Azure C
 
 Erstellen Sie mit dem Befehl [az ad sp create-for-rbac](/cli/azure/ad/sp#az-ad-sp-create-for-rbac) einen Dienstprinzipal. Beim Erstellen eines Dienstprinzipals wählen Sie den Typ der von ihm verwendeten Anmeldeauthentifizierung aus.
 
+Für Dienstprinzipale stehen zwei Authentifizierungstypen zur Verfügung: Kennwortbasierte Authentifizierung und zertifikatbasierte Authentifizierung.
+
 > [!NOTE]
 >
 > Wenn Ihr Konto nicht über Berechtigungen zum Erstellen eines Dienstprinzipals verfügt, gibt `az ad sp create-for-rbac` eine Fehlermeldung mit dem Hinweis „Nicht genügend Berechtigungen zum Abschließen des Vorgangs“ zurück. Bitten Sie den Azure Active Directory-Administrator, einen Dienstprinzipal zu erstellen.
 
-Für Dienstprinzipale stehen zwei Authentifizierungstypen zur Verfügung: Kennwortbasierte Authentifizierung und zertifikatbasierte Authentifizierung.
+> [!WARNING]
+> Wenn Sie mithilfe des Befehls `az ad sp create-for-rbac` einen Dienstprinzipal erstellen, enthält die Ausgabe Anmeldeinformationen, die geschützt werden müssen. Schließen Sie diese Anmeldeinformationen nicht in Ihren Code ein, und checken Sie sie nicht in Ihre Quellcodeverwaltung ein. Verwenden Sie als Alternative ggf. [verwaltete Identitäten](/azure/active-directory/managed-identities-azure-resources/overview) (sofern verfügbar), um zu vermeiden, dass die Verwendung von Anmeldeinformationen erforderlich ist.
+>
+> `az ad sp create-for-rbac` weist dem Dienstprinzipal standardmäßig auf Abonnementebene die Rolle [Mitwirkender](/azure/role-based-access-control/built-in-roles#contributor) zu. Um das Risiko eines kompromittierten Dienstprinzipals zu verringern, weisen Sie eine spezifischere Rolle zu, und schränken Sie den Bereich auf eine Ressource oder Ressourcengruppe ein. Weitere Informationen finden Sie unter [Schritte zum Hinzufügen einer Rollenzuweisung](/azure/role-based-access-control/role-assignments-steps).
+>
+> In einem zukünftigen Release wird mit `az ad sp create-for-rbac` die Rollenzuweisung **Mitwirkender** NICHT standardmäßig erstellt. Verwenden Sie bei Bedarf das Argument `--role`, um explizit eine Rollenzuweisung zu erstellen.
 
 ### <a name="password-based-authentication"></a>Kennwortbasierte Authentifizierung
 
