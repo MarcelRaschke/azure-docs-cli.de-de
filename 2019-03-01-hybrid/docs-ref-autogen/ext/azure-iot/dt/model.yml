@@ -1,0 +1,184 @@
+### YamlMime:AzureCLIGroup
+uid: ext_azure-iot_az_dt_model
+name: az dt model
+extensionInformation: >-
+  > [!Note]
+
+  > Diese Referenz ist Teil der **Azure-IOT-** Erweiterung für Azure CLI und erfordert Version 2.0.70 oder höher.  Die Erweiterung wird automatisch installiert, wenn Sie den Befehl **AZ dt Model** zum ersten Mal ausführen.  [Weitere Informationen zu Erweiterungen](https://docs.microsoft.com/en-us/cli/azure/azure-cli-extensions-overview)
+summary: Verwalten von dtdl-Modellen und-Definitionen in einer Instanz von digitalen Zwillingen.
+description: ''
+directCommands:
+- uid: ext_azure-iot_az_dt_model_create
+  name: az dt model create
+  summary: Lädt ein oder mehrere Modelle hoch. Wenn ein Fehler auftritt, werden keine Modelle hochgeladen.
+  description: --Modelle können Inline-JSON oder Dateipfad sein.
+  syntax: >-
+    az dt model create --dt-name
+                       [--fd]
+                       [--models]
+                       [--resource-group]
+  examples:
+  - summary: Massen Upload aller JSON-oder. dtdl-Modelldateien aus einem Zielverzeichnis. Die Modell Verarbeitung ist rekursiv.
+    syntax: az dt model create -n {instance_or_hostname} --from-directory {directory_path}
+  - summary: Hochladen von Modell-JSON-Dateien Inline oder aus Dateipfad.
+    syntax: az dt model create -n {instance_or_hostname} --models {file_path_or_inline_json}
+  requiredParameters:
+  - isRequired: true
+    name: --dt-name --dtn -n
+    summary: Der Instanzname oder der Hostname der digitalen Zwillinge. Wenn ein Instanzname angegeben wird, wird das Benutzer Abonnement zuerst abgefragt, damit die Ziel Instanz den Hostnamen abruft. Wenn ein Hostname angegeben wird, wird die Abonnement Abfrage übersprungen und der angegebene Wert für die nachfolgende Interaktion verwendet.
+    description: ''
+  optionalParameters:
+  - name: --fd --from-directory
+    summary: Die JSON-Verzeichnis Modelldateien werden aus analysiert.
+    description: ''
+  - name: --models
+    summary: Der JSON-Code des Inline Modells oder der Dateipfad zum JSON-Modell
+    description: ''
+  - name: --resource-group -g
+    summary: Instanzen Ressourcengruppe für digitale Zwillinge. Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+- uid: ext_azure-iot_az_dt_model_delete
+  name: az dt model delete
+  summary: Löschen Sie ein Modell. Ein Modell kann nur gelöscht werden, wenn keine anderen Modelle darauf verweisen.
+  description: ''
+  syntax: >-
+    az dt model delete --dt-name
+                       --dtmi
+                       [--resource-group]
+  examples:
+  - summary: Löschen Sie ein Zielmodell.
+    syntax: az dt model delete -n {instance_or_hostname} --dtmi "dtmi:com:example:Floor;1"
+  requiredParameters:
+  - isRequired: true
+    name: --dt-name --dtn -n
+    summary: Der Instanzname oder der Hostname der digitalen Zwillinge. Wenn ein Instanzname angegeben wird, wird das Benutzer Abonnement zuerst abgefragt, damit die Ziel Instanz den Hostnamen abruft. Wenn ein Hostname angegeben wird, wird die Abonnement Abfrage übersprungen und der angegebene Wert für die nachfolgende Interaktion verwendet.
+    description: ''
+  - isRequired: true
+    name: --dtmi --model-id -m
+    summary: 'Modell-ID des digitalen Zwillingen. Beispiel: dtmi: com: example: Room; 2.'
+    description: ''
+  optionalParameters:
+  - name: --resource-group -g
+    summary: Instanzen Ressourcengruppe für digitale Zwillinge. Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+- uid: ext_azure-iot_az_dt_model_list
+  name: az dt model list
+  summary: Auflisten von Modell Metadaten,-Definitionen und-Abhängigkeiten.
+  description: ''
+  syntax: >-
+    az dt model list --dt-name
+                     [--def {false, true}]
+                     [--dependencies-for]
+                     [--resource-group]
+  examples:
+  - summary: Auflisten von Modell Metadaten
+    syntax: az dt model list -n {instance_or_hostname}
+  - summary: Auflisten von Modell Definitionen
+    syntax: az dt model list -n {instance_or_hostname} --definition
+  - summary: Listet Abhängigkeiten von bestimmten bereits vorhandenen Modellen auf. Leerzeichen getrennte dtmi-Werte.
+    syntax: az dt model list -n {instance_or_hostname} --dependencies-for {model_id0} {model_id1}
+  requiredParameters:
+  - isRequired: true
+    name: --dt-name --dtn -n
+    summary: Der Instanzname oder der Hostname der digitalen Zwillinge. Wenn ein Instanzname angegeben wird, wird das Benutzer Abonnement zuerst abgefragt, damit die Ziel Instanz den Hostnamen abruft. Wenn ein Hostname angegeben wird, wird die Abonnement Abfrage übersprungen und der angegebene Wert für die nachfolgende Interaktion verwendet.
+    description: ''
+  optionalParameters:
+  - name: --def --definition
+    parameterValueGroup: false, true
+    summary: Durch den Vorgang wird die Modell Definition abgerufen.
+    description: ''
+  - name: --dependencies-for
+    summary: Der Satz von Modellen, deren Abhängigkeiten abgerufen werden. Wenn dieser nicht weggelassen wird, werden alle Modelle abgerufen. Format ist eine durch Leerzeichen getrennte Liste.
+    description: ''
+  - name: --resource-group -g
+    summary: Instanzen Ressourcengruppe für digitale Zwillinge. Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+- uid: ext_azure-iot_az_dt_model_show
+  name: az dt model show
+  summary: Abrufen eines Ziel Modells oder einer Modell Definition.
+  description: ''
+  syntax: >-
+    az dt model show --dt-name
+                     --dtmi
+                     [--def {false, true}]
+                     [--resource-group]
+  examples:
+  - summary: Anzeigen von modellmetadatendaten
+    syntax: az dt model show -n {instance_or_hostname} --dtmi "dtmi:com:example:Floor;1"
+  - summary: Anzeigen von modellmetadatendaten und-Definitionen
+    syntax: az dt model show -n {instance_or_hostname} --dtmi "dtmi:com:example:Floor;1" --definition
+  requiredParameters:
+  - isRequired: true
+    name: --dt-name --dtn -n
+    summary: Der Instanzname oder der Hostname der digitalen Zwillinge. Wenn ein Instanzname angegeben wird, wird das Benutzer Abonnement zuerst abgefragt, damit die Ziel Instanz den Hostnamen abruft. Wenn ein Hostname angegeben wird, wird die Abonnement Abfrage übersprungen und der angegebene Wert für die nachfolgende Interaktion verwendet.
+    description: ''
+  - isRequired: true
+    name: --dtmi --model-id -m
+    summary: 'Modell-ID des digitalen Zwillingen. Beispiel: dtmi: com: example: Room; 2.'
+    description: ''
+  optionalParameters:
+  - name: --def --definition
+    parameterValueGroup: false, true
+    summary: Durch den Vorgang wird die Modell Definition abgerufen.
+    description: ''
+  - name: --resource-group -g
+    summary: Instanzen Ressourcengruppe für digitale Zwillinge. Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+- uid: ext_azure-iot_az_dt_model_update
+  name: az dt model update
+  summary: Aktualisiert die Metadaten für ein Modell. Zurzeit kann ein Modell nur deaktiviert werden.
+  description: ''
+  syntax: >-
+    az dt model update --dt-name
+                       --dtmi
+                       [--decommission {false, true}]
+                       [--resource-group]
+  examples:
+  - summary: Decommision eines Ziel Modells
+    syntax: az dt model update -n {instance_or_hostname} --dtmi "dtmi:com:example:Floor;1" --decommission
+  requiredParameters:
+  - isRequired: true
+    name: --dt-name --dtn -n
+    summary: Der Instanzname oder der Hostname der digitalen Zwillinge. Wenn ein Instanzname angegeben wird, wird das Benutzer Abonnement zuerst abgefragt, damit die Ziel Instanz den Hostnamen abruft. Wenn ein Hostname angegeben wird, wird die Abonnement Abfrage übersprungen und der angegebene Wert für die nachfolgende Interaktion verwendet.
+    description: ''
+  - isRequired: true
+    name: --dtmi --model-id -m
+    summary: 'Modell-ID des digitalen Zwillingen. Beispiel: dtmi: com: example: Room; 2.'
+    description: ''
+  optionalParameters:
+  - name: --decommission
+    parameterValueGroup: false, true
+    summary: Gibt an, dass ein Zielmodell außer Betrieb gesetzt werden soll.
+    description: ''
+  - name: --resource-group -g
+    summary: Instanzen Ressourcengruppe für digitale Zwillinge. Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+commands:
+- ext_azure-iot_az_dt_model_create
+- ext_azure-iot_az_dt_model_delete
+- ext_azure-iot_az_dt_model_list
+- ext_azure-iot_az_dt_model_show
+- ext_azure-iot_az_dt_model_update
+globalParameters:
+- name: --debug
+  summary: Ausführlichkeit der Protokollierung erhöhen, um alle Debugprotokolle anzuzeigen.
+- name: --help -h
+  summary: Zeigen Sie diese Hilfemeldung an, und schließen Sie sie.
+- name: --only-show-errors
+  summary: Nur Fehler anzeigen und Warnungen unterdrücken.
+- name: --output -o
+  defaultValue: json
+  parameterValueGroup: json, jsonc, table, tsv
+  summary: Ausgabeformat.
+- name: --query
+  summary: JMESPath-Abfragezeichenfolge. Weitere Informationen und Beispiele finden Sie unter <a href="http://jmespath.org/">http://jmespath.org/</a>.
+- name: --verbose
+  summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
+metadata:
+  description: Verwalten von dtdl-Modellen und-Definitionen in einer Instanz von digitalen Zwillingen.
+  ms.openlocfilehash: 910a93cff9029f685c0e42c84d17d7f09c2fb40d
+  ms.sourcegitcommit: e1faf297ba2cdf2ba7e821fbeedff9c9a724c975
+  ms.translationtype: MT
+  ms.contentlocale: de-DE
+  ms.lasthandoff: 12/16/2020
+  ms.locfileid: "102822633"
