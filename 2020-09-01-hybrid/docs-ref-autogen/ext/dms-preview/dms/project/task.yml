@@ -1,0 +1,323 @@
+### YamlMime:AzureCLIGroup
+uid: ext_dms-preview_az_dms_project_task
+name: az dms project task
+extensionInformation: >-
+  > [!Note]
+
+  > Diese Referenz ist Teil der **DMS-Vorschau** Erweiterung für Azure CLI und erfordert Version 2.0.43 oder höher.  Die Erweiterung wird automatisch installiert, wenn Sie den Befehl **AZ DMS Project Task** zum ersten Mal ausführen.  [Weitere Informationen zu Erweiterungen](https://docs.microsoft.com/en-us/cli/azure/azure-cli-extensions-overview)
+summary: Verwalten von Aufgaben für das Projekt einer Data Migration Service-Instanz.
+description: ''
+directCommands:
+- uid: ext_dms-preview_az_dms_project_task_cancel
+  name: az dms project task cancel
+  summary: Dieser Befehl ist veraltet. Verwenden Sie stattdessen den Befehl "Abbrechen".
+  description: 'Um die Benutzeroberfläche des Azure-Portals einheitlicher zu gestalten, verwenden Sie: AZ DMS Project Task Ende.'
+  syntax: >-
+    az dms project task cancel --name
+                               --project-name
+                               --resource-group
+                               --service-name
+                               [--object-name]
+  requiredParameters:
+  - isRequired: true
+    name: --name -n
+    summary: Der Name der Aufgabe. Eine DMS-Projektaufgabe ist die Aktivität, die migrationsbezogene Aufgaben ausführt. Einem Projekt können mehrere Aufgaben zugeordnet sein.
+    description: ''
+  - isRequired: true
+    name: --project-name
+    summary: Der Name des Projekts. DMS Project ist eine logische Gruppierung, die die Quelldaten Bankverbindung, die Ziel Datenbankverbindung und eine Liste der zu migrierenden Datenbanken umfasst.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - isRequired: true
+    name: --service-name
+    summary: Der Name des Dienstanbieter. DMS-Dienst ist eine Azure-Instanz, die Datenbankmigrationen ausführt.
+    description: ''
+  optionalParameters:
+  - name: --object-name
+    summary: Wird nur von MongoDB-Migrationen unterstützt. Der qualifizierte Name der Datenbank oder Sammlung, die Sie abbrechen möchten. Lassen Sie das Feld leer, um die gesamte Migration anzuhalten.
+    description: ''
+- uid: ext_dms-preview_az_dms_project_task_create
+  name: az dms project task create
+  summary: Erstellen und starten Sie eine Migrations Aufgabe.
+  description: >-
+    Die folgenden Aufgaben Konfigurationen werden unterstützt:-) Quelle-> target:: Tasktyp
+        1) SQL-> Sqldb:: Offlinemigration
+        2) MySQL-> azuredbformysql:: Onlinemigration
+        3) PostgreSQL-> azuredbforpostgresql:: Onlinemigration
+        4) MongoDB-> MongoDB (für die Migration zu Cosmos DB über die MongoDB-API):: Offlinemigration.
+  syntax: >-
+    az dms project task create --database-options-json
+                               --name
+                               --project-name
+                               --resource-group
+                               --service-name
+                               --source-connection-json
+                               --target-connection-json
+                               --task-type
+                               [--enable-data-integrity-validation]
+                               [--enable-query-analysis-validation]
+                               [--enable-schema-validation]
+                               [--validate-only]
+                               [--validated-task-name]
+  examples:
+  - summary: Erstellen und starten Sie einen SQL-Task, der keine Validierungs Überprüfungen ausführt.
+    syntax: "az dms project task create --database-options-json C:\\CliFiles\\databaseOptions.json -n mytask --project-name myproject -g myresourcegroup --service-name mydms --source-connection-json '{'dataSource': 'myserver', 'authentication': 'SqlAuthentication', 'encryptConnection': 'true', 'trustServerCertificate': 'true'}' --target-connection-json C:\\CliFiles\\targetConnection.json --task-type offlinemigration"
+  - summary: Erstellen und starten Sie einen SQL-Task, der alle Validierungs Überprüfungen ausführt.
+    syntax: az dms project task create --database-options-json C:\CliFiles\databaseOptions.json -n mytask --project-name myproject -g myresourcegroup --service-name mydms --source-connection-json C:\CliFiles\sourceConnection.json --target-connection-json C:\CliFiles\targetConnection.json --enable-data-integrity-validation --enable-query-analysis-validation --enable-schema-validation --task-type offlinemigration
+  requiredParameters:
+  - isRequired: true
+    name: --database-options-json
+    summary: Datenbank-und Tabellen Informationen. Dabei kann es sich entweder um eine JSON-formatierte Zeichenfolge oder um den Speicherort einer Datei mit dem JSON-Objekt handeln. Das Format finden Sie unten in den Beispielen.
+    description: >-
+      Für SQL werden die Migrationen pro Tabelle unterstützt. Um dies zu verwenden, geben Sie die Tabellennamen wie unten beschrieben in "table_map" an. Sie können die Quelle auch als schreibgeschützt festlegen.
+
+      [{"Name": "Quelldatenbank", "target_database_name": "Zieldatenbank", "make_source_db_read_only": false | true, "table_map": {"Schema. SourceTableName1 ":"-Schema. TargetTableName1 ","-Schema. SourceTableName2 ":"-Schema. TargetTableName2", ... n}},... Nr
+
+
+      Für MySQL und PostgreSQL das Format des JSON-Objekts für Daten Bankoptionen.
+
+      [{"Name": "Quelldatenbank", "target_database_name": "Zieldatenbank",//zum Bearbeiten der zugrunde liegenden Migrations-Engine verwendet.
+
+      Geben Sie nur an, wenn Sie dazu aufgefordert werden oder wenn Sie wirklich wissen, was Sie tun.
+
+      "migrationsetting": {"Setting1": "Value1",... n},//wird zum Bearbeiten der zugrunde liegenden Migrations-Engine verwendet.
+
+      Geben Sie nur an, wenn Sie dazu aufgefordert werden oder wenn Sie wirklich wissen, was Sie tun.
+
+      "sourcesetts": {"Setting1": "Value1",... n},//wird zum Bearbeiten der zugrunde liegenden Migrations-Engine verwendet.
+
+      Geben Sie nur an, wenn Sie dazu aufgefordert werden oder wenn Sie wirklich wissen, was Sie tun.
+
+      "targetsetting": {"Setting1": "Value1",... n},//gilt nur für PostgreSQL//-Listen Tabellen, die in die Migration eingeschlossen werden sollen.
+
+      "selectedtables": ["schemaName1. tableName1",... n]},... Nr
+
+
+      Für MongoDB werden Migrationen pro Sammlung unterstützt. Um dies zu verwenden, geben Sie die Auflistungen innerhalb des Datenbankobjekts wie folgt an.
+
+      {//auf NULL festgelegt, um die standardmäßige Verstärkung während der Migration zu erhalten (empfohlen) "boostrus": 0,//"OneTime" oder "Continuous", nur "OneTime" wird zurzeit unterstützt "Replikation": "OneTime",//auf NULL festgelegt, um die maximal verfügbaren Ressourcen zu verwenden.
+
+      "Drosselung": {//Prozentsatz der CPU, um zu vermeiden, dass "minfreecpu" verwendet wird: 25,//RAM (in MB), um zu vermeiden, dass die Verwendung von "minfreememorymb" vermieden wird: 1024,//maximale Anzahl der zu migrierenden Sammlungen zu einem Zeitpunkt "maxparallelism": 2} "Datenbanken": {"database_name": {//See <a href="https://docs.microsoft.com/th-th/azure/cosmos-db/request-units">https://docs.microsoft.com/th-th/azure/cosmos-db/request-units</a> , | |//auf NULL festgelegt, um Default//zu verwenden, wenn der Durchsatz nicht auf Datenbankebene bereitgestellt werden soll: "targetrus": 0, "Collections": {"collection_name_1": {//ob die Zieldatenbank/-Sammlung gelöscht wird, wenn "Kerzen" vorhanden ist: true,//auf NULL festgelegt, wenn das Ziel nicht als Sharding verwendet werden soll/oder wenn der Shard-Schlüssel aus der Quelle kopiert werden soll (sofern vorhanden) "shardkey": NULL,//auf NULL festlegen, um default (empfohlen) "targetrus": NULL}, "collection_name_2" zu verwenden.: {"Kerzen": true, "shardkey": {"Fields": [{"Name": "FIELD_NAME",//akzeptiert "Forward", "Reverse" oder "Hashed", aber cosmosdb akzeptiert nur ein einzelnes Feld , Hashwert für Shard Key "Order": "Forward"},... n],//unabhängig davon, ob der Shard-Schlüssel eindeutig ist//siehe <a href="https://docs.microsoft.com/azure/cosmos-db/partition-data">https://docs.microsoft.com/azure/cosmos-db/partition-data</a> "IsUnique": false}, "targetrus": 10000},... n}},... n}}
+
+
+      Für Oracle zu PostgreSQL das Format des JSON-Objekts der Daten Bankoptionen.
+
+      [{//"Preserve" oder "ToLower". Ungültig bei der Bereitstellung von "TableMap".
+
+      "casemanipulations": "",//wenn angegeben, kopiert alle Tabellen in diesem Schema, wobei die Groß-/Kleinschreibung der Quell Objektnamen und/oder die Verwendung des Werts von "casemanipulations" bei Angabe beibehalten wird.
+
+      Ungültig, wenn "TableMap" bereitgestellt wird.
+
+      "Schema Name": "",//definiert die benutzerdefinierte Zuordnung von Schemas und Tabellen. Wie Sie sehen, bietet die Möglichkeit, Tabellen verschiedenen Schemas zu ordnen, Schema-und Tabellennamen zu ändern und die Groß-/Kleinschreibung von Objektnamen zu ändern
+
+      Ungültig, wenn "Schema Name" bereitgestellt wird.
+
+      "TableMap": {"SCHEMA1. Table1 ":" SCHEMA1. Table1 "," SCHEMA2. Table2 ":" SCHEMA1. Table2 "," SCHEMA2. "Table3" ":" Schema2. Othertablename... n}, "TargetDatabaseName": "database_name",//wird zum Bearbeiten der zugrunde liegenden Migrations-Engine verwendet.
+
+      Geben Sie nur an, wenn Sie dazu aufgefordert werden oder wenn Sie wirklich wissen, was Sie tun.
+
+      "migrationsetting": {"Setting1": "Value1",... n},//wird zum Bearbeiten der zugrunde liegenden Migrations-Engine verwendet.
+
+      Geben Sie nur an, wenn Sie dazu aufgefordert werden oder wenn Sie wirklich wissen, was Sie tun.
+
+      "sourcesetts": {"Setting1": "Value1",... n},//wird zum Bearbeiten der zugrunde liegenden Migrations-Engine verwendet.
+
+      Geben Sie nur an, wenn Sie dazu aufgefordert werden oder wenn Sie wirklich wissen, was Sie tun.
+
+      "targetsetting": {"Setting1": "Value1",... n}}].
+  - isRequired: true
+    name: --name -n
+    summary: Der Name der Aufgabe. Eine DMS-Projektaufgabe ist die Aktivität, die migrationsbezogene Aufgaben ausführt. Einem Projekt können mehrere Aufgaben zugeordnet sein.
+    description: ''
+  - isRequired: true
+    name: --project-name
+    summary: Der Name des Projekts. DMS Project ist eine logische Gruppierung, die die Quelldaten Bankverbindung, die Ziel Datenbankverbindung und eine Liste der zu migrierenden Datenbanken umfasst.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - isRequired: true
+    name: --service-name
+    summary: Der Name des Dienstanbieter. DMS-Dienst ist eine Azure-Instanz, die Datenbankmigrationen ausführt.
+    description: ''
+  - isRequired: true
+    name: --source-connection-json
+    summary: Die Verbindungsinformationen für den Quell Server. Dabei kann es sich entweder um eine JSON-formatierte Zeichenfolge oder um den Speicherort einer Datei mit dem JSON-Objekt handeln. Das Format finden Sie unten in den Beispielen.
+    description: >-
+      Das Format des JSON-Verbindungs Objekts für SQL-Verbindungen.
+
+      {"username": "User Name",//wenn diese fehlt oder NULL ist, werden Sie zur Angabe "Kennwort" aufgefordert: NULL,//wenn diese fehlt oder NULL ist (dringend empfohlen), werden Sie zur Angabe von "DataSource": "Servername [, Port]", "Authentifizierung": "sqlauthentikation | WindowsAuthentication "," verschlüsseltconnection ": true,//empfohlen," TrustServerCertificate "als true zu belassen: false//dringend empfohlen, als false festzustellen.
+
+
+      Das Format des JSON-Verbindungs Objekts für MySQL-Verbindungen.
+
+      {"username": "User Name",//wenn dieser Wert fehlt oder NULL ist, werden Sie zur Angabe "Kennwort" aufgefordert: NULL,//wenn dieser Wert fehlt oder NULL ist (dringend empfohlen), werden Sie zur Angabe von "Servername": "Servername", "Port": 3306//wenn dieser fehlt, wird standardmäßig 3306} verwendet.
+
+
+      Das Format des JSON-Verbindungsobjekts für PostgreSQL-Verbindungen.
+
+      {"username": "User Name",//wenn diese fehlt oder NULL ist, werden Sie zur Angabe "Kennwort" aufgefordert: NULL,//wenn diese fehlt oder NULL ist (dringend empfohlen), werden Sie zur Eingabe von "Servername": "Servername", "DatabaseName": "Datenbankname" und "Datenbankname" aufgefordert. Wenn dieser Wert fehlt, wird standardmäßig die Postgres-Datenbank "Port" verwendet: 5432,//wenn dieser fehlt, wird der Standardwert 5432 "Verschlüsselungs Verbindung": true,//dringend empfohlen, true (nur für die Migration von PostgreSQL zu Azure PostgreSQL) "TrustServerCertificate": false//dringend empfohlen zu verlassen als false (nur für die Migration von PostgreSQL zu Azure PostgreSQL)}
+
+
+      Das Format des JSON-Verbindungs Objekts für MongoDB-Verbindungen.
+
+      {"username": NULL,//wenn diese fehlt oder NULL ist, werden Sie zur Angabe von "Kennwort" aufgefordert: NULL,//wenn diese fehlt oder NULL ist (dringend empfohlen), werden Sie zu "ConnectionString": "MongoDB://hostOrIp: Port"} aufgefordert.
+
+
+      Das Format des JSON-Verbindungs Objekts für Oracle-Verbindungen.
+
+      {"username": NULL,//wenn diese fehlt oder NULL ist, werden Sie zur Angabe "Kennwort" aufgefordert: NULL,//wenn diese fehlt oder NULL ist (dringend empfohlen), werden Sie zur Angabe von "DataSource" aufgefordert: "//hostOrIp: Port/ServiceName"//lässt das ezconnect-oder tnsnames-Format} zu.
+  - isRequired: true
+    name: --target-connection-json
+    summary: Die Verbindungsinformationen für den Zielserver. Dabei kann es sich entweder um eine JSON-formatierte Zeichenfolge oder um den Speicherort einer Datei mit dem JSON-Objekt handeln. Beispiele für Verbindungs Formate finden Sie unter "Source-Connection-JSON".
+    description: ''
+  - isRequired: true
+    name: --task-type
+    summary: 'Der Typ der Daten Verschiebung, der vom Task unterstützt wird. Folgende Typen werden unterstützt: Onlinemigration, Offlinemigration.'
+    description: ''
+  optionalParameters:
+  - name: --enable-data-integrity-validation
+    summary: (Nur für SQL) Gibt an, ob eine Prüfsummen basierte Daten Integritäts Überprüfung zwischen Quelle und Ziel für die ausgewählte Datenbank und Tabellen durchgeführt werden soll.
+    description: ''
+  - name: --enable-query-analysis-validation
+    summary: (Nur für SQL) Gibt an, ob eine schnelle und intelligente Abfrage Analyse durchgeführt werden soll, indem Abfragen aus der Quelldatenbank abgerufen und im Ziel ausgeführt werden. Das Ergebnis enthält Ausführungs Statistiken für Ausführungen in Quell-und Ziel Datenbanken für die extrahierten Abfragen.
+    description: ''
+  - name: --enable-schema-validation
+    summary: (Nur für SQL) Gibt an, ob die Schema Informationen zwischen Quelle und Ziel verglichen werden sollen.
+    description: ''
+  - name: --validate-only
+    summary: (Nur für MongoDB zu Cosmos DB) Gibt an, ob nur die Überprüfung ausgeführt und die Migration nicht ausgeführt wird Vor dem Versuch, eine tatsächliche Migration auszuführen, ist es obligatorisch, den Task "nur überprüfen" auszuführen. Nachdem die Überprüfung abgeschlossen ist, übergeben Sie den Namen der Aufgabe "nur überprüfen" an das Argument "validierte Aufgaben Name" einer neuen Aufgabe.
+    description: ''
+  - name: --validated-task-name
+    summary: (Nur für MongoDB zu Cosmos DB) Beim Ausführen einer Migration ist es erforderlich, den Namen einer zuvor durchgeführten Aufgabe ' nur überprüfen ' zu übergeben.
+    description: ''
+- uid: ext_dms-preview_az_dms_project_task_cutover
+  name: az dms project task cutover
+  summary: Für eine Online Migrations Aufgabe schließen Sie die Migration ab, indem Sie eine Umstellung durchführen.
+  description: 'Um das Ergebnis der Anforderung anzuzeigen, verwenden Sie den Befehl "Aufgabe anzeigen": AZ DMS Project Task Show...--Expand Command.'
+  syntax: >-
+    az dms project task cutover --name
+                                --project-name
+                                --resource-group
+                                --service-name
+                                [--immediate]
+                                [--object-name]
+  requiredParameters:
+  - isRequired: true
+    name: --name -n
+    summary: Der Name der Aufgabe. Eine DMS-Projektaufgabe ist die Aktivität, die migrationsbezogene Aufgaben ausführt. Einem Projekt können mehrere Aufgaben zugeordnet sein.
+    description: ''
+  - isRequired: true
+    name: --project-name
+    summary: Der Name des Projekts. DMS Project ist eine logische Gruppierung, die die Quelldaten Bankverbindung, die Ziel Datenbankverbindung und eine Liste der zu migrierenden Datenbanken umfasst.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - isRequired: true
+    name: --service-name
+    summary: Der Name des Dienstanbieter. DMS-Dienst ist eine Azure-Instanz, die Datenbankmigrationen ausführt.
+    description: ''
+  optionalParameters:
+  - name: --immediate
+    summary: Für MongoDB-Migrationen, ob sofort umzustellen oder die aktuell geladenen Ereignisse migriert werden sollen. Für alle anderen Migrations Typen hat dies keine Auswirkungen.
+    description: ''
+  - name: --object-name
+    summary: Für MongoDB-Migrationen der qualifizierte Name der Datenbank oder Sammlung, die Sie umbenennen möchten. Lassen Sie das Feld leer, um die gesamte Migration zu überschreiben. Für alle anderen Migrations Typen der Name der Datenbank auf der Quelle, die Sie umbenennen möchten.
+    description: ''
+- uid: ext_dms-preview_az_dms_project_task_restart
+  name: az dms project task restart
+  summary: ''
+  description: 'Um das Ergebnis der Anforderung anzuzeigen, verwenden Sie den Befehl "Aufgabe anzeigen": AZ DMS Project Task Show...--Expand Command.'
+  syntax: >-
+    az dms project task restart --name
+                                --project-name
+                                --resource-group
+                                --service-name
+                                [--object-name]
+  requiredParameters:
+  - isRequired: true
+    name: --name -n
+    summary: Der Name der Aufgabe. Eine DMS-Projektaufgabe ist die Aktivität, die migrationsbezogene Aufgaben ausführt. Einem Projekt können mehrere Aufgaben zugeordnet sein.
+    description: ''
+  - isRequired: true
+    name: --project-name
+    summary: Der Name des Projekts. DMS Project ist eine logische Gruppierung, die die Quelldaten Bankverbindung, die Ziel Datenbankverbindung und eine Liste der zu migrierenden Datenbanken umfasst.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - isRequired: true
+    name: --service-name
+    summary: Der Name des Dienstanbieter. DMS-Dienst ist eine Azure-Instanz, die Datenbankmigrationen ausführt.
+    description: ''
+  optionalParameters:
+  - name: --object-name
+    summary: Der qualifizierte Name der Datenbank oder Sammlung, die Sie neu starten möchten. Lassen Sie das Feld leer, um die gesamte Migration zu starten
+    description: ''
+- uid: ext_dms-preview_az_dms_project_task_stop
+  name: az dms project task stop
+  summary: Beendet den Task oder beendet die Migration auf dem angegebenen Objekt (nur MongoDB-Migrationen).
+  description: 'Um das Ergebnis der Anforderung anzuzeigen, verwenden Sie den Befehl "Aufgabe anzeigen": AZ DMS Project Task Show...--Expand Command.'
+  syntax: >-
+    az dms project task stop --name
+                             --project-name
+                             --resource-group
+                             --service-name
+                             [--object-name]
+  requiredParameters:
+  - isRequired: true
+    name: --name -n
+    summary: Der Name der Aufgabe. Eine DMS-Projektaufgabe ist die Aktivität, die migrationsbezogene Aufgaben ausführt. Einem Projekt können mehrere Aufgaben zugeordnet sein.
+    description: ''
+  - isRequired: true
+    name: --project-name
+    summary: Der Name des Projekts. DMS Project ist eine logische Gruppierung, die die Quelldaten Bankverbindung, die Ziel Datenbankverbindung und eine Liste der zu migrierenden Datenbanken umfasst.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - isRequired: true
+    name: --service-name
+    summary: Der Name des Dienstanbieter. DMS-Dienst ist eine Azure-Instanz, die Datenbankmigrationen ausführt.
+    description: ''
+  optionalParameters:
+  - name: --object-name
+    summary: Wird nur von MongoDB-Migrationen unterstützt. Der qualifizierte Name der Datenbank oder Sammlung, die Sie abbrechen möchten. Lassen Sie das Feld leer, um die gesamte Migration anzuhalten.
+    description: ''
+commands:
+- ext_dms-preview_az_dms_project_task_cancel
+- ext_dms-preview_az_dms_project_task_create
+- ext_dms-preview_az_dms_project_task_cutover
+- ext_dms-preview_az_dms_project_task_restart
+- ext_dms-preview_az_dms_project_task_stop
+globalParameters:
+- name: --debug
+  summary: Ausführlichkeit der Protokollierung erhöhen, um alle Debugprotokolle anzuzeigen.
+- name: --help -h
+  summary: Zeigen Sie diese Hilfemeldung an, und schließen Sie sie.
+- name: --only-show-errors
+  summary: Nur Fehler anzeigen und Warnungen unterdrücken.
+- name: --output -o
+  defaultValue: json
+  parameterValueGroup: json, jsonc, table, tsv
+  summary: Ausgabeformat.
+- name: --query
+  summary: JMESPath-Abfragezeichenfolge. Weitere Informationen und Beispiele finden Sie unter <a href="http://jmespath.org/">http://jmespath.org/</a>.
+- name: --verbose
+  summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
+metadata:
+  description: Verwalten von Aufgaben für das Projekt einer Data Migration Service-Instanz.
+  ms.openlocfilehash: 841ad16726c52b5c91fd2e39ad194a0c31693b66
+  ms.sourcegitcommit: 59f08c5a7a967fa68adb9eefbf5beb92acda9e08
+  ms.translationtype: MT
+  ms.contentlocale: de-DE
+  ms.lasthandoff: 01/19/2021
+  ms.locfileid: "102901664"
