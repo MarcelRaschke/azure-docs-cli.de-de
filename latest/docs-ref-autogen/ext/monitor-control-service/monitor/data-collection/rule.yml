@@ -1,0 +1,371 @@
+### YamlMime:AzureCLIGroup
+uid: ext_monitor-control-service_az_monitor_data_collection_rule
+name: az monitor data-collection rule
+extensionInformation: >-
+  > [!Note]
+
+  > Diese Referenz ist Teil der **Monitor-Control-Service-** Erweiterung für Azure CLI und erfordert Version 2.15.0 oder höher.  Die Erweiterung wird automatisch installiert, wenn Sie den Befehl **AZ Monitor Data-Collection Rule** zum ersten Mal ausführen.  [Weitere Informationen zu Erweiterungen](https://docs.microsoft.com/en-us/cli/azure/azure-cli-extensions-overview)
+summary: Verwalten der Daten Sammlungs Regel für den Überwachungs Steuerungs Dienst.
+description: ''
+directCommands:
+- uid: ext_monitor-control-service_az_monitor_data_collection_rule_create
+  name: az monitor data-collection rule create
+  summary: Erstellen einer Datensammlungsregel
+  description: ''
+  syntax: >-
+    az monitor data-collection rule create --name
+                                           --resource-group
+                                           [--data-flows]
+                                           [--description]
+                                           [--extensions]
+                                           [--location]
+                                           [--log-analytics]
+                                           [--monitor-metrics]
+                                           [--performance-counters]
+                                           [--syslog]
+                                           [--tags]
+                                           [--windows-event-logs]
+  examples:
+  - summary: Daten Sammlungs Regel erstellen
+    syntax: az monitor data-collection rule create --resource-group "myResourceGroup" --location "eastus" --name "myCollectionRule" --data-flows destinations="centralWorkspace" streams="Microsoft-Perf" streams="Microsoft-Syslog" streams="Microsoft-WindowsEvent" --log-analytics name="centralWorkspace" resource-id="/subscriptions/703362b3-f278-4e4b-9179-c76eaf41ffc2/resourceGroups/myResourceGroup/providers/Microsoft.OperationalInsights/workspaces/centralTeamWorkspace" --performance-counters name="cloudTeamCoreCounters" counter-specifiers="\\Processor(_Total)\\% Processor Time" counter-specifiers="\\Memory\\Committed Bytes" counter-specifiers="\\LogicalDisk(_Total)\\Free Megabytes" counter-specifiers="\\PhysicalDisk(_Total)\\Avg. Disk Queue Length" sampling-frequency=15 transfer-period="PT1M" streams="Microsoft-Perf" --performance-counters name="appTeamExtraCounters" counter-specifiers="\\Process(_Total)\\Thread Count" sampling-frequency=30 transfer-period="PT5M" streams="Microsoft-Perf" --syslog name="cronSyslog" facility-names="cron" log-levels="Debug" log-levels="Critical" log-levels="Emergency" streams="Microsoft-Syslog" --syslog name="syslogBase" facility-names="syslog" log-levels="Alert" log-levels="Critical" log-levels="Emergency" streams="Microsoft-Syslog" --windows-event-logs name="cloudSecurityTeamEvents" transfer-period="PT1M" streams="Microsoft-WindowsEvent" x-path-queries="Security!" --windows-event-logs name="appTeam1AppEvents" transfer-period="PT5M" streams="Microsoft-WindowsEvent" x-path-queries="System![System[(Level = 1 or Level = 2 or Level = 3)]]" x-path-queries="Application!*[System[(Level = 1 or Level = 2 or Level = 3)]]"
+  requiredParameters:
+  - isRequired: true
+    name: --name -n
+    summary: Der Name der Daten Sammlungs Regel. Für den Namen wird die Groß-/Kleinschreibung nicht beachtet.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  optionalParameters:
+  - name: --data-flows
+    summary: Die Spezifikation von Daten Flüssen.
+    description: >-
+      Syntax:--Data-Flows Streams = xx1 Streams = XX2 Ziele = xx1 Ziele = XX2
+
+
+      Streams: erforderlich. Liste der Streams für diesen Datenfluss.
+
+      Ziele: erforderlich. Die Liste der Ziele für diesen Datenfluss.
+
+
+      Mehrere Aktionen können mit mehr als einem Datenfluss Argument angegeben werden.
+  - name: --description
+    summary: Beschreibung der Daten Sammlungs Regel.
+    description: ''
+  - name: --extensions
+    summary: 'Die Liste der Konfigurationen der Azure-VM-Erweiterungs Datenquellen. Erwarteter Wert: json-string/@json-file .'
+    description: ''
+  - name: --location -l
+    summary: 'Der Standort. Werte aus: `az account list-locations`. Sie können den standardmäßig verwendeten Standort mit `az configure --defaults location=<location>` konfigurieren.'
+    description: ''
+  - name: --log-analytics
+    summary: Liste der Log Analytics Ziele.
+    description: >-
+      Syntax:--Log-Analytics Resource-ID = XX Name = XX
+
+
+      Resource-ID: erforderlich. Die Ressourcen-ID des Arbeitsbereichs Log Analytics.
+
+      Name: erforderlich. Ein Anzeige Name für das Ziel.  Dieser Name muss innerhalb der Daten Sammlungs Regel in allen Zielen (unabhängig vom Typ) eindeutig sein.
+
+
+      Mehrere Aktionen können mithilfe von mehr als einem-Log Analytics-Argument angegeben werden.
+  - name: --monitor-metrics
+    summary: Azure Monitor metrikziel.
+    description: >-
+      Verwendung:--Monitor-Metrikname = XX
+
+
+      Name: erforderlich. Ein Anzeige Name für das Ziel.  Dieser Name muss innerhalb der Daten Sammlungs Regel in allen Zielen (unabhängig vom Typ) eindeutig sein.
+  - name: --performance-counters
+    summary: Die Liste der Leistungsdaten-Datenquellen Konfigurationen.
+    description: >-
+      Syntax:--Performance-Counters Streams = xx1 Streams = XX2 Transfer-period = XX Sampling-Frequency = XX Counter-specifier = xx1 Counter-specifilers = XX2 Name = XX
+
+
+      Streams: erforderlich. Liste der Streams, an die diese Datenquelle gesendet wird. Ein Datenstrom gibt an, welches Schema für diese Daten verwendet wird und in der Regel, an welche Tabelle in Log Analytics die Daten gesendet werden.
+
+      Übertragungs Zeitraum: erforderlich. Das Intervall zwischen Daten Uploads (geplante Übertragungen), aufgerundet auf die nächste Minute.
+
+      Stichproben Häufigkeit: erforderlich. Die Anzahl der Sekunden zwischen aufeinander folgenden Mess Wert Messungen (Stichproben).
+
+      Indikators: erforderlich. Eine Liste der spezifizierernamen der Leistungsindikatoren, die Sie erfassen möchten. Verwenden Sie einen Platzhalter (*), um einen-Wert für alle Instanzen zu erfassen. Führen Sie den Befehl "typeperf" aus, um eine Liste der Leistungsindikatoren unter Windows zu erhalten.
+
+      Name: erforderlich. Ein Anzeige Name für die Datenquelle.  Dieser Name muss in allen Datenquellen (unabhängig vom Typ) innerhalb der Daten Sammlungs Regel eindeutig sein.
+
+
+      Mehrere Aktionen können mithilfe von mehr als einem-Leistungsindikatoren-Argument angegeben werden.
+  - name: --syslog
+    summary: Die Liste der syslog-Datenquellen Konfigurationen.
+    description: >-
+      Syntax:--syslog Streams = xx1 Streams = XX2 Einrichtung-Names = xx1 Facility-Names = XX2 Log-Levels = xx1 Log-Levels = XX2 Name = XX
+
+
+      Streams: erforderlich. Liste der Streams, an die diese Datenquelle gesendet wird. Ein Datenstrom gibt an, welches Schema für diese Daten verwendet wird und in der Regel, an welche Tabelle in Log Analytics die Daten gesendet werden.
+
+      Name der Einrichtung: erforderlich. Die Liste der Namen der Einrichtung.
+
+      Log-Levels: die zu sammelnden Protokoll Ebenen.
+
+      Name: erforderlich. Ein Anzeige Name für die Datenquelle.  Dieser Name muss in allen Datenquellen (unabhängig vom Typ) innerhalb der Daten Sammlungs Regel eindeutig sein.
+
+
+      Mehrere Aktionen können mithilfe von mehr als einem-syslog-Argument angegeben werden.
+  - name: --tags
+    summary: 'Durch Leerzeichen getrennte Tags: Key [= value] [key [= value]...]. Verwenden Sie "", um vorhandene Tags zu löschen.'
+    description: ''
+  - name: --windows-event-logs
+    summary: Die Liste der Windows-Ereignisprotokoll-Datenquellen Konfigurationen.
+    description: >-
+      Syntax:--Windows-Event-Logs Streams = xx1 Streams = XX2 Transfer-period = XX x-Path-Queries = xx1 x-Path-Queries = XX2 Name = XX
+
+
+      Streams: erforderlich. Liste der Streams, an die diese Datenquelle gesendet wird. Ein Datenstrom gibt an, welches Schema für diese Daten verwendet wird und in der Regel, an welche Tabelle in Log Analytics die Daten gesendet werden.
+
+      Übertragungs Zeitraum: erforderlich. Das Intervall zwischen Daten Uploads (geplante Übertragungen), aufgerundet auf die nächste Minute.
+
+      x-Path-Queries: erforderlich. Eine Liste von Windows-Ereignisprotokoll Abfragen im XPath-Format.
+
+      Name: erforderlich. Ein Anzeige Name für die Datenquelle.  Dieser Name muss in allen Datenquellen (unabhängig vom Typ) innerhalb der Daten Sammlungs Regel eindeutig sein.
+
+
+      Mehrere Aktionen können mithilfe von mehr als einem-Windows-Ereignisprotokoll Argument angegeben werden.
+- uid: ext_monitor-control-service_az_monitor_data_collection_rule_delete
+  name: az monitor data-collection rule delete
+  summary: Löscht eine Daten Sammlungs Regel.
+  description: ''
+  syntax: >-
+    az monitor data-collection rule delete --name
+                                           --resource-group
+                                           [--yes]
+  examples:
+  - summary: Daten Sammlungs Regel löschen
+    syntax: az monitor data-collection rule delete --name "myCollectionRule" --resource-group "myResourceGroup"
+  requiredParameters:
+  - isRequired: true
+    name: --name -n
+    summary: Der Name der Daten Sammlungs Regel. Für den Namen wird die Groß-/Kleinschreibung nicht beachtet.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  optionalParameters:
+  - name: --yes -y
+    summary: Nicht zur Bestätigung auffordern
+    description: ''
+- uid: ext_monitor-control-service_az_monitor_data_collection_rule_list
+  name: az monitor data-collection rule list
+  summary: Listet alle Daten Sammlungs Regeln in der angegebenen Ressourcengruppe auf. Und listet alle Daten Sammlungs Regeln im angegebenen Abonnement auf.
+  description: ''
+  syntax: az monitor data-collection rule list [--resource-group]
+  examples:
+  - summary: Auflisten der Daten Sammlungs Regeln nach Ressourcengruppe
+    syntax: az monitor data-collection rule list --resource-group "myResourceGroup"
+  - summary: Auflisten der Daten Sammlungs Regeln nach Abonnement
+    syntax: az monitor data-collection rule list
+  optionalParameters:
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+- uid: ext_monitor-control-service_az_monitor_data_collection_rule_show
+  name: az monitor data-collection rule show
+  summary: Gibt die angegebene Daten Sammlungs Regel zurück.
+  description: ''
+  syntax: >-
+    az monitor data-collection rule show --name
+                                         --resource-group
+  examples:
+  - summary: Daten Sammlungs Regel "Datensammlung"
+    syntax: az monitor data-collection rule show --name "myCollectionRule" --resource-group "myResourceGroup"
+  requiredParameters:
+  - isRequired: true
+    name: --name -n
+    summary: Der Name der Daten Sammlungs Regel. Für den Namen wird die Groß-/Kleinschreibung nicht beachtet.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+- uid: ext_monitor-control-service_az_monitor_data_collection_rule_update
+  name: az monitor data-collection rule update
+  summary: Aktualisieren einer Daten Sammlungs Regel.
+  description: ''
+  syntax: >-
+    az monitor data-collection rule update --name
+                                           --resource-group
+                                           [--data-flows]
+                                           [--description]
+                                           [--extensions]
+                                           [--log-analytics]
+                                           [--monitor-metrics]
+                                           [--performance-counters]
+                                           [--syslog]
+                                           [--tags]
+                                           [--windows-event-logs]
+  examples:
+  - summary: Daten Sammlungs Regel aktualisieren
+    syntax: az monitor data-collection rule update --resource-group "myResourceGroup" --name "myCollectionRule" --data-flows destinations="centralWorkspace" streams="Microsoft-Perf" streams="Microsoft-Syslog" streams="Microsoft-WindowsEvent" --log-analytics name="centralWorkspace" resource-id="/subscriptions/703362b3-f278-4e4b-9179-c76eaf41ffc2/resourceGroups/myResourceGroup/providers/Microsoft.OperationalInsights/workspaces/centralTeamWorkspace" --performance-counters name="appTeamExtraCounters" counter-specifiers="\\Process(_Total)\\Thread Count" sampling-frequency=30 transfer-period="PT5M" streams="Microsoft-Perf" --syslog name="cronSyslog" facility-names="cron" log-levels="Debug" log-levels="Critical" log-levels="Emergency" streams="Microsoft-Syslog" --windows-event-logs name="cloudSecurityTeamEvents" transfer-period="PT1M" streams="Microsoft-WindowsEvent" x-path-queries="Security!"
+  requiredParameters:
+  - isRequired: true
+    name: --name -n
+    summary: Der Name der Daten Sammlungs Regel. Für den Namen wird die Groß-/Kleinschreibung nicht beachtet.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  optionalParameters:
+  - name: --data-flows
+    summary: Die Spezifikation von Daten Flüssen.
+    description: >-
+      Syntax:--Data-Flows Streams = xx1 Streams = XX2 Ziele = xx1 Ziele = XX2
+
+
+      Streams: erforderlich. Liste der Streams für diesen Datenfluss.
+
+      Ziele: erforderlich. Die Liste der Ziele für diesen Datenfluss.
+
+
+      Mehrere Aktionen können mit mehr als einem Datenfluss Argument angegeben werden.
+  - name: --description
+    summary: Beschreibung der Daten Sammlungs Regel.
+    description: ''
+  - name: --extensions
+    summary: 'Die Liste der Konfigurationen der Azure-VM-Erweiterungs Datenquellen. Erwarteter Wert: json-string/@json-file .'
+    description: ''
+  - name: --log-analytics
+    summary: Liste der Log Analytics Ziele.
+    description: >-
+      Syntax:--Log-Analytics Resource-ID = XX Name = XX
+
+
+      Resource-ID: erforderlich. Die Ressourcen-ID des Arbeitsbereichs Log Analytics.
+
+      Name: erforderlich. Ein Anzeige Name für das Ziel.  Dieser Name muss innerhalb der Daten Sammlungs Regel in allen Zielen (unabhängig vom Typ) eindeutig sein.
+
+
+      Mehrere Aktionen können mithilfe von mehr als einem-Log Analytics-Argument angegeben werden.
+  - name: --monitor-metrics
+    summary: Azure Monitor metrikziel.
+    description: >-
+      Verwendung:--Monitor-Metrikname = XX
+
+
+      Name: erforderlich. Ein Anzeige Name für das Ziel.  Dieser Name muss innerhalb der Daten Sammlungs Regel in allen Zielen (unabhängig vom Typ) eindeutig sein.
+  - name: --performance-counters
+    summary: Die Liste der Leistungsdaten-Datenquellen Konfigurationen.
+    description: >-
+      Syntax:--Performance-Counters Streams = xx1 Streams = XX2 Transfer-period = XX Sampling-Frequency = XX Counter-specifier = xx1 Counter-specifilers = XX2 Name = XX
+
+
+      Streams: erforderlich. Liste der Streams, an die diese Datenquelle gesendet wird. Ein Datenstrom gibt an, welches Schema für diese Daten verwendet wird und in der Regel, an welche Tabelle in Log Analytics die Daten gesendet werden.
+
+      Übertragungs Zeitraum: erforderlich. Das Intervall zwischen Daten Uploads (geplante Übertragungen), aufgerundet auf die nächste Minute.
+
+      Stichproben Häufigkeit: erforderlich. Die Anzahl der Sekunden zwischen aufeinander folgenden Mess Wert Messungen (Stichproben).
+
+      Indikators: erforderlich. Eine Liste der spezifizierernamen der Leistungsindikatoren, die Sie erfassen möchten. Verwenden Sie einen Platzhalter (*), um einen-Wert für alle Instanzen zu erfassen. Führen Sie den Befehl "typeperf" aus, um eine Liste der Leistungsindikatoren unter Windows zu erhalten.
+
+      Name: erforderlich. Ein Anzeige Name für die Datenquelle.  Dieser Name muss in allen Datenquellen (unabhängig vom Typ) innerhalb der Daten Sammlungs Regel eindeutig sein.
+
+
+      Mehrere Aktionen können mithilfe von mehr als einem-Leistungsindikatoren-Argument angegeben werden.
+  - name: --syslog
+    summary: Die Liste der syslog-Datenquellen Konfigurationen.
+    description: >-
+      Syntax:--syslog Streams = xx1 Streams = XX2 Einrichtung-Names = xx1 Facility-Names = XX2 Log-Levels = xx1 Log-Levels = XX2 Name = XX
+
+
+      Streams: erforderlich. Liste der Streams, an die diese Datenquelle gesendet wird. Ein Datenstrom gibt an, welches Schema für diese Daten verwendet wird und in der Regel, an welche Tabelle in Log Analytics die Daten gesendet werden.
+
+      Name der Einrichtung: erforderlich. Die Liste der Namen der Einrichtung.
+
+      Log-Levels: die zu sammelnden Protokoll Ebenen.
+
+      Name: erforderlich. Ein Anzeige Name für die Datenquelle.  Dieser Name muss in allen Datenquellen (unabhängig vom Typ) innerhalb der Daten Sammlungs Regel eindeutig sein.
+
+
+      Mehrere Aktionen können mithilfe von mehr als einem-syslog-Argument angegeben werden.
+  - name: --tags
+    summary: 'Durch Leerzeichen getrennte Tags: Key [= value] [key [= value]...]. Verwenden Sie "", um vorhandene Tags zu löschen.'
+    description: ''
+  - name: --windows-event-logs
+    summary: Die Liste der Windows-Ereignisprotokoll-Datenquellen Konfigurationen.
+    description: >-
+      Syntax:--Windows-Event-Logs Streams = xx1 Streams = XX2 Transfer-period = XX x-Path-Queries = xx1 x-Path-Queries = XX2 Name = XX
+
+
+      Streams: erforderlich. Liste der Streams, an die diese Datenquelle gesendet wird. Ein Datenstrom gibt an, welches Schema für diese Daten verwendet wird und in der Regel, an welche Tabelle in Log Analytics die Daten gesendet werden.
+
+      Übertragungs Zeitraum: erforderlich. Das Intervall zwischen Daten Uploads (geplante Übertragungen), aufgerundet auf die nächste Minute.
+
+      x-Path-Queries: erforderlich. Eine Liste von Windows-Ereignisprotokoll Abfragen im XPath-Format.
+
+      Name: erforderlich. Ein Anzeige Name für die Datenquelle.  Dieser Name muss in allen Datenquellen (unabhängig vom Typ) innerhalb der Daten Sammlungs Regel eindeutig sein.
+
+
+      Mehrere Aktionen können mithilfe von mehr als einem-Windows-Ereignisprotokoll Argument angegeben werden.
+commands:
+- ext_monitor-control-service_az_monitor_data_collection_rule_association
+- ext_monitor-control-service_az_monitor_data_collection_rule_association_create
+- ext_monitor-control-service_az_monitor_data_collection_rule_association_delete
+- ext_monitor-control-service_az_monitor_data_collection_rule_association_list
+- ext_monitor-control-service_az_monitor_data_collection_rule_association_show
+- ext_monitor-control-service_az_monitor_data_collection_rule_association_update
+- ext_monitor-control-service_az_monitor_data_collection_rule_create
+- ext_monitor-control-service_az_monitor_data_collection_rule_data_flow
+- ext_monitor-control-service_az_monitor_data_collection_rule_data_flow_add
+- ext_monitor-control-service_az_monitor_data_collection_rule_data_flow_list
+- ext_monitor-control-service_az_monitor_data_collection_rule_delete
+- ext_monitor-control-service_az_monitor_data_collection_rule_list
+- ext_monitor-control-service_az_monitor_data_collection_rule_log_analytics
+- ext_monitor-control-service_az_monitor_data_collection_rule_log_analytics_add
+- ext_monitor-control-service_az_monitor_data_collection_rule_log_analytics_delete
+- ext_monitor-control-service_az_monitor_data_collection_rule_log_analytics_list
+- ext_monitor-control-service_az_monitor_data_collection_rule_log_analytics_show
+- ext_monitor-control-service_az_monitor_data_collection_rule_log_analytics_update
+- ext_monitor-control-service_az_monitor_data_collection_rule_performance_counter
+- ext_monitor-control-service_az_monitor_data_collection_rule_performance_counter_add
+- ext_monitor-control-service_az_monitor_data_collection_rule_performance_counter_delete
+- ext_monitor-control-service_az_monitor_data_collection_rule_performance_counter_list
+- ext_monitor-control-service_az_monitor_data_collection_rule_performance_counter_show
+- ext_monitor-control-service_az_monitor_data_collection_rule_performance_counter_update
+- ext_monitor-control-service_az_monitor_data_collection_rule_show
+- ext_monitor-control-service_az_monitor_data_collection_rule_syslog
+- ext_monitor-control-service_az_monitor_data_collection_rule_syslog_add
+- ext_monitor-control-service_az_monitor_data_collection_rule_syslog_delete
+- ext_monitor-control-service_az_monitor_data_collection_rule_syslog_list
+- ext_monitor-control-service_az_monitor_data_collection_rule_syslog_show
+- ext_monitor-control-service_az_monitor_data_collection_rule_syslog_update
+- ext_monitor-control-service_az_monitor_data_collection_rule_update
+- ext_monitor-control-service_az_monitor_data_collection_rule_windows_event_log
+- ext_monitor-control-service_az_monitor_data_collection_rule_windows_event_log_add
+- ext_monitor-control-service_az_monitor_data_collection_rule_windows_event_log_delete
+- ext_monitor-control-service_az_monitor_data_collection_rule_windows_event_log_list
+- ext_monitor-control-service_az_monitor_data_collection_rule_windows_event_log_show
+- ext_monitor-control-service_az_monitor_data_collection_rule_windows_event_log_update
+globalParameters:
+- name: --debug
+  summary: Ausführlichkeit der Protokollierung erhöhen, um alle Debugprotokolle anzuzeigen.
+- name: --help -h
+  summary: Zeigen Sie diese Hilfemeldung an, und schließen Sie sie.
+- name: --only-show-errors
+  summary: Nur Fehler anzeigen und Warnungen unterdrücken.
+- name: --output -o
+  defaultValue: json
+  parameterValueGroup: json, jsonc, table, tsv
+  summary: Ausgabeformat.
+- name: --query
+  summary: JMESPath-Abfragezeichenfolge. Weitere Informationen und Beispiele finden Sie unter <a href="http://jmespath.org/">http://jmespath.org/</a>.
+- name: --verbose
+  summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
+metadata:
+  description: Verwalten der Daten Sammlungs Regel für den Überwachungs Steuerungs Dienst.
+  ms.openlocfilehash: f54c13b73467ae2e164871acbb2b02db2d89a0f3
+  ms.sourcegitcommit: 547d3db8a1469f11d33e738a82d96cb51de61bd6
+  ms.translationtype: MT
+  ms.contentlocale: de-DE
+  ms.lasthandoff: 01/12/2021
+  ms.locfileid: "102900782"

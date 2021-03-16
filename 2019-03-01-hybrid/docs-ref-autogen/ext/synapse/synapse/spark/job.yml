@@ -1,0 +1,204 @@
+### YamlMime:AzureCLIGroup
+uid: ext_synapse_az_synapse_spark_job
+name: az synapse spark job
+extensionInformation: >-
+  > [!Note]
+
+  > Dieser Verweis ist Teil der **Synapse** -Erweiterung für Azure CLI und erfordert Version 2.0.67 oder höher.  Die Erweiterung wird automatisch installiert, wenn Sie den Befehl **AZ Synapse Spark Job** zum ersten Mal ausführen.  [Weitere Informationen zu Erweiterungen](https://docs.microsoft.com/en-us/cli/azure/azure-cli-extensions-overview)
+summary: Verwalten von Synapse Spark-Batch Aufträgen.
+description: ''
+directCommands:
+- uid: ext_synapse_az_synapse_spark_job_cancel
+  name: az synapse spark job cancel
+  summary: Brechen Sie einen Spark-Auftrag ab.
+  description: ''
+  syntax: >-
+    az synapse spark job cancel --livy-id
+                                --spark-pool-name
+                                --workspace-name
+                                [--yes]
+  examples:
+  - summary: Brechen Sie einen Spark-Auftrag ab.
+    syntax: az synapse spark job cancel --livy-id 1 --workspace-name testsynapseworkspace --spark-pool-name testsparkpool
+  requiredParameters:
+  - isRequired: true
+    name: --livy-id
+    summary: Die ID des Spark-Auftrags.
+    description: ''
+  - isRequired: true
+    name: --spark-pool-name
+    summary: Der Name des Spark-Pools.
+    description: ''
+  - isRequired: true
+    name: --workspace-name
+    summary: Den Namen des Arbeitsbereichs
+    description: ''
+  optionalParameters:
+  - name: --yes -y
+    summary: Nicht zur Bestätigung auffordern
+    description: ''
+- uid: ext_synapse_az_synapse_spark_job_list
+  name: az synapse spark job list
+  summary: Listet alle Spark-Aufträge auf.
+  description: ''
+  syntax: >-
+    az synapse spark job list --spark-pool-name
+                              --workspace-name
+                              [--from-index]
+                              [--size]
+  examples:
+  - summary: Listet alle Spark-Aufträge auf.
+    syntax: az synapse spark job list --workspace-name testsynapseworkspace --spark-pool-name testsparkpool
+  requiredParameters:
+  - isRequired: true
+    name: --spark-pool-name
+    summary: Der Name des Spark-Pools.
+    description: ''
+  - isRequired: true
+    name: --workspace-name
+    summary: Den Namen des Arbeitsbereichs
+    description: ''
+  optionalParameters:
+  - name: --from-index
+    summary: Optionaler Parameter, der den Index angibt, von dem die Liste beginnen soll.
+    description: ''
+  - name: --size
+    summary: Die Größe der zurückgegebenen Liste. Standardmäßig ist der Wert 20 und das Maximum.
+    description: ''
+- uid: ext_synapse_az_synapse_spark_job_show
+  name: az synapse spark job show
+  summary: Holen Sie sich einen Spark-Auftrag.
+  description: ''
+  syntax: >-
+    az synapse spark job show --livy-id
+                              --spark-pool-name
+                              --workspace-name
+  examples:
+  - summary: Holen Sie sich einen Spark-Auftrag.
+    syntax: az synapse spark job show --livy-id 1 --workspace-name testsynapseworkspace --spark-pool-name testsparkpool
+  requiredParameters:
+  - isRequired: true
+    name: --livy-id
+    summary: Die ID des Spark-Auftrags.
+    description: ''
+  - isRequired: true
+    name: --spark-pool-name
+    summary: Der Name des Spark-Pools.
+    description: ''
+  - isRequired: true
+    name: --workspace-name
+    summary: Den Namen des Arbeitsbereichs
+    description: ''
+- uid: ext_synapse_az_synapse_spark_job_submit
+  name: az synapse spark job submit
+  summary: Übermitteln Sie einen Spark-Auftrag.
+  description: ''
+  syntax: >-
+    az synapse spark job submit --executor-size {Large, Medium, Small}
+                                --executors
+                                --main-class-name
+                                --main-definition-file
+                                --name
+                                --spark-pool-name
+                                --workspace-name
+                                [--archives]
+                                [--command-line-arguments]
+                                [--configuration]
+                                [--language {CSharp, PySpark, Python, Scala, Spark, SparkDotNet}]
+                                [--reference-files]
+                                [--tags]
+  examples:
+  - summary: Übermitteln Sie einen Java Spark-Auftrag.
+    syntax: >-
+      az synapse spark job submit --name WordCount_Java --workspace-name testsynapseworkspace \
+
+      --spark-pool-name testsparkpool \
+
+      --main-definition-file abfss://testfilesystem@testadlsgen2.dfs.core.windows.net/samples/java/wordcount/wordcount.jar \
+
+      --main-class-name WordCount \
+
+      --command-line-arguments abfss://testfilesystem@testadlsgen2.dfs.core.windows.net/samples/java/wordcount/shakespeare.txt \
+
+      abfss://testfilesystem@testadlsgen2.dfs.core.windows.net/samples/java/wordcount/result/ \
+
+      --executors 2 --executor-size Small
+  requiredParameters:
+  - isRequired: true
+    name: --executor-size
+    parameterValueGroup: Large, Medium, Small
+    summary: Die Executor-Größe.
+    description: ''
+  - isRequired: true
+    name: --executors
+    summary: Die Anzahl der Executors.
+    description: ''
+  - isRequired: true
+    name: --main-class-name
+    summary: Der voll qualifizierte Bezeichner oder die Hauptklasse in der Haupt Definitionsdatei.
+    description: ''
+  - isRequired: true
+    name: --main-definition-file
+    summary: Die für den Auftrag verwendete Hauptdatei.
+    description: ''
+  - isRequired: true
+    name: --name -n
+    summary: Der Name des Spark-Auftrags.
+    description: ''
+  - isRequired: true
+    name: --spark-pool-name
+    summary: Der Name des Spark-Pools.
+    description: ''
+  - isRequired: true
+    name: --workspace-name
+    summary: Den Namen des Arbeitsbereichs
+    description: ''
+  optionalParameters:
+  - name: --archives
+    summary: Das Array von Archiven.
+    description: ''
+  - name: --command-line-arguments
+    summary: 'Optionale Argumente für den Auftrag (Hinweis: Verwenden Sie Speicher-URIs für Datei Argumente).'
+    description: ''
+  - name: --configuration
+    summary: Die Konfiguration des Spark-Auftrags.
+    description: ''
+  - name: --language
+    defaultValue: Scala
+    parameterValueGroup: CSharp, PySpark, Python, Scala, Spark, SparkDotNet
+    summary: Die Spark-Auftrags Sprache.
+    description: ''
+  - name: --reference-files
+    summary: Zusätzliche Dateien, die zu Referenzzwecken in der Hauptdefinitionsdatei verwendet werden.
+    description: ''
+  - name: --tags
+    summary: 'Durch Leerzeichen getrennte Tags: Key [= value] [key [= value]...]. Verwenden Sie "", um vorhandene Tags zu löschen.'
+    description: ''
+commands:
+- ext_synapse_az_synapse_spark_job_cancel
+- ext_synapse_az_synapse_spark_job_list
+- ext_synapse_az_synapse_spark_job_show
+- ext_synapse_az_synapse_spark_job_submit
+globalParameters:
+- name: --debug
+  summary: Ausführlichkeit der Protokollierung erhöhen, um alle Debugprotokolle anzuzeigen.
+- name: --help -h
+  summary: Zeigen Sie diese Hilfemeldung an, und schließen Sie sie.
+- name: --only-show-errors
+  summary: Nur Fehler anzeigen und Warnungen unterdrücken.
+- name: --output -o
+  defaultValue: json
+  parameterValueGroup: json, jsonc, table, tsv
+  summary: Ausgabeformat.
+- name: --query
+  summary: JMESPath-Abfragezeichenfolge. Weitere Informationen und Beispiele finden Sie unter <a href="http://jmespath.org/">http://jmespath.org/</a>.
+- name: --verbose
+  summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
+metadata:
+  description: Verwalten von Synapse Spark-Batch Aufträgen.
+  ms.openlocfilehash: 7523ac312e785652102322c154c0373a8f096202
+  ms.sourcegitcommit: e1faf297ba2cdf2ba7e821fbeedff9c9a724c975
+  ms.translationtype: MT
+  ms.contentlocale: de-DE
+  ms.lasthandoff: 12/16/2020
+  ms.locfileid: "102826768"
