@@ -1,0 +1,736 @@
+### YamlMime:AzureCLIGroup
+uid: az_keyvault_key
+name: az keyvault key
+summary: Verwalten von Schlüsseln
+description: ''
+directCommands:
+- uid: az_keyvault_key_backup
+  name: az keyvault key backup
+  summary: Fordert an, dass eine Sicherung des angegebenen Schlüssels auf den Client heruntergeladen wird.
+  description: Der Schlüssel Sicherungs Vorgang exportiert einen Schlüssel aus dem Tresor oder HSM in einer geschützten Form. Beachten Sie, dass dieser Vorgang kein Schlüsselmaterial in einem Formular zurückgibt, das außerhalb des Tresors oder des HSM-Systems verwendet werden kann. das zurückgegebene Schlüsselmaterial ist entweder in einem HSM oder im Tresor selbst geschützt. Der Zweck dieses Vorgangs besteht darin, einem Client das Generieren eines Schlüssels in einem Tresor oder einer HSM-Instanz zu ermöglichen, den Schlüssel zu sichern und ihn dann in einem anderen Tresor oder einer HSM-Instanz wiederherzustellen. Der Sicherungs Vorgang kann verwendet werden, um einen beliebigen Schlüsseltyp aus dem Tresor oder HSM in geschützter Form zu exportieren. Einzelne Versionen eines Schlüssels können nicht gesichert werden. BACKUP/RESTORE kann nur innerhalb geografischer Grenzen ausgeführt werden. Dies bedeutet, dass eine Sicherung (BACKUP) aus einem geografischen Bereich nicht in einem anderen geografischen Bereich wiederhergestellt werden kann. Beispielsweise kann eine Sicherung aus dem geografischen Gebiet der USA nicht in einem geografischen Bereich der EU wiederhergestellt werden. Für diesen Vorgang ist die Schlüssel-/Sicherungsberechtigung erforderlich.
+  syntax: >-
+    az keyvault key backup --file
+                           [--hsm-name]
+                           [--id]
+                           [--name]
+                           [--subscription]
+                           [--vault-name]
+  requiredParameters:
+  - isRequired: true
+    name: --file -f
+    summary: Lokaler Dateipfad, in dem die Schlüssel Sicherung gespeichert werden soll.
+    description: ''
+  optionalParameters:
+  - name: --hsm-name
+    summary: Der Name des HSM. ("--HSM-Name" und "--Vault-Name" schließen sich gegenseitig aus). Geben Sie nur eine davon an.
+    description: ''
+  - name: --id
+    summary: Die ID des Tresors oder des HSM. Wenn angegeben, sollten alle anderen "ID"-Argumente ausgelassen werden.
+    description: ''
+  - name: --name -n
+    summary: Name des Schlüssels. Erforderlich, wenn--ID nicht angegeben ist.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  - name: --vault-name
+    summary: Der Name der Key Vault. Erforderlich, wenn--ID nicht angegeben ist.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/keyvault/_help.py
+- uid: az_keyvault_key_create
+  name: az keyvault key create
+  summary: Erstellen Sie einen neuen Schlüssel, speichert ihn und gibt Schlüsselparameter und Attribute an den Client zurück.
+  description: Der Vorgang zum Erstellen eines Schlüssels kann verwendet werden, um einen beliebigen Schlüsseltyp im Tresor oder HSM zu erstellen. Wenn der benannte Schlüssel bereits vorhanden ist, erstellt der Tresor oder HSM eine neue Version des Schlüssels. Hierfür ist die "Keys/Create"-Berechtigung erforderlich.
+  syntax: >-
+    az keyvault key create [--curve {P-256, P-384, P-521, SECP256K1}]
+                           [--disabled {false, true}]
+                           [--expires]
+                           [--hsm-name]
+                           [--id]
+                           [--kty {EC, EC-HSM, RSA, RSA-HSM, oct, oct-HSM}]
+                           [--name]
+                           [--not-before]
+                           [--ops {decrypt, encrypt, export, import, sign, unwrapKey, verify, wrapKey}]
+                           [--protection {hsm, software}]
+                           [--size]
+                           [--subscription]
+                           [--tags]
+                           [--vault-name]
+  optionalParameters:
+  - name: --curve
+    parameterValueGroup: P-256, P-384, P-521, SECP256K1
+    summary: 'Name der elliptischen Kurve. Gültige Werte finden Sie unter: <a href="https://docs.microsoft.com/en-us/rest/api/keyvault/createkey/createkey#jsonwebkeycurvename">https://docs.microsoft.com/en-us/rest/api/keyvault/createkey/createkey#jsonwebkeycurvename</a> .'
+    description: ''
+  - name: --disabled
+    parameterValueGroup: false, true
+    summary: Erstellen Sie einen Schlüssel im deaktivierten Zustand.
+    description: ''
+  - name: --expires
+    summary: "Ablaufdatum UTC-DateTime (Y-m-d't ' h:m: s ')."
+    description: ''
+  - name: --hsm-name
+    summary: Der Name des HSM. ("--HSM-Name" und "--Vault-Name" schließen sich gegenseitig aus). Geben Sie nur eine davon an.
+    description: ''
+  - name: --id
+    summary: Die ID des Tresors oder des HSM. Wenn angegeben, sollten alle anderen "ID"-Argumente ausgelassen werden.
+    description: ''
+  - name: --kty
+    parameterValueGroup: EC, EC-HSM, RSA, RSA-HSM, oct, oct-HSM
+    summary: 'Der Typ des zu erstellenden Schlüssels. Gültige Werte finden Sie unter: <a href="https://docs.microsoft.com/en-us/rest/api/keyvault/createkey/createkey#jsonwebkeytype">https://docs.microsoft.com/en-us/rest/api/keyvault/createkey/createkey#jsonwebkeytype</a> .'
+    description: ''
+  - name: --name -n
+    summary: Name des Schlüssels.
+    description: ''
+  - name: --not-before
+    summary: "Der Schlüssel ist vor dem angegebenen UTC-DateTime-Wert (Y-m-d't ' h:m: s ') nicht verwendbar."
+    description: ''
+  - name: --ops
+    parameterValueGroup: decrypt, encrypt, export, import, sign, unwrapKey, verify, wrapKey
+    summary: Durch Leerzeichen getrennte Liste zulässiger JSON-Webschlüssel Vorgänge.
+    description: ''
+  - name: --protection -p
+    parameterValueGroup: hsm, software
+    summary: Gibt den Typ des Schlüssel Schutzes an.
+    description: ''
+  - name: --size
+    summary: 'Die Schlüsselgröße in Bits. Beispiel: 2048, 3072 oder 4096 für RSA. 128, 192 oder 256 für Oktober.'
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  - name: --tags
+    summary: 'Durch Leerzeichen getrennte Tags: Key [= value] [key [= value]...]. Verwenden Sie "", um vorhandene Tags zu löschen.'
+    description: ''
+  - name: --vault-name
+    summary: Der Name des Tresors.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/keyvault/_help.py
+- uid: az_keyvault_key_decrypt
+  name: az keyvault key decrypt
+  summary: Entschlüsseln eines einzelnen Blocks verschlüsselter Daten.
+  description: Der DECRYPT-Vorgang entschlüsselt einen wohlgeformten, aus verschlüsseltem Text bestehenden Block mithilfe des Zielverschlüsselungsschlüssels und des angegebenen Algorithmus. Dieser Vorgang ist die Umkehrung des ENCRYPT-Vorgangs. Nur ein einzelner Datenblock kann entschlüsselt werden, wobei die Größe dieses Blocks vom Zielschlüssel und dem zu verwendenden Algorithmus abhängig ist. Der Entschlüsselungsvorgang gilt für asymmetrische und symmetrische Schlüssel, die im Tresor oder HSM gespeichert sind, da er den privaten Teil des Schlüssels verwendet. Dieser Vorgang erfordert die Berechtigung "Keys/entschlüsseln".
+  syntax: >-
+    az keyvault key decrypt --algorithm {RSA-OAEP, RSA-OAEP-256, RSA1_5}
+                            --value
+                            [--data-type {base64, plaintext}]
+                            [--hsm-name]
+                            [--id]
+                            [--name]
+                            [--subscription]
+                            [--vault-name]
+                            [--version]
+  requiredParameters:
+  - isRequired: true
+    name: --algorithm -a
+    parameterValueGroup: RSA-OAEP, RSA-OAEP-256, RSA1_5
+    summary: Algorithmusbezeichner.
+    description: ''
+  - isRequired: true
+    name: --value
+    summary: Der zu entschlüsselnde Wert, der das Ergebnis von "AZ keyvault-Verschlüsselung" sein sollte.
+    description: ''
+  optionalParameters:
+  - name: --data-type
+    defaultValue: base64
+    parameterValueGroup: base64, plaintext
+    summary: Der Typ der ursprünglichen Daten.
+    description: ''
+  - name: --hsm-name
+    summary: Der Name des HSM. ("--HSM-Name" und "--Vault-Name" schließen sich gegenseitig aus). Geben Sie nur eine davon an.
+    description: ''
+  - name: --id
+    summary: ID des Schlüssels. Wenn angegeben, sollten alle anderen "ID"-Argumente ausgelassen werden.
+    description: ''
+  - name: --name -n
+    summary: Name des Schlüssels. Erforderlich, wenn--ID nicht angegeben ist.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  - name: --vault-name
+    summary: Der Name der Key Vault. Erforderlich, wenn--ID nicht angegeben ist.
+    description: ''
+  - name: --version -v
+    summary: Die Schlüssel Version. Wenn dieser nicht ausgelassen wird, verwendet die neueste Version.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/keyvault/_help.py
+- uid: az_keyvault_key_delete
+  name: az keyvault key delete
+  summary: Löschen Sie einen Schlüssel eines beliebigen Typs aus dem Speicher im Tresor oder HSM.
+  description: Der Vorgang zum Löschen von Schlüsseln kann nicht verwendet werden, um einzelne Versionen eines Schlüssels zu entfernen. Dieser Vorgang entfernt das kryptografische Material, das dem Schlüssel zugeordnet ist, was bedeutet, dass der Schlüssel nicht für Sign/Verify-, Wrap/Unwrap- oder Encrypt/Decrypt-Vorgänge verwendet werden kann. Dieser Vorgang erfordert die Berechtigung "Keys/Delete".
+  syntax: >-
+    az keyvault key delete [--hsm-name]
+                           [--id]
+                           [--name]
+                           [--subscription]
+                           [--vault-name]
+  optionalParameters:
+  - name: --hsm-name
+    summary: Der Name des HSM. ("--HSM-Name" und "--Vault-Name" schließen sich gegenseitig aus). Geben Sie nur eine davon an.
+    description: ''
+  - name: --id
+    summary: ID des Schlüssels. Wenn angegeben, sollten alle anderen "ID"-Argumente ausgelassen werden.
+    description: ''
+  - name: --name -n
+    summary: Name des Schlüssels. Erforderlich, wenn--ID nicht angegeben ist.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  - name: --vault-name
+    summary: Der Name der Key Vault. Erforderlich, wenn--ID nicht angegeben ist.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/keyvault/_help.py
+- uid: az_keyvault_key_download
+  name: az keyvault key download
+  summary: Laden Sie den öffentlichen Teil eines gespeicherten Schlüssels herunter.
+  description: ''
+  syntax: >-
+    az keyvault key download --file
+                             [--encoding {DER, PEM}]
+                             [--hsm-name]
+                             [--id]
+                             [--name]
+                             [--subscription]
+                             [--vault-name]
+                             [--version]
+  examples:
+  - summary: Speichern Sie den Schlüssel mit PEM-Codierung.
+    syntax: az keyvault key download --vault-name MyKeyVault -n MyKey -e PEM -f mykey.pem
+  - summary: Speichern Sie den Schlüssel mit der-Codierung.
+    syntax: az keyvault key download --vault-name MyKeyVault -n MyKey -e DER -f mykey.der
+  requiredParameters:
+  - isRequired: true
+    name: --file -f
+    summary: Die Datei, die den Schlüssel Inhalt empfängt.
+    description: ''
+  optionalParameters:
+  - name: --encoding -e
+    defaultValue: PEM
+    parameterValueGroup: DER, PEM
+    summary: 'Codierung des Schlüssels, Standardwert: PEM.'
+    description: ''
+  - name: --hsm-name
+    summary: Der Name des HSM. ("--HSM-Name" und "--Vault-Name" schließen sich gegenseitig aus). Geben Sie nur eine davon an.
+    description: ''
+  - name: --id
+    summary: Die ID des Tresors oder des HSM. Wenn angegeben, sollten alle anderen "ID"-Argumente ausgelassen werden.
+    description: ''
+  - name: --name -n
+    summary: Name des Schlüssels. Erforderlich, wenn--ID nicht angegeben ist.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  - name: --vault-name
+    summary: Der Name der Key Vault. Erforderlich, wenn--ID nicht angegeben ist.
+    description: ''
+  - name: --version -v
+    summary: Die Schlüssel Version. Wenn dieser nicht ausgelassen wird, verwendet die neueste Version.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/keyvault/_help.py
+- uid: az_keyvault_key_encrypt
+  name: az keyvault key encrypt
+  summary: Verschlüsseln Sie eine beliebige Bytefolge mithilfe eines Verschlüsselungsschlüssels, der in einem Tresor oder HSM gespeichert ist.
+  description: Der Verschlüsselungs Vorgang verschlüsselt eine beliebige Bytefolge mithilfe eines Verschlüsselungsschlüssels, der im Tresor oder HSM gespeichert ist. Beachten Sie, dass der ENCRYPT-Vorgang nur einen einzelnen Datenblock unterstützt, dessen Größe vom Zielschlüssel und dem zu verwendenden Verschlüsselungsalgorithmus abhängig ist. Der Verschlüsselungs Vorgang ist nur für symmetrische Schlüssel erforderlich, die im Tresor-PR-HSM gespeichert sind, da der Schutz mit einem asymmetrischen Schlüssel mithilfe des öffentlichen Teils des Schlüssels ausgeführt werden kann. Dieser Vorgang wird für asymmetrische Schlüssel aus Gründen der Benutzerfreundlichkeit für Aufrufer unterstützt, die einen Schlüsselverweis besitzen, aber keinen Zugriff auf das öffentliche Schlüsselmaterial haben. Dieser Vorgang erfordert die Berechtigung "Keys/verschlüsseln".
+  syntax: >-
+    az keyvault key encrypt --algorithm {RSA-OAEP, RSA-OAEP-256, RSA1_5}
+                            --value
+                            [--data-type {base64, plaintext}]
+                            [--hsm-name]
+                            [--id]
+                            [--name]
+                            [--subscription]
+                            [--vault-name]
+                            [--version]
+  requiredParameters:
+  - isRequired: true
+    name: --algorithm -a
+    parameterValueGroup: RSA-OAEP, RSA-OAEP-256, RSA1_5
+    summary: Algorithmusbezeichner.
+    description: ''
+  - isRequired: true
+    name: --value
+    summary: Der zu verschlüsselnde Wert. Der Standard Datentyp ist Base64-codierte Zeichenfolge.
+    description: ''
+  optionalParameters:
+  - name: --data-type
+    defaultValue: base64
+    parameterValueGroup: base64, plaintext
+    summary: Der Typ der ursprünglichen Daten.
+    description: ''
+  - name: --hsm-name
+    summary: Der Name des HSM. ("--HSM-Name" und "--Vault-Name" schließen sich gegenseitig aus). Geben Sie nur eine davon an.
+    description: ''
+  - name: --id
+    summary: ID des Schlüssels. Wenn angegeben, sollten alle anderen "ID"-Argumente ausgelassen werden.
+    description: ''
+  - name: --name -n
+    summary: Name des Schlüssels. Erforderlich, wenn--ID nicht angegeben ist.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  - name: --vault-name
+    summary: Der Name der Key Vault. Erforderlich, wenn--ID nicht angegeben ist.
+    description: ''
+  - name: --version -v
+    summary: Die Schlüssel Version. Wenn dieser nicht ausgelassen wird, verwendet die neueste Version.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/keyvault/_help.py
+- uid: az_keyvault_key_get_policy_template
+  name: az keyvault key get-policy-template
+  summary: Gibt eine Richtlinien Vorlage als JSON-codierte Richtlinien Definition zurück.
+  description: ''
+  syntax: az keyvault key get-policy-template [--subscription]
+  optionalParameters:
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/keyvault/_help.py
+- uid: az_keyvault_key_import
+  name: az keyvault key import
+  summary: Importieren Sie einen privaten Schlüssel.
+  description: Unterstützt das Importieren von Base64-codierten privaten Schlüsseln aus PEM-Dateien oder Zeichen folgen Unterstützt das Importieren von Byok-Schlüsseln in HSM für Premium-Schlüssel Tresore.
+  syntax: >-
+    az keyvault key import [--byok-file]
+                           [--byok-string]
+                           [--curve {P-256, P-256K, P-384, P-521}]
+                           [--disabled {false, true}]
+                           [--expires]
+                           [--hsm-name]
+                           [--id]
+                           [--kty {EC, RSA}]
+                           [--name]
+                           [--not-before]
+                           [--ops {decrypt, encrypt, export, import, sign, unwrapKey, verify, wrapKey}]
+                           [--pem-file]
+                           [--pem-password]
+                           [--pem-string]
+                           [--protection {hsm, software}]
+                           [--subscription]
+                           [--tags]
+                           [--vault-name]
+  optionalParameters:
+  - name: --byok-file
+    summary: Byok-Datei, die den zu importierenden Schlüssel enthält. Darf nicht Kenn Wort geschützt sein.
+    description: ''
+  - name: --byok-string
+    summary: Byok-Zeichenfolge, die den zu importierenden Schlüssel enthält. Darf nicht Kenn Wort geschützt sein.
+    description: ''
+  - name: --curve
+    parameterValueGroup: P-256, P-256K, P-384, P-521
+    summary: Der Kurven Name des zu importierenden Schlüssels (nur für Byok).
+    description: ''
+  - name: --disabled
+    parameterValueGroup: false, true
+    summary: Erstellen Sie einen Schlüssel im deaktivierten Zustand.
+    description: ''
+  - name: --expires
+    summary: "Ablaufdatum UTC-DateTime (Y-m-d't ' h:m: s ')."
+    description: ''
+  - name: --hsm-name
+    summary: Der Name des HSM. ("--HSM-Name" und "--Vault-Name" schließen sich gegenseitig aus). Geben Sie nur eine davon an.
+    description: ''
+  - name: --id
+    summary: Die ID des Tresors oder des HSM. Wenn angegeben, sollten alle anderen "ID"-Argumente ausgelassen werden.
+    description: ''
+  - name: --kty
+    defaultValue: RSA
+    parameterValueGroup: EC, RSA
+    summary: Der Typ des zu importierenden Schlüssels (nur für Byok).
+    description: ''
+  - name: --name -n
+    summary: Name des Schlüssels.
+    description: ''
+  - name: --not-before
+    summary: "Der Schlüssel ist vor dem angegebenen UTC-DateTime-Wert (Y-m-d't ' h:m: s ') nicht verwendbar."
+    description: ''
+  - name: --ops
+    parameterValueGroup: decrypt, encrypt, export, import, sign, unwrapKey, verify, wrapKey
+    summary: Durch Leerzeichen getrennte Liste zulässiger JSON-Webschlüssel Vorgänge.
+    description: ''
+  - name: --pem-file
+    summary: PEM-Datei, die den zu importierenden Schlüssel enthält.
+    description: ''
+  - name: --pem-password
+    summary: Kennwort der PEM-Datei.
+    description: ''
+  - name: --pem-string
+    summary: PEM-Zeichenfolge, die den zu importierenden Schlüssel enthält.
+    description: ''
+  - name: --protection -p
+    parameterValueGroup: hsm, software
+    summary: Gibt den Typ des Schlüssel Schutzes an.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  - name: --tags
+    summary: 'Durch Leerzeichen getrennte Tags: Key [= value] [key [= value]...]. Verwenden Sie "", um vorhandene Tags zu löschen.'
+    description: ''
+  - name: --vault-name
+    summary: Der Name des Tresors.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/keyvault/_help.py
+- uid: az_keyvault_key_list
+  name: az keyvault key list
+  summary: Auflisten von Schlüsseln im angegebenen Tresor oder HSM.
+  description: Rufen Sie eine Liste der Schlüssel im Tresor oder HSM als JSON-Webschlüssel Strukturen ab, die den öffentlichen Teil eines gespeicherten Schlüssels enthalten. Der List-Vorgang gilt für alle Schlüsseltypen, jedoch werden in der Antwort nur der Basis Schlüssel Bezeichner, Attribute und Tags bereitgestellt. Einzelne Versionen eines Schlüssels werden in der Antwort nicht aufgeführt. Dieser Vorgang erfordert die Berechtigung "Keys/List".
+  syntax: >-
+    az keyvault key list [--hsm-name]
+                         [--id]
+                         [--include-managed {false, true}]
+                         [--maxresults]
+                         [--query-examples]
+                         [--subscription]
+                         [--vault-name]
+  optionalParameters:
+  - name: --hsm-name
+    summary: Der Name des HSM. ("--HSM-Name" und "--Vault-Name" schließen sich gegenseitig aus). Geben Sie nur eine davon an.
+    description: ''
+  - name: --id
+    summary: Die ID des Tresors oder des HSM. Wenn angegeben, sollten alle anderen "ID"-Argumente ausgelassen werden.
+    description: ''
+  - name: --include-managed
+    parameterValueGroup: false, true
+    summary: 'Verwaltete Schlüssel einschließen. Standardwert: false.'
+    description: ''
+  - name: --maxresults
+    summary: Maximale Anzahl von Ergebnissen, die auf einer Seite zurückgegeben werden sollen. Wenn keine Angabe erfolgt, gibt der Dienst bis zu 25 Ergebnisse zurück.
+    description: ''
+  - name: --query-examples
+    summary: Empfehlen Sie die jmespath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und Sie nach dem Abfrage Parameter in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positions Schlüsselwörter hinzufügen, um Vorschläge auf der Grundlage dieser Schlüsselwörter zu geben.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  - name: --vault-name
+    summary: Der Name des Tresors.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/keyvault/_help.py
+- uid: az_keyvault_key_list_deleted
+  name: az keyvault key list-deleted
+  summary: Listet die gelöschten Schlüssel im angegebenen Tresor oder HSM auf.
+  description: Rufen Sie eine Liste der Schlüssel im Tresor oder HSM als JSON-Webschlüssel Strukturen ab, die den öffentlichen Teil eines gelöschten Schlüssels enthalten. Dieser Vorgang umfasst Lösch spezifische Informationen. Der Vorgang Get Deleted Keys gilt für Tresore, die für vorläufiges löschen aktiviert sind. Während der Vorgang für einen beliebigen Tresor oder HSM aufgerufen werden kann, wird ein Fehler zurückgegeben, wenn er in einem nicht vorläufig Lösch fähigen Tresor oder HSM aufgerufen wird. Dieser Vorgang erfordert die Berechtigung "Keys/List".
+  syntax: >-
+    az keyvault key list-deleted [--hsm-name]
+                                 [--id]
+                                 [--maxresults]
+                                 [--subscription]
+                                 [--vault-name]
+  optionalParameters:
+  - name: --hsm-name
+    summary: Der Name des HSM. ("--HSM-Name" und "--Vault-Name" schließen sich gegenseitig aus). Geben Sie nur eine davon an.
+    description: ''
+  - name: --id
+    summary: Die ID des Tresors oder des HSM. Wenn angegeben, sollten alle anderen "ID"-Argumente ausgelassen werden.
+    description: ''
+  - name: --maxresults
+    summary: Maximale Anzahl von Ergebnissen, die auf einer Seite zurückgegeben werden sollen. Wenn keine Angabe erfolgt, gibt der Dienst bis zu 25 Ergebnisse zurück.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  - name: --vault-name
+    summary: Der Name des Tresors.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/keyvault/_help.py
+- uid: az_keyvault_key_list_versions
+  name: az keyvault key list-versions
+  summary: Ruft eine Liste einzelner Schlüssel Versionen mit dem gleichen Schlüsselnamen ab.
+  description: In der Antwort werden der vollständige Schlüsselbezeichner, Attribute und Tags bereitgestellt. Dieser Vorgang erfordert die Berechtigung "Keys/List".
+  syntax: >-
+    az keyvault key list-versions [--hsm-name]
+                                  [--id]
+                                  [--maxresults]
+                                  [--name]
+                                  [--subscription]
+                                  [--vault-name]
+  optionalParameters:
+  - name: --hsm-name
+    summary: Der Name des HSM. ("--HSM-Name" und "--Vault-Name" schließen sich gegenseitig aus). Geben Sie nur eine davon an.
+    description: ''
+  - name: --id
+    summary: ID des Schlüssels. Wenn angegeben, sollten alle anderen "ID"-Argumente ausgelassen werden.
+    description: ''
+  - name: --maxresults
+    summary: Maximale Anzahl von Ergebnissen, die auf einer Seite zurückgegeben werden sollen. Wenn keine Angabe erfolgt, gibt der Dienst bis zu 25 Ergebnisse zurück.
+    description: ''
+  - name: --name -n
+    summary: Name des Schlüssels. Erforderlich, wenn--ID nicht angegeben ist.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  - name: --vault-name
+    summary: Der Name der Key Vault. Erforderlich, wenn--ID nicht angegeben ist.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/keyvault/_help.py
+- uid: az_keyvault_key_purge
+  name: az keyvault key purge
+  summary: Löschen Sie den angegebenen Schlüssel dauerhaft.
+  description: Der Vorgang zum Löschen von gelöschten Schlüsseln gilt für Tresore, die vorläufig gelöscht werden, oder für HSMs. Während der Vorgang für einen beliebigen Tresor oder HSM aufgerufen werden kann, wird ein Fehler zurückgegeben, wenn er in einem nicht vorläufig Lösch fähigen Tresor oder HSM aufgerufen wird. Für diesen Vorgang ist die Berechtigung "Keys/Purge" erforderlich.
+  syntax: >-
+    az keyvault key purge [--hsm-name]
+                          [--id]
+                          [--name]
+                          [--subscription]
+                          [--vault-name]
+  optionalParameters:
+  - name: --hsm-name
+    summary: Der Name des HSM. ("--HSM-Name" und "--Vault-Name" schließen sich gegenseitig aus). Geben Sie nur eine davon an.
+    description: ''
+  - name: --id
+    summary: Die Wiederherstellungs-ID des Schlüssels. Wenn angegeben, sollten alle anderen "ID"-Argumente ausgelassen werden.
+    description: ''
+  - name: --name -n
+    summary: Name des Schlüssels. Erforderlich, wenn--ID nicht angegeben ist.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  - name: --vault-name
+    summary: Der Name des Tresors. Erforderlich, wenn--ID nicht angegeben ist.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/keyvault/_help.py
+- uid: az_keyvault_key_recover
+  name: az keyvault key recover
+  summary: Stellen Sie den gelöschten Schlüssel auf der neuesten Version wieder her.
+  description: Der Vorgang zum Wiederherstellen gelöschter Schlüssel gilt für gelöschte Schlüssel in Tresoren oder HSMs, die vorläufig gelöscht werden. Der gelöschte Schlüssel wird wieder in der neuesten Version unter/Keys. wieder hergestellt. Wenn Sie versuchen, einen nicht gelöschten Schlüssel wiederherzustellen, wird ein Fehler zurückgegeben. Beachten Sie, dass dies die Umkehrung des Löschvorgangs für Tresore oder HSMs mit vorläufigem löschen ist. Dieser Vorgang erfordert die Berechtigung "Schlüssel/Wiederherstellung".
+  syntax: >-
+    az keyvault key recover [--hsm-name]
+                            [--id]
+                            [--name]
+                            [--subscription]
+                            [--vault-name]
+  optionalParameters:
+  - name: --hsm-name
+    summary: Der Name des HSM. ("--HSM-Name" und "--Vault-Name" schließen sich gegenseitig aus). Geben Sie nur eine davon an.
+    description: ''
+  - name: --id
+    summary: Die Wiederherstellungs-ID des Schlüssels. Wenn angegeben, sollten alle anderen "ID"-Argumente ausgelassen werden.
+    description: ''
+  - name: --name -n
+    summary: Name des Schlüssels. Erforderlich, wenn--ID nicht angegeben ist.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  - name: --vault-name
+    summary: Der Name des Tresors. Erforderlich, wenn--ID nicht angegeben ist.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/keyvault/_help.py
+- uid: az_keyvault_key_restore
+  name: az keyvault key restore
+  summary: Stellen Sie einen gesicherten Schlüssel in einem Tresor oder HSM wieder her.
+  description: Importieren Sie einen zuvor gesicherten Schlüssel in den Tresor oder das HSM, und Wiederherstellen Sie dabei den Schlüssel, den Schlüssel Bezeichner, die Attribute und die Zugriffs Steuerungs Richtlinien. Der RESTORE-Vorgang kann verwendet werden, um einen zuvor gesicherten Schlüssel zu importieren. Einzelne Versionen eines Schlüssels können nicht wiederhergestellt werden. Der Schlüssel wird in seiner Gesamtheit mit demselben Schlüsselnamen wiederhergestellt, den er bei der Sicherung hatte. Wenn der Name des Schlüssels im Zielschlüsseltresor nicht verfügbar ist, wird der RESTORE-Vorgang abgelehnt. Während der Schlüssel Name während der Wiederherstellung beibehalten wird, ändert sich der letzte Schlüssel Bezeichner, wenn der Schlüssel in einem anderen Tresor oder HSM wieder hergestellt wird. RESTORE stellt alle Versionen wieder her und erhält die Versionsbezeichner. Der Wiederherstellungs Vorgang unterliegt Sicherheitseinschränkungen. Der Ziel Tresor oder das HSM muss dem gleichen Microsoft Azure Abonnement gehören wie der Quell Tresor oder das HSM. Der Benutzer muss über die Restore-Berechtigung im Ziel Tresor oder HSM verfügen. Dieser Vorgang erfordert die Berechtigung "Keys/Restore".
+  syntax: >-
+    az keyvault key restore [--backup-folder]
+                            [--blob-container-name]
+                            [--file]
+                            [--hsm-name]
+                            [--id]
+                            [--name]
+                            [--no-wait]
+                            [--storage-account-name]
+                            [--storage-container-SAS-token]
+                            [--storage-resource-uri]
+                            [--subscription]
+                            [--vault-name]
+  optionalParameters:
+  - name: --backup-folder
+    summary: Der Name des BLOB-Containers, der die Sicherung enthält.
+    description: ''
+  - name: --blob-container-name
+    summary: Der Name des blobcontainers.
+    description: ''
+  - name: --file -f
+    summary: Lokale Schlüssel Sicherung, aus der der Schlüssel wieder hergestellt werden soll.
+    description: ''
+  - name: --hsm-name
+    summary: Der Name des HSM. ("--HSM-Name" und "--Vault-Name" schließen sich gegenseitig aus). Geben Sie nur eine davon an.
+    description: ''
+  - name: --id
+    summary: Die ID des Tresors oder des HSM. Wenn angegeben, sollten alle anderen "ID"-Argumente ausgelassen werden.
+    description: ''
+  - name: --name -n
+    summary: Name des Schlüssels. (Nur für die Wiederherstellung aus dem Speicherkonto).
+    description: ''
+  - name: --no-wait
+    summary: Nicht auf den Abschluss lang andauernder Vorgänge warten
+    description: ''
+  - name: --storage-account-name
+    summary: Name des Azure Storage Kontos.
+    description: ''
+  - name: --storage-container-SAS-token -t
+    summary: Das SAS-Token, das auf einen Azure BLOB Storage-Container verweist.
+    description: ''
+  - name: --storage-resource-uri -u
+    summary: Azure BLOB Storage-Container-URI. Wenn angegeben, sollten alle anderen "Storage ID"-Argumente ausgelassen werden.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  - name: --vault-name
+    summary: Der Name des Tresors.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/keyvault/_help.py
+- uid: az_keyvault_key_set_attributes
+  name: az keyvault key set-attributes
+  summary: Der Vorgang "Schlüssel aktualisieren" ändert die angegebenen Attribute eines gespeicherten Schlüssels und kann auf beliebige Schlüsseltyp-und Schlüssel Versionen angewendet werden, die im Tresor oder HSM gespeichert werden.
+  description: Damit dieser Vorgang durchgeführt werden kann, muss der Schlüssel bereits im Tresor oder HSM vorhanden sein. Das kryptografische Material eines Schlüssels kann nicht geändert werden. Dieser Vorgang erfordert die "Keys/Update"-Berechtigung.
+  syntax: >-
+    az keyvault key set-attributes [--enabled {false, true}]
+                                   [--expires]
+                                   [--hsm-name]
+                                   [--id]
+                                   [--name]
+                                   [--not-before]
+                                   [--ops {decrypt, encrypt, export, import, sign, unwrapKey, verify, wrapKey}]
+                                   [--subscription]
+                                   [--tags]
+                                   [--vault-name]
+                                   [--version]
+  optionalParameters:
+  - name: --enabled
+    parameterValueGroup: false, true
+    summary: Aktivieren Sie den Schlüssel.
+    description: ''
+  - name: --expires
+    summary: "Ablaufdatum UTC-DateTime (Y-m-d't ' h:m: s ')."
+    description: ''
+  - name: --hsm-name
+    summary: Der Name des HSM. ("--HSM-Name" und "--Vault-Name" schließen sich gegenseitig aus). Geben Sie nur eine davon an.
+    description: ''
+  - name: --id
+    summary: ID des Schlüssels. Wenn angegeben, sollten alle anderen "ID"-Argumente ausgelassen werden.
+    description: ''
+  - name: --name -n
+    summary: Name des Schlüssels. Erforderlich, wenn--ID nicht angegeben ist.
+    description: ''
+  - name: --not-before
+    summary: "Der Schlüssel ist vor dem angegebenen UTC-DateTime-Wert (Y-m-d't ' h:m: s ') nicht verwendbar."
+    description: ''
+  - name: --ops
+    parameterValueGroup: decrypt, encrypt, export, import, sign, unwrapKey, verify, wrapKey
+    summary: Durch Leerzeichen getrennte Liste zulässiger JSON-Webschlüssel Vorgänge.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  - name: --tags
+    summary: 'Durch Leerzeichen getrennte Tags: Key [= value] [key [= value]...]. Verwenden Sie "", um vorhandene Tags zu löschen.'
+    description: ''
+  - name: --vault-name
+    summary: Der Name der Key Vault. Erforderlich, wenn--ID nicht angegeben ist.
+    description: ''
+  - name: --version -v
+    summary: Die Schlüssel Version. Wenn dieser nicht ausgelassen wird, verwendet die neueste Version.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/keyvault/_help.py
+- uid: az_keyvault_key_show
+  name: az keyvault key show
+  summary: Ruft den öffentlichen Teil eines gespeicherten Schlüssels ab.
+  description: Der Vorgang "Schlüssel abrufen" gilt für alle Schlüsseltypen. Wenn der angeforderte Schlüssel symmetrisch ist, wird in der Antwort kein Schlüsselmaterial freigegeben. Für diesen Vorgang ist die "Keys/Get"-Berechtigung erforderlich.
+  syntax: >-
+    az keyvault key show [--hsm-name]
+                         [--id]
+                         [--name]
+                         [--query-examples]
+                         [--subscription]
+                         [--vault-name]
+                         [--version]
+  optionalParameters:
+  - name: --hsm-name
+    summary: Der Name des HSM. ("--HSM-Name" und "--Vault-Name" schließen sich gegenseitig aus). Geben Sie nur eine davon an.
+    description: ''
+  - name: --id
+    summary: ID des Schlüssels. Wenn angegeben, sollten alle anderen "ID"-Argumente ausgelassen werden.
+    description: ''
+  - name: --name -n
+    summary: Name des Schlüssels. Erforderlich, wenn--ID nicht angegeben ist.
+    description: ''
+  - name: --query-examples
+    summary: Empfehlen Sie die jmespath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und Sie nach dem Abfrage Parameter in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positions Schlüsselwörter hinzufügen, um Vorschläge auf der Grundlage dieser Schlüsselwörter zu geben.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  - name: --vault-name
+    summary: Der Name der Key Vault. Erforderlich, wenn--ID nicht angegeben ist.
+    description: ''
+  - name: --version -v
+    summary: Die Schlüssel Version. Wenn dieser nicht ausgelassen wird, verwendet die neueste Version.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/keyvault/_help.py
+- uid: az_keyvault_key_show_deleted
+  name: az keyvault key show-deleted
+  summary: Den öffentlichen Teil eines gelöschten Schlüssels erhalten.
+  description: Der Vorgang zum Abrufen gelöschter Schlüssel gilt für Tresore, die vorläufig gelöscht werden, oder für HSMs. Während der Vorgang für einen beliebigen Tresor oder HSM aufgerufen werden kann, wird ein Fehler zurückgegeben, wenn er in einem nicht vorläufig Lösch fähigen Tresor oder HSM aufgerufen wird. Für diesen Vorgang ist die "Keys/Get"-Berechtigung erforderlich.
+  syntax: >-
+    az keyvault key show-deleted [--hsm-name]
+                                 [--id]
+                                 [--name]
+                                 [--subscription]
+                                 [--vault-name]
+  optionalParameters:
+  - name: --hsm-name
+    summary: Der Name des HSM. ("--HSM-Name" und "--Vault-Name" schließen sich gegenseitig aus). Geben Sie nur eine davon an.
+    description: ''
+  - name: --id
+    summary: Die Wiederherstellungs-ID des Schlüssels. Wenn angegeben, sollten alle anderen "ID"-Argumente ausgelassen werden.
+    description: ''
+  - name: --name -n
+    summary: Name des Schlüssels. Erforderlich, wenn--ID nicht angegeben ist.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  - name: --vault-name
+    summary: Der Name des Tresors. Erforderlich, wenn--ID nicht angegeben ist.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/keyvault/_help.py
+commands:
+- az_keyvault_key_backup
+- az_keyvault_key_create
+- az_keyvault_key_decrypt
+- az_keyvault_key_delete
+- az_keyvault_key_download
+- az_keyvault_key_encrypt
+- az_keyvault_key_get_policy_template
+- az_keyvault_key_import
+- az_keyvault_key_list
+- az_keyvault_key_list_deleted
+- az_keyvault_key_list_versions
+- az_keyvault_key_purge
+- az_keyvault_key_recover
+- az_keyvault_key_restore
+- az_keyvault_key_set_attributes
+- az_keyvault_key_show
+- az_keyvault_key_show_deleted
+globalParameters:
+- name: --debug
+  summary: Ausführlichkeit der Protokollierung erhöhen, um alle Debugprotokolle anzuzeigen.
+- name: --help -h
+  summary: Zeigen Sie diese Hilfemeldung an, und schließen Sie sie.
+- name: --only-show-errors
+  summary: Nur Fehler anzeigen und Warnungen unterdrücken.
+- name: --output -o
+  defaultValue: json
+  parameterValueGroup: json, jsonc, table, tsv
+  summary: Ausgabeformat.
+- name: --query
+  summary: JMESPath-Abfragezeichenfolge. Weitere Informationen und Beispiele finden Sie unter <a href="http://jmespath.org/">http://jmespath.org/</a>.
+- name: --verbose
+  summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
+metadata:
+  doc_source_url_repo: https://github.com/Azure/azure-cli/blob/dev/
+  ms.date: 12/14/2020
+  description: Verwalten von Schlüsseln
+  ms.openlocfilehash: 26bd29ea012de8c63730c176064595e1b88d0f1a
+  ms.sourcegitcommit: df9d6597535ef9103775afbaee5a8282e0e218ee
+  ms.translationtype: MT
+  ms.contentlocale: de-DE
+  ms.lasthandoff: 02/09/2021
+  ms.locfileid: "102913116"
