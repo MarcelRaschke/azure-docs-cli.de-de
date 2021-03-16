@@ -1,0 +1,357 @@
+### YamlMime:AzureCLIGroup
+uid: az_storage_entity
+name: az storage entity
+summary: Verwalten von Tabellen Speicher Entitäten.
+description: ''
+directCommands:
+- uid: az_storage_entity_delete
+  name: az storage entity delete
+  summary: Löscht eine vorhandene Entität in einer Tabelle.
+  description: Wird ausgelöst, wenn die Entität nicht vorhanden ist.  Wenn eine Entität erfolgreich gelöscht wurde, wird die Entität sofort zum Löschen markiert, und Clients können nicht mehr darauf zugreifen. Die Entität wird später während Garbage Collection aus dem Tabellen Speicherdienst entfernt.
+  syntax: >-
+    az storage entity delete --partition-key
+                             --row-key
+                             --table-name
+                             [--account-key]
+                             [--account-name]
+                             [--connection-string]
+                             [--if-match]
+                             [--sas-token]
+                             [--subscription]
+                             [--timeout]
+  requiredParameters:
+  - isRequired: true
+    name: --partition-key
+    summary: Der PartitionKey der Entität.
+    description: ''
+  - isRequired: true
+    name: --row-key
+    summary: Der RowKey der Entität.
+    description: ''
+  - isRequired: true
+    name: --table-name -t
+    summary: Der Name der Tabelle, in der die zu löschende Entität enthalten ist.
+    description: ''
+  optionalParameters:
+  - name: --account-key
+    summary: 'Speicherkontoschlüssel Muss in Verbindung mit dem Speicherkonto Namen verwendet werden. Umgebungsvariable: AZURE_STORAGE_KEY.'
+    description: ''
+  - name: --account-name
+    summary: 'Name des Speicherkontos Verwandte Umgebungsvariable: AZURE_STORAGE_ACCOUNT. Muss in Verbindung mit dem Speicherkonto Schlüssel oder einem SAS-Token verwendet werden. Wenn keines der beiden vorhanden ist, versucht der Befehl, den Speicherkonto Schlüssel mithilfe des authentifizierten Azure-Kontos abzufragen. Wenn eine große Anzahl von Speicher Befehlen ausgeführt wird, kann das API-Kontingent erreichen.'
+    description: ''
+  - name: --connection-string
+    summary: 'Verbindungs Zeichenfolge des Speicher Kontos. Umgebungsvariable: AZURE_STORAGE_CONNECTION_STRING.'
+    description: ''
+  - name: --if-match
+    defaultValue: ''
+    summary: Der Client gibt ggf. das ETag für die Entität für die Anforderung an, um einen Vergleich mit dem vom Dienst zum Zweck vollständiger Parallelität verwalteten ETag auszuführen. Der Löschvorgang wird nur ausgeführt, wenn das vom Client gesendete ETag mit dem Wert übereinstimmt, der vom Server verwaltet wird und der angibt, dass die Entität nicht geändert wurde, seit sie durch den Client abgerufen wurde. Um einen bedingungslosen Löschvorgang zu erzwingen, legen Sie If-Match auf das Platzhalter Zeichen ( \* ) fest.
+    description: ''
+  - name: --sas-token
+    summary: 'Eine Shared Access Signature (SAS). Muss in Verbindung mit dem Speicherkonto Namen verwendet werden. Umgebungsvariable: AZURE_STORAGE_SAS_TOKEN.'
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  - name: --timeout
+    summary: Anforderungs Timeout in Sekunden. Gilt für jeden Dienst aufzurufen.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/storage/_help.py
+- uid: az_storage_entity_insert
+  name: az storage entity insert
+  summary: Fügt eine Entität in eine Tabelle ein.
+  description: ''
+  syntax: >-
+    az storage entity insert --entity
+                             --table-name
+                             [--account-key]
+                             [--account-name]
+                             [--connection-string]
+                             [--if-exists {fail, merge, replace}]
+                             [--sas-token]
+                             [--subscription]
+                             [--timeout]
+  examples:
+  - summary: Fügt eine Entität in eine Tabelle ein. automatisch generierten
+    syntax: az storage entity insert --connection-string $connectionString --entity PartitionKey=AAA RowKey=BBB Content=ASDF2 --if-exists fail --table-name MyTable
+  requiredParameters:
+  - isRequired: true
+    name: --entity -e
+    summary: Durch Leerzeichen getrennte Liste von Schlüssel-Wert-Paaren. Muss einen PartitionKey und einen RowKey enthalten.
+    description: PartitionKey und RowKey müssen innerhalb der Tabelle eindeutig sein und können bis zu 64 KB groß sein. Wenn Sie einen ganzzahligen Wert als Schlüssel verwenden, konvertieren Sie ihn in eine Zeichenfolge mit fester Breite, die kanonisch sortiert werden kann. Konvertieren Sie beispielsweise den ganzzahligen Wert 1 in den Zeichen folgen Wert "0000001", um eine ordnungsgemäße Sortierung sicherzustellen.
+  - isRequired: true
+    name: --table-name -t
+    summary: Der Name der Tabelle, in die die Entität eingefügt werden soll.
+    description: ''
+  optionalParameters:
+  - name: --account-key
+    summary: 'Speicherkontoschlüssel Muss in Verbindung mit dem Speicherkonto Namen verwendet werden. Umgebungsvariable: AZURE_STORAGE_KEY.'
+    description: ''
+  - name: --account-name
+    summary: 'Name des Speicherkontos Verwandte Umgebungsvariable: AZURE_STORAGE_ACCOUNT. Muss in Verbindung mit dem Speicherkonto Schlüssel oder einem SAS-Token verwendet werden. Wenn keines der beiden vorhanden ist, versucht der Befehl, den Speicherkonto Schlüssel mithilfe des authentifizierten Azure-Kontos abzufragen. Wenn eine große Anzahl von Speicher Befehlen ausgeführt wird, kann das API-Kontingent erreichen.'
+    description: ''
+  - name: --connection-string
+    summary: 'Verbindungs Zeichenfolge des Speicher Kontos. Umgebungsvariable: AZURE_STORAGE_CONNECTION_STRING.'
+    description: ''
+  - name: --if-exists
+    defaultValue: fail
+    parameterValueGroup: fail, merge, replace
+    summary: Verhalten, wenn eine Entität für den angegebenen PartitionKey und RowKey bereits vorhanden ist.
+    description: ''
+  - name: --sas-token
+    summary: 'Eine Shared Access Signature (SAS). Muss in Verbindung mit dem Speicherkonto Namen verwendet werden. Umgebungsvariable: AZURE_STORAGE_SAS_TOKEN.'
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  - name: --timeout
+    summary: Das Server Timeout in Sekunden.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/storage/_help.py
+- uid: az_storage_entity_merge
+  name: az storage entity merge
+  summary: Aktualisiert eine vorhandene Entität durch Zusammenführen der Eigenschaften der Entität.
+  description: Wird ausgelöst, wenn die Entität nicht vorhanden ist.   Durch diesen Vorgang wird die vorhandene Entität nicht durch den update_entity Vorgang ersetzt. Eine Eigenschaft kann nicht mit merge_entity entfernt werden.  Alle Eigenschaften mit NULL-Werten werden ignoriert. Alle anderen Eigenschaften werden aktualisiert oder hinzugefügt.
+  syntax: >-
+    az storage entity merge --entity
+                            --table-name
+                            [--account-key]
+                            [--account-name]
+                            [--connection-string]
+                            [--if-match]
+                            [--sas-token]
+                            [--subscription]
+                            [--timeout]
+  requiredParameters:
+  - isRequired: true
+    name: --entity -e
+    summary: Die zusammen zuführende Entität. Kann ein dict-oder Entitäts Objekt sein. Muss einen PartitionKey und einen RowKey enthalten.
+    description: ''
+  - isRequired: true
+    name: --table-name -t
+    summary: Der Name der Tabelle, in der die zusammen zuführende Entität enthalten ist.
+    description: ''
+  optionalParameters:
+  - name: --account-key
+    summary: 'Speicherkontoschlüssel Muss in Verbindung mit dem Speicherkonto Namen verwendet werden. Umgebungsvariable: AZURE_STORAGE_KEY.'
+    description: ''
+  - name: --account-name
+    summary: 'Name des Speicherkontos Verwandte Umgebungsvariable: AZURE_STORAGE_ACCOUNT. Muss in Verbindung mit dem Speicherkonto Schlüssel oder einem SAS-Token verwendet werden. Wenn keines der beiden vorhanden ist, versucht der Befehl, den Speicherkonto Schlüssel mithilfe des authentifizierten Azure-Kontos abzufragen. Wenn eine große Anzahl von Speicher Befehlen ausgeführt wird, kann das API-Kontingent erreichen.'
+    description: ''
+  - name: --connection-string
+    summary: 'Verbindungs Zeichenfolge des Speicher Kontos. Umgebungsvariable: AZURE_STORAGE_CONNECTION_STRING.'
+    description: ''
+  - name: --if-match
+    defaultValue: ''
+    summary: Der Client gibt ggf. das ETag für die Entität für die Anforderung an, um einen Vergleich mit dem vom Dienst zum Zweck vollständiger Parallelität verwalteten ETag auszuführen. Der Merge-Vorgang wird nur ausgeführt, wenn das vom Client gesendete ETag mit dem Wert übereinstimmt, der vom Server verwaltet wird. Dies deutet darauf hin, dass die Entität nicht geändert wurde, seit Sie vom Client abgerufen wurde. Legen Sie If-Match auf das Platzhalter Zeichen () fest, um eine unbedingte Zusammenführung zu erzwingen \* .
+    description: ''
+  - name: --sas-token
+    summary: 'Eine Shared Access Signature (SAS). Muss in Verbindung mit dem Speicherkonto Namen verwendet werden. Umgebungsvariable: AZURE_STORAGE_SAS_TOKEN.'
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  - name: --timeout
+    summary: Anforderungs Timeout in Sekunden. Gilt für jeden Dienst aufzurufen.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/storage/_help.py
+- uid: az_storage_entity_query
+  name: az storage entity query
+  summary: Listet Entitäten auf, die eine Abfrage erfüllen.
+  description: ''
+  syntax: >-
+    az storage entity query --table-name
+                            [--accept {full, minimal, none}]
+                            [--account-key]
+                            [--account-name]
+                            [--connection-string]
+                            [--filter]
+                            [--marker]
+                            [--num-results]
+                            [--sas-token]
+                            [--select]
+                            [--subscription]
+                            [--timeout]
+  examples:
+  - summary: Listet Entitäten auf, die eine Abfrage erfüllen. automatisch generierten
+    syntax: az storage entity query --table-name MyTable
+  requiredParameters:
+  - isRequired: true
+    name: --table-name -t
+    summary: Der Name der abzufragende Tabelle.
+    description: ''
+  optionalParameters:
+  - name: --accept
+    defaultValue: minimal
+    parameterValueGroup: full, minimal, none
+    summary: Gibt an, wie viele Metadaten in der Antwort Nutzlast enthalten sein sollen.
+    description: ''
+  - name: --account-key
+    summary: 'Speicherkontoschlüssel Muss in Verbindung mit dem Speicherkonto Namen verwendet werden. Umgebungsvariable: AZURE_STORAGE_KEY.'
+    description: ''
+  - name: --account-name
+    summary: 'Name des Speicherkontos Verwandte Umgebungsvariable: AZURE_STORAGE_ACCOUNT. Muss in Verbindung mit dem Speicherkonto Schlüssel oder einem SAS-Token verwendet werden. Wenn keines der beiden vorhanden ist, versucht der Befehl, den Speicherkonto Schlüssel mithilfe des authentifizierten Azure-Kontos abzufragen. Wenn eine große Anzahl von Speicher Befehlen ausgeführt wird, kann das API-Kontingent erreichen.'
+    description: ''
+  - name: --connection-string
+    summary: 'Verbindungs Zeichenfolge des Speicher Kontos. Umgebungsvariable: AZURE_STORAGE_CONNECTION_STRING.'
+    description: ''
+  - name: --filter
+    summary: Gibt nur Entitäten zurück, die den angegebenen Filter erfüllen. Beachten Sie, dass in einer $Filter Zeichenfolge nicht mehr als 15 diskrete Vergleiche zulässig sind. <a href="http://msdn.microsoft.com/en-us/library/windowsazure/dd894031.aspx">http://msdn.microsoft.com/en-us/library/windowsazure/dd894031.aspx</a>Weitere Informationen zum Erstellen von Filtern finden Sie unter.
+    description: ''
+  - name: --marker
+    summary: Durch Leerzeichen getrennte Liste von Schlüssel-Wert-Paaren. Muss einen nextpartitionkey und einen nextrowkey enthalten.
+    description: Dieser Wert kann aus dem next_marker-Feld eines vorherigen Generator Objekts abgerufen werden, wenn max_results angegeben wurde und der Generator die Enumeration der Ergebnisse abgeschlossen hat. Wenn angegeben, beginnt dieser Generator mit der Rückgabe von Ergebnissen ab dem Zeitpunkt, an dem der vorherige Generator angehalten wurde.
+  - name: --num-results
+    summary: Die maximale Anzahl zurück zugebender Entitäten.
+    description: ''
+  - name: --sas-token
+    summary: 'Eine Shared Access Signature (SAS). Muss in Verbindung mit dem Speicherkonto Namen verwendet werden. Umgebungsvariable: AZURE_STORAGE_SAS_TOKEN.'
+    description: ''
+  - name: --select
+    summary: Durch Leerzeichen getrennte Liste von Eigenschaften, die für jede Entität zurückgegeben werden sollen.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  - name: --timeout
+    summary: Anforderungs Timeout in Sekunden. Gilt für jeden Dienst aufzurufen.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/storage/_help.py
+- uid: az_storage_entity_replace
+  name: az storage entity replace
+  summary: Aktualisiert eine vorhandene Entität in einer Tabelle.
+  description: Wird ausgelöst, wenn die Entität nicht vorhanden ist.  Der update_entity Vorgang ersetzt die gesamte Entität und kann verwendet werden, um Eigenschaften zu entfernen.
+  syntax: >-
+    az storage entity replace --entity
+                              --table-name
+                              [--account-key]
+                              [--account-name]
+                              [--connection-string]
+                              [--if-match]
+                              [--sas-token]
+                              [--subscription]
+                              [--timeout]
+  requiredParameters:
+  - isRequired: true
+    name: --entity -e
+    summary: Die zu Aktualisier Entität. Kann ein dict-oder Entitäts Objekt sein. Muss einen PartitionKey und einen RowKey enthalten.
+    description: ''
+  - isRequired: true
+    name: --table-name -t
+    summary: Der Name der Tabelle, die die zu aktualisierenden Entität enthält.
+    description: ''
+  optionalParameters:
+  - name: --account-key
+    summary: 'Speicherkontoschlüssel Muss in Verbindung mit dem Speicherkonto Namen verwendet werden. Umgebungsvariable: AZURE_STORAGE_KEY.'
+    description: ''
+  - name: --account-name
+    summary: 'Name des Speicherkontos Verwandte Umgebungsvariable: AZURE_STORAGE_ACCOUNT. Muss in Verbindung mit dem Speicherkonto Schlüssel oder einem SAS-Token verwendet werden. Wenn keines der beiden vorhanden ist, versucht der Befehl, den Speicherkonto Schlüssel mithilfe des authentifizierten Azure-Kontos abzufragen. Wenn eine große Anzahl von Speicher Befehlen ausgeführt wird, kann das API-Kontingent erreichen.'
+    description: ''
+  - name: --connection-string
+    summary: 'Verbindungs Zeichenfolge des Speicher Kontos. Umgebungsvariable: AZURE_STORAGE_CONNECTION_STRING.'
+    description: ''
+  - name: --if-match
+    defaultValue: ''
+    summary: Der Client gibt ggf. das ETag für die Entität für die Anforderung an, um einen Vergleich mit dem vom Dienst zum Zweck vollständiger Parallelität verwalteten ETag auszuführen. Der Updatevorgang wird nur ausgeführt, wenn das vom Client gesendete ETag mit dem Wert übereinstimmt, der vom Server verwaltet wird und der angibt, dass die Entität nicht geändert wurde, seit sie durch den Client abgerufen wurde. Legen Sie If-Match auf das Platzhalter Zeichen () fest, um ein bedingungsloses Update zu erzwingen \* .
+    description: ''
+  - name: --sas-token
+    summary: 'Eine Shared Access Signature (SAS). Muss in Verbindung mit dem Speicherkonto Namen verwendet werden. Umgebungsvariable: AZURE_STORAGE_SAS_TOKEN.'
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  - name: --timeout
+    summary: Anforderungs Timeout in Sekunden. Gilt für jeden Dienst aufzurufen.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/storage/_help.py
+- uid: az_storage_entity_show
+  name: az storage entity show
+  summary: Eine Entität aus der angegebenen Tabelle erhalten.
+  description: Wird ausgelöst, wenn die Entität nicht vorhanden ist.
+  syntax: >-
+    az storage entity show --partition-key
+                           --row-key
+                           --table-name
+                           [--accept]
+                           [--account-key]
+                           [--account-name]
+                           [--connection-string]
+                           [--query-examples]
+                           [--sas-token]
+                           [--select]
+                           [--subscription]
+                           [--timeout]
+  requiredParameters:
+  - isRequired: true
+    name: --partition-key
+    summary: Der PartitionKey der Entität.
+    description: ''
+  - isRequired: true
+    name: --row-key
+    summary: Der RowKey der Entität.
+    description: ''
+  - isRequired: true
+    name: --table-name -t
+    summary: Der Name der Tabelle, aus der die Entität abgeleitet werden soll.
+    description: ''
+  optionalParameters:
+  - name: --accept
+    defaultValue: application/json;odata=minimalmetadata
+    summary: Gibt den akzeptierten Inhaltstyp der Antwortnutzlast an. Mögliche Werte finden Sie unter tablepayloadformat.
+    description: ''
+  - name: --account-key
+    summary: 'Speicherkontoschlüssel Muss in Verbindung mit dem Speicherkonto Namen verwendet werden. Umgebungsvariable: AZURE_STORAGE_KEY.'
+    description: ''
+  - name: --account-name
+    summary: 'Name des Speicherkontos Verwandte Umgebungsvariable: AZURE_STORAGE_ACCOUNT. Muss in Verbindung mit dem Speicherkonto Schlüssel oder einem SAS-Token verwendet werden. Wenn keines der beiden vorhanden ist, versucht der Befehl, den Speicherkonto Schlüssel mithilfe des authentifizierten Azure-Kontos abzufragen. Wenn eine große Anzahl von Speicher Befehlen ausgeführt wird, kann das API-Kontingent erreichen.'
+    description: ''
+  - name: --connection-string
+    summary: 'Verbindungs Zeichenfolge des Speicher Kontos. Umgebungsvariable: AZURE_STORAGE_CONNECTION_STRING.'
+    description: ''
+  - name: --query-examples
+    summary: Empfehlen Sie die jmespath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und Sie nach dem Abfrage Parameter in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positions Schlüsselwörter hinzufügen, um Vorschläge auf der Grundlage dieser Schlüsselwörter zu geben.
+    description: ''
+  - name: --sas-token
+    summary: 'Eine Shared Access Signature (SAS). Muss in Verbindung mit dem Speicherkonto Namen verwendet werden. Umgebungsvariable: AZURE_STORAGE_SAS_TOKEN.'
+    description: ''
+  - name: --select
+    summary: Durch Leerzeichen getrennte Liste von Eigenschaften, die für jede Entität zurückgegeben werden sollen.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  - name: --timeout
+    summary: Anforderungs Timeout in Sekunden. Gilt für jeden Dienst aufzurufen.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/storage/_help.py
+commands:
+- az_storage_entity_delete
+- az_storage_entity_insert
+- az_storage_entity_merge
+- az_storage_entity_query
+- az_storage_entity_replace
+- az_storage_entity_show
+globalParameters:
+- name: --debug
+  summary: Ausführlichkeit der Protokollierung erhöhen, um alle Debugprotokolle anzuzeigen.
+- name: --help -h
+  summary: Zeigen Sie diese Hilfemeldung an, und schließen Sie sie.
+- name: --only-show-errors
+  summary: Nur Fehler anzeigen und Warnungen unterdrücken.
+- name: --output -o
+  defaultValue: json
+  parameterValueGroup: json, jsonc, table, tsv
+  summary: Ausgabeformat.
+- name: --query
+  summary: JMESPath-Abfragezeichenfolge. Weitere Informationen und Beispiele finden Sie unter <a href="http://jmespath.org/">http://jmespath.org/</a>.
+- name: --verbose
+  summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
+metadata:
+  doc_source_url_repo: https://github.com/Azure/azure-cli/blob/dev/
+  ms.date: 02/02/2021
+  description: Verwalten von Tabellen Speicher Entitäten.
+  ms.openlocfilehash: a8b084bae3ff93207c53645a1e81b70a5553d6a5
+  ms.sourcegitcommit: df9d6597535ef9103775afbaee5a8282e0e218ee
+  ms.translationtype: MT
+  ms.contentlocale: de-DE
+  ms.lasthandoff: 02/09/2021
+  ms.locfileid: "102912821"
