@@ -1,0 +1,290 @@
+### YamlMime:AzureCLIGroup
+uid: az_ams_asset_filter
+name: az ams asset-filter
+summary: Verwalten von Medienobjekt Filtern für ein Azure Media Services Konto.
+description: ''
+directCommands:
+- uid: az_ams_asset_filter_create
+  name: az ams asset-filter create
+  summary: Erstellen Sie einen Medienobjekt Filter.
+  description: ''
+  syntax: >-
+    az ams asset-filter create --account-name
+                               --asset-name
+                               --name
+                               --resource-group
+                               [--bitrate]
+                               [--end-timestamp]
+                               [--first-quality]
+                               [--force-end-timestamp {false, true}]
+                               [--live-backoff-duration]
+                               [--presentation-window-duration]
+                               [--start-timestamp]
+                               [--subscription]
+                               [--timescale]
+                               [--tracks]
+  examples:
+  - summary: Erstellen Sie einen Asset-Filter mit der Filter Nachverfolgung-Auswahl.
+    syntax: az ams asset-filter create -a amsAccount -g resourceGroup -n filterName --force-end-timestamp=False --end-timestamp 200000 --start-timestamp 100000 --live-backoff-duration 60 --presentation-window-duration 600000 --timescale 1000 --first-quality 720 --asset-name assetName --tracks @C:\tracks.json
+  requiredParameters:
+  - isRequired: true
+    name: --account-name -a
+    summary: Der Name des Azure Media Services Kontos.
+    description: ''
+  - isRequired: true
+    name: --asset-name
+    summary: Der Name des Assets.
+    description: ''
+  - isRequired: true
+    name: --name -n
+    summary: Der Name des Medienobjekt Filters.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  optionalParameters:
+  - name: --bitrate
+    summary: Die erste Qualitäts Bitrate.
+    description: ''
+  - name: --end-timestamp
+    summary: Gilt für Video on Demand (VOD). Bei der Live Streaming-Präsentation wird Sie automatisch ignoriert und angewendet, wenn die Präsentation endet und der Stream zu VOD wird. Dies ist ein langer Wert, der einen absoluten Endpunkt der Präsentation darstellt, der auf den nächstgelegenen nächsten GOP-Start gerundet wird. Bei der Einheit handelt es sich um die Zeitskala, sodass der endtimestamp-Wert 1,8 Milliarden drei Minuten betragen würde. Verwenden Sie starttimestamp und endtimestamp, um die Fragmente zu kürzen, die sich in der Wiedergabeliste befinden. Beispielsweise generiert starttimestamp = 40000000 und endtimestamp = 100000000 unter Verwendung des Standardzeit Rahmens eine Wiedergabeliste, die Fragmente zwischen 4 Sekunden und 10 Sekunden der VOD-Präsentation enthält. Wenn ein Fragment die Grenze überschreitet, wird das gesamte Fragment in das Manifest aufgenommen.
+    description: ''
+  - name: --first-quality
+    summary: Die erste Quality-Bitrate (niedrigste), die in das Manifest aufgenommen werden soll.
+    description: ''
+  - name: --force-end-timestamp
+    parameterValueGroup: false, true
+    summary: 'Gilt nur für Livestreaming. Gibt an, ob die Eigenschaft „endTimestamp“ vorhanden sein muss. Bei „true“ muss „endTimestamp“ muss angegeben werden, da ansonsten ein ungültiger Anforderungscode zurückgegeben wird. Zulässige Werte: false, true.'
+    description: ''
+  - name: --live-backoff-duration
+    summary: Gilt nur für Livestreaming. Dieser Wert definiert die letzte Liveposition, die ein Client durchsuchen kann. Mit dieser Eigenschaft können Sie die Livewiedergabeposition verzögern und einen serverseitigen Puffer für Spieler erstellen. Die Einheit für diese Eigenschaft ist die Zeitskala (siehe unten). Der maximal zulässige Wert für „LiveBackoffDuration“ beträgt 300 Sekunden (3000000000). Ein Wert von 2000000000 bedeutet z. B., dass der letzte verfügbare Inhalt 20 Sekunden gegenüber der tatsächlichen Liveedge verzögert ist.
+    description: ''
+  - name: --presentation-window-duration
+    summary: Gilt nur für Live Streaming. Verwenden Sie presentationwindowduration zum Anwenden eines gleitenden Fensters von Fragmenten, die in eine Wiedergabeliste eingeschlossen werden sollen. Die Einheit für diese Eigenschaft ist "Zeitrahmen" (siehe unten). Legen Sie beispielsweise presentationwindowduration = 1200000000 fest, um ein gleitendes Fenster von zwei Minuten anzuwenden. Medien, die in einem 2-Minuten-Zeitraum um die Liveposition liegen, werden in die Wiedergabeliste aufgenommen. Wenn ein Fragment die Grenze überschreitet, wird das gesamte Fragment in die Wiedergabeliste aufgenommen. Die Mindestdauer für das Präsentationsfenster beträgt 60 Sekunden.
+    description: ''
+  - name: --start-timestamp
+    summary: Gilt für Video on Demand (VoD) oder Livestreaming. Dies ist ein Long-Wert, der einen absoluten Startpunkt des Streams darstellt. Er wird auf den nächstgelegenen GOP-Start gerundet. Die Einheit ist die Zeitskala, daher würde ein „startTimestamp“ von 150000000 einer Zeit von 15 Sekunden entsprechen. Verwenden Sie „startTimestamp“ und „endTimestamp“, um die Fragmente in der Wiedergabeliste (das Manifest) zu kürzen. Wenn Sie z. B. „startTimestamp=40000000“ und „endTimestamp=100000000“ mit der voreingestellten Zeitskala verwenden, wird eine Wiedergabeliste generiert, die Fragmente aus einer Zeitspanne von vier bis zehn Sekunden der VoD-Präsentation enthält. Wenn ein Fragment die Grenze überschreitet, wird das gesamte Fragment in das Manifest aufgenommen.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  - name: --timescale
+    summary: Gilt für alle Zeitstempel und Dauer in einem Präsentationszeit Bereich, angegeben als Anzahl der Inkremente in einer Sekunde. Der Standardwert ist 10 Millionen-10 Millionen-Inkremente in einer Sekunde, wobei jedes Inkrement 100 Nanosekunden lang sein würde. Wenn Sie z. B. einen Startzeitstempel auf 30 Sekunden einstellen möchten, würden Sie bei Verwendung der Standardzeitskala einen Wert von 300000000 verwenden.
+    description: ''
+  - name: --tracks
+    summary: Der JSON-Code, der die Nachverfolgung darstellt. Verwenden Sie @ {File}, um aus einer Datei zu laden. Weitere Informationen zur JSON-Struktur finden Sie in der Swagger-Dokumentation unter <a href="https://docs.microsoft.com/rest/api/media/assetfilters/createorupdate#filtertrackselection">https://docs.microsoft.com/rest/api/media/assetfilters/createorupdate#filtertrackselection</a> .
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/ams/_help.py
+- uid: az_ams_asset_filter_delete
+  name: az ams asset-filter delete
+  summary: Löschen eines Medienobjekt Filters.
+  description: ''
+  syntax: >-
+    az ams asset-filter delete [--account-name]
+                               [--asset-name]
+                               [--ids]
+                               [--name]
+                               [--resource-group]
+                               [--subscription]
+  optionalParameters:
+  - name: --account-name -a
+    summary: Der Name des Azure Media Services Kontos.
+    description: ''
+  - name: --asset-name
+    summary: Der Name des Assets.
+    description: ''
+  - name: --ids
+    summary: Mindestens eine Ressourcen-ID (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID handeln, die alle Informationen von Ressourcen-ID-Argumenten enthält. Sie sollten entweder--IDs oder andere Ressourcen-ID-Argumente angeben.
+    description: ''
+  - name: --name -n
+    summary: Der Name des Medienobjekt Filters.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/ams/_help.py
+- uid: az_ams_asset_filter_list
+  name: az ams asset-filter list
+  summary: Listet alle Asset-Filter eines Azure Media Services Kontos auf.
+  description: ''
+  syntax: >-
+    az ams asset-filter list --account-name
+                             --asset-name
+                             --resource-group
+                             [--query-examples]
+                             [--subscription]
+  requiredParameters:
+  - isRequired: true
+    name: --account-name -a
+    summary: Der Name des Azure Media Services Kontos.
+    description: ''
+  - isRequired: true
+    name: --asset-name
+    summary: Der Name des Assets.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  optionalParameters:
+  - name: --query-examples
+    summary: Empfehlen Sie die jmespath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und Sie nach dem Abfrage Parameter in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positions Schlüsselwörter hinzufügen, um Vorschläge auf der Grundlage dieser Schlüsselwörter zu geben.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/ams/_help.py
+- uid: az_ams_asset_filter_show
+  name: az ams asset-filter show
+  summary: Anzeigen der Details eines Medienobjekt Filters.
+  description: ''
+  syntax: >-
+    az ams asset-filter show [--account-name]
+                             [--asset-name]
+                             [--ids]
+                             [--name]
+                             [--query-examples]
+                             [--resource-group]
+                             [--subscription]
+  optionalParameters:
+  - name: --account-name -a
+    summary: Der Name des Azure Media Services Kontos.
+    description: ''
+  - name: --asset-name
+    summary: Der Name des Assets.
+    description: ''
+  - name: --ids
+    summary: Mindestens eine Ressourcen-ID (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID handeln, die alle Informationen von Ressourcen-ID-Argumenten enthält. Sie sollten entweder--IDs oder andere Ressourcen-ID-Argumente angeben.
+    description: ''
+  - name: --name -n
+    summary: Der Name des Medienobjekt Filters.
+    description: ''
+  - name: --query-examples
+    summary: Empfehlen Sie die jmespath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und Sie nach dem Abfrage Parameter in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positions Schlüsselwörter hinzufügen, um Vorschläge auf der Grundlage dieser Schlüsselwörter zu geben.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/ams/_help.py
+- uid: az_ams_asset_filter_update
+  name: az ams asset-filter update
+  summary: Aktualisieren Sie die Details eines Medienobjekt Filters.
+  description: ''
+  syntax: >-
+    az ams asset-filter update [--account-name]
+                               [--add]
+                               [--asset-name]
+                               [--bitrate]
+                               [--end-timestamp]
+                               [--first-quality]
+                               [--force-end-timestamp {false, true}]
+                               [--force-string]
+                               [--ids]
+                               [--live-backoff-duration]
+                               [--name]
+                               [--presentation-window-duration]
+                               [--remove]
+                               [--resource-group]
+                               [--set]
+                               [--start-timestamp]
+                               [--subscription]
+                               [--timescale]
+                               [--tracks]
+  optionalParameters:
+  - name: --account-name -a
+    summary: Der Name des Azure Media Services Kontos.
+    description: ''
+  - name: --add
+    summary: Fügen Sie einer Liste von-Objekten ein Objekt hinzu, indem Sie ein Pfad-und Schlüssel-Wert-Paar angeben.  Beispiel:--Add Property. ListProperty <Key = Value, String oder JSON String>.
+    description: ''
+  - name: --asset-name
+    summary: Der Name des Assets.
+    description: ''
+  - name: --bitrate
+    summary: Die erste Qualitäts Bitrate.
+    description: ''
+  - name: --end-timestamp
+    summary: Gilt für Video on Demand (VOD). Bei der Live Streaming-Präsentation wird Sie automatisch ignoriert und angewendet, wenn die Präsentation endet und der Stream zu VOD wird. Dies ist ein langer Wert, der einen absoluten Endpunkt der Präsentation darstellt, der auf den nächstgelegenen nächsten GOP-Start gerundet wird. Bei der Einheit handelt es sich um die Zeitskala, sodass der endtimestamp-Wert 1,8 Milliarden drei Minuten betragen würde. Verwenden Sie starttimestamp und endtimestamp, um die Fragmente zu kürzen, die sich in der Wiedergabeliste befinden. Beispielsweise generiert starttimestamp = 40000000 und endtimestamp = 100000000 unter Verwendung des Standardzeit Rahmens eine Wiedergabeliste, die Fragmente zwischen 4 Sekunden und 10 Sekunden der VOD-Präsentation enthält. Wenn ein Fragment die Grenze überschreitet, wird das gesamte Fragment in das Manifest aufgenommen.
+    description: ''
+  - name: --first-quality
+    summary: Die erste Quality-Bitrate (niedrigste), die in das Manifest aufgenommen werden soll.
+    description: ''
+  - name: --force-end-timestamp
+    parameterValueGroup: false, true
+    summary: 'Gilt nur für Livestreaming. Gibt an, ob die Eigenschaft „endTimestamp“ vorhanden sein muss. Bei „true“ muss „endTimestamp“ muss angegeben werden, da ansonsten ein ungültiger Anforderungscode zurückgegeben wird. Zulässige Werte: false, true.'
+    description: ''
+  - name: --force-string
+    summary: Wenn Sie "Set" oder "Add" verwenden, erhalten Sie Zeichen folgen Literale, anstatt zu versuchen, in JSON zu konvertieren.
+    description: ''
+  - name: --ids
+    summary: Mindestens eine Ressourcen-ID (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID handeln, die alle Informationen von Ressourcen-ID-Argumenten enthält. Sie sollten entweder--IDs oder andere Ressourcen-ID-Argumente angeben.
+    description: ''
+  - name: --live-backoff-duration
+    summary: Gilt nur für Livestreaming. Dieser Wert definiert die letzte Liveposition, die ein Client durchsuchen kann. Mit dieser Eigenschaft können Sie die Livewiedergabeposition verzögern und einen serverseitigen Puffer für Spieler erstellen. Die Einheit für diese Eigenschaft ist die Zeitskala (siehe unten). Der maximal zulässige Wert für „LiveBackoffDuration“ beträgt 300 Sekunden (3000000000). Ein Wert von 2000000000 bedeutet z. B., dass der letzte verfügbare Inhalt 20 Sekunden gegenüber der tatsächlichen Liveedge verzögert ist.
+    description: ''
+  - name: --name -n
+    summary: Der Name des Medienobjekt Filters.
+    description: ''
+  - name: --presentation-window-duration
+    summary: Gilt nur für Live Streaming. Verwenden Sie presentationwindowduration zum Anwenden eines gleitenden Fensters von Fragmenten, die in eine Wiedergabeliste eingeschlossen werden sollen. Die Einheit für diese Eigenschaft ist "Zeitrahmen" (siehe unten). Legen Sie beispielsweise presentationwindowduration = 1200000000 fest, um ein gleitendes Fenster von zwei Minuten anzuwenden. Medien, die in einem 2-Minuten-Zeitraum um die Liveposition liegen, werden in die Wiedergabeliste aufgenommen. Wenn ein Fragment die Grenze überschreitet, wird das gesamte Fragment in die Wiedergabeliste aufgenommen. Die Mindestdauer für das Präsentationsfenster beträgt 60 Sekunden.
+    description: ''
+  - name: --remove
+    summary: Entfernt eine Eigenschaft oder ein Element aus einer Liste.  Beispiel:--Remove Property. List <indexToRemove> oder--Remove propertytoremove.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --set
+    summary: Aktualisieren Sie ein Objekt, indem Sie einen Eigenschafts Pfad und einen festzulegenden Wert angeben.  Beispiel:--Set Eigenschaft1. Eigenschaft2 =<value>.
+    description: ''
+  - name: --start-timestamp
+    summary: Gilt für Video on Demand (VoD) oder Livestreaming. Dies ist ein Long-Wert, der einen absoluten Startpunkt des Streams darstellt. Er wird auf den nächstgelegenen GOP-Start gerundet. Die Einheit ist die Zeitskala, daher würde ein „startTimestamp“ von 150000000 einer Zeit von 15 Sekunden entsprechen. Verwenden Sie „startTimestamp“ und „endTimestamp“, um die Fragmente in der Wiedergabeliste (das Manifest) zu kürzen. Wenn Sie z. B. „startTimestamp=40000000“ und „endTimestamp=100000000“ mit der voreingestellten Zeitskala verwenden, wird eine Wiedergabeliste generiert, die Fragmente aus einer Zeitspanne von vier bis zehn Sekunden der VoD-Präsentation enthält. Wenn ein Fragment die Grenze überschreitet, wird das gesamte Fragment in das Manifest aufgenommen.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  - name: --timescale
+    summary: Gilt für alle Zeitstempel und Dauer in einem Präsentationszeit Bereich, angegeben als Anzahl der Inkremente in einer Sekunde. Der Standardwert ist 10 Millionen-10 Millionen-Inkremente in einer Sekunde, wobei jedes Inkrement 100 Nanosekunden lang sein würde. Wenn Sie z. B. einen Startzeitstempel auf 30 Sekunden einstellen möchten, würden Sie bei Verwendung der Standardzeitskala einen Wert von 300000000 verwenden.
+    description: ''
+  - name: --tracks
+    summary: Der JSON-Code, der die Nachverfolgung darstellt. Verwenden Sie @ {File}, um aus einer Datei zu laden. Weitere Informationen zur JSON-Struktur finden Sie in der Swagger-Dokumentation unter <a href="https://docs.microsoft.com/rest/api/media/assetfilters/createorupdate#filtertrackselection">https://docs.microsoft.com/rest/api/media/assetfilters/createorupdate#filtertrackselection</a> .
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/ams/_help.py
+commands:
+- az_ams_asset_filter_create
+- az_ams_asset_filter_delete
+- az_ams_asset_filter_list
+- az_ams_asset_filter_show
+- az_ams_asset_filter_update
+globalParameters:
+- name: --debug
+  summary: Ausführlichkeit der Protokollierung erhöhen, um alle Debugprotokolle anzuzeigen.
+- name: --help -h
+  summary: Zeigen Sie diese Hilfemeldung an, und schließen Sie sie.
+- name: --only-show-errors
+  summary: Nur Fehler anzeigen und Warnungen unterdrücken.
+- name: --output -o
+  defaultValue: json
+  parameterValueGroup: json, jsonc, table, tsv
+  summary: Ausgabeformat.
+- name: --query
+  summary: JMESPath-Abfragezeichenfolge. Weitere Informationen und Beispiele finden Sie unter <a href="http://jmespath.org/">http://jmespath.org/</a>.
+- name: --verbose
+  summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
+metadata:
+  doc_source_url_repo: https://github.com/Azure/azure-cli/blob/dev/
+  ms.date: 07/28/2020
+  description: Verwalten von Medienobjekt Filtern für ein Azure Media Services Konto.
+  ms.openlocfilehash: 40905cadb5d5e50c0b9da2f5b352de73932cc387
+  ms.sourcegitcommit: dd42eae9469c48f3cce66347e8e1cac317887a3a
+  ms.translationtype: MT
+  ms.contentlocale: de-DE
+  ms.lasthandoff: 09/29/2020
+  ms.locfileid: "102820714"
