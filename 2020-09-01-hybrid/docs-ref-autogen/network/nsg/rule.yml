@@ -1,0 +1,330 @@
+### YamlMime:AzureCLIGroup
+uid: az_network_nsg_rule
+name: az network nsg rule
+summary: Verwalten von Regeln für Netzwerk Sicherheitsgruppen
+description: ''
+directCommands:
+- uid: az_network_nsg_rule_create
+  name: az network nsg rule create
+  summary: Erstellen Sie eine Netzwerk Sicherheitsgruppen-Regel.
+  description: ''
+  syntax: >-
+    az network nsg rule create --name
+                               --nsg-name
+                               --priority
+                               --resource-group
+                               [--access {Allow, Deny}]
+                               [--description]
+                               [--destination-address-prefixes]
+                               [--destination-asgs]
+                               [--destination-port-ranges]
+                               [--direction {Inbound, Outbound}]
+                               [--protocol {*, Tcp, Udp}]
+                               [--source-address-prefixes]
+                               [--source-asgs]
+                               [--source-port-ranges]
+                               [--subscription]
+  examples:
+  - summary: Erstellen Sie eine einfache NSG-Regel mit der höchsten Priorität.
+    syntax: az network nsg rule create -g MyResourceGroup --nsg-name MyNsg -n MyNsgRule --priority 100
+  - summary: Erstellen Sie eine Ablehnungs Regel über TCP für einen bestimmten IP-Adressbereich mit der niedrigsten Priorität.
+    syntax: >-
+      az network nsg rule create -g MyResourceGroup --nsg-name MyNsg -n MyNsgRule --priority 4096 \
+          --source-address-prefixes 208.130.28/24 --source-port-ranges 80 \
+          --destination-address-prefixes '*' --destination-port-ranges 80 8080 --access Deny \
+          --protocol Tcp --description "Deny from specific IP address ranges on 80 and 8080."
+  - summary: Erstellen Sie eine Sicherheitsregel mithilfe von Dienst Tags. Weitere Informationen finden Sie unter https://aka.ms/servicetags
+    syntax: >-
+      az network nsg rule create -g MyResourceGroup --nsg-name MyNsg -n MyNsgRuleWithTags \
+          --priority 400 --source-address-prefixes VirtualNetwork --destination-address-prefixes Storage \
+          --destination-port-ranges '*' --direction Outbound --access Allow --protocol Tcp --description "Allow VirtualNetwork to Storage."
+  - summary: Erstellen Sie eine Sicherheitsregel mithilfe von Anwendungs Sicherheitsgruppen. https://aka.ms/applicationsecuritygroups
+    syntax: >-
+      az network nsg rule create -g MyResourceGroup --nsg-name MyNsg -n MyNsgRuleWithAsg \
+          --priority 500 --source-address-prefixes Internet --destination-port-ranges 80 8080 \
+          --destination-asgs Web --access Allow --protocol Tcp --description "Allow Internet to Web ASG on ports 80,8080."
+  requiredParameters:
+  - isRequired: true
+    name: --name -n
+    summary: Der Name der Netzwerk Sicherheitsgruppen-Regel.
+    description: ''
+  - isRequired: true
+    name: --nsg-name
+    summary: Der Name der Netzwerk Sicherheitsgruppe.
+    description: ''
+  - isRequired: true
+    name: --priority
+    summary: 'Regel Priorität: zwischen 100 (höchste Priorität) und 4096 (niedrigste Priorität). Muss für jede Regel in der Sammlung eindeutig sein.'
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  optionalParameters:
+  - name: --access
+    defaultValue: Allow
+    parameterValueGroup: Allow, Deny
+    summary: ''
+    description: ''
+  - name: --description
+    summary: Regel Beschreibung.
+    description: ''
+  - name: --destination-address-prefixes
+    defaultValue: ''
+    summary: Durch Leerzeichen getrennte Liste der CIDR-Präfixe oder IP-Bereiche. Geben Sie alternativ "VirtualNetwork", "azureloadbalancer", "Internet" oder "" \* an, um alle IPS abzugleichen. Außerdem werden alle verfügbaren Dienst Tags wie "apimanagement", "sqlmanagement", "azuremonitor" usw. unterstützt.
+    description: ''
+  - name: --destination-asgs
+    summary: Durch Leerzeichen getrennte Liste von Namen oder IDs von Anwendungs Sicherheitsgruppen. Eingeschränkt durch den Back-End-Server. dieses Argument unterstützt vorübergehend nur einen Anwendungs Sicherheitsgruppen-Namen oder eine ID.
+    description: ''
+  - name: --destination-port-ranges
+    defaultValue: "80"
+    summary: Durch Leerzeichen getrennte Liste der Ports oder Port Bereiche zwischen 0-65535. Verwenden \* Sie "", um alle Ports abzugleichen.
+    description: ''
+  - name: --direction
+    defaultValue: Inbound
+    parameterValueGroup: Inbound, Outbound
+    summary: ''
+    description: ''
+  - name: --protocol
+    defaultValue: ''
+    parameterValueGroup: '*, Tcp, Udp'
+    summary: Netzwerkprotokoll, für das diese Regel gilt.
+    description: ''
+  - name: --source-address-prefixes
+    defaultValue: ''
+    summary: Durch Leerzeichen getrennte Liste der CIDR-Präfixe oder IP-Bereiche. Geben Sie alternativ "VirtualNetwork", "azureloadbalancer", "Internet" oder "" \* an, um alle IPS abzugleichen. Außerdem werden alle verfügbaren Dienst Tags wie "apimanagement", "sqlmanagement", "azuremonitor" usw. unterstützt.
+    description: ''
+  - name: --source-asgs
+    summary: Durch Leerzeichen getrennte Liste von Namen oder IDs von Anwendungs Sicherheitsgruppen. Eingeschränkt durch den Back-End-Server. dieses Argument unterstützt vorübergehend nur einen Anwendungs Sicherheitsgruppen-Namen oder eine ID.
+    description: ''
+  - name: --source-port-ranges
+    defaultValue: ''
+    summary: Durch Leerzeichen getrennte Liste der Ports oder Port Bereiche zwischen 0-65535. Verwenden \* Sie "", um alle Ports abzugleichen.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/network/_help.py
+- uid: az_network_nsg_rule_delete
+  name: az network nsg rule delete
+  summary: Löschen Sie eine Netzwerk Sicherheitsgruppen-Regel.
+  description: ''
+  syntax: >-
+    az network nsg rule delete [--ids]
+                               [--name]
+                               [--nsg-name]
+                               [--resource-group]
+                               [--subscription]
+  examples:
+  - summary: Löschen Sie eine Netzwerk Sicherheitsgruppen-Regel.
+    syntax: az network nsg rule delete -g MyResourceGroup --nsg-name MyNsg -n MyNsgRule
+  optionalParameters:
+  - name: --ids
+    summary: Mindestens eine Ressourcen-ID (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID handeln, die alle Informationen von Ressourcen-ID-Argumenten enthält. Sie sollten entweder--IDs oder andere Ressourcen-ID-Argumente angeben.
+    description: ''
+  - name: --name -n
+    summary: Der Name der Netzwerk Sicherheitsgruppen-Regel.
+    description: ''
+  - name: --nsg-name
+    summary: Der Name der Netzwerk Sicherheitsgruppe.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/network/_help.py
+- uid: az_network_nsg_rule_list
+  name: az network nsg rule list
+  summary: Listet alle Regeln in einer Netzwerk Sicherheitsgruppe auf.
+  description: ''
+  syntax: >-
+    az network nsg rule list --nsg-name
+                             --resource-group
+                             [--include-default]
+                             [--query-examples]
+                             [--subscription]
+  examples:
+  - summary: Listet alle Regeln in einer Netzwerk Sicherheitsgruppe auf.
+    syntax: az network nsg rule list -g MyResourceGroup --nsg-name MyNsg
+  requiredParameters:
+  - isRequired: true
+    name: --nsg-name
+    summary: Der Name der Netzwerk Sicherheitsgruppe.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  optionalParameters:
+  - name: --include-default
+    summary: Schließt Standard Sicherheitsregeln in die Ausgabe ein.
+    description: ''
+  - name: --query-examples
+    summary: Empfehlen Sie die jmespath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und Sie nach dem Abfrage Parameter in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positions Schlüsselwörter hinzufügen, um Vorschläge auf der Grundlage dieser Schlüsselwörter zu geben.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/network/_help.py
+- uid: az_network_nsg_rule_show
+  name: az network nsg rule show
+  summary: Hier finden Sie Details zu einer Netzwerk Sicherheitsgruppen-Regel.
+  description: ''
+  syntax: >-
+    az network nsg rule show [--ids]
+                             [--name]
+                             [--nsg-name]
+                             [--query-examples]
+                             [--resource-group]
+                             [--subscription]
+  examples:
+  - summary: Hier finden Sie Details zu einer Netzwerk Sicherheitsgruppen-Regel.
+    syntax: az network nsg rule show -g MyResourceGroup --nsg-name MyNsg -n MyNsgRule
+  optionalParameters:
+  - name: --ids
+    summary: Mindestens eine Ressourcen-ID (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID handeln, die alle Informationen von Ressourcen-ID-Argumenten enthält. Sie sollten entweder--IDs oder andere Ressourcen-ID-Argumente angeben.
+    description: ''
+  - name: --name -n
+    summary: Der Name der Netzwerk Sicherheitsgruppen-Regel.
+    description: ''
+  - name: --nsg-name
+    summary: Der Name der Netzwerk Sicherheitsgruppe.
+    description: ''
+  - name: --query-examples
+    summary: Empfehlen Sie die jmespath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und Sie nach dem Abfrage Parameter in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positions Schlüsselwörter hinzufügen, um Vorschläge auf der Grundlage dieser Schlüsselwörter zu geben.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/network/_help.py
+- uid: az_network_nsg_rule_update
+  name: az network nsg rule update
+  summary: Aktualisieren Sie eine Netzwerk Sicherheitsgruppen-Regel.
+  description: ''
+  syntax: >-
+    az network nsg rule update [--access {Allow, Deny}]
+                               [--add]
+                               [--description]
+                               [--destination-address-prefixes]
+                               [--destination-asgs]
+                               [--destination-port-ranges]
+                               [--direction {Inbound, Outbound}]
+                               [--force-string]
+                               [--ids]
+                               [--name]
+                               [--nsg-name]
+                               [--priority]
+                               [--protocol {*, Tcp, Udp}]
+                               [--remove]
+                               [--resource-group]
+                               [--set]
+                               [--source-address-prefixes]
+                               [--source-asgs]
+                               [--source-port-ranges]
+                               [--subscription]
+  examples:
+  - summary: Aktualisieren Sie eine NSG-Regel mit einem neuen Platzhalter Ziel Adress Präfix.
+    syntax: az network nsg rule update -g MyResourceGroup --nsg-name MyNsg -n MyNsgRule --destination-address-prefix '*'
+  - summary: Aktualisieren Sie eine Netzwerk Sicherheitsgruppen-Regel. automatisch generierten
+    syntax: az network nsg rule update --name MyNsgRule --nsg-name MyNsg --resource-group MyResourceGroup --source-address-prefixes 208.130.28/24
+  optionalParameters:
+  - name: --access
+    parameterValueGroup: Allow, Deny
+    summary: ''
+    description: ''
+  - name: --add
+    summary: Fügen Sie einer Liste von-Objekten ein Objekt hinzu, indem Sie ein Pfad-und Schlüssel-Wert-Paar angeben.  Beispiel:--Add Property. ListProperty <Key = Value, String oder JSON String>.
+    description: ''
+  - name: --description
+    summary: Regel Beschreibung.
+    description: ''
+  - name: --destination-address-prefixes
+    summary: Durch Leerzeichen getrennte Liste der CIDR-Präfixe oder IP-Bereiche. Geben Sie alternativ "VirtualNetwork", "azureloadbalancer", "Internet" oder "" \* an, um alle IPS abzugleichen. Außerdem werden alle verfügbaren Dienst Tags wie "apimanagement", "sqlmanagement", "azuremonitor" usw. unterstützt.
+    description: ''
+  - name: --destination-asgs
+    summary: Durch Leerzeichen getrennte Liste von Namen oder IDs von Anwendungs Sicherheitsgruppen. Eingeschränkt durch den Back-End-Server. dieses Argument unterstützt vorübergehend nur einen Anwendungs Sicherheitsgruppen-Namen oder eine ID.
+    description: ''
+  - name: --destination-port-ranges
+    summary: Durch Leerzeichen getrennte Liste der Ports oder Port Bereiche zwischen 0-65535. Verwenden \* Sie "", um alle Ports abzugleichen.
+    description: ''
+  - name: --direction
+    parameterValueGroup: Inbound, Outbound
+    summary: ''
+    description: ''
+  - name: --force-string
+    summary: Wenn Sie "Set" oder "Add" verwenden, erhalten Sie Zeichen folgen Literale, anstatt zu versuchen, in JSON zu konvertieren.
+    description: ''
+  - name: --ids
+    summary: Mindestens eine Ressourcen-ID (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID handeln, die alle Informationen von Ressourcen-ID-Argumenten enthält. Sie sollten entweder--IDs oder andere Ressourcen-ID-Argumente angeben.
+    description: ''
+  - name: --name -n
+    summary: Der Name der Netzwerk Sicherheitsgruppen-Regel.
+    description: ''
+  - name: --nsg-name
+    summary: Der Name der Netzwerk Sicherheitsgruppe.
+    description: ''
+  - name: --priority
+    summary: 'Regel Priorität: zwischen 100 (höchste Priorität) und 4096 (niedrigste Priorität). Muss für jede Regel in der Sammlung eindeutig sein.'
+    description: ''
+  - name: --protocol
+    parameterValueGroup: '*, Tcp, Udp'
+    summary: Netzwerkprotokoll, für das diese Regel gilt.
+    description: ''
+  - name: --remove
+    summary: Entfernt eine Eigenschaft oder ein Element aus einer Liste.  Beispiel:--Remove Property. List <indexToRemove> oder--Remove propertytoremove.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --set
+    summary: Aktualisieren Sie ein Objekt, indem Sie einen Eigenschafts Pfad und einen festzulegenden Wert angeben.  Beispiel:--Set Eigenschaft1. Eigenschaft2 =<value>.
+    description: ''
+  - name: --source-address-prefixes
+    summary: Durch Leerzeichen getrennte Liste der CIDR-Präfixe oder IP-Bereiche. Geben Sie alternativ "VirtualNetwork", "azureloadbalancer", "Internet" oder "" \* an, um alle IPS abzugleichen. Außerdem werden alle verfügbaren Dienst Tags wie "apimanagement", "sqlmanagement", "azuremonitor" usw. unterstützt.
+    description: ''
+  - name: --source-asgs
+    summary: Durch Leerzeichen getrennte Liste von Namen oder IDs von Anwendungs Sicherheitsgruppen. Eingeschränkt durch den Back-End-Server. dieses Argument unterstützt vorübergehend nur einen Anwendungs Sicherheitsgruppen-Namen oder eine ID.
+    description: ''
+  - name: --source-port-ranges
+    summary: Durch Leerzeichen getrennte Liste der Ports oder Port Bereiche zwischen 0-65535. Verwenden \* Sie "", um alle Ports abzugleichen.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/network/_help.py
+commands:
+- az_network_nsg_rule_create
+- az_network_nsg_rule_delete
+- az_network_nsg_rule_list
+- az_network_nsg_rule_show
+- az_network_nsg_rule_update
+globalParameters:
+- name: --debug
+  summary: Ausführlichkeit der Protokollierung erhöhen, um alle Debugprotokolle anzuzeigen.
+- name: --help -h
+  summary: Zeigen Sie diese Hilfemeldung an, und schließen Sie sie.
+- name: --only-show-errors
+  summary: Nur Fehler anzeigen und Warnungen unterdrücken.
+- name: --output -o
+  defaultValue: json
+  parameterValueGroup: json, jsonc, table, tsv
+  summary: Ausgabeformat.
+- name: --query
+  summary: JMESPath-Abfragezeichenfolge. Weitere Informationen und Beispiele finden Sie unter <a href="http://jmespath.org/">http://jmespath.org/</a>.
+- name: --verbose
+  summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
+metadata:
+  doc_source_url_repo: https://github.com/Azure/azure-cli/blob/dev/
+  ms.date: 02/03/2021
+  description: Verwalten von Regeln für Netzwerk Sicherheitsgruppen
+  ms.openlocfilehash: 0e47cba7a2d4be07f851e12d906c81fa6840456d
+  ms.sourcegitcommit: df9d6597535ef9103775afbaee5a8282e0e218ee
+  ms.translationtype: MT
+  ms.contentlocale: de-DE
+  ms.lasthandoff: 02/09/2021
+  ms.locfileid: "102907865"
