@@ -1,0 +1,516 @@
+### YamlMime:AzureCLIGroup
+uid: az_batch_pool
+name: az batch pool
+summary: Verwalten von Batch-Pools.
+description: ''
+directCommands:
+- uid: az_batch_pool_create
+  name: az batch pool create
+  summary: Erstellen Sie einen Batch-Pool in einem Konto. Wählen Sie beim Erstellen eines Pools die Option Argumente aus Cloud Services Konfiguration oder der Konfiguration der virtuellen Maschine aus.
+  description: ''
+  syntax: >-
+    az batch pool create [--account-endpoint]
+                         [--account-key]
+                         [--account-name]
+                         [--application-licenses]
+                         [--application-package-references]
+                         [--auto-scale-formula]
+                         [--certificate-references]
+                         [--disk-encryption-targets]
+                         [--enable-inter-node-communication]
+                         [--id]
+                         [--image]
+                         [--json-file]
+                         [--metadata]
+                         [--node-agent-sku-id]
+                         [--os-family {2, 3, 4, 5, 6}]
+                         [--os-version]
+                         [--resize-timeout]
+                         [--start-task-command-line]
+                         [--start-task-resource-files]
+                         [--start-task-wait-for-success]
+                         [--subscription]
+                         [--target-dedicated-nodes]
+                         [--target-low-priority-nodes]
+                         [--targets]
+                         [--task-slots-per-node]
+                         [--vm-size]
+  optionalParameters:
+  - name: --account-endpoint
+    summary: 'Batch-Dienst Endpunkt. Alternativ dazu können Sie auch durch Umgebungsvariable: AZURE_BATCH_ENDPOINT festlegen.'
+    description: ''
+  - name: --account-key
+    summary: 'Batch-Kontoschlüssel. Alternativ dazu können Sie auch durch Umgebungsvariable: AZURE_BATCH_ACCESS_KEY festlegen.'
+    description: ''
+  - name: --account-name
+    summary: 'Name des Batch-Kontos. Alternativ dazu können Sie auch durch Umgebungsvariable: AZURE_BATCH_ACCOUNT festlegen.'
+    description: ''
+  - name: --application-licenses
+    summary: Die Liste der Anwendungs Lizenzen, die der Batch-Dienst auf jedem Computeknoten im Pool verfügbar macht. Die Liste der Anwendungs Lizenzen muss eine Teilmenge der verfügbaren Batch-Dienst Anwendungs Lizenzen sein. Wenn eine Lizenz angefordert wird, die nicht unterstützt wird, kann die Pool Erstellung nicht ausgeführt werden. Durch Leerzeichen getrennte Werte.
+    description: ''
+  - name: --application-package-references
+    summary: Die Liste der Pakete, die auf jedem Computeknoten im Pool installiert werden sollen. Änderungen an Paket verweisen wirken sich auf alle neuen Knoten aus, die dem Pool beitreten, haben jedoch keine Auswirkungen auf Computeknoten, die sich bereits im Pool befinden, bis Sie neu gestartet oder ein reimaging durchgeführt werden. Es sind maximal 10 Paket Verweise auf einen bestimmten Pool vorhanden. Durch Leerzeichen getrennte Anwendungs-IDs mit optionaler Version im Format "ID [#Version]".
+    description: ''
+  - name: --auto-scale-formula
+    summary: Eine Formel für die gewünschte Anzahl von Computeknoten im Pool. Die Formel wird auf Gültigkeit überprüft, bevor der Pool erstellt wird. Wenn die Formel ungültig ist, lehnt der Batch-Dienst die Anforderung mit detaillierten Fehlerinformationen ab. Weitere Informationen zum Angeben dieser Formel finden Sie unter <a href="https://azure.microsoft.com/documentation/articles/batch-automatic-scaling/">https://azure.microsoft.com/documentation/articles/batch-automatic-scaling/</a> .
+    description: ''
+  - name: --certificate-references
+    summary: Die Liste der Zertifikate, die auf jedem Computeknoten im Pool installiert werden sollen. Bei Windows-Knoten installiert der Batch-Dienst die Zertifikate im angegebenen Zertifikat Speicher und Speicherort. Für Linux-Computeknoten werden die Zertifikate in einem Verzeichnis innerhalb des Arbeitsverzeichnisses der Aufgabe gespeichert, und es wird eine Umgebungsvariable AZ_BATCH_CERTIFICATES_DIR die an die Aufgabe übergeben wird, um diesen Speicherort abzufragen. Bei Zertifikaten mit Sichtbarkeit von "remoteuser" wird ein "certs"-Verzeichnis im Basisverzeichnis des Benutzers (z. b./Home/{User-Name}/CERTs) erstellt, und Zertifikate werden in diesem Verzeichnis abgelegt. Durch Leerzeichen getrennte Zertifikat Fingerabdrücke.
+    description: ''
+  - name: --disk-encryption-targets
+    summary: Eine durch Leerzeichen getrennte Liste von diskverschlüsseltiontargets. die aktuell möglichen Werte sind u. a. osdisk und temporarydisk.
+    description: ''
+  - name: --enable-inter-node-communication
+    summary: Gibt an, ob der Pool eine direkte Kommunikation zwischen Computeknoten zulässt. Durch das Aktivieren der Kommunikation zwischen Knoten wird die maximale Größe des Pools aufgrund der Bereitstellungs Beschränkungen auf den Computeknoten des Pools eingeschränkt. Dies kann dazu führen, dass der Pool nicht die gewünschte Größe erreicht. Der Standardwert ist „FALSE“. True, wenn das Flag vorhanden ist.
+    description: ''
+  - name: --id
+    summary: Erforderlich. Eine Zeichenfolge, die den Pool innerhalb des Kontos eindeutig identifiziert. Die ID kann eine beliebige Kombination aus alphanumerischen Zeichen einschließlich Bindestrichen und unterstrichen enthalten und darf nicht mehr als 64 Zeichen enthalten. Bei der ID wird die Groß-/Kleinschreibung nicht beachtet, und die Groß-/Kleinschreibung wird nicht beachtet.
+    description: ''
+  - name: --image
+    summary: 'Referenz zum Betriebssystem Image. Dabei kann es sich entweder um das Format "Publisher: Angebot: SKU [: Version]" oder um eine voll qualifizierte Arm-Image-ID der Form "/Subscriptions/{SubscriptionId}/resourceGroups/{resourceGroup}/Providers/Microsoft.Compute/Images/{ImageName}" handeln. Wenn das Format Publisher: Angebot: SKU [: Version] angezeigt wird, ist Version optional, und wenn ausgelassen nicht verwendet wird, wird die aktuelle Version verwendet. Gültige Werte können über "AZ Batch Pool supported-Images List" abgerufen werden. Beispiel: "microsoftwindowsserver: Windows Server: 2012-R2-Datacenter: Latest".'
+    description: ''
+  - name: --json-file
+    summary: Eine Datei, die die Pool Spezifikation in JSON enthält (entsprechend dem entsprechenden Rest-API-Text formatiert). Wenn dieser Parameter angegeben wird, werden alle "Pool Argumente" ignoriert.
+    description: ''
+  - name: --metadata
+    summary: Eine Liste von Name-Wert-Paaren, die dem Pool als Metadaten zugeordnet sind. Der Batch-Dienst weist den Metadaten keine Bedeutung zu. Er dient lediglich der Verwendung von Benutzercode. Durch Leerzeichen getrennte Werte im Format "Key = Value".
+    description: ''
+  - name: --node-agent-sku-id
+    summary: Erforderlich. Die SKU des Batch-Computeknoten-Agents, der auf Computeknoten im Pool bereitgestellt werden soll. Der Batch-Computeknoten-Agent ist ein Programm, das auf jedem Computeknoten im Pool ausgeführt wird und die Befehls-und Steuerungs Schnittstelle zwischen dem Computeknoten und dem Batch-Dienst bereitstellt. Für verschiedene Betriebssysteme gibt es verschiedene Implementierungen des Computeknoten-Agents, die als SKUs bezeichnet werden. Sie müssen eine Computeknoten-Agent-SKU angeben, die mit dem ausgewählten Abbild Verweis übereinstimmt. Informationen zum Abrufen der Liste der unterstützten Computeknoten-Agent-SKUs zusammen mit der Liste der überprüften Image Verweise finden Sie im Abschnitt "auflisten unterstützter Computeknoten-Agent-SKUs".
+    description: ''
+  - name: --os-family
+    parameterValueGroup: 2, 3, 4, 5, 6
+    summary: 'Erforderlich. Die Azure-Gast Betriebssystem Familie, die auf den virtuellen Computern im Pool installiert werden soll. Folgende Werte sind möglich: 2-Betriebssystem Familie 2, äquivalent zu Windows Server 2008 R2 SP1. 3-Betriebssystem Familie 3, äquivalent zu Windows Server 2012. 4-Betriebssystem Familie 4, äquivalent zu Windows Server 2012 R2. 5-Betriebssystem Familie 5, äquivalent zu Windows Server 2016. 6-Betriebssystem Familie 6, äquivalent zu Windows Server 2019. Weitere Informationen finden Sie unter Azure-Gast Betriebssystem Releases ( <a href="https://azure.microsoft.com/documentation/articles/cloud-services-guestos-update-matrix/#releases">https://azure.microsoft.com/documentation/articles/cloud-services-guestos-update-matrix/#releases</a> ).'
+    description: ''
+  - name: --os-version
+    summary: Die Version des Azure-Gast Betriebssystems, die auf den virtuellen Computern im Pool installiert werden soll. Der Standardwert ist \* , der die neueste Betriebssystemversion für die angegebene Betriebssystem Familie angibt.
+    description: ''
+  - name: --resize-timeout
+    summary: Das Timeout für die Zuordnung von Computeknoten zum Pool. Dieses Timeout gilt nur für die manuelle Skalierung. Dies hat keine Auswirkungen, wenn enableautoscale auf true festgelegt ist. Der Standardwert beträgt 15 Minuten. Der Mindestwert ist 5 Minuten. Wenn Sie einen Wert angeben, der weniger als 5 Minuten beträgt, gibt der Batch-Dienst einen Fehler zurück. Wenn Sie die Rest-API direkt aufrufen, lautet der HTTP-Statuscode 400 (ungültige Anforderung). Das erwartete Format ist eine ISO-8601-Dauer.
+    description: ''
+  - name: --start-task-command-line
+    summary: Erforderlich. Die Befehlszeile der Starttask. Die Befehlszeile wird nicht unter einer Shell ausgeführt und kann daher keine Shellfeatures wie die Erweiterung der Umgebungsvariablen nutzen. Wenn Sie diese Features nutzen möchten, sollten Sie die Shell in der Befehlszeile aufrufen, z. b. "cmd/c myCommand" in Windows oder "/bin/sh-c myCommand" unter Linux. Wenn sich die Befehlszeile auf Dateipfade bezieht, sollte ein relativer Pfad (relativ zum Arbeitsverzeichnis der Aufgabe) verwendet werden, oder die von einem Batch bereitgestellte Umgebungsvariable () wird verwendet <a href="https://docs.microsoft.com/en-us/azure/batch/batch-compute-node-environment-variables">https://docs.microsoft.com/en-us/azure/batch/batch-compute-node-environment-variables</a> .
+    description: ''
+  - name: --start-task-resource-files
+    summary: Eine Liste der Dateien, die vom Batch-Dienst auf den Computeknoten heruntergeladen werden, bevor die Befehlszeile ausgeführt wird.  Es ist eine maximale Größe für die Liste der Ressourcen Dateien vorhanden. Wenn die maximale Größe überschritten wird, schlägt die Anforderung fehl, und der Antwort Fehlercode ist RequestEntityTooLarge. Wenn dies auftritt, muss die Größe der ResourceFiles-Auflistung reduziert werden. Dies kann mithilfe von ZIP-Dateien, Anwendungspaketen oder docker-Containern erreicht werden. Die unter diesem Element aufgeführten Dateien befinden sich im Arbeitsverzeichnis der Aufgabe. Durch Leerzeichen getrennte Ressourcen Verweise im Dateiname = HttpUrl-Format.
+    description: ''
+  - name: --start-task-wait-for-success
+    summary: Gibt an, ob der Batch-Dienst auf den erfolgreichen Abschluss der Starttask warten soll (d. h., um den Exitcode 0 zu beenden), bevor Tasks auf dem Computeknoten geplant werden. Wenn true und die Starttask auf einem Knoten fehlschlägt, wiederholt der Batch-Dienst die Starttask bis zur maximalen Anzahl von Wiederholungs versuchen (maxtaskretrycount). Wenn die Aufgabe nach allen Wiederholungen noch nicht erfolgreich abgeschlossen wurde, markiert der Batch-Dienst den Knoten als nicht verwendbar und plant keine Aufgaben. Diese Bedingung kann über den Status von Computeknoten und Fehlerinformationen erkannt werden. Wenn der Wert false ist, wartet der Batch-Dienst nicht auf den Abschluss der Starttask. In diesem Fall können andere Tasks auf dem Computeknoten ausgeführt werden, während der Starttask noch ausgeführt wird. auch wenn die Starttask fehlschlägt, werden neue Aufgaben weiterhin auf dem Computeknoten geplant. Der Standardwert ist "True". True, wenn das Flag vorhanden ist.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  - name: --target-dedicated-nodes
+    summary: Die gewünschte Anzahl dedizierter Computeknoten im Pool. Diese Eigenschaft darf nicht angegeben werden, wenn enableautoscale auf true festgelegt ist. Wenn enableautoscale auf false festgelegt ist, müssen Sie entweder targetdedierednodes, targetlowprioritynodes oder beides festlegen.
+    description: ''
+  - name: --target-low-priority-nodes
+    summary: Die gewünschte Anzahl von Computeknoten mit niedriger Priorität im Pool. Diese Eigenschaft darf nicht angegeben werden, wenn enableautoscale auf true festgelegt ist. Wenn enableautoscale auf false festgelegt ist, müssen Sie entweder targetdedierednodes, targetlowprioritynodes oder beides festlegen.
+    description: ''
+  - name: --targets
+    summary: Die Liste der Datenträger Ziele für den Batch-Dienst wird auf dem Computeknoten verschlüsselt. Wenn der Name nicht angezeigt wird, werden keine Datenträger auf den Computeknoten im Pool verschlüsselt. Unter Linux-Pool wird nur "temporarydisk" unterstützt. auf dem Windows-Pool müssen "osdisk" und "temporarydisk" angegeben werden. Durch Trennzeichen getrennte Ziel Datenträger für die Verschlüsselung. Werte können entweder "osdisk" oder "temporarydisk" lauten.
+    description: ''
+  - name: --task-slots-per-node
+    summary: Die Anzahl von Taskslots, die verwendet werden können, um gleichzeitige Tasks auf einem einzelnen Computeknoten im Pool auszuführen. Der Standardwert ist 1. Der maximale Wert ist kleiner als das Vierfache der Anzahl der Kerne der vmsize des Pools oder 256.
+    description: ''
+  - name: --vm-size
+    summary: Erforderlich. Die Größe der virtuellen Computer im Pool. Alle virtuellen Computer in einem Pool haben die gleiche Größe. Informationen zu den verfügbaren Größen virtueller Computer für Cloud Services Pools (Pools, die mit cloudserviceconfiguration erstellt wurden) finden Sie Untergrößen für Cloud Services ( <a href="https://azure.microsoft.com/documentation/articles/cloud-services-sizes-specs/">https://azure.microsoft.com/documentation/articles/cloud-services-sizes-specs/</a> ). Batch unterstützt alle Cloud Services VM-Größen mit Ausnahme von extrasmall, A1V2 und A2V2. Informationen zu den verfügbaren VM-Größen für Pools mithilfe von Images aus dem Virtual Machines Marketplace (Pools, die mit virtualmachineconfiguration erstellt wurden) finden Sie Untergrößen für Virtual Machines (Linux) ( <a href="https://azure.microsoft.com/documentation/articles/virtual-machines-linux-sizes/">https://azure.microsoft.com/documentation/articles/virtual-machines-linux-sizes/</a> ) oder Größen für Virtual Machines (Windows) ( <a href="https://azure.microsoft.com/documentation/articles/virtual-machines-windows-sizes/">https://azure.microsoft.com/documentation/articles/virtual-machines-windows-sizes/</a> ). Batch unterstützt alle Azure-VM-Größen außer STANDARD_A0 und die mit Storage Premium (STANDARD_GS, STANDARD_DS und STANDARD_DSV2 Reihe).
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/batch/_help.py
+- uid: az_batch_pool_delete
+  name: az batch pool delete
+  summary: Löscht einen Pool aus dem angegebenen Konto.
+  description: 'Wenn Sie anfordern, dass ein Pool gelöscht wird, treten die folgenden Aktionen auf: der Pool Status wird auf "Löschen" festgelegt. alle laufenden Größen der Größenänderung für den Pool werden angehalten. der Batch-Dienst beginnt mit der Größenänderung des Pools auf NULL Computeknoten. Alle Tasks, die auf vorhandenen Computeknoten ausgeführt werden, werden beendet und in die Warteschlange eingereiht (als wäre ein Vorgang zum Ändern des Größen Pools mit der Standardoption requeue angefordert worden); Schließlich wird der Pool aus dem System entfernt. Da Aufgaben ausgeführt werden, kann der Benutzer diese Tasks erneut ausführen, indem er den Auftrag aktualisiert, um einen anderen Pool als Ziel zu erhalten. Die Tasks können dann für den neuen Pool ausgeführt werden. Wenn Sie das requeue-Verhalten außer Kraft setzen möchten, sollten Sie die Größe des Pools explizit ändern, um die Größe des Pools auf NULL zu verkleinern, bevor Sie den Pool löschen. Wenn Sie eine Update-, Patch-oder DELETE-API für einen Pool im Lösch Zustand aufzurufen, tritt ein Fehler mit dem HTTP-Statuscode 409 mit dem Fehlercode poolbeingdeleted auf.'
+  syntax: >-
+    az batch pool delete --pool-id
+                         [--account-endpoint]
+                         [--account-key]
+                         [--account-name]
+                         [--if-match]
+                         [--if-modified-since]
+                         [--if-none-match]
+                         [--if-unmodified-since]
+                         [--subscription]
+                         [--yes]
+  requiredParameters:
+  - isRequired: true
+    name: --pool-id
+    summary: Die ID des zu löschenden Pools.
+    description: ''
+  optionalParameters:
+  - name: --account-endpoint
+    summary: 'Batch-Dienst Endpunkt. Alternativ dazu können Sie auch durch Umgebungsvariable: AZURE_BATCH_ENDPOINT festlegen.'
+    description: ''
+  - name: --account-key
+    summary: 'Batch-Kontoschlüssel. Alternativ dazu können Sie auch durch Umgebungsvariable: AZURE_BATCH_ACCESS_KEY festlegen.'
+    description: ''
+  - name: --account-name
+    summary: 'Name des Batch-Kontos. Alternativ dazu können Sie auch durch Umgebungsvariable: AZURE_BATCH_ACCOUNT festlegen.'
+    description: ''
+  - name: --if-match
+    summary: Ein ETag-Wert, der der Version der Ressource zugeordnet ist, die dem Client bekannt ist. Der Vorgang wird nur ausgeführt, wenn das aktuelle ETag der Ressource im Dienst exakt mit dem vom Client angegebenen Wert übereinstimmt.
+    description: ''
+  - name: --if-modified-since
+    summary: Ein Zeitstempel, der den Zeitpunkt der letzten Änderung der Ressource angibt, die dem Client bekannt ist. Der Vorgang wird nur ausgeführt, wenn die Ressource für den Dienst seit der angegebenen Zeit geändert wurde.
+    description: ''
+  - name: --if-none-match
+    summary: Ein ETag-Wert, der der Version der Ressource zugeordnet ist, die dem Client bekannt ist. Der Vorgang wird nur ausgeführt, wenn das aktuelle ETag der Ressource für den Dienst nicht mit dem vom Client angegebenen Wert identisch ist.
+    description: ''
+  - name: --if-unmodified-since
+    summary: Ein Zeitstempel, der den Zeitpunkt der letzten Änderung der Ressource angibt, die dem Client bekannt ist. Der Vorgang wird nur ausgeführt, wenn die Ressource für den Dienst seit der angegebenen Zeit nicht geändert wurde.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  - name: --yes -y
+    summary: Nicht zur Bestätigung auffordern
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/batch/_help.py
+- uid: az_batch_pool_list
+  name: az batch pool list
+  summary: Listet alle Pools im angegebenen Konto auf.
+  description: ''
+  syntax: >-
+    az batch pool list [--account-endpoint]
+                       [--account-key]
+                       [--account-name]
+                       [--expand]
+                       [--filter]
+                       [--query-examples]
+                       [--select]
+                       [--subscription]
+  optionalParameters:
+  - name: --account-endpoint
+    summary: 'Batch-Dienst Endpunkt. Alternativ dazu können Sie auch durch Umgebungsvariable: AZURE_BATCH_ENDPOINT festlegen.'
+    description: ''
+  - name: --account-key
+    summary: 'Batch-Kontoschlüssel. Alternativ dazu können Sie auch durch Umgebungsvariable: AZURE_BATCH_ACCESS_KEY festlegen.'
+    description: ''
+  - name: --account-name
+    summary: 'Name des Batch-Kontos. Alternativ dazu können Sie auch durch Umgebungsvariable: AZURE_BATCH_ACCOUNT festlegen.'
+    description: ''
+  - name: --expand
+    summary: Eine odata-$expand-Klausel.
+    description: ''
+  - name: --filter
+    summary: Eine odata-$Filter-Klausel. Weitere Informationen zum Erstellen dieses Filters finden Sie unter <a href="https://docs.microsoft.com/en-us/rest/api/batchservice/odata-filters-in-batch#list-pools">https://docs.microsoft.com/en-us/rest/api/batchservice/odata-filters-in-batch#list-pools</a> .
+    description: ''
+  - name: --query-examples
+    summary: Empfehlen Sie die jmespath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und Sie nach dem Abfrage Parameter in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positions Schlüsselwörter hinzufügen, um Vorschläge auf der Grundlage dieser Schlüsselwörter zu geben.
+    description: ''
+  - name: --select
+    summary: Eine odata-$SELECT-Klausel.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/batch/_help.py
+- uid: az_batch_pool_reset
+  name: az batch pool reset
+  summary: Aktualisieren Sie die Eigenschaften eines Batch-Pools. Nicht angegebene Eigenschaften, die aktualisiert werden können, werden auf ihre Standardwerte zurückgesetzt.
+  description: ''
+  syntax: >-
+    az batch pool reset --pool-id
+                        [--account-endpoint]
+                        [--account-key]
+                        [--account-name]
+                        [--application-package-references]
+                        [--certificate-references]
+                        [--json-file]
+                        [--metadata]
+                        [--start-task-command-line]
+                        [--start-task-environment-settings]
+                        [--start-task-max-task-retry-count]
+                        [--start-task-wait-for-success]
+                        [--subscription]
+  requiredParameters:
+  - isRequired: true
+    name: --pool-id
+    summary: Die ID des zu aktualisierenden Pools.
+    description: ''
+  optionalParameters:
+  - name: --account-endpoint
+    summary: 'Batch-Dienst Endpunkt. Alternativ dazu können Sie auch durch Umgebungsvariable: AZURE_BATCH_ENDPOINT festlegen.'
+    description: ''
+  - name: --account-key
+    summary: 'Der Batch-Kontoschlüssel. Alternativ dazu können Sie auch durch Umgebungsvariable: AZURE_BATCH_ACCESS_KEY festlegen.'
+    description: ''
+  - name: --account-name
+    summary: 'Der Name des Batch-Kontos. Alternativ dazu können Sie auch durch Umgebungsvariable: AZURE_BATCH_ACCOUNT festlegen.'
+    description: ''
+  - name: --application-package-references
+    summary: Erforderlich. Die Liste der Anwendungspakete, die auf jedem Computeknoten im Pool installiert werden sollen. Die Liste ersetzt alle vorhandenen Anwendungspaket Verweise auf den Pool. Änderungen an Anwendungspaket verweisen betreffen alle neuen Computeknoten, die dem Pool beitreten, aber Sie haben keine Auswirkungen auf Computeknoten, die sich bereits im Pool befinden, bis Sie neu gestartet oder ein reimaging durchgeführt werden. Es sind maximal 10 Verweise auf das Anwendungspaket für einen bestimmten Pool vorhanden. Wenn der Name nicht angegeben wird, oder wenn Sie eine leere Auflistung angeben, werden alle vorhandenen Anwendungspaket Verweise aus dem Pool entfernt. Für einen angegebenen Pool können maximal 10 Verweise angegeben werden.
+    description: ''
+  - name: --certificate-references
+    summary: Erforderlich. Eine Liste der Zertifikate, die auf jedem Computeknoten im Pool installiert werden sollen. Diese Liste ersetzt alle vorhandenen Zertifikat Verweise, die für den Pool konfiguriert sind. Wenn Sie eine leere Sammlung angeben, werden alle vorhandenen Zertifikat Verweise aus dem Pool entfernt. Bei Windows-Knoten installiert der Batch-Dienst die Zertifikate im angegebenen Zertifikat Speicher und Speicherort. Für Linux-Computeknoten werden die Zertifikate in einem Verzeichnis innerhalb des Arbeitsverzeichnisses der Aufgabe gespeichert, und es wird eine Umgebungsvariable AZ_BATCH_CERTIFICATES_DIR die an die Aufgabe übergeben wird, um diesen Speicherort abzufragen. Bei Zertifikaten mit Sichtbarkeit von "remoteuser" wird ein "certs"-Verzeichnis im Basisverzeichnis des Benutzers (z. b./Home/{User-Name}/CERTs) erstellt, und Zertifikate werden in diesem Verzeichnis abgelegt.
+    description: ''
+  - name: --json-file
+    summary: Die Datei, die die Parameter Spezifikation für die Pool Update Eigenschaften in JSON enthält (entsprechend dem Rest-API-Anforderungs Text formatiert). Wenn dieser Parameter angegeben wird, werden alle Parameter Argumente für "Pool Update Properties" ignoriert.
+    description: ''
+  - name: --metadata
+    summary: Erforderlich. Eine Liste von Name-Wert-Paaren, die dem Pool als Metadaten zugeordnet sind. Diese Liste ersetzt alle vorhandenen Metadaten, die für den Pool konfiguriert sind. Wenn der Wert nicht angegeben wird, oder wenn Sie eine leere Auflistung angeben, werden vorhandene Metadaten aus dem Pool entfernt.
+    description: ''
+  - name: --start-task-command-line
+    summary: Die Befehlszeile der Startaufgabe. Die Befehlszeile wird nicht unter einer Shell ausgeführt und kann daher keine Shellfeatures wie die Erweiterung der Umgebungsvariablen nutzen. Wenn Sie diese Features nutzen möchten, sollten Sie die Shell in der Befehlszeile aufrufen, z. b. "cmd/c myCommand" in Windows oder "/bin/sh-c myCommand" unter Linux.
+    description: ''
+  - name: --start-task-environment-settings
+    summary: Eine Liste mit Umgebungsvariablen Einstellungen für die Startaufgabe. Durch Leerzeichen getrennte Werte im Format "Key = Value".
+    description: ''
+  - name: --start-task-max-task-retry-count
+    summary: Gibt an, wie oft der Task maximal wiederholt werden kann.
+    description: ''
+  - name: --start-task-wait-for-success
+    summary: Gibt an, ob der Batch-Dienst auf den erfolgreichen Abschluss der Startaufgabe warten soll (d. h., um den Exitcode 0 zu beenden), bevor Tasks auf dem Computeknoten geplant werden. True, wenn das Flag vorhanden ist, andernfalls ist der Standardwert false.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/batch/_help.py
+- uid: az_batch_pool_resize
+  name: az batch pool resize
+  summary: Ändern Sie die Größe eines Batch-Pools, oder ändern Sie die Größe.
+  description: ''
+  syntax: >-
+    az batch pool resize --pool-id
+                         [--abort]
+                         [--account-endpoint]
+                         [--account-key]
+                         [--account-name]
+                         [--if-match]
+                         [--if-modified-since]
+                         [--if-none-match]
+                         [--if-unmodified-since]
+                         [--node-deallocation-option {requeue, retaineddata, taskcompletion, terminate}]
+                         [--resize-timeout]
+                         [--subscription]
+                         [--target-dedicated-nodes]
+                         [--target-low-priority-nodes]
+  requiredParameters:
+  - isRequired: true
+    name: --pool-id
+    summary: Die ID des Pools.
+    description: ''
+  optionalParameters:
+  - name: --abort
+    summary: Beendet den Pool Größenänderung.
+    description: ''
+  - name: --account-endpoint
+    summary: 'Batch-Dienst Endpunkt. Alternativ dazu können Sie auch durch Umgebungsvariable: AZURE_BATCH_ENDPOINT festlegen.'
+    description: ''
+  - name: --account-key
+    summary: 'Der Batch-Kontoschlüssel. Alternativ dazu können Sie auch durch Umgebungsvariable: AZURE_BATCH_ACCESS_KEY festlegen.'
+    description: ''
+  - name: --account-name
+    summary: 'Der Name des Batch-Kontos. Alternativ dazu können Sie auch durch Umgebungsvariable: AZURE_BATCH_ACCOUNT festlegen.'
+    description: ''
+  - name: --if-match
+    summary: Der Vorgang wird nur ausgeführt, wenn das aktuelle ETag der Ressource genau mit dem angegebenen Wert übereinstimmt.
+    description: ''
+  - name: --if-modified-since
+    summary: Der Vorgang wird nur ausgeführt, wenn die Ressource seit dem angegebenen Zeitstempel geändert wurde.
+    description: ''
+  - name: --if-none-match
+    summary: Der Vorgang wird nur dann ausgeführt, wenn das aktuelle ETag der Ressource genau mit dem angegebenen Wert übereinstimmt.
+    description: ''
+  - name: --if-unmodified-since
+    summary: Der Vorgang wird nur dann ausgeführt, wenn die Ressource seit dem angegebenen Zeitstempel geändert wurde.
+    description: ''
+  - name: --node-deallocation-option
+    parameterValueGroup: requeue, retaineddata, taskcompletion, terminate
+    summary: ', Wenn Knoten aus dem Pool entfernt werden können,, wenn die Poolgröße abnimmt.'
+    description: ''
+  - name: --resize-timeout
+    summary: Das Timeout für die Zuordnung von Knoten zum Pool oder das Entfernen von Computeknoten aus dem Pool. Der Standardwert beträgt 15 Minuten. Der Mindestwert ist 5 Minuten. Wenn Sie einen Wert angeben, der weniger als 5 Minuten beträgt, gibt der Batch-Dienst einen Fehler zurück. Wenn Sie die Rest-API direkt aufrufen, lautet der HTTP-Statuscode 400 (ungültige Anforderung).
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  - name: --target-dedicated-nodes
+    summary: Die gewünschte Anzahl dedizierter Computeknoten im Pool.
+    description: ''
+  - name: --target-low-priority-nodes
+    summary: Die gewünschte Anzahl von Computeknoten mit niedriger Priorität im Pool.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/batch/_help.py
+- uid: az_batch_pool_set
+  name: az batch pool set
+  summary: Aktualisieren Sie die Eigenschaften eines Batch-Pools. Wenn eine Eigenschaft in einer Untergruppe aktualisiert wird, werden die nicht angegebenen Eigenschaften dieser Gruppe zurückgesetzt.
+  description: ''
+  syntax: >-
+    az batch pool set --pool-id
+                      [--account-endpoint]
+                      [--account-key]
+                      [--account-name]
+                      [--application-package-references]
+                      [--certificate-references]
+                      [--if-match]
+                      [--if-modified-since]
+                      [--if-none-match]
+                      [--if-unmodified-since]
+                      [--json-file]
+                      [--metadata]
+                      [--start-task-command-line]
+                      [--start-task-environment-settings]
+                      [--start-task-max-task-retry-count]
+                      [--start-task-resource-files]
+                      [--start-task-wait-for-success]
+                      [--subscription]
+  requiredParameters:
+  - isRequired: true
+    name: --pool-id
+    summary: Die ID des zu aktualisierenden Pools.
+    description: ''
+  optionalParameters:
+  - name: --account-endpoint
+    summary: 'Batch-Dienst Endpunkt. Alternativ dazu können Sie auch durch Umgebungsvariable: AZURE_BATCH_ENDPOINT festlegen.'
+    description: ''
+  - name: --account-key
+    summary: 'Batch-Kontoschlüssel. Alternativ dazu können Sie auch durch Umgebungsvariable: AZURE_BATCH_ACCESS_KEY festlegen.'
+    description: ''
+  - name: --account-name
+    summary: 'Name des Batch-Kontos. Alternativ dazu können Sie auch durch Umgebungsvariable: AZURE_BATCH_ACCOUNT festlegen.'
+    description: ''
+  - name: --application-package-references
+    summary: Eine Liste der Pakete, die auf jedem Computeknoten im Pool installiert werden sollen. Änderungen an Paket verweisen wirken sich auf alle neuen Knoten aus, die dem Pool beitreten, haben jedoch keine Auswirkungen auf Computeknoten, die sich bereits im Pool befinden, bis Sie neu gestartet oder ein reimaging durchgeführt werden. Wenn dieses Element vorhanden ist, werden alle vorhandenen Paket Verweise ersetzt. Wenn Sie eine leere Auflistung angeben, werden alle Paket Verweise aus dem Pool entfernt. Wenn der Name nicht vorhanden ist, bleiben alle vorhandenen Paket Verweise unverändert. Durch Leerzeichen getrennte Anwendungs-IDs mit optionaler Version im Format "ID [#Version]".
+    description: ''
+  - name: --certificate-references
+    summary: Eine Liste der Zertifikate, die auf jedem Computeknoten im Pool installiert werden sollen. Wenn dieses Element vorhanden ist, werden alle vorhandenen Zertifikat Verweise ersetzt, die für den Pool konfiguriert sind. Wenn die Angabe weggelassen wird, bleiben alle vorhandenen Zertifikat Verweise unverändert. Bei Windows-Knoten installiert der Batch-Dienst die Zertifikate im angegebenen Zertifikat Speicher und Speicherort. Für Linux-Computeknoten werden die Zertifikate in einem Verzeichnis innerhalb des Arbeitsverzeichnisses der Aufgabe gespeichert, und es wird eine Umgebungsvariable AZ_BATCH_CERTIFICATES_DIR die an die Aufgabe übergeben wird, um diesen Speicherort abzufragen. Bei Zertifikaten mit Sichtbarkeit von "remoteuser" wird ein "certs"-Verzeichnis im Basisverzeichnis des Benutzers (z. b./Home/{User-Name}/CERTs) erstellt, und Zertifikate werden in diesem Verzeichnis abgelegt. Durch Leerzeichen getrennte Zertifikat Fingerabdrücke.
+    description: ''
+  - name: --if-match
+    summary: Ein ETag-Wert, der der Version der Ressource zugeordnet ist, die dem Client bekannt ist. Der Vorgang wird nur ausgeführt, wenn das aktuelle ETag der Ressource im Dienst exakt mit dem vom Client angegebenen Wert übereinstimmt.
+    description: ''
+  - name: --if-modified-since
+    summary: Ein Zeitstempel, der den Zeitpunkt der letzten Änderung der Ressource angibt, die dem Client bekannt ist. Der Vorgang wird nur ausgeführt, wenn die Ressource für den Dienst seit der angegebenen Zeit geändert wurde.
+    description: ''
+  - name: --if-none-match
+    summary: Ein ETag-Wert, der der Version der Ressource zugeordnet ist, die dem Client bekannt ist. Der Vorgang wird nur ausgeführt, wenn das aktuelle ETag der Ressource für den Dienst nicht mit dem vom Client angegebenen Wert identisch ist.
+    description: ''
+  - name: --if-unmodified-since
+    summary: Ein Zeitstempel, der den Zeitpunkt der letzten Änderung der Ressource angibt, die dem Client bekannt ist. Der Vorgang wird nur ausgeführt, wenn die Ressource für den Dienst seit der angegebenen Zeit nicht geändert wurde.
+    description: ''
+  - name: --json-file
+    summary: Eine Datei, die die Parameter Spezifikation für den Pool Patch in JSON enthält (entsprechend dem entsprechenden Rest-API-Text formatiert). Wenn dieser Parameter angegeben wird, werden alle "Pool Argumente" ignoriert.
+    description: ''
+  - name: --metadata
+    summary: Eine Liste von Name-Wert-Paaren, die dem Pool als Metadaten zugeordnet sind. Wenn dieses Element vorhanden ist, werden alle vorhandenen Metadaten ersetzt, die für den Pool konfiguriert sind. Wenn Sie eine leere Auflistung angeben, werden alle Metadaten aus dem Pool entfernt. Wenn der Wert nicht vorhanden ist, bleiben alle vorhandenen Metadaten unverändert. Durch Leerzeichen getrennte Werte im Format "Key = Value".
+    description: ''
+  - name: --start-task-command-line
+    summary: Erforderlich. Die Befehlszeile der Starttask. Die Befehlszeile wird nicht unter einer Shell ausgeführt und kann daher keine Shellfeatures wie die Erweiterung der Umgebungsvariablen nutzen. Wenn Sie diese Features nutzen möchten, sollten Sie die Shell in der Befehlszeile aufrufen, z. b. "cmd/c myCommand" in Windows oder "/bin/sh-c myCommand" unter Linux. Wenn sich die Befehlszeile auf Dateipfade bezieht, sollte ein relativer Pfad (relativ zum Arbeitsverzeichnis der Aufgabe) verwendet werden, oder die von einem Batch bereitgestellte Umgebungsvariable () wird verwendet <a href="https://docs.microsoft.com/en-us/azure/batch/batch-compute-node-environment-variables">https://docs.microsoft.com/en-us/azure/batch/batch-compute-node-environment-variables</a> .
+    description: ''
+  - name: --start-task-environment-settings
+    summary: Eine Liste mit Umgebungsvariablen Einstellungen für die Starttask. Durch Leerzeichen getrennte Werte im Format "Key = Value".
+    description: ''
+  - name: --start-task-max-task-retry-count
+    summary: Die maximale Anzahl von Wiederholungs versuchen für den Task. Der Batch-Dienst wiederholt einen Task, wenn der Exitcode ungleich 0 (null) ist. Beachten Sie, dass dieser Wert die Anzahl der Wiederholungen ausdrücklich steuert. Der Batch-Dienst versucht die Aufgabe einmal und kann dann bis zu diesem Limit wiederholen. Wenn beispielsweise die maximale Anzahl von Wiederholungs versuchen 3 beträgt, versucht Batch, die Aufgabe bis zu vier Mal auszuführen (ein anfänglicher Versuch und drei Wiederholungen). Wenn die maximale Anzahl von Wiederholungs versuchen 0 beträgt, wird der Task vom Batch-Dienst nicht wiederholt. Wenn die maximale Anzahl von Wiederholungs versuchen-1 beträgt, wiederholt der Batch-Dienst die Aufgabe ohne Einschränkung.
+    description: ''
+  - name: --start-task-resource-files
+    summary: Eine Liste der Dateien, die vom Batch-Dienst auf den Computeknoten heruntergeladen werden, bevor die Befehlszeile ausgeführt wird.  Es ist eine maximale Größe für die Liste der Ressourcen Dateien vorhanden. Wenn die maximale Größe überschritten wird, schlägt die Anforderung fehl, und der Antwort Fehlercode ist RequestEntityTooLarge. Wenn dies auftritt, muss die Größe der ResourceFiles-Auflistung reduziert werden. Dies kann mithilfe von ZIP-Dateien, Anwendungspaketen oder docker-Containern erreicht werden. Die unter diesem Element aufgeführten Dateien befinden sich im Arbeitsverzeichnis der Aufgabe. Durch Leerzeichen getrennte Ressourcen Verweise im Dateiname = HttpUrl-Format.
+    description: ''
+  - name: --start-task-wait-for-success
+    summary: Gibt an, ob der Batch-Dienst auf den erfolgreichen Abschluss der Starttask warten soll (d. h., um den Exitcode 0 zu beenden), bevor Tasks auf dem Computeknoten geplant werden. Wenn true und die Starttask auf einem Knoten fehlschlägt, wiederholt der Batch-Dienst die Starttask bis zur maximalen Anzahl von Wiederholungs versuchen (maxtaskretrycount). Wenn die Aufgabe nach allen Wiederholungen noch nicht erfolgreich abgeschlossen wurde, markiert der Batch-Dienst den Knoten als nicht verwendbar und plant keine Aufgaben. Diese Bedingung kann über den Status von Computeknoten und Fehlerinformationen erkannt werden. Wenn der Wert false ist, wartet der Batch-Dienst nicht auf den Abschluss der Starttask. In diesem Fall können andere Tasks auf dem Computeknoten ausgeführt werden, während der Starttask noch ausgeführt wird. auch wenn die Starttask fehlschlägt, werden neue Aufgaben weiterhin auf dem Computeknoten geplant. Der Standardwert ist "True". Geben Sie entweder "true" oder "false" an, um die Eigenschaft zu aktualisieren.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/batch/_help.py
+- uid: az_batch_pool_show
+  name: az batch pool show
+  summary: Ruft Informationen über den angegebenen Pool ab.
+  description: ''
+  syntax: >-
+    az batch pool show --pool-id
+                       [--account-endpoint]
+                       [--account-key]
+                       [--account-name]
+                       [--expand]
+                       [--if-match]
+                       [--if-modified-since]
+                       [--if-none-match]
+                       [--if-unmodified-since]
+                       [--query-examples]
+                       [--select]
+                       [--subscription]
+  requiredParameters:
+  - isRequired: true
+    name: --pool-id
+    summary: Die ID des zu erzurufenden Pools.
+    description: ''
+  optionalParameters:
+  - name: --account-endpoint
+    summary: 'Batch-Dienst Endpunkt. Alternativ dazu können Sie auch durch Umgebungsvariable: AZURE_BATCH_ENDPOINT festlegen.'
+    description: ''
+  - name: --account-key
+    summary: 'Batch-Kontoschlüssel. Alternativ dazu können Sie auch durch Umgebungsvariable: AZURE_BATCH_ACCESS_KEY festlegen.'
+    description: ''
+  - name: --account-name
+    summary: 'Name des Batch-Kontos. Alternativ dazu können Sie auch durch Umgebungsvariable: AZURE_BATCH_ACCOUNT festlegen.'
+    description: ''
+  - name: --expand
+    summary: Eine odata-$expand-Klausel.
+    description: ''
+  - name: --if-match
+    summary: Ein ETag-Wert, der der Version der Ressource zugeordnet ist, die dem Client bekannt ist. Der Vorgang wird nur ausgeführt, wenn das aktuelle ETag der Ressource im Dienst exakt mit dem vom Client angegebenen Wert übereinstimmt.
+    description: ''
+  - name: --if-modified-since
+    summary: Ein Zeitstempel, der den Zeitpunkt der letzten Änderung der Ressource angibt, die dem Client bekannt ist. Der Vorgang wird nur ausgeführt, wenn die Ressource für den Dienst seit der angegebenen Zeit geändert wurde.
+    description: ''
+  - name: --if-none-match
+    summary: Ein ETag-Wert, der der Version der Ressource zugeordnet ist, die dem Client bekannt ist. Der Vorgang wird nur ausgeführt, wenn das aktuelle ETag der Ressource für den Dienst nicht mit dem vom Client angegebenen Wert identisch ist.
+    description: ''
+  - name: --if-unmodified-since
+    summary: Ein Zeitstempel, der den Zeitpunkt der letzten Änderung der Ressource angibt, die dem Client bekannt ist. Der Vorgang wird nur ausgeführt, wenn die Ressource für den Dienst seit der angegebenen Zeit nicht geändert wurde.
+    description: ''
+  - name: --query-examples
+    summary: Empfehlen Sie die jmespath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und Sie nach dem Abfrage Parameter in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positions Schlüsselwörter hinzufügen, um Vorschläge auf der Grundlage dieser Schlüsselwörter zu geben.
+    description: ''
+  - name: --select
+    summary: Eine odata-$SELECT-Klausel.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/batch/_help.py
+commands:
+- az_batch_pool_all_statistics
+- az_batch_pool_all_statistics_show
+- az_batch_pool_autoscale
+- az_batch_pool_autoscale_disable
+- az_batch_pool_autoscale_enable
+- az_batch_pool_autoscale_evaluate
+- az_batch_pool_create
+- az_batch_pool_delete
+- az_batch_pool_list
+- az_batch_pool_node_counts
+- az_batch_pool_node_counts_list
+- az_batch_pool_reset
+- az_batch_pool_resize
+- az_batch_pool_set
+- az_batch_pool_show
+- az_batch_pool_supported_images
+- az_batch_pool_supported_images_list
+- az_batch_pool_usage_metrics
+- az_batch_pool_usage_metrics_list
+globalParameters:
+- name: --debug
+  summary: Ausführlichkeit der Protokollierung erhöhen, um alle Debugprotokolle anzuzeigen.
+- name: --help -h
+  summary: Zeigen Sie diese Hilfemeldung an, und schließen Sie sie.
+- name: --only-show-errors
+  summary: Nur Fehler anzeigen und Warnungen unterdrücken.
+- name: --output -o
+  defaultValue: json
+  parameterValueGroup: json, jsonc, table, tsv
+  summary: Ausgabeformat.
+- name: --query
+  summary: JMESPath-Abfragezeichenfolge. Weitere Informationen und Beispiele finden Sie unter <a href="http://jmespath.org/">http://jmespath.org/</a>.
+- name: --verbose
+  summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
+metadata:
+  doc_source_url_repo: https://github.com/Azure/azure-cli/blob/dev/
+  ms.date: 12/07/2020
+  description: Verwalten von Batch-Pools.
+  ms.openlocfilehash: ca37b4f8c085bd34436f09bcb0289207120f1e5f
+  ms.sourcegitcommit: 206495efe9707e52f6a3dc121133f26651f23f59
+  ms.translationtype: MT
+  ms.contentlocale: de-DE
+  ms.lasthandoff: 12/30/2020
+  ms.locfileid: "102893515"
