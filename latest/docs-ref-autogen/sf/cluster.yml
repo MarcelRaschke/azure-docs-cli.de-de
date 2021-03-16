@@ -1,0 +1,186 @@
+### YamlMime:AzureCLIGroup
+uid: az_sf_cluster
+name: az sf cluster
+summary: Verwalten eines Azure Service Fabric-Clusters.
+description: ''
+directCommands:
+- uid: az_sf_cluster_create
+  name: az sf cluster create
+  summary: Erstellen Sie einen neuen Azure Service Fabric-Cluster.
+  description: ''
+  syntax: >-
+    az sf cluster create --location
+                         --resource-group
+                         [--cert-out-folder]
+                         [--cert-subject-name]
+                         [--certificate-file]
+                         [--certificate-password]
+                         [--cluster-name]
+                         [--cluster-size]
+                         [--os {UbuntuServer1604, WindowsServer1709, WindowsServer1709withContainers, WindowsServer1803withContainers, WindowsServer1809withContainers, WindowsServer2012R2Datacenter, WindowsServer2016Datacenter, WindowsServer2016DatacenterwithContainers, WindowsServer2019Datacenter, WindowsServer2019DatacenterwithContainers}]
+                         [--parameter-file]
+                         [--secret-identifier]
+                         [--subscription]
+                         [--template-file]
+                         [--vault-name]
+                         [--vault-resource-group]
+                         [--vm-password]
+                         [--vm-sku]
+                         [--vm-user-name]
+  examples:
+  - summary: Erstellen Sie einen Cluster mit einer bestimmten Größe und einem selbst signierten Zertifikat, das lokal heruntergeladen wird.
+    syntax: az sf cluster create -g group-name -c cluster1 -l westus --cluster-size 4 --vm-password Password#1234 --certificate-output-folder MyCertificates --certificate-subject-name cluster1
+  - summary: Verwenden Sie ein keyvault-Zertifikat und eine benutzerdefinierte Vorlage zum Bereitstellen eines Clusters.
+    syntax: >-
+      az sf cluster create -g group-name -c cluster1 -l westus --template-file template.json \
+          --parameter-file parameter.json --secret-identifier https://{KeyVault}.vault.azure.net:443/secrets/{MyCertificate}
+  requiredParameters:
+  - isRequired: true
+    name: --location -l
+    summary: 'Der Standort. Werte aus: `az account list-locations`. Sie können den standardmäßig verwendeten Standort mit `az configure --defaults location=<location>` konfigurieren.'
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Geben Sie den Namen der Ressourcengruppe an. Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  optionalParameters:
+  - name: --cert-out-folder --certificate-output-folder
+    summary: Der Ordner der neuen Zertifikatsdatei, die erstellt werden soll.
+    description: ''
+  - name: --cert-subject-name --certificate-subject-name
+    summary: Der Antragstellername des Zertifikats, das erstellt werden soll
+    description: ''
+  - name: --certificate-file
+    summary: Der vorhandene Zertifikats Dateipfad für das primäre Cluster Zertifikat.
+    description: ''
+  - name: --certificate-password
+    summary: Das Kennwort der Zertifikat Datei.
+    description: ''
+  - name: --cluster-name -c
+    summary: Geben Sie den Namen des Clusters an. Wenn dieser nicht angegeben wird, entspricht er dem Ressourcengruppen Namen.
+    description: ''
+  - name: --cluster-size -s
+    summary: Die Anzahl der Knoten im Cluster. Der Standardwert sind 5 Knoten.
+    description: ''
+  - name: --os --vm-os
+    defaultValue: WindowsServer2016Datacenter
+    parameterValueGroup: UbuntuServer1604, WindowsServer1709, WindowsServer1709withContainers, WindowsServer1803withContainers, WindowsServer1809withContainers, WindowsServer2012R2Datacenter, WindowsServer2016Datacenter, WindowsServer2016DatacenterwithContainers, WindowsServer2019Datacenter, WindowsServer2019DatacenterwithContainers
+    summary: Das Betriebs System der virtuellen Computer, die den Cluster bilden.
+    description: ''
+  - name: --parameter-file
+    summary: Der Pfad zur Vorlagen Parameterdatei.
+    description: ''
+  - name: --secret-identifier
+    summary: Die vorhandene Geheimnis-URL für Azure Key Vault.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  - name: --template-file
+    summary: Der Pfad zur Vorlagen Datei.
+    description: ''
+  - name: --vault-name
+    summary: Der Name des Azure Key Vault-Schlüssels, der nicht angegeben wird, ist der Name der Cluster Ressourcengruppe.
+    description: ''
+  - name: --vault-resource-group
+    summary: Name der Schlüssel Tresor-Ressourcengruppe, falls nicht angegeben, wird der Name der Cluster Ressourcengruppe verwendet.
+    description: ''
+  - name: --vm-password
+    summary: Das Kennwort des virtuellen Computers.
+    description: ''
+  - name: --vm-sku
+    summary: VM-SKU.
+    description: ''
+  - name: --vm-user-name
+    summary: Der Benutzername für die Protokollierung auf dem virtuellen Computer. Der Standardwert lautet "AdminUser".
+    description: ''
+- uid: az_sf_cluster_list
+  name: az sf cluster list
+  summary: Auflisten von Cluster Ressourcen.
+  description: ''
+  syntax: >-
+    az sf cluster list [--query-examples]
+                       [--resource-group]
+                       [--subscription]
+  optionalParameters:
+  - name: --query-examples
+    summary: Empfehlen Sie die jmespath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und Sie nach dem Abfrage Parameter in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positions Schlüsselwörter hinzufügen, um Vorschläge auf der Grundlage dieser Schlüsselwörter zu geben.
+    description: ''
+  - name: --resource-group -g
+    summary: Der Name der Ressourcengruppe.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+- uid: az_sf_cluster_show
+  name: az sf cluster show
+  summary: Ruft eine Service Fabric Cluster Ressource ab.
+  description: Sie erhalten eine Service Fabric Cluster Ressource, die erstellt wurde oder in der angegebenen Ressourcengruppe erstellt wird.
+  syntax: >-
+    az sf cluster show --cluster-name
+                       --resource-group
+                       [--query-examples]
+                       [--subscription]
+  requiredParameters:
+  - isRequired: true
+    name: --cluster-name -c
+    summary: Geben Sie den Namen des Clusters an. Wenn dieser nicht angegeben wird, entspricht er dem Ressourcengruppen Namen.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Geben Sie den Namen der Ressourcengruppe an. Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  optionalParameters:
+  - name: --query-examples
+    summary: Empfehlen Sie die jmespath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und Sie nach dem Abfrage Parameter in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positions Schlüsselwörter hinzufügen, um Vorschläge auf der Grundlage dieser Schlüsselwörter zu geben.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+commands:
+- az_sf_cluster_certificate
+- az_sf_cluster_certificate_add
+- az_sf_cluster_certificate_remove
+- az_sf_cluster_client_certificate
+- az_sf_cluster_client_certificate_add
+- az_sf_cluster_client_certificate_remove
+- az_sf_cluster_create
+- az_sf_cluster_durability
+- az_sf_cluster_durability_update
+- az_sf_cluster_list
+- az_sf_cluster_node
+- az_sf_cluster_node_add
+- az_sf_cluster_node_remove
+- az_sf_cluster_node_type
+- az_sf_cluster_node_type_add
+- az_sf_cluster_reliability
+- az_sf_cluster_reliability_update
+- az_sf_cluster_setting
+- az_sf_cluster_setting_remove
+- az_sf_cluster_setting_set
+- az_sf_cluster_show
+- az_sf_cluster_upgrade_type
+- az_sf_cluster_upgrade_type_set
+globalParameters:
+- name: --debug
+  summary: Ausführlichkeit der Protokollierung erhöhen, um alle Debugprotokolle anzuzeigen.
+- name: --help -h
+  summary: Zeigen Sie diese Hilfemeldung an, und schließen Sie sie.
+- name: --only-show-errors
+  summary: Nur Fehler anzeigen und Warnungen unterdrücken.
+- name: --output -o
+  defaultValue: json
+  parameterValueGroup: json, jsonc, table, tsv
+  summary: Ausgabeformat.
+- name: --query
+  summary: JMESPath-Abfragezeichenfolge. Weitere Informationen und Beispiele finden Sie unter <a href="http://jmespath.org/">http://jmespath.org/</a>.
+- name: --verbose
+  summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
+metadata:
+  description: Verwalten eines Azure Service Fabric-Clusters.
+  ms.openlocfilehash: 4d7414287ef25ff346d34484de84012a67159662
+  ms.sourcegitcommit: a0cc51d7b2b39a52c402af1d98d3b48ff369bd16
+  ms.translationtype: MT
+  ms.contentlocale: de-DE
+  ms.lasthandoff: 09/22/2020
+  ms.locfileid: "102819225"
