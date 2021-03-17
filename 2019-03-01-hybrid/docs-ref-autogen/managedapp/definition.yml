@@ -59,14 +59,14 @@ directCommands:
     summary: Die Ressourcengruppe der Definition der verwalteten Anwendung.
     description: ''
   optionalParameters:
-  - name: --create-ui-definition
-    summary: Die Definition der verwalteten Anwendung erstellt die Benutzeroberflächen Definition.
+  - name: --create-ui-definition -c
+    summary: JSON-formatierte Zeichenfolge oder ein Pfad zu einer Datei mit diesem Inhalt.
     description: ''
   - name: --location -l
     summary: 'Der Standort. Werte aus: `az account list-locations`. Sie können den standardmäßig verwendeten Standort mit `az configure --defaults location=<location>` konfigurieren.'
     description: ''
-  - name: --main-template
-    summary: Die Hauptvorlage für die Definition der verwalteten Anwendung.
+  - name: --main-template -t
+    summary: JSON-formatierte Zeichenfolge oder ein Pfad zu einer Datei mit diesem Inhalt.
     description: ''
   - name: --package-file-uri
     summary: Der URI der Definitions Paketdatei für verwaltete Anwendungen.
@@ -155,11 +155,88 @@ directCommands:
     summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
     description: ''
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/resource/_help.py
+- uid: az_managedapp_definition_update
+  name: az managedapp definition update
+  summary: Aktualisieren Sie die Definition einer verwalteten Anwendung.
+  description: ''
+  syntax: >-
+    az managedapp definition update --authorizations
+                                    --description
+                                    --display-name
+                                    --lock-level {CanNotDelete, None, ReadOnly}
+                                    [--create-ui-definition]
+                                    [--ids]
+                                    [--location]
+                                    [--main-template]
+                                    [--name]
+                                    [--package-file-uri]
+                                    [--resource-group]
+                                    [--subscription]
+                                    [--tags]
+  examples:
+  - summary: Aktualisieren Sie die Definition einer verwalteten Anwendung.
+    syntax: >-
+      az managedapp definition update -g MyResourceGroup -n MyManagedAppDef -l eastus --display-name "MyManagedAppDef" \
+          --description "My Managed App Def description" -a "myPrincipalId:myRoleId" --lock-level None \
+          --package-file-uri "https://path/to/myPackage.zip"
+  - summary: Aktualisieren Sie eine verwaltete Anwendungs Definition mit Inline Werten für "kreateuidefinition" und "maintemplate".
+    syntax: >-
+      az managedapp definition update -g MyResourceGroup -n MyManagedAppDef -l eastus --display-name "MyManagedAppDef" \
+          --description "My Managed App Def description" -a "myPrincipalId:myRoleId" --lock-level None \
+          --create-ui-definition @myCreateUiDef.json --main-template @myMainTemplate.json
+  requiredParameters:
+  - isRequired: true
+    name: --authorizations -a
+    summary: Durch Leerzeichen getrennte Autorisierungs Paare im Format `<principalId>:<roleDefinitionId>` .
+    description: ''
+  - isRequired: true
+    name: --description
+    summary: Die Definition der verwalteten Anwendungs Definition.
+    description: ''
+  - isRequired: true
+    name: --display-name
+    summary: Der Anzeige Name der Definition der verwalteten Anwendung.
+    description: ''
+  - isRequired: true
+    name: --lock-level
+    parameterValueGroup: CanNotDelete, None, ReadOnly
+    summary: Der Typ der Sperr Einschränkung.
+    description: ''
+  optionalParameters:
+  - name: --create-ui-definition -c
+    summary: JSON-formatierte Zeichenfolge oder ein Pfad zu einer Datei mit diesem Inhalt.
+    description: ''
+  - name: --ids
+    summary: Mindestens eine Ressourcen-ID (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID handeln, die alle Informationen von Ressourcen-ID-Argumenten enthält. Sie sollten entweder--IDs oder andere Ressourcen-ID-Argumente angeben.
+    description: ''
+  - name: --location -l
+    summary: 'Der Standort. Werte aus: `az account list-locations`. Sie können den standardmäßig verwendeten Standort mit `az configure --defaults location=<location>` konfigurieren.'
+    description: ''
+  - name: --main-template -t
+    summary: JSON-formatierte Zeichenfolge oder ein Pfad zu einer Datei mit diesem Inhalt.
+    description: ''
+  - name: --name -n
+    summary: Der Name der verwalteten Anwendungs Definition.
+    description: ''
+  - name: --package-file-uri
+    summary: Der URI der Definitions Paketdatei für verwaltete Anwendungen.
+    description: ''
+  - name: --resource-group -g
+    summary: Die Ressourcengruppe der Definition der verwalteten Anwendung.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  - name: --tags
+    summary: 'Durch Leerzeichen getrennte Tags: Key [= value] [key [= value]...]. Verwenden Sie "", um vorhandene Tags zu löschen.'
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/resource/_help.py
 commands:
 - az_managedapp_definition_create
 - az_managedapp_definition_delete
 - az_managedapp_definition_list
 - az_managedapp_definition_show
+- az_managedapp_definition_update
 globalParameters:
 - name: --debug
   summary: Ausführlichkeit der Protokollierung erhöhen, um alle Debugprotokolle anzuzeigen.
@@ -177,11 +254,11 @@ globalParameters:
   summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
 metadata:
   doc_source_url_repo: https://github.com/Azure/azure-cli/blob/dev/
-  ms.date: 02/02/2021
+  ms.date: 02/25/2021
   description: Verwalten Sie Azure Managed Applications.
-  ms.openlocfilehash: cc9f005590de466e141fe54666f2c09a33d98872
-  ms.sourcegitcommit: df9d6597535ef9103775afbaee5a8282e0e218ee
+  ms.openlocfilehash: ad2a83456a6eb24b6f0696eac3005b0c46e414a8
+  ms.sourcegitcommit: f9e23f29c59c6957d3df4d5ca2f4425093e6fd80
   ms.translationtype: MT
   ms.contentlocale: de-DE
-  ms.lasthandoff: 02/09/2021
-  ms.locfileid: "102915034"
+  ms.lasthandoff: 03/16/2021
+  ms.locfileid: "103502462"

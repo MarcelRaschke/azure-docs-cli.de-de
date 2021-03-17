@@ -1,37 +1,33 @@
 ### YamlMime:AzureCLIGroup
-uid: az_network_application_gateway_auth_cert
-name: az network application-gateway auth-cert
-summary: Verwalten von Autorisierungs Zertifikaten eines Anwendungs Gateways.
+uid: az_network_application_gateway_address_pool
+name: az network application-gateway address-pool
+summary: Verwalten von Adress Pools eines Anwendungs Gateways.
 description: ''
 directCommands:
-- uid: az_network_application_gateway_auth_cert_create
-  name: az network application-gateway auth-cert create
-  summary: Erstellen Sie ein Autorisierungs Zertifikat.
+- uid: az_network_application_gateway_address_pool_create
+  name: az network application-gateway address-pool create
+  summary: Erstellen Sie einen Adresspool.
   description: ''
   syntax: >-
-    az network application-gateway auth-cert create --cert-file
-                                                    --gateway-name
-                                                    --name
-                                                    --resource-group
-                                                    [--no-wait]
-                                                    [--subscription]
+    az network application-gateway address-pool create --gateway-name
+                                                       --name
+                                                       --resource-group
+                                                       [--no-wait]
+                                                       [--servers]
+                                                       [--subscription]
   examples:
-  - summary: Erstellen Sie ein Autorisierungs Zertifikat.
+  - summary: Erstellen Sie einen Adresspool mit zwei Endpunkten.
     syntax: >-
-      az network application-gateway auth-cert create -g MyResourceGroup --gateway-name MyAppGateway \
-          -n MyAuthCert --cert-file /path/to/cert/file
+      az network application-gateway address-pool create -g MyResourceGroup \
+          --gateway-name MyAppGateway -n MyAddressPool --servers 10.0.0.4 10.0.0.5
   requiredParameters:
-  - isRequired: true
-    name: --cert-file
-    summary: Pfad der Zertifikat Datei.
-    description: ''
   - isRequired: true
     name: --gateway-name
     summary: Der Name des Anwendungs Gateways.
     description: ''
   - isRequired: true
     name: --name -n
-    summary: Der Name des Authentifizierungs Zertifikats.
+    summary: Der Name des Back-End-Adress Pools.
     description: ''
   - isRequired: true
     name: --resource-group -g
@@ -41,24 +37,27 @@ directCommands:
   - name: --no-wait
     summary: Nicht auf den Abschluss lang andauernder Vorgänge warten
     description: ''
+  - name: --servers
+    summary: Durch Leerzeichen getrennte Liste von IP-Adressen oder DNS-Namen, die Back-End-Servern entsprechen.
+    description: ''
   - name: --subscription
     summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
     description: ''
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/network/_help.py
-- uid: az_network_application_gateway_auth_cert_delete
-  name: az network application-gateway auth-cert delete
-  summary: Löschen Sie ein Autorisierungs Zertifikat.
+- uid: az_network_application_gateway_address_pool_delete
+  name: az network application-gateway address-pool delete
+  summary: Löschen Sie einen Adresspool.
   description: ''
   syntax: >-
-    az network application-gateway auth-cert delete [--gateway-name]
-                                                    [--ids]
-                                                    [--name]
-                                                    [--no-wait]
-                                                    [--resource-group]
-                                                    [--subscription]
+    az network application-gateway address-pool delete [--gateway-name]
+                                                       [--ids]
+                                                       [--name]
+                                                       [--no-wait]
+                                                       [--resource-group]
+                                                       [--subscription]
   examples:
-  - summary: Löschen Sie ein Autorisierungs Zertifikat.
-    syntax: az network application-gateway auth-cert delete -g MyResourceGroup --gateway-name MyAppGateway -n MyAuthCert
+  - summary: Löschen Sie einen Adresspool.
+    syntax: az network application-gateway address-pool delete -g MyResourceGroup --gateway-name MyAppGateway -n MyAddressPool
   optionalParameters:
   - name: --gateway-name
     summary: Der Name des Anwendungsgateways.
@@ -67,7 +66,7 @@ directCommands:
     summary: Mindestens eine Ressourcen-ID (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID handeln, die alle Informationen von Ressourcen-ID-Argumenten enthält. Sie sollten entweder--IDs oder andere Ressourcen-ID-Argumente angeben.
     description: ''
   - name: --name -n
-    summary: Der Name des Authentifizierungs Zertifikats.
+    summary: Der Name des Back-End-Adress Pools.
     description: ''
   - name: --no-wait
     summary: Nicht auf den Abschluss lang andauernder Vorgänge warten
@@ -79,18 +78,18 @@ directCommands:
     summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
     description: ''
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/network/_help.py
-- uid: az_network_application_gateway_auth_cert_list
-  name: az network application-gateway auth-cert list
-  summary: Auflisten von Autorisierungs Zertifikaten
+- uid: az_network_application_gateway_address_pool_list
+  name: az network application-gateway address-pool list
+  summary: Auflisten von Adress Pools.
   description: ''
   syntax: >-
-    az network application-gateway auth-cert list --gateway-name
-                                                  --resource-group
-                                                  [--query-examples]
-                                                  [--subscription]
+    az network application-gateway address-pool list --gateway-name
+                                                     --resource-group
+                                                     [--query-examples]
+                                                     [--subscription]
   examples:
-  - summary: Auflisten von Autorisierungs Zertifikaten
-    syntax: az network application-gateway auth-cert list -g MyResourceGroup --gateway-name MyAppGateway
+  - summary: Auflisten von Adress Pools.
+    syntax: az network application-gateway address-pool list -g MyResourceGroup --gateway-name MyAppGateway
   requiredParameters:
   - isRequired: true
     name: --gateway-name
@@ -108,24 +107,20 @@ directCommands:
     summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
     description: ''
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/network/_help.py
-- uid: az_network_application_gateway_auth_cert_show
-  name: az network application-gateway auth-cert show
-  summary: Zeigen Sie ein Autorisierungs Zertifikat an.
+- uid: az_network_application_gateway_address_pool_show
+  name: az network application-gateway address-pool show
+  summary: Sie erhalten die Details eines Adress Pools.
   description: ''
   syntax: >-
-    az network application-gateway auth-cert show [--gateway-name]
-                                                  [--ids]
-                                                  [--name]
-                                                  [--query-examples]
-                                                  [--resource-group]
-                                                  [--subscription]
+    az network application-gateway address-pool show [--gateway-name]
+                                                     [--ids]
+                                                     [--name]
+                                                     [--query-examples]
+                                                     [--resource-group]
+                                                     [--subscription]
   examples:
-  - summary: Zeigen Sie ein Autorisierungs Zertifikat an.
-    syntax: az network application-gateway auth-cert show -g MyResourceGroup --gateway-name MyAppGateway -n MyAuthCert
-  - summary: Anzeigen des Ablaufdatums eines Autorisierungs Zertifikats Sie befindet sich in Base-64-codiertem X. 509 (. CER-Format.
-    syntax: >-
-      az network application-gateway auth-cert show -g MyResourceGroup --gateway-name MyAppGateway \
-          -n MyAuthCert --query data -o tsv | base64 -d | openssl x509 -enddate -noout
+  - summary: Sie erhalten die Details eines Adress Pools.
+    syntax: az network application-gateway address-pool show -g MyResourceGroup --gateway-name MyAppGateway -n MyAddressPool
   optionalParameters:
   - name: --gateway-name
     summary: Der Name des Anwendungsgateways.
@@ -134,7 +129,7 @@ directCommands:
     summary: Mindestens eine Ressourcen-ID (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID handeln, die alle Informationen von Ressourcen-ID-Argumenten enthält. Sie sollten entweder--IDs oder andere Ressourcen-ID-Argumente angeben.
     description: ''
   - name: --name -n
-    summary: Der Name des Authentifizierungs Zertifikats.
+    summary: Der Name des Back-End-Adress Pools.
     description: ''
   - name: --query-examples
     summary: Empfehlen Sie die jmespath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und Sie nach dem Abfrage Parameter in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positions Schlüsselwörter hinzufügen, um Vorschläge auf der Grundlage dieser Schlüsselwörter zu geben.
@@ -146,30 +141,29 @@ directCommands:
     summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
     description: ''
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/network/_help.py
-- uid: az_network_application_gateway_auth_cert_update
-  name: az network application-gateway auth-cert update
-  summary: Aktualisieren Sie ein Autorisierungs Zertifikat.
+- uid: az_network_application_gateway_address_pool_update
+  name: az network application-gateway address-pool update
+  summary: Aktualisieren Sie einen Adresspool.
   description: ''
   syntax: >-
-    az network application-gateway auth-cert update --cert-file
-                                                    [--add]
-                                                    [--force-string]
-                                                    [--gateway-name]
-                                                    [--ids]
-                                                    [--name]
-                                                    [--no-wait]
-                                                    [--remove]
-                                                    [--resource-group]
-                                                    [--set]
-                                                    [--subscription]
+    az network application-gateway address-pool update [--add]
+                                                       [--force-string]
+                                                       [--gateway-name]
+                                                       [--ids]
+                                                       [--name]
+                                                       [--no-wait]
+                                                       [--remove]
+                                                       [--resource-group]
+                                                       [--servers]
+                                                       [--set]
+                                                       [--subscription]
   examples:
-  - summary: Aktualisieren Sie Autorisierungs Zertifikate, um eine neue Zertifikat Datei zu verwenden.
-    syntax: az network application-gateway auth-cert update -g MyResourceGroup --gateway-name MyAppGateway \ -n MyAuthCert --cert-file /path/to/new/cert/file
-  requiredParameters:
-  - isRequired: true
-    name: --cert-file
-    summary: Pfad der Zertifikat Datei.
-    description: ''
+  - summary: Aktualisieren des Back-End-Adress Pools
+    syntax: az network application-gateway address-pool update -g MyResourceGroup --gateway-name MyAppGateway \ -n MyAddressPool --servers 10.0.0.4 10.0.0.5 10.0.0.6
+  - summary: Fügen Sie dem Back-End-Adresspool die IP-Adresse des Back-End-Servers
+    syntax: >-
+      az network application-gateway address-pool update -g MyResourceGroup --gateway-name MyAppGateway -n MyAddressPool \
+          --add backendAddresses "{ "ip_address": "{10.0.0.13}" }"
   optionalParameters:
   - name: --add
     summary: Fügen Sie einer Liste von-Objekten ein Objekt hinzu, indem Sie ein Pfad-und Schlüssel-Wert-Paar angeben.  Beispiel:--Add Property. ListProperty <Key = Value, String oder JSON String>.
@@ -184,7 +178,7 @@ directCommands:
     summary: Mindestens eine Ressourcen-ID (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID handeln, die alle Informationen von Ressourcen-ID-Argumenten enthält. Sie sollten entweder--IDs oder andere Ressourcen-ID-Argumente angeben.
     description: ''
   - name: --name -n
-    summary: Der Name des Authentifizierungs Zertifikats.
+    summary: Der Name des Back-End-Adress Pools.
     description: ''
   - name: --no-wait
     summary: Nicht auf den Abschluss lang andauernder Vorgänge warten
@@ -195,6 +189,9 @@ directCommands:
   - name: --resource-group -g
     summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
     description: ''
+  - name: --servers
+    summary: Durch Leerzeichen getrennte Liste von IP-Adressen oder DNS-Namen, die Back-End-Servern entsprechen.
+    description: ''
   - name: --set
     summary: Aktualisieren Sie ein Objekt, indem Sie einen Eigenschafts Pfad und einen festzulegenden Wert angeben.  Beispiel:--Set Eigenschaft1. Eigenschaft2 =<value>.
     description: ''
@@ -203,11 +200,11 @@ directCommands:
     description: ''
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/network/_help.py
 commands:
-- az_network_application_gateway_auth_cert_create
-- az_network_application_gateway_auth_cert_delete
-- az_network_application_gateway_auth_cert_list
-- az_network_application_gateway_auth_cert_show
-- az_network_application_gateway_auth_cert_update
+- az_network_application_gateway_address_pool_create
+- az_network_application_gateway_address_pool_delete
+- az_network_application_gateway_address_pool_list
+- az_network_application_gateway_address_pool_show
+- az_network_application_gateway_address_pool_update
 globalParameters:
 - name: --debug
   summary: Ausführlichkeit der Protokollierung erhöhen, um alle Debugprotokolle anzuzeigen.
@@ -226,10 +223,10 @@ globalParameters:
 metadata:
   doc_source_url_repo: https://github.com/Azure/azure-cli/blob/dev/
   ms.date: 02/25/2021
-  description: Verwalten von Autorisierungs Zertifikaten eines Anwendungs Gateways.
-  ms.openlocfilehash: 6bae816ee09359a46370a9510054208f5da2ae4d
+  description: Verwalten von Adress Pools eines Anwendungs Gateways.
+  ms.openlocfilehash: 0c126ae62ee04c4d5092a37f2813d71a36a6fd50
   ms.sourcegitcommit: f9e23f29c59c6957d3df4d5ca2f4425093e6fd80
   ms.translationtype: MT
   ms.contentlocale: de-DE
   ms.lasthandoff: 03/16/2021
-  ms.locfileid: "103502411"
+  ms.locfileid: "103502445"
