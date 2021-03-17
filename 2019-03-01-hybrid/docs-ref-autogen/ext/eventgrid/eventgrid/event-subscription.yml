@@ -1,0 +1,521 @@
+### YamlMime:AzureCLIGroup
+uid: ext_eventgrid_az_eventgrid_event_subscription
+name: az eventgrid event-subscription
+extensionInformation: >-
+  > [!Note]
+
+  > Diese Referenz ist Teil der **eventgrid** -Erweiterung für Azure CLI und erfordert Version 2.0.49 oder höher.  Die Erweiterung wird automatisch installiert, wenn Sie den Befehl **AZ eventgrid Event-Abonnement** zum ersten Mal ausführen.  [Weitere Informationen zu Erweiterungen](https://docs.microsoft.com/en-us/cli/azure/azure-cli-extensions-overview)
+summary: Verwalten von Ereignis Abonnements.
+description: Verwalten von Ereignis Abonnements für ein Event Grid Thema, eine Domäne, ein Domänen Thema, ein Azure-Abonnement, eine Ressourcengruppe oder eine andere Azure-Ressource, die Ereignis Benachrichtigungen unterstützt.
+directCommands:
+- uid: ext_eventgrid_az_eventgrid_event_subscription_create
+  name: az eventgrid event-subscription create
+  summary: Erstellen Sie ein neues Ereignis Abonnement.
+  description: ''
+  syntax: >-
+    az eventgrid event-subscription create --name
+                                           [--advanced-filter]
+                                           [--azure-active-directory-application-id-or-uri]
+                                           [--azure-active-directory-tenant-id]
+                                           [--deadletter-endpoint]
+                                           [--deadletter-identity {systemassigned}]
+                                           [--deadletter-identity-endpoint]
+                                           [--delivery-identity {systemassigned}]
+                                           [--delivery-identity-endpoint]
+                                           [--delivery-identity-endpoint-type {azurefunction, eventhub, hybridconnection, servicebusqueue, servicebustopic, storagequeue, webhook}]
+                                           [--endpoint]
+                                           [--endpoint-type {azurefunction, eventhub, hybridconnection, servicebusqueue, servicebustopic, storagequeue, webhook}]
+                                           [--event-delivery-schema {cloudeventschemav1_0, custominputschema, eventgridschema}]
+                                           [--event-ttl]
+                                           [--expiration-date]
+                                           [--included-event-types]
+                                           [--labels]
+                                           [--max-delivery-attempts]
+                                           [--max-events-per-batch]
+                                           [--preferred-batch-size-in-kilobytes]
+                                           [--source-resource-id]
+                                           [--subject-begins-with]
+                                           [--subject-case-sensitive {false, true}]
+                                           [--subject-ends-with]
+  examples:
+  - summary: Erstellen Sie ein neues Ereignis Abonnement für ein Event Grid Thema, und verwenden Sie dabei Standardfilter.
+    syntax: >-
+      az eventgrid event-subscription create --name es1 \
+          --source-resource-id /subscriptions/{SubID}/resourceGroups/{RG}/providers/Microsoft.EventGrid/topics/topic1 \
+          --endpoint https://contoso.azurewebsites.net/api/f1?code=code
+  - summary: Erstellen Sie ein neues Ereignis Abonnement für ein Abonnement eines Azure-Abonnements, indem Sie Standardfilter verwenden.
+    syntax: >-
+      az eventgrid event-subscription create --name es2 \
+          --source-resource-id /subscriptions/{SubID} \
+          --endpoint https://contoso.azurewebsites.net/api/f1?code=code
+  - summary: Erstellen Sie ein neues Ereignis Abonnement für eine Ressourcengruppe, indem Sie Standardfilter verwenden.
+    syntax: >-
+      az eventgrid event-subscription create --name es3 \
+          --source-resource-id /subscriptions/{SubID}/resourceGroups/{RG} \
+          --endpoint https://contoso.azurewebsites.net/api/f1?code=code
+  - summary: Erstellen Sie ein neues Ereignis Abonnement für ein Speicherkonto, indem Sie Standardfilter verwenden.
+    syntax: >-
+      az eventgrid event-subscription create --name es3 \
+          --source-resource-id "/subscriptions/{SubID}/resourceGroups/{RG}/providers/Microsoft.Storage/storageaccounts/s1"  \
+          --endpoint https://contoso.azurewebsites.net/api/f1?code=code
+  - summary: Erstellen Sie ein neues Ereignis Abonnement für ein Speicherkonto, indem Sie erweiterte Filter verwenden.
+    syntax: >-
+      az eventgrid event-subscription create  --name es3 \
+          --source-resource-id "/subscriptions/{SubID}/resourceGroups/{RG}/providers/Microsoft.Storage/storageaccounts/s1" \
+          --endpoint https://contoso.azurewebsites.net/api/f1?code=code
+          --advanced-filter data.blobType StringIn BlockBlob
+          --advanced-filter data.url StringBeginsWith https://myaccount.blob.core.windows.net
+  - summary: Erstellen Sie ein neues Ereignis Abonnement für ein Azure-Abonnement mit einem Filter, der ein Betreffpräfix angibt.
+    syntax: >-
+      az eventgrid event-subscription create --name es4 \
+          --source-resource-id /subscriptions/{SubID} \
+          --endpoint https://contoso.azurewebsites.net/api/f1?code=code \
+          --subject-begins-with mysubject_prefix
+  - summary: Erstellen Sie ein neues Ereignis Abonnement für eine Ressourcengruppe mit einem Filter, der das Suffix "Betreff" angibt.
+    syntax: >-
+      az eventgrid event-subscription create --name es5 \
+          --source-resource-id /subscriptions/{SubID}/resourceGroups/{RG} \
+          --endpoint https://contoso.azurewebsites.net/api/f1?code=code \
+          --subject-ends-with mysubject_suffix
+  - summary: Erstellen Sie ein neues Ereignis Abonnement für ein Azure-Abonnement, und verwenden Sie dabei Standardfilter und eine eventhub als Ziel.
+    syntax: >-
+      az eventgrid event-subscription create --name es2 \
+          --source-resource-id /subscriptions/{SubID} \
+          --endpoint-type eventhub \
+          --endpoint /subscriptions/{SubID}/resourceGroups/TestRG/providers/Microsoft.EventHub/namespaces/n1/eventhubs/EH1
+  - summary: Erstellen Sie ein neues Ereignis Abonnement für ein Azure-Abonnement, und verwenden Sie dabei Standardfilter und eine Azure Storage Warteschlange als Ziel.
+    syntax: >-
+      az eventgrid event-subscription create --name es2 \
+          --source-resource-id /subscriptions/{SubID} \
+          --endpoint-type storagequeue \
+          --endpoint /subscriptions/{SubID}/resourceGroups/TestRG/providers/Microsoft.Storage/storageAccounts/sa1/queueservices/default/queues/q1
+  - summary: Erstellen Sie ein neues Ereignis Abonnement für ein Azure-Abonnement, und verwenden Sie dabei Standardfilter sowie eine Azure servicebusqueue als Ziel.
+    syntax: >-
+      az eventgrid event-subscription create --name es2 \
+          --source-resource-id /subscriptions/{SubID} \
+          --endpoint-type servicebusqueue \
+          --endpoint /subscriptions/{SubID}/resourceGroups/TestRG/providers/Microsoft.ServiceBus/namespaces/ns1/queues/queue1
+  - summary: Erstellen Sie ein neues Ereignis Abonnement für eine Event Grid Domäne, und verwenden Sie dabei Standardfilter und cloudevent V 1,0 als Übermittlungs Schema.
+    syntax: >-
+      az eventgrid event-subscription create --name es2 \
+          --source-resource-id /subscriptions/{SubID}/resourceGroups/{RG}/providers/Microsoft.EventGrid/domains/d1 \
+          --endpoint https://contoso.azurewebsites.net/api/f1?code=code \
+          --event-delivery-schema cloudeventschemav1_0
+  - summary: Erstellen Sie ein neues Ereignis Abonnement für ein Speicherkonto mit einem DeadLetter-Ziel und einer benutzerdefinierten Wiederholungs Richtlinie von maximal 10 Übermittlungs versuchen und einer Ereignis Gültigkeitsdauer von 2 Stunden (je nachdem, was früher passiert).
+    syntax: >-
+      az eventgrid event-subscription create --name es2 \
+          --source-resource-id "/subscriptions/{SubID}/resourceGroups/{RG}/providers/Microsoft.Storage/storageaccounts/s1" \
+          --endpoint https://contoso.azurewebsites.net/api/f1?code=code \
+          --deadletter-endpoint /subscriptions/{SubID}/resourceGroups/TestRG/providers/Microsoft.Storage/storageAccounts/s2/blobServices/default/containers/blobcontainer1 \
+          --max-delivery-attempts 10 --event-ttl 120
+  - summary: Erstellen Sie ein neues Ereignis Abonnement für ein Domänen Thema.
+    syntax: >-
+      az eventgrid event-subscription create --name es2 \
+          --source-resource-id "/subscriptions/{SubID}/resourceGroups/{RG}/providers/Microsoft.EventGrid/domains/domain1/topics/t1" \
+          --endpoint https://contoso.azurewebsites.net/api/f1?code=code
+  - summary: Erstellen Sie ein neues Ereignis Abonnement (für ein Speicherkonto) mit einem Ablaufdatum.
+    syntax: >-
+      az eventgrid event-subscription create --name es2 \
+          --source-resource-id "/subscriptions/{SubID}/resourceGroups/{RG}/providers/Microsoft.Storage/storageaccounts/sa1" \
+          --endpoint https://contoso.azurewebsites.net/api/f1?code=code
+          --expiration-date "2018-10-31"
+  - summary: Erstellen Sie ein neues Ereignis Abonnement für ein Event Grid Thema, und verwenden Sie Azure Active Directory aktivierten webhook als Ziel.
+    syntax: >-
+      az eventgrid event-subscription create --name es1 \
+          --source-resource-id /subscriptions/{SubID}/resourceGroups/{RG}/providers/Microsoft.EventGrid/topics/topic1 \
+          --endpoint https://contoso.azurewebsites.net/api/f1?code=code
+          --azure-active-directory-tenant-id azureactivedirectorytenantid
+          --azure-active-directory-application-id-or-uri azureactivedirectoryapplicationidoruri
+  - summary: Erstellen Sie ein neues Ereignis Abonnement für ein Event Grid Thema unter Verwendung von Azure Functions als Ziel.
+    syntax: >-
+      az eventgrid event-subscription create --name es1 \
+          --source-resource-id /subscriptions/{SubID}/resourceGroups/{RG}/providers/Microsoft.EventGrid/topics/topic1 \
+          --endpoint /subscriptions/{SubID}/resourceGroups/{RG}/providers/Microsoft.Web/sites/{functionappname}/functions/{functionname} --endpoint-type azurefunction
+  - summary: Erstellen eines neuen Ereignis Abonnements für ein Event Grid Thema, verwenden von eventhub mit systemzugewiesener MSI-Identität als Ziel und mit DeadLetter mit MSI-Identität
+    syntax: >-
+      az eventgrid event-subscription create --source-resource-id /subscriptions/{SubID}/resourceGroups/{RG}/providers/Microsoft.EventGrid/topics/topic1 \
+          --delivery-identity-endpoint-type eventhub --delivery-identity systemassigned --delivery-identity-endpoint /subscriptions/{SubId2|}/resourceGroups/{RG2}/providers/Microsoft.eventhub/namespaces/{EventHubNamespace}/eventhubs/{EventhubName} \
+          --deadletter-identity-endpoint /subscriptions/{SubID}/resourceGroups/TestRG/providers/Microsoft.Storage/storageAccounts/s2/blobServices/default/containers/blobcontainer1 --deadletter-identity systemassigned -n {EventSubscriptionName}
+  requiredParameters:
+  - isRequired: true
+    name: --name -n
+    summary: Name des Ereignisabonnements.
+    description: ''
+  optionalParameters:
+  - name: --advanced-filter
+    summary: Ein erweiterter Filter ermöglicht das Filtern von Ereignissen basierend auf einer bestimmten Ereignis Eigenschaft.
+    description: Syntax:--Advanced-Filter Key [. innerKey] Filteroperator-Wert [value...] StringIn:--Advanced-Filter Data. Farbe stringIn Blue Red Orange Yellow stringnotin:--Advanced-Filter Data. Color stringnotin Blue Red Orange Yellow stringenthält:--Advanced-Filter Subject stringenthält Blue Red stringbeginswith:--Advanced-Filter Subject stringbeginswith Blue Red stringendswith:--Advanced-Filter Subject stringendswith IMG PNG JPG nummeriin:--Advanced-Filter Data. Eigenschaft1 zahlin 5 10 20 numnotin:--Advanced-Filter Data. Eigenschaft2 numnotin 100 200 300 numlessthan:--Advanced-Filter Data. property3 numlessthan 100 numlessthanorist:--Advanced-Filter Data. Eigenschaft2 zahllessthanorgleich 100 numgreaterthan:--Advanced-Filter Data. property3 nummerigreaterthan 100 numgreaterthanorgleich:--Advanced-Filter Data. Eigenschaft2 zahlgreaterthanorgleich 100 boolgleich:--Advanced-Filter Data. property3 boolgleich true mehrere erweiterte Filter können mit mehr als einem Argument angegeben werden `--advanced-filter` .
+  - name: --azure-active-directory-application-id-or-uri
+    summary: Die Azure Active Directory Anwendungs-ID oder der URI, um das Zugriffs Token zu erhalten, das in Übermittlungs Anforderungen als bearertoken eingeschlossen wird. Gilt nur für den webhook als Ziel.
+    description: ''
+  - name: --azure-active-directory-tenant-id
+    summary: Die Azure Active Directory Mandanten-ID, um das Zugriffs Token zu erhalten, das in Übermittlungs Anforderungen als bearertoken eingeschlossen wird. Gilt nur für den webhook als Ziel.
+    description: ''
+  - name: --deadletter-endpoint
+    summary: Die Azure-Ressourcen-ID eines Azure Storage blobcontainerziels, in dem eventgrid unzustellbare Ereignisse für dieses Ereignis Abonnement in unzustellbaren Ereignissen schreiben soll.
+    description: Beispiel:--DeadLetter-Endpoint/Subscriptions/{subid}/resourceGroups/RG1/Providers/Microsoft.Storage/storageAccounts/SA1/blobServices/default/Containers/Containername.
+  - name: --deadletter-identity
+    parameterValueGroup: systemassigned
+    summary: Der Identitätstyp der Ziel Ressource für unzustellbare Nachrichten.
+    description: ''
+  - name: --deadletter-identity-endpoint
+    summary: Die Azure-Ressourcen-ID eines Azure Storage blobcontainerziels mit der Identität, bei der eventgrid unzustellbare Ereignisse für dieses Ereignis Abonnement in unzustellbaren Ereignissen schreiben soll.
+    description: ''
+  - name: --delivery-identity
+    parameterValueGroup: systemassigned
+    summary: Der Identitätstyp der Übermittlungs Ziel Ressource (z. b. "Storage Queue" oder "eventhub").
+    description: ''
+  - name: --delivery-identity-endpoint
+    summary: Endpunkt mit Identität, bei dem eventgrid Ereignisse bereitstellt, die mit diesem Ereignis Abonnement übereinstimmen. Für den webhook-Endpunkttyp sollte dies die entsprechende webhook-URL sein. Bei anderen Endpunkt Typen sollte dies der Azure-Ressourcen Bezeichner des Endpunkts sein.
+    description: ''
+  - name: --delivery-identity-endpoint-type
+    parameterValueGroup: azurefunction, eventhub, hybridconnection, servicebusqueue, servicebustopic, storagequeue, webhook
+    summary: Der Typ des Ziel Endpunkts mit Ressourcen Identität.
+    description: ''
+  - name: --endpoint
+    summary: Endpunkt, an dem eventgrid Ereignisse bereitstellt, die mit diesem Ereignis Abonnement übereinstimmen. Für den webhook-Endpunkttyp sollte dies die entsprechende webhook-URL sein. Bei anderen Endpunkt Typen sollte dies der Azure-Ressourcen Bezeichner des Endpunkts sein.
+    description: ''
+  - name: --endpoint-type
+    defaultValue: webhook
+    parameterValueGroup: azurefunction, eventhub, hybridconnection, servicebusqueue, servicebustopic, storagequeue, webhook
+    summary: Der Typ des Ziel Endpunkts.
+    description: ''
+  - name: --event-delivery-schema
+    parameterValueGroup: cloudeventschemav1_0, custominputschema, eventgridschema
+    summary: Das Schema, in dem Ereignisse für dieses Ereignis Abonnement zugestellt werden sollen. Standardmäßig werden Ereignisse im selben Schema, in dem Sie veröffentlicht werden, übermittelt (basierend auf dem Eingabe Schema des entsprechenden Themas).
+    description: ''
+  - name: --event-ttl
+    defaultValue: "1440"
+    summary: Die Ereignis Gültigkeitsdauer (in Minuten). Muss eine Zahl zwischen 1 und 1440 sein.
+    description: ''
+  - name: --expiration-date
+    summary: Date oder DateTime (in UTC, z. b. "2018-11-30t11:59:59 + 00:00" oder "2018-11-30"), nach dem das Ereignis Abonnement abläuft. Standardmäßig gibt es keine Ablaufzeit für das Ereignis Abonnement.
+    description: ''
+  - name: --included-event-types
+    summary: 'Eine durch Leerzeichen getrennte Liste von Ereignis Typen. Beispiel: Microsoft. Storage. blobcreated Microsoft. Storage. blobdeleted. Um alle Standard Ereignis Typen zu abonnieren, geben Sie keinen Wert für dieses Argument an.'
+    description: ''
+  - name: --labels
+    summary: Eine durch Leerzeichen getrennte Liste von Bezeichnungen, die diesem Ereignis Abonnement zugeordnet werden sollen.
+    description: ''
+  - name: --max-delivery-attempts
+    defaultValue: "30"
+    summary: Maximale Anzahl der Zustellungs Versuche. Muss eine Zahl zwischen 1 und 30 sein.
+    description: ''
+  - name: --max-events-per-batch
+    summary: Maximale Anzahl von Ereignissen in einem Batch. Muss eine Zahl im Bereich 1 bis 5.000 sein.
+    description: ''
+  - name: --preferred-batch-size-in-kilobytes
+    summary: Bevorzugte Batch Größe in Kilobyte. Muss eine Zahl im Bereich 1 bis 1.024 sein.
+    description: ''
+  - name: --source-resource-id
+    summary: Der voll qualifizierte Bezeichner der Azure-Ressource, für die das Ereignis Abonnement erstellt werden muss.
+    description: Verwendung:--Source-Resource-ID Azure-Resource-ID für Azure-Abonnement:--Source-Resource-ID/Subscriptions/{subid} für die Ressourcengruppe:--Source-Resource-ID/Subscriptions/{subid}/resourceGroups/RG1 for eventgrid Topic:--Source-Resource-ID/Subscriptions/{subid}/resourceGroups/RG1/Providers/Microsoft.EventGrid/topics/T1 for Storage Account:--Source-Resource-ID/Subscriptions/{subid}/resourceGroups/RG1/Providers/Microsoft.Storage/storageaccounts/SA1 for eventgrid Domain:--Source-Resource-ID/Subscriptions/{subid}/resourceGroups/RG1/Providers/Microsoft.EventGrid/Domains/D1 for eventgrid Domain Topic:--Source-Resource-ID/Subscriptions/{subid}/resourceGroups/RG1/Providers/Microsoft.EventGrid/Domains/D1/topics/T1.
+  - name: --subject-begins-with
+    summary: Eine optionale Zeichenfolge zum Filtern von Ereignissen für ein Ereignis Abonnement basierend auf einem Präfix. Platzhalterzeichen werden nicht unterstützt.
+    description: ''
+  - name: --subject-case-sensitive
+    parameterValueGroup: false, true
+    summary: Geben Sie an, um anzugeben, ob die BetreffFelder in Groß-und Kleinschreibung verglichen werden sollen. True, wenn das Flag vorhanden ist.
+    description: ''
+  - name: --subject-ends-with
+    summary: Eine optionale Zeichenfolge zum Filtern von Ereignissen für ein Ereignis Abonnement basierend auf einem Suffix. Platzhalterzeichen werden nicht unterstützt.
+    description: ''
+- uid: ext_eventgrid_az_eventgrid_event_subscription_delete
+  name: az eventgrid event-subscription delete
+  summary: Löschen Sie ein Ereignisabonnement.
+  description: ''
+  syntax: >-
+    az eventgrid event-subscription delete --name
+                                           [--source-resource-id]
+  examples:
+  - summary: Löschen eines Ereignis Abonnements für ein Event Grid Thema.
+    syntax: >-
+      az eventgrid event-subscription delete --name es1 \
+          --source-resource-id /subscriptions/{SubID}/resourceGroups/{RG}/providers/Microsoft.EventGrid/topics/topic1
+  - summary: Löschen eines Ereignis Abonnements für eine Event Grid Domäne Thema.
+    syntax: >-
+      az eventgrid event-subscription delete --name es1 \
+          --source-resource-id /subscriptions/{SubID}/resourceGroups/{RG}/providers/Microsoft.EventGrid/domains/domain1/topics/topic1
+  - summary: Löschen eines Ereignis Abonnements für eine Event Grid Domäne
+    syntax: >-
+      az eventgrid event-subscription delete --name es1 \
+          --source-resource-id /subscriptions/{SubID}/resourceGroups/{RG}/providers/Microsoft.EventGrid/domains/domain1
+  - summary: Löschen Sie ein Ereignis Abonnement für ein Azure-Abonnement.
+    syntax: >-
+      az eventgrid event-subscription delete --name es2 \
+          --source-resource-id /subscriptions/{SubID}
+  - summary: Löschen eines Ereignis Abonnements für eine Ressourcengruppe.
+    syntax: >-
+      az eventgrid event-subscription delete --name es3 \
+          --source-resource-id /subscriptions/{SubID}/resourceGroups/{RG}
+  - summary: Löschen Sie ein Ereignis Abonnement für ein Speicherkonto.
+    syntax: >-
+      az eventgrid event-subscription delete --name es3 \
+          --source-resource-id /subscriptions/{SubID}/resourceGroups/{RG}/providers/microsoft.storage/storageaccounts/kalsegblob
+  requiredParameters:
+  - isRequired: true
+    name: --name -n
+    summary: Name des Ereignisabonnements.
+    description: ''
+  optionalParameters:
+  - name: --source-resource-id
+    summary: Der voll qualifizierte Bezeichner der Azure-Ressource, deren Ereignis Abonnement gelöscht werden muss.
+    description: Verwendung:--Source-Resource-ID Azure-Resource-ID für Azure-Abonnement:--Source-Resource-ID/Subscriptions/{subid} für die Ressourcengruppe:--Source-Resource-ID/Subscriptions/{subid}/resourceGroups/RG1 for eventgrid Topic:--Source-Resource-ID/Subscriptions/{subid}/resourceGroups/RG1/Providers/Microsoft.EventGrid/topics/T1 for Storage Account:--Source-Resource-ID/Subscriptions/{subid}/resourceGroups/RG1/Providers/Microsoft.Storage/storageaccounts/SA1 for eventgrid Domain:--Source-Resource-ID/Subscriptions/{subid}/resourceGroups/RG1/Providers/Microsoft.EventGrid/Domains/D1 for eventgrid Domain Topic:--Source-Resource-ID/Subscriptions/{subid}/resourceGroups/RG1/Providers/Microsoft.EventGrid/Domains/D1/topics/T1.
+- uid: ext_eventgrid_az_eventgrid_event_subscription_list
+  name: az eventgrid event-subscription list
+  summary: Auflisten von Ereignis Abonnements.
+  description: >-
+    Event Grid unterstützt sowohl regionale als auch globale Ereignis Abonnements: Ereignis Abonnements für regionale Ressourcen (z. b. Speicher Konten oder Event Grid Themen) sind regional, während Ereignis Abonnements für globale Ressourcen (z. b. ein Azure-Abonnement oder eine Ressourcengruppe) global sind.
+
+    Daher können Sie Ereignis Abonnements auf verschiedene Arten auflisten:
+
+    1. Um die Ressourcen-ID der Ressource, deren Ereignis Abonnements Sie auflisten möchten, aufzulisten, geben Sie den Parameter--Source-Resource-ID an. Es müssen keine anderen Parameter angegeben werden.
+
+    2. Um nach einem Topic-Typ (z. b. Speicher Konten) aufzulisten, geben Sie den Parameter "--Topic-Type" zusammen mit dem Parameter "--Location" (z. b. "westus2") an. Für globale Themen Typen (z. b. "Microsoft. resources. Abonnements") geben Sie den Speicherort Wert als "Global" an.
+
+    3. Um alle Ereignis Abonnements in einer Region (für alle Themen Typen) aufzulisten, geben Sie nur den Parameter "--Location" an.
+
+    4. Für #2 und #3 oben können Sie zusätzlich den Parameter "--Resource-Group" angeben, um nur nach einer Ressourcengruppe zu filtern.
+  syntax: >-
+    az eventgrid event-subscription list [--location]
+                                         [--odata-query]
+                                         [--resource-group]
+                                         [--source-resource-id]
+                                         [--topic-type-name]
+  examples:
+  - summary: Listet alle Ereignis Abonnements auf, die für ein Event Grid Thema erstellt wurden.
+    syntax: az eventgrid event-subscription list --source-resource-id /subscriptions/{SubID}/resourceGroups/{RG}/providers/Microsoft.EventGrid/topics/topic1
+  - summary: Listet alle für ein Speicherkonto erstellten Ereignis Abonnements auf.
+    syntax: az eventgrid event-subscription list --source-resource-id /subscriptions/{SubID}/resourceGroups/{RG}/providers/Microsoft.Storage/storageaccounts/kalsegblob
+  - summary: Listet alle Ereignis Abonnements auf, die für ein Azure-Abonnement erstellt wurden.
+    syntax: az eventgrid event-subscription list --source-resource-id /subscriptions/{SubID}
+  - summary: Listet alle Ereignis Abonnements auf, die für eine Ressourcengruppe erstellt wurden.
+    syntax: az eventgrid event-subscription list --source-resource-id /subscriptions/{SubID}/resourceGroups/{RG}
+  - summary: Listet alle Ereignis Abonnements für eine Event Grid Domäne auf.
+    syntax: az eventgrid event-subscription list --source-resource-id /subscriptions/{SubID}/resourceGroups/{RG}/providers/Microsoft.EventGrid/domains/d1
+  - summary: Listet alle Ereignis Abonnements für ein Event Grid Domäne Thema auf.
+    syntax: az eventgrid event-subscription list --source-resource-id /subscriptions/{SubID}/resourceGroups/{RG}/providers/Microsoft.EventGrid/domains/d1/topics/topic1
+  - summary: Listet alle Speicher Ereignis Abonnements (unter dem derzeit ausgewählten Azure-Abonnement) in westus2 auf.
+    syntax: az eventgrid event-subscription list --topic-type Microsoft.Storage.StorageAccounts --location westus2
+  - summary: Listet alle Speicher Ereignis Abonnements (unter der angegebenen Ressourcengruppe) in westus2 auf.
+    syntax: az eventgrid event-subscription list --topic-type Microsoft.Storage.StorageAccounts --location westus2 --resource-group {RG}
+  - summary: Listet alle regionalen oder globalen Ereignis Abonnements auf (unter dem aktuell ausgewählten Azure-Abonnement).
+    syntax: >-
+      az eventgrid event-subscription list --location westus2
+
+      az eventgrid event-subscription list --location global
+  - summary: Listet alle regionalen oder globalen Ereignis Abonnements in einer angegebenen Ressourcengruppe auf.
+    syntax: >-
+      az eventgrid event-subscription list --location westus2 --resource-group {RG}
+
+      az eventgrid event-subscription list --location global --resource-group {RG}
+  - summary: Auflisten aller Ereignis Abonnements für eine Event Grid Domäne, deren Name das Muster "xyz" enthält
+    syntax: az eventgrid event-subscription list --source-resource-id /subscriptions/{SubID}/resourceGroups/{RG}/providers/Microsoft.EventGrid/domains/d1 --odata-query "Contains(name, 'XYZ')"
+  - summary: Listet alle Ereignis Abonnements für eine Event Grid Domäne außer dem Ereignis Abonnement mit dem Namen "Name1" auf.
+    syntax: az eventgrid event-subscription list --source-resource-id /subscriptions/{SubID}/resourceGroups/{RG}/providers/Microsoft.EventGrid/domains/d1 --odata-query "NOT (name eq 'name1')"
+  optionalParameters:
+  - name: --location -l
+    summary: 'Der Standort. Werte aus: `az account list-locations`. Sie können den standardmäßig verwendeten Standort mit `az configure --defaults location=<location>` konfigurieren.'
+    description: ''
+  - name: --odata-query
+    summary: Die Abfrage, mit der die Ergebnisse mithilfe der odata-Syntax gefiltert werden.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --source-resource-id
+    summary: Der voll qualifizierte Bezeichner der Azure-Ressource, deren Ereignis Abonnement aufgelistet werden muss.
+    description: Verwendung:--Source-Resource-ID Azure-Resource-ID für Azure-Abonnement:--Source-Resource-ID/Subscriptions/{subid} für die Ressourcengruppe:--Source-Resource-ID/Subscriptions/{subid}/resourceGroups/RG1 for eventgrid Topic:--Source-Resource-ID/Subscriptions/{subid}/resourceGroups/RG1/Providers/Microsoft.EventGrid/topics/T1 for Storage Account:--Source-Resource-ID/Subscriptions/{subid}/resourceGroups/RG1/Providers/Microsoft.Storage/storageaccounts/SA1 for eventgrid Domain:--Source-Resource-ID/Subscriptions/{subid}/resourceGroups/RG1/Providers/Microsoft.EventGrid/Domains/D1 for eventgrid Domain Topic:--Source-Resource-ID/Subscriptions/{subid}/resourceGroups/RG1/Providers/Microsoft.EventGrid/Domains/D1/topics/T1.
+  - name: --topic-type-name
+    summary: Name des Topic-Typs, dessen Ereignis Abonnements aufgeführt werden müssen. Wenn dies angegeben ist, müssen Sie auch--Location angeben.
+    description: 'Beispiel 1: Auflisten aller Speicher Ereignis Abonnements in WestUS2--Resource-Group testrg--Topic-Type-Name Microsoft. Storage. storageaccounts--Location WestUS2 Example 2: Auflisten aller Ereignis Abonnements in Azure-Abonnements--Topic-Type-Name Microsoft. resources. Abonnements--Location Global.'
+- uid: ext_eventgrid_az_eventgrid_event_subscription_show
+  name: az eventgrid event-subscription show
+  summary: Hier erhalten Sie Informationen zu einem Ereignis Abonnement.
+  description: ''
+  syntax: >-
+    az eventgrid event-subscription show --name
+                                         [--include-full-endpoint-url {false, true}]
+                                         [--source-resource-id]
+  examples:
+  - summary: Anzeigen der Details eines Ereignis Abonnements für ein Event Grid Thema.
+    syntax: >-
+      az eventgrid event-subscription show --name es1 \
+          --source-resource-id /subscriptions/{SubID}/resourceGroups/rg1/providers/Microsoft.EventGrid/topics/topic1
+  - summary: Zeigen Sie die Details eines Ereignis Abonnements für ein Azure-Abonnement an.
+    syntax: >-
+      az eventgrid event-subscription show --name es2 \
+          --source-resource-id /subscriptions/{SubID}
+  - summary: Anzeigen der Details eines Ereignis Abonnements für eine Ressourcengruppe.
+    syntax: >-
+      az eventgrid event-subscription show --name es3 \
+          --source-resource-id /subscriptions/{SubID}/resourceGroups/rg1
+  - summary: Hiermit werden die Details eines Ereignis Abonnements für ein Speicherkonto angezeigt.
+    syntax: >-
+      az eventgrid event-subscription show --name es3 \
+          --source-resource-id /subscriptions/{SubID}/resourceGroups/rg1/providers/microsoft.storage/storageaccounts/kalsegblob
+  requiredParameters:
+  - isRequired: true
+    name: --name -n
+    summary: Name des Ereignisabonnements.
+    description: ''
+  optionalParameters:
+  - name: --include-full-endpoint-url
+    parameterValueGroup: false, true
+    summary: Geben Sie an, um anzugeben, ob die vollständige Endpunkt-URL zurückgegeben wird. True, wenn das Flag vorhanden ist.
+    description: ''
+  - name: --source-resource-id
+    summary: Der voll qualifizierte Bezeichner der Azure-Ressource, deren Ereignis Abonnement angezeigt werden muss.
+    description: Verwendung:--Source-Resource-ID Azure-Resource-ID für Azure-Abonnement:--Source-Resource-ID/Subscriptions/{subid} für die Ressourcengruppe:--Source-Resource-ID/Subscriptions/{subid}/resourceGroups/RG1 for eventgrid Topic:--Source-Resource-ID/Subscriptions/{subid}/resourceGroups/RG1/Providers/Microsoft.EventGrid/topics/T1 for Storage Account:--Source-Resource-ID/Subscriptions/{subid}/resourceGroups/RG1/Providers/Microsoft.Storage/storageaccounts/SA1 for eventgrid Domain:--Source-Resource-ID/Subscriptions/{subid}/resourceGroups/RG1/Providers/Microsoft.EventGrid/Domains/D1 for eventgrid Domain Topic:--Source-Resource-ID/Subscriptions/{subid}/resourceGroups/RG1/Providers/Microsoft.EventGrid/Domains/D1/topics/T1.
+- uid: ext_eventgrid_az_eventgrid_event_subscription_update
+  name: az eventgrid event-subscription update
+  summary: Aktualisieren eines Ereignis Abonnements.
+  description: ''
+  syntax: >-
+    az eventgrid event-subscription update --name
+                                           [--add]
+                                           [--advanced-filter]
+                                           [--deadletter-endpoint]
+                                           [--deadletter-identity {systemassigned}]
+                                           [--deadletter-identity-endpoint]
+                                           [--delivery-identity {systemassigned}]
+                                           [--delivery-identity-endpoint]
+                                           [--delivery-identity-endpoint-type {azurefunction, eventhub, hybridconnection, servicebusqueue, servicebustopic, storagequeue, webhook}]
+                                           [--endpoint]
+                                           [--endpoint-type {azurefunction, eventhub, hybridconnection, servicebusqueue, servicebustopic, storagequeue, webhook}]
+                                           [--force-string]
+                                           [--included-event-types]
+                                           [--labels]
+                                           [--remove]
+                                           [--set]
+                                           [--source-resource-id]
+                                           [--subject-begins-with]
+                                           [--subject-ends-with]
+  examples:
+  - summary: Aktualisieren eines Ereignis Abonnements für ein Event Grid Thema, um einen neuen Endpunkt anzugeben.
+    syntax: >-
+      az eventgrid event-subscription update --name es1 \
+          --source-resource-id /subscriptions/{SubID}/resourceGroups/{RG}/providers/Microsoft.EventGrid/topics/topic1 \
+          --endpoint https://contoso.azurewebsites.net/api/f1?code=code
+  - summary: Aktualisieren Sie ein Ereignis Abonnement für ein Azure-Abonnement, um einen neuen Filter mit dem Betreff "Betreff" anzugeben.
+    syntax: >-
+      az eventgrid event-subscription update --name es2 \
+          --source-resource-id /subscriptions/{SubID} \
+          --subject-ends-with .jpg
+  - summary: Aktualisieren Sie ein Ereignis Abonnement für eine Ressourcengruppe, und geben Sie einen neuen Endpunkt und einen neuen Filter mit dem Betreff "Betreff" an.
+    syntax: >-
+      az eventgrid event-subscription update --name es3 \
+          --source-resource-id /subscriptions/{SubID}/resourceGroups/{RG} \
+          --subject-ends-with .png \
+          --endpoint https://contoso.azurewebsites.net/api/f1?code=code
+  - summary: Aktualisieren Sie ein Ereignis Abonnement für ein Speicherkonto, um eine neue Liste der enthaltenen Ereignis Typen anzugeben.
+    syntax: >-
+      az eventgrid event-subscription update --name es3 \
+          --source-resource-id "/subscriptions/{SubID}/resourceGroups/{RG}/providers/microsoft.storage/storageaccounts/kalsegblob" \
+          --included-event-types Microsoft.Storage.BlobCreated Microsoft.Storage.BlobDeleted
+  - summary: Aktualisieren Sie ein Ereignis Abonnement für ein Speicherkonto, um ein DeadLetter-Ziel einzuschließen.
+    syntax: >-
+      az eventgrid event-subscription update --name es2 \
+          --source-resource-id "/subscriptions/{SubID}/resourceGroups/{RG}/providers/Microsoft.Storage/storageaccounts/kalsegblob" \
+          --deadletter-endpoint /subscriptions/{SubID}/resourceGroups/TestRG/providers/Microsoft.Storage/storageAccounts/sa1/blobServices/default/containers/blobcontainer1
+  - summary: Aktualisieren Sie ein Ereignis Abonnement für ein Speicherkonto mit erweiterten Filtern.
+    syntax: >-
+      az eventgrid event-subscription update --name es3 \
+          --source-resource-id "/subscriptions/{SubID}/resourceGroups/{RG}/providers/Microsoft.Storage/storageaccounts/s1" \
+          --endpoint https://contoso.azurewebsites.net/api/f1?code=code
+          --advanced-filter data.blobType StringIn BlockBlob
+          --advanced-filter data.url StringBeginsWith https://myaccount.blob.core.windows.net
+  requiredParameters:
+  - isRequired: true
+    name: --name -n
+    summary: Name des Ereignisabonnements.
+    description: ''
+  optionalParameters:
+  - name: --add
+    summary: Fügen Sie einer Liste von-Objekten ein Objekt hinzu, indem Sie ein Pfad-und Schlüssel-Wert-Paar angeben.  Beispiel:--Add Property. ListProperty <Key = Value, String oder JSON String>.
+    description: ''
+  - name: --advanced-filter
+    summary: Ein erweiterter Filter ermöglicht das Filtern von Ereignissen basierend auf einer bestimmten Ereignis Eigenschaft.
+    description: Syntax:--Advanced-Filter Key [. innerKey] Filteroperator-Wert [value...] StringIn:--Advanced-Filter Data. Farbe stringIn Blue Red Orange Yellow stringnotin:--Advanced-Filter Data. Color stringnotin Blue Red Orange Yellow stringenthält:--Advanced-Filter Subject stringenthält Blue Red stringbeginswith:--Advanced-Filter Subject stringbeginswith Blue Red stringendswith:--Advanced-Filter Subject stringendswith IMG PNG JPG nummeriin:--Advanced-Filter Data. Eigenschaft1 zahlin 5 10 20 numnotin:--Advanced-Filter Data. Eigenschaft2 numnotin 100 200 300 numlessthan:--Advanced-Filter Data. property3 numlessthan 100 numlessthanorist:--Advanced-Filter Data. Eigenschaft2 zahllessthanorgleich 100 numgreaterthan:--Advanced-Filter Data. property3 nummerigreaterthan 100 numgreaterthanorgleich:--Advanced-Filter Data. Eigenschaft2 zahlgreaterthanorgleich 100 boolgleich:--Advanced-Filter Data. property3 boolgleich true mehrere erweiterte Filter können mit mehr als einem Argument angegeben werden `--advanced-filter` .
+  - name: --deadletter-endpoint
+    summary: Die Azure-Ressourcen-ID eines Azure Storage blobcontainerziels, in dem eventgrid unzustellbare Ereignisse für dieses Ereignis Abonnement in unzustellbaren Ereignissen schreiben soll.
+    description: ''
+  - name: --deadletter-identity
+    parameterValueGroup: systemassigned
+    summary: Der Identitätstyp der Ziel Ressource für unzustellbare Nachrichten.
+    description: ''
+  - name: --deadletter-identity-endpoint
+    summary: Die Azure-Ressourcen-ID eines Azure Storage blobcontainerziels mit der Identität, bei der eventgrid unzustellbare Ereignisse für dieses Ereignis Abonnement in unzustellbaren Ereignissen schreiben soll.
+    description: ''
+  - name: --delivery-identity
+    parameterValueGroup: systemassigned
+    summary: Der Identitätstyp der Übermittlungs Ziel Ressource (z. b. "Storage Queue" oder "eventhub").
+    description: ''
+  - name: --delivery-identity-endpoint
+    summary: Endpunkt mit Identität, bei dem eventgrid Ereignisse bereitstellt, die mit diesem Ereignis Abonnement übereinstimmen. Für den webhook-Endpunkttyp sollte dies die entsprechende webhook-URL sein. Bei anderen Endpunkt Typen sollte dies der Azure-Ressourcen Bezeichner des Endpunkts sein.
+    description: ''
+  - name: --delivery-identity-endpoint-type
+    parameterValueGroup: azurefunction, eventhub, hybridconnection, servicebusqueue, servicebustopic, storagequeue, webhook
+    summary: Der Typ des Ziel Endpunkts mit Ressourcen Identität.
+    description: ''
+  - name: --endpoint
+    summary: Endpunkt, an dem eventgrid Ereignisse bereitstellt, die mit diesem Ereignis Abonnement übereinstimmen. Für den webhook-Endpunkttyp sollte dies die entsprechende webhook-URL sein. Bei anderen Endpunkt Typen sollte dies der Azure-Ressourcen Bezeichner des Endpunkts sein.
+    description: ''
+  - name: --endpoint-type
+    defaultValue: webhook
+    parameterValueGroup: azurefunction, eventhub, hybridconnection, servicebusqueue, servicebustopic, storagequeue, webhook
+    summary: Der Typ des Ziel Endpunkts.
+    description: ''
+  - name: --force-string
+    summary: Wenn Sie "Set" oder "Add" verwenden, erhalten Sie Zeichen folgen Literale, anstatt zu versuchen, in JSON zu konvertieren.
+    description: ''
+  - name: --included-event-types
+    summary: 'Eine durch Leerzeichen getrennte Liste von Ereignis Typen. Beispiel: Microsoft. Storage. blobcreated Microsoft. Storage. blobdeleted. Um alle Standard Ereignis Typen zu abonnieren, geben Sie keinen Wert für dieses Argument an.'
+    description: ''
+  - name: --labels
+    summary: Eine durch Leerzeichen getrennte Liste von Bezeichnungen, die diesem Ereignis Abonnement zugeordnet werden sollen.
+    description: ''
+  - name: --remove
+    summary: Entfernt eine Eigenschaft oder ein Element aus einer Liste.  Beispiel:--Remove Property. List <indexToRemove> oder--Remove propertytoremove.
+    description: ''
+  - name: --set
+    summary: Aktualisieren Sie ein Objekt, indem Sie einen Eigenschafts Pfad und einen festzulegenden Wert angeben.  Beispiel:--Set Eigenschaft1. Eigenschaft2 =<value>.
+    description: ''
+  - name: --source-resource-id
+    summary: Der voll qualifizierte Bezeichner der Azure-Ressource, deren Ereignis Abonnement aktualisiert werden muss.
+    description: Verwendung:--Source-Resource-ID Azure-Resource-ID für Azure-Abonnement:--Source-Resource-ID/Subscriptions/{subid} für die Ressourcengruppe:--Source-Resource-ID/Subscriptions/{subid}/resourceGroups/RG1 for eventgrid Topic:--Source-Resource-ID/Subscriptions/{subid}/resourceGroups/RG1/Providers/Microsoft.EventGrid/topics/T1 for Storage Account:--Source-Resource-ID/Subscriptions/{subid}/resourceGroups/RG1/Providers/Microsoft.Storage/storageaccounts/SA1 for eventgrid Domain:--Source-Resource-ID/Subscriptions/{subid}/resourceGroups/RG1/Providers/Microsoft.EventGrid/Domains/D1 for eventgrid Domain Topic:--Source-Resource-ID/Subscriptions/{subid}/resourceGroups/RG1/Providers/Microsoft.EventGrid/Domains/D1/topics/T1.
+  - name: --subject-begins-with
+    summary: Eine optionale Zeichenfolge zum Filtern von Ereignissen für ein Ereignis Abonnement basierend auf einem Präfix. Platzhalterzeichen werden nicht unterstützt.
+    description: ''
+  - name: --subject-ends-with
+    summary: Eine optionale Zeichenfolge zum Filtern von Ereignissen für ein Ereignis Abonnement basierend auf einem Suffix. Platzhalterzeichen werden nicht unterstützt.
+    description: ''
+commands:
+- ext_eventgrid_az_eventgrid_event_subscription_create
+- ext_eventgrid_az_eventgrid_event_subscription_delete
+- ext_eventgrid_az_eventgrid_event_subscription_list
+- ext_eventgrid_az_eventgrid_event_subscription_show
+- ext_eventgrid_az_eventgrid_event_subscription_update
+globalParameters:
+- name: --debug
+  summary: Ausführlichkeit der Protokollierung erhöhen, um alle Debugprotokolle anzuzeigen.
+- name: --help -h
+  summary: Zeigen Sie diese Hilfemeldung an, und schließen Sie sie.
+- name: --only-show-errors
+  summary: Nur Fehler anzeigen und Warnungen unterdrücken.
+- name: --output -o
+  defaultValue: json
+  parameterValueGroup: json, jsonc, table, tsv
+  summary: Ausgabeformat.
+- name: --query
+  summary: JMESPath-Abfragezeichenfolge. Weitere Informationen und Beispiele finden Sie unter <a href="http://jmespath.org/">http://jmespath.org/</a>.
+- name: --verbose
+  summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
+metadata:
+  description: Verwalten von Ereignis Abonnements für ein Event Grid Thema, eine Domäne, ein Domänen Thema, ein Azure-Abonnement, eine Ressourcengruppe oder eine andere Azure-Ressource, die Ereignis Benachrichtigungen unterstützt.
+  ms.openlocfilehash: db17d2cc4be00acc587664b7a2b0b42dc6da9306
+  ms.sourcegitcommit: e1faf297ba2cdf2ba7e821fbeedff9c9a724c975
+  ms.translationtype: MT
+  ms.contentlocale: de-DE
+  ms.lasthandoff: 12/16/2020
+  ms.locfileid: "102833125"
