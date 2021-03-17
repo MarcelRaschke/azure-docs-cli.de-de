@@ -1,0 +1,200 @@
+### YamlMime:AzureCLIGroup
+uid: az_storage_blob_incremental_copy
+name: az storage blob incremental-copy
+summary: Verwalten von inkrementellen Kopier Vorgängen für BLOBs
+description: ''
+directCommands:
+- uid: az_storage_blob_incremental_copy_cancel
+  name: az storage blob incremental-copy cancel
+  summary: Bricht einen ausstehenden copy_blob Vorgang ab und verlässt ein zielblob mit der Länge 0 (null) und vollständigen Metadaten.
+  description: ''
+  syntax: >-
+    az storage blob incremental-copy cancel --container-name
+                                            --copy-id
+                                            --name
+                                            [--account-key]
+                                            [--account-name]
+                                            [--auth-mode {key, login}]
+                                            [--connection-string]
+                                            [--lease-id]
+                                            [--sas-token]
+                                            [--subscription]
+                                            [--timeout]
+  requiredParameters:
+  - isRequired: true
+    name: --container-name -c
+    summary: Der Containername
+    description: ''
+  - isRequired: true
+    name: --copy-id
+    summary: Der in der Copy.ID des ursprünglichen copy_blob Vorgangs angegebene Kopier Bezeichner.
+    description: ''
+  - isRequired: true
+    name: --name -n
+    summary: Der BLOB-Name.
+    description: ''
+  optionalParameters:
+  - name: --account-key
+    summary: 'Speicherkontoschlüssel Muss in Verbindung mit dem Speicherkonto Namen verwendet werden. Umgebungsvariable: AZURE_STORAGE_KEY.'
+    description: ''
+  - name: --account-name
+    summary: 'Name des Speicherkontos Verwandte Umgebungsvariable: AZURE_STORAGE_ACCOUNT. Muss in Verbindung mit dem Speicherkonto Schlüssel oder einem SAS-Token verwendet werden. Wenn keines der beiden vorhanden ist, versucht der Befehl, den Speicherkonto Schlüssel mithilfe des authentifizierten Azure-Kontos abzufragen. Wenn eine große Anzahl von Speicher Befehlen ausgeführt wird, kann das API-Kontingent erreichen.'
+    description: ''
+  - name: --auth-mode
+    parameterValueGroup: key, login
+    summary: 'Der Modus, in dem der Befehl ausgeführt werden soll. der Modus "Anmeldung" verwendet direkt Ihre Anmelde Informationen für die Authentifizierung. Der Legacy Modus "Schlüssel" versucht, einen Kontoschlüssel abzufragen, wenn keine Authentifizierungs Parameter für das Konto bereitgestellt werden. Umgebungsvariable: AZURE_STORAGE_AUTH_MODE.'
+    description: ''
+  - name: --connection-string
+    summary: 'Verbindungs Zeichenfolge des Speicher Kontos. Umgebungsvariable: AZURE_STORAGE_CONNECTION_STRING.'
+    description: ''
+  - name: --lease-id
+    summary: Erforderlich, wenn das Ziel-BLOB über eine aktive Lease für unbegrenzte Dauer verfügt.
+    description: ''
+  - name: --sas-token
+    summary: 'Eine Shared Access Signature (SAS). Muss in Verbindung mit dem Speicherkonto Namen verwendet werden. Umgebungsvariable: AZURE_STORAGE_SAS_TOKEN.'
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  - name: --timeout
+    summary: Anforderungs Timeout in Sekunden. Gilt für jeden Dienst aufzurufen.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/storage/_help.py
+- uid: az_storage_blob_incremental_copy_start
+  name: az storage blob incremental-copy start
+  summary: Kopiert eine inkrementelle Kopie eines BLOB asynchron.
+  description: Dieser Vorgang gibt ein Eigenschaften Objekt für den Kopiervorgang zurück, einschließlich einer Kopie-ID, die Sie verwenden können, um den Kopiervorgang zu überprüfen oder abzubrechen. Der Blob-Dienst kopiert BLOBs auf Grundlage der besten Leistung. Das quellblob für einen inkrementellen Kopiervorgang muss ein seitenblob sein. Ruft get_blob_properties für das Ziel-BLOB auf, um den Status des Kopiervorgangs zu überprüfen. Das endgültige Blob wird bei Abschluss des Kopiervorgangs committet.
+  syntax: >-
+    az storage blob incremental-copy start --destination-blob
+                                           --destination-container
+                                           [--account-key]
+                                           [--account-name]
+                                           [--auth-mode {key, login}]
+                                           [--connection-string]
+                                           [--destination-if-match]
+                                           [--destination-if-modified-since]
+                                           [--destination-if-none-match]
+                                           [--destination-if-unmodified-since]
+                                           [--destination-lease-id]
+                                           [--metadata]
+                                           [--sas-token]
+                                           [--source-account-key]
+                                           [--source-account-name]
+                                           [--source-blob]
+                                           [--source-container]
+                                           [--source-lease-id]
+                                           [--source-sas]
+                                           [--source-snapshot]
+                                           [--source-uri]
+                                           [--subscription]
+                                           [--timeout]
+  examples:
+  - summary: Laden Sie alle Dateien hoch, die mit. py enden, es sei denn, BLOB ist vorhanden und wurde seit dem angegebenen Datum geändert.
+    syntax: az storage blob incremental-copy start --source-container MySourceContainer --source-blob MyBlob --source-account-name MySourceAccount --source-account-key MySourceKey --source-snapshot MySnapshot --destination-container MyDestinationContainer --destination-blob MyDestinationBlob
+  - summary: Kopiert eine inkrementelle Kopie eines BLOB asynchron. automatisch generierten
+    syntax: az storage blob incremental-copy start --account-key 00000000 --account-name MyAccount --destination-blob MyDestinationBlob --destination-container MyDestinationContainer --source-account-key MySourceKey --source-account-name MySourceAccount --source-blob MyBlob --source-container MySourceContainer --source-snapshot MySnapshot
+  - summary: Asynchrones Kopieren einer inkrementellen Kopie eines BLOBs. automatisch generierten
+    syntax: az storage blob incremental-copy start --connection-string myconnectionstring --destination-blob mydestinationblob --destination-container MyDestinationContainer --source-uri https://storage.blob.core.windows.net/photos
+  requiredParameters:
+  - isRequired: true
+    name: --destination-blob -b
+    summary: Der Name des Ziel-BLOBs. Wenn das vorhanden ist, wird es überschrieben.
+    description: ''
+  - isRequired: true
+    name: --destination-container -c
+    summary: Der Containername
+    description: ''
+  optionalParameters:
+  - name: --account-key
+    summary: 'Speicherkontoschlüssel Muss in Verbindung mit dem Speicherkonto Namen verwendet werden. Umgebungsvariable: AZURE_STORAGE_KEY.'
+    description: ''
+  - name: --account-name
+    summary: 'Name des Speicherkontos Verwandte Umgebungsvariable: AZURE_STORAGE_ACCOUNT. Muss in Verbindung mit dem Speicherkonto Schlüssel oder einem SAS-Token verwendet werden. Wenn keines der beiden vorhanden ist, versucht der Befehl, den Speicherkonto Schlüssel mithilfe des authentifizierten Azure-Kontos abzufragen. Wenn eine große Anzahl von Speicher Befehlen ausgeführt wird, kann das API-Kontingent erreichen.'
+    description: ''
+  - name: --auth-mode
+    parameterValueGroup: key, login
+    summary: 'Der Modus, in dem der Befehl ausgeführt werden soll. der Modus "Anmeldung" verwendet direkt Ihre Anmelde Informationen für die Authentifizierung. Der Legacy Modus "Schlüssel" versucht, einen Kontoschlüssel abzufragen, wenn keine Authentifizierungs Parameter für das Konto bereitgestellt werden. Umgebungsvariable: AZURE_STORAGE_AUTH_MODE.'
+    description: ''
+  - name: --connection-string
+    summary: 'Verbindungs Zeichenfolge des Speicher Kontos. Umgebungsvariable: AZURE_STORAGE_CONNECTION_STRING.'
+    description: ''
+  - name: --destination-if-match
+    summary: Ein ETag-Wert oder das Platzhalter Zeichen ( \* ). Geben Sie einen ETag-Wert für diesen bedingten Header an, um das BLOB nur zu kopieren, wenn der angegebene ETag-Wert mit dem ETag-Wert für ein vorhandenes zielblob übereinstimmt. Wenn das ETag für das Ziel-BLOB nicht mit dem für If-Match angegebenen ETag identisch ist, gibt der BLOB-Dienst den Statuscode 412 (Vorbedingung nicht erfüllt) zurück.
+    description: ''
+  - name: --destination-if-modified-since
+    summary: Nur starten, wenn seit dem angegebenen UTC-DateTime-Wert (Y-m-d't ' h:m ' Z ') geändert wurde.
+    description: ''
+  - name: --destination-if-none-match
+    summary: Ein ETag-Wert oder das Platzhalter Zeichen ( \* ). Geben Sie einen ETag-Wert für diesen bedingten Header an, um das BLOB nur dann zu kopieren, wenn der angegebene ETag-Wert nicht dem ETag-Wert für das Ziel-BLOB entspricht. Geben Sie das Platzhalter Zeichen ( \* ) an, um den Vorgang nur dann auszuführen, wenn das zielblob nicht vorhanden ist. Wenn die angegebene Bedingung nicht erfüllt ist, gibt der Blob-Dienst Statuscode 412 (Vorbedingung nicht erfüllt) zurück.
+    description: ''
+  - name: --destination-if-unmodified-since
+    summary: Startet nur, wenn seit dem bereitgestellten UTC-DateTime-Wert (Y-m-d't ' h:m ' Z ') nicht geändert wurde.
+    description: ''
+  - name: --destination-lease-id
+    summary: Die für diesen Header angegebene Lease-ID muss mit der Lease-ID des Ziel-BLOB übereinstimmen. Wenn die Anforderung nicht die Lease-ID enthält oder diese ungültig ist, schlägt der Vorgang mit Statuscode 412 (Vorbedingung nicht erfüllt) fehl.
+    description: ''
+  - name: --metadata
+    summary: Metadaten in durch Leerzeichen getrennten Schlüssel = Wert-Paaren. Dadurch werden alle vorhandenen Metadaten überschrieben.
+    description: ''
+  - name: --sas-token
+    summary: 'Eine Shared Access Signature (SAS). Muss in Verbindung mit dem Speicherkonto Namen verwendet werden. Umgebungsvariable: AZURE_STORAGE_SAS_TOKEN.'
+    description: ''
+  - name: --source-account-key
+    summary: Der Speicherkonto Schlüssel des Quell-BLOBs.
+    description: ''
+  - name: --source-account-name
+    summary: Der Speicherkonto Name des Quell-BLOBs.
+    description: ''
+  - name: --source-blob
+    summary: Der BLOB-Name für das Quell Speicherkonto.
+    description: ''
+  - name: --source-container
+    summary: Der Container Name für das Quell Speicherkonto.
+    description: ''
+  - name: --source-lease-id
+    summary: Geben Sie diese Angabe an, um den Vorgang zum Kopieren von BLOBs nur durchzuführen, wenn die angegebene Lease-ID mit der aktiven Lease-ID des Quell-BLOBs
+    description: ''
+  - name: --source-sas
+    summary: Die Shared Access Signature für das Quell Speicherkonto.
+    description: ''
+  - name: --source-snapshot
+    summary: Die BLOB-Momentaufnahme für das Quell Speicherkonto.
+    description: ''
+  - name: --source-uri -u
+    summary: 'Eine URL mit einer Länge von bis zu 2 KB, die ein Azure-seitenblob angibt. Der Wert sollte so URL-codiert sein, wie er in einem Anforderungs-URI verwendet wird. Die Kopier Quelle muss eine Momentaufnahme sein und ein gültiges SAS-Token enthalten oder öffentlich sein. Beispiel: `https://myaccount.blob.core.windows.net/mycontainer/myblob?snapshot=<DateTime>&sastoken`.'
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  - name: --timeout
+    summary: Anforderungs Timeout in Sekunden. Gilt für jeden Dienst aufzurufen.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/storage/_help.py
+commands:
+- az_storage_blob_incremental_copy_cancel
+- az_storage_blob_incremental_copy_start
+globalParameters:
+- name: --debug
+  summary: Ausführlichkeit der Protokollierung erhöhen, um alle Debugprotokolle anzuzeigen.
+- name: --help -h
+  summary: Zeigen Sie diese Hilfemeldung an, und schließen Sie sie.
+- name: --only-show-errors
+  summary: Nur Fehler anzeigen und Warnungen unterdrücken.
+- name: --output -o
+  defaultValue: json
+  parameterValueGroup: json, jsonc, table, tsv
+  summary: Ausgabeformat.
+- name: --query
+  summary: JMESPath-Abfragezeichenfolge. Weitere Informationen und Beispiele finden Sie unter <a href="http://jmespath.org/">http://jmespath.org/</a>.
+- name: --verbose
+  summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
+metadata:
+  doc_source_url_repo: https://github.com/Azure/azure-cli/blob/dev/
+  ms.date: 02/02/2021
+  description: Verwalten von inkrementellen Kopier Vorgängen für BLOBs
+  ms.openlocfilehash: e090add5a5f6543cdc697bf54be7b9744bb92933
+  ms.sourcegitcommit: df9d6597535ef9103775afbaee5a8282e0e218ee
+  ms.translationtype: MT
+  ms.contentlocale: de-DE
+  ms.lasthandoff: 02/09/2021
+  ms.locfileid: "102963352"
