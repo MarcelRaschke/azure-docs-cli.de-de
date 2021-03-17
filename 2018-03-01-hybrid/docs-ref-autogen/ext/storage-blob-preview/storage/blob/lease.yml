@@ -1,0 +1,388 @@
+### YamlMime:AzureCLIGroup
+uid: ext_storage-blob-preview_az_storage_blob_lease
+name: az storage blob lease
+extensionInformation: >-
+  > [!Note]
+
+  > Diese Referenz ist Teil der **Storage-BLOB-Preview-** Erweiterung für Azure CLI und erfordert Version 2.14.0 oder höher.  Die Erweiterung wird automatisch installiert, wenn Sie den Befehl **AZ Storage BLOB Lease** zum ersten Mal ausführen.  [Weitere Informationen zu Erweiterungen](https://docs.microsoft.com/en-us/cli/azure/azure-cli-extensions-overview)
+summary: Verwalten von speicherblob-Leases.
+description: ''
+directCommands:
+- uid: ext_storage-blob-preview_az_storage_blob_lease_acquire
+  name: az storage blob lease acquire
+  summary: Fordern Sie eine neue Lease an.
+  description: ''
+  syntax: >-
+    az storage blob lease acquire --blob-name
+                                  --container-name
+                                  [--account-key]
+                                  [--account-name]
+                                  [--auth-mode {key, login}]
+                                  [--connection-string]
+                                  [--if-match]
+                                  [--if-modified-since]
+                                  [--if-none-match]
+                                  [--if-unmodified-since]
+                                  [--lease-duration]
+                                  [--proposed-lease-id]
+                                  [--sas-token]
+                                  [--tags-condition]
+                                  [--timeout]
+  examples:
+  - summary: Fordern Sie eine neue Lease an.
+    syntax: az storage blob lease acquire -b myblob -c mycontainer --account-name mystorageaccount --account-key 0000-0000
+  requiredParameters:
+  - isRequired: true
+    name: --blob-name -b
+    summary: Der BLOB-Name.
+    description: ''
+  - isRequired: true
+    name: --container-name -c
+    summary: Der Containername
+    description: ''
+  optionalParameters:
+  - name: --account-key
+    summary: 'Speicherkontoschlüssel Muss in Verbindung mit dem Speicherkonto Namen verwendet werden. Umgebungsvariable: AZURE_STORAGE_KEY.'
+    description: ''
+  - name: --account-name
+    summary: 'Name des Speicherkontos Verwandte Umgebungsvariable: AZURE_STORAGE_ACCOUNT. Muss in Verbindung mit dem Speicherkonto Schlüssel oder einem SAS-Token verwendet werden. Wenn keines der beiden vorhanden ist, versucht der Befehl, den Speicherkonto Schlüssel mithilfe des authentifizierten Azure-Kontos abzufragen. Wenn eine große Anzahl von Speicher Befehlen ausgeführt wird, kann das API-Kontingent erreichen.'
+    description: ''
+  - name: --auth-mode
+    parameterValueGroup: key, login
+    summary: 'Der Modus, in dem der Befehl ausgeführt werden soll. der Modus "Anmeldung" verwendet direkt Ihre Anmelde Informationen für die Authentifizierung. Der Legacy Modus "Schlüssel" versucht, einen Kontoschlüssel abzufragen, wenn keine Authentifizierungs Parameter für das Konto bereitgestellt werden. Umgebungsvariable: AZURE_STORAGE_AUTH_MODE.'
+    description: ''
+  - name: --connection-string
+    summary: 'Verbindungs Zeichenfolge des Speicher Kontos. Umgebungsvariable: AZURE_STORAGE_CONNECTION_STRING.'
+    description: ''
+  - name: --if-match
+    summary: Ein ETag-Wert oder das Platzhalter Zeichen ( \* ). Mit diesem Header legen Sie fest, dass der Vorgang nur ausgeführt wird, wenn das ETag der Ressource mit dem angegebenen Wert übereinstimmt.
+    description: ''
+  - name: --if-modified-since
+    summary: Nur starten, wenn seit dem angegebenen UTC-DateTime-Wert (Y-m-d't ' h:m ' Z ') geändert wurde.
+    description: ''
+  - name: --if-none-match
+    summary: Ein ETag-Wert oder das Platzhalter Zeichen ( \* ). Mit diesem Header legen Sie fest, dass der Vorgang nur ausgeführt wird, wenn das ETag der Ressource nicht mit dem angegebenen Wert übereinstimmt. Geben Sie das Platzhalter Zeichen ( \* ) an, um den Vorgang nur dann auszuführen, wenn die Ressource nicht vorhanden ist, und führen Sie den Vorgang aus, falls vorhanden.
+    description: ''
+  - name: --if-unmodified-since
+    summary: Nur starten, wenn seit dem angegebenen UTC-DateTime-Wert (Y-m-d't ' h:m ' Z ') geändert wurde.
+    description: ''
+  - name: --lease-duration
+    defaultValue: "-1"
+    summary: Geben Sie die Dauer der Lease in Sekunden oder eine negative Dauer (-1) für eine Lease an, die nie abläuft. Die Dauer einer nicht unendlichen Lease kann zwischen 15 und 60 Sekunden liegen. Eine Leasedauer kann nicht mithilfe von erneuern oder ändern geändert werden. Der Standardwert ist-1 (unendliche Lease).
+    description: ''
+  - name: --proposed-lease-id
+    summary: Vorgeschlagene Lease-ID in einem GUID-Zeichenfolgenformat. Der BLOB-Dienst gibt 400 (ungültige Anforderung) zurück, wenn die vorgeschlagene Lease-ID nicht das richtige Format hat.
+    description: ''
+  - name: --sas-token
+    summary: 'Eine Shared Access Signature (SAS). Muss in Verbindung mit dem Speicherkonto Namen verwendet werden. Umgebungsvariable: AZURE_STORAGE_SAS_TOKEN.'
+    description: ''
+  - name: --tags-condition
+    summary: Geben Sie eine SQL-WHERE-Klausel für blobtags an, die nur für BLOBs mit einem übereinstimmenden Wert verwendet wird.
+    description: ''
+  - name: --timeout
+    summary: Anforderungs Timeout in Sekunden. Gilt für jeden Dienst aufzurufen.
+    description: ''
+- uid: ext_storage-blob-preview_az_storage_blob_lease_break
+  name: az storage blob lease break
+  summary: Unterbrechen Sie die Lease, wenn der Container oder das BLOB über eine aktive Lease verfügt.
+  description: Nachdem eine Lease unterbrochen wurde, kann sie nicht verlängert werden. Die Lease kann von jeder autorisierten Anforderung unterbrochen werden. In der Anforderung muss keine übereinstimmende Lease-ID angegeben werden. Wenn eine Lease beschädigt ist, kann der leasebruchzeitraum veralten werden. während dieser Zeit kann kein Leasevorgang mit Ausnahme von Break und Release für den Container oder das BLOB ausgeführt werden. Wenn eine Lease erfolgreich unterbrochen wurde, gibt die Antwort das Intervall in Sekunden an, bis eine neue Lease abgerufen werden kann.
+  syntax: >-
+    az storage blob lease break --blob-name
+                                --container-name
+                                [--account-key]
+                                [--account-name]
+                                [--auth-mode {key, login}]
+                                [--connection-string]
+                                [--if-match]
+                                [--if-modified-since]
+                                [--if-none-match]
+                                [--if-unmodified-since]
+                                [--lease-break-period]
+                                [--sas-token]
+                                [--tags-condition]
+                                [--timeout]
+  requiredParameters:
+  - isRequired: true
+    name: --blob-name -b
+    summary: Der BLOB-Name.
+    description: ''
+  - isRequired: true
+    name: --container-name -c
+    summary: Der Containername
+    description: ''
+  optionalParameters:
+  - name: --account-key
+    summary: 'Speicherkontoschlüssel Muss in Verbindung mit dem Speicherkonto Namen verwendet werden. Umgebungsvariable: AZURE_STORAGE_KEY.'
+    description: ''
+  - name: --account-name
+    summary: 'Name des Speicherkontos Verwandte Umgebungsvariable: AZURE_STORAGE_ACCOUNT. Muss in Verbindung mit dem Speicherkonto Schlüssel oder einem SAS-Token verwendet werden. Wenn keines der beiden vorhanden ist, versucht der Befehl, den Speicherkonto Schlüssel mithilfe des authentifizierten Azure-Kontos abzufragen. Wenn eine große Anzahl von Speicher Befehlen ausgeführt wird, kann das API-Kontingent erreichen.'
+    description: ''
+  - name: --auth-mode
+    parameterValueGroup: key, login
+    summary: 'Der Modus, in dem der Befehl ausgeführt werden soll. der Modus "Anmeldung" verwendet direkt Ihre Anmelde Informationen für die Authentifizierung. Der Legacy Modus "Schlüssel" versucht, einen Kontoschlüssel abzufragen, wenn keine Authentifizierungs Parameter für das Konto bereitgestellt werden. Umgebungsvariable: AZURE_STORAGE_AUTH_MODE.'
+    description: ''
+  - name: --connection-string
+    summary: 'Verbindungs Zeichenfolge des Speicher Kontos. Umgebungsvariable: AZURE_STORAGE_CONNECTION_STRING.'
+    description: ''
+  - name: --if-match
+    summary: Ein ETag-Wert oder das Platzhalter Zeichen ( \* ). Mit diesem Header legen Sie fest, dass der Vorgang nur ausgeführt wird, wenn das ETag der Ressource mit dem angegebenen Wert übereinstimmt.
+    description: ''
+  - name: --if-modified-since
+    summary: Nur starten, wenn seit dem angegebenen UTC-DateTime-Wert (Y-m-d't ' h:m ' Z ') geändert wurde.
+    description: ''
+  - name: --if-none-match
+    summary: Ein ETag-Wert oder das Platzhalter Zeichen ( \* ). Mit diesem Header legen Sie fest, dass der Vorgang nur ausgeführt wird, wenn das ETag der Ressource nicht mit dem angegebenen Wert übereinstimmt. Geben Sie das Platzhalter Zeichen ( \* ) an, um den Vorgang nur dann auszuführen, wenn die Ressource nicht vorhanden ist, und führen Sie den Vorgang aus, falls vorhanden.
+    description: ''
+  - name: --if-unmodified-since
+    summary: Nur starten, wenn seit dem angegebenen UTC-DateTime-Wert (Y-m-d't ' h:m ' Z ') geändert wurde.
+    description: ''
+  - name: --lease-break-period
+    summary: Dies ist die vorgeschlagene Dauer von Sekunden, für die die Lease fortgesetzt werden soll, bevor Sie beschädigt wird (zwischen 0 und 60 Sekunden). Dieser Unterbrechungszeitraum wird nur verwendet, wenn er kürzer als die verbleibende Zeit für die Lease ist. Ist er länger, wird die verbleibende Zeit für die Lease verwendet. Eine neue Lease ist erst verfügbar, wenn der Unterbrechungszeitraum abgelaufen ist. Allerdings ist es möglich, dass die Lease länger als der Unterbrechungszeitraum beibehalten wird. Wenn dieser Header nicht mit einem Unterbrechungs Vorgang angezeigt wird, wird eine Lease mit fester Dauer nach Ablauf der verbleibenden Leasedauer unterbrochen, und eine unendliche Lease wird sofort unterbrochen.
+    description: ''
+  - name: --sas-token
+    summary: 'Eine Shared Access Signature (SAS). Muss in Verbindung mit dem Speicherkonto Namen verwendet werden. Umgebungsvariable: AZURE_STORAGE_SAS_TOKEN.'
+    description: ''
+  - name: --tags-condition
+    summary: Geben Sie eine SQL-WHERE-Klausel für blobtags an, die nur für BLOBs mit einem übereinstimmenden Wert verwendet wird.
+    description: ''
+  - name: --timeout
+    summary: Anforderungs Timeout in Sekunden. Gilt für jeden Dienst aufzurufen.
+    description: ''
+- uid: ext_storage-blob-preview_az_storage_blob_lease_change
+  name: az storage blob lease change
+  summary: Ändern Sie die Lease-ID einer aktiven Lease.
+  description: ''
+  syntax: >-
+    az storage blob lease change --blob-name
+                                 --container-name
+                                 --lease-id
+                                 --proposed-lease-id
+                                 [--account-key]
+                                 [--account-name]
+                                 [--auth-mode {key, login}]
+                                 [--connection-string]
+                                 [--if-match]
+                                 [--if-modified-since]
+                                 [--if-none-match]
+                                 [--if-unmodified-since]
+                                 [--sas-token]
+                                 [--tags-condition]
+                                 [--timeout]
+  requiredParameters:
+  - isRequired: true
+    name: --blob-name -b
+    summary: Der BLOB-Name.
+    description: ''
+  - isRequired: true
+    name: --container-name -c
+    summary: Der Containername
+    description: ''
+  - isRequired: true
+    name: --lease-id
+    summary: Erforderlich, wenn das BLOB über eine aktive Lease verfügt.
+    description: ''
+  - isRequired: true
+    name: --proposed-lease-id
+    summary: Vorgeschlagene Lease-ID in einem GUID-Zeichenfolgenformat. Der BLOB-Dienst gibt 400 (ungültige Anforderung) zurück, wenn die vorgeschlagene Lease-ID nicht das richtige Format hat.
+    description: ''
+  optionalParameters:
+  - name: --account-key
+    summary: 'Speicherkontoschlüssel Muss in Verbindung mit dem Speicherkonto Namen verwendet werden. Umgebungsvariable: AZURE_STORAGE_KEY.'
+    description: ''
+  - name: --account-name
+    summary: 'Name des Speicherkontos Verwandte Umgebungsvariable: AZURE_STORAGE_ACCOUNT. Muss in Verbindung mit dem Speicherkonto Schlüssel oder einem SAS-Token verwendet werden. Wenn keines der beiden vorhanden ist, versucht der Befehl, den Speicherkonto Schlüssel mithilfe des authentifizierten Azure-Kontos abzufragen. Wenn eine große Anzahl von Speicher Befehlen ausgeführt wird, kann das API-Kontingent erreichen.'
+    description: ''
+  - name: --auth-mode
+    parameterValueGroup: key, login
+    summary: 'Der Modus, in dem der Befehl ausgeführt werden soll. der Modus "Anmeldung" verwendet direkt Ihre Anmelde Informationen für die Authentifizierung. Der Legacy Modus "Schlüssel" versucht, einen Kontoschlüssel abzufragen, wenn keine Authentifizierungs Parameter für das Konto bereitgestellt werden. Umgebungsvariable: AZURE_STORAGE_AUTH_MODE.'
+    description: ''
+  - name: --connection-string
+    summary: 'Verbindungs Zeichenfolge des Speicher Kontos. Umgebungsvariable: AZURE_STORAGE_CONNECTION_STRING.'
+    description: ''
+  - name: --if-match
+    summary: Ein ETag-Wert oder das Platzhalter Zeichen ( \* ). Mit diesem Header legen Sie fest, dass der Vorgang nur ausgeführt wird, wenn das ETag der Ressource mit dem angegebenen Wert übereinstimmt.
+    description: ''
+  - name: --if-modified-since
+    summary: Nur starten, wenn seit dem angegebenen UTC-DateTime-Wert (Y-m-d't ' h:m ' Z ') geändert wurde.
+    description: ''
+  - name: --if-none-match
+    summary: Ein ETag-Wert oder das Platzhalter Zeichen ( \* ). Mit diesem Header legen Sie fest, dass der Vorgang nur ausgeführt wird, wenn das ETag der Ressource nicht mit dem angegebenen Wert übereinstimmt. Geben Sie das Platzhalter Zeichen ( \* ) an, um den Vorgang nur dann auszuführen, wenn die Ressource nicht vorhanden ist, und führen Sie den Vorgang aus, falls vorhanden.
+    description: ''
+  - name: --if-unmodified-since
+    summary: Nur starten, wenn seit dem angegebenen UTC-DateTime-Wert (Y-m-d't ' h:m ' Z ') geändert wurde.
+    description: ''
+  - name: --sas-token
+    summary: 'Eine Shared Access Signature (SAS). Muss in Verbindung mit dem Speicherkonto Namen verwendet werden. Umgebungsvariable: AZURE_STORAGE_SAS_TOKEN.'
+    description: ''
+  - name: --tags-condition
+    summary: Geben Sie eine SQL-WHERE-Klausel für blobtags an, die nur für BLOBs mit einem übereinstimmenden Wert verwendet wird.
+    description: ''
+  - name: --timeout
+    summary: Anforderungs Timeout in Sekunden. Gilt für jeden Dienst aufzurufen.
+    description: ''
+- uid: ext_storage-blob-preview_az_storage_blob_lease_release
+  name: az storage blob lease release
+  summary: Geben Sie die Lease frei.
+  description: 'Die Lease kann freigegeben werden, wenn die vom Client angegebene Lease-ID mit der übereinstimmt, die dem Container oder BLOB zugeordnet ist. Durch das Freigeben der Lease kann ein anderer Client die Lease für den Container oder das BLOB sofort abrufen, sobald das Release fertiggestellt ist.  : Schlüsselwort ~ DateTime. DateTime-if_modified_since: ein DateTime-Wert. Azure erwartet, dass der Datumswert UTC ist.     Wenn Zeitzone enthalten ist, werden alle nicht-UTC-DateTime in UTC konvertiert.     Wenn ein Datum ohne Zeitzoneninformationen übermittelt wird, wird davon ausgegangen, dass es UTC ist.     Geben Sie diesen Header an, um den Vorgang nur dann auszuführen, wenn die Ressource seit der angegebenen Zeit geändert wurde. : Schlüsselwort ~ DateTime. DateTime-if_unmodified_since: ein DateTime-Wert. Azure erwartet, dass der Datumswert UTC ist.     Wenn Zeitzone enthalten ist, werden alle nicht-UTC-DateTime in UTC konvertiert.     Wenn ein Datum ohne Zeitzoneninformationen übermittelt wird, wird davon ausgegangen, dass es UTC ist.     Geben Sie diesen Header an, um den Vorgang nur dann auszuführen, wenn die Ressource seit dem angegebenen Datum bzw. der angegebenen Uhrzeit nicht geändert wurde. : Schlüsselwort Str ETag: ein ETag-Wert oder das Platzhalter Zeichen (*). Wird verwendet, um zu überprüfen, ob sich die Ressource geändert hat, und verhält sich gemäß der durch den-Parameter angegebenen Bedingung `match_condition` . : Schlüsselwort ~ Azure. Core. matchconditions match_condition: die Übereinstimmungs Bedingung, die für das ETag verwendet werden soll. : Schlüsselwort Str if_tags_match_condition eine SQL-WHERE-Klausel für BLOB-Tags angeben, die nur für BLOBs mit einem übereinstimmenden Wert verwendet werden soll.     Beispiel: "Tagname" = "My Tag" ".. VersionAdded:: 12.4.0: Schlüsselwort int timeout: der Timeout Parameter wird in Sekunden angegeben. : Return: None.'
+  syntax: >-
+    az storage blob lease release --blob-name
+                                  --container-name
+                                  --lease-id
+                                  [--account-key]
+                                  [--account-name]
+                                  [--auth-mode {key, login}]
+                                  [--connection-string]
+                                  [--if-match]
+                                  [--if-modified-since]
+                                  [--if-none-match]
+                                  [--if-unmodified-since]
+                                  [--sas-token]
+                                  [--tags-condition]
+                                  [--timeout]
+  requiredParameters:
+  - isRequired: true
+    name: --blob-name -b
+    summary: Der BLOB-Name.
+    description: ''
+  - isRequired: true
+    name: --container-name -c
+    summary: Der Containername
+    description: ''
+  - isRequired: true
+    name: --lease-id
+    summary: Erforderlich, wenn das BLOB über eine aktive Lease verfügt.
+    description: ''
+  optionalParameters:
+  - name: --account-key
+    summary: 'Speicherkontoschlüssel Muss in Verbindung mit dem Speicherkonto Namen verwendet werden. Umgebungsvariable: AZURE_STORAGE_KEY.'
+    description: ''
+  - name: --account-name
+    summary: 'Name des Speicherkontos Verwandte Umgebungsvariable: AZURE_STORAGE_ACCOUNT. Muss in Verbindung mit dem Speicherkonto Schlüssel oder einem SAS-Token verwendet werden. Wenn keines der beiden vorhanden ist, versucht der Befehl, den Speicherkonto Schlüssel mithilfe des authentifizierten Azure-Kontos abzufragen. Wenn eine große Anzahl von Speicher Befehlen ausgeführt wird, kann das API-Kontingent erreichen.'
+    description: ''
+  - name: --auth-mode
+    parameterValueGroup: key, login
+    summary: 'Der Modus, in dem der Befehl ausgeführt werden soll. der Modus "Anmeldung" verwendet direkt Ihre Anmelde Informationen für die Authentifizierung. Der Legacy Modus "Schlüssel" versucht, einen Kontoschlüssel abzufragen, wenn keine Authentifizierungs Parameter für das Konto bereitgestellt werden. Umgebungsvariable: AZURE_STORAGE_AUTH_MODE.'
+    description: ''
+  - name: --connection-string
+    summary: 'Verbindungs Zeichenfolge des Speicher Kontos. Umgebungsvariable: AZURE_STORAGE_CONNECTION_STRING.'
+    description: ''
+  - name: --if-match
+    summary: Ein ETag-Wert oder das Platzhalter Zeichen ( \* ). Mit diesem Header legen Sie fest, dass der Vorgang nur ausgeführt wird, wenn das ETag der Ressource mit dem angegebenen Wert übereinstimmt.
+    description: ''
+  - name: --if-modified-since
+    summary: Nur starten, wenn seit dem angegebenen UTC-DateTime-Wert (Y-m-d't ' h:m ' Z ') geändert wurde.
+    description: ''
+  - name: --if-none-match
+    summary: Ein ETag-Wert oder das Platzhalter Zeichen ( \* ). Mit diesem Header legen Sie fest, dass der Vorgang nur ausgeführt wird, wenn das ETag der Ressource nicht mit dem angegebenen Wert übereinstimmt. Geben Sie das Platzhalter Zeichen ( \* ) an, um den Vorgang nur dann auszuführen, wenn die Ressource nicht vorhanden ist, und führen Sie den Vorgang aus, falls vorhanden.
+    description: ''
+  - name: --if-unmodified-since
+    summary: Nur starten, wenn seit dem angegebenen UTC-DateTime-Wert (Y-m-d't ' h:m ' Z ') geändert wurde.
+    description: ''
+  - name: --sas-token
+    summary: 'Eine Shared Access Signature (SAS). Muss in Verbindung mit dem Speicherkonto Namen verwendet werden. Umgebungsvariable: AZURE_STORAGE_SAS_TOKEN.'
+    description: ''
+  - name: --tags-condition
+    summary: Geben Sie eine SQL-WHERE-Klausel für blobtags an, die nur für BLOBs mit einem übereinstimmenden Wert verwendet wird.
+    description: ''
+  - name: --timeout
+    summary: Anforderungs Timeout in Sekunden. Gilt für jeden Dienst aufzurufen.
+    description: ''
+- uid: ext_storage-blob-preview_az_storage_blob_lease_renew
+  name: az storage blob lease renew
+  summary: Erneuern Sie die Lease.
+  description: ''
+  syntax: >-
+    az storage blob lease renew --blob-name
+                                --container-name
+                                --lease-id
+                                [--account-key]
+                                [--account-name]
+                                [--auth-mode {key, login}]
+                                [--connection-string]
+                                [--if-match]
+                                [--if-modified-since]
+                                [--if-none-match]
+                                [--if-unmodified-since]
+                                [--sas-token]
+                                [--tags-condition]
+                                [--timeout]
+  examples:
+  - summary: Erneuern Sie die Lease.
+    syntax: az storage blob lease renew -b myblob -c mycontainer --lease-id "32fe23cd-4779-4919-adb3-357e76c9b1bb" --account-name mystorageaccount --account-key 0000-0000
+  requiredParameters:
+  - isRequired: true
+    name: --blob-name -b
+    summary: Der BLOB-Name.
+    description: ''
+  - isRequired: true
+    name: --container-name -c
+    summary: Der Containername
+    description: ''
+  - isRequired: true
+    name: --lease-id
+    summary: Erforderlich, wenn das BLOB über eine aktive Lease verfügt.
+    description: ''
+  optionalParameters:
+  - name: --account-key
+    summary: 'Speicherkontoschlüssel Muss in Verbindung mit dem Speicherkonto Namen verwendet werden. Umgebungsvariable: AZURE_STORAGE_KEY.'
+    description: ''
+  - name: --account-name
+    summary: 'Name des Speicherkontos Verwandte Umgebungsvariable: AZURE_STORAGE_ACCOUNT. Muss in Verbindung mit dem Speicherkonto Schlüssel oder einem SAS-Token verwendet werden. Wenn keines der beiden vorhanden ist, versucht der Befehl, den Speicherkonto Schlüssel mithilfe des authentifizierten Azure-Kontos abzufragen. Wenn eine große Anzahl von Speicher Befehlen ausgeführt wird, kann das API-Kontingent erreichen.'
+    description: ''
+  - name: --auth-mode
+    parameterValueGroup: key, login
+    summary: 'Der Modus, in dem der Befehl ausgeführt werden soll. der Modus "Anmeldung" verwendet direkt Ihre Anmelde Informationen für die Authentifizierung. Der Legacy Modus "Schlüssel" versucht, einen Kontoschlüssel abzufragen, wenn keine Authentifizierungs Parameter für das Konto bereitgestellt werden. Umgebungsvariable: AZURE_STORAGE_AUTH_MODE.'
+    description: ''
+  - name: --connection-string
+    summary: 'Verbindungs Zeichenfolge des Speicher Kontos. Umgebungsvariable: AZURE_STORAGE_CONNECTION_STRING.'
+    description: ''
+  - name: --if-match
+    summary: Ein ETag-Wert oder das Platzhalter Zeichen ( \* ). Mit diesem Header legen Sie fest, dass der Vorgang nur ausgeführt wird, wenn das ETag der Ressource mit dem angegebenen Wert übereinstimmt.
+    description: ''
+  - name: --if-modified-since
+    summary: Nur starten, wenn seit dem angegebenen UTC-DateTime-Wert (Y-m-d't ' h:m ' Z ') geändert wurde.
+    description: ''
+  - name: --if-none-match
+    summary: Ein ETag-Wert oder das Platzhalter Zeichen ( \* ). Mit diesem Header legen Sie fest, dass der Vorgang nur ausgeführt wird, wenn das ETag der Ressource nicht mit dem angegebenen Wert übereinstimmt. Geben Sie das Platzhalter Zeichen ( \* ) an, um den Vorgang nur dann auszuführen, wenn die Ressource nicht vorhanden ist, und führen Sie den Vorgang aus, falls vorhanden.
+    description: ''
+  - name: --if-unmodified-since
+    summary: Nur starten, wenn seit dem angegebenen UTC-DateTime-Wert (Y-m-d't ' h:m ' Z ') geändert wurde.
+    description: ''
+  - name: --sas-token
+    summary: 'Eine Shared Access Signature (SAS). Muss in Verbindung mit dem Speicherkonto Namen verwendet werden. Umgebungsvariable: AZURE_STORAGE_SAS_TOKEN.'
+    description: ''
+  - name: --tags-condition
+    summary: Geben Sie eine SQL-WHERE-Klausel für blobtags an, die nur für BLOBs mit einem übereinstimmenden Wert verwendet wird.
+    description: ''
+  - name: --timeout
+    summary: Anforderungs Timeout in Sekunden. Gilt für jeden Dienst aufzurufen.
+    description: ''
+commands:
+- ext_storage-blob-preview_az_storage_blob_lease_acquire
+- ext_storage-blob-preview_az_storage_blob_lease_break
+- ext_storage-blob-preview_az_storage_blob_lease_change
+- ext_storage-blob-preview_az_storage_blob_lease_release
+- ext_storage-blob-preview_az_storage_blob_lease_renew
+globalParameters:
+- name: --debug
+  summary: Ausführlichkeit der Protokollierung erhöhen, um alle Debugprotokolle anzuzeigen.
+- name: --help -h
+  summary: Zeigen Sie diese Hilfemeldung an, und schließen Sie sie.
+- name: --only-show-errors
+  summary: Nur Fehler anzeigen und Warnungen unterdrücken.
+- name: --output -o
+  defaultValue: json
+  parameterValueGroup: json, jsonc, table, tsv
+  summary: Ausgabeformat.
+- name: --query
+  summary: JMESPath-Abfragezeichenfolge. Weitere Informationen und Beispiele finden Sie unter <a href="http://jmespath.org/">http://jmespath.org/</a>.
+- name: --verbose
+  summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
+metadata:
+  description: Verwalten von speicherblob-Leases.
+  ms.openlocfilehash: 967544c9136d207620c6f41cdc9fedb6ca150d18
+  ms.sourcegitcommit: bd2dbc80328936dadd211764d25c32a14fc58083
+  ms.translationtype: MT
+  ms.contentlocale: de-DE
+  ms.lasthandoff: 01/04/2021
+  ms.locfileid: "102898807"
