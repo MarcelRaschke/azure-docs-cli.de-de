@@ -1,0 +1,170 @@
+### YamlMime:AzureCLIGroup
+uid: az_keyvault_security_domain
+name: az keyvault security-domain
+summary: Verwalten von Sicherheits Domänen Vorgängen.
+description: ''
+directCommands:
+- uid: az_keyvault_security_domain_download
+  name: az keyvault security-domain download
+  summary: Laden Sie die Sicherheits Domänen Datei aus dem HSM herunter.
+  description: ''
+  syntax: >-
+    az keyvault security-domain download --sd-quorum
+                                         --sd-wrapping-keys
+                                         --security-domain-file
+                                         [--hsm-name]
+                                         [--id]
+                                         [--subscription]
+  examples:
+  - summary: Download der Sicherheitsdomäne (N = 3, M = 2).
+    syntax: az keyvault security-domain download --hsm-name MyHSM --security-domain-file "{SD_FILE_NAME}" --sd-quorum 2 --sd-wrapping-keys "{PEM_PUBLIC_KEY1_FILE_NAME}" "{PEM_PUBLIC_KEY2_FILE_NAME}" "{PEM_PUBLIC_KEY3_FILE_NAME}"
+  requiredParameters:
+  - isRequired: true
+    name: --sd-quorum
+    summary: Die Mindestanzahl von Freigaben, die zum Entschlüsseln der Sicherheitsdomäne für die Wiederherstellung erforderlich sind.
+    description: ''
+  - isRequired: true
+    name: --sd-wrapping-keys
+    summary: Durch Leerzeichen getrennte Dateipfade zu PEM-Dateien, die öffentliche Schlüssel enthalten.
+    description: ''
+  - isRequired: true
+    name: --security-domain-file
+    summary: Pfad zu einer Datei, in der das von diesem Befehl zurückgegebene JSON-BLOB gespeichert wird.
+    description: ''
+  optionalParameters:
+  - name: --hsm-name
+    summary: Der Name des HSM. Kann weggelassen werden, wenn--ID angegeben ist.
+    description: ''
+  - name: --id
+    summary: Die ID des HSM.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/keyvault/_help.py
+- uid: az_keyvault_security_domain_init_recovery
+  name: az keyvault security-domain init-recovery
+  summary: Rufen Sie den Exchange-Schlüssel des HSM ab.
+  description: ''
+  syntax: >-
+    az keyvault security-domain init-recovery --sd-exchange-key
+                                              [--hsm-name]
+                                              [--id]
+                                              [--subscription]
+  examples:
+  - summary: Rufen Sie den Exchange-Schlüssel ab und speichern Sie ihn.
+    syntax: az keyvault security-domain init-recovery --hsm-name MyHSM --sd-exchange-key "{PATH_TO_RESTORE}"
+  requiredParameters:
+  - isRequired: true
+    name: --sd-exchange-key
+    summary: Lokaler Dateipfad zum Speichern des exportierten Schlüssels.
+    description: ''
+  optionalParameters:
+  - name: --hsm-name
+    summary: Der Name des HSM. Kann weggelassen werden, wenn--ID angegeben ist.
+    description: ''
+  - name: --id
+    summary: Die ID des HSM.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/keyvault/_help.py
+- uid: az_keyvault_security_domain_upload
+  name: az keyvault security-domain upload
+  summary: Beginnen Sie mit der Wiederherstellung des HSM.
+  description: ''
+  syntax: >-
+    az keyvault security-domain upload --sd-exchange-key
+                                       --sd-file
+                                       --sd-wrapping-keys
+                                       [--hsm-name]
+                                       [--id]
+                                       [--no-wait]
+                                       [--passwords]
+                                       [--subscription]
+  examples:
+  - summary: Sicherheits Domänen Upload (M = 2).
+    syntax: az keyvault security-domain upload --hsm-name MyHSM --sd-file "{SD_TRANSFER_FILE}" --sd-exchange-key "{PEM_FILE_NAME}" --sd-wrapping-keys "{PEM_PRIVATE_KEY1_FILE_NAME}" "{PEM_PRIVATE_KEY2_FILE_NAME}"
+  requiredParameters:
+  - isRequired: true
+    name: --sd-exchange-key
+    summary: Der Exchange-Schlüssel für die Sicherheitsdomäne.
+    description: ''
+  - isRequired: true
+    name: --sd-file
+    summary: Diese Datei enthält die Sicherheitsdomäne, die mithilfe der im Sicherheitsdomäne Initialisierungs Befehl heruntergeladenen SD Exchange-Datei verschlüsselt wurde.
+    description: ''
+  - isRequired: true
+    name: --sd-wrapping-keys
+    summary: Durch Leerzeichen getrennte Dateipfade zu PEM-Dateien, die private Schlüssel enthalten.
+    description: ''
+  optionalParameters:
+  - name: --hsm-name
+    summary: Der Name des HSM. Kann weggelassen werden, wenn--ID angegeben ist.
+    description: ''
+  - name: --id
+    summary: Die ID des HSM.
+    description: ''
+  - name: --no-wait
+    summary: Nicht auf den Abschluss lang andauernder Vorgänge warten
+    description: ''
+  - name: --passwords
+    summary: Durch Leerzeichen getrennte Kenn Wort Liste für--SD-Wrapping-Keys. Die Befehlszeilenschnittstelle entspricht Ihnen in der angegebenen Reihenfolge. Kann weggelassen werden, wenn Ihre Schlüssel keinen Kenn Wort Schutz aufweisen.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/keyvault/_help.py
+- uid: az_keyvault_security_domain_wait
+  name: az keyvault security-domain wait
+  summary: Platzieren Sie die CLI in einem Wartezustand, bis der HSM-Sicherheits Domänen Vorgang abgeschlossen ist.
+  description: ''
+  syntax: >-
+    az keyvault security-domain wait [--hsm-name]
+                                     [--id]
+                                     [--subscription]
+  examples:
+  - summary: Halten Sie die CLI an, bis der Sicherheits Domänen Vorgang abgeschlossen ist.
+    syntax: az keyvault security-domain wait --hsm-name MyHSM
+  optionalParameters:
+  - name: --hsm-name
+    summary: Der Name des HSM. Kann weggelassen werden, wenn--ID angegeben ist.
+    description: ''
+  - name: --id
+    summary: Die ID des HSM.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/keyvault/_help.py
+commands:
+- az_keyvault_security_domain_download
+- az_keyvault_security_domain_init_recovery
+- az_keyvault_security_domain_upload
+- az_keyvault_security_domain_wait
+globalParameters:
+- name: --debug
+  summary: Ausführlichkeit der Protokollierung erhöhen, um alle Debugprotokolle anzuzeigen.
+- name: --help -h
+  summary: Zeigen Sie diese Hilfemeldung an, und schließen Sie sie.
+- name: --only-show-errors
+  summary: Nur Fehler anzeigen und Warnungen unterdrücken.
+- name: --output -o
+  defaultValue: json
+  parameterValueGroup: json, jsonc, table, tsv
+  summary: Ausgabeformat.
+- name: --query
+  summary: JMESPath-Abfragezeichenfolge. Weitere Informationen und Beispiele finden Sie unter <a href="http://jmespath.org/">http://jmespath.org/</a>.
+- name: --verbose
+  summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
+metadata:
+  doc_source_url_repo: https://github.com/Azure/azure-cli/blob/dev/
+  ms.date: 12/14/2020
+  description: Verwalten von Sicherheits Domänen Vorgängen.
+  ms.openlocfilehash: 4724097837df346d177c0f7b7ece0f63b11c4568
+  ms.sourcegitcommit: 206495efe9707e52f6a3dc121133f26651f23f59
+  ms.translationtype: MT
+  ms.contentlocale: de-DE
+  ms.lasthandoff: 12/30/2020
+  ms.locfileid: "102895097"

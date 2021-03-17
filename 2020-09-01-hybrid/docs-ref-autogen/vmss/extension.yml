@@ -1,0 +1,254 @@
+### YamlMime:AzureCLIGroup
+uid: az_vmss_extension
+name: az vmss extension
+summary: Verwalten von Erweiterungen für eine VM-Skalierungs Gruppe.
+description: ''
+directCommands:
+- uid: az_vmss_extension_delete
+  name: az vmss extension delete
+  summary: Löschen Sie eine Erweiterung aus einer VMSS.
+  description: ''
+  syntax: >-
+    az vmss extension delete --name
+                             --resource-group
+                             --vmss-name
+                             [--no-wait]
+                             [--subscription]
+  examples:
+  - summary: Löschen Sie eine Erweiterung aus einer VMSS. automatisch generierten
+    syntax: az vmss extension delete --name MyExtension --resource-group MyResourceGroup --vmss-name MyVmss
+  requiredParameters:
+  - isRequired: true
+    name: --name -n
+    summary: Name der Erweiterung.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - isRequired: true
+    name: --vmss-name
+    summary: Name der Skalierungs Gruppe. Sie können den Standard mit konfigurieren `az configure --defaults vmss=<name>` .
+    description: ''
+  optionalParameters:
+  - name: --no-wait
+    summary: Nicht auf den Abschluss lang andauernder Vorgänge warten
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/vm/_help.py
+- uid: az_vmss_extension_list
+  name: az vmss extension list
+  summary: Listet Erweiterungen auf, die einem VMSS zugeordnet sind.
+  description: ''
+  syntax: >-
+    az vmss extension list --resource-group
+                           --vmss-name
+                           [--query-examples]
+                           [--subscription]
+  examples:
+  - summary: Listet Erweiterungen auf, die einem VMSS zugeordnet sind. automatisch generierten
+    syntax: az vmss extension list --resource-group MyResourceGroup --vmss-name MyVmss
+  requiredParameters:
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - isRequired: true
+    name: --vmss-name
+    summary: Name der Skalierungs Gruppe. Sie können den Standard mit konfigurieren `az configure --defaults vmss=<name>` .
+    description: ''
+  optionalParameters:
+  - name: --query-examples
+    summary: Empfehlen Sie die jmespath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und Sie nach dem Abfrage Parameter in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positions Schlüsselwörter hinzufügen, um Vorschläge auf der Grundlage dieser Schlüsselwörter zu geben.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/vm/_help.py
+- uid: az_vmss_extension_set
+  name: az vmss extension set
+  summary: Fügen Sie einer VMSS eine Erweiterung hinzu, oder aktualisieren Sie eine vorhandene Erweiterung.
+  description: Erhalten Sie Erweiterungs Details von `az vmss extension image list` .
+  syntax: >-
+    az vmss extension set --name
+                          --publisher
+                          --resource-group
+                          --vmss-name
+                          [--enable-auto-upgrade {false, true}]
+                          [--extension-instance-name]
+                          [--force-update]
+                          [--no-auto-upgrade {false, true}]
+                          [--no-auto-upgrade-minor-version {false, true}]
+                          [--no-wait]
+                          [--protected-settings]
+                          [--provision-after-extensions]
+                          [--settings]
+                          [--subscription]
+                          [--version]
+  examples:
+  - summary: Legen Sie eine Erweiterung fest, die von zwei zuvor festgelegten Erweiterungen abhängig ist. Das heißt, wenn eine VMSS-Instanz erstellt oder ein reimaging durchgeführt wird, wird die CustomScript-Erweiterung erst bereitgestellt, nachdem alle Erweiterungen, von denen Sie abhängig ist, bereitgestellt wurden. Die Erweiterung muss nicht von den anderen Erweiterungen für erforderliche Konfigurationen abhängen.
+    syntax: >-
+      az vmss extension set --vmss-name my-vmss --name customScript --resource-group my-group \
+          --version 2.0 --publisher Microsoft.Azure.Extensions \
+          --provision-after-extensions NetworkWatcherAgentLinux VMAccessForLinux  \
+          --settings '{"commandToExecute": "echo testing"}'
+  - summary: Fügen Sie eine Erweiterung hinzu, und aktivieren Sie das automatische Upgrade durch die Plattform, wenn eine neuere Version der Erweiterung verfügbar ist.
+    syntax: az vmss extension set -n extName --publisher publisher --vmss-name my-vmss -g my-group \ --enable-auto-upgrade true
+  requiredParameters:
+  - isRequired: true
+    name: --name -n
+    summary: Name der Erweiterung.
+    description: ''
+    valueFrom: az vm extension image list
+  - isRequired: true
+    name: --publisher
+    summary: Der Name des Erweiterungs Verlegers.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - isRequired: true
+    name: --vmss-name
+    summary: Name der Skalierungs Gruppe. Sie können den Standard mit konfigurieren `az configure --defaults vmss=<name>` .
+    description: ''
+  optionalParameters:
+  - name: --enable-auto-upgrade
+    parameterValueGroup: false, true
+    summary: Geben Sie an, dass die Erweiterung automatisch von der Plattform aktualisiert werden soll, wenn eine neuere Version der Erweiterung verfügbar ist.
+    description: ''
+  - name: --extension-instance-name
+    summary: 'Name der Erweiterungs Instanz, die angepasst werden kann. Standard: Name der Erweiterung.'
+    description: ''
+  - name: --force-update
+    summary: Erzwingen der Aktualisierung von, auch wenn die Erweiterungs Konfiguration nicht geändert wurde.
+    description: ''
+  - name: --no-auto-upgrade
+    parameterValueGroup: false, true
+    summary: Wenn diese Option festgelegt ist, wählt der Erweiterungs Dienst nicht automatisch die neueste neben Version aus, auch wenn die Erweiterung erneut bereitgestellt wird.
+    description: ''
+  - name: --no-auto-upgrade-minor-version
+    parameterValueGroup: false, true
+    summary: Wenn diese Option festgelegt ist, wählt der Erweiterungs Dienst nicht automatisch die neueste neben Version aus, auch wenn die Erweiterung erneut bereitgestellt wird.
+    description: ''
+  - name: --no-wait
+    summary: Nicht auf den Abschluss lang andauernder Vorgänge warten
+    description: ''
+  - name: --protected-settings
+    summary: Geschützte Einstellungen im JSON-Format für vertrauliche Informationen wie Anmelde Informationen. Ein JSON-Dateipfad wird ebenfalls akzeptiert.
+    description: ''
+  - name: --provision-after-extensions
+    summary: Durch Leerzeichen getrennte Liste mit Erweiterungs Namen, nach der diese Extension bereitgestellt werden soll. Diese Erweiterungen müssen bereits auf dem virtuellen Computer festgelegt werden.
+    description: ''
+  - name: --settings
+    summary: Erweiterungs Einstellungen im JSON-Format. Ein JSON-Dateipfad wird ebenfalls akzeptiert.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  - name: --version
+    summary: Die Version der Erweiterung. Um die Erweiterungs Version an diesen Wert anzuheften, geben Sie "--No-Auto-Upgrade-Minor-Version" an.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/vm/_help.py
+- uid: az_vmss_extension_show
+  name: az vmss extension show
+  summary: Hiermit werden Details zu einer VMSS-Erweiterung angezeigt.
+  description: ''
+  syntax: >-
+    az vmss extension show --name
+                           --resource-group
+                           --vmss-name
+                           [--query-examples]
+                           [--subscription]
+  examples:
+  - summary: Hiermit werden Details zu einer VMSS-Erweiterung angezeigt. automatisch generierten
+    syntax: az vmss extension show --name MyExtension --resource-group MyResourceGroup --vmss-name MyVmss
+  requiredParameters:
+  - isRequired: true
+    name: --name -n
+    summary: Name der Erweiterung.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - isRequired: true
+    name: --vmss-name
+    summary: Name der Skalierungs Gruppe. Sie können den Standard mit konfigurieren `az configure --defaults vmss=<name>` .
+    description: ''
+  optionalParameters:
+  - name: --query-examples
+    summary: Empfehlen Sie die jmespath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und Sie nach dem Abfrage Parameter in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positions Schlüsselwörter hinzufügen, um Vorschläge auf der Grundlage dieser Schlüsselwörter zu geben.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/vm/_help.py
+- uid: az_vmss_extension_upgrade
+  name: az vmss extension upgrade
+  summary: Aktualisieren Sie alle Erweiterungen für alle VMSS-Instanzen auf die neueste Version.
+  description: ''
+  syntax: >-
+    az vmss extension upgrade [--ids]
+                              [--name]
+                              [--no-wait]
+                              [--resource-group]
+                              [--subscription]
+  examples:
+  - summary: Aktualisieren Sie alle Erweiterungen auf die neueste Version.
+    syntax: az vmss extension upgrade -g MyResourceGroup -n MyVmss
+  optionalParameters:
+  - name: --ids
+    summary: Mindestens eine Ressourcen-ID (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID handeln, die alle Informationen von Ressourcen-ID-Argumenten enthält. Sie sollten entweder--IDs oder andere Ressourcen-ID-Argumente angeben.
+    description: ''
+  - name: --name -n
+    summary: Name der Skalierungs Gruppe. Sie können den Standard mit konfigurieren `az configure --defaults vmss=<name>` .
+    description: ''
+  - name: --no-wait
+    summary: Nicht auf den Abschluss lang andauernder Vorgänge warten
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/vm/_help.py
+commands:
+- az_vmss_extension_delete
+- az_vmss_extension_image
+- az_vmss_extension_image_list
+- az_vmss_extension_image_list_names
+- az_vmss_extension_image_list_versions
+- az_vmss_extension_image_show
+- az_vmss_extension_list
+- az_vmss_extension_set
+- az_vmss_extension_show
+- az_vmss_extension_upgrade
+globalParameters:
+- name: --debug
+  summary: Ausführlichkeit der Protokollierung erhöhen, um alle Debugprotokolle anzuzeigen.
+- name: --help -h
+  summary: Zeigen Sie diese Hilfemeldung an, und schließen Sie sie.
+- name: --only-show-errors
+  summary: Nur Fehler anzeigen und Warnungen unterdrücken.
+- name: --output -o
+  defaultValue: json
+  parameterValueGroup: json, jsonc, table, tsv
+  summary: Ausgabeformat.
+- name: --query
+  summary: JMESPath-Abfragezeichenfolge. Weitere Informationen und Beispiele finden Sie unter <a href="http://jmespath.org/">http://jmespath.org/</a>.
+- name: --verbose
+  summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
+metadata:
+  doc_source_url_repo: https://github.com/Azure/azure-cli/blob/dev/
+  ms.date: 02/05/2021
+  description: Verwalten von Erweiterungen für eine VM-Skalierungs Gruppe.
+  ms.openlocfilehash: 3cceda5fd2bf0da563be22bea32b728d5b2c25fb
+  ms.sourcegitcommit: df9d6597535ef9103775afbaee5a8282e0e218ee
+  ms.translationtype: MT
+  ms.contentlocale: de-DE
+  ms.lasthandoff: 02/09/2021
+  ms.locfileid: "102965128"
