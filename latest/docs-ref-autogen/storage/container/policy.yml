@@ -1,32 +1,34 @@
 ### YamlMime:AzureCLIGroup
-uid: az_storage_table_policy
-name: az storage table policy
-summary: Verwalten von Richtlinien für den gemeinsamen Zugriff einer Speicher Tabelle.
+uid: az_storage_container_policy
+name: az storage container policy
+summary: Verwalten von gespeicherten Container Zugriffsrichtlinien.
 description: ''
 directCommands:
-- uid: az_storage_table_policy_create
-  name: az storage table policy create
+- uid: az_storage_container_policy_create
+  name: az storage container policy create
   summary: Erstellen Sie eine gespeicherte Zugriffs Richtlinie für das enthaltende Objekt.
   description: ''
   syntax: >-
-    az storage table policy create --name
-                                   --table-name
-                                   [--account-key]
-                                   [--account-name]
-                                   [--connection-string]
-                                   [--expiry]
-                                   [--permissions]
-                                   [--sas-token]
-                                   [--start]
-                                   [--subscription]
+    az storage container policy create --container-name
+                                       --name
+                                       [--account-key]
+                                       [--account-name]
+                                       [--auth-mode {key, login}]
+                                       [--connection-string]
+                                       [--expiry]
+                                       [--lease-id]
+                                       [--permissions]
+                                       [--sas-token]
+                                       [--start]
+                                       [--subscription]
   requiredParameters:
+  - isRequired: true
+    name: --container-name -c
+    summary: Der Containername
+    description: ''
   - isRequired: true
     name: --name -n
     summary: Der Name der gespeicherten Zugriffs Richtlinie.
-    description: ''
-  - isRequired: true
-    name: --table-name -t
-    summary: Der Containername
     description: ''
   optionalParameters:
   - name: --account-key
@@ -35,14 +37,21 @@ directCommands:
   - name: --account-name
     summary: 'Name des Speicherkontos Verwandte Umgebungsvariable: AZURE_STORAGE_ACCOUNT. Muss in Verbindung mit dem Speicherkonto Schlüssel oder einem SAS-Token verwendet werden. Wenn keines der beiden vorhanden ist, versucht der Befehl, den Speicherkonto Schlüssel mithilfe des authentifizierten Azure-Kontos abzufragen. Wenn eine große Anzahl von Speicher Befehlen ausgeführt wird, kann das API-Kontingent erreichen.'
     description: ''
+  - name: --auth-mode
+    parameterValueGroup: key, login
+    summary: 'Der Modus, in dem der Befehl ausgeführt werden soll. der Modus "Anmeldung" verwendet direkt Ihre Anmelde Informationen für die Authentifizierung. Der Legacy Modus "Schlüssel" versucht, einen Kontoschlüssel abzufragen, wenn keine Authentifizierungs Parameter für das Konto bereitgestellt werden. Umgebungsvariable: AZURE_STORAGE_AUTH_MODE.'
+    description: ''
   - name: --connection-string
     summary: 'Verbindungs Zeichenfolge des Speicher Kontos. Umgebungsvariable: AZURE_STORAGE_CONNECTION_STRING.'
     description: ''
   - name: --expiry
     summary: "Ablaufdatum UTC-DateTime in (Y-m-d't ' h:m: s ')."
     description: ''
+  - name: --lease-id
+    summary: Die Container-Lease-ID.
+    description: ''
   - name: --permissions
-    summary: 'Zulässige Werte: (r) EAD/Query (a) dd (u) pdate (d)-Elete. Kann kombiniert werden.'
+    summary: 'Zulässige Werte: (a) dd (c) reate (d)-(l) ist (r) EAD (w)-Ritus. Kann kombiniert werden.'
     description: ''
   - name: --sas-token
     summary: 'Eine Shared Access Signature (SAS). Muss in Verbindung mit dem Speicherkonto Namen verwendet werden. Umgebungsvariable: AZURE_STORAGE_SAS_TOKEN.'
@@ -54,26 +63,28 @@ directCommands:
     summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
     description: ''
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/storage/_help.py
-- uid: az_storage_table_policy_delete
-  name: az storage table policy delete
+- uid: az_storage_container_policy_delete
+  name: az storage container policy delete
   summary: Löschen Sie eine gespeicherte Zugriffs Richtlinie für ein enthaltende Objekt.
   description: ''
   syntax: >-
-    az storage table policy delete --name
-                                   --table-name
-                                   [--account-key]
-                                   [--account-name]
-                                   [--connection-string]
-                                   [--sas-token]
-                                   [--subscription]
+    az storage container policy delete --container-name
+                                       --name
+                                       [--account-key]
+                                       [--account-name]
+                                       [--auth-mode {key, login}]
+                                       [--connection-string]
+                                       [--lease-id]
+                                       [--sas-token]
+                                       [--subscription]
   requiredParameters:
+  - isRequired: true
+    name: --container-name -c
+    summary: Der Containername
+    description: ''
   - isRequired: true
     name: --name -n
     summary: Der Name der gespeicherten Zugriffs Richtlinie.
-    description: ''
-  - isRequired: true
-    name: --table-name -t
-    summary: Der Containername
     description: ''
   optionalParameters:
   - name: --account-key
@@ -82,8 +93,15 @@ directCommands:
   - name: --account-name
     summary: 'Name des Speicherkontos Verwandte Umgebungsvariable: AZURE_STORAGE_ACCOUNT. Muss in Verbindung mit dem Speicherkonto Schlüssel oder einem SAS-Token verwendet werden. Wenn keines der beiden vorhanden ist, versucht der Befehl, den Speicherkonto Schlüssel mithilfe des authentifizierten Azure-Kontos abzufragen. Wenn eine große Anzahl von Speicher Befehlen ausgeführt wird, kann das API-Kontingent erreichen.'
     description: ''
+  - name: --auth-mode
+    parameterValueGroup: key, login
+    summary: 'Der Modus, in dem der Befehl ausgeführt werden soll. der Modus "Anmeldung" verwendet direkt Ihre Anmelde Informationen für die Authentifizierung. Der Legacy Modus "Schlüssel" versucht, einen Kontoschlüssel abzufragen, wenn keine Authentifizierungs Parameter für das Konto bereitgestellt werden. Umgebungsvariable: AZURE_STORAGE_AUTH_MODE.'
+    description: ''
   - name: --connection-string
     summary: 'Verbindungs Zeichenfolge des Speicher Kontos. Umgebungsvariable: AZURE_STORAGE_CONNECTION_STRING.'
+    description: ''
+  - name: --lease-id
+    summary: Die Container-Lease-ID.
     description: ''
   - name: --sas-token
     summary: 'Eine Shared Access Signature (SAS). Muss in Verbindung mit dem Speicherkonto Namen verwendet werden. Umgebungsvariable: AZURE_STORAGE_SAS_TOKEN.'
@@ -92,21 +110,23 @@ directCommands:
     summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
     description: ''
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/storage/_help.py
-- uid: az_storage_table_policy_list
-  name: az storage table policy list
+- uid: az_storage_container_policy_list
+  name: az storage container policy list
   summary: Auflisten gespeicherter Zugriffsrichtlinien für ein enthaltende Objekt.
   description: ''
   syntax: >-
-    az storage table policy list --table-name
-                                 [--account-key]
-                                 [--account-name]
-                                 [--connection-string]
-                                 [--query-examples]
-                                 [--sas-token]
-                                 [--subscription]
+    az storage container policy list --container-name
+                                     [--account-key]
+                                     [--account-name]
+                                     [--auth-mode {key, login}]
+                                     [--connection-string]
+                                     [--lease-id]
+                                     [--query-examples]
+                                     [--sas-token]
+                                     [--subscription]
   requiredParameters:
   - isRequired: true
-    name: --table-name -t
+    name: --container-name -c
     summary: Der Containername
     description: ''
   optionalParameters:
@@ -116,8 +136,15 @@ directCommands:
   - name: --account-name
     summary: 'Name des Speicherkontos Verwandte Umgebungsvariable: AZURE_STORAGE_ACCOUNT. Muss in Verbindung mit dem Speicherkonto Schlüssel oder einem SAS-Token verwendet werden. Wenn keines der beiden vorhanden ist, versucht der Befehl, den Speicherkonto Schlüssel mithilfe des authentifizierten Azure-Kontos abzufragen. Wenn eine große Anzahl von Speicher Befehlen ausgeführt wird, kann das API-Kontingent erreichen.'
     description: ''
+  - name: --auth-mode
+    parameterValueGroup: key, login
+    summary: 'Der Modus, in dem der Befehl ausgeführt werden soll. der Modus "Anmeldung" verwendet direkt Ihre Anmelde Informationen für die Authentifizierung. Der Legacy Modus "Schlüssel" versucht, einen Kontoschlüssel abzufragen, wenn keine Authentifizierungs Parameter für das Konto bereitgestellt werden. Umgebungsvariable: AZURE_STORAGE_AUTH_MODE.'
+    description: ''
   - name: --connection-string
     summary: 'Verbindungs Zeichenfolge des Speicher Kontos. Umgebungsvariable: AZURE_STORAGE_CONNECTION_STRING.'
+    description: ''
+  - name: --lease-id
+    summary: Die Container-Lease-ID.
     description: ''
   - name: --query-examples
     summary: Empfehlen Sie die jmespath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und Sie nach dem Abfrage Parameter in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positions Schlüsselwörter hinzufügen, um Vorschläge auf der Grundlage dieser Schlüsselwörter zu geben.
@@ -129,27 +156,29 @@ directCommands:
     summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
     description: ''
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/storage/_help.py
-- uid: az_storage_table_policy_show
-  name: az storage table policy show
+- uid: az_storage_container_policy_show
+  name: az storage container policy show
   summary: Hiermit wird eine gespeicherte Zugriffs Richtlinie für ein enthaltende Objekt angezeigt.
   description: ''
   syntax: >-
-    az storage table policy show --name
-                                 --table-name
-                                 [--account-key]
-                                 [--account-name]
-                                 [--connection-string]
-                                 [--query-examples]
-                                 [--sas-token]
-                                 [--subscription]
+    az storage container policy show --container-name
+                                     --name
+                                     [--account-key]
+                                     [--account-name]
+                                     [--auth-mode {key, login}]
+                                     [--connection-string]
+                                     [--lease-id]
+                                     [--query-examples]
+                                     [--sas-token]
+                                     [--subscription]
   requiredParameters:
+  - isRequired: true
+    name: --container-name -c
+    summary: Der Containername
+    description: ''
   - isRequired: true
     name: --name -n
     summary: Der Name der gespeicherten Zugriffs Richtlinie.
-    description: ''
-  - isRequired: true
-    name: --table-name -t
-    summary: Der Containername
     description: ''
   optionalParameters:
   - name: --account-key
@@ -158,8 +187,15 @@ directCommands:
   - name: --account-name
     summary: 'Name des Speicherkontos Verwandte Umgebungsvariable: AZURE_STORAGE_ACCOUNT. Muss in Verbindung mit dem Speicherkonto Schlüssel oder einem SAS-Token verwendet werden. Wenn keines der beiden vorhanden ist, versucht der Befehl, den Speicherkonto Schlüssel mithilfe des authentifizierten Azure-Kontos abzufragen. Wenn eine große Anzahl von Speicher Befehlen ausgeführt wird, kann das API-Kontingent erreichen.'
     description: ''
+  - name: --auth-mode
+    parameterValueGroup: key, login
+    summary: 'Der Modus, in dem der Befehl ausgeführt werden soll. der Modus "Anmeldung" verwendet direkt Ihre Anmelde Informationen für die Authentifizierung. Der Legacy Modus "Schlüssel" versucht, einen Kontoschlüssel abzufragen, wenn keine Authentifizierungs Parameter für das Konto bereitgestellt werden. Umgebungsvariable: AZURE_STORAGE_AUTH_MODE.'
+    description: ''
   - name: --connection-string
     summary: 'Verbindungs Zeichenfolge des Speicher Kontos. Umgebungsvariable: AZURE_STORAGE_CONNECTION_STRING.'
+    description: ''
+  - name: --lease-id
+    summary: Die Container-Lease-ID.
     description: ''
   - name: --query-examples
     summary: Empfehlen Sie die jmespath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und Sie nach dem Abfrage Parameter in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positions Schlüsselwörter hinzufügen, um Vorschläge auf der Grundlage dieser Schlüsselwörter zu geben.
@@ -171,29 +207,31 @@ directCommands:
     summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
     description: ''
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/storage/_help.py
-- uid: az_storage_table_policy_update
-  name: az storage table policy update
+- uid: az_storage_container_policy_update
+  name: az storage container policy update
   summary: Legen Sie eine gespeicherte Zugriffs Richtlinie für ein enthaltende Objekt fest.
   description: ''
   syntax: >-
-    az storage table policy update --name
-                                   --table-name
-                                   [--account-key]
-                                   [--account-name]
-                                   [--connection-string]
-                                   [--expiry]
-                                   [--permissions]
-                                   [--sas-token]
-                                   [--start]
-                                   [--subscription]
+    az storage container policy update --container-name
+                                       --name
+                                       [--account-key]
+                                       [--account-name]
+                                       [--auth-mode {key, login}]
+                                       [--connection-string]
+                                       [--expiry]
+                                       [--lease-id]
+                                       [--permissions]
+                                       [--sas-token]
+                                       [--start]
+                                       [--subscription]
   requiredParameters:
+  - isRequired: true
+    name: --container-name -c
+    summary: Der Containername
+    description: ''
   - isRequired: true
     name: --name -n
     summary: Der Name der gespeicherten Zugriffs Richtlinie.
-    description: ''
-  - isRequired: true
-    name: --table-name -t
-    summary: Der Containername
     description: ''
   optionalParameters:
   - name: --account-key
@@ -201,6 +239,10 @@ directCommands:
     description: ''
   - name: --account-name
     summary: 'Name des Speicherkontos Verwandte Umgebungsvariable: AZURE_STORAGE_ACCOUNT. Muss in Verbindung mit dem Speicherkonto Schlüssel oder einem SAS-Token verwendet werden. Wenn keines der beiden vorhanden ist, versucht der Befehl, den Speicherkonto Schlüssel mithilfe des authentifizierten Azure-Kontos abzufragen. Wenn eine große Anzahl von Speicher Befehlen ausgeführt wird, kann das API-Kontingent erreichen.'
+    description: ''
+  - name: --auth-mode
+    parameterValueGroup: key, login
+    summary: 'Der Modus, in dem der Befehl ausgeführt werden soll. der Modus "Anmeldung" verwendet direkt Ihre Anmelde Informationen für die Authentifizierung. Der Legacy Modus "Schlüssel" versucht, einen Kontoschlüssel abzufragen, wenn keine Authentifizierungs Parameter für das Konto bereitgestellt werden. Umgebungsvariable: AZURE_STORAGE_AUTH_MODE.'
     description: ''
   - name: --connection-string
     summary: 'Verbindungs Zeichenfolge des Speicher Kontos. Umgebungsvariable: AZURE_STORAGE_CONNECTION_STRING.'
@@ -208,8 +250,11 @@ directCommands:
   - name: --expiry
     summary: "Ablaufdatum UTC-DateTime in (Y-m-d't ' h:m: s ')."
     description: ''
+  - name: --lease-id
+    summary: Die Container-Lease-ID.
+    description: ''
   - name: --permissions
-    summary: 'Zulässige Werte: (r) EAD/Query (a) dd (u) pdate (d)-Elete. Kann kombiniert werden.'
+    summary: 'Zulässige Werte: (a) dd (c) reate (d)-(l) ist (r) EAD (w)-Ritus. Kann kombiniert werden.'
     description: ''
   - name: --sas-token
     summary: 'Eine Shared Access Signature (SAS). Muss in Verbindung mit dem Speicherkonto Namen verwendet werden. Umgebungsvariable: AZURE_STORAGE_SAS_TOKEN.'
@@ -222,11 +267,11 @@ directCommands:
     description: ''
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/storage/_help.py
 commands:
-- az_storage_table_policy_create
-- az_storage_table_policy_delete
-- az_storage_table_policy_list
-- az_storage_table_policy_show
-- az_storage_table_policy_update
+- az_storage_container_policy_create
+- az_storage_container_policy_delete
+- az_storage_container_policy_list
+- az_storage_container_policy_show
+- az_storage_container_policy_update
 globalParameters:
 - name: --debug
   summary: Ausführlichkeit der Protokollierung erhöhen, um alle Debugprotokolle anzuzeigen.
@@ -245,10 +290,10 @@ globalParameters:
 metadata:
   doc_source_url_repo: https://github.com/Azure/azure-cli/blob/dev/
   ms.date: 02/26/2021
-  description: Verwalten von Richtlinien für den gemeinsamen Zugriff einer Speicher Tabelle.
-  ms.openlocfilehash: 1a5e44302e6678936fb276532c2580b8b071a46e
+  description: Verwalten von gespeicherten Container Zugriffsrichtlinien.
+  ms.openlocfilehash: 39c98c9c6a7dc367163a40e8ffce8173639a20e3
   ms.sourcegitcommit: f9e23f29c59c6957d3df4d5ca2f4425093e6fd80
   ms.translationtype: MT
   ms.contentlocale: de-DE
   ms.lasthandoff: 03/16/2021
-  ms.locfileid: "103505913"
+  ms.locfileid: "103496964"
