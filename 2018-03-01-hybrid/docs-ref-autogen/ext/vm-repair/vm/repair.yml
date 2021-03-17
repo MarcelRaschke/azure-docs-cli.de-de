@@ -1,0 +1,176 @@
+### YamlMime:AzureCLIGroup
+uid: ext_vm-repair_az_vm_repair
+name: az vm repair
+extensionInformation: >-
+  > [!Note]
+
+  > Diese Referenz ist Teil der **VM-Repair-** Erweiterung für Azure CLI und erfordert Version 2.0.67 oder höher.  Die Erweiterung wird automatisch installiert, wenn Sie den Befehl **AZ VM Repair** zum ersten Mal ausführen.  [Weitere Informationen zu Erweiterungen](https://docs.microsoft.com/en-us/cli/azure/azure-cli-extensions-overview)
+summary: Automatische Reparaturbefehle zur Problembehebung bei VMs
+description: Der VM-Reparatur Befehl ermöglicht es Azure-Benutzern, nicht Start fähige VMs selbst zu reparieren, indem Sie den Betriebssystem Datenträger der Quell-VM kopieren und an einen neu erstellten virtuellen Reparatur Computer anfügen.
+directCommands:
+- uid: ext_vm-repair_az_vm_repair_create
+  name: az vm repair create
+  summary: Erstellen Sie eine neue Reparatur-VM, und fügen Sie den kopierten Betriebssystem Datenträger der Quell-VM als Datenträger
+  description: ''
+  syntax: >-
+    az vm repair create --name
+                        --resource-group
+                        [--copy-disk-name]
+                        [--repair-group-name]
+                        [--repair-password]
+                        [--repair-username]
+                        [--repair-vm-name]
+                        [--unlock-encrypted-vm]
+  examples:
+  - summary: Erstellen einer Reparatur-VM
+    syntax: az vm repair create -g MyResourceGroup -n myVM --verbose
+  - summary: Erstellen einer Reparatur-VM und Festlegen der VM-Authentifizierung
+    syntax: az vm repair create -g MyResourceGroup -n myVM --repair-username username --repair-password password!234 --verbose
+  requiredParameters:
+  - isRequired: true
+    name: --name -n
+    summary: Der Name des virtuellen Computers. Sie können den Standard mit konfigurieren `az configure --defaults vm=<name>` .
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  optionalParameters:
+  - name: --copy-disk-name
+    summary: Name des Betriebssystem Datenträgers.
+    description: ''
+  - name: --repair-group-name
+    summary: Reparieren Sie den Ressourcengruppen Namen.
+    description: ''
+  - name: --repair-password
+    summary: Das Administrator Kennwort für die Reparatur-VM.
+    description: ''
+  - name: --repair-username
+    summary: Administrator Benutzername für Reparatur-VM.
+    description: ''
+  - name: --repair-vm-name
+    summary: Name der Reparatur-VM.
+    description: ''
+  - name: --unlock-encrypted-vm
+    summary: Option zum automatischen entsperren verschlüsselter VMS mithilfe der aktuellen Abonnement Authentifizierung.
+    description: ''
+- uid: ext_vm-repair_az_vm_repair_list_scripts
+  name: az vm repair list-scripts
+  summary: Auflisten der verfügbaren Skripts. Gefunden werden <a href="https://github.com/Azure/repair-script-library">https://github.com/Azure/repair-script-library</a> .
+  description: ''
+  syntax: az vm repair list-scripts
+  examples:
+  - summary: Auflisten von Skripts
+    syntax: az vm repair list-scripts --verbose
+  - summary: Nur Windows-Skripts auflisten.
+    syntax: az vm repair list-scripts --query "[?starts_with(id, 'win')]"
+  - summary: Listet Skripts mit Test in der Beschreibung auf.
+    syntax: az vm repair list-scripts --query "[?contains(description, 'test')]"
+- uid: ext_vm-repair_az_vm_repair_restore
+  name: az vm repair restore
+  summary: Ersetzen Sie den Betriebssystem-Datenträger der Quell-VM durch den Datenträger des virtuellen Computers
+  description: ''
+  syntax: >-
+    az vm repair restore --name
+                         --resource-group
+                         [--disk-name]
+                         [--repair-vm-id]
+                         [--yes]
+  examples:
+  - summary: 'Wiederherstellung von der Reparatur-VM: der Befehl wird automatisch nach "Repair-VM" suchen.'
+    syntax: az vm repair restore -g MyResourceGroup -n MyVM --verbose
+  - summary: Wiederherstellung von der VM zum Reparieren, angeben des wiederherzustellenden Datenträgers
+    syntax: az vm repair restore -g MyResourceGroup -n MyVM --disk-name MyDiskCopy --verbose
+  requiredParameters:
+  - isRequired: true
+    name: --name -n
+    summary: Der Name des virtuellen Computers. Sie können den Standard mit konfigurieren `az configure --defaults vm=<name>` .
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  optionalParameters:
+  - name: --disk-name
+    summary: Name des Festplatten Datenträgers. Standardmäßig wird der erste Datenträger in der Reparatur-VM verwendet.
+    description: ''
+  - name: --repair-vm-id
+    summary: Reparieren der VM-Ressourcen-ID.
+    description: ''
+  - name: --yes
+    summary: Löscht die Reparatur Ressourcen ohne Bestätigung.
+    description: ''
+- uid: ext_vm-repair_az_vm_repair_run
+  name: az vm repair run
+  summary: Führen Sie überprüfte Skripts von GitHub auf einem virtuellen Computer aus. "AZ VM Repair List-Scripts", um verfügbare Skripts anzuzeigen.
+  description: ''
+  syntax: >-
+    az vm repair run --name
+                     --resource-group
+                     [--custom-script-file]
+                     [--parameters]
+                     [--repair-vm-id]
+                     [--run-id]
+                     [--run-on-repair]
+  examples:
+  - summary: Führen Sie das Skript mit <Run-ID-> direkt auf dem virtuellen Computer aus.
+    syntax: az vm repair run -g MyResourceGroup -n MySourceWinVM --run-id win-hello-world --verbose
+  - summary: Führen Sie das Skript mit <Run-ID-> auf der verknüpften Reparatur-VM aus.
+    syntax: az vm repair run -g MyResourceGroup -n MySourceWinVM --run-id win-hello-world --run-on-repair --verbose
+  - summary: Führen Sie ein Skript mit Parametern auf dem virtuellen Computer aus.
+    syntax: az vm repair run -g MyResourceGroup -n MySourceWinVM --run-id win-hello-world --parameters hello=hi world=earth --verbose
+  - summary: Führen Sie ein lokales benutzerdefiniertes Skript auf dem virtuellen Computer aus.
+    syntax: az vm repair run -g MyResourceGroup -n MySourceWinVM --custom-script-file ./file.ps1 --verbose
+  requiredParameters:
+  - isRequired: true
+    name: --name -n
+    summary: Der Name des virtuellen Computers. Sie können den Standard mit konfigurieren `az configure --defaults vm=<name>` .
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  optionalParameters:
+  - name: --custom-script-file
+    summary: Benutzerdefinierte Skriptdatei, die auf dem virtuellen Computer ausgeführt wird Skript muss PowerShell für Windows, bash für Linux sein.
+    description: ''
+  - name: --parameters
+    summary: Durch Leerzeichen getrennte Parameter im Format "[Name =] Wert". Positional für Bash-Skripts.
+    description: ''
+  - name: --repair-vm-id
+    summary: Reparieren der VM-Ressourcen-ID.
+    description: ''
+  - name: --run-id
+    summary: Eindeutige Testlauf-ID für das Ausführen von Skripts.
+    description: ''
+  - name: --run-on-repair
+    summary: Das Skript wird auf dem virtuellen Computer für die verknüpfte Reparatur ausgeführt.
+    description: ''
+commands:
+- ext_vm-repair_az_vm_repair_create
+- ext_vm-repair_az_vm_repair_list_scripts
+- ext_vm-repair_az_vm_repair_restore
+- ext_vm-repair_az_vm_repair_run
+globalParameters:
+- name: --debug
+  summary: Ausführlichkeit der Protokollierung erhöhen, um alle Debugprotokolle anzuzeigen.
+- name: --help -h
+  summary: Zeigen Sie diese Hilfemeldung an, und schließen Sie sie.
+- name: --only-show-errors
+  summary: Nur Fehler anzeigen und Warnungen unterdrücken.
+- name: --output -o
+  defaultValue: json
+  parameterValueGroup: json, jsonc, table, tsv
+  summary: Ausgabeformat.
+- name: --query
+  summary: JMESPath-Abfragezeichenfolge. Weitere Informationen und Beispiele finden Sie unter <a href="http://jmespath.org/">http://jmespath.org/</a>.
+- name: --verbose
+  summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
+metadata:
+  description: Der VM-Reparatur Befehl ermöglicht es Azure-Benutzern, nicht Start fähige VMs selbst zu reparieren, indem Sie den Betriebssystem Datenträger der Quell-VM kopieren und an einen neu erstellten virtuellen Reparatur Computer anfügen.
+  ms.openlocfilehash: 81c95c73457531112ada654d9245b129a0215479
+  ms.sourcegitcommit: e1faf297ba2cdf2ba7e821fbeedff9c9a724c975
+  ms.translationtype: MT
+  ms.contentlocale: de-DE
+  ms.lasthandoff: 12/16/2020
+  ms.locfileid: "102831773"
