@@ -1,0 +1,345 @@
+### YamlMime:AzureCLIGroup
+uid: az_batchai_job
+name: az batchai job
+summary: Befehle zum Verwalten von Aufträgen.
+description: ''
+directCommands:
+- uid: az_batchai_job_create
+  name: az batchai job create
+  summary: Erstellen Sie einen Auftrag.
+  description: ''
+  syntax: >-
+    az batchai job create --cluster
+                          --config-file
+                          --experiment
+                          --name
+                          --resource-group
+                          --workspace
+                          [--afs-mount-path]
+                          [--afs-name]
+                          [--bfs-mount-path]
+                          [--bfs-name]
+                          [--nfs]
+                          [--nfs-mount-path]
+                          [--storage-account-key]
+                          [--storage-account-name]
+                          [--subscription]
+  examples:
+  - summary: Erstellen Sie einen Auftrag, der auf einem Cluster in derselben Ressourcengruppe ausgeführt werden soll.
+    syntax: >-
+      az batchai job create -g MyResourceGroup -w MyWorkspace -e MyExperiment -n MyJob \
+          -c MyCluster -f job.json
+  - summary: Erstellen Sie einen Auftrag, der auf einem Cluster in einem anderen Arbeitsbereich ausgeführt werden soll.
+    syntax: >-
+      az batchai job create -g MyJobResourceGroup -w MyJobWorkspace -e MyExperiment -n MyJob \
+          -f job.json \
+          -c "/subscriptions/00000000-0000-0000-0000-000000000000/\
+          resourceGroups/MyClusterResourceGroup/\
+          providers/Microsoft.BatchAI/workspaces/MyClusterWorkspace/clusters/MyCluster"
+  - summary: Erstellen Sie einen Auftrag. automatisch generierten
+    syntax: >-
+      az batchai job create --cluster "/subscriptions/00000000-0000-0000-0000-000000000000/\
+          resourceGroups/MyClusterResourceGroup/\
+          providers/Microsoft.BatchAI/workspaces/MyClusterWorkspace/clusters/MyCluster" --config-file job.json --experiment MyExperiment --name MyJob --resource-group MyJobResourceGroup --storage-account-name MyStorageAccount --workspace MyJobWorkspace
+  requiredParameters:
+  - isRequired: true
+    name: --cluster -c
+    summary: Der Name oder die Arm-ID des Clusters, an dem der Auftrag ausgeführt werden soll. Sie müssen eine Arm-ID angeben, wenn der Cluster zu einem anderen Arbeitsbereich gehört.
+    description: ''
+  - isRequired: true
+    name: --config-file -f
+    summary: Ein Pfad zu einer JSON-Datei, die Auftrags Erstellungs Parameter enthält (JSON-Darstellung von azure.mgmt.batChai. Models. jobkreateparameters).
+    description: ''
+  - isRequired: true
+    name: --experiment -e
+    summary: Der Name des Experiments.
+    description: ''
+  - isRequired: true
+    name: --name -n
+    summary: Der Name des Auftrags.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - isRequired: true
+    name: --workspace -w
+    summary: Name des Arbeitsbereichs.
+    description: ''
+  optionalParameters:
+  - name: --afs-mount-path
+    defaultValue: afs
+    summary: Relativer einstellungspfad für Azure-Dateifreigabe. Die Dateifreigabe wird im Ordner $AZ _BATCHAI_JOB_MOUNT_ROOT/<relative_mount_path> verfügbar.
+    description: ''
+  - name: --afs-name
+    summary: Name der Azure-Dateifreigabe, die während der Auftragsausführung einbinden werden soll. Die Dateifreigabe wird nur auf den Knoten bereitgestellt, die den Auftrag ausführen. Muss in Verbindung mit--Storage-Account-Name verwendet werden.  Mehrere Freigaben können mithilfe der Konfigurationsdatei bereitgestellt werden (siehe--config-file-Option).
+    description: ''
+  - name: --bfs-mount-path
+    defaultValue: bfs
+    summary: Relativer einstellungspfad für Azure Storage BLOB-Container. Der Container ist im Ordner $AZ _BATCHAI_JOB_MOUNT_ROOT/<relative_mount_path> verfügbar.
+    description: ''
+  - name: --bfs-name
+    summary: Name des Azure Storage BLOB Containers, der während der Auftragsausführung einbinden werden soll. Der Container wird nur auf den Knoten bereitgestellt, die den Auftrag ausführen. Muss in Verbindung mit--Storage-Account-Name verwendet werden. Mehrere Container können mithilfe der Konfigurationsdatei bereitgestellt werden (siehe--config-file-Option).
+    description: ''
+  - name: --nfs
+    summary: Der Name oder die Arm-ID des Dateiservers, der während der Auftragsausführung eingebunden werden soll. Sie müssen eine Arm-ID angeben, wenn der Dateiserver zu einem anderen Arbeitsbereich gehört. Sie können mehrere Dateiserver mithilfe der Konfigurationsdatei des Auftrags konfigurieren.
+    description: ''
+  - name: --nfs-mount-path
+    defaultValue: nfs
+    summary: Relativer einstellungspfad für NFS. Die NFS-$AZ _BATCHAI_JOB_MOUNT_ROOT/<relative_mount_path> Ordners verfügbar.
+    description: ''
+  - name: --storage-account-key
+    summary: Speicherkontoschlüssel Erforderlich, wenn das Speicherkonto zu einem anderen Abonnement gehört. Kann mit AZURE_BATCHAI_STORAGE_KEY-Umgebungsvariable angegeben werden.
+    description: ''
+  - name: --storage-account-name
+    summary: Der Speicherkonto Name für Azure-Dateifreigaben und/oder Azure Storage Container, die auf jedem Cluster Knoten bereitgestellt werden sollen. Kann mit AZURE_BATCHAI_STORAGE_ACCOUNT-Umgebungsvariable angegeben werden.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/batchai/_help.py
+- uid: az_batchai_job_delete
+  name: az batchai job delete
+  summary: Löschen eines Auftrags
+  description: ''
+  syntax: >-
+    az batchai job delete [--experiment]
+                          [--ids]
+                          [--name]
+                          [--no-wait]
+                          [--resource-group]
+                          [--subscription]
+                          [--workspace]
+                          [--yes]
+  examples:
+  - summary: Löschen eines Auftrags Der Auftrag wird beendet, wenn er gerade ausgeführt wird.
+    syntax: az batchai job delete -g MyResourceGroup -w MyWorkspace -e MyExperiment -n MyJob
+  - summary: Löschen eines Auftrags ohne Aufforderung zur Bestätigung (für nicht interaktive Szenarien).
+    syntax: az batchai job delete -g MyResourceGroup -w MyWorkspace -e MyExperiment -n MyJob -y
+  - summary: Anforderung zum Löschen von Aufträgen, ohne auf das Löschen eines Auftrags zu warten.
+    syntax: az batchai job delete -g MyResourceGroup -w MyWorkspace -e MyExperiment -n MyJob --no-wait
+  optionalParameters:
+  - name: --experiment -e
+    summary: Der Name des Experiments.
+    description: ''
+  - name: --ids
+    summary: Mindestens eine Ressourcen-ID (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID handeln, die alle Informationen von Ressourcen-ID-Argumenten enthält. Sie sollten entweder--IDs oder andere Ressourcen-ID-Argumente angeben.
+    description: ''
+  - name: --name -n
+    summary: Der Name des Auftrags.
+    description: ''
+  - name: --no-wait
+    summary: Nicht auf den Abschluss lang andauernder Vorgänge warten
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  - name: --workspace -w
+    summary: Name des Arbeitsbereichs.
+    description: ''
+  - name: --yes -y
+    summary: Nicht zur Bestätigung auffordern
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/batchai/_help.py
+- uid: az_batchai_job_list
+  name: az batchai job list
+  summary: Auflisten von Aufträgen.
+  description: ''
+  syntax: >-
+    az batchai job list --experiment
+                        --resource-group
+                        --workspace
+                        [--query-examples]
+                        [--subscription]
+  examples:
+  - summary: Auflisten von Aufträgen.
+    syntax: az batchai job list -g MyResourceGroup -w MyWorkspace -e MyExperiment -o table
+  requiredParameters:
+  - isRequired: true
+    name: --experiment -e
+    summary: Der Name des Experiments.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - isRequired: true
+    name: --workspace -w
+    summary: Name des Arbeitsbereichs.
+    description: ''
+  optionalParameters:
+  - name: --query-examples
+    summary: Empfehlen Sie die jmespath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und Sie nach dem Abfrage Parameter in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positions Schlüsselwörter hinzufügen, um Vorschläge auf der Grundlage dieser Schlüsselwörter zu geben.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/batchai/_help.py
+- uid: az_batchai_job_show
+  name: az batchai job show
+  summary: Anzeigen von Informationen zu einem Auftrag.
+  description: ''
+  syntax: >-
+    az batchai job show [--experiment]
+                        [--ids]
+                        [--name]
+                        [--query-examples]
+                        [--resource-group]
+                        [--subscription]
+                        [--workspace]
+  examples:
+  - summary: Anzeigen vollständiger Informationen zu einem Auftrag.
+    syntax: az batchai job show -g MyResourceGroup -w MyWorkspace -e MyExperiment -n MyJob
+  - summary: Zeigt die Zusammenfassung des Auftrags an.
+    syntax: az batchai job show -g MyResourceGroup -w MyWorkspace -e MyExperiment -n MyJob -o table
+  optionalParameters:
+  - name: --experiment -e
+    summary: Der Name des Experiments.
+    description: ''
+  - name: --ids
+    summary: Mindestens eine Ressourcen-ID (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID handeln, die alle Informationen von Ressourcen-ID-Argumenten enthält. Sie sollten entweder--IDs oder andere Ressourcen-ID-Argumente angeben.
+    description: ''
+  - name: --name -n
+    summary: Der Name des Auftrags.
+    description: ''
+  - name: --query-examples
+    summary: Empfehlen Sie die jmespath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und Sie nach dem Abfrage Parameter in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positions Schlüsselwörter hinzufügen, um Vorschläge auf der Grundlage dieser Schlüsselwörter zu geben.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  - name: --workspace -w
+    summary: Name des Arbeitsbereichs.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/batchai/_help.py
+- uid: az_batchai_job_terminate
+  name: az batchai job terminate
+  summary: Beendet einen Auftrag.
+  description: ''
+  syntax: >-
+    az batchai job terminate [--experiment]
+                             [--ids]
+                             [--name]
+                             [--no-wait]
+                             [--resource-group]
+                             [--subscription]
+                             [--workspace]
+                             [--yes]
+  examples:
+  - summary: Beendet einen Auftrag und wartet, bis der Auftrag beendet wird.
+    syntax: az batchai job terminate -g MyResourceGroup -w MyWorkspace -e MyExperiment -n MyJob
+  - summary: Beenden eines Auftrags ohne Aufforderung zur Bestätigung (für nicht interaktive Szenarien).
+    syntax: az batchai job terminate -g MyResourceGroup  -w MyWorkspace -e MyExperiment -n MyJob -y
+  - summary: Fordern Sie die Beendigung des Auftrags an, ohne zu warten, bis der Auftrag beendet wird.
+    syntax: >-
+      az batchai job terminate -g MyResourceGroup -e MyExperiment -w MyWorkspace -n MyJob \
+          --no-wait
+  optionalParameters:
+  - name: --experiment -e
+    summary: Der Name des Experiments.
+    description: ''
+  - name: --ids
+    summary: Mindestens eine Ressourcen-ID (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID handeln, die alle Informationen von Ressourcen-ID-Argumenten enthält. Sie sollten entweder--IDs oder andere Ressourcen-ID-Argumente angeben.
+    description: ''
+  - name: --name -n
+    summary: Der Name des Auftrags.
+    description: ''
+  - name: --no-wait
+    summary: Nicht auf den Abschluss lang andauernder Vorgänge warten
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  - name: --workspace -w
+    summary: Name des Arbeitsbereichs.
+    description: ''
+  - name: --yes -y
+    summary: Nicht zur Bestätigung auffordern
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/batchai/_help.py
+- uid: az_batchai_job_wait
+  name: az batchai job wait
+  summary: Wartet auf den Abschluss eines angegebenen Auftrags und gibt den Exitcode an den Exitcode des Auftrags an.
+  description: ''
+  syntax: >-
+    az batchai job wait [--experiment]
+                        [--ids]
+                        [--interval]
+                        [--name]
+                        [--resource-group]
+                        [--subscription]
+                        [--workspace]
+  examples:
+  - summary: Warten Sie, bis der Auftrag abgeschlossen ist.
+    syntax: az batchai job wait -g MyResourceGroup -w MyWorkspace -n MyJob
+  optionalParameters:
+  - name: --experiment -e
+    summary: Der Name des Experiments.
+    description: ''
+  - name: --ids
+    summary: Mindestens eine Ressourcen-ID (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID handeln, die alle Informationen von Ressourcen-ID-Argumenten enthält. Sie sollten entweder--IDs oder andere Ressourcen-ID-Argumente angeben.
+    description: ''
+  - name: --interval
+    defaultValue: "15"
+    summary: Abruf Intervall in Sekunden.
+    description: ''
+  - name: --name -n
+    summary: Der Name des Auftrags.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  - name: --workspace -w
+    summary: Name des Arbeitsbereichs.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/batchai/_help.py
+commands:
+- az_batchai_job_create
+- az_batchai_job_delete
+- az_batchai_job_file
+- az_batchai_job_file_list
+- az_batchai_job_file_stream
+- az_batchai_job_list
+- az_batchai_job_node
+- az_batchai_job_node_exec
+- az_batchai_job_node_list
+- az_batchai_job_show
+- az_batchai_job_terminate
+- az_batchai_job_wait
+globalParameters:
+- name: --debug
+  summary: Ausführlichkeit der Protokollierung erhöhen, um alle Debugprotokolle anzuzeigen.
+- name: --help -h
+  summary: Zeigen Sie diese Hilfemeldung an, und schließen Sie sie.
+- name: --only-show-errors
+  summary: Nur Fehler anzeigen und Warnungen unterdrücken.
+- name: --output -o
+  defaultValue: json
+  parameterValueGroup: json, jsonc, table, tsv
+  summary: Ausgabeformat.
+- name: --query
+  summary: JMESPath-Abfragezeichenfolge. Weitere Informationen und Beispiele finden Sie unter <a href="http://jmespath.org/">http://jmespath.org/</a>.
+- name: --verbose
+  summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
+metadata:
+  doc_source_url_repo: https://github.com/Azure/azure-cli/blob/dev/
+  ms.date: 10/19/2019
+  description: Befehle zum Verwalten von Aufträgen.
+  ms.openlocfilehash: 3eaba516bdfc0abc7041f78f9c588c02089fc123
+  ms.sourcegitcommit: dd42eae9469c48f3cce66347e8e1cac317887a3a
+  ms.translationtype: MT
+  ms.contentlocale: de-DE
+  ms.lasthandoff: 09/29/2020
+  ms.locfileid: "102820558"

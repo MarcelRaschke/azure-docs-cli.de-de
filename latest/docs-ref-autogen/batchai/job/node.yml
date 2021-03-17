@@ -1,0 +1,138 @@
+### YamlMime:AzureCLIGroup
+uid: az_batchai_job_node
+name: az batchai job node
+summary: Befehle zum Arbeiten mit Knoten, die einen Auftrag ausgeführt haben.
+description: ''
+directCommands:
+- uid: az_batchai_job_node_exec
+  name: az batchai job node exec
+  summary: Führt eine Befehlszeile auf dem Knoten eines Clusters aus, die verwendet wird, um den Auftrag mit optionalen Weiterleitungs Weiterleitung auszuführen.
+  description: ''
+  syntax: >-
+    az batchai job node exec --experiment
+                             --job
+                             --resource-group
+                             --workspace
+                             [--address]
+                             [--exec]
+                             [--node-id]
+                             [--password]
+                             [--ssh-private-key]
+                             [--subscription]
+  examples:
+  - summary: Einen GPU-Status für den Knoten eines Auftrags melden.
+    syntax: >-
+      az batchai job node exec -g MyResourceGroup -w MyWorkspace -e MyExperiment -j MyJob \
+          --exec "nvidia-smi"
+  - summary: Meldet eine Momentaufnahme der aktuellen Prozesse.
+    syntax: >-
+      az batchai job node exec -g MyResourceGroup -w MyWorkspace -e MyExperiment -j MyJob \
+          --exec "ps aux"
+  - summary: Leiten Sie local 9000 an Port 9001 auf dem angegebenen Knoten weiter.
+    syntax: >-
+      az batchai job node exec -g MyResourceGroup -w MyWorkspace -e MyExperiment -j MyJob \
+          -n tvm-xxx -L 9000:localhost:9001
+  requiredParameters:
+  - isRequired: true
+    name: --experiment -e
+    summary: Der Name des Experiments.
+    description: ''
+  - isRequired: true
+    name: --job -j
+    summary: Der Name des Auftrags.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - isRequired: true
+    name: --workspace -w
+    summary: Name des Arbeitsbereichs.
+    description: ''
+  optionalParameters:
+  - name: --address -L
+    summary: 'Gibt an, dass Verbindungen mit dem angegebenen TCP-Port oder UNIX-Socket auf dem lokalen Host (Client) auf der Remote Seite an den angegebenen Host und Port bzw. an den angegebenen UNIX-Socket weitergeleitet werden sollen. z. b.-L 8080: localhost: 8080.'
+    description: ''
+  - name: --exec
+    summary: Optionale Befehlszeile, die auf dem Knoten ausgeführt werden soll. Wenn nichts angegeben wird, führt der Befehl nur Ports weiterleiten aus.
+    description: ''
+  - name: --node-id -n
+    summary: ID des Knotens, an den die Ports weiterzuleiten sind. Wenn nicht angegeben, wird der Befehl auf dem ersten verfügbaren Knoten ausgeführt.
+    description: ''
+  - name: --password -p
+    summary: Optionales Kennwort zum Herstellen einer SSH-Verbindung.
+    description: ''
+  - name: --ssh-private-key -k
+    summary: Optionaler privater SSH-Schlüssel Pfad zum Einrichten der SSH-Verbindung. Wenn kein Wert angezeigt wird, wird der private SSH-Schlüssel verwendet.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/batchai/_help.py
+- uid: az_batchai_job_node_list
+  name: az batchai job node list
+  summary: Listet Remote Anmelde Informationen für Knoten auf, von denen der Auftrag ausgeführt wurde.
+  description: 'Auflisten von Remote Anmelde Informationen für die aktuell vorhandenen (nicht zugeordneten) Knoten, auf denen der Auftrag ausgeführt wurde. Mithilfe der angegebenen öffentlichen IP-Adresse und der Portnummer können Sie eine SSH-über einen bestimmten Knoten herstellen. Beispiel: <admin user name> @ <public ip> die SSH-Portnummer des SSH-p-<Knotens>.'
+  syntax: >-
+    az batchai job node list --experiment
+                             --job
+                             --resource-group
+                             --workspace
+                             [--query-examples]
+                             [--subscription]
+  examples:
+  - summary: Auflisten von Remote Anmelde Informationen für einen Auftrags Knoten.
+    syntax: az batchai job node list -g MyResourceGroup -w MyWorkspace -e MyExperiment -j MyJob -o table
+  requiredParameters:
+  - isRequired: true
+    name: --experiment -e
+    summary: Der Name des Experiments.
+    description: ''
+  - isRequired: true
+    name: --job -j
+    summary: Der Name des Auftrags.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - isRequired: true
+    name: --workspace -w
+    summary: Name des Arbeitsbereichs.
+    description: ''
+  optionalParameters:
+  - name: --query-examples
+    summary: Empfehlen Sie die jmespath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und Sie nach dem Abfrage Parameter in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positions Schlüsselwörter hinzufügen, um Vorschläge auf der Grundlage dieser Schlüsselwörter zu geben.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/batchai/_help.py
+commands:
+- az_batchai_job_node_exec
+- az_batchai_job_node_list
+globalParameters:
+- name: --debug
+  summary: Ausführlichkeit der Protokollierung erhöhen, um alle Debugprotokolle anzuzeigen.
+- name: --help -h
+  summary: Zeigen Sie diese Hilfemeldung an, und schließen Sie sie.
+- name: --only-show-errors
+  summary: Nur Fehler anzeigen und Warnungen unterdrücken.
+- name: --output -o
+  defaultValue: json
+  parameterValueGroup: json, jsonc, table, tsv
+  summary: Ausgabeformat.
+- name: --query
+  summary: JMESPath-Abfragezeichenfolge. Weitere Informationen und Beispiele finden Sie unter <a href="http://jmespath.org/">http://jmespath.org/</a>.
+- name: --verbose
+  summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
+metadata:
+  doc_source_url_repo: https://github.com/Azure/azure-cli/blob/dev/
+  ms.date: 10/19/2019
+  description: Befehle zum Arbeiten mit Knoten, die einen Auftrag ausgeführt haben.
+  ms.openlocfilehash: 8304ea83642e2191f2a33cb8ace79ddaef9ec99f
+  ms.sourcegitcommit: dd42eae9469c48f3cce66347e8e1cac317887a3a
+  ms.translationtype: MT
+  ms.contentlocale: de-DE
+  ms.lasthandoff: 09/29/2020
+  ms.locfileid: "102820546"
