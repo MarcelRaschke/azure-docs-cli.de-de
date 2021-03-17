@@ -1,0 +1,329 @@
+### YamlMime:AzureCLIGroup
+uid: az_afd_route
+name: az afd route
+summary: Verwalten von Routen unter einem AFD-Endpunkt.
+description: Eine Route ordnet Ihre Domänen und übereinstimmende URL-Pfad Muster einer bestimmten Ursprungs Gruppe zu.
+directCommands:
+- uid: az_afd_route_create
+  name: az afd route create
+  summary: Erstellt eine neue Route innerhalb des angegebenen Endpunkts.
+  description: ''
+  syntax: >-
+    az afd route create --endpoint-name
+                        --forwarding-protocol {HttpOnly, HttpsOnly, MatchRequest}
+                        --https-redirect {Disabled, Enabled}
+                        --origin-group
+                        --profile-name
+                        --resource-group
+                        --route-name
+                        --supported-protocols {Http, Https}
+                        [--content-types-to-compress]
+                        [--custom-domains]
+                        [--enable-compression {false, true}]
+                        [--link-to-default-domain {Disabled, Enabled}]
+                        [--origin-path]
+                        [--patterns-to-match]
+                        [--query-string-caching-behavior {BypassCaching, IgnoreQueryString, NotSet, UseQueryString}]
+                        [--rule-sets]
+                        [--subscription]
+  examples:
+  - summary: Erstellt eine Route zum Einbinden der Standard Domäne des Endpunkts mit einer Ursprungs Gruppe für alle HTTPS-Anforderungen.
+    syntax: az afd route create -g group --endpoint-name endpoint1 --profile-name profile --route-name route1 --https-redirect False --origin-group og001 --supported-protocols Https --link-to-default-domain Enabled --forwarding-protocol MatchRequest
+  - summary: Erstellt eine Route zum Einbinden der Standard Domäne des Endpunkts mit einer Ursprungs Gruppe für alle Anforderungen und verwendet die angegebenen Regelsätze, um das Routen Verhalten anzupassen.
+    syntax: az afd route create -g group --endpoint-name endpoint1 --profile-name profile --route-name route1 --rule-sets ruleset1 rulseset2 --origin-group og001 --supported-protocols Http Https --link-to-default-domain Enabled --forwarding-protocol MatchRequest --https-redirect False
+  - summary: Erstellt eine Route zum Einbinden der Standard Domäne des Endpunkts und einer benutzerdefinierten Domäne mit einer Ursprungs Gruppe für alle Anforderungen mit den angegebenen Pfad Mustern und zum Umleiten sämtlicher Informationen zur Verwendung von HTTPS.
+    syntax: az afd route create -g group --endpoint-name endpoint1 --profile-name profile --route-name route1 --patterns-to-match /test1/* /tes2/* --origin-group og001 --supported-protocols Http Https --custom-domains cd001 --forwarding-protocol MatchRequest --https-redirect True --link-to-default-domain Enabled
+  requiredParameters:
+  - isRequired: true
+    name: --endpoint-name
+    summary: Name des Endpunkts.
+    description: ''
+  - isRequired: true
+    name: --forwarding-protocol
+    parameterValueGroup: HttpOnly, HttpsOnly, MatchRequest
+    summary: Protokoll, das diese Regel verwendet, wenn Datenverkehr an Back-Ends weitergeleitet wird.
+    description: ''
+  - isRequired: true
+    name: --https-redirect
+    parameterValueGroup: Disabled, Enabled
+    summary: Gibt an, ob HTTP-Datenverkehr automatisch zum HTTPS-Datenverkehr umgeleitet
+    description: ''
+  - isRequired: true
+    name: --origin-group
+    summary: Der Name oder die ID der Ursprungs Gruppe, der zugeordnet werden soll.
+    description: ''
+  - isRequired: true
+    name: --profile-name
+    summary: Der Name des CDN-Profils, das innerhalb der Ressourcengruppe eindeutig ist.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - isRequired: true
+    name: --route-name
+    summary: Der Name der Route.
+    description: ''
+  - isRequired: true
+    name: --supported-protocols
+    parameterValueGroup: Http, Https
+    summary: Liste der unterstützten Protokolle für diese Route.
+    description: ''
+  optionalParameters:
+  - name: --content-types-to-compress
+    summary: Liste der Inhaltstypen, auf die die Komprimierung angewendet wird. Der Wert muss ein gültiger MIME-Typ sein.
+    description: ''
+  - name: --custom-domains
+    summary: Benutzerdefinierte Domänen, auf die von diesem Endpunkt verwiesen wird
+    description: ''
+  - name: --enable-compression
+    parameterValueGroup: false, true
+    summary: Gibt an, ob die Inhalts Komprimierung für azurefrontdoor aktiviert ist. Der Standardwert ist „false“. Wenn die Komprimierung aktiviert ist, wird der Inhalt als komprimiert verarbeitet, wenn der Benutzer eine komprimierte Version anfordert. Der Inhalt wird nicht auf azurefrontdoor komprimiert, wenn der angeforderte Inhalt kleiner als 1 Byte oder größer als 1 MB ist.
+    description: ''
+  - name: --link-to-default-domain
+    parameterValueGroup: Disabled, Enabled
+    summary: Gibt an, ob diese Route mit der Standard Endpunkt Domäne verknüpft wird.
+    description: ''
+  - name: --origin-path
+    summary: Ein Verzeichnispfad auf dem Ursprung, den die AFD zum Abrufen von Inhalt verwenden kann. Z. b. "/img/ \* ".
+    description: ''
+  - name: --patterns-to-match
+    summary: Die Routen Muster der Regel.
+    description: ''
+  - name: --query-string-caching-behavior
+    parameterValueGroup: BypassCaching, IgnoreQueryString, NotSet, UseQueryString
+    summary: Definiert, wie CDN Anforderungen zwischenspeichert, die Abfrage Zeichenfolgen enthalten. Sie können alle Abfrage Zeichenfolgen beim Zwischenspeichern ignorieren, das Caching umgehen, um zu verhindern, dass Anforderungen, die Abfrage Zeichenfolgen enthalten, zwischengespeichert werden, oder jede Anforderung mit einer eindeutigen URL
+    description: ''
+  - name: --rule-sets
+    summary: Sammlung von ID oder Name des Regelsatzes, auf den von der Route verwiesen wird.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+- uid: az_afd_route_delete
+  name: az afd route delete
+  summary: Löscht eine vorhandene Route innerhalb des angegebenen Endpunkts.
+  description: ''
+  syntax: >-
+    az afd route delete [--endpoint-name]
+                        [--ids]
+                        [--profile-name]
+                        [--resource-group]
+                        [--route-name]
+                        [--subscription]
+                        [--yes]
+  examples:
+  - summary: Löschen Sie eine Route mit dem Namen route1.
+    syntax: az afd route delete -g group --profile-name profile --endpoint-name endpoint1 --route-name route1
+  optionalParameters:
+  - name: --endpoint-name
+    summary: Name des Endpunkts.
+    description: ''
+  - name: --ids
+    summary: Mindestens eine Ressourcen-ID (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID handeln, die alle Informationen von Ressourcen-ID-Argumenten enthält. Sie sollten entweder--IDs oder andere Ressourcen-ID-Argumente angeben.
+    description: ''
+  - name: --profile-name
+    summary: Der Name des CDN-Profils, das innerhalb der Ressourcengruppe eindeutig ist.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --route-name
+    summary: Der Name der Route.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  - name: --yes -y
+    summary: Nicht zur Bestätigung auffordern
+    description: ''
+- uid: az_afd_route_list
+  name: az afd route list
+  summary: Listet alle Routen innerhalb des angegebenen Endpunkts auf.
+  description: ''
+  syntax: >-
+    az afd route list --endpoint-name
+                      --profile-name
+                      --resource-group
+                      [--query-examples]
+                      [--subscription]
+  examples:
+  - summary: Listet alle Routen innerhalb des angegebenen Endpunkts auf.
+    syntax: az afd route list -g group --profile-name profile --endpoint-name endpoint1
+  requiredParameters:
+  - isRequired: true
+    name: --endpoint-name
+    summary: Name des Endpunkts.
+    description: ''
+  - isRequired: true
+    name: --profile-name
+    summary: Der Name des CDN-Profils, das innerhalb der Ressourcengruppe eindeutig ist.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  optionalParameters:
+  - name: --query-examples
+    summary: Empfehlen Sie die jmespath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und Sie nach dem Abfrage Parameter in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positions Schlüsselwörter hinzufügen, um Vorschläge auf der Grundlage dieser Schlüsselwörter zu geben.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+- uid: az_afd_route_show
+  name: az afd route show
+  summary: Routendetails anzeigen.
+  description: ''
+  syntax: >-
+    az afd route show [--endpoint-name]
+                      [--ids]
+                      [--profile-name]
+                      [--query-examples]
+                      [--resource-group]
+                      [--route-name]
+                      [--subscription]
+  examples:
+  - summary: Anzeigen der Details der Route mit dem Namen route1.
+    syntax: az afd route show -g group --profile-name profile  --endpoint-name endpoint1 --route-name route1
+  optionalParameters:
+  - name: --endpoint-name
+    summary: Name des Endpunkts.
+    description: ''
+  - name: --ids
+    summary: Mindestens eine Ressourcen-ID (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID handeln, die alle Informationen von Ressourcen-ID-Argumenten enthält. Sie sollten entweder--IDs oder andere Ressourcen-ID-Argumente angeben.
+    description: ''
+  - name: --profile-name
+    summary: Der Name des CDN-Profils, das innerhalb der Ressourcengruppe eindeutig ist.
+    description: ''
+  - name: --query-examples
+    summary: Empfehlen Sie die jmespath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und Sie nach dem Abfrage Parameter in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positions Schlüsselwörter hinzufügen, um Vorschläge auf der Grundlage dieser Schlüsselwörter zu geben.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --route-name
+    summary: Der Name der Route.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+- uid: az_afd_route_update
+  name: az afd route update
+  summary: Aktualisiert eine vorhandene Route innerhalb des angegebenen Endpunkts.
+  description: ''
+  syntax: >-
+    az afd route update [--content-types-to-compress]
+                        [--custom-domains]
+                        [--enable-compression {false, true}]
+                        [--endpoint-name]
+                        [--forwarding-protocol {HttpOnly, HttpsOnly, MatchRequest}]
+                        [--https-redirect {Disabled, Enabled}]
+                        [--ids]
+                        [--link-to-default-domain {Disabled, Enabled}]
+                        [--origin-group]
+                        [--origin-path]
+                        [--patterns-to-match]
+                        [--profile-name]
+                        [--query-string-caching-behavior {BypassCaching, IgnoreQueryString, NotSet, UseQueryString}]
+                        [--resource-group]
+                        [--route-name]
+                        [--rule-sets]
+                        [--subscription]
+                        [--supported-protocols {Http, Https}]
+  examples:
+  - summary: Aktualisieren Sie eine Route so, dass sowohl HTTP-als auch HTTPS-Anforderungen akzeptiert werden, und leiten Sie alle für die Verwendung von HTTPS
+    syntax: az afd route update -g group --endpoint-name endpoint1 --profile-name profile --route-name route1 --supported-protocols Http Https --https-redirect True
+  - summary: Aktualisieren Sie die Regelsätze einer Route, um das Routen Verhalten anzupassen.
+    syntax: az afd route update -g group --endpoint-name endpoint1 --profile-name profile --route-name route1 --rule-sets ruleset1 rulseset2
+  - summary: Aktualisieren Sie die Komprimierungs Einstellungen einer Route, um die Komprimierung für die angegebenen Inhaltstypen zu aktivieren.
+    syntax: az afd route update -g group --endpoint-name endpoint1 --profile-name profile --route-name route1 --query-string-caching-behavior IgnoreQueryString --enable-compression true --content-types-to-compress text/javascript text/plain
+  optionalParameters:
+  - name: --content-types-to-compress
+    summary: Liste der Inhaltstypen, auf die die Komprimierung angewendet wird. Der Wert muss ein gültiger MIME-Typ sein.
+    description: ''
+  - name: --custom-domains
+    summary: Benutzerdefinierte Domänen, auf die von diesem Endpunkt verwiesen wird
+    description: ''
+  - name: --enable-compression
+    parameterValueGroup: false, true
+    summary: Gibt an, ob die Inhalts Komprimierung für azurefrontdoor aktiviert ist. Der Standardwert ist „false“. Wenn die Komprimierung aktiviert ist, wird der Inhalt als komprimiert verarbeitet, wenn der Benutzer eine komprimierte Version anfordert. Der Inhalt wird nicht auf azurefrontdoor komprimiert, wenn der angeforderte Inhalt kleiner als 1 Byte oder größer als 1 MB ist.
+    description: ''
+  - name: --endpoint-name
+    summary: Name des Endpunkts.
+    description: ''
+  - name: --forwarding-protocol
+    parameterValueGroup: HttpOnly, HttpsOnly, MatchRequest
+    summary: Protokoll, das diese Regel verwendet, wenn Datenverkehr an Back-Ends weitergeleitet wird.
+    description: ''
+  - name: --https-redirect
+    parameterValueGroup: Disabled, Enabled
+    summary: Gibt an, ob HTTP-Datenverkehr automatisch zum HTTPS-Datenverkehr umgeleitet
+    description: ''
+  - name: --ids
+    summary: Mindestens eine Ressourcen-ID (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID handeln, die alle Informationen von Ressourcen-ID-Argumenten enthält. Sie sollten entweder--IDs oder andere Ressourcen-ID-Argumente angeben.
+    description: ''
+  - name: --link-to-default-domain
+    parameterValueGroup: Disabled, Enabled
+    summary: Gibt an, ob diese Route mit der Standard Endpunkt Domäne verknüpft wird.
+    description: ''
+  - name: --origin-group
+    summary: Der Name oder die ID der Ursprungs Gruppe, der zugeordnet werden soll.
+    description: ''
+  - name: --origin-path
+    summary: Ein Verzeichnispfad auf dem Ursprung, den die AFD zum Abrufen von Inhalt verwenden kann. Z. b. "/img/ \* ".
+    description: ''
+  - name: --patterns-to-match
+    summary: Die Routen Muster der Regel.
+    description: ''
+  - name: --profile-name
+    summary: Der Name des CDN-Profils, das innerhalb der Ressourcengruppe eindeutig ist.
+    description: ''
+  - name: --query-string-caching-behavior
+    parameterValueGroup: BypassCaching, IgnoreQueryString, NotSet, UseQueryString
+    summary: Definiert, wie CDN Anforderungen zwischenspeichert, die Abfrage Zeichenfolgen enthalten. Sie können alle Abfrage Zeichenfolgen beim Zwischenspeichern ignorieren, das Caching umgehen, um zu verhindern, dass Anforderungen, die Abfrage Zeichenfolgen enthalten, zwischengespeichert werden, oder jede Anforderung mit einer eindeutigen URL
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --route-name
+    summary: Der Name der Route.
+    description: ''
+  - name: --rule-sets
+    summary: Sammlung von ID oder Name des Regelsatzes, auf den von der Route verwiesen wird.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  - name: --supported-protocols
+    parameterValueGroup: Http, Https
+    summary: Liste der unterstützten Protokolle für diese Route.
+    description: ''
+commands:
+- az_afd_route_create
+- az_afd_route_delete
+- az_afd_route_list
+- az_afd_route_show
+- az_afd_route_update
+globalParameters:
+- name: --debug
+  summary: Ausführlichkeit der Protokollierung erhöhen, um alle Debugprotokolle anzuzeigen.
+- name: --help -h
+  summary: Zeigen Sie diese Hilfemeldung an, und schließen Sie sie.
+- name: --only-show-errors
+  summary: Nur Fehler anzeigen und Warnungen unterdrücken.
+- name: --output -o
+  defaultValue: json
+  parameterValueGroup: json, jsonc, table, tsv
+  summary: Ausgabeformat.
+- name: --query
+  summary: JMESPath-Abfragezeichenfolge. Weitere Informationen und Beispiele finden Sie unter <a href="http://jmespath.org/">http://jmespath.org/</a>.
+- name: --verbose
+  summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
+metadata:
+  description: Eine Route ordnet Ihre Domänen und übereinstimmende URL-Pfad Muster einer bestimmten Ursprungs Gruppe zu.
+  ms.openlocfilehash: 242a3a388935d55a26d553b6a0f2bf2cbd5de826
+  ms.sourcegitcommit: f9e23f29c59c6957d3df4d5ca2f4425093e6fd80
+  ms.translationtype: MT
+  ms.contentlocale: de-DE
+  ms.lasthandoff: 03/16/2021
+  ms.locfileid: "103551141"

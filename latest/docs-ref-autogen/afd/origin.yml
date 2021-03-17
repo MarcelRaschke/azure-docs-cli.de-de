@@ -1,0 +1,310 @@
+### YamlMime:AzureCLIGroup
+uid: az_afd_origin
+name: az afd origin
+summary: Verwaltet die Ursprünge innerhalb der angegebenen Ursprungs Gruppe.
+description: Ursprünge sind die Anwendungsserver, an denen die Front-Door Ihre Client Anforderungen weiterleitet. Nutzen Sie alle öffentlich zugänglichen Anwendungsserver, einschließlich APP Service, Traffic Manager, privater Link und vielen anderen.
+directCommands:
+- uid: az_afd_origin_create
+  name: az afd origin create
+  summary: Erstellen Sie einen AFD-Ursprung.
+  description: ''
+  syntax: >-
+    az afd origin create --enabled-state {Disabled, Enabled}
+                         --host-name
+                         --origin-group-name
+                         --origin-name
+                         --profile-name
+                         --resource-group
+                         [--enable-private-link {false, true}]
+                         [--http-port]
+                         [--https-port]
+                         [--origin-host-header]
+                         [--priority]
+                         [--private-link-location]
+                         [--private-link-request-message]
+                         [--private-link-resource]
+                         [--private-link-sub-resource-type]
+                         [--subscription]
+                         [--weight]
+  examples:
+  - summary: Erstellen eines regulären Ursprungs
+    syntax: az afd origin create -g group --host-name example.contoso.com --profile-name profile --origin-group-name originGroup --origin-name origin1 --origin-host-header example.contoso.com --priority 1 --weight 500 --enabled-state Enabled --http-port 80 --https-port 443
+  - summary: Erstellen Sie einen privaten Link Ursprung.
+    syntax: az afd origin create -g group --host-name example.contoso.com --profile-name profile --origin-group-name originGroup --origin-name origin1 --origin-host-header example.contoso.com --priority 1 --weight 500 --enabled-state Enabled --http-port 80 --https-port 443 --private-link-resource /subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/group/providers/Microsoft.Storage/storageAccounts/plstest --private-link-location EastUS --private-link-request-message 'Please approve this request' --private-link-sub-resource table
+  requiredParameters:
+  - isRequired: true
+    name: --enabled-state
+    parameterValueGroup: Disabled, Enabled
+    summary: Gibt an, ob dieser Ursprung aktiviert werden soll.
+    description: ''
+  - isRequired: true
+    name: --host-name
+    summary: Die Adresse des Ursprungs. Domänen Namen, IPv4-Adressen und IPv6-Adressen werden unterstützt. Dies sollte für alle Ursprünge in einer Ursprungs Gruppe eindeutig sein.
+    description: ''
+  - isRequired: true
+    name: --origin-group-name
+    summary: Name der Ursprungs Gruppe, die innerhalb des Endpunkts eindeutig ist.
+    description: ''
+  - isRequired: true
+    name: --origin-name
+    summary: Der Name des Ursprungs.
+    description: ''
+  - isRequired: true
+    name: --profile-name
+    summary: Der Name des CDN-Profils, das innerhalb der Ressourcengruppe eindeutig ist.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  optionalParameters:
+  - name: --enable-private-link
+    parameterValueGroup: false, true
+    summary: Gibt an, ob der private Link an diesem Ursprung eingefügt wird.
+    description: ''
+  - name: --http-port
+    defaultValue: "80"
+    summary: Der Port, der für HTTP-Anforderungen an den Ursprung verwendet wird.
+    description: ''
+  - name: --https-port
+    defaultValue: "443"
+    summary: Der Port, der für HTTPS-Anforderungen an den Ursprung verwendet wird.
+    description: ''
+  - name: --origin-host-header
+    summary: Der Host Header, der für Anforderungen an diesen Ursprung gesendet werden soll. Wenn Sie dieses Feld leer lassen, bestimmt der Anforderungs Hostname diesen Wert. Azure CDN Ursprünge, wie z. b. Web-Apps, BLOB Storage und Cloud Services erfordern, dass dieser Host Header Wert standardmäßig dem Hostnamen des Ursprungs entspricht.
+    description: ''
+  - name: --priority
+    defaultValue: "1"
+    summary: Priorität des Ursprungs in der angegebenen Ursprungs Gruppe für den Lastenausgleich. Höhere Prioritäten werden nicht für den Lastenausgleich verwendet, wenn der Ursprung einer niedrigeren Priorität fehlerfrei ist. Der Wert muss zwischen 1 und 5 liegen.
+    description: ''
+  - name: --private-link-location
+    summary: Der Ursprungs Speicherort, mit dem über den privaten Link eine Verbindung hergestellt wird.
+    description: ''
+  - name: --private-link-request-message
+    summary: Die Meldung, die der genehmigende Person der Anforderung des privaten Links angezeigt wird.
+    description: ''
+  - name: --private-link-resource
+    summary: Die Ressourcen-ID des Ursprungs, mit dem über den privaten Link eine Verbindung hergestellt wird.
+    description: ''
+  - name: --private-link-sub-resource-type
+    summary: Der untergeordnete Ressourcentyp des Ursprungs, mit dem über den privaten Link eine Verbindung hergestellt wird. Sie können "AZ Network private-Link-resource List" verwenden, um die unterstützten unter Ressourcentypen zu erhalten.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  - name: --weight
+    defaultValue: "1000"
+    summary: Gewichtung des Ursprungs in der angegebenen Ursprungs Gruppe für den Lastenausgleich. Der Wert muss zwischen 1 und 1000 liegen.
+    description: ''
+- uid: az_afd_origin_delete
+  name: az afd origin delete
+  summary: Löscht einen vorhandenen Ursprung in einer Ursprungs Gruppe.
+  description: ''
+  syntax: >-
+    az afd origin delete [--ids]
+                         [--origin-group-name]
+                         [--origin-name]
+                         [--profile-name]
+                         [--resource-group]
+                         [--subscription]
+                         [--yes]
+  optionalParameters:
+  - name: --ids
+    summary: Mindestens eine Ressourcen-ID (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID handeln, die alle Informationen von Ressourcen-ID-Argumenten enthält. Sie sollten entweder--IDs oder andere Ressourcen-ID-Argumente angeben.
+    description: ''
+  - name: --origin-group-name
+    summary: Name der Ursprungs Gruppe, die innerhalb des Endpunkts eindeutig ist.
+    description: ''
+  - name: --origin-name
+    summary: Der Name des Ursprungs.
+    description: ''
+  - name: --profile-name
+    summary: Der Name des CDN-Profils, das innerhalb der Ressourcengruppe eindeutig ist.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  - name: --yes -y
+    summary: Nicht zur Bestätigung auffordern
+    description: ''
+- uid: az_afd_origin_list
+  name: az afd origin list
+  summary: Listet alle vorhandenen Ursprünge innerhalb einer Ursprungs Gruppe auf.
+  description: ''
+  syntax: >-
+    az afd origin list --origin-group-name
+                       --profile-name
+                       --resource-group
+                       [--query-examples]
+                       [--subscription]
+  requiredParameters:
+  - isRequired: true
+    name: --origin-group-name
+    summary: Name der Ursprungs Gruppe, die innerhalb des Endpunkts eindeutig ist.
+    description: ''
+  - isRequired: true
+    name: --profile-name
+    summary: Der Name des CDN-Profils, das innerhalb der Ressourcengruppe eindeutig ist.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  optionalParameters:
+  - name: --query-examples
+    summary: Empfehlen Sie die jmespath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und Sie nach dem Abfrage Parameter in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positions Schlüsselwörter hinzufügen, um Vorschläge auf der Grundlage dieser Schlüsselwörter zu geben.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+- uid: az_afd_origin_show
+  name: az afd origin show
+  summary: Ruft einen vorhandenen Ursprung in einer Ursprungs Gruppe ab.
+  description: ''
+  syntax: >-
+    az afd origin show [--ids]
+                       [--origin-group-name]
+                       [--origin-name]
+                       [--profile-name]
+                       [--query-examples]
+                       [--resource-group]
+                       [--subscription]
+  optionalParameters:
+  - name: --ids
+    summary: Mindestens eine Ressourcen-ID (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID handeln, die alle Informationen von Ressourcen-ID-Argumenten enthält. Sie sollten entweder--IDs oder andere Ressourcen-ID-Argumente angeben.
+    description: ''
+  - name: --origin-group-name
+    summary: Name der Ursprungs Gruppe, die innerhalb des Endpunkts eindeutig ist.
+    description: ''
+  - name: --origin-name
+    summary: Der Name des Ursprungs.
+    description: ''
+  - name: --profile-name
+    summary: Der Name des CDN-Profils, das innerhalb der Ressourcengruppe eindeutig ist.
+    description: ''
+  - name: --query-examples
+    summary: Empfehlen Sie die jmespath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und Sie nach dem Abfrage Parameter in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positions Schlüsselwörter hinzufügen, um Vorschläge auf der Grundlage dieser Schlüsselwörter zu geben.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+- uid: az_afd_origin_update
+  name: az afd origin update
+  summary: Aktualisieren Sie die Einstellungen des angegebenen AFD-Ursprungs.
+  description: ''
+  syntax: >-
+    az afd origin update [--enable-private-link {false, true}]
+                         [--enabled-state {Disabled, Enabled}]
+                         [--host-name]
+                         [--http-port]
+                         [--https-port]
+                         [--ids]
+                         [--origin-group-name]
+                         [--origin-host-header]
+                         [--origin-name]
+                         [--priority]
+                         [--private-link-location]
+                         [--private-link-request-message]
+                         [--private-link-resource]
+                         [--private-link-sub-resource-type]
+                         [--profile-name]
+                         [--resource-group]
+                         [--subscription]
+                         [--weight]
+  examples:
+  - summary: Aktualisieren Sie den Host Header und die Priorität des angegebenen Ursprungs.
+    syntax: az afd origin update -g group --host-name example.contoso.com --profile-name profile --origin-group-name originGroup --origin-name origin1 --origin-host-header example.contoso.com --priority 3
+  - summary: Deaktiviert den privaten Link des Ursprungs.
+    syntax: az afd origin update -g group --host-name example.contoso.com --profile-name profile --origin-group-name originGroup --origin-name origin1 --enable-private-link False
+  optionalParameters:
+  - name: --enable-private-link
+    parameterValueGroup: false, true
+    summary: Gibt an, ob der private Link an diesem Ursprung eingefügt wird.
+    description: ''
+  - name: --enabled-state
+    parameterValueGroup: Disabled, Enabled
+    summary: Gibt an, ob dieser Ursprung aktiviert werden soll.
+    description: ''
+  - name: --host-name
+    summary: Die Adresse des Ursprungs. Domänen Namen, IPv4-Adressen und IPv6-Adressen werden unterstützt. Dies sollte für alle Ursprünge in einer Ursprungs Gruppe eindeutig sein.
+    description: ''
+  - name: --http-port
+    summary: Der Port, der für HTTP-Anforderungen an den Ursprung verwendet wird.
+    description: ''
+  - name: --https-port
+    summary: Der Port, der für HTTPS-Anforderungen an den Ursprung verwendet wird.
+    description: ''
+  - name: --ids
+    summary: Mindestens eine Ressourcen-ID (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID handeln, die alle Informationen von Ressourcen-ID-Argumenten enthält. Sie sollten entweder--IDs oder andere Ressourcen-ID-Argumente angeben.
+    description: ''
+  - name: --origin-group-name
+    summary: Name der Ursprungs Gruppe, die innerhalb des Endpunkts eindeutig ist.
+    description: ''
+  - name: --origin-host-header
+    summary: Der Host Header, der für Anforderungen an diesen Ursprung gesendet werden soll. Wenn Sie dieses Feld leer lassen, bestimmt der Anforderungs Hostname diesen Wert. Azure CDN Ursprünge, wie z. b. Web-Apps, BLOB Storage und Cloud Services erfordern, dass dieser Host Header Wert standardmäßig dem Hostnamen des Ursprungs entspricht.
+    description: ''
+  - name: --origin-name
+    summary: Der Name des Ursprungs.
+    description: ''
+  - name: --priority
+    summary: Priorität des Ursprungs in der angegebenen Ursprungs Gruppe für den Lastenausgleich. Höhere Prioritäten werden nicht für den Lastenausgleich verwendet, wenn der Ursprung einer niedrigeren Priorität fehlerfrei ist. Der Wert muss zwischen 1 und 5 liegen.
+    description: ''
+  - name: --private-link-location
+    summary: Der Ursprungs Speicherort, mit dem über den privaten Link eine Verbindung hergestellt wird.
+    description: ''
+  - name: --private-link-request-message
+    summary: Die Meldung, die der genehmigende Person der Anforderung des privaten Links angezeigt wird.
+    description: ''
+  - name: --private-link-resource
+    summary: Die Ressourcen-ID des Ursprungs, mit dem über den privaten Link eine Verbindung hergestellt wird.
+    description: ''
+  - name: --private-link-sub-resource-type
+    summary: Der untergeordnete Ressourcentyp des Ursprungs, mit dem über den privaten Link eine Verbindung hergestellt wird. Sie können "AZ Network private-Link-resource List" verwenden, um die unterstützten unter Ressourcentypen zu erhalten.
+    description: ''
+  - name: --profile-name
+    summary: Der Name des CDN-Profils, das innerhalb der Ressourcengruppe eindeutig ist.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  - name: --weight
+    summary: Gewichtung des Ursprungs in der angegebenen Ursprungs Gruppe für den Lastenausgleich. Der Wert muss zwischen 1 und 1000 liegen.
+    description: ''
+commands:
+- az_afd_origin_create
+- az_afd_origin_delete
+- az_afd_origin_list
+- az_afd_origin_show
+- az_afd_origin_update
+globalParameters:
+- name: --debug
+  summary: Ausführlichkeit der Protokollierung erhöhen, um alle Debugprotokolle anzuzeigen.
+- name: --help -h
+  summary: Zeigen Sie diese Hilfemeldung an, und schließen Sie sie.
+- name: --only-show-errors
+  summary: Nur Fehler anzeigen und Warnungen unterdrücken.
+- name: --output -o
+  defaultValue: json
+  parameterValueGroup: json, jsonc, table, tsv
+  summary: Ausgabeformat.
+- name: --query
+  summary: JMESPath-Abfragezeichenfolge. Weitere Informationen und Beispiele finden Sie unter <a href="http://jmespath.org/">http://jmespath.org/</a>.
+- name: --verbose
+  summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
+metadata:
+  description: Ursprünge sind die Anwendungsserver, an denen die Front-Door Ihre Client Anforderungen weiterleitet. Nutzen Sie alle öffentlich zugänglichen Anwendungsserver, einschließlich APP Service, Traffic Manager, privater Link und vielen anderen.
+  ms.openlocfilehash: 933c36ce969d21fb6bfe54c7d5f9b0d79d16b7c6
+  ms.sourcegitcommit: f9e23f29c59c6957d3df4d5ca2f4425093e6fd80
+  ms.translationtype: MT
+  ms.contentlocale: de-DE
+  ms.lasthandoff: 03/16/2021
+  ms.locfileid: "103551151"
