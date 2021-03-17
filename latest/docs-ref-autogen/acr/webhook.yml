@@ -1,0 +1,358 @@
+### YamlMime:AzureCLIGroup
+uid: az_acr_webhook
+name: az acr webhook
+summary: Verwalten von webhooks für Azure-Container Registrierungen.
+description: ''
+directCommands:
+- uid: az_acr_webhook_create
+  name: az acr webhook create
+  summary: Erstellen Sie einen webhook für eine Azure Container Registry.
+  description: ''
+  syntax: >-
+    az acr webhook create --actions {chart_delete, chart_push, delete, push, quarantine}
+                          --name
+                          --registry
+                          --uri
+                          [--headers]
+                          [--location]
+                          [--resource-group]
+                          [--scope]
+                          [--status {disabled, enabled}]
+                          [--subscription]
+                          [--tags]
+  examples:
+  - summary: Erstellen Sie einen webhook für eine Azure Container Registry, die Docker-Push-und DELETE-Ereignisse an einen Dienst-URI übermitteln soll.
+    syntax: az acr webhook create -n MyWebhook -r MyRegistry --uri http://myservice.com --actions push delete
+  - summary: Erstellen Sie einen webhook für eine Azure Container Registry, die Docker-Push-Ereignisse an einen Dienst-URI mit einem Standard Authentifizierungs Header übermitteln soll.
+    syntax: az acr webhook create -n MyWebhook -r MyRegistry --uri http://myservice.com --actions push --headers "Authorization=Basic 000000"
+  - summary: Erstellen Sie einen webhook für eine Azure Container Registry, die das Helm-Diagramm Push-und DELETE-Ereignisse an einen Dienst-URI übermitteln soll.
+    syntax: az acr webhook create -n MyWebhook -r MyRegistry --uri http://myservice.com --actions chart_push chart_delete
+  requiredParameters:
+  - isRequired: true
+    name: --actions
+    parameterValueGroup: chart_delete, chart_push, delete, push, quarantine
+    summary: Durch Leerzeichen getrennte Liste von Aktionen, die den webhook für das Senden von Benachrichtigungen auslöst.
+    description: ''
+  - isRequired: true
+    name: --name -n
+    summary: Der Name des Webhooks.
+    description: ''
+  - isRequired: true
+    name: --registry -r
+    summary: Der Name der Containerregistrierung. Sie können den Standard Registrierungs Namen mithilfe von konfigurieren `az configure --defaults acr=<registry name>` .
+    description: ''
+  - isRequired: true
+    name: --uri
+    summary: Der Dienst-URI für den webhook, um Benachrichtigungen zu senden.
+    description: ''
+  optionalParameters:
+  - name: --headers
+    summary: Durch Leerzeichen getrennte benutzerdefinierte Header im Format "Key [= value]", die den webhook-Benachrichtigungen hinzugefügt werden. Verwenden Sie "", um vorhandene Header zu löschen.
+    description: ''
+  - name: --location -l
+    summary: 'Der Standort. Werte aus: `az account list-locations`. Sie können den standardmäßig verwendeten Standort mit `az configure --defaults location=<location>` konfigurieren.'
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --scope
+    summary: 'Der Bereich der Torys, in denen das Ereignis ausgelöst werden kann. Beispielsweise bedeutet "foo: \* " Ereignisse für alle Tags im Repository "foo". "foo: Bar" bedeutet nur Ereignisse für "foo: Bar". "foo" entspricht "foo: Latest". Empty bedeutet Ereignisse für alle Depots.'
+    description: ''
+  - name: --status
+    defaultValue: enabled
+    parameterValueGroup: disabled, enabled
+    summary: Gibt an, ob der webhook aktiviert ist.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  - name: --tags
+    summary: 'Durch Leerzeichen getrennte Tags: Key [= value] [key [= value]...]. Verwenden Sie "", um vorhandene Tags zu löschen.'
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/acr/_help.py
+- uid: az_acr_webhook_delete
+  name: az acr webhook delete
+  summary: Löscht einen webhook aus einer Azure Container Registry.
+  description: ''
+  syntax: >-
+    az acr webhook delete --name
+                          --registry
+                          [--resource-group]
+                          [--subscription]
+  examples:
+  - summary: Löscht einen webhook aus einer Azure Container Registry.
+    syntax: az acr webhook delete -n MyWebhook -r MyRegistry
+  requiredParameters:
+  - isRequired: true
+    name: --name -n
+    summary: Der Name des Webhooks.
+    description: ''
+  - isRequired: true
+    name: --registry -r
+    summary: Der Name der Containerregistrierung. Sie können den Standard Registrierungs Namen mithilfe von konfigurieren `az configure --defaults acr=<registry name>` .
+    description: ''
+  optionalParameters:
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/acr/_help.py
+- uid: az_acr_webhook_get_config
+  name: az acr webhook get-config
+  summary: Der Dienst-URI und benutzerdefinierte Header für den webhook werden angezeigt.
+  description: ''
+  syntax: >-
+    az acr webhook get-config --name
+                              --registry
+                              [--resource-group]
+                              [--subscription]
+  examples:
+  - summary: Hier finden Sie die Konfigurationsinformationen für einen webhook.
+    syntax: az acr webhook get-config -n MyWebhook -r MyRegistry
+  requiredParameters:
+  - isRequired: true
+    name: --name -n
+    summary: Der Name des Webhooks.
+    description: ''
+  - isRequired: true
+    name: --registry -r
+    summary: Der Name der Containerregistrierung. Sie können den Standard Registrierungs Namen mithilfe von konfigurieren `az configure --defaults acr=<registry name>` .
+    description: ''
+  optionalParameters:
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/acr/_help.py
+- uid: az_acr_webhook_list
+  name: az acr webhook list
+  summary: Listet alle webhooks für eine Azure Container Registry auf.
+  description: ''
+  syntax: >-
+    az acr webhook list --registry
+                        [--query-examples]
+                        [--resource-group]
+                        [--subscription]
+  examples:
+  - summary: Auflisten von webhooks und Anzeigen der Ergebnisse in einer Tabelle.
+    syntax: az acr webhook list -r MyRegistry -o table
+  requiredParameters:
+  - isRequired: true
+    name: --registry -r
+    summary: Der Name der Containerregistrierung. Sie können den Standard Registrierungs Namen mithilfe von konfigurieren `az configure --defaults acr=<registry name>` .
+    description: ''
+  optionalParameters:
+  - name: --query-examples
+    summary: Empfehlen Sie die jmespath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und Sie nach dem Abfrage Parameter in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positions Schlüsselwörter hinzufügen, um Vorschläge auf der Grundlage dieser Schlüsselwörter zu geben.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/acr/_help.py
+- uid: az_acr_webhook_list_events
+  name: az acr webhook list-events
+  summary: Listet die aktuellen Ereignisse für einen webhook auf.
+  description: ''
+  syntax: >-
+    az acr webhook list-events --name
+                               --registry
+                               [--resource-group]
+                               [--subscription]
+  examples:
+  - summary: Listet die aktuellen Ereignisse für einen webhook auf.
+    syntax: az acr webhook list-events -n MyWebhook -r MyRegistry
+  requiredParameters:
+  - isRequired: true
+    name: --name -n
+    summary: Der Name des Webhooks.
+    description: ''
+  - isRequired: true
+    name: --registry -r
+    summary: Der Name der Containerregistrierung. Sie können den Standard Registrierungs Namen mithilfe von konfigurieren `az configure --defaults acr=<registry name>` .
+    description: ''
+  optionalParameters:
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/acr/_help.py
+- uid: az_acr_webhook_ping
+  name: az acr webhook ping
+  summary: Lösen Sie ein Ping-Ereignis für einen webhook aus.
+  description: ''
+  syntax: >-
+    az acr webhook ping --name
+                        --registry
+                        [--resource-group]
+                        [--subscription]
+  examples:
+  - summary: Lösen Sie ein Ping-Ereignis für einen webhook aus.
+    syntax: az acr webhook ping -n MyWebhook -r MyRegistry
+  requiredParameters:
+  - isRequired: true
+    name: --name -n
+    summary: Der Name des Webhooks.
+    description: ''
+  - isRequired: true
+    name: --registry -r
+    summary: Der Name der Containerregistrierung. Sie können den Standard Registrierungs Namen mithilfe von konfigurieren `az configure --defaults acr=<registry name>` .
+    description: ''
+  optionalParameters:
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/acr/_help.py
+- uid: az_acr_webhook_show
+  name: az acr webhook show
+  summary: Sie erhalten die Details eines webhooks.
+  description: ''
+  syntax: >-
+    az acr webhook show --name
+                        --registry
+                        [--query-examples]
+                        [--resource-group]
+                        [--subscription]
+  examples:
+  - summary: Sie erhalten die Details eines webhooks.
+    syntax: az acr webhook show -n MyWebhook -r MyRegistry
+  requiredParameters:
+  - isRequired: true
+    name: --name -n
+    summary: Der Name des Webhooks.
+    description: ''
+  - isRequired: true
+    name: --registry -r
+    summary: Der Name der Containerregistrierung. Sie können den Standard Registrierungs Namen mithilfe von konfigurieren `az configure --defaults acr=<registry name>` .
+    description: ''
+  optionalParameters:
+  - name: --query-examples
+    summary: Empfehlen Sie die jmespath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und Sie nach dem Abfrage Parameter in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positions Schlüsselwörter hinzufügen, um Vorschläge auf der Grundlage dieser Schlüsselwörter zu geben.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/acr/_help.py
+- uid: az_acr_webhook_update
+  name: az acr webhook update
+  summary: Aktualisieren eines webhooks.
+  description: ''
+  syntax: >-
+    az acr webhook update --name
+                          --registry
+                          [--actions {chart_delete, chart_push, delete, push, quarantine}]
+                          [--add]
+                          [--force-string]
+                          [--headers]
+                          [--remove]
+                          [--resource-group]
+                          [--scope]
+                          [--set]
+                          [--status {disabled, enabled}]
+                          [--subscription]
+                          [--tags]
+                          [--uri]
+  examples:
+  - summary: Aktualisieren von Headern für einen webhook.
+    syntax: az acr webhook update -n MyWebhook -r MyRegistry --headers "Authorization=Basic 000000"
+  - summary: Aktualisieren Sie den Dienst-URI und die Aktionen für einen webhook.
+    syntax: az acr webhook update -n MyWebhook -r MyRegistry --uri http://myservice.com --actions push delete
+  - summary: Deaktivieren Sie einen webhook.
+    syntax: az acr webhook update -n MyWebhook -r MyRegistry --status disabled
+  requiredParameters:
+  - isRequired: true
+    name: --name -n
+    summary: Der Name des Webhooks.
+    description: ''
+  - isRequired: true
+    name: --registry -r
+    summary: Der Name der Containerregistrierung. Sie können den Standard Registrierungs Namen mithilfe von konfigurieren `az configure --defaults acr=<registry name>` .
+    description: ''
+  optionalParameters:
+  - name: --actions
+    parameterValueGroup: chart_delete, chart_push, delete, push, quarantine
+    summary: Durch Leerzeichen getrennte Liste von Aktionen, die den webhook für das Senden von Benachrichtigungen auslöst.
+    description: ''
+  - name: --add
+    summary: Fügen Sie einer Liste von-Objekten ein Objekt hinzu, indem Sie ein Pfad-und Schlüssel-Wert-Paar angeben.  Beispiel:--Add Property. ListProperty <Key = Value, String oder JSON String>.
+    description: ''
+  - name: --force-string
+    summary: Wenn Sie "Set" oder "Add" verwenden, erhalten Sie Zeichen folgen Literale, anstatt zu versuchen, in JSON zu konvertieren.
+    description: ''
+  - name: --headers
+    summary: Durch Leerzeichen getrennte benutzerdefinierte Header im Format "Key [= value]", die den webhook-Benachrichtigungen hinzugefügt werden. Verwenden Sie "", um vorhandene Header zu löschen.
+    description: ''
+  - name: --remove
+    summary: Entfernt eine Eigenschaft oder ein Element aus einer Liste.  Beispiel:--Remove Property. List <indexToRemove> oder--Remove propertytoremove.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --scope
+    summary: 'Der Bereich der Torys, in denen das Ereignis ausgelöst werden kann. Beispielsweise bedeutet "foo: \* " Ereignisse für alle Tags im Repository "foo". "foo: Bar" bedeutet nur Ereignisse für "foo: Bar". "foo" entspricht "foo: Latest". Empty bedeutet Ereignisse für alle Depots.'
+    description: ''
+  - name: --set
+    summary: Aktualisieren Sie ein Objekt, indem Sie einen Eigenschafts Pfad und einen festzulegenden Wert angeben.  Beispiel:--Set Eigenschaft1. Eigenschaft2 =<value>.
+    description: ''
+  - name: --status
+    parameterValueGroup: disabled, enabled
+    summary: Gibt an, ob der webhook aktiviert ist.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  - name: --tags
+    summary: 'Durch Leerzeichen getrennte Tags: Key [= value] [key [= value]...]. Verwenden Sie "", um vorhandene Tags zu löschen.'
+    description: ''
+  - name: --uri
+    summary: Der Dienst-URI für den webhook, um Benachrichtigungen zu senden.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/acr/_help.py
+commands:
+- az_acr_webhook_create
+- az_acr_webhook_delete
+- az_acr_webhook_get_config
+- az_acr_webhook_list
+- az_acr_webhook_list_events
+- az_acr_webhook_ping
+- az_acr_webhook_show
+- az_acr_webhook_update
+globalParameters:
+- name: --debug
+  summary: Ausführlichkeit der Protokollierung erhöhen, um alle Debugprotokolle anzuzeigen.
+- name: --help -h
+  summary: Zeigen Sie diese Hilfemeldung an, und schließen Sie sie.
+- name: --only-show-errors
+  summary: Nur Fehler anzeigen und Warnungen unterdrücken.
+- name: --output -o
+  defaultValue: json
+  parameterValueGroup: json, jsonc, table, tsv
+  summary: Ausgabeformat.
+- name: --query
+  summary: JMESPath-Abfragezeichenfolge. Weitere Informationen und Beispiele finden Sie unter <a href="http://jmespath.org/">http://jmespath.org/</a>.
+- name: --verbose
+  summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
+metadata:
+  doc_source_url_repo: https://github.com/Azure/azure-cli/blob/dev/
+  ms.date: 01/26/2021
+  description: Verwalten von webhooks für Azure-Container Registrierungen.
+  ms.openlocfilehash: bcd893533c06808b3ec88096d622410d58abac1d
+  ms.sourcegitcommit: df9d6597535ef9103775afbaee5a8282e0e218ee
+  ms.translationtype: MT
+  ms.contentlocale: de-DE
+  ms.lasthandoff: 02/09/2021
+  ms.locfileid: "102986829"
