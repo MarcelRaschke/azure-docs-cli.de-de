@@ -1,56 +1,39 @@
 ### YamlMime:AzureCLIGroup
-uid: az_functionapp_plan
-name: az functionapp plan
-summary: Verwalten von App Service Plänen für eine Azure-Funktion.
+uid: az_network_route_table
+name: az network route-table
+summary: Verwalten von Routingtabellen
 description: ''
 directCommands:
-- uid: az_functionapp_plan_create
-  name: az functionapp plan create
-  summary: Erstellen Sie einen app Service Plan für eine Azure-Funktion.
+- uid: az_network_route_table_create
+  name: az network route-table create
+  summary: Erstellen Sie eine Routing Tabelle.
   description: ''
   syntax: >-
-    az functionapp plan create --name
-                               --resource-group
-                               --sku
-                               [--is-linux {false, true}]
-                               [--location]
-                               [--max-burst]
-                               [--min-instances]
-                               [--subscription]
-                               [--tags]
+    az network route-table create --name
+                                  --resource-group
+                                  [--disable-bgp-route-propagation {false, true}]
+                                  [--location]
+                                  [--subscription]
+                                  [--tags]
   examples:
-  - summary: Erstellen Sie einen app Service-Plan für elastische Datenbanken mit Burst Funktion bis zu 10 Instanzen.
-    syntax: az functionapp plan create -g MyResourceGroup -n MyPlan --min-instances 1 --max-burst 10 --sku EP1
-  - summary: Erstellen Sie einen einfachen App Service-Plan.
-    syntax: az functionapp plan create -g MyResourceGroup -n MyPlan --sku B1
-  - summary: Erstellen Sie einen app Service Plan für eine Azure-Funktion. automatisch generierten
-    syntax: az functionapp plan create --location westus2 --name MyPlan --number-of-workers 1 --resource-group MyResourceGroup --sku B1
+  - summary: Erstellen Sie eine Routing Tabelle.
+    syntax: az network route-table create -g MyResourceGroup -n MyRouteTable
   requiredParameters:
   - isRequired: true
     name: --name -n
-    summary: Der Name des App Service-Plans.
+    summary: Name der Routentabelle.
     description: ''
   - isRequired: true
     name: --resource-group -g
     summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
     description: ''
-  - isRequired: true
-    name: --sku
-    summary: Die SKU des App Service-Plans.
-    description: ''
   optionalParameters:
-  - name: --is-linux
+  - name: --disable-bgp-route-propagation
     parameterValueGroup: false, true
-    summary: Host Funktions-APP auf Linux-Worker.
+    summary: Deaktivieren Sie die von BGP erlernten Routen.
     description: ''
   - name: --location -l
     summary: 'Der Standort. Werte aus: `az account list-locations`. Sie können den standardmäßig verwendeten Standort mit `az configure --defaults location=<location>` konfigurieren.'
-    description: ''
-  - name: --max-burst
-    summary: Die maximale Anzahl der elastischen Worker für den Plan.
-    description: ''
-  - name: --min-instances --number-of-workers
-    summary: Die Anzahl der Worker für den App Service-Plan.
     description: ''
   - name: --subscription
     summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
@@ -58,23 +41,25 @@ directCommands:
   - name: --tags
     summary: 'Durch Leerzeichen getrennte Tags: Key [= value] [key [= value]...]. Verwenden Sie "", um vorhandene Tags zu löschen.'
     description: ''
-  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/appservice/_help.py
-- uid: az_functionapp_plan_delete
-  name: az functionapp plan delete
-  summary: Löschen Sie einen app Service Plan.
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/network/_help.py
+- uid: az_network_route_table_delete
+  name: az network route-table delete
+  summary: Löschen Sie eine Routing Tabelle.
   description: ''
   syntax: >-
-    az functionapp plan delete [--ids]
-                               [--name]
-                               [--resource-group]
-                               [--subscription]
-                               [--yes]
+    az network route-table delete [--ids]
+                                  [--name]
+                                  [--resource-group]
+                                  [--subscription]
+  examples:
+  - summary: Löschen Sie eine Routing Tabelle.
+    syntax: az network route-table delete -g MyResourceGroup -n MyRouteTable
   optionalParameters:
   - name: --ids
     summary: Mindestens eine Ressourcen-ID (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID handeln, die alle Informationen von Ressourcen-ID-Argumenten enthält. Sie sollten entweder--IDs oder andere Ressourcen-ID-Argumente angeben.
     description: ''
   - name: --name -n
-    summary: Der Name des App Service-Plans.
+    summary: Name der Routentabelle.
     description: ''
   - name: --resource-group -g
     summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
@@ -82,21 +67,18 @@ directCommands:
   - name: --subscription
     summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
     description: ''
-  - name: --yes -y
-    summary: Nicht zur Bestätigung auffordern
-    description: ''
-  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/appservice/_help.py
-- uid: az_functionapp_plan_list
-  name: az functionapp plan list
-  summary: Listet App Service Pläne auf.
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/network/_help.py
+- uid: az_network_route_table_list
+  name: az network route-table list
+  summary: Auflisten von Routen Tabellen.
   description: ''
   syntax: >-
-    az functionapp plan list [--query-examples]
-                             [--resource-group]
-                             [--subscription]
+    az network route-table list [--query-examples]
+                                [--resource-group]
+                                [--subscription]
   examples:
-  - summary: Listet alle App Service Pläne der elastischen Premium 1-Ebene auf.
-    syntax: az functionapp plan list --query "[?sku.tier=='EP1']"
+  - summary: Listet alle Routen Tabellen in einem Abonnement auf.
+    syntax: az network route-table list -g MyResourceGroup
   optionalParameters:
   - name: --query-examples
     summary: Empfehlen Sie die jmespath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und Sie nach dem Abfrage Parameter in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positions Schlüsselwörter hinzufügen, um Vorschläge auf der Grundlage dieser Schlüsselwörter zu geben.
@@ -107,26 +89,30 @@ directCommands:
   - name: --subscription
     summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
     description: ''
-  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/appservice/_help.py
-- uid: az_functionapp_plan_show
-  name: az functionapp plan show
-  summary: Holen Sie sich die APP Service Pläne für eine Ressourcengruppe oder einen Satz von Ressourcengruppen.
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/network/_help.py
+- uid: az_network_route_table_show
+  name: az network route-table show
+  summary: Details einer Routing Tabelle erhalten.
   description: ''
   syntax: >-
-    az functionapp plan show [--ids]
-                             [--name]
-                             [--query-examples]
-                             [--resource-group]
-                             [--subscription]
+    az network route-table show [--expand]
+                                [--ids]
+                                [--name]
+                                [--query-examples]
+                                [--resource-group]
+                                [--subscription]
   examples:
-  - summary: Holen Sie sich die APP Service-Pläne für eine Ressourcengruppe oder einen Satz von Ressourcengruppen. automatisch generierten
-    syntax: az functionapp plan show --name MyAppServicePlan --resource-group MyResourceGroup
+  - summary: Details einer Routing Tabelle erhalten.
+    syntax: az network route-table show -g MyResourceGroup -n MyRouteTable
   optionalParameters:
+  - name: --expand
+    summary: Erweitert referenzierte Ressourcen.
+    description: ''
   - name: --ids
     summary: Mindestens eine Ressourcen-ID (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID handeln, die alle Informationen von Ressourcen-ID-Argumenten enthält. Sie sollten entweder--IDs oder andere Ressourcen-ID-Argumente angeben.
     description: ''
   - name: --name -n
-    summary: Der Name des App Service-Plans.
+    summary: Name der Routentabelle.
     description: ''
   - name: --query-examples
     summary: Empfehlen Sie die jmespath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und Sie nach dem Abfrage Parameter in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positions Schlüsselwörter hinzufügen, um Vorschläge auf der Grundlage dieser Schlüsselwörter zu geben.
@@ -137,29 +123,32 @@ directCommands:
   - name: --subscription
     summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
     description: ''
-  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/appservice/_help.py
-- uid: az_functionapp_plan_update
-  name: az functionapp plan update
-  summary: Aktualisieren Sie einen app Service Plan für eine Azure-Funktion.
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/network/_help.py
+- uid: az_network_route_table_update
+  name: az network route-table update
+  summary: Aktualisieren Sie eine Routing Tabelle.
   description: ''
   syntax: >-
-    az functionapp plan update [--add]
-                               [--force-string]
-                               [--ids]
-                               [--max-burst]
-                               [--min-instances]
-                               [--name]
-                               [--remove]
-                               [--resource-group]
-                               [--set]
-                               [--sku]
-                               [--subscription]
+    az network route-table update [--add]
+                                  [--disable-bgp-route-propagation {false, true}]
+                                  [--force-string]
+                                  [--ids]
+                                  [--name]
+                                  [--remove]
+                                  [--resource-group]
+                                  [--set]
+                                  [--subscription]
+                                  [--tags]
   examples:
-  - summary: Aktualisieren eines App Service-Plans auf die ep2-SKU mit 20 maximalen Arbeitsthreads.
-    syntax: az functionapp plan update -g MyResourceGroup -n MyPlan --max-burst 20 --sku EP2
+  - summary: Aktualisieren einer Routing Tabelle zum Deaktivieren der BGP-Routen Weitergabe.
+    syntax: az network route-table update -g MyResourceGroup -n MyRouteTable --disable-bgp-route-propagation true
   optionalParameters:
   - name: --add
     summary: Fügen Sie einer Liste von-Objekten ein Objekt hinzu, indem Sie ein Pfad-und Schlüssel-Wert-Paar angeben.  Beispiel:--Add Property. ListProperty <Key = Value, String oder JSON String>.
+    description: ''
+  - name: --disable-bgp-route-propagation
+    parameterValueGroup: false, true
+    summary: Deaktivieren Sie die von BGP erlernten Routen.
     description: ''
   - name: --force-string
     summary: Wenn Sie "Set" oder "Add" verwenden, erhalten Sie Zeichen folgen Literale, anstatt zu versuchen, in JSON zu konvertieren.
@@ -167,14 +156,8 @@ directCommands:
   - name: --ids
     summary: Mindestens eine Ressourcen-ID (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID handeln, die alle Informationen von Ressourcen-ID-Argumenten enthält. Sie sollten entweder--IDs oder andere Ressourcen-ID-Argumente angeben.
     description: ''
-  - name: --max-burst
-    summary: Die maximale Anzahl der elastischen Worker für den Plan.
-    description: ''
-  - name: --min-instances --number-of-workers
-    summary: Die Anzahl der Worker für den App Service-Plan.
-    description: ''
   - name: --name -n
-    summary: Der Name des App Service-Plans.
+    summary: Name der Routentabelle.
     description: ''
   - name: --remove
     summary: Entfernt eine Eigenschaft oder ein Element aus einer Liste.  Beispiel:--Remove Property. List <indexToRemove> oder--Remove propertytoremove.
@@ -185,19 +168,25 @@ directCommands:
   - name: --set
     summary: Aktualisieren Sie ein Objekt, indem Sie einen Eigenschafts Pfad und einen festzulegenden Wert angeben.  Beispiel:--Set Eigenschaft1. Eigenschaft2 =<value>.
     description: ''
-  - name: --sku
-    summary: Die SKU des App Service-Plans.
-    description: ''
   - name: --subscription
     summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
     description: ''
-  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/appservice/_help.py
+  - name: --tags
+    summary: 'Durch Leerzeichen getrennte Tags: Key [= value] [key [= value]...]. Verwenden Sie "", um vorhandene Tags zu löschen.'
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/network/_help.py
 commands:
-- az_functionapp_plan_create
-- az_functionapp_plan_delete
-- az_functionapp_plan_list
-- az_functionapp_plan_show
-- az_functionapp_plan_update
+- az_network_route_table_create
+- az_network_route_table_delete
+- az_network_route_table_list
+- az_network_route_table_route
+- az_network_route_table_route_create
+- az_network_route_table_route_delete
+- az_network_route_table_route_list
+- az_network_route_table_route_show
+- az_network_route_table_route_update
+- az_network_route_table_show
+- az_network_route_table_update
 globalParameters:
 - name: --debug
   summary: Ausführlichkeit der Protokollierung erhöhen, um alle Debugprotokolle anzuzeigen.
@@ -215,11 +204,11 @@ globalParameters:
   summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
 metadata:
   doc_source_url_repo: https://github.com/Azure/azure-cli/blob/dev/
-  ms.date: 02/26/2021
-  description: Verwalten von App Service Plänen für eine Azure-Funktion.
-  ms.openlocfilehash: 098c08932fbf01f6e73167961c8ed76f54e4ce49
+  ms.date: 02/25/2021
+  description: Verwalten von Routingtabellen
+  ms.openlocfilehash: f42cd0aa20f6fba141e3b946885f2ad5bb789534
   ms.sourcegitcommit: f9e23f29c59c6957d3df4d5ca2f4425093e6fd80
   ms.translationtype: MT
   ms.contentlocale: de-DE
   ms.lasthandoff: 03/16/2021
-  ms.locfileid: "103535765"
+  ms.locfileid: "103520720"
