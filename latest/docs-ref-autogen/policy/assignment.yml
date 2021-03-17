@@ -1,0 +1,204 @@
+### YamlMime:AzureCLIGroup
+uid: az_policy_assignment
+name: az policy assignment
+summary: Verwalten von Ressourcen Richtlinien Zuweisungen.
+description: ''
+directCommands:
+- uid: az_policy_assignment_create
+  name: az policy assignment create
+  summary: Erstellen Sie eine Ressourcen Richtlinien Zuweisung.
+  description: ''
+  syntax: >-
+    az policy assignment create [--assign-identity]
+                                [--display-name]
+                                [--enforcement-mode {Default, DoNotEnforce}]
+                                [--identity-scope]
+                                [--location]
+                                [--name]
+                                [--not-scopes]
+                                [--params]
+                                [--policy]
+                                [--policy-set-definition]
+                                [--resource-group]
+                                [--role]
+                                [--scope]
+                                [--sku {free, standard}]
+  examples:
+  - summary: Erstellen einer Ressourcen Richtlinien Zuweisung im Gültigkeitsbereich
+    syntax: >-
+      Valid scopes are management group, subscription, resource group, and resource, for example
+         management group:  /providers/Microsoft.Management/managementGroups/MyManagementGroup
+         subscription:      /subscriptions/0b1f6471-1bf0-4dda-aec3-111122223333
+         resource group:    /subscriptions/0b1f6471-1bf0-4dda-aec3-111122223333/resourceGroups/myGroup
+         resource:          /subscriptions/0b1f6471-1bf0-4dda-aec3-111122223333/resourceGroups/myGroup/providers/Microsoft.Compute/virtualMachines/myVM
+           az policy assignment create --scope \
+              "/providers/Microsoft.Management/managementGroups/MyManagementGroup" \
+                  --policy {PolicyName} -p "{ \"allowedLocations\": \
+                      { \"value\": [ \"australiaeast\", \"eastus\", \"japaneast\" ] } }"
+  - summary: Erstellen Sie eine Ressourcen Richtlinien Zuweisung, und geben Sie Regelparameter Werte an.
+    syntax: >-
+      az policy assignment create --policy {PolicyName} -p "{ \"allowedLocations\": \
+          { \"value\": [ \"australiaeast\", \"eastus\", \"japaneast\" ] } }"
+  - summary: Erstellen Sie eine Ressourcen Richtlinien Zuweisung mit einer vom System zugewiesenen Identität.
+    syntax: az policy assignment create --name myPolicy --policy {PolicyName} --assign-identity
+  - summary: Erstellen Sie eine Ressourcen Richtlinien Zuweisung mit einer vom System zugewiesenen Identität. Die Identität verfügt über die Rolle "Mitwirkender" für das Abonnement.
+    syntax: az policy assignment create --name myPolicy --policy {PolicyName} --assign-identity --identity-scope /subscriptions/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx --role Contributor
+  - summary: Erstellen Sie eine Ressourcen Richtlinien Zuweisung mit einem Erzwingungs Modus. Gibt an, ob ein Richtlinien Effekt während der Zuweisungs Erstellung und-Aktualisierung erzwungen wird. Weitere Informationen erhalten Sie unter https://aka.ms/azure-policyAssignment-enforcement-mode.
+    syntax: az policy assignment create --name myPolicy --policy {PolicyName} --enforcement-mode 'DoNotEnforce'
+  optionalParameters:
+  - name: --assign-identity
+    summary: Weist der Richtlinien Zuweisung eine vom System zugewiesene Identität zu.
+    description: ''
+  - name: --display-name
+    summary: Anzeige Name der Richtlinien Zuweisung.
+    description: ''
+  - name: --enforcement-mode -e
+    defaultValue: Default
+    parameterValueGroup: Default, DoNotEnforce
+    summary: Erzwingungs Modus der Richtlinien Zuweisung, z. b. "Standard", "donotenforce". Weitere Informationen finden Sie unter <a href="https://aka.ms/azure-policyAssignment-enforcement-mode">https://aka.ms/azure-policyAssignment-enforcement-mode</a> .
+    description: ''
+  - name: --identity-scope
+    summary: Bereich, auf den die vom System zugewiesene Identität zugreifen kann.
+    description: ''
+  - name: --location -l
+    summary: Der Speicherort der Richtlinien Zuweisung. Nur erforderlich, wenn die verwaltete Identität genutzt wird.
+    description: ''
+  - name: --name -n
+    summary: Der Name der neuen Richtlinien Zuweisung.
+    description: ''
+  - name: --not-scopes
+    summary: Durch Leerzeichen getrennte Bereiche, in denen die Richtlinien Zuweisung nicht gilt.
+    description: ''
+  - name: --params -p
+    summary: JSON-formatierte Zeichenfolge oder ein Pfad zu einer Datei oder einem URI mit Parameterwerten der Richtlinien Regel.
+    description: ''
+  - name: --policy
+    summary: Der Name oder die ID der Richtlinien Definition.
+    description: ''
+  - name: --policy-set-definition -d
+    summary: Der Name oder die ID der Richtlinien Satz Definition.
+    description: ''
+  - name: --resource-group -g
+    summary: Die Ressourcengruppe, in der die Richtlinie angewendet wird.
+    description: ''
+  - name: --role
+    defaultValue: Contributor
+    summary: Der Rollenname oder die ID, der der verwalteten Identität zugewiesen wird.
+    description: ''
+  - name: --scope
+    summary: Bereich, auf den diese Richtlinien Zuweisung angewendet wird.
+    description: ''
+  - name: --sku -s
+    parameterValueGroup: free, standard
+    summary: Richtlinien-SKU.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/resource/_help.py
+- uid: az_policy_assignment_delete
+  name: az policy assignment delete
+  summary: Löschen Sie eine Ressourcen Richtlinien Zuweisung.
+  description: ''
+  syntax: >-
+    az policy assignment delete --name
+                                [--resource-group]
+                                [--scope]
+  examples:
+  - summary: Löschen Sie eine Ressourcen Richtlinien Zuweisung. automatisch generierten
+    syntax: az policy assignment delete --name MyPolicyAssignment
+  requiredParameters:
+  - isRequired: true
+    name: --name -n
+    summary: Der Name der Richtlinien Zuweisung.
+    description: ''
+  optionalParameters:
+  - name: --resource-group -g
+    summary: Die Ressourcengruppe, in der die Richtlinie angewendet wird.
+    description: ''
+  - name: --scope
+    summary: Bereich, auf den diese Richtlinien Zuweisung angewendet wird.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/resource/_help.py
+- uid: az_policy_assignment_list
+  name: az policy assignment list
+  summary: Auflisten von Ressourcen Richtlinien Zuweisungen.
+  description: ''
+  syntax: >-
+    az policy assignment list [--disable-scope-strict-match]
+                              [--query-examples]
+                              [--resource-group]
+                              [--scope]
+  optionalParameters:
+  - name: --disable-scope-strict-match
+    summary: Schließt Richtlinien Zuweisungen ein, die vom übergeordneten Bereich oder dem untergeordneten Bereich geerbt wurden.
+    description: ''
+  - name: --query-examples
+    summary: Empfehlen Sie die jmespath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und Sie nach dem Abfrage Parameter in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positions Schlüsselwörter hinzufügen, um Vorschläge auf der Grundlage dieser Schlüsselwörter zu geben.
+    description: ''
+  - name: --resource-group -g
+    summary: Die Ressourcengruppe, in der die Richtlinie angewendet wird.
+    description: ''
+  - name: --scope
+    summary: Bereich, auf den diese Richtlinien Zuweisung angewendet wird.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/resource/_help.py
+- uid: az_policy_assignment_show
+  name: az policy assignment show
+  summary: Anzeigen einer Ressourcen Richtlinien Zuweisung.
+  description: ''
+  syntax: >-
+    az policy assignment show --name
+                              [--query-examples]
+                              [--resource-group]
+                              [--scope]
+  examples:
+  - summary: Anzeigen einer Ressourcen Richtlinien Zuweisung. automatisch generierten
+    syntax: az policy assignment show --name MyPolicyAssignment
+  requiredParameters:
+  - isRequired: true
+    name: --name -n
+    summary: Der Name der Richtlinien Zuweisung.
+    description: ''
+  optionalParameters:
+  - name: --query-examples
+    summary: Empfehlen Sie die jmespath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und Sie nach dem Abfrage Parameter in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positions Schlüsselwörter hinzufügen, um Vorschläge auf der Grundlage dieser Schlüsselwörter zu geben.
+    description: ''
+  - name: --resource-group -g
+    summary: Die Ressourcengruppe, in der die Richtlinie angewendet wird.
+    description: ''
+  - name: --scope
+    summary: Bereich, auf den diese Richtlinien Zuweisung angewendet wird.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/resource/_help.py
+commands:
+- az_policy_assignment_create
+- az_policy_assignment_delete
+- az_policy_assignment_identity
+- az_policy_assignment_identity_assign
+- az_policy_assignment_identity_remove
+- az_policy_assignment_identity_show
+- az_policy_assignment_list
+- az_policy_assignment_show
+globalParameters:
+- name: --debug
+  summary: Ausführlichkeit der Protokollierung erhöhen, um alle Debugprotokolle anzuzeigen.
+- name: --help -h
+  summary: Zeigen Sie diese Hilfemeldung an, und schließen Sie sie.
+- name: --only-show-errors
+  summary: Nur Fehler anzeigen und Warnungen unterdrücken.
+- name: --output -o
+  defaultValue: json
+  parameterValueGroup: json, jsonc, table, tsv
+  summary: Ausgabeformat.
+- name: --query
+  summary: JMESPath-Abfragezeichenfolge. Weitere Informationen und Beispiele finden Sie unter <a href="http://jmespath.org/">http://jmespath.org/</a>.
+- name: --verbose
+  summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
+metadata:
+  doc_source_url_repo: https://github.com/Azure/azure-cli/blob/dev/
+  ms.date: 02/02/2021
+  description: Verwalten von Ressourcen Richtlinien Zuweisungen.
+  ms.openlocfilehash: d892639d56709313c46f0aa9d46203297cb27b1f
+  ms.sourcegitcommit: df9d6597535ef9103775afbaee5a8282e0e218ee
+  ms.translationtype: MT
+  ms.contentlocale: de-DE
+  ms.lasthandoff: 02/09/2021
+  ms.locfileid: "102969207"
