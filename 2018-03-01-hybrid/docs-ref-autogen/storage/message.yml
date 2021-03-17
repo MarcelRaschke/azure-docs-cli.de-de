@@ -1,0 +1,314 @@
+### YamlMime:AzureCLIGroup
+uid: az_storage_message
+name: az storage message
+summary: Verwalten von Warteschlangen Speicher Nachrichten.
+description: Geben Sie einen der folgenden Authentifizierungs Parameter für die Befehle an:--auth-Mode,--Account-Key,--Connection-String,--SAS-Token. Sie können auch entsprechende Umgebungsvariablen verwenden, um Ihre Anmelde Informationen für die Authentifizierung zu speichern, z. b. AZURE_STORAGE_KEY, AZURE_STORAGE_CONNECTION_STRING und AZURE_STORAGE_SAS_TOKEN.
+directCommands:
+- uid: az_storage_message_clear
+  name: az storage message clear
+  summary: Löscht alle Nachrichten aus der angegebenen Warteschlange.
+  description: ''
+  syntax: >-
+    az storage message clear --queue-name
+                             [--account-key]
+                             [--account-name]
+                             [--connection-string]
+                             [--sas-token]
+                             [--subscription]
+                             [--timeout]
+  requiredParameters:
+  - isRequired: true
+    name: --queue-name -q
+    summary: Der Warteschlangenname.
+    description: ''
+  optionalParameters:
+  - name: --account-key
+    summary: 'Speicherkontoschlüssel Muss in Verbindung mit dem Speicherkonto Namen verwendet werden. Umgebungsvariable: AZURE_STORAGE_KEY.'
+    description: ''
+  - name: --account-name
+    summary: 'Name des Speicherkontos Verwandte Umgebungsvariable: AZURE_STORAGE_ACCOUNT. Muss in Verbindung mit dem Speicherkonto Schlüssel oder einem SAS-Token verwendet werden. Wenn keines der beiden vorhanden ist, versucht der Befehl, den Speicherkonto Schlüssel mithilfe des authentifizierten Azure-Kontos abzufragen. Wenn eine große Anzahl von Speicher Befehlen ausgeführt wird, kann das API-Kontingent erreichen.'
+    description: ''
+  - name: --connection-string
+    summary: 'Verbindungs Zeichenfolge des Speicher Kontos. Umgebungsvariable: AZURE_STORAGE_CONNECTION_STRING.'
+    description: ''
+  - name: --sas-token
+    summary: 'Eine Shared Access Signature (SAS). Muss in Verbindung mit dem Speicherkonto Namen verwendet werden. Umgebungsvariable: AZURE_STORAGE_SAS_TOKEN.'
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  - name: --timeout
+    summary: Anforderungs Timeout in Sekunden. Gilt für jeden Dienst aufzurufen.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/storage/_help.py
+- uid: az_storage_message_delete
+  name: az storage message delete
+  summary: Löscht die angegebene Meldung.
+  description: 'Nachdem ein Client eine Nachricht mit dem get_messages Vorgang abgerufen hat, wird die Nachricht vom Client verarbeitet und gelöscht. Zum Löschen der Nachricht müssen Sie über zwei Datenelemente verfügen: ID und pop_receipt. Die ID wird vom vorherigen get_messages Vorgang zurückgegeben. Der pop_receipt wird vom letzten get_messages () oder update_message ()-Vorgang zurückgegeben. Damit der Delete_message Vorgang erfolgreich ausgeführt werden kann, muss der in der Anforderung angegebene pop_receipt mit dem vom get_messages ()-oder update_message ()-Vorgang zurückgegebenen pop_receipt identisch sein.'
+  syntax: >-
+    az storage message delete --id
+                              --pop-receipt
+                              --queue-name
+                              [--account-key]
+                              [--account-name]
+                              [--connection-string]
+                              [--sas-token]
+                              [--subscription]
+                              [--timeout]
+  requiredParameters:
+  - isRequired: true
+    name: --id
+    summary: Die Nachrichten-ID, die die zu löschende Meldung identifiziert.
+    description: ''
+  - isRequired: true
+    name: --pop-receipt
+    summary: Ein gültiger Pop-Empfangs Wert, der von einem früheren-Rückruf an den get_messages () oder update_message () zurückgegeben wurde.
+    description: ''
+  - isRequired: true
+    name: --queue-name -q
+    summary: Der Warteschlangenname.
+    description: ''
+  optionalParameters:
+  - name: --account-key
+    summary: 'Speicherkontoschlüssel Muss in Verbindung mit dem Speicherkonto Namen verwendet werden. Umgebungsvariable: AZURE_STORAGE_KEY.'
+    description: ''
+  - name: --account-name
+    summary: 'Name des Speicherkontos Verwandte Umgebungsvariable: AZURE_STORAGE_ACCOUNT. Muss in Verbindung mit dem Speicherkonto Schlüssel oder einem SAS-Token verwendet werden. Wenn keines der beiden vorhanden ist, versucht der Befehl, den Speicherkonto Schlüssel mithilfe des authentifizierten Azure-Kontos abzufragen. Wenn eine große Anzahl von Speicher Befehlen ausgeführt wird, kann das API-Kontingent erreichen.'
+    description: ''
+  - name: --connection-string
+    summary: 'Verbindungs Zeichenfolge des Speicher Kontos. Umgebungsvariable: AZURE_STORAGE_CONNECTION_STRING.'
+    description: ''
+  - name: --sas-token
+    summary: 'Eine Shared Access Signature (SAS). Muss in Verbindung mit dem Speicherkonto Namen verwendet werden. Umgebungsvariable: AZURE_STORAGE_SAS_TOKEN.'
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  - name: --timeout
+    summary: Anforderungs Timeout in Sekunden. Gilt für jeden Dienst aufzurufen.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/storage/_help.py
+- uid: az_storage_message_get
+  name: az storage message get
+  summary: Ruft eine oder mehrere Nachrichten vom Anfang der Warteschlange ab.
+  description: Wenn eine Nachricht aus der Warteschlange abgerufen wird, enthält die Antwort den Nachrichten Inhalt und einen pop_receipt Wert, der zum Löschen der Nachricht erforderlich ist.  Die Nachricht wird nicht automatisch aus der Warteschlange gelöscht, aber nachdem Sie abgerufen wurde, ist Sie für andere Clients für das durch den visibility_timeout-Parameter angegebene Zeitintervall nicht sichtbar.  Wenn das Feld Key-Encryption-Key oder Konflikt Löser für das lokale Dienst Objekt festgelegt ist, werden die Nachrichten vor der Rückgabe entschlüsselt.
+  syntax: >-
+    az storage message get --queue-name
+                           [--account-key]
+                           [--account-name]
+                           [--connection-string]
+                           [--num-messages]
+                           [--sas-token]
+                           [--subscription]
+                           [--timeout]
+                           [--visibility-timeout]
+  requiredParameters:
+  - isRequired: true
+    name: --queue-name -q
+    summary: Der Warteschlangenname.
+    description: ''
+  optionalParameters:
+  - name: --account-key
+    summary: 'Speicherkontoschlüssel Muss in Verbindung mit dem Speicherkonto Namen verwendet werden. Umgebungsvariable: AZURE_STORAGE_KEY.'
+    description: ''
+  - name: --account-name
+    summary: 'Name des Speicherkontos Verwandte Umgebungsvariable: AZURE_STORAGE_ACCOUNT. Muss in Verbindung mit dem Speicherkonto Schlüssel oder einem SAS-Token verwendet werden. Wenn keines der beiden vorhanden ist, versucht der Befehl, den Speicherkonto Schlüssel mithilfe des authentifizierten Azure-Kontos abzufragen. Wenn eine große Anzahl von Speicher Befehlen ausgeführt wird, kann das API-Kontingent erreichen.'
+    description: ''
+  - name: --connection-string
+    summary: 'Verbindungs Zeichenfolge des Speicher Kontos. Umgebungsvariable: AZURE_STORAGE_CONNECTION_STRING.'
+    description: ''
+  - name: --num-messages
+    summary: Ein ganzzahliger Wert ungleich 0 (null), der die Anzahl der Nachrichten angibt, die aus der Warteschlange abgerufen werden sollen; der maximale Wert beträgt 32. Wenn weniger sichtbar sind, werden die sichtbaren Nachrichten zurückgegeben. Standardmäßig wird mit diesem Vorgang eine einzige Nachricht aus der Warteschlange abgerufen.
+    description: ''
+  - name: --sas-token
+    summary: 'Eine Shared Access Signature (SAS). Muss in Verbindung mit dem Speicherkonto Namen verwendet werden. Umgebungsvariable: AZURE_STORAGE_SAS_TOKEN.'
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  - name: --timeout
+    summary: Anforderungs Timeout in Sekunden. Gilt für jeden Dienst aufzurufen.
+    description: ''
+  - name: --visibility-timeout
+    summary: Gibt den neuen Sichtbarkeitstimeoutwert in Sekunden relativ zur Serverzeit an. Der neue Wert muss größer als oder gleich 1 Sekunde sein und darf nicht größer als 7 Tage sein. Das Sichtbarkeitstimeout einer Nachricht kann auf einen Wert festgelegt werden, der nach der Ablaufzeit liegt.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/storage/_help.py
+- uid: az_storage_message_peek
+  name: az storage message peek
+  summary: Ruft eine oder mehrere Nachrichten vom Anfang der Warteschlange ab, ändert jedoch nicht die Sichtbarkeit der Nachricht.
+  description: Es können nur Nachrichten abgerufen werden, die sichtbar sind. Wenn eine Nachricht zum ersten Mal mit einem Aufruf von get_messages abgerufen wird, wird die dequeue_count-Eigenschaft auf 1 festgelegt. Wenn Sie nicht gelöscht und anschließend erneut abgerufen wird, wird die dequeue_count-Eigenschaft inkrementiert. Der Client kann diesen Wert verwenden, um zu bestimmen, wie oft eine Nachricht abgerufen wurde. Beachten Sie, dass ein-peek_messages den Wert von "unqueuecount" nicht erhöht, sondern diesen Wert für den Client zurückgibt.  Wenn das Feld Key-Encryption-Key oder Konflikt Löser für das lokale Dienst Objekt festgelegt ist, werden die Nachrichten vor der Rückgabe entschlüsselt.
+  syntax: >-
+    az storage message peek --queue-name
+                            [--account-key]
+                            [--account-name]
+                            [--connection-string]
+                            [--num-messages]
+                            [--sas-token]
+                            [--subscription]
+                            [--timeout]
+  requiredParameters:
+  - isRequired: true
+    name: --queue-name -q
+    summary: Der Warteschlangenname.
+    description: ''
+  optionalParameters:
+  - name: --account-key
+    summary: 'Speicherkontoschlüssel Muss in Verbindung mit dem Speicherkonto Namen verwendet werden. Umgebungsvariable: AZURE_STORAGE_KEY.'
+    description: ''
+  - name: --account-name
+    summary: 'Name des Speicherkontos Verwandte Umgebungsvariable: AZURE_STORAGE_ACCOUNT. Muss in Verbindung mit dem Speicherkonto Schlüssel oder einem SAS-Token verwendet werden. Wenn keines der beiden vorhanden ist, versucht der Befehl, den Speicherkonto Schlüssel mithilfe des authentifizierten Azure-Kontos abzufragen. Wenn eine große Anzahl von Speicher Befehlen ausgeführt wird, kann das API-Kontingent erreichen.'
+    description: ''
+  - name: --connection-string
+    summary: 'Verbindungs Zeichenfolge des Speicher Kontos. Umgebungsvariable: AZURE_STORAGE_CONNECTION_STRING.'
+    description: ''
+  - name: --num-messages
+    summary: Ein ganzzahliger Wert ungleich 0 (null), der die Anzahl der Nachrichten angibt, die aus der Warteschlange einzusehen sind; der maximale Wert beträgt 32. Standardmäßig wird mit diesem Vorgang eine einzige Nachricht aus der Warteschlange eingesehen.
+    description: ''
+  - name: --sas-token
+    summary: 'Eine Shared Access Signature (SAS). Muss in Verbindung mit dem Speicherkonto Namen verwendet werden. Umgebungsvariable: AZURE_STORAGE_SAS_TOKEN.'
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  - name: --timeout
+    summary: Anforderungs Timeout in Sekunden. Gilt für jeden Dienst aufzurufen.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/storage/_help.py
+- uid: az_storage_message_put
+  name: az storage message put
+  summary: Fügt der Rückseite der Nachrichten Warteschlange eine neue Nachricht hinzu.
+  description: Das Sichtbarkeits Timeout gibt die Uhrzeit an, zu der die Nachricht unsichtbar ist. Wenn das Timeout abläuft, wird die Nachricht sichtbar.  Wenn kein Sichtbarkeitstimeout angegeben ist, wird der Standardwert 0 verwendet.  Die Gültigkeitsdauer der Nachricht gibt an, wie lange eine Nachricht in der Warteschlange verbleiben soll. Die Nachricht wird aus der Warteschlange gelöscht, wenn die Gültigkeitsdauer abläuft.  Wenn das Feld Key-Encryption-Key für das lokale Dienst Objekt festgelegt ist, wird der Inhalt von dieser Methode vor dem Hochladen verschlüsselt.
+  syntax: >-
+    az storage message put --content
+                           --queue-name
+                           [--account-key]
+                           [--account-name]
+                           [--connection-string]
+                           [--sas-token]
+                           [--subscription]
+                           [--time-to-live]
+                           [--timeout]
+                           [--visibility-timeout]
+  requiredParameters:
+  - isRequired: true
+    name: --content
+    summary: Nachrichten Inhalt, bis zu 64 KB.
+    description: ''
+  - isRequired: true
+    name: --queue-name -q
+    summary: Der Warteschlangenname.
+    description: ''
+  optionalParameters:
+  - name: --account-key
+    summary: 'Speicherkontoschlüssel Muss in Verbindung mit dem Speicherkonto Namen verwendet werden. Umgebungsvariable: AZURE_STORAGE_KEY.'
+    description: ''
+  - name: --account-name
+    summary: 'Name des Speicherkontos Verwandte Umgebungsvariable: AZURE_STORAGE_ACCOUNT. Muss in Verbindung mit dem Speicherkonto Schlüssel oder einem SAS-Token verwendet werden. Wenn keines der beiden vorhanden ist, versucht der Befehl, den Speicherkonto Schlüssel mithilfe des authentifizierten Azure-Kontos abzufragen. Wenn eine große Anzahl von Speicher Befehlen ausgeführt wird, kann das API-Kontingent erreichen.'
+    description: ''
+  - name: --connection-string
+    summary: 'Verbindungs Zeichenfolge des Speicher Kontos. Umgebungsvariable: AZURE_STORAGE_CONNECTION_STRING.'
+    description: ''
+  - name: --sas-token
+    summary: 'Eine Shared Access Signature (SAS). Muss in Verbindung mit dem Speicherkonto Namen verwendet werden. Umgebungsvariable: AZURE_STORAGE_SAS_TOKEN.'
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  - name: --time-to-live
+    summary: Gibt das Gültigkeitsdauerintervall für die Nachricht in Sekunden an. Die maximal zulässige Gültigkeitsdauer ist 7 Tage. Wenn dieser Parameter nicht angegeben ist, beträgt die Standardgültigkeitsdauer 7 Tage.
+    description: ''
+  - name: --timeout
+    summary: Anforderungs Timeout in Sekunden. Gilt für jeden Dienst aufzurufen.
+    description: ''
+  - name: --visibility-timeout
+    summary: Wenn dieser Wert fehlt, wird der Standardwert 0 verwendet. Gibt den neuen Sichtbarkeitstimeoutwert in Sekunden relativ zur Serverzeit an. Der Wert muss größer oder gleich 0 sein und darf nicht größer als 7 Tage sein. Das Sichtbarkeitstimeout einer Nachricht darf nicht auf einen Wert festgelegt werden, der nach der Ablaufzeit liegt. visibility_timeout sollte auf einen Wert festgelegt werden, der kleiner ist als der Wert für die Gültigkeitsdauer.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/storage/_help.py
+- uid: az_storage_message_update
+  name: az storage message update
+  summary: Aktualisiert das Sichtbarkeits Timeout einer Nachricht.
+  description: Sie können diesen Vorgang auch verwenden, um den Inhalt einer Nachricht zu aktualisieren.  Dieser Vorgang kann verwendet werden, um die Sichtbarkeit einer Warteschlangen Nachricht fortlaufend zu erweitern. Diese Funktionalität kann nützlich sein, wenn Sie möchten, dass eine workerrolle eine Warteschlangen Nachricht "leasen". Wenn z. b. eine workerrolle get_messages aufruft und erkennt, dass Sie mehr Zeit für die Verarbeitung einer Nachricht benötigt, kann die Sichtbarkeit der Nachricht fortlaufend verlängert werden, bis Sie verarbeitet wird. Wenn die workerrolle während der Verarbeitung fehlschlagen würde, wird die Nachricht schließlich wieder sichtbar, und eine andere workerrolle könnte Sie verarbeiten.  Wenn das Feld Key-Encryption-Key für das lokale Dienst Objekt festgelegt ist, wird der Inhalt von dieser Methode vor dem Hochladen verschlüsselt.
+  syntax: >-
+    az storage message update --id
+                              --pop-receipt
+                              --queue-name
+                              --visibility-timeout
+                              [--account-key]
+                              [--account-name]
+                              [--connection-string]
+                              [--content]
+                              [--sas-token]
+                              [--subscription]
+                              [--timeout]
+  requiredParameters:
+  - isRequired: true
+    name: --id
+    summary: Die Nachrichten-ID zur Identifizierung der zu aktualisierenden Meldung
+    description: ''
+  - isRequired: true
+    name: --pop-receipt
+    summary: Ein gültiger Pop-Empfangs Wert, der von einem vorherigen aufrufungs Vorgang des get_messages () oder update_message ()-Vorgangs zurückgegeben wurde.
+    description: ''
+  - isRequired: true
+    name: --queue-name -q
+    summary: Der Warteschlangenname.
+    description: ''
+  - isRequired: true
+    name: --visibility-timeout
+    summary: Gibt den neuen Sichtbarkeitstimeoutwert in Sekunden relativ zur Serverzeit an. Der neue Wert muss größer oder gleich 0 sein und darf nicht größer als 7 Tage sein. Das Sichtbarkeitstimeout einer Nachricht darf nicht auf einen Wert festgelegt werden, der nach der Ablaufzeit liegt. Eine Nachricht kann aktualisiert werden, bis sie gelöscht wurde oder abgelaufen ist.
+    description: ''
+  optionalParameters:
+  - name: --account-key
+    summary: 'Speicherkontoschlüssel Muss in Verbindung mit dem Speicherkonto Namen verwendet werden. Umgebungsvariable: AZURE_STORAGE_KEY.'
+    description: ''
+  - name: --account-name
+    summary: 'Name des Speicherkontos Verwandte Umgebungsvariable: AZURE_STORAGE_ACCOUNT. Muss in Verbindung mit dem Speicherkonto Schlüssel oder einem SAS-Token verwendet werden. Wenn keines der beiden vorhanden ist, versucht der Befehl, den Speicherkonto Schlüssel mithilfe des authentifizierten Azure-Kontos abzufragen. Wenn eine große Anzahl von Speicher Befehlen ausgeführt wird, kann das API-Kontingent erreichen.'
+    description: ''
+  - name: --connection-string
+    summary: 'Verbindungs Zeichenfolge des Speicher Kontos. Umgebungsvariable: AZURE_STORAGE_CONNECTION_STRING.'
+    description: ''
+  - name: --content
+    summary: Nachrichten Inhalt, bis zu 64 KB.
+    description: ''
+  - name: --sas-token
+    summary: 'Eine Shared Access Signature (SAS). Muss in Verbindung mit dem Speicherkonto Namen verwendet werden. Umgebungsvariable: AZURE_STORAGE_SAS_TOKEN.'
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  - name: --timeout
+    summary: Anforderungs Timeout in Sekunden. Gilt für jeden Dienst aufzurufen.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/storage/_help.py
+commands:
+- az_storage_message_clear
+- az_storage_message_delete
+- az_storage_message_get
+- az_storage_message_peek
+- az_storage_message_put
+- az_storage_message_update
+globalParameters:
+- name: --debug
+  summary: Ausführlichkeit der Protokollierung erhöhen, um alle Debugprotokolle anzuzeigen.
+- name: --help -h
+  summary: Zeigen Sie diese Hilfemeldung an, und schließen Sie sie.
+- name: --only-show-errors
+  summary: Nur Fehler anzeigen und Warnungen unterdrücken.
+- name: --output -o
+  defaultValue: json
+  parameterValueGroup: json, jsonc, table, tsv
+  summary: Ausgabeformat.
+- name: --query
+  summary: JMESPath-Abfragezeichenfolge. Weitere Informationen und Beispiele finden Sie unter <a href="http://jmespath.org/">http://jmespath.org/</a>.
+- name: --verbose
+  summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
+metadata:
+  doc_source_url_repo: https://github.com/Azure/azure-cli/blob/dev/
+  ms.date: 02/26/2021
+  description: Geben Sie einen der folgenden Authentifizierungs Parameter für die Befehle an:--auth-Mode,--Account-Key,--Connection-String,--SAS-Token. Sie können auch entsprechende Umgebungsvariablen verwenden, um Ihre Anmelde Informationen für die Authentifizierung zu speichern, z. b. AZURE_STORAGE_KEY, AZURE_STORAGE_CONNECTION_STRING und AZURE_STORAGE_SAS_TOKEN.
+  ms.openlocfilehash: e49fd26034face04d6e1203ff948fe26cb9a773a
+  ms.sourcegitcommit: f9e23f29c59c6957d3df4d5ca2f4425093e6fd80
+  ms.translationtype: MT
+  ms.contentlocale: de-DE
+  ms.lasthandoff: 03/16/2021
+  ms.locfileid: "103499351"

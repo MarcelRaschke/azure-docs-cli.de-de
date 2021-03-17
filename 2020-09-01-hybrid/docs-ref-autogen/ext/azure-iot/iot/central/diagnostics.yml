@@ -1,0 +1,306 @@
+### YamlMime:AzureCLIGroup
+uid: ext_azure-iot_az_iot_central_diagnostics
+name: az iot central diagnostics
+extensionInformation: >-
+  > [!Note]
+
+  > Diese Referenz ist Teil der **Azure-IOT-** Erweiterung für Azure CLI und erfordert Version 2.0.70 oder höher.  Die Erweiterung wird automatisch installiert, wenn Sie den Befehl **AZ IOT Central Diagnostics** zum ersten Mal ausführen.  [Weitere Informationen zu Erweiterungen](https://docs.microsoft.com/en-us/cli/azure/azure-cli-extensions-overview)
+summary: Ausführen der Diagnose auf Anwendungs-und Geräteebene.
+description: ''
+directCommands:
+- uid: ext_azure-iot_az_iot_central_diagnostics_monitor_events
+  name: az iot central diagnostics monitor-events
+  summary: Anzeigen von an die IOT Central-App gesendeten telemetriedatennachrichten.
+  description: Zeigt die an IOT Central Anwendung gesendeten Telemetriedaten an. Standardmäßig werden alle von allen Geräten gesendeten Daten angezeigt. Verwenden Sie den Parameter "--Device-ID", um nach einem bestimmten Gerät zu filtern.
+  syntax: >-
+    az iot central diagnostics monitor-events --app-id
+                                              [--central-api-uri]
+                                              [--cg]
+                                              [--device-id]
+                                              [--enqueued-time]
+                                              [--module-id]
+                                              [--properties {all, anno, app, sys}]
+                                              [--repair {false, true}]
+                                              [--timeout]
+                                              [--token]
+                                              [--yes {false, true}]
+  examples:
+  - summary: Grundlegende Verwendung
+    syntax: az iot central diagnostics monitor-events --app-id {app_id}
+  - summary: Grundlegende Verwendung beim Filtern auf Zielgerät
+    syntax: az iot central diagnostics monitor-events --app-id {app_id} -d {device_id}
+  - summary: Grundlegende Verwendung beim Filtern von Ziel Geräten mit einem Platzhalter in der ID
+    syntax: az iot central diagnostics monitor-events --app-id {app_id} -d Device*d
+  - summary: Grundlegende Verwendung beim Filtern nach Modulen.
+    syntax: az iot central diagnostics monitor-events --app-id {app_id} -m {module_id}
+  - summary: Grundlegende Verwendung beim Filtern von Ziel Modulen mit einem Platzhalter in der ID
+    syntax: az iot central diagnostics monitor-events --app-id {app_id} -m Module*
+  - summary: Filtern Sie das Gerät, und geben Sie eine Event Hub-consumergruppe für die Bindung an.
+    syntax: az iot central diagnostics monitor-events --app-id {app_id} -d {device_id} --cg {consumer_group_name}
+  - summary: Empfangen von Nachrichten Anmerkungen (Nachrichten Header)
+    syntax: az iot central diagnostics monitor-events --app-id {app_id} -d {device_id} --properties anno
+  - summary: Empfangen von Nachrichten Anmerkungen und Systemeigenschaften. Kein Timeout.
+    syntax: az iot central diagnostics monitor-events --app-id {app_id} -d {device_id} --properties anno sys --timeout 0
+  - summary: Alle Nachrichten Attribute von allen Geräte Nachrichten empfangen
+    syntax: az iot central diagnostics monitor-events --app-id {app_id} --props all
+  - summary: Alle Nachrichten empfangen und Nachrichten Nutzlast als JSON analysieren
+    syntax: az iot central diagnostics monitor-events --app-id {app_id} --output json
+  requiredParameters:
+  - isRequired: true
+    name: --app-id -n
+    summary: Die APP-ID der IOT Central-APP, die Sie verwalten möchten. Sie finden die APP-ID im Menü Hilfe auf der Seite "Info" für Ihre Anwendung.
+    description: ''
+  optionalParameters:
+  - name: --central-api-uri --central-dns-suffix
+    defaultValue: azureiotcentral.com
+    summary: 'Das IOT Central DNS-Suffix, das der Anwendung zugeordnet ist. Der Standardwert ist: azureiotcentral.com.'
+    description: ''
+  - name: --cg --consumer-group -c
+    defaultValue: $Default
+    summary: Gibt die consumergruppe an, die beim Herstellen einer Verbindung mit Event Hub Endpunkt verwendet werden soll.
+    description: ''
+  - name: --device-id -d
+    summary: Die ID des Zielgeräts. Sie finden die Geräte-ID, indem Sie auf der Seite mit den Geräte Details auf die Schaltfläche Verbinden klicken.
+    description: ''
+  - name: --enqueued-time --et -e
+    summary: Gibt die Zeit an, die als Ausgangspunkt zum Lesen von Nachrichten aus den Partitionen verwendet werden soll. Einheiten sind Millisekunden seit der UNIX-Epoche. Wenn nicht angegeben wird, wird "Now" verwendet.
+    description: ''
+  - name: --module-id -m
+    summary: Geben Sie IOT Edge Modul-ID an, wenn der Gerätetyp IOT Edge ist.
+    description: ''
+  - name: --properties --props -p
+    parameterValueGroup: all, anno, app, sys
+    summary: Geben Sie die anzuzeigende Schlüssel Nachrichten Eigenschaften an. sys = Systemeigenschaften, App = Anwendungseigenschaften, anno = Anmerkungen.
+    description: ''
+  - name: --repair -r
+    parameterValueGroup: false, true
+    summary: 'Neuinstallation der mit der Erweiterungs Version kompatiblen uamqp-Abhängigkeit. Standardwert: false.'
+    description: ''
+  - name: --timeout --to -t
+    defaultValue: "300"
+    summary: Maximale Anzahl von Sekunden für die Beibehaltung der Verbindung ohne empfangene Nachricht. Verwenden Sie 0 für unendlich.
+    description: ''
+  - name: --token
+    summary: Wenn Sie die Anforderung übermitteln möchten, ohne die Azure CLI zu authentifizieren, können Sie ein gültiges Benutzer Token zum Authentifizieren Ihrer Anforderung angeben. Sie müssen den Schlüsseltyp als Teil der Anforderung angeben. Weitere Informationen finden Sie unter <a href="https://aka.ms/iotcentraldocsapi">https://aka.ms/iotcentraldocsapi</a>.
+    description: ''
+  - name: --yes -y
+    parameterValueGroup: false, true
+    summary: 'Benutzereingabe Aufforderungen überspringen. Gibt an, dass die Abhängigkeits Installation (falls erforderlich) akzeptiert wird. Wird hauptsächlich für Automatisierungs Szenarien verwendet. Standardwert: false.'
+    description: ''
+- uid: ext_azure-iot_az_iot_central_diagnostics_monitor_properties
+  name: az iot central diagnostics monitor-properties
+  summary: Anzeigen gewünschter und gemeldeter Eigenschaften, die an/von der IOT Central-App gesendet werden.
+  description: Fragt den Geräte Zwilling von Central ab und vergleicht ihn mit dem letzten Geräte Zwilling, der die Eigenschaften des Geräte Zwillings analysiert, und erkennt, ob Änderungen vorgenommen wurden, die eine Teilmenge der Eigenschaften aufweisen, die innerhalb des Abruf Intervalls geändert wurden.
+  syntax: >-
+    az iot central diagnostics monitor-properties --app-id
+                                                  --device-id
+                                                  [--central-api-uri]
+                                                  [--token]
+  examples:
+  - summary: Grundlegende Verwendung
+    syntax: az iot central diagnostics monitor-properties --app-id {app_id} -d {device_id}
+  requiredParameters:
+  - isRequired: true
+    name: --app-id -n
+    summary: Die APP-ID der IOT Central-APP, die Sie verwalten möchten. Sie finden die APP-ID im Menü Hilfe auf der Seite "Info" für Ihre Anwendung.
+    description: ''
+  - isRequired: true
+    name: --device-id -d
+    summary: Die ID des Zielgeräts. Sie finden die Geräte-ID, indem Sie auf der Seite mit den Geräte Details auf die Schaltfläche Verbinden klicken.
+    description: ''
+  optionalParameters:
+  - name: --central-api-uri --central-dns-suffix
+    defaultValue: azureiotcentral.com
+    summary: 'Das IOT Central DNS-Suffix, das der Anwendung zugeordnet ist. Der Standardwert ist: azureiotcentral.com.'
+    description: ''
+  - name: --token
+    summary: Wenn Sie die Anforderung übermitteln möchten, ohne die Azure CLI zu authentifizieren, können Sie ein gültiges Benutzer Token zum Authentifizieren Ihrer Anforderung angeben. Sie müssen den Schlüsseltyp als Teil der Anforderung angeben. Weitere Informationen finden Sie unter <a href="https://aka.ms/iotcentraldocsapi">https://aka.ms/iotcentraldocsapi</a>.
+    description: ''
+- uid: ext_azure-iot_az_iot_central_diagnostics_registration_summary
+  name: az iot central diagnostics registration-summary
+  summary: Zeigen Sie die Registrierungs Zusammenfassung aller Geräte in einer APP an.
+  description: 'Hinweis: Dieser Befehl kann eine beträchtliche Zeit in Anspruch nehmen, um zurückzukehren, wenn Ihre APP eine große Anzahl von Geräten enthält.'
+  syntax: >-
+    az iot central diagnostics registration-summary --app-id
+                                                    [--central-api-uri]
+                                                    [--token]
+  examples:
+  - summary: Registrierungs Zusammenfassung
+    syntax: az iot central diagnostics registration-summary --app-id {appid}
+  requiredParameters:
+  - isRequired: true
+    name: --app-id -n
+    summary: Die APP-ID der IOT Central-APP, die Sie verwalten möchten. Sie finden die APP-ID im Menü Hilfe auf der Seite "Info" für Ihre Anwendung.
+    description: ''
+  optionalParameters:
+  - name: --central-api-uri --central-dns-suffix
+    defaultValue: azureiotcentral.com
+    summary: 'Das IOT Central DNS-Suffix, das der Anwendung zugeordnet ist. Der Standardwert ist: azureiotcentral.com.'
+    description: ''
+  - name: --token
+    summary: Wenn Sie die Anforderung übermitteln möchten, ohne die Azure CLI zu authentifizieren, können Sie ein gültiges Benutzer Token zum Authentifizieren Ihrer Anforderung angeben. Sie müssen den Schlüsseltyp als Teil der Anforderung angeben. Weitere Informationen finden Sie unter <a href="https://aka.ms/iotcentraldocsapi">https://aka.ms/iotcentraldocsapi</a>.
+    description: ''
+- uid: ext_azure-iot_az_iot_central_diagnostics_validate_messages
+  name: az iot central diagnostics validate-messages
+  summary: Überprüfen von Nachrichten, die an den IOT Hub einer IOT Central-App gesendet werden
+  description: Führt Validierungen für die telemetrienachrichten aus und meldet Daten, die nicht in der Geräte Vorlage modelliert sind, oder Daten, bei denen der Datentyp nicht mit dem in der Geräte Vorlage definierten Datentyp identisch ist.
+  syntax: >-
+    az iot central diagnostics validate-messages --app-id
+                                                 [--central-api-uri]
+                                                 [--cg]
+                                                 [--device-id]
+                                                 [--dr]
+                                                 [--enqueued-time]
+                                                 [--max-messages]
+                                                 [--minimum-severity {error, info, warning}]
+                                                 [--module-id]
+                                                 [--properties {all, anno, app, sys}]
+                                                 [--repair {false, true}]
+                                                 [--style {csv, json, scroll}]
+                                                 [--timeout]
+                                                 [--token]
+                                                 [--yes {false, true}]
+  examples:
+  - summary: Grundlegende Verwendung
+    syntax: az iot central diagnostics validate-messages --app-id {app_id}
+  - summary: Ausgabe von Fehlern, sobald diese erkannt werden
+    syntax: az iot central diagnostics validate-messages --app-id {app_id} --style scroll
+  - summary: Grundlegende Verwendung beim Filtern auf Zielgerät
+    syntax: az iot central diagnostics validate-messages --app-id {app_id} -d {device_id}
+  - summary: Grundlegende Verwendung beim Filtern von Ziel Geräten mit einem Platzhalter in der ID
+    syntax: az iot central diagnostics validate-messages --app-id {app_id} -d Device*
+  - summary: Grundlegende Verwendung beim Filtern nach Modulen.
+    syntax: az iot central diagnostics validate-messages --app-id {app_id} -m {module_id}
+  - summary: Grundlegende Verwendung beim Filtern von Ziel Modulen mit einem Platzhalter in der ID
+    syntax: az iot central diagnostics validate-messages --app-id {app_id} -m Module*
+  - summary: Filtern Sie das Gerät, und geben Sie eine Event Hub-consumergruppe für die Bindung an.
+    syntax: az iot central diagnostics validate-messages --app-id {app_id} -d {device_id} --cg {consumer_group_name}
+  requiredParameters:
+  - isRequired: true
+    name: --app-id -n
+    summary: Die APP-ID der IOT Central-APP, die Sie verwalten möchten. Sie finden die APP-ID im Menü Hilfe auf der Seite "Info" für Ihre Anwendung.
+    description: ''
+  optionalParameters:
+  - name: --central-api-uri --central-dns-suffix
+    defaultValue: azureiotcentral.com
+    summary: 'Das IOT Central DNS-Suffix, das der Anwendung zugeordnet ist. Der Standardwert ist: azureiotcentral.com.'
+    description: ''
+  - name: --cg --consumer-group -c
+    defaultValue: $Default
+    summary: Gibt die consumergruppe an, die beim Herstellen einer Verbindung mit Event Hub Endpunkt verwendet werden soll.
+    description: ''
+  - name: --device-id -d
+    summary: Die ID des Zielgeräts. Sie finden die Geräte-ID, indem Sie auf der Seite mit den Geräte Details auf die Schaltfläche Verbinden klicken.
+    description: ''
+  - name: --dr --duration
+    defaultValue: "300"
+    summary: Maximale Dauer zum Empfangen von Nachrichten vom Zielgerät, bevor die Verbindung beendet wird. Verwenden Sie 0 für unendlich.
+    description: ''
+  - name: --enqueued-time --et -e
+    summary: Gibt die Zeit an, die als Ausgangspunkt zum Lesen von Nachrichten aus den Partitionen verwendet werden soll. Einheiten sind Millisekunden seit der UNIX-Epoche. Wenn nicht angegeben wird, wird "Now" verwendet.
+    description: ''
+  - name: --max-messages --mm
+    defaultValue: "10"
+    summary: Maximale Anzahl von Nachrichten, die vom Zielgerät empfangen werden, bevor die Verbindung beendet wird. Verwenden Sie 0 für unendlich.
+    description: ''
+  - name: --minimum-severity
+    defaultValue: warning
+    parameterValueGroup: error, info, warning
+    summary: Minimaler Schweregrad des für die Berichterstattung erforderlichen Problems.
+    description: ''
+  - name: --module-id -m
+    summary: Geben Sie IOT Edge Modul-ID an, wenn der Gerätetyp IOT Edge ist.
+    description: ''
+  - name: --properties --props -p
+    parameterValueGroup: all, anno, app, sys
+    summary: Geben Sie die anzuzeigende Schlüssel Nachrichten Eigenschaften an. sys = Systemeigenschaften, App = Anwendungseigenschaften, anno = Anmerkungen.
+    description: ''
+  - name: --repair -r
+    parameterValueGroup: false, true
+    summary: 'Neuinstallation der mit der Erweiterungs Version kompatiblen uamqp-Abhängigkeit. Standardwert: false.'
+    description: ''
+  - name: --style
+    defaultValue: scroll
+    parameterValueGroup: csv, json, scroll
+    summary: Geben Sie Output stylescroll = Fehler beim Eintreffen übermitteln an, JSON = Ergebnisse als JSON-Code zusammenfassen, CSV = Ergebnisse als CSV zusammenfassen.
+    description: ''
+  - name: --timeout --to -t
+    defaultValue: "300"
+    summary: Maximale Anzahl von Sekunden für die Beibehaltung der Verbindung ohne empfangene Nachricht. Verwenden Sie 0 für unendlich.
+    description: ''
+  - name: --token
+    summary: Wenn Sie die Anforderung übermitteln möchten, ohne die Azure CLI zu authentifizieren, können Sie ein gültiges Benutzer Token zum Authentifizieren Ihrer Anforderung angeben. Sie müssen den Schlüsseltyp als Teil der Anforderung angeben. Weitere Informationen finden Sie unter <a href="https://aka.ms/iotcentraldocsapi">https://aka.ms/iotcentraldocsapi</a>.
+    description: ''
+  - name: --yes -y
+    parameterValueGroup: false, true
+    summary: 'Benutzereingabe Aufforderungen überspringen. Gibt an, dass die Abhängigkeits Installation (falls erforderlich) akzeptiert wird. Wird hauptsächlich für Automatisierungs Szenarien verwendet. Standardwert: false.'
+    description: ''
+- uid: ext_azure-iot_az_iot_central_diagnostics_validate_properties
+  name: az iot central diagnostics validate-properties
+  summary: Überprüfen der gemeldeten Eigenschaften, die an die IOT Central Anwendung gesendet werden.
+  description: >-
+    Führt Validierungen für gemeldete Eigenschafts Updates aus:
+
+    1) Warnung: von einem Gerät gesendete Eigenschaften, die nicht in Central modelliert werden.
+
+    2) Warnung: Eigenschaften mit demselben Namen, die in mehreren Schnittstellen deklariert werden, sollten den Schnittstellennamen enthalten, der im Rahmen der Eigenschaften Aktualisierung enthalten ist.
+  syntax: >-
+    az iot central diagnostics validate-properties --app-id
+                                                   --device-id
+                                                   [--central-api-uri]
+                                                   [--minimum-severity {error, info, warning}]
+                                                   [--token]
+  examples:
+  - summary: Grundlegende Verwendung
+    syntax: az iot central diagnostics validate-properties --app-id {app_id} -d {device_id}
+  requiredParameters:
+  - isRequired: true
+    name: --app-id -n
+    summary: Die APP-ID der IOT Central-APP, die Sie verwalten möchten. Sie finden die APP-ID im Menü Hilfe auf der Seite "Info" für Ihre Anwendung.
+    description: ''
+  - isRequired: true
+    name: --device-id -d
+    summary: Die ID des Zielgeräts. Sie finden die Geräte-ID, indem Sie auf der Seite mit den Geräte Details auf die Schaltfläche Verbinden klicken.
+    description: ''
+  optionalParameters:
+  - name: --central-api-uri --central-dns-suffix
+    defaultValue: azureiotcentral.com
+    summary: 'Das IOT Central DNS-Suffix, das der Anwendung zugeordnet ist. Der Standardwert ist: azureiotcentral.com.'
+    description: ''
+  - name: --minimum-severity
+    defaultValue: warning
+    parameterValueGroup: error, info, warning
+    summary: Minimaler Schweregrad des für die Berichterstattung erforderlichen Problems.
+    description: ''
+  - name: --token
+    summary: Wenn Sie die Anforderung übermitteln möchten, ohne die Azure CLI zu authentifizieren, können Sie ein gültiges Benutzer Token zum Authentifizieren Ihrer Anforderung angeben. Sie müssen den Schlüsseltyp als Teil der Anforderung angeben. Weitere Informationen finden Sie unter <a href="https://aka.ms/iotcentraldocsapi">https://aka.ms/iotcentraldocsapi</a>.
+    description: ''
+commands:
+- ext_azure-iot_az_iot_central_diagnostics_monitor_events
+- ext_azure-iot_az_iot_central_diagnostics_monitor_properties
+- ext_azure-iot_az_iot_central_diagnostics_registration_summary
+- ext_azure-iot_az_iot_central_diagnostics_validate_messages
+- ext_azure-iot_az_iot_central_diagnostics_validate_properties
+globalParameters:
+- name: --debug
+  summary: Ausführlichkeit der Protokollierung erhöhen, um alle Debugprotokolle anzuzeigen.
+- name: --help -h
+  summary: Zeigen Sie diese Hilfemeldung an, und schließen Sie sie.
+- name: --only-show-errors
+  summary: Nur Fehler anzeigen und Warnungen unterdrücken.
+- name: --output -o
+  defaultValue: json
+  parameterValueGroup: json, jsonc, table, tsv
+  summary: Ausgabeformat.
+- name: --query
+  summary: JMESPath-Abfragezeichenfolge. Weitere Informationen und Beispiele finden Sie unter <a href="http://jmespath.org/">http://jmespath.org/</a>.
+- name: --verbose
+  summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
+metadata:
+  description: Ausführen der Diagnose auf Anwendungs-und Geräteebene.
+  ms.openlocfilehash: de6d1630872e8601f2cf5d7484bdf64f2d6129a7
+  ms.sourcegitcommit: 206495efe9707e52f6a3dc121133f26651f23f59
+  ms.translationtype: MT
+  ms.contentlocale: de-DE
+  ms.lasthandoff: 12/30/2020
+  ms.locfileid: "102896078"

@@ -1,0 +1,559 @@
+### YamlMime:AzureCLIGroup
+uid: az_container
+name: az container
+summary: Verwalten Sie Azure Container Instances.
+description: ''
+directCommands:
+- uid: az_container_attach
+  name: az container attach
+  summary: Anfügen von lokalen Standardausgabe-und Fehler Datenströmen an einen Container in einer Containergruppe.
+  description: ''
+  syntax: >-
+    az container attach [--container-name]
+                        [--ids]
+                        [--name]
+                        [--resource-group]
+                        [--subscription]
+  examples:
+  - summary: Anfügen von lokalen Standardausgabe-und Fehler Datenströmen an einen Container in einer Containergruppe. automatisch generierten
+    syntax: az container attach --name MyContainerGroup --resource-group MyResourceGroup
+  optionalParameters:
+  - name: --container-name
+    summary: Der Container, der angefügt werden soll. Wenn dieser nicht angegeben wird, wird der erste Container in der Containergruppe ausgewählt.
+    description: ''
+  - name: --ids
+    summary: Mindestens eine Ressourcen-ID (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID handeln, die alle Informationen von Ressourcen-ID-Argumenten enthält. Sie sollten entweder--IDs oder andere Ressourcen-ID-Argumente angeben.
+    description: ''
+  - name: --name -n
+    summary: Der Name der Containergruppe.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/container/_help.py
+- uid: az_container_create
+  name: az container create
+  summary: Erstellen Sie eine Containergruppe.
+  description: ''
+  syntax: >-
+    az container create --resource-group
+                        [--assign-identity]
+                        [--azure-file-volume-account-key]
+                        [--azure-file-volume-account-name]
+                        [--azure-file-volume-mount-path]
+                        [--azure-file-volume-share-name]
+                        [--command-line]
+                        [--cpu]
+                        [--dns-name-label]
+                        [--environment-variables]
+                        [--file]
+                        [--gitrepo-dir]
+                        [--gitrepo-mount-path]
+                        [--gitrepo-revision]
+                        [--gitrepo-url]
+                        [--image]
+                        [--ip-address {Private, Public}]
+                        [--location]
+                        [--log-analytics-workspace]
+                        [--log-analytics-workspace-key]
+                        [--memory]
+                        [--name]
+                        [--network-profile]
+                        [--no-wait]
+                        [--os-type {Linux, Windows}]
+                        [--ports]
+                        [--protocol {TCP, UDP}]
+                        [--registry-login-server]
+                        [--registry-password]
+                        [--registry-username]
+                        [--restart-policy {Always, Never, OnFailure}]
+                        [--role]
+                        [--scope]
+                        [--secrets]
+                        [--secrets-mount-path]
+                        [--secure-environment-variables]
+                        [--subnet]
+                        [--subnet-address-prefix]
+                        [--subscription]
+                        [--vnet]
+                        [--vnet-address-prefix]
+                        [--vnet-name]
+  examples:
+  - summary: Erstellen Sie einen Container in einer Containergruppe mit einem Kern und 1 GB Arbeitsspeicher.
+    syntax: az container create -g MyResourceGroup --name myapp --image myimage:latest --cpu 1 --memory 1
+  - summary: Erstellen Sie einen Container in einer Containergruppe, in der Windows mit 2 Kernen und 3,5 GB Arbeitsspeicher ausgeführt wird.
+    syntax: az container create -g MyResourceGroup --name mywinapp --image winappimage:latest --os-type Windows --cpu 2 --memory 3.5
+  - summary: Erstellen Sie einen Container in einer Containergruppe mit der öffentlichen IP-Adresse, den Ports und der DNS-Namens Bezeichnung.
+    syntax: az container create -g MyResourceGroup --name myapp --image myimage:latest --ports 80 443 --dns-name-label contoso
+  - summary: Erstellen Sie einen Container in einer Containergruppe, die ein Skript beim Start aufruft.
+    syntax: az container create -g MyResourceGroup --name myapp --image myimage:latest --command-line "/bin/sh -c '/path to/myscript.sh'"
+  - summary: Erstellen Sie einen Container in einer Containergruppe, die einen Befehl ausführt, und den Container anschließend anzuhalten.
+    syntax: az container create -g MyResourceGroup --name myapp --image myimage:latest --command-line "echo hello" --restart-policy Never
+  - summary: Erstellen Sie einen Container in einer Containergruppe mit Umgebungsvariablen.
+    syntax: az container create -g MyResourceGroup --name myapp --image myimage:latest --environment-variables key1=value1 key2=value2
+  - summary: Erstellen Sie mithilfe des Container Images aus Azure Container Registry einen Container in einer Containergruppe.
+    syntax: az container create -g MyResourceGroup --name myapp --image myAcrRegistry.azurecr.io/myimage:latest --registry-password password
+  - summary: Erstellen Sie einen Container in einer Containergruppe, in der eine Azure-Dateifreigabe als Volume eingebunden wird.
+    syntax: az container create -g MyResourceGroup --name myapp --image myimage:latest --command-line "cat /mnt/azfile/myfile" --azure-file-volume-share-name myshare --azure-file-volume-account-name mystorageaccount --azure-file-volume-account-key mystoragekey --azure-file-volume-mount-path /mnt/azfile
+  - summary: Erstellen Sie einen Container in einer Containergruppe, in der ein git-Repository als Volume bereitgestellt wird.
+    syntax: az container create -g MyResourceGroup --name myapp --image myimage:latest --command-line "cat /mnt/gitrepo" --gitrepo-url https://github.com/user/myrepo.git --gitrepo-dir ./dir1 --gitrepo-mount-path /mnt/gitrepo
+  - summary: Erstellen Sie einen Container in einer Containergruppe mithilfe einer YAML-Datei.
+    syntax: az container create -g MyResourceGroup -f containerGroup.yaml
+  - summary: Erstellen Sie eine Containergruppe, indem Sie Log Analytics aus einem Arbeitsbereichs Namen verwenden.
+    syntax: az container create -g MyResourceGroup --name myapp --log-analytics-workspace myworkspace
+  - summary: Erstellen Sie eine Containergruppe mit einer vom System zugewiesenen Identität.
+    syntax: az container create -g MyResourceGroup --name myapp --image myimage:latest --assign-identity
+  - summary: Erstellen Sie eine Containergruppe mit einer vom System zugewiesenen Identität. Die Gruppe verfügt über die Rolle "Mitwirkender" mit Zugriff auf ein Speicherkonto.
+    syntax: az container create -g MyResourceGroup --name myapp --image myimage:latest --assign-identity --scope /subscriptions/99999999-1bf0-4dda-aec3-cb9272f09590/MyResourceGroup/myRG/providers/Microsoft.Storage/storageAccounts/storage1
+  - summary: Erstellen Sie eine Containergruppe mit einer vom Benutzer zugewiesenen Identität.
+    syntax: az container create -g MyResourceGroup --name myapp --image myimage:latest --assign-identity  /subscriptions/mySubscriptionId/resourcegroups/myRG/providers/Microsoft.ManagedIdentity/userAssignedIdentities/myID
+  - summary: Erstellen Sie eine Containergruppe, deren Identität dem System und dem Benutzer zugewiesen ist.
+    syntax: az container create -g MyResourceGroup --name myapp --image myimage:latest --assign-identity [system] /subscriptions/mySubscriptionId/resourcegroups/myRG/providers/Microsoft.ManagedIdentity/userAssignedIdentities/myID
+  requiredParameters:
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  optionalParameters:
+  - name: --assign-identity
+    summary: Durch Leerzeichen getrennte Liste der zugewiesenen Identitäten. Zugewiesene Identitäten sind entweder vom Benutzer zugewiesene Identitäten (Ressourcen-IDs) und/oder die vom System zugewiesene Identität ([System]). Weitere Informationen finden Sie in den Beispielen.
+    description: ''
+  - name: --azure-file-volume-account-key
+    summary: Der Zugriffsschlüssel des Speicherkontos, der für den Zugriff auf die Azure File-Freigabe verwendet wird.
+    description: ''
+  - name: --azure-file-volume-account-name
+    summary: Der Name des Speicherkontos, das die Azure File-Freigabe enthält.
+    description: ''
+  - name: --azure-file-volume-mount-path
+    summary: Der Pfad innerhalb des Containers, in dem das Azure-Dateivolume bereitgestellt werden soll. Darf keinen Doppelpunkt (:) enthalten.
+    description: ''
+  - name: --azure-file-volume-share-name
+    summary: Der Name der als Volume bereitzustellenden Azure File-Freigabe.
+    description: ''
+  - name: --command-line
+    summary: Die Befehlszeile, die beim Starten des Containers ausgeführt werden soll, z. b. "/bin/bash-c MyScript.sh".
+    description: ''
+  - name: --cpu
+    defaultValue: "1"
+    summary: Die erforderliche Anzahl von CPU-Kernen der Container, die auf eine Dezimalstelle genau sind.
+    description: ''
+  - name: --dns-name-label
+    summary: Die DNS-Namens Bezeichnung für die Containergruppe mit der öffentlichen IP-Adresse.
+    description: ''
+  - name: --environment-variables -e
+    summary: Eine Liste der Umgebungsvariablen für den Container. Durch Leerzeichen getrennte Werte im Format "Key = Value".
+    description: ''
+  - name: --file -f
+    summary: Der Pfad zur Eingabedatei.
+    description: ''
+  - name: --gitrepo-dir
+    defaultValue: .
+    summary: Der Zielverzeichnis Pfad im git-Repository. Darf nicht ".." enthalten.
+    description: ''
+  - name: --gitrepo-mount-path
+    summary: Der Pfad innerhalb des Containers, in dem das git-Repository bereitgestellt werden soll. Darf keinen Doppelpunkt (:) enthalten.
+    description: ''
+  - name: --gitrepo-revision
+    summary: Der Commit-Hash für die angegebene Revision.
+    description: ''
+  - name: --gitrepo-url
+    summary: Die URL eines git-Repository, das als Volume eingebunden werden soll.
+    description: ''
+  - name: --image
+    summary: Der Name des Container Images.
+    description: ''
+  - name: --ip-address
+    parameterValueGroup: Private, Public
+    summary: Der IP-Adressentyp der Containergruppe.
+    description: ''
+  - name: --location -l
+    summary: 'Der Standort. Werte aus: `az account list-locations`. Sie können den standardmäßig verwendeten Standort mit `az configure --defaults location=<location>` konfigurieren.'
+    description: ''
+  - name: --log-analytics-workspace
+    summary: Der Name oder die ID des Log Analytics Arbeitsbereichs. Verwenden Sie das aktuelle Abonnement, oder verwenden Sie das Flag "-Abonnement", um das gewünschte Abonnement festzulegen.
+    description: ''
+  - name: --log-analytics-workspace-key
+    summary: Der Log Analytics Arbeitsbereichs Schlüssel.
+    description: ''
+  - name: --memory
+    defaultValue: "1.5"
+    summary: Der erforderliche Arbeitsspeicher für die Container in GB, genau auf eine Dezimalstelle.
+    description: ''
+  - name: --name -n
+    summary: Der Name der Containergruppe.
+    description: ''
+  - name: --network-profile
+    summary: Der Name oder die ID des Netzwerk Profils.
+    description: ''
+  - name: --no-wait
+    summary: Nicht auf den Abschluss lang andauernder Vorgänge warten
+    description: ''
+  - name: --os-type
+    defaultValue: Linux
+    parameterValueGroup: Linux, Windows
+    summary: Der Betriebs Systemtyp der Container.
+    description: ''
+  - name: --ports
+    defaultValue: '[80]'
+    summary: Eine Liste der zu öffnenden Ports. Durch Leerzeichen getrennte Liste von Ports.
+    description: ''
+  - name: --protocol
+    parameterValueGroup: TCP, UDP
+    summary: Das zu verwendende Netzwerkprotokoll.
+    description: ''
+  - name: --registry-login-server
+    summary: Der Anmeldungs Server für die Container Image Registrierung.
+    description: ''
+  - name: --registry-password
+    summary: Das Kennwort für die Anmeldung beim Container Image-Registrierungs Server.
+    description: ''
+  - name: --registry-username
+    summary: Der Benutzername, der beim Container Image-Registrierungs Server protokolliert werden soll.
+    description: ''
+  - name: --restart-policy
+    defaultValue: Always
+    parameterValueGroup: Always, Never, OnFailure
+    summary: Neustartrichtlinie für alle Container innerhalb der Containergruppe.
+    description: ''
+  - name: --role
+    defaultValue: Contributor
+    summary: Rollenname oder ID, die die vom System zugewiesene Identität hat.
+    description: ''
+  - name: --scope
+    summary: Bereich, auf den die vom System zugewiesene Identität zugreifen kann.
+    description: ''
+  - name: --secrets
+    summary: Durch Leerzeichen getrennte Geheimnisse im Format "Key = Value".
+    description: ''
+  - name: --secrets-mount-path
+    summary: Der Pfad innerhalb des Containers, in dem das Geheimnis Volume bereitgestellt werden soll. Darf keinen Doppelpunkt (:) enthalten.
+    description: ''
+  - name: --secure-environment-variables
+    summary: Eine Liste der sicheren Umgebungsvariablen für den Container. Durch Leerzeichen getrennte Werte im Format "Key = Value".
+    description: ''
+  - name: --subnet
+    summary: Der Name des Subnetzes, wenn ein neues vnet erstellt oder auf ein vorhandenes verwiesen wird. Kann auch auf ein vorhandenes Subnetz anhand der ID verweisen.
+    description: ''
+  - name: --subnet-address-prefix
+    defaultValue: 10.0.0.0/24
+    summary: Das IP-Adress Präfix des Subnetzes, das beim Erstellen eines neuen vnet im CIDR-Format verwendet werden soll.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  - name: --vnet
+    summary: Der Name des vnet, wenn ein neues erstellt oder auf ein vorhandenes verwiesen wird. Kann auch auf ein vorhandenes vnet anhand der ID verweisen. Dies ermöglicht die Verwendung von vnets aus anderen Ressourcengruppen.
+    description: ''
+  - name: --vnet-address-prefix
+    defaultValue: 10.0.0.0/16
+    summary: Das IP-Adress Präfix, das beim Erstellen eines neuen vnet im CIDR-Format verwendet werden soll.
+    description: ''
+  - name: --vnet-name
+    summary: Der Name des vnet, wenn ein neues erstellt oder auf ein vorhandenes verwiesen wird.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/container/_help.py
+- uid: az_container_delete
+  name: az container delete
+  summary: Löschen Sie eine Containergruppe.
+  description: ''
+  syntax: >-
+    az container delete [--ids]
+                        [--name]
+                        [--resource-group]
+                        [--subscription]
+                        [--yes]
+  examples:
+  - summary: Löschen Sie eine Containergruppe. automatisch generierten
+    syntax: az container delete --name MyContainerGroup --resource-group MyResourceGroup
+  optionalParameters:
+  - name: --ids
+    summary: Mindestens eine Ressourcen-ID (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID handeln, die alle Informationen von Ressourcen-ID-Argumenten enthält. Sie sollten entweder--IDs oder andere Ressourcen-ID-Argumente angeben.
+    description: ''
+  - name: --name -n
+    summary: Der Name der Containergruppe.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  - name: --yes -y
+    summary: Nicht zur Bestätigung auffordern
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/container/_help.py
+- uid: az_container_exec
+  name: az container exec
+  summary: Ausführen eines Befehls in einem ausgelaufenden Container einer Containergruppe.
+  description: Der häufigste Anwendungsfall besteht darin, eine interaktive bash-Shell zu öffnen. Siehe folgende Beispiele. Dieser Befehl wird für Windows-Computer zurzeit nicht unterstützt.
+  syntax: >-
+    az container exec --exec-command
+                      [--container-name]
+                      [--ids]
+                      [--name]
+                      [--resource-group]
+                      [--subscription]
+                      [--terminal-col-size]
+                      [--terminal-row-size]
+  examples:
+  - summary: Streamen einer Shell innerhalb eines nginx-Containers.
+    syntax: az container exec -g MyResourceGroup --name mynginx --container-name nginx --exec-command "/bin/bash"
+  requiredParameters:
+  - isRequired: true
+    name: --exec-command
+    summary: Der Befehl, der im Container ausgeführt werden soll.
+    description: ''
+  optionalParameters:
+  - name: --container-name
+    summary: Der Name des Containers, in dem der Befehl ausgeführt werden soll. Kann nur für Containergruppen mit nur einem einzigen Container überwiesen werden.
+    description: ''
+  - name: --ids
+    summary: Mindestens eine Ressourcen-ID (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID handeln, die alle Informationen von Ressourcen-ID-Argumenten enthält. Sie sollten entweder--IDs oder andere Ressourcen-ID-Argumente angeben.
+    description: ''
+  - name: --name -n
+    summary: Der Name der Containergruppe.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  - name: --terminal-col-size
+    defaultValue: "80"
+    summary: Die Spaltengröße für die Befehlsausgabe.
+    description: ''
+  - name: --terminal-row-size
+    defaultValue: "20"
+    summary: Die Zeilengröße für die Befehlsausgabe.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/container/_help.py
+- uid: az_container_export
+  name: az container export
+  summary: Exportieren Sie eine Containergruppe im YAML-Format.
+  description: ''
+  syntax: >-
+    az container export --file
+                        [--ids]
+                        [--name]
+                        [--resource-group]
+                        [--subscription]
+  examples:
+  - summary: Exportieren Sie eine Containergruppe in YAML.
+    syntax: az container export -g MyResourceGroup --name mynginx -f output.yaml
+  requiredParameters:
+  - isRequired: true
+    name: --file -f
+    summary: Der Dateipfad zum Exportieren der Containergruppe.
+    description: ''
+  optionalParameters:
+  - name: --ids
+    summary: Mindestens eine Ressourcen-ID (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID handeln, die alle Informationen von Ressourcen-ID-Argumenten enthält. Sie sollten entweder--IDs oder andere Ressourcen-ID-Argumente angeben.
+    description: ''
+  - name: --name -n
+    summary: Der Name der Containergruppe.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/container/_help.py
+- uid: az_container_list
+  name: az container list
+  summary: Listet Containergruppen auf.
+  description: ''
+  syntax: >-
+    az container list [--query-examples]
+                      [--resource-group]
+                      [--subscription]
+  optionalParameters:
+  - name: --query-examples
+    summary: Empfehlen Sie die jmespath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und Sie nach dem Abfrage Parameter in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positions Schlüsselwörter hinzufügen, um Vorschläge auf der Grundlage dieser Schlüsselwörter zu geben.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/container/_help.py
+- uid: az_container_logs
+  name: az container logs
+  summary: Überprüfen Sie die Protokolle für einen Container in einer Containergruppe.
+  description: ''
+  syntax: >-
+    az container logs [--container-name]
+                      [--follow]
+                      [--ids]
+                      [--name]
+                      [--resource-group]
+                      [--subscription]
+  examples:
+  - summary: Überprüfen Sie die Protokolle für einen Container in einer Containergruppe. automatisch generierten
+    syntax: az container logs --name MyContainerGroup --resource-group MyResourceGroup
+  optionalParameters:
+  - name: --container-name
+    summary: Der Container Name, an dem die Protokolle protokolliert werden sollen. Wenn dieser nicht angegeben wird, wird der erste Container in der Containergruppe ausgewählt.
+    description: ''
+  - name: --follow
+    summary: Gibt an, dass die tailingprotokolle gestreamt werden.
+    description: ''
+  - name: --ids
+    summary: Mindestens eine Ressourcen-ID (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID handeln, die alle Informationen von Ressourcen-ID-Argumenten enthält. Sie sollten entweder--IDs oder andere Ressourcen-ID-Argumente angeben.
+    description: ''
+  - name: --name -n
+    summary: Der Name der Containergruppe.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/container/_help.py
+- uid: az_container_restart
+  name: az container restart
+  summary: Startet alle Container in einer Containergruppe neu.
+  description: Startet alle Container in einer Containergruppe neu. Wenn das Container Image über Updates verfügt, wird ein neues Image heruntergeladen.
+  syntax: >-
+    az container restart --name
+                         --resource-group
+                         [--no-wait]
+                         [--subscription]
+  requiredParameters:
+  - isRequired: true
+    name: --name -n
+    summary: Der Name der Containergruppe.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  optionalParameters:
+  - name: --no-wait
+    summary: Nicht auf den Abschluss lang andauernder Vorgänge warten
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/container/_help.py
+- uid: az_container_show
+  name: az container show
+  summary: Hier erhalten Sie Informationen zu einer Containergruppe.
+  description: ''
+  syntax: >-
+    az container show [--ids]
+                      [--name]
+                      [--query-examples]
+                      [--resource-group]
+                      [--subscription]
+  examples:
+  - summary: Hier erhalten Sie Informationen zu einer Containergruppe. automatisch generierten
+    syntax: az container show --name MyContainerGroup --resource-group MyResourceGroup
+  optionalParameters:
+  - name: --ids
+    summary: Mindestens eine Ressourcen-ID (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID handeln, die alle Informationen von Ressourcen-ID-Argumenten enthält. Sie sollten entweder--IDs oder andere Ressourcen-ID-Argumente angeben.
+    description: ''
+  - name: --name -n
+    summary: Der Name der Containergruppe.
+    description: ''
+  - name: --query-examples
+    summary: Empfehlen Sie die jmespath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und Sie nach dem Abfrage Parameter in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positions Schlüsselwörter hinzufügen, um Vorschläge auf der Grundlage dieser Schlüsselwörter zu geben.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/container/_help.py
+- uid: az_container_start
+  name: az container start
+  summary: Startet alle Container in einer Containergruppe.
+  description: Startet alle Container in einer Containergruppe.
+  syntax: >-
+    az container start --name
+                       --resource-group
+                       [--no-wait]
+                       [--subscription]
+  requiredParameters:
+  - isRequired: true
+    name: --name -n
+    summary: Der Name der Containergruppe.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  optionalParameters:
+  - name: --no-wait
+    summary: Nicht auf den Abschluss lang andauernder Vorgänge warten
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/container/_help.py
+- uid: az_container_stop
+  name: az container stop
+  summary: Beendet alle Container in einer Containergruppe.
+  description: Beendet alle Container in einer Containergruppe. Die Zuordnung von Computeressourcen wird aufgehoben, und die Berechnung von Gebühren wird beendet.
+  syntax: >-
+    az container stop --name
+                      --resource-group
+                      [--subscription]
+  requiredParameters:
+  - isRequired: true
+    name: --name -n
+    summary: Der Name der Containergruppe.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  optionalParameters:
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/container/_help.py
+commands:
+- az_container_attach
+- az_container_create
+- az_container_delete
+- az_container_exec
+- az_container_export
+- az_container_list
+- az_container_logs
+- az_container_restart
+- az_container_show
+- az_container_start
+- az_container_stop
+globalParameters:
+- name: --debug
+  summary: Ausführlichkeit der Protokollierung erhöhen, um alle Debugprotokolle anzuzeigen.
+- name: --help -h
+  summary: Zeigen Sie diese Hilfemeldung an, und schließen Sie sie.
+- name: --only-show-errors
+  summary: Nur Fehler anzeigen und Warnungen unterdrücken.
+- name: --output -o
+  defaultValue: json
+  parameterValueGroup: json, jsonc, table, tsv
+  summary: Ausgabeformat.
+- name: --query
+  summary: JMESPath-Abfragezeichenfolge. Weitere Informationen und Beispiele finden Sie unter <a href="http://jmespath.org/">http://jmespath.org/</a>.
+- name: --verbose
+  summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
+metadata:
+  doc_source_url_repo: https://github.com/Azure/azure-cli/blob/dev/
+  ms.date: 12/23/2020
+  description: Verwalten Sie Azure Container Instances.
+  ms.openlocfilehash: 472a0b7ec45e8be10433c9f5f9bfeb9fd80add89
+  ms.sourcegitcommit: 206495efe9707e52f6a3dc121133f26651f23f59
+  ms.translationtype: MT
+  ms.contentlocale: de-DE
+  ms.lasthandoff: 12/30/2020
+  ms.locfileid: "102896008"
