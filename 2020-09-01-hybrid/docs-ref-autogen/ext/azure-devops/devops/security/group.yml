@@ -1,0 +1,219 @@
+### YamlMime:AzureCLIGroup
+uid: ext_azure-devops_az_devops_security_group
+name: az devops security group
+extensionInformation: >-
+  > [!Note]
+
+  > Diese Referenz ist Teil der **Azure-devops** -Erweiterung für Azure CLI und erfordert Version 2.2.0 oder höher.  Die Erweiterung wird automatisch installiert, wenn Sie den Befehl **AZ devops Security Group** zum ersten Mal ausführen.  [Weitere Informationen zu Erweiterungen](https://docs.microsoft.com/en-us/cli/azure/azure-cli-extensions-overview)
+summary: Verwalten von Sicherheitsgruppen
+description: ''
+directCommands:
+- uid: ext_azure-devops_az_devops_security_group_create
+  name: az devops security group create
+  summary: Erstellen Sie eine neue Azure devops-Gruppe.
+  description: ''
+  syntax: >-
+    az devops security group create [--description]
+                                    [--detect {false, true}]
+                                    [--email-id]
+                                    [--groups]
+                                    [--name]
+                                    [--org]
+                                    [--origin-id]
+                                    [--project]
+                                    [--scope {organization, project}]
+  examples:
+  - summary: Erstellen einer Azure devops-Gruppe mit Name und Beschreibung
+    syntax: >-
+      az devops security group create --name 'Some group name'
+
+      --description 'Something to describe this group'
+  - summary: Hinzufügen einer vorhandenen Aad-Gruppe zu einer Azure devops-Gruppe
+    syntax: >-
+      Get object ID of an existing AAD group
+
+      az ad group show -g '{Group Name}'
+
+      az devops security group create --origin-id '{Object ID}' --groups 'vssgp.someDescriptorForGroup'
+  - summary: Hinzufügen einer vorhandenen Aad-Gruppe zu einer Azure devops-Gruppe mit einer Aad-Gruppen-e-Mail
+    syntax: >-
+      az devops security group create --email-id '{Email ID of AAD group}'
+
+      --groups 'vssgp.someDescriptorForGroup'
+  - summary: Erstellen Sie eine neue Azure devops-Gruppe, und fügen Sie Sie vorhandenen Azure devops-Gruppen hinzu.
+    syntax: >-
+      az devops security group create --name 'Some group name'
+
+      --groups 'vssgp.someDescriptorForGroupOne,vssgp.someDescriptorForGroupTwo'
+  optionalParameters:
+  - name: --description
+    summary: Beschreibung der Azure devops-Gruppe.
+    description: ''
+  - name: --detect
+    parameterValueGroup: false, true
+    summary: Die Organisation wird automatisch erkannt.
+    description: ''
+  - name: --email-id
+    summary: Erstellen Sie eine neue Gruppe mit der e-Mail-Adresse als Verweis auf eine vorhandene Gruppe aus einem externen AD-oder Aad-gestützten Anbieter. Erforderlich, wenn Name oder Ursprungs-ID fehlt.
+    description: ''
+  - name: --groups
+    summary: Eine durch Kommas getrennte Liste von Deskriptoren, die auf Gruppen verweisen, denen die neu erstellte Gruppe beitreten soll.
+    description: ''
+  - name: --name
+    summary: Name der Azure devops-Gruppe.
+    description: ''
+  - name: --org --organization
+    summary: 'Azure devops-Organisations-URL. Sie können die Standard Organisation mithilfe von AZ devops configure-d Organization = ORG_URL konfigurieren. Erforderlich, wenn nicht als Standard konfiguriert oder über die git-Konfiguration ausgewählt. Beispiel: <a href="https://dev.azure.com/MyOrganizationName/">https://dev.azure.com/MyOrganizationName/</a> .'
+    description: ''
+  - name: --origin-id
+    summary: Erstellen Sie eine neue Gruppe mithilfe der Ursprungs-ID als Verweis auf eine vorhandene Gruppe aus einem externen AD-oder Aad-gestützten Anbieter. Erforderlich, wenn der Name oder die e-Mail-ID fehlt.
+    description: ''
+  - name: --project -p
+    summary: Der Name oder die ID des Projekts, in dem die Azure devops-Gruppe erstellt werden soll.
+    description: ''
+  - name: --scope
+    defaultValue: project
+    parameterValueGroup: organization, project
+    summary: Erstellen Sie eine Gruppe auf Projekt-oder Organisationsebene.
+    description: ''
+- uid: ext_azure-devops_az_devops_security_group_delete
+  name: az devops security group delete
+  summary: Löschen Sie eine Azure devops-Gruppe.
+  description: ''
+  syntax: >-
+    az devops security group delete --id
+                                    [--detect {false, true}]
+                                    [--org]
+                                    [--yes]
+  requiredParameters:
+  - isRequired: true
+    name: --id
+    summary: Deskriptor der Gruppe.
+    description: ''
+  optionalParameters:
+  - name: --detect
+    parameterValueGroup: false, true
+    summary: Die Organisation wird automatisch erkannt.
+    description: ''
+  - name: --org --organization
+    summary: 'Azure devops-Organisations-URL. Sie können die Standard Organisation mithilfe von AZ devops configure-d Organization = ORG_URL konfigurieren. Erforderlich, wenn nicht als Standard konfiguriert oder über die git-Konfiguration ausgewählt. Beispiel: <a href="https://dev.azure.com/MyOrganizationName/">https://dev.azure.com/MyOrganizationName/</a> .'
+    description: ''
+  - name: --yes -y
+    summary: Nicht zur Bestätigung auffordern
+    description: ''
+- uid: ext_azure-devops_az_devops_security_group_list
+  name: az devops security group list
+  summary: Auflisten aller Gruppen in einem Projekt oder einer Organisation.
+  description: ''
+  syntax: >-
+    az devops security group list [--continuation-token]
+                                  [--detect {false, true}]
+                                  [--org]
+                                  [--project]
+                                  [--scope {organization, project}]
+                                  [--subject-types]
+  optionalParameters:
+  - name: --continuation-token
+    summary: Wenn mehr Ergebnisse vorhanden sind, die nicht auf einer einzelnen Seite zurückgegeben werden können, enthält das Resultset ein Fortsetzungs Token zum Abrufen des nächsten Resultsets.
+    description: ''
+  - name: --detect
+    parameterValueGroup: false, true
+    summary: Die Organisation wird automatisch erkannt.
+    description: ''
+  - name: --org --organization
+    summary: 'Azure devops-Organisations-URL. Sie können die Standard Organisation mithilfe von AZ devops configure-d Organization = ORG_URL konfigurieren. Erforderlich, wenn nicht als Standard konfiguriert oder über die git-Konfiguration ausgewählt. Beispiel: <a href="https://dev.azure.com/MyOrganizationName/">https://dev.azure.com/MyOrganizationName/</a> .'
+    description: ''
+  - name: --project -p
+    summary: Auflisten von Gruppen für ein bestimmtes Projekt.
+    description: ''
+  - name: --scope
+    defaultValue: project
+    parameterValueGroup: organization, project
+    summary: Auflisten von Gruppen auf Projekt-oder Organisationsebene.
+    description: ''
+  - name: --subject-types
+    summary: Eine durch Kommas getrennte Liste von Untertypen von Benutzer Subjekten, um die abgerufenen Ergebnisse zu verringern. Sie können den ersten Teil des Deskriptors [vor dem Punkt] als Filter, z. b. vssgp, aadgp, übergeben.
+    description: ''
+- uid: ext_azure-devops_az_devops_security_group_show
+  name: az devops security group show
+  summary: Gruppendetails anzeigen.
+  description: ''
+  syntax: >-
+    az devops security group show --id
+                                  [--detect {false, true}]
+                                  [--org]
+  requiredParameters:
+  - isRequired: true
+    name: --id
+    summary: Deskriptor der Gruppe.
+    description: ''
+  optionalParameters:
+  - name: --detect
+    parameterValueGroup: false, true
+    summary: Die Organisation wird automatisch erkannt.
+    description: ''
+  - name: --org --organization
+    summary: 'Azure devops-Organisations-URL. Sie können die Standard Organisation mithilfe von AZ devops configure-d Organization = ORG_URL konfigurieren. Erforderlich, wenn nicht als Standard konfiguriert oder über die git-Konfiguration ausgewählt. Beispiel: <a href="https://dev.azure.com/MyOrganizationName/">https://dev.azure.com/MyOrganizationName/</a> .'
+    description: ''
+- uid: ext_azure-devops_az_devops_security_group_update
+  name: az devops security group update
+  summary: Aktualisieren Sie den Namen und/oder die Beschreibung für eine Azure devops-Gruppe.
+  description: ''
+  syntax: >-
+    az devops security group update --id
+                                    [--description]
+                                    [--detect {false, true}]
+                                    [--name]
+                                    [--org]
+  requiredParameters:
+  - isRequired: true
+    name: --id
+    summary: Deskriptor der Gruppe.
+    description: ''
+  optionalParameters:
+  - name: --description
+    summary: Neue Beschreibung für die Azure devops-Gruppe.
+    description: ''
+  - name: --detect
+    parameterValueGroup: false, true
+    summary: Die Organisation wird automatisch erkannt.
+    description: ''
+  - name: --name
+    summary: Neuer Name für Azure devops-Gruppe.
+    description: ''
+  - name: --org --organization
+    summary: 'Azure devops-Organisations-URL. Sie können die Standard Organisation mithilfe von AZ devops configure-d Organization = ORG_URL konfigurieren. Erforderlich, wenn nicht als Standard konfiguriert oder über die git-Konfiguration ausgewählt. Beispiel: <a href="https://dev.azure.com/MyOrganizationName/">https://dev.azure.com/MyOrganizationName/</a> .'
+    description: ''
+commands:
+- ext_azure-devops_az_devops_security_group_create
+- ext_azure-devops_az_devops_security_group_delete
+- ext_azure-devops_az_devops_security_group_list
+- ext_azure-devops_az_devops_security_group_membership
+- ext_azure-devops_az_devops_security_group_membership_add
+- ext_azure-devops_az_devops_security_group_membership_list
+- ext_azure-devops_az_devops_security_group_membership_remove
+- ext_azure-devops_az_devops_security_group_show
+- ext_azure-devops_az_devops_security_group_update
+globalParameters:
+- name: --debug
+  summary: Ausführlichkeit der Protokollierung erhöhen, um alle Debugprotokolle anzuzeigen.
+- name: --help -h
+  summary: Zeigen Sie diese Hilfemeldung an, und schließen Sie sie.
+- name: --only-show-errors
+  summary: Nur Fehler anzeigen und Warnungen unterdrücken.
+- name: --output -o
+  defaultValue: json
+  parameterValueGroup: json, jsonc, table, tsv
+  summary: Ausgabeformat.
+- name: --query
+  summary: JMESPath-Abfragezeichenfolge. Weitere Informationen und Beispiele finden Sie unter <a href="http://jmespath.org/">http://jmespath.org/</a>.
+- name: --verbose
+  summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
+metadata:
+  description: Verwalten von Sicherheitsgruppen
+  ms.openlocfilehash: d2cec3f3108c85b70175eeb590bd4dc264ee8cb3
+  ms.sourcegitcommit: e1faf297ba2cdf2ba7e821fbeedff9c9a724c975
+  ms.translationtype: MT
+  ms.contentlocale: de-DE
+  ms.lasthandoff: 12/16/2020
+  ms.locfileid: "102827653"
