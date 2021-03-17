@@ -1,0 +1,937 @@
+### YamlMime:AzureCLIGroup
+uid: ext_storage-blob-preview_az_storage_blob
+name: az storage blob
+extensionInformation: >-
+  > [!Note]
+
+  > Diese Referenz ist Teil der **Storage-BLOB-Preview-** Erweiterung für Azure CLI und erfordert Version 2.16.0 oder höher.  Die Erweiterung wird automatisch installiert, wenn Sie den Befehl **AZ Storage BLOB** zum ersten Mal ausführen.  [Weitere Informationen zu Erweiterungen](https://docs.microsoft.com/en-us/cli/azure/azure-cli-extensions-overview)
+summary: Verwalten von Objektspeicher für unstrukturierte Daten (BLOB).
+description: Geben Sie einen der folgenden Authentifizierungs Parameter für die Befehle an:--auth-Mode,--Account-Key,--Connection-String,--SAS-Token. Sie können auch entsprechende Umgebungsvariablen verwenden, um Ihre Anmelde Informationen für die Authentifizierung zu speichern, z. b. AZURE_STORAGE_KEY, AZURE_STORAGE_CONNECTION_STRING und AZURE_STORAGE_SAS_TOKEN.
+directCommands:
+- uid: ext_storage-blob-preview_az_storage_blob_delete
+  name: az storage blob delete
+  summary: Markieren Sie ein BLOB oder eine Momentaufnahme zum Löschen.
+  description: Das BLOB wird für das spätere löschen während Garbage Collection markiert.  Um ein BLOB zu löschen, müssen auch alle zugehörigen Momentaufnahmen gelöscht werden. Beide können gleichzeitig entfernt werden.
+  syntax: >-
+    az storage blob delete [--account-key]
+                           [--account-name]
+                           [--auth-mode {key, login}]
+                           [--blob-url]
+                           [--connection-string]
+                           [--container-name]
+                           [--delete-snapshots {include, only}]
+                           [--if-match]
+                           [--if-modified-since]
+                           [--if-none-match]
+                           [--if-unmodified-since]
+                           [--lease-id]
+                           [--name]
+                           [--sas-token]
+                           [--snapshot]
+                           [--tags-condition]
+                           [--timeout]
+                           [--version-id]
+  examples:
+  - summary: Löschen eines Blobs
+    syntax: az storage blob delete -c mycontainer -n MyBlob
+  - summary: Löschen eines BLOBs mithilfe von Anmelde Informationen
+    syntax: az storage blob delete -c mycontainer -n MyBlob --account-name mystorageaccount --auth-mode login
+  optionalParameters:
+  - name: --account-key
+    summary: 'Speicherkontoschlüssel Muss in Verbindung mit dem Speicherkonto Namen verwendet werden. Umgebungsvariable: AZURE_STORAGE_KEY.'
+    description: ''
+  - name: --account-name
+    summary: 'Name des Speicherkontos Verwandte Umgebungsvariable: AZURE_STORAGE_ACCOUNT. Muss in Verbindung mit dem Speicherkonto Schlüssel oder einem SAS-Token verwendet werden. Wenn keines der beiden vorhanden ist, versucht der Befehl, den Speicherkonto Schlüssel mithilfe des authentifizierten Azure-Kontos abzufragen. Wenn eine große Anzahl von Speicher Befehlen ausgeführt wird, kann das API-Kontingent erreichen.'
+    description: ''
+  - name: --auth-mode
+    parameterValueGroup: key, login
+    summary: 'Der Modus, in dem der Befehl ausgeführt werden soll. der Modus "Anmeldung" verwendet direkt Ihre Anmelde Informationen für die Authentifizierung. Der Legacy Modus "Schlüssel" versucht, einen Kontoschlüssel abzufragen, wenn keine Authentifizierungs Parameter für das Konto bereitgestellt werden. Umgebungsvariable: AZURE_STORAGE_AUTH_MODE.'
+    description: ''
+  - name: --blob-url
+    summary: Die vollständige Endpunkt-URL für das BLOB, einschließlich SAS-Token und Snapshot, falls verwendet. Dies kann entweder der primäre Endpunkt oder der sekundäre Endpunkt sein, je nach dem aktuellen `location_mode` .
+    description: ''
+  - name: --connection-string
+    summary: 'Verbindungs Zeichenfolge des Speicher Kontos. Umgebungsvariable: AZURE_STORAGE_CONNECTION_STRING.'
+    description: ''
+  - name: --container-name -c
+    summary: Der Containername
+    description: ''
+  - name: --delete-snapshots
+    parameterValueGroup: include, only
+    summary: 'Erforderlich, wenn dem BLOB Momentaufnahmen zugeordnet sind. "Only": löscht nur die blobmomentaufnahmen. "include": Löscht das BLOB zusammen mit allen Momentaufnahmen.'
+    description: ''
+  - name: --if-match
+    summary: Ein ETag-Wert oder das Platzhalter Zeichen ( \* ). Mit diesem Header legen Sie fest, dass der Vorgang nur ausgeführt wird, wenn das ETag der Ressource mit dem angegebenen Wert übereinstimmt.
+    description: ''
+  - name: --if-modified-since
+    summary: Nur starten, wenn seit dem angegebenen UTC-DateTime-Wert (Y-m-d't ' h:m ' Z ') geändert wurde.
+    description: ''
+  - name: --if-none-match
+    summary: Ein ETag-Wert oder das Platzhalter Zeichen ( \* ). Mit diesem Header legen Sie fest, dass der Vorgang nur ausgeführt wird, wenn das ETag der Ressource nicht mit dem angegebenen Wert übereinstimmt. Geben Sie das Platzhalter Zeichen ( \* ) an, um den Vorgang nur dann auszuführen, wenn die Ressource nicht vorhanden ist, und führen Sie den Vorgang aus, falls vorhanden.
+    description: ''
+  - name: --if-unmodified-since
+    summary: Nur starten, wenn seit dem angegebenen UTC-DateTime-Wert (Y-m-d't ' h:m ' Z ') geändert wurde.
+    description: ''
+  - name: --lease-id
+    summary: Erforderlich, wenn das BLOB über eine aktive Lease verfügt.
+    description: ''
+  - name: --name -n
+    summary: Der BLOB-Name.
+    description: ''
+  - name: --sas-token
+    summary: 'Eine Shared Access Signature (SAS). Muss in Verbindung mit dem Speicherkonto Namen verwendet werden. Umgebungsvariable: AZURE_STORAGE_SAS_TOKEN.'
+    description: ''
+  - name: --snapshot
+    summary: Der Snapshot-Parameter ist ein undurchsichtiger DateTime-Wert, der die abzurufende BLOB-Momentaufnahme angibt, wenn vorhanden.
+    description: ''
+  - name: --tags-condition
+    summary: Geben Sie eine SQL-WHERE-Klausel für blobtags an, die nur für BLOBs mit einem übereinstimmenden Wert verwendet wird.
+    description: ''
+  - name: --timeout
+    summary: Anforderungs Timeout in Sekunden. Gilt für jeden Dienst aufzurufen.
+    description: ''
+  - name: --version-id
+    summary: Eine optionale BLOB-Versions-ID. Dieser Parameter ist nur für ein Konto mit aktivierter Versionsverwaltung verfügbar.
+    description: ''
+- uid: ext_storage-blob-preview_az_storage_blob_download
+  name: az storage blob download
+  summary: Herunterladen eines BLOBs in einen Dateipfad mit automatischen segmentieren und Status Benachrichtigungen.
+  description: ''
+  syntax: >-
+    az storage blob download --file
+                             [--account-key]
+                             [--account-name]
+                             [--auth-mode {key, login}]
+                             [--blob-url]
+                             [--connection-string]
+                             [--container-name]
+                             [--end-range]
+                             [--if-match]
+                             [--if-modified-since]
+                             [--if-none-match]
+                             [--if-unmodified-since]
+                             [--lease-id]
+                             [--max-connections]
+                             [--name]
+                             [--no-progress]
+                             [--open-mode]
+                             [--sas-token]
+                             [--snapshot]
+                             [--socket-timeout]
+                             [--start-range]
+                             [--tags-condition]
+                             [--timeout]
+                             [--validate-content]
+                             [--version-id]
+  requiredParameters:
+  - isRequired: true
+    name: --file -f
+    summary: Der Pfad der Datei, in die geschrieben werden soll.
+    description: ''
+  optionalParameters:
+  - name: --account-key
+    summary: 'Speicherkontoschlüssel Muss in Verbindung mit dem Speicherkonto Namen verwendet werden. Umgebungsvariable: AZURE_STORAGE_KEY.'
+    description: ''
+  - name: --account-name
+    summary: 'Name des Speicherkontos Verwandte Umgebungsvariable: AZURE_STORAGE_ACCOUNT. Muss in Verbindung mit dem Speicherkonto Schlüssel oder einem SAS-Token verwendet werden. Wenn keines der beiden vorhanden ist, versucht der Befehl, den Speicherkonto Schlüssel mithilfe des authentifizierten Azure-Kontos abzufragen. Wenn eine große Anzahl von Speicher Befehlen ausgeführt wird, kann das API-Kontingent erreichen.'
+    description: ''
+  - name: --auth-mode
+    parameterValueGroup: key, login
+    summary: 'Der Modus, in dem der Befehl ausgeführt werden soll. der Modus "Anmeldung" verwendet direkt Ihre Anmelde Informationen für die Authentifizierung. Der Legacy Modus "Schlüssel" versucht, einen Kontoschlüssel abzufragen, wenn keine Authentifizierungs Parameter für das Konto bereitgestellt werden. Umgebungsvariable: AZURE_STORAGE_AUTH_MODE.'
+    description: ''
+  - name: --blob-url
+    summary: Die vollständige Endpunkt-URL für das BLOB, einschließlich SAS-Token und Snapshot, falls verwendet. Dies kann entweder der primäre Endpunkt oder der sekundäre Endpunkt sein, je nach dem aktuellen `location_mode` .
+    description: ''
+  - name: --connection-string
+    summary: 'Verbindungs Zeichenfolge des Speicher Kontos. Umgebungsvariable: AZURE_STORAGE_CONNECTION_STRING.'
+    description: ''
+  - name: --container-name -c
+    summary: Der Containername
+    description: ''
+  - name: --end-range
+    summary: 'Ende des Byte Bereichs, der zum Herunterladen eines Abschnitts des BLOBs verwendet werden soll. Wenn end_range angegeben wird, müssen start_range bereitgestellt werden. Die start_range und end_range Parameter sind inklusiv. Beispiel: start_range = 0, end_range = 511 werden die ersten 512 Bytes des BLOBs heruntergeladen.'
+    description: ''
+  - name: --if-match
+    summary: Ein ETag-Wert oder das Platzhalter Zeichen ( \* ). Mit diesem Header legen Sie fest, dass der Vorgang nur ausgeführt wird, wenn das ETag der Ressource mit dem angegebenen Wert übereinstimmt.
+    description: ''
+  - name: --if-modified-since
+    summary: Nur starten, wenn seit dem angegebenen UTC-DateTime-Wert (Y-m-d't ' h:m ' Z ') geändert wurde.
+    description: ''
+  - name: --if-none-match
+    summary: Ein ETag-Wert oder das Platzhalter Zeichen ( \* ). Mit diesem Header legen Sie fest, dass der Vorgang nur ausgeführt wird, wenn das ETag der Ressource nicht mit dem angegebenen Wert übereinstimmt. Geben Sie das Platzhalter Zeichen ( \* ) an, um den Vorgang nur dann auszuführen, wenn die Ressource nicht vorhanden ist, und führen Sie den Vorgang aus, falls vorhanden.
+    description: ''
+  - name: --if-unmodified-since
+    summary: Nur starten, wenn seit dem angegebenen UTC-DateTime-Wert (Y-m-d't ' h:m ' Z ') geändert wurde.
+    description: ''
+  - name: --lease-id
+    summary: Erforderlich, wenn das BLOB über eine aktive Lease verfügt.
+    description: ''
+  - name: --max-connections
+    defaultValue: "2"
+    summary: Die Anzahl paralleler Verbindungen, mit denen heruntergeladen werden soll.
+    description: ''
+  - name: --name -n
+    summary: Der BLOB-Name.
+    description: ''
+  - name: --no-progress
+    summary: Fügen Sie dieses Flag ein, um die Status Berichterstattung für den Befehl zu deaktivieren.
+    description: ''
+  - name: --open-mode
+    defaultValue: wb
+    summary: Der Modus, der beim Öffnen der Datei verwendet werden soll. Beachten Sie, dass beim Angeben von nur anfügen Open_mode der parallele Download verhindert wird Daher muss max_connections auf 1 festgelegt werden, wenn diese Open_mode verwendet wird.
+    description: ''
+  - name: --sas-token
+    summary: 'Eine Shared Access Signature (SAS). Muss in Verbindung mit dem Speicherkonto Namen verwendet werden. Umgebungsvariable: AZURE_STORAGE_SAS_TOKEN.'
+    description: ''
+  - name: --snapshot
+    summary: Der Snapshot-Parameter ist ein undurchsichtiger DateTime-Wert, der die abzurufende BLOB-Momentaufnahme angibt, wenn vorhanden.
+    description: ''
+  - name: --socket-timeout
+    summary: Das Sockettimeout (Sekunden), das vom Dienst verwendet wird, um den Datenfluss zu regulieren.
+    description: ''
+  - name: --start-range
+    summary: 'Anfang des Byte Bereichs, der zum Herunterladen eines Abschnitts des BLOBs verwendet werden soll. Wenn keine end_range angegeben wird, werden alle Bytes nach dem start_range heruntergeladen. Die start_range und end_range Parameter sind inklusiv. Beispiel: start_range = 0, end_range = 511 werden die ersten 512 Bytes des BLOBs heruntergeladen.'
+    description: ''
+  - name: --tags-condition
+    summary: Geben Sie eine SQL-WHERE-Klausel für blobtags an, die nur für BLOBs mit einem übereinstimmenden Wert verwendet wird.
+    description: ''
+  - name: --timeout
+    summary: Anforderungs Timeout in Sekunden. Gilt für jeden Dienst aufzurufen.
+    description: ''
+  - name: --validate-content
+    summary: Wenn true, berechnet einen MD5-Hash für jeden Block des BLOBs. Der Speicherdienst prüft den Hash des Inhalts, der mit dem gesendeten Hash erreicht wurde. Dies ist in erster Linie für das Erkennen von bitflips bei der Übertragung wichtig, wenn http anstelle von HTTPS verwendet wird, da https (Standardeinstellung) bereits überprüft wird. Beachten Sie, dass dieser MD5-Hash nicht mit dem BLOB gespeichert wird. Beachten Sie auch, dass der Speicher effiziente Algorithmus nicht verwendet wird, wenn der MD5-Hash für die Berechnung ganzer Blöcke erforderlich ist. Dadurch wird der Zweck des Speicher effizienten Algorithmus abgebrochen.
+    description: ''
+  - name: --version-id
+    summary: Eine optionale BLOB-Versions-ID. Dieser Parameter ist nur für ein Konto mit aktivierter Versionsverwaltung verfügbar.
+    description: ''
+- uid: ext_storage-blob-preview_az_storage_blob_exists
+  name: az storage blob exists
+  summary: Überprüfen Sie, ob ein BLOB in einem Container vorhanden ist.
+  description: ''
+  syntax: >-
+    az storage blob exists [--account-key]
+                           [--account-name]
+                           [--auth-mode {key, login}]
+                           [--blob-url]
+                           [--connection-string]
+                           [--container-name]
+                           [--name]
+                           [--sas-token]
+                           [--timeout]
+  examples:
+  - summary: Überprüfen Sie, ob ein BLOB in einem Container vorhanden ist. automatisch generierten
+    syntax: az storage blob exists --account-key 00000000 --account-name MyAccount --container-name mycontainer --name MyBlob
+  optionalParameters:
+  - name: --account-key
+    summary: 'Speicherkontoschlüssel Muss in Verbindung mit dem Speicherkonto Namen verwendet werden. Umgebungsvariable: AZURE_STORAGE_KEY.'
+    description: ''
+  - name: --account-name
+    summary: 'Name des Speicherkontos Verwandte Umgebungsvariable: AZURE_STORAGE_ACCOUNT. Muss in Verbindung mit dem Speicherkonto Schlüssel oder einem SAS-Token verwendet werden. Wenn keines der beiden vorhanden ist, versucht der Befehl, den Speicherkonto Schlüssel mithilfe des authentifizierten Azure-Kontos abzufragen. Wenn eine große Anzahl von Speicher Befehlen ausgeführt wird, kann das API-Kontingent erreichen.'
+    description: ''
+  - name: --auth-mode
+    parameterValueGroup: key, login
+    summary: 'Der Modus, in dem der Befehl ausgeführt werden soll. der Modus "Anmeldung" verwendet direkt Ihre Anmelde Informationen für die Authentifizierung. Der Legacy Modus "Schlüssel" versucht, einen Kontoschlüssel abzufragen, wenn keine Authentifizierungs Parameter für das Konto bereitgestellt werden. Umgebungsvariable: AZURE_STORAGE_AUTH_MODE.'
+    description: ''
+  - name: --blob-url
+    summary: Die vollständige Endpunkt-URL für das BLOB, einschließlich SAS-Token und Snapshot, falls verwendet. Dies kann entweder der primäre Endpunkt oder der sekundäre Endpunkt sein, je nach dem aktuellen `location_mode` .
+    description: ''
+  - name: --connection-string
+    summary: 'Verbindungs Zeichenfolge des Speicher Kontos. Umgebungsvariable: AZURE_STORAGE_CONNECTION_STRING.'
+    description: ''
+  - name: --container-name -c
+    summary: Der Containername
+    description: ''
+  - name: --name -n
+    summary: Der BLOB-Name.
+    description: ''
+  - name: --sas-token
+    summary: 'Eine Shared Access Signature (SAS). Muss in Verbindung mit dem Speicherkonto Namen verwendet werden. Umgebungsvariable: AZURE_STORAGE_SAS_TOKEN.'
+    description: ''
+  - name: --timeout
+    summary: Anforderungs Timeout in Sekunden. Gilt für jeden Dienst aufzurufen.
+    description: ''
+- uid: ext_storage-blob-preview_az_storage_blob_filter
+  name: az storage blob filter
+  summary: Auflisten von blobcontainern in allen Containern, deren Tags mit einem angegebenen Such Ausdruck in Einklang stehen.
+  description: Filter-BLOB suchen in allen Containern innerhalb eines Speicher Kontos, können jedoch innerhalb des Ausdrucks auf einen einzelnen Container festgelegt werden.
+  syntax: >-
+    az storage blob filter --tag-filter
+                           [--account-key]
+                           [--account-name]
+                           [--auth-mode {key, login}]
+                           [--connection-string]
+                           [--sas-token]
+  requiredParameters:
+  - isRequired: true
+    name: --tag-filter
+    summary: 'Der Ausdruck für die Suche nach blobden, deren Tags mit der angegebenen Bedingung übereinstimmen. Beispiel: "yourtagname" = "firsttag" und "yourtagname2" = "secondtag", um einen Container anzugeben, z. b. " @container =" Containername "und" Name "=" C ".'
+    description: ''
+  optionalParameters:
+  - name: --account-key
+    summary: 'Speicherkontoschlüssel Muss in Verbindung mit dem Speicherkonto Namen verwendet werden. Umgebungsvariable: AZURE_STORAGE_KEY.'
+    description: ''
+  - name: --account-name
+    summary: 'Name des Speicherkontos Verwandte Umgebungsvariable: AZURE_STORAGE_ACCOUNT. Muss in Verbindung mit dem Speicherkonto Schlüssel oder einem SAS-Token verwendet werden. Wenn keines der beiden vorhanden ist, versucht der Befehl, den Speicherkonto Schlüssel mithilfe des authentifizierten Azure-Kontos abzufragen. Wenn eine große Anzahl von Speicher Befehlen ausgeführt wird, kann das API-Kontingent erreichen.'
+    description: ''
+  - name: --auth-mode
+    parameterValueGroup: key, login
+    summary: 'Der Modus, in dem der Befehl ausgeführt werden soll. der Modus "Anmeldung" verwendet direkt Ihre Anmelde Informationen für die Authentifizierung. Der Legacy Modus "Schlüssel" versucht, einen Kontoschlüssel abzufragen, wenn keine Authentifizierungs Parameter für das Konto bereitgestellt werden. Umgebungsvariable: AZURE_STORAGE_AUTH_MODE.'
+    description: ''
+  - name: --connection-string
+    summary: 'Verbindungs Zeichenfolge des Speicher Kontos. Umgebungsvariable: AZURE_STORAGE_CONNECTION_STRING.'
+    description: ''
+  - name: --sas-token
+    summary: 'Eine Shared Access Signature (SAS). Muss in Verbindung mit dem Speicherkonto Namen verwendet werden. Umgebungsvariable: AZURE_STORAGE_SAS_TOKEN.'
+    description: ''
+- uid: ext_storage-blob-preview_az_storage_blob_generate_sas
+  name: az storage blob generate-sas
+  summary: Generieren Sie eine Shared Access Signature für das BLOB.
+  description: ''
+  syntax: >-
+    az storage blob generate-sas --container-name
+                                 --name
+                                 [--account-key]
+                                 [--account-name]
+                                 [--as-user]
+                                 [--auth-mode {key, login}]
+                                 [--cache-control]
+                                 [--connection-string]
+                                 [--content-disposition]
+                                 [--content-encoding]
+                                 [--content-language]
+                                 [--content-type]
+                                 [--expiry]
+                                 [--full-uri]
+                                 [--https-only]
+                                 [--ip]
+                                 [--permissions]
+                                 [--policy-name]
+                                 [--snapshot]
+                                 [--start]
+                                 [--version-id]
+  examples:
+  - summary: Generieren Sie ein SAS-Token für ein BLOB mit schreibgeschützten Berechtigungen.
+    syntax: >-
+      end=`date -u -d "30 minutes" '+%Y-%m-%dT%H:%MZ'`
+
+      az storage blob generate-sas -c myycontainer -n MyBlob --permissions r --expiry $end --https-only
+  - summary: Generiert ein SAS-Token für ein BLOB mit dem angegebenen IP-Adressbereich.
+    syntax: >-
+      end=`date -u -d "30 minutes" '+%Y-%m-%dT%H:%MZ'`
+
+      az storage blob generate-sas -c myycontainer -n MyBlob --ip "176.134.171.0-176.134.171.255" --permissions r --expiry $end --https-only
+  - summary: Generieren Sie eine Shared Access Signature für das BLOB. automatisch generierten
+    syntax: az storage blob generate-sas --account-key 00000000 --account-name MyStorageAccount --container-name mycontainer --expiry 2018-01-01T00:00:00Z --name MyBlob --permissions r
+  requiredParameters:
+  - isRequired: true
+    name: --container-name -c
+    summary: Der Containername
+    description: ''
+  - isRequired: true
+    name: --name -n
+    summary: Der BLOB-Name.
+    description: ''
+  optionalParameters:
+  - name: --account-key
+    summary: 'Speicherkontoschlüssel Muss in Verbindung mit dem Speicherkonto Namen verwendet werden. Umgebungsvariable: AZURE_STORAGE_KEY.'
+    description: ''
+  - name: --account-name
+    summary: 'Name des Speicherkontos Verwandte Umgebungsvariable: AZURE_STORAGE_ACCOUNT. Muss in Verbindung mit dem Speicherkonto Schlüssel oder einem SAS-Token verwendet werden. Wenn keines der beiden vorhanden ist, versucht der Befehl, den Speicherkonto Schlüssel mithilfe des authentifizierten Azure-Kontos abzufragen. Wenn eine große Anzahl von Speicher Befehlen ausgeführt wird, kann das API-Kontingent erreichen.'
+    description: ''
+  - name: --as-user
+    summary: Gibt an, dass dieser Befehl die SAS zurückgibt, die mit dem Benutzer Delegat signiert wurde. Wenn dieses Argument angegeben wird, sind der Ablauf Parameter und "--auth-Mode Login" erforderlich.
+    description: ''
+  - name: --auth-mode
+    parameterValueGroup: key, login
+    summary: 'Der Modus, in dem der Befehl ausgeführt werden soll. der Modus "Anmeldung" verwendet direkt Ihre Anmelde Informationen für die Authentifizierung. Der Legacy Modus "Schlüssel" versucht, einen Kontoschlüssel abzufragen, wenn keine Authentifizierungs Parameter für das Konto bereitgestellt werden. Umgebungsvariable: AZURE_STORAGE_AUTH_MODE.'
+    description: ''
+  - name: --cache-control
+    summary: Der Antwortheader Wert für Cache-Control, wenn die Ressource auf diese Shared Access Signature zugreifen soll.
+    description: ''
+  - name: --connection-string
+    summary: 'Verbindungs Zeichenfolge des Speicher Kontos. Umgebungsvariable: AZURE_STORAGE_CONNECTION_STRING.'
+    description: ''
+  - name: --content-disposition
+    summary: Der Wert des Antwort Headers für die Inhalts Disposition, wenn die Ressource auf diese Shared Access Signature zugreifen kann.
+    description: ''
+  - name: --content-encoding
+    summary: Wert des Antwort Headers für die Inhalts Codierung, wenn die Ressource auf diese Shared Access Signature zugreifen kann.
+    description: ''
+  - name: --content-language
+    summary: Wert des Antwort Headers für Content-Language, wenn die Ressource auf diese Shared Access Signature zugreifen kann.
+    description: ''
+  - name: --content-type
+    summary: Wert des Antwort Headers für Content-Type, wenn die Ressource auf diese Shared Access Signature zugreifen kann.
+    description: ''
+  - name: --expiry
+    summary: Gibt den UTC-DateTime-Wert (Y-m-d't ' h:m ' Z ') an, bei dem die SAS ungültig wird. Verwenden Sie nicht, wenn auf eine gespeicherte Zugriffs Richtlinie mit--ID verwiesen wird, die diesen Wert angibt.
+    description: ''
+  - name: --full-uri
+    summary: Geben Sie an, dass dieser Befehl den vollständigen BLOB-URI und das Shared Access Signature-Token zurückgibt.
+    description: ''
+  - name: --https-only
+    summary: Nur Anforderungen zulassen, die mit dem HTTPS-Protokoll durchgeführt wurden. Wenn diese Angabe ausgelassen wird, sind Anforderungen aus dem HTTP-und HTTPS-Protokoll zulässig.
+    description: ''
+  - name: --ip
+    summary: Geben Sie eine IP-Adresse oder einen Bereich von IP-Adressen an, von denen Anforderungen akzeptiert werden sollen. Wenn die IP-Adresse, von der die Anforderung stammt, nicht mit der IP-Adresse oder dem Adressbereich des SAS-Tokens identisch ist, wird die Anforderung nicht authentifiziert. Wenn Sie z. b. IP = 168.1.5.65 oder IP = 168.1.5.60-168.1.5.70 für die SAS angeben, wird die Anforderung auf diese IP-Adressen beschränkt.
+    description: ''
+  - name: --permissions
+    summary: 'Die Berechtigungen, die von der SAS erteilt werden. Zulässige Werte: (a) dd (c) reate (d) Elete (x) delete_previous_version (r) EAD (t) AG (w)-Ritual. Verwenden Sie nicht, wenn auf eine gespeicherte Zugriffs Richtlinie mit--Policy-Name verwiesen wird, der diesen Wert angibt. Kann kombiniert werden.'
+    description: ''
+  - name: --policy-name
+    summary: Der Name einer gespeicherten Zugriffs Richtlinie innerhalb der ACL des Containers.
+    description: ''
+  - name: --snapshot
+    summary: Der Snapshot-Parameter ist ein undurchsichtiger DateTime-Wert, der die abzurufende BLOB-Momentaufnahme angibt, wenn vorhanden.
+    description: ''
+  - name: --start
+    summary: Gibt den UTC-DateTime-Wert (Y-m-d't ' h:m ' Z ') an, an dem die SAS gültig wird. Verwenden Sie nicht, wenn auf eine gespeicherte Zugriffs Richtlinie mit--ID verwiesen wird, die diesen Wert angibt. Der Standardwert ist die Zeit der Anforderung.
+    description: ''
+  - name: --version-id
+    summary: Eine optionale BLOB-Versions-ID. Dieser Parameter ist nur für ein Konto mit aktivierter Versionsverwaltung verfügbar.
+    description: ''
+- uid: ext_storage-blob-preview_az_storage_blob_list
+  name: az storage blob list
+  summary: Listet blobin einem bestimmten Container auf.
+  description: ''
+  syntax: >-
+    az storage blob list --container-name
+                         [--account-key]
+                         [--account-name]
+                         [--auth-mode {key, login}]
+                         [--connection-string]
+                         [--delimiter]
+                         [--include]
+                         [--marker]
+                         [--num-results]
+                         [--prefix]
+                         [--sas-token]
+                         [--show-next-marker]
+                         [--timeout]
+  examples:
+  - summary: Listet alle speicherblob in einem Container auf, deren Namen mit "foo" beginnen. entspricht Namen wie "foo", "Foobar" und "Foo/Bar".
+    syntax: az storage blob list -c MyContainer --prefix foo
+  requiredParameters:
+  - isRequired: true
+    name: --container-name -c
+    summary: Der Containername
+    description: ''
+  optionalParameters:
+  - name: --account-key
+    summary: 'Speicherkontoschlüssel Muss in Verbindung mit dem Speicherkonto Namen verwendet werden. Umgebungsvariable: AZURE_STORAGE_KEY.'
+    description: ''
+  - name: --account-name
+    summary: 'Name des Speicherkontos Verwandte Umgebungsvariable: AZURE_STORAGE_ACCOUNT. Muss in Verbindung mit dem Speicherkonto Schlüssel oder einem SAS-Token verwendet werden. Wenn keines der beiden vorhanden ist, versucht der Befehl, den Speicherkonto Schlüssel mithilfe des authentifizierten Azure-Kontos abzufragen. Wenn eine große Anzahl von Speicher Befehlen ausgeführt wird, kann das API-Kontingent erreichen.'
+    description: ''
+  - name: --auth-mode
+    parameterValueGroup: key, login
+    summary: 'Der Modus, in dem der Befehl ausgeführt werden soll. der Modus "Anmeldung" verwendet direkt Ihre Anmelde Informationen für die Authentifizierung. Der Legacy Modus "Schlüssel" versucht, einen Kontoschlüssel abzufragen, wenn keine Authentifizierungs Parameter für das Konto bereitgestellt werden. Umgebungsvariable: AZURE_STORAGE_AUTH_MODE.'
+    description: ''
+  - name: --connection-string
+    summary: 'Verbindungs Zeichenfolge des Speicher Kontos. Umgebungsvariable: AZURE_STORAGE_CONNECTION_STRING.'
+    description: ''
+  - name: --delimiter
+    summary: Wenn die Anforderung diesen Parameter enthält, gibt der Vorgang ein blobprefix-Element in der Ergebnisliste zurück, das als Platzhalter für alle BLOB fungiert, deren Namen mit derselben Teil Zeichenfolge bis zur Darstellung des Trenn Zeichens beginnen. Das Trennzeichen kann ein einzelnes Zeichen oder eine Zeichenfolge sein.
+    description: ''
+  - name: --include
+    summary: 'Geben Sie ein oder mehrere zusätzliche Datasets an, die in die Antwort eingeschlossen werden sollen. Zu den Optionen gehören: (c) OPY, (d), (m) etadata, (s) napshots, (v) ersions, (t) AGS. Kann kombiniert werden.'
+    description: ''
+  - name: --marker
+    summary: Ein Zeichen folgen Wert, der den Teil der Liste der Container angibt, der mit dem nächsten Auflistungs Vorgang zurückgegeben werden soll. Der-Vorgang gibt den NextMarker-Wert im Antworttext zurück, wenn der Auflistungs Vorgang nicht alle verbleibenden Container zurückgibt, die für die aktuelle Seite aufgeführt sind. Wenn angegeben, beginnt dieser Generator mit der Rückgabe von Ergebnissen ab dem Zeitpunkt, an dem der vorherige Generator angehalten wurde.
+    description: ''
+  - name: --num-results
+    defaultValue: "5000"
+    summary: Gibt die maximale Anzahl an, die zurückgegeben werden soll. Wenn die Anforderung keine num_results angibt oder einen Wert größer als 5000 angibt, gibt der Server bis zu 5000 Elemente zurück. Beachten Sie, dass der Dienst ein Fortsetzungs Token zum Abrufen der restlichen Ergebnisse zurückgibt, wenn der Auflistungs Vorgang eine Partitions Grenze überschreitet. Geben \* Sie "" an, um alle zurückzugeben.
+    description: ''
+  - name: --prefix
+    summary: Filtern Sie die Ergebnisse, um nur blobnamen zurückzugeben, deren Name mit dem angegebenen Präfix beginnt.
+    description: ''
+  - name: --sas-token
+    summary: 'Eine Shared Access Signature (SAS). Muss in Verbindung mit dem Speicherkonto Namen verwendet werden. Umgebungsvariable: AZURE_STORAGE_SAS_TOKEN.'
+    description: ''
+  - name: --show-next-marker
+    summary: Anzeigen von NextMarker im Ergebnis, wenn angegeben.
+    description: ''
+  - name: --timeout
+    summary: Anforderungs Timeout in Sekunden. Gilt für jeden Dienst aufzurufen.
+    description: ''
+- uid: ext_storage-blob-preview_az_storage_blob_set_tier
+  name: az storage blob set-tier
+  summary: Legen Sie den Block oder die Seiten Ebenen für das BLOB fest.
+  description: Für blockblobs unterstützt dieser Befehl nur blockblobs in Standard Speicher Konten. Für das seitenblob unterstützt dieser Befehl nur für seitenblobs in Premium-Konten.
+  syntax: >-
+    az storage blob set-tier --tier
+                             [--account-key]
+                             [--account-name]
+                             [--auth-mode {key, login}]
+                             [--blob-url]
+                             [--connection-string]
+                             [--container-name]
+                             [--name]
+                             [--rehydrate-priority {High, Standard}]
+                             [--sas-token]
+                             [--tags-condition]
+                             [--timeout]
+                             [--type {block, page}]
+                             [--version-id]
+  examples:
+  - summary: Legen Sie den Block oder die Seiten Ebenen für das BLOB fest. automatisch generierten
+    syntax: az storage blob set-tier --account-key 00000000 --account-name MyAccount --container-name mycontainer --name MyBlob --tier P10
+  requiredParameters:
+  - isRequired: true
+    name: --tier
+    summary: Der Wert der Ebene, auf den das BLOB festgelegt wird.
+    description: ''
+  optionalParameters:
+  - name: --account-key
+    summary: 'Speicherkontoschlüssel Muss in Verbindung mit dem Speicherkonto Namen verwendet werden. Umgebungsvariable: AZURE_STORAGE_KEY.'
+    description: ''
+  - name: --account-name
+    summary: 'Name des Speicherkontos Verwandte Umgebungsvariable: AZURE_STORAGE_ACCOUNT. Muss in Verbindung mit dem Speicherkonto Schlüssel oder einem SAS-Token verwendet werden. Wenn keines der beiden vorhanden ist, versucht der Befehl, den Speicherkonto Schlüssel mithilfe des authentifizierten Azure-Kontos abzufragen. Wenn eine große Anzahl von Speicher Befehlen ausgeführt wird, kann das API-Kontingent erreichen.'
+    description: ''
+  - name: --auth-mode
+    parameterValueGroup: key, login
+    summary: 'Der Modus, in dem der Befehl ausgeführt werden soll. der Modus "Anmeldung" verwendet direkt Ihre Anmelde Informationen für die Authentifizierung. Der Legacy Modus "Schlüssel" versucht, einen Kontoschlüssel abzufragen, wenn keine Authentifizierungs Parameter für das Konto bereitgestellt werden. Umgebungsvariable: AZURE_STORAGE_AUTH_MODE.'
+    description: ''
+  - name: --blob-url
+    summary: Die vollständige Endpunkt-URL für das BLOB, einschließlich SAS-Token und Snapshot, falls verwendet. Dies kann entweder der primäre Endpunkt oder der sekundäre Endpunkt sein, je nach dem aktuellen `location_mode` .
+    description: ''
+  - name: --connection-string
+    summary: 'Verbindungs Zeichenfolge des Speicher Kontos. Umgebungsvariable: AZURE_STORAGE_CONNECTION_STRING.'
+    description: ''
+  - name: --container-name -c
+    summary: Der Containername
+    description: ''
+  - name: --name -n
+    summary: Der BLOB-Name.
+    description: ''
+  - name: --rehydrate-priority -r
+    parameterValueGroup: High, Standard
+    summary: Geben Sie die Priorität an, mit der ein archiviertes BLOB reaktiviert werden soll.
+    description: ''
+  - name: --sas-token
+    summary: 'Eine Shared Access Signature (SAS). Muss in Verbindung mit dem Speicherkonto Namen verwendet werden. Umgebungsvariable: AZURE_STORAGE_SAS_TOKEN.'
+    description: ''
+  - name: --tags-condition
+    summary: Geben Sie eine SQL-WHERE-Klausel für blobtags an, die nur für BLOBs mit einem übereinstimmenden Wert verwendet wird.
+    description: ''
+  - name: --timeout
+    summary: Der timeout-Parameter wird in Sekunden angegeben. Diese Methode kann mehrere Aufrufe an den Azure-Dienst durchführen, und das Timeout wird auf jeden Aufruf einzeln angewendet.
+    description: ''
+  - name: --type -t
+    defaultValue: block
+    parameterValueGroup: block, page
+    summary: Der BLOB-Typ.
+    description: ''
+  - name: --version-id
+    summary: Eine optionale BLOB-Versions-ID. Dieser Parameter ist nur für ein Konto mit aktivierter Versionsverwaltung verfügbar.
+    description: ''
+- uid: ext_storage-blob-preview_az_storage_blob_show
+  name: az storage blob show
+  summary: Hier finden Sie die Details eines BLOBs.
+  description: ''
+  syntax: >-
+    az storage blob show [--account-key]
+                         [--account-name]
+                         [--auth-mode {key, login}]
+                         [--blob-url]
+                         [--connection-string]
+                         [--container-name]
+                         [--if-match]
+                         [--if-modified-since]
+                         [--if-none-match]
+                         [--if-unmodified-since]
+                         [--lease-id]
+                         [--name]
+                         [--sas-token]
+                         [--snapshot]
+                         [--tags-condition]
+                         [--timeout]
+                         [--version-id]
+  examples:
+  - summary: Alle Eigenschaften eines BLOBs anzeigen.
+    syntax: az storage blob show -c mycontainer -n MyBlob
+  - summary: Details eines BLOBs (automatisch generiert)
+    syntax: az storage blob show --account-name mystorageccount --account-key 00000000 --container-name mycontainer --name MyBlob
+  optionalParameters:
+  - name: --account-key
+    summary: 'Speicherkontoschlüssel Muss in Verbindung mit dem Speicherkonto Namen verwendet werden. Umgebungsvariable: AZURE_STORAGE_KEY.'
+    description: ''
+  - name: --account-name
+    summary: 'Name des Speicherkontos Verwandte Umgebungsvariable: AZURE_STORAGE_ACCOUNT. Muss in Verbindung mit dem Speicherkonto Schlüssel oder einem SAS-Token verwendet werden. Wenn keines der beiden vorhanden ist, versucht der Befehl, den Speicherkonto Schlüssel mithilfe des authentifizierten Azure-Kontos abzufragen. Wenn eine große Anzahl von Speicher Befehlen ausgeführt wird, kann das API-Kontingent erreichen.'
+    description: ''
+  - name: --auth-mode
+    parameterValueGroup: key, login
+    summary: 'Der Modus, in dem der Befehl ausgeführt werden soll. der Modus "Anmeldung" verwendet direkt Ihre Anmelde Informationen für die Authentifizierung. Der Legacy Modus "Schlüssel" versucht, einen Kontoschlüssel abzufragen, wenn keine Authentifizierungs Parameter für das Konto bereitgestellt werden. Umgebungsvariable: AZURE_STORAGE_AUTH_MODE.'
+    description: ''
+  - name: --blob-url
+    summary: Die vollständige Endpunkt-URL für das BLOB, einschließlich SAS-Token und Snapshot, falls verwendet. Dies kann entweder der primäre Endpunkt oder der sekundäre Endpunkt sein, je nach dem aktuellen `location_mode` .
+    description: ''
+  - name: --connection-string
+    summary: 'Verbindungs Zeichenfolge des Speicher Kontos. Umgebungsvariable: AZURE_STORAGE_CONNECTION_STRING.'
+    description: ''
+  - name: --container-name -c
+    summary: Der Containername
+    description: ''
+  - name: --if-match
+    summary: Ein ETag-Wert oder das Platzhalter Zeichen ( \* ). Mit diesem Header legen Sie fest, dass der Vorgang nur ausgeführt wird, wenn das ETag der Ressource mit dem angegebenen Wert übereinstimmt.
+    description: ''
+  - name: --if-modified-since
+    summary: Nur starten, wenn seit dem angegebenen UTC-DateTime-Wert (Y-m-d't ' h:m ' Z ') geändert wurde.
+    description: ''
+  - name: --if-none-match
+    summary: Ein ETag-Wert oder das Platzhalter Zeichen ( \* ). Mit diesem Header legen Sie fest, dass der Vorgang nur ausgeführt wird, wenn das ETag der Ressource nicht mit dem angegebenen Wert übereinstimmt. Geben Sie das Platzhalter Zeichen ( \* ) an, um den Vorgang nur dann auszuführen, wenn die Ressource nicht vorhanden ist, und führen Sie den Vorgang aus, falls vorhanden.
+    description: ''
+  - name: --if-unmodified-since
+    summary: Nur starten, wenn seit dem angegebenen UTC-DateTime-Wert (Y-m-d't ' h:m ' Z ') geändert wurde.
+    description: ''
+  - name: --lease-id
+    summary: Erforderlich, wenn das BLOB über eine aktive Lease verfügt.
+    description: ''
+  - name: --name -n
+    summary: Der BLOB-Name.
+    description: ''
+  - name: --sas-token
+    summary: 'Eine Shared Access Signature (SAS). Muss in Verbindung mit dem Speicherkonto Namen verwendet werden. Umgebungsvariable: AZURE_STORAGE_SAS_TOKEN.'
+    description: ''
+  - name: --snapshot
+    summary: Der Snapshot-Parameter ist ein undurchsichtiger DateTime-Wert, der die abzurufende BLOB-Momentaufnahme angibt, wenn vorhanden.
+    description: ''
+  - name: --tags-condition
+    summary: Geben Sie eine SQL-WHERE-Klausel für blobtags an, die nur für BLOBs mit einem übereinstimmenden Wert verwendet wird.
+    description: ''
+  - name: --timeout
+    summary: Anforderungs Timeout in Sekunden. Gilt für jeden Dienst aufzurufen.
+    description: ''
+  - name: --version-id
+    summary: Eine optionale BLOB-Versions-ID. Dieser Parameter ist nur für ein Konto mit aktivierter Versionsverwaltung verfügbar.
+    description: ''
+- uid: ext_storage-blob-preview_az_storage_blob_snapshot
+  name: az storage blob snapshot
+  summary: Erstellt eine Momentaufnahme des Blobs.
+  description: Eine Momentaufnahme ist eine schreibgeschützte Version eines Blobs, die zu einem bestimmten Zeitpunkt erstellt wird. Sie kann gelesen, kopiert oder gelöscht, aber nicht geändert werden. Momentaufnahmen bieten eine Möglichkeit, um ein Blob so zu sichern, wie es zu einem bestimmten Zeitpunkt dargestellt wird.  Eine Momentaufnahme eines BLOBs hat denselben Namen wie das Basis-BLOB, aus dem die Momentaufnahme erstellt wird, wobei ein DateTime-Wert angefügt wird, um die Uhrzeit anzugeben, zu der die Momentaufnahme erstellt wurde.
+  syntax: >-
+    az storage blob snapshot [--account-key]
+                             [--account-name]
+                             [--auth-mode {key, login}]
+                             [--blob-url]
+                             [--connection-string]
+                             [--container-name]
+                             [--if-match]
+                             [--if-modified-since]
+                             [--if-none-match]
+                             [--if-unmodified-since]
+                             [--lease-id]
+                             [--metadata]
+                             [--name]
+                             [--sas-token]
+                             [--tags-condition]
+                             [--timeout]
+  optionalParameters:
+  - name: --account-key
+    summary: 'Speicherkontoschlüssel Muss in Verbindung mit dem Speicherkonto Namen verwendet werden. Umgebungsvariable: AZURE_STORAGE_KEY.'
+    description: ''
+  - name: --account-name
+    summary: 'Name des Speicherkontos Verwandte Umgebungsvariable: AZURE_STORAGE_ACCOUNT. Muss in Verbindung mit dem Speicherkonto Schlüssel oder einem SAS-Token verwendet werden. Wenn keines der beiden vorhanden ist, versucht der Befehl, den Speicherkonto Schlüssel mithilfe des authentifizierten Azure-Kontos abzufragen. Wenn eine große Anzahl von Speicher Befehlen ausgeführt wird, kann das API-Kontingent erreichen.'
+    description: ''
+  - name: --auth-mode
+    parameterValueGroup: key, login
+    summary: 'Der Modus, in dem der Befehl ausgeführt werden soll. der Modus "Anmeldung" verwendet direkt Ihre Anmelde Informationen für die Authentifizierung. Der Legacy Modus "Schlüssel" versucht, einen Kontoschlüssel abzufragen, wenn keine Authentifizierungs Parameter für das Konto bereitgestellt werden. Umgebungsvariable: AZURE_STORAGE_AUTH_MODE.'
+    description: ''
+  - name: --blob-url
+    summary: Die vollständige Endpunkt-URL für das BLOB, einschließlich SAS-Token und Snapshot, falls verwendet. Dies kann entweder der primäre Endpunkt oder der sekundäre Endpunkt sein, je nach dem aktuellen `location_mode` .
+    description: ''
+  - name: --connection-string
+    summary: 'Verbindungs Zeichenfolge des Speicher Kontos. Umgebungsvariable: AZURE_STORAGE_CONNECTION_STRING.'
+    description: ''
+  - name: --container-name -c
+    summary: Der Containername
+    description: ''
+  - name: --if-match
+    summary: Ein ETag-Wert oder das Platzhalter Zeichen ( \* ). Mit diesem Header legen Sie fest, dass der Vorgang nur ausgeführt wird, wenn das ETag der Ressource mit dem angegebenen Wert übereinstimmt.
+    description: ''
+  - name: --if-modified-since
+    summary: Nur starten, wenn seit dem angegebenen UTC-DateTime-Wert (Y-m-d't ' h:m ' Z ') geändert wurde.
+    description: ''
+  - name: --if-none-match
+    summary: Ein ETag-Wert oder das Platzhalter Zeichen ( \* ). Mit diesem Header legen Sie fest, dass der Vorgang nur ausgeführt wird, wenn das ETag der Ressource nicht mit dem angegebenen Wert übereinstimmt. Geben Sie das Platzhalter Zeichen ( \* ) an, um den Vorgang nur dann auszuführen, wenn die Ressource nicht vorhanden ist, und führen Sie den Vorgang aus, falls vorhanden.
+    description: ''
+  - name: --if-unmodified-since
+    summary: Nur starten, wenn seit dem angegebenen UTC-DateTime-Wert (Y-m-d't ' h:m ' Z ') geändert wurde.
+    description: ''
+  - name: --lease-id
+    summary: Erforderlich, wenn das BLOB über eine aktive Lease verfügt.
+    description: ''
+  - name: --metadata
+    summary: Metadaten in durch Leerzeichen getrennten Schlüssel = Wert-Paaren. Dadurch werden alle vorhandenen Metadaten überschrieben.
+    description: ''
+  - name: --name -n
+    summary: Der BLOB-Name.
+    description: ''
+  - name: --sas-token
+    summary: 'Eine Shared Access Signature (SAS). Muss in Verbindung mit dem Speicherkonto Namen verwendet werden. Umgebungsvariable: AZURE_STORAGE_SAS_TOKEN.'
+    description: ''
+  - name: --tags-condition
+    summary: Geben Sie eine SQL-WHERE-Klausel für blobtags an, die nur für BLOBs mit einem übereinstimmenden Wert verwendet wird.
+    description: ''
+  - name: --timeout
+    summary: Anforderungs Timeout in Sekunden. Gilt für jeden Dienst aufzurufen.
+    description: ''
+- uid: ext_storage-blob-preview_az_storage_blob_undelete
+  name: az storage blob undelete
+  summary: Stellen Sie vorläufig gelöschte BLOB-oder Momentaufnahmen wieder her.
+  description: Der Vorgang ist nur erfolgreich, wenn er innerhalb der angegebenen Anzahl von Tagen verwendet wird, die in der DELETE-Aufbewahrungs Richtlinie festgelegt sind.
+  syntax: >-
+    az storage blob undelete [--account-key]
+                             [--account-name]
+                             [--auth-mode {key, login}]
+                             [--blob-url]
+                             [--connection-string]
+                             [--container-name]
+                             [--name]
+                             [--sas-token]
+                             [--timeout]
+  examples:
+  - summary: Wiederherstellen eines vorläufig gelöschten BLOBs.
+    syntax: az storage blob undelete -n myblob -c mycontainer --account-name mystorageaccount --account-key 0000-0000
+  optionalParameters:
+  - name: --account-key
+    summary: 'Speicherkontoschlüssel Muss in Verbindung mit dem Speicherkonto Namen verwendet werden. Umgebungsvariable: AZURE_STORAGE_KEY.'
+    description: ''
+  - name: --account-name
+    summary: 'Name des Speicherkontos Verwandte Umgebungsvariable: AZURE_STORAGE_ACCOUNT. Muss in Verbindung mit dem Speicherkonto Schlüssel oder einem SAS-Token verwendet werden. Wenn keines der beiden vorhanden ist, versucht der Befehl, den Speicherkonto Schlüssel mithilfe des authentifizierten Azure-Kontos abzufragen. Wenn eine große Anzahl von Speicher Befehlen ausgeführt wird, kann das API-Kontingent erreichen.'
+    description: ''
+  - name: --auth-mode
+    parameterValueGroup: key, login
+    summary: 'Der Modus, in dem der Befehl ausgeführt werden soll. der Modus "Anmeldung" verwendet direkt Ihre Anmelde Informationen für die Authentifizierung. Der Legacy Modus "Schlüssel" versucht, einen Kontoschlüssel abzufragen, wenn keine Authentifizierungs Parameter für das Konto bereitgestellt werden. Umgebungsvariable: AZURE_STORAGE_AUTH_MODE.'
+    description: ''
+  - name: --blob-url
+    summary: Die vollständige Endpunkt-URL für das BLOB, einschließlich SAS-Token und Snapshot, falls verwendet. Dies kann entweder der primäre Endpunkt oder der sekundäre Endpunkt sein, je nach dem aktuellen `location_mode` .
+    description: ''
+  - name: --connection-string
+    summary: 'Verbindungs Zeichenfolge des Speicher Kontos. Umgebungsvariable: AZURE_STORAGE_CONNECTION_STRING.'
+    description: ''
+  - name: --container-name -c
+    summary: Der Containername
+    description: ''
+  - name: --name -n
+    summary: Der BLOB-Name.
+    description: ''
+  - name: --sas-token
+    summary: 'Eine Shared Access Signature (SAS). Muss in Verbindung mit dem Speicherkonto Namen verwendet werden. Umgebungsvariable: AZURE_STORAGE_SAS_TOKEN.'
+    description: ''
+  - name: --timeout
+    summary: Anforderungs Timeout in Sekunden. Gilt für jeden Dienst aufzurufen.
+    description: ''
+- uid: ext_storage-blob-preview_az_storage_blob_upload
+  name: az storage blob upload
+  summary: Laden Sie eine Datei in ein speicherblob hoch.
+  description: Erstellen Sie ein neues BLOB aus einem Dateipfad, oder aktualisieren Sie den Inhalt eines vorhandenen BLOBs mit automatischen segmentieren und Status Benachrichtigungen.
+  syntax: >-
+    az storage blob upload [--account-key]
+                           [--account-name]
+                           [--auth-mode {key, login}]
+                           [--blob-url]
+                           [--connection-string]
+                           [--container-name]
+                           [--content-cache-control]
+                           [--content-disposition]
+                           [--content-encoding]
+                           [--content-language]
+                           [--content-md5]
+                           [--content-type]
+                           [--data]
+                           [--encryption-scope]
+                           [--file]
+                           [--if-match]
+                           [--if-modified-since]
+                           [--if-none-match]
+                           [--if-unmodified-since]
+                           [--lease-id]
+                           [--length]
+                           [--max-connections]
+                           [--maxsize-condition]
+                           [--metadata]
+                           [--name]
+                           [--no-progress]
+                           [--overwrite {false, true}]
+                           [--sas-token]
+                           [--tags]
+                           [--tags-condition]
+                           [--tier]
+                           [--timeout]
+                           [--type {append, block, page}]
+                           [--validate-content]
+  examples:
+  - summary: Hochladen in ein BLOB.
+    syntax: az storage blob upload -f /path/to/file -c mycontainer -n MyBlob
+  - summary: Hochladen in ein BLOB mit der BLOB-SAS-URL.
+    syntax: az storage blob upload -f /path/to/file --blob-url https://mystorageaccount.blob.core.windows.net/mycontainer/myblob?sv=2019-02-02&st=2020-12-22T07%3A07%3A29Z&se=2020-12-23T07%3A07%3A29Z&sr=b&sp=racw&sig=redacted
+  - summary: Laden Sie eine Datei in ein speicherblob hoch. automatisch generierten
+    syntax: az storage blob upload --account-name mystorageaccount --account-key 0000-0000 --container-name mycontainer --file /path/to/file --name myblob
+  - summary: Laden Sie eine Zeichenfolge in ein BLOB hoch.
+    syntax: az storage blob upload --data "teststring" -c mycontainer -n myblob --account-name mystorageaccount --account-key 0000-0000
+  - summary: Hochladen per Pipe in eine.
+    syntax: echo $data | az storage blob upload --data @- -c mycontainer -n myblob --account-name mystorageaccount --account-key 0000-0000
+  optionalParameters:
+  - name: --account-key
+    summary: 'Speicherkontoschlüssel Muss in Verbindung mit dem Speicherkonto Namen verwendet werden. Umgebungsvariable: AZURE_STORAGE_KEY.'
+    description: ''
+  - name: --account-name
+    summary: 'Name des Speicherkontos Verwandte Umgebungsvariable: AZURE_STORAGE_ACCOUNT. Muss in Verbindung mit dem Speicherkonto Schlüssel oder einem SAS-Token verwendet werden. Wenn keines der beiden vorhanden ist, versucht der Befehl, den Speicherkonto Schlüssel mithilfe des authentifizierten Azure-Kontos abzufragen. Wenn eine große Anzahl von Speicher Befehlen ausgeführt wird, kann das API-Kontingent erreichen.'
+    description: ''
+  - name: --auth-mode
+    parameterValueGroup: key, login
+    summary: 'Der Modus, in dem der Befehl ausgeführt werden soll. der Modus "Anmeldung" verwendet direkt Ihre Anmelde Informationen für die Authentifizierung. Der Legacy Modus "Schlüssel" versucht, einen Kontoschlüssel abzufragen, wenn keine Authentifizierungs Parameter für das Konto bereitgestellt werden. Umgebungsvariable: AZURE_STORAGE_AUTH_MODE.'
+    description: ''
+  - name: --blob-url
+    summary: Die vollständige Endpunkt-URL für das BLOB, einschließlich SAS-Token und Snapshot, falls verwendet. Dies kann entweder der primäre Endpunkt oder der sekundäre Endpunkt sein, je nach dem aktuellen `location_mode` .
+    description: ''
+  - name: --connection-string
+    summary: 'Verbindungs Zeichenfolge des Speicher Kontos. Umgebungsvariable: AZURE_STORAGE_CONNECTION_STRING.'
+    description: ''
+  - name: --container-name -c
+    summary: Der Containername
+    description: ''
+  - name: --content-cache-control
+    summary: Die Cache Steuerelement-Zeichenfolge.
+    description: ''
+  - name: --content-disposition
+    summary: Stellt zusätzliche Informationen zum Verarbeiten der Antwort Nutzlast dar und kann auch verwendet werden, um zusätzliche Metadaten anzufügen.
+    description: ''
+  - name: --content-encoding
+    summary: Der Inhalts Codierungstyp.
+    description: ''
+  - name: --content-language
+    summary: Die Inhalts Sprache.
+    description: ''
+  - name: --content-md5
+    summary: Der MD5-Hash des Inhalts.
+    description: ''
+  - name: --content-type
+    summary: Der MIME-Inhaltstyp.
+    description: ''
+  - name: --data
+    summary: Die hoch zuladenden BLOB-Daten.
+    description: ''
+  - name: --encryption-scope
+    summary: Ein vordefinierter Verschlüsselungs Bereich, der zum Verschlüsseln der Daten auf dem Dienst verwendet wird.
+    description: ''
+  - name: --file -f
+    summary: Der Pfad der Datei, die als BLOB-Inhalt hochgeladen werden soll.
+    description: ''
+  - name: --if-match
+    summary: Ein ETag-Wert oder das Platzhalter Zeichen ( \* ). Mit diesem Header legen Sie fest, dass der Vorgang nur ausgeführt wird, wenn das ETag der Ressource mit dem angegebenen Wert übereinstimmt.
+    description: ''
+  - name: --if-modified-since
+    summary: Nur starten, wenn seit dem angegebenen UTC-DateTime-Wert (Y-m-d't ' h:m ' Z ') geändert wurde.
+    description: ''
+  - name: --if-none-match
+    summary: Ein ETag-Wert oder das Platzhalter Zeichen ( \* ). Mit diesem Header legen Sie fest, dass der Vorgang nur ausgeführt wird, wenn das ETag der Ressource nicht mit dem angegebenen Wert übereinstimmt. Geben Sie das Platzhalter Zeichen ( \* ) an, um den Vorgang nur dann auszuführen, wenn die Ressource nicht vorhanden ist, und führen Sie den Vorgang aus, falls vorhanden.
+    description: ''
+  - name: --if-unmodified-since
+    summary: Nur starten, wenn seit dem angegebenen UTC-DateTime-Wert (Y-m-d't ' h:m ' Z ') geändert wurde.
+    description: ''
+  - name: --lease-id
+    summary: Erforderlich, wenn das BLOB über eine aktive Lease verfügt.
+    description: ''
+  - name: --length
+    summary: Anzahl der Bytes, die aus dem Stream gelesen werden sollen. Dies ist optional, sollte jedoch für eine optimale Leistung bereitgestellt werden. Arbeiten Sie mit--Daten zusammen.
+    description: ''
+  - name: --max-connections
+    defaultValue: "2"
+    summary: Maximale Anzahl paralleler Verbindungen, die verwendet werden, wenn die BLOB-Größe 64 MB überschreitet.
+    description: ''
+  - name: --maxsize-condition
+    summary: Die maximale Länge in Bytes, die für ein anfügeblob zulässig ist.
+    description: ''
+  - name: --metadata
+    summary: Metadaten in durch Leerzeichen getrennten Schlüssel = Wert-Paaren. Dadurch werden alle vorhandenen Metadaten überschrieben.
+    description: ''
+  - name: --name -n
+    summary: Der BLOB-Name.
+    description: ''
+  - name: --no-progress
+    summary: Fügen Sie dieses Flag ein, um die Status Berichterstattung für den Befehl zu deaktivieren.
+    description: ''
+  - name: --overwrite
+    parameterValueGroup: false, true
+    summary: 'Gibt an, ob das hoch zuladende BLOB die aktuellen Daten überschreiben soll. Wenn der Wert true ist, werden die vorhandenen Daten upload_blob überschrieben. Wenn der Wert auf false festgelegt wird, schlägt der Vorgang mit resourceexistserror fehl. Die Ausnahme von oben ist bei Append-BLOB-Typen: Wenn diese Einstellung auf "false" festgelegt ist und die Daten bereits vorhanden sind, wird kein Fehler ausgelöst, und die Daten werden an das vorhandene BLOB angefügt. Wenn "Set Überschreibung = true" festgelegt ist, wird das vorhandene anfügeblob gelöscht und ein neues erstellt. Der Standardwert lautet „False“.'
+    description: ''
+  - name: --sas-token
+    summary: 'Eine Shared Access Signature (SAS). Muss in Verbindung mit dem Speicherkonto Namen verwendet werden. Umgebungsvariable: AZURE_STORAGE_SAS_TOKEN.'
+    description: ''
+  - name: --tags
+    summary: 'Durch Leerzeichen getrennte Tags: Key [= value] [key [= value]...]. Bei Tags wird Groß-/Kleinschreibung beachtet. Der Tagsatz darf höchstens 10 Tags enthalten.  Tagschlüssel müssen zwischen 1 und 128 Zeichen lang sein, und Tagwerte müssen zwischen 0 und 256 Zeichen aufweisen. Gültige tagschlüssel und Wertzeichen sind: Kleinbuchstaben und Großbuchstaben, Ziffern (0-9), Leerzeichen ( ` ` ), Pluszeichen (+), Minuszeichen (-), Punkt (.), Schrägstrich (/), Doppelpunkt (:), ist Gleichheitszeichen (=), Unterstrich (_).'
+    description: ''
+  - name: --tags-condition
+    summary: Geben Sie eine SQL-WHERE-Klausel für blobtags an, die nur für BLOBs mit einem übereinstimmenden Wert verwendet wird.
+    description: ''
+  - name: --tier
+    summary: Der Wert der Ebene, auf den das BLOB festgelegt wird. Bei seitenblobs korreliert die Ebene der Größe des BLOBs und der Anzahl zulässiger IOPS. Mögliche Werte sind P10, P15, P20, P30, P4, P40, P50, P6, P60, P70, P80. Dies gilt nur für seitenblobs in Storage Premium-Konten. Mögliche Werte für Block-BLOB sind "Archive", "cool" und "Hot". Dies gilt nur für blockblobs in Standard Speicher Konten.
+    description: ''
+  - name: --timeout
+    summary: Anforderungs Timeout in Sekunden. Gilt für jeden Dienst aufzurufen.
+    description: ''
+  - name: --type -t
+    parameterValueGroup: append, block, page
+    summary: Der Standardwert ist "page" für \* VHD-Dateien oder andernfalls "Block".
+    description: ''
+  - name: --validate-content
+    summary: Gibt an, dass für jeden Block des BLOBs ein MD5-Hash berechnet und vom Dienst überprüft werden soll, wenn der Block eingetroffen ist.
+    description: ''
+commands:
+- ext_storage-blob-preview_az_storage_blob_copy
+- ext_storage-blob-preview_az_storage_blob_copy_start
+- ext_storage-blob-preview_az_storage_blob_delete
+- ext_storage-blob-preview_az_storage_blob_download
+- ext_storage-blob-preview_az_storage_blob_exists
+- ext_storage-blob-preview_az_storage_blob_filter
+- ext_storage-blob-preview_az_storage_blob_generate_sas
+- ext_storage-blob-preview_az_storage_blob_lease
+- ext_storage-blob-preview_az_storage_blob_lease_acquire
+- ext_storage-blob-preview_az_storage_blob_lease_break
+- ext_storage-blob-preview_az_storage_blob_lease_change
+- ext_storage-blob-preview_az_storage_blob_lease_release
+- ext_storage-blob-preview_az_storage_blob_lease_renew
+- ext_storage-blob-preview_az_storage_blob_list
+- ext_storage-blob-preview_az_storage_blob_metadata
+- ext_storage-blob-preview_az_storage_blob_metadata_show
+- ext_storage-blob-preview_az_storage_blob_metadata_update
+- ext_storage-blob-preview_az_storage_blob_service_properties
+- ext_storage-blob-preview_az_storage_blob_service_properties_delete_policy
+- ext_storage-blob-preview_az_storage_blob_service_properties_delete_policy_show
+- ext_storage-blob-preview_az_storage_blob_service_properties_delete_policy_update
+- ext_storage-blob-preview_az_storage_blob_service_properties_show
+- ext_storage-blob-preview_az_storage_blob_service_properties_update
+- ext_storage-blob-preview_az_storage_blob_set_tier
+- ext_storage-blob-preview_az_storage_blob_show
+- ext_storage-blob-preview_az_storage_blob_snapshot
+- ext_storage-blob-preview_az_storage_blob_tag
+- ext_storage-blob-preview_az_storage_blob_tag_list
+- ext_storage-blob-preview_az_storage_blob_tag_set
+- ext_storage-blob-preview_az_storage_blob_undelete
+- ext_storage-blob-preview_az_storage_blob_upload
+globalParameters:
+- name: --debug
+  summary: Ausführlichkeit der Protokollierung erhöhen, um alle Debugprotokolle anzuzeigen.
+- name: --help -h
+  summary: Zeigen Sie diese Hilfemeldung an, und schließen Sie sie.
+- name: --only-show-errors
+  summary: Nur Fehler anzeigen und Warnungen unterdrücken.
+- name: --output -o
+  defaultValue: json
+  parameterValueGroup: json, jsonc, table, tsv
+  summary: Ausgabeformat.
+- name: --query
+  summary: JMESPath-Abfragezeichenfolge. Weitere Informationen und Beispiele finden Sie unter <a href="http://jmespath.org/">http://jmespath.org/</a>.
+- name: --verbose
+  summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
+metadata:
+  description: Geben Sie einen der folgenden Authentifizierungs Parameter für die Befehle an:--auth-Mode,--Account-Key,--Connection-String,--SAS-Token. Sie können auch entsprechende Umgebungsvariablen verwenden, um Ihre Anmelde Informationen für die Authentifizierung zu speichern, z. b. AZURE_STORAGE_KEY, AZURE_STORAGE_CONNECTION_STRING und AZURE_STORAGE_SAS_TOKEN.
+  ms.openlocfilehash: 9799d37404f2ffef1ace00edf2131d073994a715
+  ms.sourcegitcommit: f9e23f29c59c6957d3df4d5ca2f4425093e6fd80
+  ms.translationtype: MT
+  ms.contentlocale: de-DE
+  ms.lasthandoff: 03/16/2021
+  ms.locfileid: "103499062"

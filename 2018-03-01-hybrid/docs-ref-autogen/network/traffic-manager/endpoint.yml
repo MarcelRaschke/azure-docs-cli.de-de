@@ -1,0 +1,347 @@
+### YamlMime:AzureCLIGroup
+uid: az_network_traffic_manager_endpoint
+name: az network traffic-manager endpoint
+summary: Verwalten Sie Azure Traffic Manager-Endpunkte.
+description: ''
+directCommands:
+- uid: az_network_traffic_manager_endpoint_create
+  name: az network traffic-manager endpoint create
+  summary: Erstellen Sie einen Traffic Manager-Endpunkt.
+  description: ''
+  syntax: >-
+    az network traffic-manager endpoint create --name
+                                               --profile-name
+                                               --resource-group
+                                               --type {azureEndpoints, externalEndpoints, nestedEndpoints}
+                                               [--custom-headers]
+                                               [--endpoint-location]
+                                               [--endpoint-monitor-status]
+                                               [--endpoint-status {Disabled, Enabled}]
+                                               [--geo-mapping]
+                                               [--min-child-endpoints]
+                                               [--priority]
+                                               [--subnets]
+                                               [--subscription]
+                                               [--target]
+                                               [--target-resource-id]
+                                               [--weight]
+  examples:
+  - summary: Erstellen Sie einen Endpunkt für ein Leistungsprofil, um auf einen Azure-Web-App-Endpunkt zu verweisen.
+    syntax: >-
+      az network traffic-manager endpoint create -g MyResourceGroup --profile-name MyTmProfile \
+          -n MyEndpoint --type azureEndpoints --target-resource-id $MyWebApp1Id --endpoint-status enabled
+  requiredParameters:
+  - isRequired: true
+    name: --name -n
+    summary: Endpunktname
+    description: ''
+  - isRequired: true
+    name: --profile-name
+    summary: Name des übergeordneten Profils.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - isRequired: true
+    name: --type -t
+    parameterValueGroup: azureEndpoints, externalEndpoints, nestedEndpoints
+    summary: Endpunkttyp.
+    description: ''
+  optionalParameters:
+  - name: --custom-headers
+    summary: Durch Leerzeichen getrennte Liste von benutzerdefinierten Headern im Key = Value-Format.
+    description: ''
+  - name: --endpoint-location
+    summary: Der Speicherort der externen oder der in der Liste unter fallenen Endpunkte bei Verwendung der Routing Methode "Performance".
+    description: ''
+  - name: --endpoint-monitor-status
+    summary: Der Überwachungs Status des Endpunkts.
+    description: ''
+  - name: --endpoint-status
+    parameterValueGroup: Disabled, Enabled
+    summary: Der Status des Endpunkts. Wenn diese Option aktiviert ist, wird der Endpunkt für die Endpunkt Integrität geprüft und in der Routing Methode für Datenverkehr enthalten.
+    description: ''
+  - name: --geo-mapping
+    summary: Durch Leerzeichen getrennte Liste der Länder-/Regionscodes, die diesem Endpunkt zugeordnet sind, wenn die geografische Routing Methode verwendet wird.
+    description: ''
+    valueFrom: az network traffic-manager endpoint show-geographic-hierarchy
+  - name: --min-child-endpoints
+    summary: Die Mindestanzahl von Endpunkten, die im untergeordneten Profil verfügbar sein müssen, damit das übergeordnete Profil als verfügbar erachtet wird. Gilt nur für einen Endpunkt vom Typ "".
+    description: ''
+  - name: --priority
+    summary: Priorität des Endpunkts, wenn die Datenverkehrs Routing Methode "Priority" verwendet wird. Werte liegen zwischen 1 und 1000, wobei niedrigere Werte eine höhere Priorität darstellen.
+    description: ''
+  - name: --subnets
+    summary: Durch Leerzeichen getrennte Liste mit Subnetz-CIDR-Präfixen (10.0.0.0/24) oder Subnetzbereichen (10.0.0.0-11.0.0.0).
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  - name: --target
+    summary: Der voll qualifizierte DNS-Name des Endpunkts.
+    description: ''
+  - name: --target-resource-id
+    summary: Der Azure-Ressourcen-URI des Endpunkts. Gilt nicht für Endpunkte vom Typ "externalendpoints".
+    description: ''
+  - name: --weight
+    summary: Gewichtung des Endpunkts bei Verwendung der gewichteten Routing Methode für Datenverkehr. Die Werte liegen zwischen 1 und 1000.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/network/_help.py
+- uid: az_network_traffic_manager_endpoint_delete
+  name: az network traffic-manager endpoint delete
+  summary: Löschen eines Traffic Manager-Endpunkts.
+  description: ''
+  syntax: >-
+    az network traffic-manager endpoint delete [--ids]
+                                               [--name]
+                                               [--profile-name]
+                                               [--resource-group]
+                                               [--subscription]
+                                               [--type {azureEndpoints, externalEndpoints, nestedEndpoints}]
+  examples:
+  - summary: Löschen eines Traffic Manager-Endpunkts.
+    syntax: az network traffic-manager endpoint delete -g MyResourceGroup \ --profile-name MyTmProfile -n MyEndpoint --type azureEndpoints
+  - summary: Löschen eines Traffic Manager-Endpunkts. automatisch generierten
+    syntax: az network traffic-manager endpoint delete --name MyEndpoint --profile-name MyTmProfile --resource-group MyResourceGroup --subscription MySubscription --type azureEndpoints
+  optionalParameters:
+  - name: --ids
+    summary: Mindestens eine Ressourcen-ID (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID handeln, die alle Informationen von Ressourcen-ID-Argumenten enthält. Sie sollten entweder--IDs oder andere Ressourcen-ID-Argumente angeben.
+    description: ''
+  - name: --name -n
+    summary: Endpunktname
+    description: ''
+  - name: --profile-name
+    summary: Name des übergeordneten Profils.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  - name: --type -t
+    parameterValueGroup: azureEndpoints, externalEndpoints, nestedEndpoints
+    summary: Endpunkttyp.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/network/_help.py
+- uid: az_network_traffic_manager_endpoint_list
+  name: az network traffic-manager endpoint list
+  summary: Listet Traffic Manager-Endpunkte auf.
+  description: ''
+  syntax: >-
+    az network traffic-manager endpoint list --profile-name
+                                             --resource-group
+                                             [--query-examples]
+                                             [--subscription]
+                                             [--type {azureEndpoints, externalEndpoints, nestedEndpoints}]
+  examples:
+  - summary: Listet Traffic Manager-Endpunkte auf.
+    syntax: az network traffic-manager endpoint list -g MyResourceGroup --profile-name MyTmProfile
+  requiredParameters:
+  - isRequired: true
+    name: --profile-name
+    summary: Name des übergeordneten Profils.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  optionalParameters:
+  - name: --query-examples
+    summary: Empfehlen Sie die jmespath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und Sie nach dem Abfrage Parameter in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positions Schlüsselwörter hinzufügen, um Vorschläge auf der Grundlage dieser Schlüsselwörter zu geben.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  - name: --type -t
+    parameterValueGroup: azureEndpoints, externalEndpoints, nestedEndpoints
+    summary: Endpunkttyp.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/network/_help.py
+- uid: az_network_traffic_manager_endpoint_show
+  name: az network traffic-manager endpoint show
+  summary: Hier finden Sie die Details eines Traffic Manager-Endpunkts.
+  description: ''
+  syntax: >-
+    az network traffic-manager endpoint show [--ids]
+                                             [--name]
+                                             [--profile-name]
+                                             [--query-examples]
+                                             [--resource-group]
+                                             [--subscription]
+                                             [--type {azureEndpoints, externalEndpoints, nestedEndpoints}]
+  examples:
+  - summary: Hier finden Sie die Details eines Traffic Manager-Endpunkts.
+    syntax: >-
+      az network traffic-manager endpoint show -g MyResourceGroup \
+          --profile-name MyTmProfile -n MyEndpoint --type azureEndpoints
+  optionalParameters:
+  - name: --ids
+    summary: Mindestens eine Ressourcen-ID (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID handeln, die alle Informationen von Ressourcen-ID-Argumenten enthält. Sie sollten entweder--IDs oder andere Ressourcen-ID-Argumente angeben.
+    description: ''
+  - name: --name -n
+    summary: Endpunktname
+    description: ''
+  - name: --profile-name
+    summary: Name des übergeordneten Profils.
+    description: ''
+  - name: --query-examples
+    summary: Empfehlen Sie die jmespath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und Sie nach dem Abfrage Parameter in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positions Schlüsselwörter hinzufügen, um Vorschläge auf der Grundlage dieser Schlüsselwörter zu geben.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  - name: --type -t
+    parameterValueGroup: azureEndpoints, externalEndpoints, nestedEndpoints
+    summary: Endpunkttyp.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/network/_help.py
+- uid: az_network_traffic_manager_endpoint_show_geographic_hierarchy
+  name: az network traffic-manager endpoint show-geographic-hierarchy
+  summary: Dient zum erhalten der standardmäßigen geografischen Hierarchie, die von der geografischen Routing Methode für Datenverkehr
+  description: ''
+  syntax: az network traffic-manager endpoint show-geographic-hierarchy [--subscription]
+  examples:
+  - summary: Dient zum erhalten der standardmäßigen geografischen Hierarchie, die von der geografischen Routing Methode für Datenverkehr
+    syntax: az network traffic-manager endpoint show-geographic-hierarchy
+  optionalParameters:
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/network/_help.py
+- uid: az_network_traffic_manager_endpoint_update
+  name: az network traffic-manager endpoint update
+  summary: Aktualisieren eines Traffic Manager-Endpunkts
+  description: ''
+  syntax: >-
+    az network traffic-manager endpoint update [--add]
+                                               [--custom-headers]
+                                               [--endpoint-location]
+                                               [--endpoint-monitor-status]
+                                               [--endpoint-status {Disabled, Enabled}]
+                                               [--force-string]
+                                               [--geo-mapping]
+                                               [--ids]
+                                               [--min-child-endpoints]
+                                               [--name]
+                                               [--priority]
+                                               [--profile-name]
+                                               [--remove]
+                                               [--resource-group]
+                                               [--set]
+                                               [--subnets]
+                                               [--subscription]
+                                               [--target]
+                                               [--target-resource-id]
+                                               [--type {azureEndpoints, externalEndpoints, nestedEndpoints}]
+                                               [--weight]
+  examples:
+  - summary: Aktualisieren Sie einen Traffic Manager-Endpunkt, um seine Gewichtung zu ändern.
+    syntax: az network traffic-manager endpoint update -g MyResourceGroup --profile-name MyTmProfile \ -n MyEndpoint --weight 20 --type azureEndpoints
+  - summary: Aktualisieren eines Traffic Manager-Endpunkts automatisch generierten
+    syntax: az network traffic-manager endpoint update --name MyEndpoint --profile-name MyTmProfile --resource-group MyResourceGroup --target webserver.mysite.com --type azureEndpoints
+  - summary: Aktualisieren eines Traffic Manager-Endpunkts automatisch generierten
+    syntax: az network traffic-manager endpoint update --endpoint-status Enabled --name MyEndpoint --profile-name MyTmProfile --resource-group MyResourceGroup --type azureEndpoints
+  optionalParameters:
+  - name: --add
+    summary: Fügen Sie einer Liste von-Objekten ein Objekt hinzu, indem Sie ein Pfad-und Schlüssel-Wert-Paar angeben.  Beispiel:--Add Property. ListProperty <Key = Value, String oder JSON String>.
+    description: ''
+  - name: --custom-headers
+    summary: Durch Leerzeichen getrennte Liste von benutzerdefinierten Headern im Key = Value-Format.
+    description: ''
+  - name: --endpoint-location
+    summary: Der Speicherort der externen oder der in der Liste unter fallenen Endpunkte bei Verwendung der Routing Methode "Performance".
+    description: ''
+  - name: --endpoint-monitor-status
+    summary: Der Überwachungs Status des Endpunkts.
+    description: ''
+  - name: --endpoint-status
+    parameterValueGroup: Disabled, Enabled
+    summary: Der Status des Endpunkts. Wenn diese Option aktiviert ist, wird der Endpunkt für die Endpunkt Integrität geprüft und in der Routing Methode für Datenverkehr enthalten.
+    description: ''
+  - name: --force-string
+    summary: Wenn Sie "Set" oder "Add" verwenden, erhalten Sie Zeichen folgen Literale, anstatt zu versuchen, in JSON zu konvertieren.
+    description: ''
+  - name: --geo-mapping
+    summary: Durch Leerzeichen getrennte Liste der Länder-/Regionscodes, die diesem Endpunkt zugeordnet sind, wenn die geografische Routing Methode verwendet wird.
+    description: ''
+  - name: --ids
+    summary: Mindestens eine Ressourcen-ID (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID handeln, die alle Informationen von Ressourcen-ID-Argumenten enthält. Sie sollten entweder--IDs oder andere Ressourcen-ID-Argumente angeben.
+    description: ''
+  - name: --min-child-endpoints
+    summary: Die Mindestanzahl von Endpunkten, die im untergeordneten Profil verfügbar sein müssen, damit das übergeordnete Profil als verfügbar erachtet wird. Gilt nur für einen Endpunkt vom Typ "".
+    description: ''
+  - name: --name -n
+    summary: Endpunktname
+    description: ''
+  - name: --priority
+    summary: Priorität des Endpunkts, wenn die Datenverkehrs Routing Methode "Priority" verwendet wird. Werte liegen zwischen 1 und 1000, wobei niedrigere Werte eine höhere Priorität darstellen.
+    description: ''
+  - name: --profile-name
+    summary: Name des übergeordneten Profils.
+    description: ''
+  - name: --remove
+    summary: Entfernt eine Eigenschaft oder ein Element aus einer Liste.  Beispiel:--Remove Property. List <indexToRemove> oder--Remove propertytoremove.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --set
+    summary: Aktualisieren Sie ein Objekt, indem Sie einen Eigenschafts Pfad und einen festzulegenden Wert angeben.  Beispiel:--Set Eigenschaft1. Eigenschaft2 =<value>.
+    description: ''
+  - name: --subnets
+    summary: Durch Leerzeichen getrennte Liste mit Subnetz-CIDR-Präfixen (10.0.0.0/24) oder Subnetzbereichen (10.0.0.0-11.0.0.0).
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  - name: --target
+    summary: Der voll qualifizierte DNS-Name des Endpunkts.
+    description: ''
+  - name: --target-resource-id
+    summary: Der Azure-Ressourcen-URI des Endpunkts. Gilt nicht für Endpunkte vom Typ "externalendpoints".
+    description: ''
+  - name: --type -t
+    parameterValueGroup: azureEndpoints, externalEndpoints, nestedEndpoints
+    summary: Endpunkttyp.
+    description: ''
+  - name: --weight
+    summary: Gewichtung des Endpunkts bei Verwendung der gewichteten Routing Methode für Datenverkehr. Die Werte liegen zwischen 1 und 1000.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/network/_help.py
+commands:
+- az_network_traffic_manager_endpoint_create
+- az_network_traffic_manager_endpoint_delete
+- az_network_traffic_manager_endpoint_list
+- az_network_traffic_manager_endpoint_show
+- az_network_traffic_manager_endpoint_show_geographic_hierarchy
+- az_network_traffic_manager_endpoint_update
+globalParameters:
+- name: --debug
+  summary: Ausführlichkeit der Protokollierung erhöhen, um alle Debugprotokolle anzuzeigen.
+- name: --help -h
+  summary: Zeigen Sie diese Hilfemeldung an, und schließen Sie sie.
+- name: --only-show-errors
+  summary: Nur Fehler anzeigen und Warnungen unterdrücken.
+- name: --output -o
+  defaultValue: json
+  parameterValueGroup: json, jsonc, table, tsv
+  summary: Ausgabeformat.
+- name: --query
+  summary: JMESPath-Abfragezeichenfolge. Weitere Informationen und Beispiele finden Sie unter <a href="http://jmespath.org/">http://jmespath.org/</a>.
+- name: --verbose
+  summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
+metadata:
+  doc_source_url_repo: https://github.com/Azure/azure-cli/blob/dev/
+  ms.date: 02/03/2021
+  description: Verwalten Sie Azure Traffic Manager-Endpunkte.
+  ms.openlocfilehash: 8111798a31cf33c0aae76a52c6166b6fd3347ff6
+  ms.sourcegitcommit: df9d6597535ef9103775afbaee5a8282e0e218ee
+  ms.translationtype: MT
+  ms.contentlocale: de-DE
+  ms.lasthandoff: 02/09/2021
+  ms.locfileid: "102984770"
