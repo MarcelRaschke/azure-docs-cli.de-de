@@ -1,32 +1,35 @@
 ### YamlMime:AzureCLIGroup
-uid: az_storage_directory
-name: az storage directory
-summary: Verwalten von Dateispeicher Verzeichnissen.
+uid: az_storage_fs
+name: az storage fs
+summary: Verwalten Sie Dateisysteme in Azure Data Lake Storage Gen2 Konto.
 description: ''
 directCommands:
-- uid: az_storage_directory_create
-  name: az storage directory create
-  summary: Erstellt ein neues Verzeichnis unter der angegebenen Freigabe oder dem übergeordneten Verzeichnis.
-  description: Wenn das Verzeichnis mit dem gleichen Namen bereits vorhanden ist, schlägt der Vorgang für den Dienst fehl. Standardmäßig wird die Ausnahme vom Client verschluckt. Um die Ausnahme verfügbar zu machen, geben Sie true für fail_on_exists an.
+- uid: az_storage_fs_create
+  name: az storage fs create
+  summary: Erstellen Sie ein Dateisystem für Azure Data Lake Storage Gen2 Konto.
+  description: ''
   syntax: >-
-    az storage directory create --name
-                                --share-name
-                                [--account-key]
-                                [--account-name]
-                                [--connection-string]
-                                [--fail-on-exist]
-                                [--metadata]
-                                [--sas-token]
-                                [--subscription]
-                                [--timeout]
+    az storage fs create --name
+                         [--account-key]
+                         [--account-name]
+                         [--auth-mode {key, login}]
+                         [--connection-string]
+                         [--metadata]
+                         [--public-access {file, filesystem, off}]
+                         [--sas-token]
+                         [--subscription]
+                         [--timeout]
+  examples:
+  - summary: Erstellen Sie ein Dateisystem für Azure Data Lake Storage Gen2 Konto.
+    syntax: az storage fs create -n fsname --account-name mystorageaccount --account-key 0000-0000
+  - summary: Erstellen Sie ein Dateisystem für Azure Data Lake Storage Gen2 Konto, und aktivieren Sie den öffentlichen Zugriff.
+    syntax: az storage fs create -n fsname --public-access file --account-name mystorageaccount --account-key 0000-0000
+  - summary: Erstellen Sie ein Dateisystem für Azure Data Lake Storage Gen2 Konto. automatisch generierten
+    syntax: az storage fs create --account-name mystorageaccount --auth-mode login --name fsname
   requiredParameters:
   - isRequired: true
     name: --name -n
-    summary: Der Verzeichnisname.
-    description: ''
-  - isRequired: true
-    name: --share-name -s
-    summary: Der Name der Dateifreigabe.
+    summary: Der Name des Dateisystems.
     description: ''
   optionalParameters:
   - name: --account-key
@@ -35,15 +38,20 @@ directCommands:
   - name: --account-name
     summary: 'Name des Speicherkontos Verwandte Umgebungsvariable: AZURE_STORAGE_ACCOUNT. Muss in Verbindung mit dem Speicherkonto Schlüssel oder einem SAS-Token verwendet werden. Wenn keines der beiden vorhanden ist, versucht der Befehl, den Speicherkonto Schlüssel mithilfe des authentifizierten Azure-Kontos abzufragen. Wenn eine große Anzahl von Speicher Befehlen ausgeführt wird, kann das API-Kontingent erreichen.'
     description: ''
+  - name: --auth-mode
+    parameterValueGroup: key, login
+    summary: 'Der Modus, in dem der Befehl ausgeführt werden soll. der Modus "Anmeldung" verwendet direkt Ihre Anmelde Informationen für die Authentifizierung. Der Legacy Modus "Schlüssel" versucht, einen Kontoschlüssel abzufragen, wenn keine Authentifizierungs Parameter für das Konto bereitgestellt werden. Umgebungsvariable: AZURE_STORAGE_AUTH_MODE.'
+    description: ''
   - name: --connection-string
     summary: 'Verbindungs Zeichenfolge des Speicher Kontos. Umgebungsvariable: AZURE_STORAGE_CONNECTION_STRING.'
-    description: ''
-  - name: --fail-on-exist
-    summary: Gibt an, ob eine Ausnahme ausgelöst werden soll, wenn das Verzeichnis vorhanden ist. Der Standardwert ist gleich „False“.
     description: ''
   - name: --metadata
     summary: Metadaten in durch Leerzeichen getrennten Schlüssel = Wert-Paaren. Dadurch werden alle vorhandenen Metadaten überschrieben.
     description: ''
+  - name: --public-access
+    parameterValueGroup: file, filesystem, off
+    summary: Geben Sie an, ob auf die Daten im Dateisystem öffentlich zugegriffen werden darf und welche Zugriffsebene verfügbar ist.
+    description: ''
   - name: --sas-token
     summary: 'Eine Shared Access Signature (SAS). Muss in Verbindung mit dem Speicherkonto Namen verwendet werden. Umgebungsvariable: AZURE_STORAGE_SAS_TOKEN.'
     description: ''
@@ -54,28 +62,27 @@ directCommands:
     summary: Anforderungs Timeout in Sekunden. Gilt für jeden Dienst aufzurufen.
     description: ''
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/storage/_help.py
-- uid: az_storage_directory_delete
-  name: az storage directory delete
-  summary: Löscht das angegebene leere Verzeichnis.
-  description: Beachten Sie, dass das Verzeichnis leer sein muss, es kann sonst nicht gelöscht werden. Der Versuch, Verzeichnisse zu löschen, die nicht leer sind, schlägt fehl.  Wenn das Verzeichnis nicht vorhanden ist, schlägt der Vorgang für den Dienst fehl. Standardmäßig wird die Ausnahme vom Client verschluckt. Um die Ausnahme verfügbar zu machen, geben Sie true für fail_not_exist an.
+- uid: az_storage_fs_delete
+  name: az storage fs delete
+  summary: Löschen Sie ein Dateisystem in ADLS Gen2 Konto.
+  description: ''
   syntax: >-
-    az storage directory delete --name
-                                --share-name
-                                [--account-key]
-                                [--account-name]
-                                [--connection-string]
-                                [--fail-not-exist]
-                                [--sas-token]
-                                [--subscription]
-                                [--timeout]
+    az storage fs delete --name
+                         [--account-key]
+                         [--account-name]
+                         [--auth-mode {key, login}]
+                         [--connection-string]
+                         [--sas-token]
+                         [--subscription]
+                         [--timeout]
+                         [--yes]
+  examples:
+  - summary: Löschen Sie ein Dateisystem in ADLS Gen2 Konto.
+    syntax: az storage fs delete -n myfilesystem --account-name myadlsaccount --account-key 0000-0000
   requiredParameters:
   - isRequired: true
     name: --name -n
-    summary: Der Verzeichnisname.
-    description: ''
-  - isRequired: true
-    name: --share-name -s
-    summary: Der Name der Dateifreigabe.
+    summary: Der Name des Dateisystems.
     description: ''
   optionalParameters:
   - name: --account-key
@@ -84,11 +91,12 @@ directCommands:
   - name: --account-name
     summary: 'Name des Speicherkontos Verwandte Umgebungsvariable: AZURE_STORAGE_ACCOUNT. Muss in Verbindung mit dem Speicherkonto Schlüssel oder einem SAS-Token verwendet werden. Wenn keines der beiden vorhanden ist, versucht der Befehl, den Speicherkonto Schlüssel mithilfe des authentifizierten Azure-Kontos abzufragen. Wenn eine große Anzahl von Speicher Befehlen ausgeführt wird, kann das API-Kontingent erreichen.'
     description: ''
+  - name: --auth-mode
+    parameterValueGroup: key, login
+    summary: 'Der Modus, in dem der Befehl ausgeführt werden soll. der Modus "Anmeldung" verwendet direkt Ihre Anmelde Informationen für die Authentifizierung. Der Legacy Modus "Schlüssel" versucht, einen Kontoschlüssel abzufragen, wenn keine Authentifizierungs Parameter für das Konto bereitgestellt werden. Umgebungsvariable: AZURE_STORAGE_AUTH_MODE.'
+    description: ''
   - name: --connection-string
     summary: 'Verbindungs Zeichenfolge des Speicher Kontos. Umgebungsvariable: AZURE_STORAGE_CONNECTION_STRING.'
-    description: ''
-  - name: --fail-not-exist
-    summary: Geben Sie an, ob eine Ausnahme ausgelöst werden soll, wenn das Verzeichnis nicht vorhanden ist.
     description: ''
   - name: --sas-token
     summary: 'Eine Shared Access Signature (SAS). Muss in Verbindung mit dem Speicherkonto Namen verwendet werden. Umgebungsvariable: AZURE_STORAGE_SAS_TOKEN.'
@@ -99,32 +107,30 @@ directCommands:
   - name: --timeout
     summary: Anforderungs Timeout in Sekunden. Gilt für jeden Dienst aufzurufen.
     description: ''
+  - name: --yes -y
+    summary: Nicht zur Bestätigung auffordern
+    description: ''
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/storage/_help.py
-- uid: az_storage_directory_exists
-  name: az storage directory exists
-  summary: Überprüfen Sie, ob ein Speicher Verzeichnis vorhanden ist.
+- uid: az_storage_fs_exists
+  name: az storage fs exists
+  summary: Überprüfen Sie, ob ein Dateisystem in ADLS Gen2 Konto vorhanden ist.
   description: ''
   syntax: >-
-    az storage directory exists --name
-                                --share-name
-                                [--account-key]
-                                [--account-name]
-                                [--connection-string]
-                                [--sas-token]
-                                [--snapshot]
-                                [--subscription]
-                                [--timeout]
+    az storage fs exists --name
+                         [--account-key]
+                         [--account-name]
+                         [--auth-mode {key, login}]
+                         [--connection-string]
+                         [--sas-token]
+                         [--subscription]
+                         [--timeout]
   examples:
-  - summary: Überprüfen Sie, ob ein Speicher Verzeichnis vorhanden ist. automatisch generierten
-    syntax: az storage directory exists --account-key 00000000 --account-name MyAccount --name MyDirectory --share-name MyShare
+  - summary: Überprüfen Sie, ob ein Dateisystem in ADLS Gen2 Konto vorhanden ist.
+    syntax: az storage fs exists -n myfilesystem --account-name myadlsaccount --account-key 0000-0000
   requiredParameters:
   - isRequired: true
     name: --name -n
-    summary: Der Verzeichnisname.
-    description: ''
-  - isRequired: true
-    name: --share-name -s
-    summary: Der Name der Dateifreigabe.
+    summary: Der Name des Dateisystems.
     description: ''
   optionalParameters:
   - name: --account-key
@@ -133,14 +139,15 @@ directCommands:
   - name: --account-name
     summary: 'Name des Speicherkontos Verwandte Umgebungsvariable: AZURE_STORAGE_ACCOUNT. Muss in Verbindung mit dem Speicherkonto Schlüssel oder einem SAS-Token verwendet werden. Wenn keines der beiden vorhanden ist, versucht der Befehl, den Speicherkonto Schlüssel mithilfe des authentifizierten Azure-Kontos abzufragen. Wenn eine große Anzahl von Speicher Befehlen ausgeführt wird, kann das API-Kontingent erreichen.'
     description: ''
+  - name: --auth-mode
+    parameterValueGroup: key, login
+    summary: 'Der Modus, in dem der Befehl ausgeführt werden soll. der Modus "Anmeldung" verwendet direkt Ihre Anmelde Informationen für die Authentifizierung. Der Legacy Modus "Schlüssel" versucht, einen Kontoschlüssel abzufragen, wenn keine Authentifizierungs Parameter für das Konto bereitgestellt werden. Umgebungsvariable: AZURE_STORAGE_AUTH_MODE.'
+    description: ''
   - name: --connection-string
     summary: 'Verbindungs Zeichenfolge des Speicher Kontos. Umgebungsvariable: AZURE_STORAGE_CONNECTION_STRING.'
     description: ''
   - name: --sas-token
     summary: 'Eine Shared Access Signature (SAS). Muss in Verbindung mit dem Speicherkonto Namen verwendet werden. Umgebungsvariable: AZURE_STORAGE_SAS_TOKEN.'
-    description: ''
-  - name: --snapshot
-    summary: Eine Zeichenfolge, die die Momentaufnahme Version darstellt (falls zutreffend).
     description: ''
   - name: --subscription
     summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
@@ -149,28 +156,23 @@ directCommands:
     summary: Anforderungs Timeout in Sekunden. Gilt für jeden Dienst aufzurufen.
     description: ''
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/storage/_help.py
-- uid: az_storage_directory_list
-  name: az storage directory list
-  summary: Auflisten von Verzeichnissen in einer Freigabe.
+- uid: az_storage_fs_list
+  name: az storage fs list
+  summary: Auflisten von Dateisystemen in ADLS Gen2 Konto.
   description: ''
   syntax: >-
-    az storage directory list --share-name
-                              [--account-key]
-                              [--account-name]
-                              [--connection-string]
-                              [--name]
-                              [--query-examples]
-                              [--sas-token]
-                              [--subscription]
-                              [--timeout]
+    az storage fs list [--account-key]
+                       [--account-name]
+                       [--auth-mode {key, login}]
+                       [--connection-string]
+                       [--include-metadata {false, true}]
+                       [--prefix]
+                       [--query-examples]
+                       [--sas-token]
+                       [--subscription]
   examples:
-  - summary: Auflisten von Verzeichnissen in einer Freigabe. automatisch generierten
-    syntax: az storage directory list --account-key 00000000 --account-name MyAccount --share-name MyShare
-  requiredParameters:
-  - isRequired: true
-    name: --share-name -s
-    summary: Der Name der Dateifreigabe.
-    description: ''
+  - summary: Auflisten von Dateisystemen in ADLS Gen2 Konto.
+    syntax: az storage fs list --account-name myadlsaccount --account-key 0000-0000
   optionalParameters:
   - name: --account-key
     summary: 'Speicherkontoschlüssel Muss in Verbindung mit dem Speicherkonto Namen verwendet werden. Umgebungsvariable: AZURE_STORAGE_KEY.'
@@ -178,11 +180,19 @@ directCommands:
   - name: --account-name
     summary: 'Name des Speicherkontos Verwandte Umgebungsvariable: AZURE_STORAGE_ACCOUNT. Muss in Verbindung mit dem Speicherkonto Schlüssel oder einem SAS-Token verwendet werden. Wenn keines der beiden vorhanden ist, versucht der Befehl, den Speicherkonto Schlüssel mithilfe des authentifizierten Azure-Kontos abzufragen. Wenn eine große Anzahl von Speicher Befehlen ausgeführt wird, kann das API-Kontingent erreichen.'
     description: ''
+  - name: --auth-mode
+    parameterValueGroup: key, login
+    summary: 'Der Modus, in dem der Befehl ausgeführt werden soll. der Modus "Anmeldung" verwendet direkt Ihre Anmelde Informationen für die Authentifizierung. Der Legacy Modus "Schlüssel" versucht, einen Kontoschlüssel abzufragen, wenn keine Authentifizierungs Parameter für das Konto bereitgestellt werden. Umgebungsvariable: AZURE_STORAGE_AUTH_MODE.'
+    description: ''
   - name: --connection-string
     summary: 'Verbindungs Zeichenfolge des Speicher Kontos. Umgebungsvariable: AZURE_STORAGE_CONNECTION_STRING.'
     description: ''
-  - name: --name -n
-    summary: Der Verzeichnisname.
+  - name: --include-metadata
+    parameterValueGroup: false, true
+    summary: Geben Sie an, dass die Dateisystem Metadaten in der Antwort zurückgegeben werden. Der Standardwert ist "false".
+    description: ''
+  - name: --prefix
+    summary: Filtern Sie die Ergebnisse, um nur Dateisysteme zurückzugeben, deren Namen mit dem angegebenen Präfix beginnen.
     description: ''
   - name: --query-examples
     summary: Empfehlen Sie die jmespath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und Sie nach dem Abfrage Parameter in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positions Schlüsselwörter hinzufügen, um Vorschläge auf der Grundlage dieser Schlüsselwörter zu geben.
@@ -193,33 +203,30 @@ directCommands:
   - name: --subscription
     summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
     description: ''
-  - name: --timeout
-    summary: Anforderungs Timeout in Sekunden. Gilt für jeden Dienst aufzurufen.
-    description: ''
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/storage/_help.py
-- uid: az_storage_directory_show
-  name: az storage directory show
-  summary: Gibt alle benutzerdefinierten Metadaten und Systemeigenschaften für das angegebene Verzeichnis zurück.
-  description: Die zurückgegebenen Daten enthalten nicht die Liste der Dateien des Verzeichnisses.
+- uid: az_storage_fs_show
+  name: az storage fs show
+  summary: Zeigt die Eigenschaften des Dateisystems in ADLS Gen2 Konto an.
+  description: ''
   syntax: >-
-    az storage directory show --name
-                              --share-name
-                              [--account-key]
-                              [--account-name]
-                              [--connection-string]
-                              [--query-examples]
-                              [--sas-token]
-                              [--snapshot]
-                              [--subscription]
-                              [--timeout]
+    az storage fs show --name
+                       [--account-key]
+                       [--account-name]
+                       [--auth-mode {key, login}]
+                       [--connection-string]
+                       [--query-examples]
+                       [--sas-token]
+                       [--subscription]
+                       [--timeout]
+  examples:
+  - summary: Zeigt die Eigenschaften des Dateisystems in ADLS Gen2 Konto an.
+    syntax: az storage fs show -n myfilesystem --account-name myadlsaccount --account-key 0000-0000
+  - summary: Zeigt die Eigenschaften des Dateisystems in ADLS Gen2 Konto an. automatisch generierten
+    syntax: az storage fs show --account-name myadlsaccount --auth-mode login --name myfilesystem
   requiredParameters:
   - isRequired: true
     name: --name -n
-    summary: Der Verzeichnisname.
-    description: ''
-  - isRequired: true
-    name: --share-name -s
-    summary: Der Name der Dateifreigabe.
+    summary: Der Name des Dateisystems.
     description: ''
   optionalParameters:
   - name: --account-key
@@ -227,6 +234,10 @@ directCommands:
     description: ''
   - name: --account-name
     summary: 'Name des Speicherkontos Verwandte Umgebungsvariable: AZURE_STORAGE_ACCOUNT. Muss in Verbindung mit dem Speicherkonto Schlüssel oder einem SAS-Token verwendet werden. Wenn keines der beiden vorhanden ist, versucht der Befehl, den Speicherkonto Schlüssel mithilfe des authentifizierten Azure-Kontos abzufragen. Wenn eine große Anzahl von Speicher Befehlen ausgeführt wird, kann das API-Kontingent erreichen.'
+    description: ''
+  - name: --auth-mode
+    parameterValueGroup: key, login
+    summary: 'Der Modus, in dem der Befehl ausgeführt werden soll. der Modus "Anmeldung" verwendet direkt Ihre Anmelde Informationen für die Authentifizierung. Der Legacy Modus "Schlüssel" versucht, einen Kontoschlüssel abzufragen, wenn keine Authentifizierungs Parameter für das Konto bereitgestellt werden. Umgebungsvariable: AZURE_STORAGE_AUTH_MODE.'
     description: ''
   - name: --connection-string
     summary: 'Verbindungs Zeichenfolge des Speicher Kontos. Umgebungsvariable: AZURE_STORAGE_CONNECTION_STRING.'
@@ -236,9 +247,6 @@ directCommands:
     description: ''
   - name: --sas-token
     summary: 'Eine Shared Access Signature (SAS). Muss in Verbindung mit dem Speicherkonto Namen verwendet werden. Umgebungsvariable: AZURE_STORAGE_SAS_TOKEN.'
-    description: ''
-  - name: --snapshot
-    summary: Eine Zeichenfolge, die die Momentaufnahme Version darstellt (falls zutreffend).
     description: ''
   - name: --subscription
     summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
@@ -248,14 +256,43 @@ directCommands:
     description: ''
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/storage/_help.py
 commands:
-- az_storage_directory_create
-- az_storage_directory_delete
-- az_storage_directory_exists
-- az_storage_directory_list
-- az_storage_directory_metadata
-- az_storage_directory_metadata_show
-- az_storage_directory_metadata_update
-- az_storage_directory_show
+- az_storage_fs_access
+- az_storage_fs_access_remove_recursive
+- az_storage_fs_access_set
+- az_storage_fs_access_set_recursive
+- az_storage_fs_access_show
+- az_storage_fs_access_update_recursive
+- az_storage_fs_create
+- az_storage_fs_delete
+- az_storage_fs_directory
+- az_storage_fs_directory_create
+- az_storage_fs_directory_delete
+- az_storage_fs_directory_exists
+- az_storage_fs_directory_list
+- az_storage_fs_directory_metadata
+- az_storage_fs_directory_metadata_show
+- az_storage_fs_directory_metadata_update
+- az_storage_fs_directory_move
+- az_storage_fs_directory_show
+- az_storage_fs_exists
+- az_storage_fs_file
+- az_storage_fs_file_append
+- az_storage_fs_file_create
+- az_storage_fs_file_delete
+- az_storage_fs_file_download
+- az_storage_fs_file_exists
+- az_storage_fs_file_list
+- az_storage_fs_file_metadata
+- az_storage_fs_file_metadata_show
+- az_storage_fs_file_metadata_update
+- az_storage_fs_file_move
+- az_storage_fs_file_show
+- az_storage_fs_file_upload
+- az_storage_fs_list
+- az_storage_fs_metadata
+- az_storage_fs_metadata_show
+- az_storage_fs_metadata_update
+- az_storage_fs_show
 globalParameters:
 - name: --debug
   summary: Ausführlichkeit der Protokollierung erhöhen, um alle Debugprotokolle anzuzeigen.
@@ -274,10 +311,10 @@ globalParameters:
 metadata:
   doc_source_url_repo: https://github.com/Azure/azure-cli/blob/dev/
   ms.date: 02/26/2021
-  description: Verwalten von Dateispeicher Verzeichnissen.
-  ms.openlocfilehash: 45e171cbab305dcb7e0aabf95effaf3716e412ac
+  description: Verwalten Sie Dateisysteme in Azure Data Lake Storage Gen2 Konto.
+  ms.openlocfilehash: de25a3536cae956301911a7ee317e266f1b7fe09
   ms.sourcegitcommit: f9e23f29c59c6957d3df4d5ca2f4425093e6fd80
   ms.translationtype: MT
   ms.contentlocale: de-DE
   ms.lasthandoff: 03/16/2021
-  ms.locfileid: "103542361"
+  ms.locfileid: "103526075"
