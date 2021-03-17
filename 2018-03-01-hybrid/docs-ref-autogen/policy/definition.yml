@@ -1,0 +1,223 @@
+### YamlMime:AzureCLIGroup
+uid: az_policy_definition
+name: az policy definition
+summary: Verwalten von Ressourcen Richtlinien Definitionen
+description: ''
+directCommands:
+- uid: az_policy_definition_create
+  name: az policy definition create
+  summary: Erstellen einer Richtliniendefinition.
+  description: ''
+  syntax: >-
+    az policy definition create --name
+                                [--description]
+                                [--display-name]
+                                [--management-group]
+                                [--mode]
+                                [--params]
+                                [--rules]
+                                [--subscription]
+  examples:
+  - summary: Erstellen Sie eine schreibgeschützte Richtlinie.
+    syntax: >-
+      az policy definition create --name readOnlyStorage --rules "{ \"if\": \
+          { \"field\": \"type\", \"equals\": \"Microsoft.Storage/storageAccounts/write\" }, \
+              \"then\": { \"effect\": \"deny\" } }"
+  - summary: Erstellen Sie eine Richtlinien Parameterdefinition.
+    syntax: >-
+      az policy definition create --name allowedLocations \
+          --rules "{ \"if\": { \"allOf\": [ \
+              { \"field\": \"location\",\"notIn\": \"[parameters('listOfAllowedLocations')]\" }, \
+                  { \"field\": \"location\", \"notEquals\": \"global\" }, \
+                      { \"field\": \"type\", \"notEquals\": \
+                          \"Microsoft.AzureActiveDirectory/b2cDirectories\"} \
+                              ] }, \"then\": { \"effect\": \"deny\" } }" \
+          --params "{ \"allowedLocations\": { \
+              \"type\": \"array\", \"metadata\": { \"description\": \
+                  \"The list of locations that can be specified when deploying resources\", \
+                      \"strongType\": \"location\", \"displayName\": \"Allowed locations\" } } }"
+  - summary: Erstellen Sie eine schreibgeschützte Richtlinie, die innerhalb einer Verwaltungsgruppe angewendet werden kann.
+    syntax: >-
+      az policy definition create -n readOnlyStorage --management-group "MyManagementGroup" \
+          --rules "{ \"if\": { \"field\": \"type\", \
+              \"equals\": \"Microsoft.Storage/storageAccounts/write\" }, \
+                  \"then\": { \"effect\": \"deny\" } }"
+  - summary: Erstellen Sie eine Richtlinien Definition mit dem-Modus. Der Modus ' indiziert ' gibt an, dass die Richtlinie nur für Ressourcentypen ausgewertet werden soll, die Tags und Speicherort unterstützen.
+    syntax: >-
+      az policy definition create --name TagsPolicyDefinition --subscription "MySubscription" \
+          --mode Indexed --rules "{ \"if\": { \"field\": \"tags\", \"exists\": \"false\" }, \
+              \"then\": { \"effect\": \"deny\" } }"
+  requiredParameters:
+  - isRequired: true
+    name: --name -n
+    summary: Der Name der neuen Richtlinien Definition.
+    description: ''
+  optionalParameters:
+  - name: --description
+    summary: Beschreibung der Richtlinien Definition.
+    description: ''
+  - name: --display-name
+    summary: Anzeige Name der Richtlinien Definition.
+    description: ''
+  - name: --management-group
+    summary: Der Name der Verwaltungsgruppe, in der die neue Richtlinien Definition zugewiesen werden kann.
+    description: ''
+  - name: --mode -m
+    summary: Der Modus der Richtlinien Definition, z. b. "alle", indiziert. Weitere Informationen finden Sie unter <a href="https://aka.ms/azure-policy-mode">https://aka.ms/azure-policy-mode</a> .
+    description: ''
+  - name: --params
+    summary: JSON-formatierte Zeichenfolge oder ein Pfad zu einer Datei oder einem URI mit Parameter Definitionen.
+    description: ''
+  - name: --rules
+    summary: Richtlinien Regeln im JSON-Format oder ein Pfad zu einer Datei, die JSON-Regeln enthält.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements, in dem die neue Richtlinien Definition zugewiesen werden kann.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/resource/_help.py
+- uid: az_policy_definition_delete
+  name: az policy definition delete
+  summary: Dient zum Löschen einer Richtliniendefinition.
+  description: ''
+  syntax: >-
+    az policy definition delete --name
+                                [--management-group]
+                                [--subscription]
+  examples:
+  - summary: Dient zum Löschen einer Richtliniendefinition. automatisch generierten
+    syntax: az policy definition delete --name MyPolicyDefinition
+  requiredParameters:
+  - isRequired: true
+    name: --name -n
+    summary: Der Name der Richtlinien Definition.
+    description: ''
+  optionalParameters:
+  - name: --management-group
+    summary: Der Name der Verwaltungsgruppe der Richtlinien Definition [Set].
+    description: ''
+  - name: --subscription
+    summary: Die Abonnement-ID der Richtlinien Definition [Set].
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/resource/_help.py
+- uid: az_policy_definition_list
+  name: az policy definition list
+  summary: Auflisten von Richtlinien Definitionen.
+  description: ''
+  syntax: >-
+    az policy definition list [--management-group]
+                              [--query-examples]
+                              [--subscription]
+  optionalParameters:
+  - name: --management-group
+    summary: Der Name der Verwaltungsgruppe der Richtlinien Definition [Set].
+    description: ''
+  - name: --query-examples
+    summary: Empfehlen Sie die jmespath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und Sie nach dem Abfrage Parameter in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positions Schlüsselwörter hinzufügen, um Vorschläge auf der Grundlage dieser Schlüsselwörter zu geben.
+    description: ''
+  - name: --subscription
+    summary: Die Abonnement-ID der Richtlinien Definition [Set].
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/resource/_help.py
+- uid: az_policy_definition_show
+  name: az policy definition show
+  summary: Zeigen Sie eine Richtlinien Definition an.
+  description: ''
+  syntax: >-
+    az policy definition show --name
+                              [--management-group]
+                              [--query-examples]
+                              [--subscription]
+  examples:
+  - summary: Zeigen Sie eine Richtlinien Definition an. automatisch generierten
+    syntax: az policy definition show --name MyPolicyDefinition
+  requiredParameters:
+  - isRequired: true
+    name: --name -n
+    summary: Der Name der Richtlinien Definition.
+    description: ''
+  optionalParameters:
+  - name: --management-group
+    summary: Der Name der Verwaltungsgruppe der Richtlinien Definition [Set].
+    description: ''
+  - name: --query-examples
+    summary: Empfehlen Sie die jmespath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und Sie nach dem Abfrage Parameter in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positions Schlüsselwörter hinzufügen, um Vorschläge auf der Grundlage dieser Schlüsselwörter zu geben.
+    description: ''
+  - name: --subscription
+    summary: Die Abonnement-ID der Richtlinien Definition [Set].
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/resource/_help.py
+- uid: az_policy_definition_update
+  name: az policy definition update
+  summary: Aktualisieren Sie eine Richtlinien Definition.
+  description: ''
+  syntax: >-
+    az policy definition update --name
+                                [--description]
+                                [--display-name]
+                                [--management-group]
+                                [--mode]
+                                [--params]
+                                [--rules]
+                                [--subscription]
+  examples:
+  - summary: Aktualisieren Sie eine Richtlinien Definition. automatisch generierten
+    syntax: az policy definition update --name MyPolicyDefinition
+  requiredParameters:
+  - isRequired: true
+    name: --name -n
+    summary: Der Name der Richtlinien Definition.
+    description: ''
+  optionalParameters:
+  - name: --description
+    summary: Beschreibung der Richtlinien Definition.
+    description: ''
+  - name: --display-name
+    summary: Anzeige Name der Richtlinien Definition.
+    description: ''
+  - name: --management-group
+    summary: Der Name der Verwaltungsgruppe der Richtlinien Definition [Set].
+    description: ''
+  - name: --mode -m
+    summary: Der Modus der Richtlinien Definition, z. b. "alle", indiziert. Weitere Informationen finden Sie unter <a href="https://aka.ms/azure-policy-mode">https://aka.ms/azure-policy-mode</a> .
+    description: ''
+  - name: --params
+    summary: JSON-formatierte Zeichenfolge oder ein Pfad zu einer Datei oder einem URI mit Parameter Definitionen.
+    description: ''
+  - name: --rules
+    summary: JSON-formatierte Zeichenfolge oder ein Pfad zu einer Datei mit diesem Inhalt.
+    description: ''
+  - name: --subscription
+    summary: Die Abonnement-ID der Richtlinien Definition [Set].
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/resource/_help.py
+commands:
+- az_policy_definition_create
+- az_policy_definition_delete
+- az_policy_definition_list
+- az_policy_definition_show
+- az_policy_definition_update
+globalParameters:
+- name: --debug
+  summary: Ausführlichkeit der Protokollierung erhöhen, um alle Debugprotokolle anzuzeigen.
+- name: --help -h
+  summary: Zeigen Sie diese Hilfemeldung an, und schließen Sie sie.
+- name: --only-show-errors
+  summary: Nur Fehler anzeigen und Warnungen unterdrücken.
+- name: --output -o
+  defaultValue: json
+  parameterValueGroup: json, jsonc, table, tsv
+  summary: Ausgabeformat.
+- name: --query
+  summary: JMESPath-Abfragezeichenfolge. Weitere Informationen und Beispiele finden Sie unter <a href="http://jmespath.org/">http://jmespath.org/</a>.
+- name: --verbose
+  summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
+metadata:
+  doc_source_url_repo: https://github.com/Azure/azure-cli/blob/dev/
+  ms.date: 02/02/2021
+  description: Verwalten von Ressourcen Richtlinien Definitionen
+  ms.openlocfilehash: 1a1dce63a523f6ba21cc33743c924661abd6efa9
+  ms.sourcegitcommit: df9d6597535ef9103775afbaee5a8282e0e218ee
+  ms.translationtype: MT
+  ms.contentlocale: de-DE
+  ms.lasthandoff: 02/09/2021
+  ms.locfileid: "102909153"
