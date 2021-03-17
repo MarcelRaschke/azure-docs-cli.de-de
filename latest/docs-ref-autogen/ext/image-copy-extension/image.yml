@@ -1,0 +1,112 @@
+### YamlMime:AzureCLIGroup
+uid: ext_image-copy-extension_az_image
+name: az image
+extensionInformation: >-
+  > [!Note]
+
+  > Dieser Verweis ist Teil der Erweiterung **Image-Copy-Extension** für Azure CLI und erfordert Version 2.0.24 oder höher.  Die Erweiterung wird automatisch installiert, wenn Sie den Befehl **AZ Image** zum ersten Mal ausführen.  [Weitere Informationen zu Erweiterungen](https://docs.microsoft.com/en-us/cli/azure/azure-cli-extensions-overview)
+summary: Benutzerdefinierte Images virtueller Computer verwalten.
+description: ''
+directCommands:
+- uid: ext_image-copy-extension_az_image_copy
+  name: az image copy
+  summary: Kopieren Sie ein verwaltetes Image (oder einen virtuellen Computer) in andere Regionen. Der Quell Datenträger muss verfügbar sein.
+  description: ''
+  syntax: >-
+    az image copy --source-object-name
+                  --source-resource-group
+                  --target-location
+                  --target-resource-group
+                  [--cleanup]
+                  [--export-as-snapshot]
+                  [--parallel-degree]
+                  [--source-type {image, vm}]
+                  [--tags]
+                  [--target-name]
+                  [--target-subscription]
+                  [--temporary-resource-group-name]
+                  [--timeout]
+  examples:
+  - summary: Kopieren Sie ein Bild in mehrere Regionen, und bereinigen Sie es am Ende.
+    syntax: >-
+      az image copy --source-resource-group mySources-rg --source-object-name myImage \
+          --target-location uksouth northeurope --target-resource-group "images-repo-rg" --cleanup
+  - summary: Verwenden Sie eine bereits verallgemeinerte VM, um Images in anderen Regionen zu erstellen.
+    syntax: >-
+      az image copy --source-resource-group mySources-rg --source-object-name myVm \
+          --source-type vm --target-location uksouth northeurope --target-resource-group "images-repo-rg"
+  requiredParameters:
+  - isRequired: true
+    name: --source-object-name
+    summary: Der Name des Images oder der VM-Ressource.
+    description: ''
+  - isRequired: true
+    name: --source-resource-group
+    summary: Der Name der Ressourcengruppe der Quell Ressource.
+    description: ''
+  - isRequired: true
+    name: --target-location
+    summary: Durch Leerzeichen getrennte Speicherort Liste zum Erstellen des Bilds (z. b. westeurope usw.).
+    description: ''
+  - isRequired: true
+    name: --target-resource-group
+    summary: Der Name der Ressourcengruppe, in der Images erstellt werden sollen.
+    description: ''
+  optionalParameters:
+  - name: --cleanup
+    summary: Fügen Sie diesen Schalter ein, um temporäre Ressourcen nach Abschluss zu löschen.
+    description: ''
+  - name: --export-as-snapshot
+    summary: Fügen Sie diesen Schalter ein, um die Kopien als Momentaufnahmen anstelle von Bildern zu exportieren.
+    description: ''
+  - name: --parallel-degree
+    defaultValue: "-1"
+    summary: Anzahl paralleler Kopiervorgänge.
+    description: ''
+  - name: --source-type
+    defaultValue: image
+    parameterValueGroup: image, vm
+    summary: Image oder VM.
+    description: ''
+  - name: --tags
+    summary: 'Durch Leerzeichen getrennte Tags: Key [= value] [key [= value]...]. Verwenden Sie "", um vorhandene Tags zu löschen.'
+    description: ''
+  - name: --target-name
+    summary: Der Name des endgültigen Bilds, das erstellt wird.
+    description: ''
+  - name: --target-subscription
+    summary: Der Name oder die ID des Abonnements, in dem das endgültige Image erstellt werden soll.
+    description: ''
+  - name: --temporary-resource-group-name --temporary_resource_group_name
+    defaultValue: image-copy-rg
+    summary: Der Name der Ressourcengruppe, in der das temporäre Speicherkonto erstellt wird. --temporary_resource_group_name wird in 0.2.7 als veraltet markiert.
+    description: ''
+  - name: --timeout
+    defaultValue: "3600"
+    summary: Die Zeit in Sekunden, für die der Kopiervorgang abgeschlossen werden soll. Vergrößern Sie diese Zeit, wenn Sie große Images (Datenträger) wie 512 GB oder mehr kopieren möchten.
+    description: ''
+commands:
+- ext_image-copy-extension_az_image_copy
+globalParameters:
+- name: --debug
+  summary: Ausführlichkeit der Protokollierung erhöhen, um alle Debugprotokolle anzuzeigen.
+- name: --help -h
+  summary: Zeigen Sie diese Hilfemeldung an, und schließen Sie sie.
+- name: --only-show-errors
+  summary: Nur Fehler anzeigen und Warnungen unterdrücken.
+- name: --output -o
+  defaultValue: json
+  parameterValueGroup: json, jsonc, table, tsv
+  summary: Ausgabeformat.
+- name: --query
+  summary: JMESPath-Abfragezeichenfolge. Weitere Informationen und Beispiele finden Sie unter <a href="http://jmespath.org/">http://jmespath.org/</a>.
+- name: --verbose
+  summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
+metadata:
+  description: Benutzerdefinierte Images virtueller Computer verwalten.
+  ms.openlocfilehash: 9bfa50001797fd590dba3ad95897b4099a552eff
+  ms.sourcegitcommit: e1faf297ba2cdf2ba7e821fbeedff9c9a724c975
+  ms.translationtype: MT
+  ms.contentlocale: de-DE
+  ms.lasthandoff: 12/16/2020
+  ms.locfileid: "102832152"

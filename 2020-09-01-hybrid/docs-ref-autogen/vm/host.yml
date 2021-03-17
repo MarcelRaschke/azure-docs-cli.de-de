@@ -1,0 +1,284 @@
+### YamlMime:AzureCLIGroup
+uid: az_vm_host
+name: az vm host
+summary: Verwalten dedizierter Hosts für Virtual Machines.
+description: ''
+directCommands:
+- uid: az_vm_host_create
+  name: az vm host create
+  summary: Erstellen Sie einen dedizierten Host.
+  description: ''
+  syntax: >-
+    az vm host create --host-group
+                      --name
+                      --resource-group
+                      --sku
+                      [--auto-replace {false, true}]
+                      [--license-type {None, Windows_Server_Hybrid, Windows_Server_Perpetual}]
+                      [--location]
+                      [--platform-fault-domain]
+                      [--subscription]
+                      [--tags]
+  examples:
+  - summary: Erstellen Sie einen dedizierten Host. Sicherstellen, dass die automatische Ersetzung bei Fehlern auftritt
+    syntax: >-
+      az vm host create --host-group my-host-group --name my-host --platform-fault-domain 2 \
+          --auto-replace --resource-group my-resource-group --sku DSv3-Type1
+  - summary: Erstellen Sie einen dedizierten Host in der Region "Asien, Osten". Bei einem Fehler nicht automatisch ersetzen.
+    syntax: >-
+      az vm host create --host-group my-host-group --name my-host --platform-fault-domain 0 \
+          --auto-replace false --resource-group my-resource-group --sku ESv3-Type1 --location eastasia
+  - summary: Dedizierten Host erstellen (automatisch generiert)
+    syntax: az vm host create --auto-replace true --host-group my-host-group --license-type None --location eastasia --name my-host --resource-group my-resource-group --sku DSv3-Type1
+  requiredParameters:
+  - isRequired: true
+    name: --host-group
+    summary: Der Name der dedizierten Host Gruppe.
+    description: ''
+  - isRequired: true
+    name: --name -n
+    summary: Der Name des dedizierten Hosts.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - isRequired: true
+    name: --sku
+    summary: 'SKU des dedizierten Hosts. Verfügbare SKUs: <a href="https://azure.microsoft.com/en-us/pricing/details/virtual-machines/dedicated-host/">https://azure.microsoft.com/en-us/pricing/details/virtual-machines/dedicated-host/</a> .'
+    description: ''
+  optionalParameters:
+  - name: --auto-replace
+    parameterValueGroup: false, true
+    summary: Ersetzen Sie den Host automatisch, wenn ein Fehler auftritt.
+    description: ''
+  - name: --license-type
+    parameterValueGroup: None, Windows_Server_Hybrid, Windows_Server_Perpetual
+    summary: Der Software Lizenztyp, der auf die auf dem dedizierten Host bereitgestellten virtuellen Computer angewendet wird.
+    description: ''
+  - name: --location -l
+    summary: 'Der Standort. Werte aus: `az account list-locations`. Sie können den standardmäßig verwendeten Standort mit `az configure --defaults location=<location>` konfigurieren. Andernfalls wird der Speicherort standardmäßig auf den Speicherort der Ressourcengruppe eingestellt.'
+    description: ''
+  - name: --platform-fault-domain -d
+    summary: 'Fehler Domäne des Hosts innerhalb einer Gruppe. Zulässige Werte: 0, 1, 2.'
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  - name: --tags
+    summary: 'Durch Leerzeichen getrennte Tags: Key [= value] [key [= value]...]. Verwenden Sie "", um vorhandene Tags zu löschen.'
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/vm/_help.py
+- uid: az_vm_host_delete
+  name: az vm host delete
+  summary: Löschen Sie einen dedizierten Host.
+  description: ''
+  syntax: >-
+    az vm host delete [--host-group]
+                      [--ids]
+                      [--name]
+                      [--resource-group]
+                      [--subscription]
+                      [--yes]
+  optionalParameters:
+  - name: --host-group
+    summary: Der Name der dedizierten Host Gruppe.
+    description: ''
+  - name: --ids
+    summary: Mindestens eine Ressourcen-ID (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID handeln, die alle Informationen von Ressourcen-ID-Argumenten enthält. Sie sollten entweder--IDs oder andere Ressourcen-ID-Argumente angeben.
+    description: ''
+  - name: --name -n
+    summary: Der Name des dedizierten Hosts.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  - name: --yes -y
+    summary: Nicht zur Bestätigung auffordern
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/vm/_help.py
+- uid: az_vm_host_get_instance_view
+  name: az vm host get-instance-view
+  summary: Instanzinformationen zu einem dedizierten Host
+  description: ''
+  syntax: >-
+    az vm host get-instance-view [--host-group]
+                                 [--ids]
+                                 [--name]
+                                 [--resource-group]
+                                 [--subscription]
+  examples:
+  - summary: Dient zum Anzeigen von instanzansichts Informationen eines dedizierten Hosts.
+    syntax: az vm host get-instance-view --host-group my-host-group --name my-host -g my-rg
+  - summary: Dient zum Aufrufen von instanzsichten für alle dedizierten Hosts in einer Host Gruppe.
+    syntax: az vm host get-instance-view --ids $(az vm host list -g my-rg --host-group my-host-group --query "[].id" -o tsv)
+  optionalParameters:
+  - name: --host-group
+    summary: Der Name der dedizierten Host Gruppe.
+    description: ''
+  - name: --ids
+    summary: Mindestens eine Ressourcen-ID (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID handeln, die alle Informationen von Ressourcen-ID-Argumenten enthält. Sie sollten entweder--IDs oder andere Ressourcen-ID-Argumente angeben.
+    description: ''
+  - name: --name -n
+    summary: Der Name des dedizierten Hosts.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/vm/_help.py
+- uid: az_vm_host_list
+  name: az vm host list
+  summary: Auflisten dedizierter Hosts.
+  description: ''
+  syntax: >-
+    az vm host list --host-group
+                    --resource-group
+                    [--query-examples]
+                    [--subscription]
+  examples:
+  - summary: Auflisten dedizierter Hosts. automatisch generierten
+    syntax: az vm host list --host-group my-host-group --resource-group my-rg
+  requiredParameters:
+  - isRequired: true
+    name: --host-group
+    summary: Der Name der dedizierten Host Gruppe.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  optionalParameters:
+  - name: --query-examples
+    summary: Empfehlen Sie die jmespath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und Sie nach dem Abfrage Parameter in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positions Schlüsselwörter hinzufügen, um Vorschläge auf der Grundlage dieser Schlüsselwörter zu geben.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/vm/_help.py
+- uid: az_vm_host_show
+  name: az vm host show
+  summary: Dient zum Anzeigen der Details eines dedizierten Hosts.
+  description: ''
+  syntax: >-
+    az vm host show [--host-group]
+                    [--ids]
+                    [--name]
+                    [--query-examples]
+                    [--resource-group]
+                    [--subscription]
+  examples:
+  - summary: Dient zum Anzeigen der Details eines dedizierten Hosts (automatisch generiert).
+    syntax: az vm host show --host-group my-host-group --name MyDedicatedHost --resource-group MyResourceGroup
+  optionalParameters:
+  - name: --host-group
+    summary: Der Name der dedizierten Host Gruppe.
+    description: ''
+  - name: --ids
+    summary: Mindestens eine Ressourcen-ID (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID handeln, die alle Informationen von Ressourcen-ID-Argumenten enthält. Sie sollten entweder--IDs oder andere Ressourcen-ID-Argumente angeben.
+    description: ''
+  - name: --name -n
+    summary: Der Name des dedizierten Hosts.
+    description: ''
+  - name: --query-examples
+    summary: Empfehlen Sie die jmespath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und Sie nach dem Abfrage Parameter in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positions Schlüsselwörter hinzufügen, um Vorschläge auf der Grundlage dieser Schlüsselwörter zu geben.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/vm/_help.py
+- uid: az_vm_host_update
+  name: az vm host update
+  summary: Aktualisieren eines dedizierten Hosts
+  description: ''
+  syntax: >-
+    az vm host update [--add]
+                      [--force-string]
+                      [--host-group]
+                      [--ids]
+                      [--name]
+                      [--remove]
+                      [--resource-group]
+                      [--set]
+                      [--subscription]
+  examples:
+  - summary: Aktualisieren Sie das Feld "autoreplaceonfailure" eines dedizierten Hosts.
+    syntax: >-
+      az vm host update --host-group my-host-group --name my-host \
+          --resource-group my-resource-group --set autoReplaceOnFailure=True
+  optionalParameters:
+  - name: --add
+    summary: Fügen Sie einer Liste von-Objekten ein Objekt hinzu, indem Sie ein Pfad-und Schlüssel-Wert-Paar angeben.  Beispiel:--Add Property. ListProperty <Key = Value, String oder JSON String>.
+    description: ''
+  - name: --force-string
+    summary: Wenn Sie "Set" oder "Add" verwenden, erhalten Sie Zeichen folgen Literale, anstatt zu versuchen, in JSON zu konvertieren.
+    description: ''
+  - name: --host-group
+    summary: Der Name der dedizierten Host Gruppe.
+    description: ''
+  - name: --ids
+    summary: Mindestens eine Ressourcen-ID (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID handeln, die alle Informationen von Ressourcen-ID-Argumenten enthält. Sie sollten entweder--IDs oder andere Ressourcen-ID-Argumente angeben.
+    description: ''
+  - name: --name -n
+    summary: Der Name des dedizierten Hosts.
+    description: ''
+  - name: --remove
+    summary: Entfernt eine Eigenschaft oder ein Element aus einer Liste.  Beispiel:--Remove Property. List <indexToRemove> oder--Remove propertytoremove.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --set
+    summary: Aktualisieren Sie ein Objekt, indem Sie einen Eigenschafts Pfad und einen festzulegenden Wert angeben.  Beispiel:--Set Eigenschaft1. Eigenschaft2 =<value>.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/vm/_help.py
+commands:
+- az_vm_host_create
+- az_vm_host_delete
+- az_vm_host_get_instance_view
+- az_vm_host_group
+- az_vm_host_group_create
+- az_vm_host_group_delete
+- az_vm_host_group_get_instance_view
+- az_vm_host_group_list
+- az_vm_host_group_show
+- az_vm_host_group_update
+- az_vm_host_list
+- az_vm_host_show
+- az_vm_host_update
+globalParameters:
+- name: --debug
+  summary: Ausführlichkeit der Protokollierung erhöhen, um alle Debugprotokolle anzuzeigen.
+- name: --help -h
+  summary: Zeigen Sie diese Hilfemeldung an, und schließen Sie sie.
+- name: --only-show-errors
+  summary: Nur Fehler anzeigen und Warnungen unterdrücken.
+- name: --output -o
+  defaultValue: json
+  parameterValueGroup: json, jsonc, table, tsv
+  summary: Ausgabeformat.
+- name: --query
+  summary: JMESPath-Abfragezeichenfolge. Weitere Informationen und Beispiele finden Sie unter <a href="http://jmespath.org/">http://jmespath.org/</a>.
+- name: --verbose
+  summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
+metadata:
+  doc_source_url_repo: https://github.com/Azure/azure-cli/blob/dev/
+  ms.date: 02/05/2021
+  description: Verwalten dedizierter Hosts für Virtual Machines.
+  ms.openlocfilehash: ce69fc435972e7260851c13f5b990630d756a1e3
+  ms.sourcegitcommit: df9d6597535ef9103775afbaee5a8282e0e218ee
+  ms.translationtype: MT
+  ms.contentlocale: de-DE
+  ms.lasthandoff: 02/09/2021
+  ms.locfileid: "102965212"

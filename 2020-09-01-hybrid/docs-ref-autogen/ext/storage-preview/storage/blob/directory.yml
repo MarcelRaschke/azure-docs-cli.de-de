@@ -1,0 +1,561 @@
+### YamlMime:AzureCLIGroup
+uid: ext_storage-preview_az_storage_blob_directory
+name: az storage blob directory
+extensionInformation: >-
+  > [!Note]
+
+  > Diese Referenz ist Teil der **Storage-Preview-** Erweiterung für Azure CLI und erfordert Version 2.13.0 oder höher.  Die Erweiterung wird automatisch installiert, wenn Sie den Befehl **AZ Storage BLOB Directory** zum ersten Mal ausführen.  [Weitere Informationen zu Erweiterungen](https://docs.microsoft.com/en-us/cli/azure/azure-cli-extensions-overview)
+summary: Verwalten Sie BLOB-Verzeichnisse im Speicherkonto Container.
+description: Um die Verzeichnis Befehle zu verwenden, stellen Sie sicher, dass Ihr Speicher Kontotyp "StorageV2" lautet.
+directCommands:
+- uid: ext_storage-preview_az_storage_blob_directory_create
+  name: az storage blob directory create
+  summary: Erstellen Sie ein speicherblob-Verzeichnis in einem Speicher Container.
+  description: Erstellen Sie ein speicherblob-Verzeichnis, das andere Verzeichnisse oder BLOBs in einem Speicher Container enthalten kann.
+  syntax: >-
+    az storage blob directory create --container-name
+                                     --directory-path
+                                     [--account-key]
+                                     [--account-name]
+                                     [--auth-mode {key, login}]
+                                     [--connection-string]
+                                     [--lease-id]
+                                     [--metadata]
+                                     [--permissions]
+                                     [--sas-token]
+                                     [--timeout]
+                                     [--umask]
+  examples:
+  - summary: Erstellen Sie ein speicherblob-Verzeichnis in einem Speicher Container.
+    syntax: az storage blob directory create -c MyContainer -d MyDirectoryPath --account-name MyStorageAccount
+  - summary: Erstellen Sie ein speicherblob-Verzeichnis mit Berechtigungen und "um".
+    syntax: az storage blob directory create -c MyContainer -d MyDirectoryPath --account-name MyStorageAccount --permissions rwxrwxrwx --umask 0000
+  requiredParameters:
+  - isRequired: true
+    name: --container-name -c
+    summary: Der Containername
+    description: ''
+  - isRequired: true
+    name: --directory-path -d
+    summary: Der Name des Verzeichnis Pfads.
+    description: ''
+  optionalParameters:
+  - name: --account-key
+    summary: 'Speicherkontoschlüssel Muss in Verbindung mit dem Speicherkonto Namen verwendet werden. Umgebungsvariable: AZURE_STORAGE_KEY.'
+    description: ''
+  - name: --account-name
+    summary: 'Name des Speicherkontos Verwandte Umgebungsvariable: AZURE_STORAGE_ACCOUNT. Muss in Verbindung mit dem Speicherkonto Schlüssel oder einem SAS-Token verwendet werden. Wenn keines der beiden vorhanden ist, versucht der Befehl, den Speicherkonto Schlüssel mithilfe des authentifizierten Azure-Kontos abzufragen. Wenn eine große Anzahl von Speicher Befehlen ausgeführt wird, kann das API-Kontingent erreichen.'
+    description: ''
+  - name: --auth-mode
+    parameterValueGroup: key, login
+    summary: 'Der Modus, in dem der Befehl ausgeführt werden soll. der Modus "Anmeldung" verwendet direkt Ihre Anmelde Informationen für die Authentifizierung. Der Legacy Modus "Schlüssel" versucht, einen Kontoschlüssel abzufragen, wenn keine Authentifizierungs Parameter für das Konto bereitgestellt werden. Umgebungsvariable: AZURE_STORAGE_AUTH_MODE.'
+    description: ''
+  - name: --connection-string
+    summary: 'Verbindungs Zeichenfolge des Speicher Kontos. Umgebungsvariable: AZURE_STORAGE_CONNECTION_STRING.'
+    description: ''
+  - name: --lease-id
+    summary: Erforderlich, wenn das zu über schreibende Verzeichnis über eine aktive Lease verfügt.
+    description: ''
+  - name: --metadata
+    summary: Metadaten in durch Leerzeichen getrennten Schlüssel = Wert-Paaren. Dadurch werden alle vorhandenen Metadaten überschrieben.
+    description: ''
+  - name: --permissions
+    summary: Optional und nur gültig, wenn der hierarchische Namespace für das Konto aktiviert ist. Legt POSIX-Zugriffsberechtigungen für den Dateibesitzer, die Datei, die die Gruppe besitzt, und andere fest. Jeder Klasse können Lese-, Schreib-oder Ausführungs Berechtigungen erteilt werden. Das stickbit wird ebenfalls unterstützt. Beide symbolischen (rwxrw-RW-) und 4-stellige oktale Schreibweise (z. b. 0766) werden unterstützt.
+    description: ''
+  - name: --sas-token
+    summary: 'Eine Shared Access Signature (SAS). Muss in Verbindung mit dem Speicherkonto Namen verwendet werden. Umgebungsvariable: AZURE_STORAGE_SAS_TOKEN.'
+    description: ''
+  - name: --timeout
+    summary: Anforderungs Timeout in Sekunden. Gilt für jeden Dienst aufzurufen.
+    description: ''
+  - name: --umask
+    defaultValue: "0027"
+    summary: Optional und nur gültig, wenn der hierarchische Namespace für das Konto aktiviert ist. Die "anask" schränkt die Berechtigungseinstellungen für die Datei und das Verzeichnis ein und wird nur angewendet, wenn im übergeordneten Verzeichnis keine Standard-ACL vorhanden ist. Wenn das Umschlag Bit festgelegt wurde, bedeutet dies, dass die entsprechende Berechtigung deaktiviert wird. Auf diese Weise wird die resultierende Berechtigung durch p & ^ u erteilt, wobei p für die Berechtigung steht und Sie die UMSCHALT-Option ist. Hier wird nur eine vierstellige Oktale Notation (z. b. 0022) unterstützt.
+    description: ''
+- uid: ext_storage-preview_az_storage_blob_directory_delete
+  name: az storage blob directory delete
+  summary: Löschen eines speicherblob-Verzeichnisses in einem Speicher Container.
+  description: Das Verhalten dieses Vorgangs ist abhängig davon, ob der hierarchische Namespace aktiviert ist, unterschiedlich. Wenn ja, kann der Löschvorgang atomarisch und sofort sein. Wenn dies nicht der Wert ist, wird der Vorgang in Batches ausgeführt, und ein Fortsetzungs Token kann zurückgegeben werden.
+  syntax: >-
+    az storage blob directory delete --container-name
+                                     --directory-path
+                                     [--account-key]
+                                     [--account-name]
+                                     [--auth-mode {key, login}]
+                                     [--connection-string]
+                                     [--fail-not-exist]
+                                     [--if-match]
+                                     [--if-modified-since]
+                                     [--if-none-match]
+                                     [--if-unmodified-since]
+                                     [--lease-id]
+                                     [--marker]
+                                     [--recursive]
+                                     [--sas-token]
+                                     [--timeout]
+  examples:
+  - summary: Löschen eines speicherblob-Verzeichnisses in einem Speicher Container.
+    syntax: az storage blob directory delete -c MyContainer -d MyDirectoryPath --account-name MyStorageAccount
+  requiredParameters:
+  - isRequired: true
+    name: --container-name -c
+    summary: Der Containername
+    description: ''
+  - isRequired: true
+    name: --directory-path -d
+    summary: Der Name des Verzeichnis Pfads.
+    description: ''
+  optionalParameters:
+  - name: --account-key
+    summary: 'Speicherkontoschlüssel Muss in Verbindung mit dem Speicherkonto Namen verwendet werden. Umgebungsvariable: AZURE_STORAGE_KEY.'
+    description: ''
+  - name: --account-name
+    summary: 'Name des Speicherkontos Verwandte Umgebungsvariable: AZURE_STORAGE_ACCOUNT. Muss in Verbindung mit dem Speicherkonto Schlüssel oder einem SAS-Token verwendet werden. Wenn keines der beiden vorhanden ist, versucht der Befehl, den Speicherkonto Schlüssel mithilfe des authentifizierten Azure-Kontos abzufragen. Wenn eine große Anzahl von Speicher Befehlen ausgeführt wird, kann das API-Kontingent erreichen.'
+    description: ''
+  - name: --auth-mode
+    parameterValueGroup: key, login
+    summary: 'Der Modus, in dem der Befehl ausgeführt werden soll. der Modus "Anmeldung" verwendet direkt Ihre Anmelde Informationen für die Authentifizierung. Der Legacy Modus "Schlüssel" versucht, einen Kontoschlüssel abzufragen, wenn keine Authentifizierungs Parameter für das Konto bereitgestellt werden. Umgebungsvariable: AZURE_STORAGE_AUTH_MODE.'
+    description: ''
+  - name: --connection-string
+    summary: 'Verbindungs Zeichenfolge des Speicher Kontos. Umgebungsvariable: AZURE_STORAGE_CONNECTION_STRING.'
+    description: ''
+  - name: --fail-not-exist
+    summary: Geben Sie an, ob eine Ausnahme ausgelöst werden soll, wenn das Verzeichnis nicht vorhanden ist.
+    description: ''
+  - name: --if-match
+    summary: Ein ETag-Wert oder das Platzhalter Zeichen ( \* ). Mit diesem Header legen Sie fest, dass der Vorgang nur ausgeführt wird, wenn das ETag der Ressource mit dem angegebenen Wert übereinstimmt.
+    description: ''
+  - name: --if-modified-since
+    summary: Nur ändern, wenn seit dem angegebenen UTC-DateTime-Wert (Y-m-d't ' h:m ' Z ') geändert wurde.
+    description: ''
+  - name: --if-none-match
+    summary: Ein ETag-Wert oder das Platzhalter Zeichen ( \* ). Mit diesem Header legen Sie fest, dass der Vorgang nur ausgeführt wird, wenn das ETag der Ressource nicht mit dem angegebenen Wert übereinstimmt.
+    description: ''
+  - name: --if-unmodified-since
+    summary: Nur ändern, wenn seit dem bereitgestellten UTC-DateTime-Wert (Y-m-d't ' h:m ' Z ') unverändert geändert wurde.
+    description: ''
+  - name: --lease-id
+    summary: Erforderlich, wenn das Verzeichnis über eine aktive Lease verfügt.
+    description: ''
+  - name: --marker
+    summary: Optional. Wenn Sie ein Verzeichnis ohne den hierarchischen Namespace löschen, ist die Anzahl der Pfade, die bei jedem Aufruf gelöscht werden, eingeschränkt. Wenn die Anzahl der zu löschenden Pfade diesen Grenzwert überschreitet, wird ein Fortsetzungs Token zurückgegeben. Wenn ein Fortsetzungs Token zurückgegeben wird, muss es in einem nachfolgenden Aufruf des Löschvorgangs angegeben werden, damit das Verzeichnis weiterhin gelöscht wird.
+    description: ''
+  - name: --recursive
+    summary: Wenn "true", werden alle Pfade unterhalb des Verzeichnisses gelöscht. Wenn "false" und das Verzeichnis nicht leer sind, tritt ein Fehler auf.
+    description: ''
+  - name: --sas-token
+    summary: 'Eine Shared Access Signature (SAS). Muss in Verbindung mit dem Speicherkonto Namen verwendet werden. Umgebungsvariable: AZURE_STORAGE_SAS_TOKEN.'
+    description: ''
+  - name: --timeout
+    summary: Anforderungs Timeout in Sekunden. Gilt für jeden Dienst aufzurufen.
+    description: ''
+- uid: ext_storage-preview_az_storage_blob_directory_download
+  name: az storage blob directory download
+  summary: Laden Sie blobdaten in einen lokalen Dateipfad herunter.
+  description: ''
+  syntax: >-
+    az storage blob directory download --container
+                                       --destination-path
+                                       --source-path
+                                       [--account-key]
+                                       [--account-name]
+                                       [--auth-mode {key, login}]
+                                       [--connection-string]
+                                       [--recursive]
+                                       [--sas-token]
+  examples:
+  - summary: Herunterladen eines einzelnen BLOBs in einem speicherblob-Verzeichnis.
+    syntax: az storage blob directory download -c MyContainer --account-name MyStorageAccount -s "path/to/blob" -d "<local-path>"
+  - summary: Laden Sie das gesamte Verzeichnis in einen Speicher Container herunter.
+    syntax: az storage blob directory download -c MyContainer --account-name MyStorageAccount -s SourceDirectoryPath -d "<local-path>" --recursive
+  - summary: Herunterladen eines vollständigen Unterverzeichnisses eines speicherblob-Verzeichnisses.
+    syntax: az storage blob directory download -c MyContainer --account-name MyStorageAccount -s "path/to/subdirectory" -d "<local-path>" --recursive
+  requiredParameters:
+  - isRequired: true
+    name: --container -c
+    summary: Der Quell Container zum herunterladen.
+    description: ''
+  - isRequired: true
+    name: --destination-path -d
+    summary: Der Download Pfad für das lokale Zielverzeichnis.
+    description: ''
+  - isRequired: true
+    name: --source-path -s
+    summary: Der Pfad des Download Quell Verzeichnisses. Dabei sollte es sich um einen absoluten Pfad zum Container handeln.
+    description: ''
+  optionalParameters:
+  - name: --account-key
+    summary: 'Speicherkontoschlüssel Muss in Verbindung mit dem Speicherkonto Namen verwendet werden. Umgebungsvariable: AZURE_STORAGE_KEY.'
+    description: ''
+  - name: --account-name
+    summary: 'Name des Speicherkontos Verwandte Umgebungsvariable: AZURE_STORAGE_ACCOUNT. Muss in Verbindung mit dem Speicherkonto Schlüssel oder einem SAS-Token verwendet werden. Wenn keines der beiden vorhanden ist, versucht der Befehl, den Speicherkonto Schlüssel mithilfe des authentifizierten Azure-Kontos abzufragen. Wenn eine große Anzahl von Speicher Befehlen ausgeführt wird, kann das API-Kontingent erreichen.'
+    description: ''
+  - name: --auth-mode
+    parameterValueGroup: key, login
+    summary: 'Der Modus, in dem der Befehl ausgeführt werden soll. der Modus "Anmeldung" verwendet direkt Ihre Anmelde Informationen für die Authentifizierung. Der Legacy Modus "Schlüssel" versucht, einen Kontoschlüssel abzufragen, wenn keine Authentifizierungs Parameter für das Konto bereitgestellt werden. Umgebungsvariable: AZURE_STORAGE_AUTH_MODE.'
+    description: ''
+  - name: --connection-string
+    summary: 'Verbindungs Zeichenfolge des Speicher Kontos. Umgebungsvariable: AZURE_STORAGE_CONNECTION_STRING.'
+    description: ''
+  - name: --recursive -r
+    summary: Rekursiv herunterladen von BLOB. Wenn diese Option aktiviert ist, werden alle blobknoten, einschließlich der blobverzeichnisse in den Unterverzeichnissen, heruntergeladen.
+    description: ''
+  - name: --sas-token
+    summary: 'Eine Shared Access Signature (SAS). Muss in Verbindung mit dem Speicherkonto Namen verwendet werden. Umgebungsvariable: AZURE_STORAGE_SAS_TOKEN.'
+    description: ''
+- uid: ext_storage-preview_az_storage_blob_directory_exists
+  name: az storage blob directory exists
+  summary: Überprüfen Sie, ob ein BLOB-Verzeichnis in einem Speicher Container vorhanden ist.
+  description: ''
+  syntax: >-
+    az storage blob directory exists --container-name
+                                     --directory-path
+                                     [--account-key]
+                                     [--account-name]
+                                     [--auth-mode {key, login}]
+                                     [--connection-string]
+                                     [--sas-token]
+                                     [--snapshot]
+                                     [--timeout]
+  examples:
+  - summary: Überprüfen Sie, ob ein BLOB-Verzeichnis in einem Speicher Container vorhanden ist.
+    syntax: az storage blob directory exists -c MyContainer -d MyDirectoryPath --account-name MyStorageAccount
+  requiredParameters:
+  - isRequired: true
+    name: --container-name -c
+    summary: Der Containername
+    description: ''
+  - isRequired: true
+    name: --directory-path -d
+    summary: Der Name des Verzeichnis Pfads.
+    description: ''
+  optionalParameters:
+  - name: --account-key
+    summary: 'Speicherkontoschlüssel Muss in Verbindung mit dem Speicherkonto Namen verwendet werden. Umgebungsvariable: AZURE_STORAGE_KEY.'
+    description: ''
+  - name: --account-name
+    summary: 'Name des Speicherkontos Verwandte Umgebungsvariable: AZURE_STORAGE_ACCOUNT. Muss in Verbindung mit dem Speicherkonto Schlüssel oder einem SAS-Token verwendet werden. Wenn keines der beiden vorhanden ist, versucht der Befehl, den Speicherkonto Schlüssel mithilfe des authentifizierten Azure-Kontos abzufragen. Wenn eine große Anzahl von Speicher Befehlen ausgeführt wird, kann das API-Kontingent erreichen.'
+    description: ''
+  - name: --auth-mode
+    parameterValueGroup: key, login
+    summary: 'Der Modus, in dem der Befehl ausgeführt werden soll. der Modus "Anmeldung" verwendet direkt Ihre Anmelde Informationen für die Authentifizierung. Der Legacy Modus "Schlüssel" versucht, einen Kontoschlüssel abzufragen, wenn keine Authentifizierungs Parameter für das Konto bereitgestellt werden. Umgebungsvariable: AZURE_STORAGE_AUTH_MODE.'
+    description: ''
+  - name: --connection-string
+    summary: 'Verbindungs Zeichenfolge des Speicher Kontos. Umgebungsvariable: AZURE_STORAGE_CONNECTION_STRING.'
+    description: ''
+  - name: --sas-token
+    summary: 'Eine Shared Access Signature (SAS). Muss in Verbindung mit dem Speicherkonto Namen verwendet werden. Umgebungsvariable: AZURE_STORAGE_SAS_TOKEN.'
+    description: ''
+  - name: --snapshot
+    summary: Der Snapshot-Parameter ist ein undurchsichtiger DateTime-Wert, der die Momentaufnahme angibt, falls vorhanden.
+    description: ''
+  - name: --timeout
+    summary: Anforderungs Timeout in Sekunden. Gilt für jeden Dienst aufzurufen.
+    description: ''
+- uid: ext_storage-preview_az_storage_blob_directory_list
+  name: az storage blob directory list
+  summary: Auflisten von BLOBs und BLOB-Unterverzeichnissen in einem Speicher Verzeichnis.
+  description: ''
+  syntax: >-
+    az storage blob directory list --container-name
+                                   --directory-path
+                                   [--account-key]
+                                   [--account-name]
+                                   [--auth-mode {key, login}]
+                                   [--connection-string]
+                                   [--delimiter]
+                                   [--include]
+                                   [--marker]
+                                   [--num-results]
+                                   [--prefix]
+                                   [--sas-token]
+                                   [--timeout]
+  examples:
+  - summary: Auflisten von BLOBs und BLOB-Unterverzeichnissen in einem Speicher Verzeichnis.
+    syntax: az storage blob directory list -c MyContainer -d DestinationDirectoryPath --account-name MyStorageAccount
+  requiredParameters:
+  - isRequired: true
+    name: --container-name -c
+    summary: Der Containername
+    description: ''
+  - isRequired: true
+    name: --directory-path -d
+    summary: Der Name des Verzeichnis Pfads.
+    description: ''
+  optionalParameters:
+  - name: --account-key
+    summary: 'Speicherkontoschlüssel Muss in Verbindung mit dem Speicherkonto Namen verwendet werden. Umgebungsvariable: AZURE_STORAGE_KEY.'
+    description: ''
+  - name: --account-name
+    summary: 'Name des Speicherkontos Verwandte Umgebungsvariable: AZURE_STORAGE_ACCOUNT. Muss in Verbindung mit dem Speicherkonto Schlüssel oder einem SAS-Token verwendet werden. Wenn keines der beiden vorhanden ist, versucht der Befehl, den Speicherkonto Schlüssel mithilfe des authentifizierten Azure-Kontos abzufragen. Wenn eine große Anzahl von Speicher Befehlen ausgeführt wird, kann das API-Kontingent erreichen.'
+    description: ''
+  - name: --auth-mode
+    parameterValueGroup: key, login
+    summary: 'Der Modus, in dem der Befehl ausgeführt werden soll. der Modus "Anmeldung" verwendet direkt Ihre Anmelde Informationen für die Authentifizierung. Der Legacy Modus "Schlüssel" versucht, einen Kontoschlüssel abzufragen, wenn keine Authentifizierungs Parameter für das Konto bereitgestellt werden. Umgebungsvariable: AZURE_STORAGE_AUTH_MODE.'
+    description: ''
+  - name: --connection-string
+    summary: 'Verbindungs Zeichenfolge des Speicher Kontos. Umgebungsvariable: AZURE_STORAGE_CONNECTION_STRING.'
+    description: ''
+  - name: --delimiter
+    summary: Wenn die Anforderung diesen Parameter enthält, gibt der Vorgang ein blobprefix-Element in der Ergebnisliste zurück, das als Platzhalter für alle BLOB fungiert, deren Namen mit derselben Teil Zeichenfolge bis zur Darstellung des Trenn Zeichens beginnen. Das Trennzeichen kann ein einzelnes Zeichen oder eine Zeichenfolge sein.
+    description: ''
+  - name: --include
+    defaultValue: mc
+    summary: Gibt ein oder mehrere zusätzliche Datasets an, die in die Antwort eingeschlossen werden sollen.
+    description: ''
+  - name: --marker
+    summary: Ein undurchsichtiges Fortsetzungs Token. Dieser Wert kann aus dem next_marker-Feld eines vorherigen Generator Objekts abgerufen werden, wenn num_results angegeben wurde und der Generator die Enumeration der Ergebnisse abgeschlossen hat. Wenn angegeben, beginnt dieser Generator mit der Rückgabe von Ergebnissen ab dem Zeitpunkt, an dem der vorherige Generator angehalten wurde.
+    description: ''
+  - name: --num-results
+    defaultValue: "5000"
+    summary: Gibt die maximale Anzahl der zurück zugebende Ergebnisse an. Geben \* Sie "" an, um alle zurückzugeben.
+    description: ''
+  - name: --prefix
+    summary: Filtert die Ergebnisse, um nur BLOBs zurückgegeben, deren Namen mit dem angegebenen Präfix beginnen.
+    description: ''
+  - name: --sas-token
+    summary: 'Eine Shared Access Signature (SAS). Muss in Verbindung mit dem Speicherkonto Namen verwendet werden. Umgebungsvariable: AZURE_STORAGE_SAS_TOKEN.'
+    description: ''
+  - name: --timeout
+    summary: Anforderungs Timeout in Sekunden. Gilt für jeden Dienst aufzurufen.
+    description: ''
+- uid: ext_storage-preview_az_storage_blob_directory_move
+  name: az storage blob directory move
+  summary: Verschieben Sie ein Speicher Verzeichnis in ein anderes speicherblob-Verzeichnis in einem Speicher Container.
+  description: Verschieben Sie ein Speicher Verzeichnis und den gesamten Inhalt (der andere Verzeichnisse oder BLOBs enthalten kann) in ein anderes speicherblob-Verzeichnis in einem Speicher Container. Das Verhalten dieses Vorgangs ist abhängig davon, ob der hierarchische Namespace aktiviert ist, unterschiedlich. Wenn ja, ist der Verschiebungs Vorgang atomarisch, und es wird kein Marker zurückgegeben. Wenn dies nicht der Wert ist, wird der Vorgang in Batches ausgeführt, und ein Fortsetzungs Token kann zurückgegeben werden.
+  syntax: >-
+    az storage blob directory move --container-name
+                                   --destination-path
+                                   --source-path
+                                   [--account-key]
+                                   [--account-name]
+                                   [--auth-mode {key, login}]
+                                   [--connection-string]
+                                   [--lease-id]
+                                   [--move-mode {legacy, posix}]
+                                   [--sas-token]
+                                   [--source-if-match]
+                                   [--source-if-modified-since]
+                                   [--source-if-none-match]
+                                   [--source-if-unmodified-since]
+                                   [--source-lease-id]
+                                   [--timeout]
+  examples:
+  - summary: Verschieben Sie ein Speicher Verzeichnis in ein anderes speicherblob-Verzeichnis in einem Speicher Container.
+    syntax: az storage blob directory move -c MyContainer -d my-new-directory -s dir --account-name MyStorageAccount
+  - summary: Verschieben Sie ein Speicher Unterverzeichnis in ein anderes speicherblob-Verzeichnis in einem Speicher Container.
+    syntax: az storage blob directory move -c MyContainer -d my-new-directory -s dir/subdirectory --account-name MyStorageAccount
+  requiredParameters:
+  - isRequired: true
+    name: --container-name -c
+    summary: Der Containername
+    description: ''
+  - isRequired: true
+    name: --destination-path -d
+    summary: Der Ziel-BLOB-Verzeichnispfad. Dies kann ein Verzeichnis-oder Unterverzeichnis Name sein, z. b. dir, dir/subdir. Wenn der Zielpfad vorhanden und leer ist, wird die Quelle in den Zielpfad verschoben. Wenn der Zielpfad nicht vorhanden ist, wird der Zielpfad erstellt und von der Quelle überschrieben. Um den Verschiebungs Vorgang für einen nicht leeren Pfad zu steuern, können Sie den--Verschiebungs Modus verwenden, um das Verhalten von zu bestimmen.
+    description: ''
+  - isRequired: true
+    name: --source-path -s
+    summary: Der Pfad des Quell-BLOB-Verzeichnisses.
+    description: ''
+  optionalParameters:
+  - name: --account-key
+    summary: 'Speicherkontoschlüssel Muss in Verbindung mit dem Speicherkonto Namen verwendet werden. Umgebungsvariable: AZURE_STORAGE_KEY.'
+    description: ''
+  - name: --account-name
+    summary: 'Name des Speicherkontos Verwandte Umgebungsvariable: AZURE_STORAGE_ACCOUNT. Muss in Verbindung mit dem Speicherkonto Schlüssel oder einem SAS-Token verwendet werden. Wenn keines der beiden vorhanden ist, versucht der Befehl, den Speicherkonto Schlüssel mithilfe des authentifizierten Azure-Kontos abzufragen. Wenn eine große Anzahl von Speicher Befehlen ausgeführt wird, kann das API-Kontingent erreichen.'
+    description: ''
+  - name: --auth-mode
+    parameterValueGroup: key, login
+    summary: 'Der Modus, in dem der Befehl ausgeführt werden soll. der Modus "Anmeldung" verwendet direkt Ihre Anmelde Informationen für die Authentifizierung. Der Legacy Modus "Schlüssel" versucht, einen Kontoschlüssel abzufragen, wenn keine Authentifizierungs Parameter für das Konto bereitgestellt werden. Umgebungsvariable: AZURE_STORAGE_AUTH_MODE.'
+    description: ''
+  - name: --connection-string
+    summary: 'Verbindungs Zeichenfolge des Speicher Kontos. Umgebungsvariable: AZURE_STORAGE_CONNECTION_STRING.'
+    description: ''
+  - name: --lease-id
+    summary: Eine Lease-ID für das Ziel directory_path. Der Ziel directory_path muss über eine aktive Lease verfügen, und die Lease-ID muss mit dem Wert identisch sein.
+    description: ''
+  - name: --move-mode
+    defaultValue: posix
+    parameterValueGroup: legacy, posix
+    summary: Nur gültig, wenn Namespace aktiviert ist. Dieser Parameter bestimmt das Verhalten des Verschiebe Vorgangs. Wenn das Zielverzeichnis leer ist, wird das Zielverzeichnis für beide zwei Modi überschrieben. Wenn das Zielverzeichnis jedoch nicht leer ist, schlägt der Verschiebungs Vorgang im Legacy Modus fehl, und im POSIX-Modus wird das Quellverzeichnis in das Zielverzeichnis verschoben.
+    description: ''
+  - name: --sas-token
+    summary: 'Eine Shared Access Signature (SAS). Muss in Verbindung mit dem Speicherkonto Namen verwendet werden. Umgebungsvariable: AZURE_STORAGE_SAS_TOKEN.'
+    description: ''
+  - name: --source-if-match
+    summary: Optional. Ein ETag-Wert. Geben Sie diesen Header an, um den Verschiebungs Vorgang nur dann auszuführen, wenn das ETag der Quelle mit dem angegebenen Wert übereinstimmt.
+    description: ''
+  - name: --source-if-modified-since
+    summary: Optional. Ein Datums- und Uhrzeitwert. Geben Sie diesen Header an, um den Verschiebungs Vorgang nur dann auszuführen, wenn die Quelle seit dem angegebenen Datum und der angegebenen Uhrzeit geändert wurde.
+    description: ''
+  - name: --source-if-none-match
+    summary: Optional. Ein ETag-Wert oder der spezielle Platzhalter \* Wert (""). Geben Sie diesen Header an, um den Verschiebungs Vorgang nur dann auszuführen, wenn das ETag der Quelle nicht mit dem angegebenen Wert identisch ist.
+    description: ''
+  - name: --source-if-unmodified-since
+    summary: Optional. Ein Datums- und Uhrzeitwert. Geben Sie diesen Header an, um den Verschiebungs Vorgang nur dann auszuführen, wenn die Quelle seit dem angegebenen Datum und der angegebenen Uhrzeit nicht geändert wurde.
+    description: ''
+  - name: --source-lease-id
+    summary: Optional. Eine Lease-ID für die source_path. Der source_path muss über eine aktive Lease verfügen, und die Lease-ID muss eine Entsprechung aufweisen.
+    description: ''
+  - name: --timeout
+    summary: Anforderungs Timeout in Sekunden. Gilt für jeden Dienst aufzurufen.
+    description: ''
+- uid: ext_storage-preview_az_storage_blob_directory_show
+  name: az storage blob directory show
+  summary: Anzeigen von Speicher-BLOB-Verzeichnis Eigenschaften in einem Speicher Container.
+  description: ''
+  syntax: >-
+    az storage blob directory show --container-name
+                                   --directory-path
+                                   [--account-key]
+                                   [--account-name]
+                                   [--auth-mode {key, login}]
+                                   [--connection-string]
+                                   [--if-match]
+                                   [--if-modified-since]
+                                   [--if-none-match]
+                                   [--if-unmodified-since]
+                                   [--lease-id]
+                                   [--sas-token]
+                                   [--timeout]
+  examples:
+  - summary: Anzeigen von Speicher-BLOB-Verzeichnis Eigenschaften in einem Speicher Container.
+    syntax: az storage blob directory show -c MyContainer -d MyDirectoryPath --account-name MyStorageAccount
+  requiredParameters:
+  - isRequired: true
+    name: --container-name -c
+    summary: Der Containername
+    description: ''
+  - isRequired: true
+    name: --directory-path -d
+    summary: Der Name des Verzeichnis Pfads.
+    description: ''
+  optionalParameters:
+  - name: --account-key
+    summary: 'Speicherkontoschlüssel Muss in Verbindung mit dem Speicherkonto Namen verwendet werden. Umgebungsvariable: AZURE_STORAGE_KEY.'
+    description: ''
+  - name: --account-name
+    summary: 'Name des Speicherkontos Verwandte Umgebungsvariable: AZURE_STORAGE_ACCOUNT. Muss in Verbindung mit dem Speicherkonto Schlüssel oder einem SAS-Token verwendet werden. Wenn keines der beiden vorhanden ist, versucht der Befehl, den Speicherkonto Schlüssel mithilfe des authentifizierten Azure-Kontos abzufragen. Wenn eine große Anzahl von Speicher Befehlen ausgeführt wird, kann das API-Kontingent erreichen.'
+    description: ''
+  - name: --auth-mode
+    parameterValueGroup: key, login
+    summary: 'Der Modus, in dem der Befehl ausgeführt werden soll. der Modus "Anmeldung" verwendet direkt Ihre Anmelde Informationen für die Authentifizierung. Der Legacy Modus "Schlüssel" versucht, einen Kontoschlüssel abzufragen, wenn keine Authentifizierungs Parameter für das Konto bereitgestellt werden. Umgebungsvariable: AZURE_STORAGE_AUTH_MODE.'
+    description: ''
+  - name: --connection-string
+    summary: 'Verbindungs Zeichenfolge des Speicher Kontos. Umgebungsvariable: AZURE_STORAGE_CONNECTION_STRING.'
+    description: ''
+  - name: --if-match
+    summary: Ein ETag-Wert oder das Platzhalter Zeichen ( \* ). Geben Sie diesen Header an, um den Vorgang nur auszuführen, wenn das ETag der Ressource mit dem angegebenen Wert übereinstimmt.
+    description: ''
+  - name: --if-modified-since
+    summary: Nur ändern, wenn seit dem angegebenen UTC-DateTime-Wert (Y-m-d't ' h:m ' Z ') geändert wurde.
+    description: ''
+  - name: --if-none-match
+    summary: Ein ETag-Wert oder das Platzhalter Zeichen ( \* ). Geben Sie diesen Header an, um den Vorgang nur dann durchzusetzen, wenn das ETag der Ressource nicht mit dem angegebenen Wert identisch ist. Geben Sie das Platzhalter Zeichen ( \* ) an, um den Vorgang nur auszuführen, wenn die Ressource nicht vorhanden ist, und führen Sie einen Fehler aus, wenn die Ressource vorhanden ist.
+    description: ''
+  - name: --if-unmodified-since
+    summary: Nur ändern, wenn seit dem bereitgestellten UTC-DateTime-Wert (Y-m-d't ' h:m ' Z ') unverändert geändert wurde.
+    description: ''
+  - name: --lease-id
+    summary: Erforderlich, wenn das BLOB über eine aktive Lease verfügt.
+    description: ''
+  - name: --sas-token
+    summary: 'Eine Shared Access Signature (SAS). Muss in Verbindung mit dem Speicherkonto Namen verwendet werden. Umgebungsvariable: AZURE_STORAGE_SAS_TOKEN.'
+    description: ''
+  - name: --timeout
+    summary: Anforderungs Timeout in Sekunden. Gilt für jeden Dienst aufzurufen.
+    description: ''
+- uid: ext_storage-preview_az_storage_blob_directory_upload
+  name: az storage blob directory upload
+  summary: Hochladen von BLOBs oder Unterverzeichnissen in ein speicherblob-Verzeichnis.
+  description: ''
+  syntax: >-
+    az storage blob directory upload --container
+                                     --destination-path
+                                     --source
+                                     [--account-key]
+                                     [--account-name]
+                                     [--auth-mode {key, login}]
+                                     [--connection-string]
+                                     [--recursive]
+                                     [--sas-token]
+  examples:
+  - summary: Hochladen eines einzelnen BLOBs in ein speicherblob-Verzeichnis.
+    syntax: az storage blob directory upload -c MyContainer --account-name MyStorageAccount -s "path/to/file" -d directory
+  - summary: Laden Sie ein lokales Verzeichnis in ein speicherblob-Verzeichnis hoch.
+    syntax: az storage blob directory upload -c MyContainer --account-name MyStorageAccount -s "path/to/directory" -d directory --recursive
+  - summary: Laden Sie einen Satz von Dateien in einem lokalen Verzeichnis in ein speicherblob-Verzeichnis hoch.
+    syntax: az storage blob directory upload -c MyContainer --account-name MyStorageAccount -s "path/to/file*" -d directory --recursive
+  requiredParameters:
+  - isRequired: true
+    name: --container -c
+    summary: Der Zielcontainer für das Hochladen.
+    description: ''
+  - isRequired: true
+    name: --destination-path -d
+    summary: Der Pfad des Zielverzeichnisses für den Upload. Dabei sollte es sich um einen absoluten Pfad zum Container handeln. Wenn der angegebene Zielpfad nicht vorhanden ist, wird ein neuer Verzeichnispfad erstellt.
+    description: ''
+  - isRequired: true
+    name: --source -s
+    summary: Der Quelldatei Pfad, von dem hochgeladen werden soll.
+    description: ''
+  optionalParameters:
+  - name: --account-key
+    summary: 'Speicherkontoschlüssel Muss in Verbindung mit dem Speicherkonto Namen verwendet werden. Umgebungsvariable: AZURE_STORAGE_KEY.'
+    description: ''
+  - name: --account-name
+    summary: 'Name des Speicherkontos Verwandte Umgebungsvariable: AZURE_STORAGE_ACCOUNT. Muss in Verbindung mit dem Speicherkonto Schlüssel oder einem SAS-Token verwendet werden. Wenn keines der beiden vorhanden ist, versucht der Befehl, den Speicherkonto Schlüssel mithilfe des authentifizierten Azure-Kontos abzufragen. Wenn eine große Anzahl von Speicher Befehlen ausgeführt wird, kann das API-Kontingent erreichen.'
+    description: ''
+  - name: --auth-mode
+    parameterValueGroup: key, login
+    summary: 'Der Modus, in dem der Befehl ausgeführt werden soll. der Modus "Anmeldung" verwendet direkt Ihre Anmelde Informationen für die Authentifizierung. Der Legacy Modus "Schlüssel" versucht, einen Kontoschlüssel abzufragen, wenn keine Authentifizierungs Parameter für das Konto bereitgestellt werden. Umgebungsvariable: AZURE_STORAGE_AUTH_MODE.'
+    description: ''
+  - name: --connection-string
+    summary: 'Verbindungs Zeichenfolge des Speicher Kontos. Umgebungsvariable: AZURE_STORAGE_CONNECTION_STRING.'
+    description: ''
+  - name: --recursive -r
+    summary: Rekursiv Hochladen von BLOB. Wenn diese Option aktiviert ist, werden alle blobknoten, einschließlich der blobverzeichnisse in den Unterverzeichnissen, hochgeladen.
+    description: ''
+  - name: --sas-token
+    summary: 'Eine Shared Access Signature (SAS). Muss in Verbindung mit dem Speicherkonto Namen verwendet werden. Umgebungsvariable: AZURE_STORAGE_SAS_TOKEN.'
+    description: ''
+commands:
+- ext_storage-preview_az_storage_blob_directory_access
+- ext_storage-preview_az_storage_blob_directory_access_set
+- ext_storage-preview_az_storage_blob_directory_access_show
+- ext_storage-preview_az_storage_blob_directory_access_update
+- ext_storage-preview_az_storage_blob_directory_create
+- ext_storage-preview_az_storage_blob_directory_delete
+- ext_storage-preview_az_storage_blob_directory_download
+- ext_storage-preview_az_storage_blob_directory_exists
+- ext_storage-preview_az_storage_blob_directory_list
+- ext_storage-preview_az_storage_blob_directory_metadata
+- ext_storage-preview_az_storage_blob_directory_metadata_show
+- ext_storage-preview_az_storage_blob_directory_metadata_update
+- ext_storage-preview_az_storage_blob_directory_move
+- ext_storage-preview_az_storage_blob_directory_show
+- ext_storage-preview_az_storage_blob_directory_upload
+globalParameters:
+- name: --debug
+  summary: Ausführlichkeit der Protokollierung erhöhen, um alle Debugprotokolle anzuzeigen.
+- name: --help -h
+  summary: Zeigen Sie diese Hilfemeldung an, und schließen Sie sie.
+- name: --only-show-errors
+  summary: Nur Fehler anzeigen und Warnungen unterdrücken.
+- name: --output -o
+  defaultValue: json
+  parameterValueGroup: json, jsonc, table, tsv
+  summary: Ausgabeformat.
+- name: --query
+  summary: JMESPath-Abfragezeichenfolge. Weitere Informationen und Beispiele finden Sie unter <a href="http://jmespath.org/">http://jmespath.org/</a>.
+- name: --verbose
+  summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
+metadata:
+  description: Um die Verzeichnis Befehle zu verwenden, stellen Sie sicher, dass Ihr Speicher Kontotyp "StorageV2" lautet.
+  ms.openlocfilehash: ddeecf410477263e6049539b7c31fe7045a65339
+  ms.sourcegitcommit: e1faf297ba2cdf2ba7e821fbeedff9c9a724c975
+  ms.translationtype: MT
+  ms.contentlocale: de-DE
+  ms.lasthandoff: 12/16/2020
+  ms.locfileid: "102830157"
