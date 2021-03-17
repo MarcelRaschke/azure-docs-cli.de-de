@@ -1,29 +1,26 @@
 ### YamlMime:AzureCLIGroup
-uid: az_storage_container_metadata
-name: az storage container metadata
-summary: Verwalten von Container Metadaten.
+uid: az_storage_metrics
+name: az storage metrics
+summary: Verwalten von Speicher dienstmetriken.
 description: ''
 directCommands:
-- uid: az_storage_container_metadata_show
-  name: az storage container metadata show
-  summary: Gibt alle benutzerdefinierten Metadaten für den angegebenen Container zurück.
+- uid: az_storage_metrics_show
+  name: az storage metrics show
+  summary: Anzeigen von Metrikeinstellungen für ein Speicherkonto.
   description: ''
   syntax: >-
-    az storage container metadata show --name
-                                       [--account-key]
-                                       [--account-name]
-                                       [--auth-mode {key, login}]
-                                       [--connection-string]
-                                       [--lease-id]
-                                       [--query-examples]
-                                       [--sas-token]
-                                       [--subscription]
-                                       [--timeout]
-  requiredParameters:
-  - isRequired: true
-    name: --name -n
-    summary: Der Containername
-    description: ''
+    az storage metrics show [--account-key]
+                            [--account-name]
+                            [--connection-string]
+                            [--interval {both, hour, minute}]
+                            [--query-examples]
+                            [--sas-token]
+                            [--services]
+                            [--subscription]
+                            [--timeout]
+  examples:
+  - summary: Anzeigen von Metrikeinstellungen für ein Speicherkonto. automatisch generierten
+    syntax: az storage metrics show --account-key 00000000 --account-name MyAccount
   optionalParameters:
   - name: --account-key
     summary: 'Speicherkontoschlüssel Muss in Verbindung mit dem Speicherkonto Namen verwendet werden. Umgebungsvariable: AZURE_STORAGE_KEY.'
@@ -31,21 +28,23 @@ directCommands:
   - name: --account-name
     summary: 'Name des Speicherkontos Verwandte Umgebungsvariable: AZURE_STORAGE_ACCOUNT. Muss in Verbindung mit dem Speicherkonto Schlüssel oder einem SAS-Token verwendet werden. Wenn keines der beiden vorhanden ist, versucht der Befehl, den Speicherkonto Schlüssel mithilfe des authentifizierten Azure-Kontos abzufragen. Wenn eine große Anzahl von Speicher Befehlen ausgeführt wird, kann das API-Kontingent erreichen.'
     description: ''
-  - name: --auth-mode
-    parameterValueGroup: key, login
-    summary: 'Der Modus, in dem der Befehl ausgeführt werden soll. der Modus "Anmeldung" verwendet direkt Ihre Anmelde Informationen für die Authentifizierung. Der Legacy Modus "Schlüssel" versucht, einen Kontoschlüssel abzufragen, wenn keine Authentifizierungs Parameter für das Konto bereitgestellt werden. Umgebungsvariable: AZURE_STORAGE_AUTH_MODE.'
-    description: ''
   - name: --connection-string
     summary: 'Verbindungs Zeichenfolge des Speicher Kontos. Umgebungsvariable: AZURE_STORAGE_CONNECTION_STRING.'
     description: ''
-  - name: --lease-id
-    summary: Wenn angegeben, wird get_container_metadata nur erfolgreich ausgeführt, wenn die Lease des Containers aktiv ist und mit dieser ID übereinstimmt.
+  - name: --interval
+    defaultValue: both
+    parameterValueGroup: both, hour, minute
+    summary: Filtern Sie den Satz von Metriken, die nach Zeitintervall abgerufen werden sollen.
     description: ''
   - name: --query-examples
     summary: Empfehlen Sie die jmespath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und Sie nach dem Abfrage Parameter in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positions Schlüsselwörter hinzufügen, um Vorschläge auf der Grundlage dieser Schlüsselwörter zu geben.
     description: ''
   - name: --sas-token
     summary: 'Eine Shared Access Signature (SAS). Muss in Verbindung mit dem Speicherkonto Namen verwendet werden. Umgebungsvariable: AZURE_STORAGE_SAS_TOKEN.'
+    description: ''
+  - name: --services
+    defaultValue: bfqt
+    summary: 'Die Speicherdienste, von denen metrikinformationen abgerufen werden können: (b) Lob (q) ueue (t). Kann kombiniert werden.'
     description: ''
   - name: --subscription
     summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
@@ -54,26 +53,35 @@ directCommands:
     summary: Anforderungs Timeout in Sekunden. Gilt für jeden Dienst aufzurufen.
     description: ''
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/storage/_help.py
-- uid: az_storage_container_metadata_update
-  name: az storage container metadata update
-  summary: Legt ein oder mehrere benutzerdefinierte Name-Wert-Paare für den angegebenen Container fest.
-  description: Bei jedem Aufruf dieses Vorgangs werden alle vorhandenen Metadaten ersetzt, die an den Container angefügt sind. Um alle Metadaten aus dem Container zu entfernen, nennen Sie diesen Vorgang ohne metadatendict.
+- uid: az_storage_metrics_update
+  name: az storage metrics update
+  summary: Aktualisieren Sie die Metrikeinstellungen für ein Speicherkonto.
+  description: ''
   syntax: >-
-    az storage container metadata update --name
-                                         [--account-key]
-                                         [--account-name]
-                                         [--auth-mode {key, login}]
-                                         [--connection-string]
-                                         [--if-modified-since]
-                                         [--lease-id]
-                                         [--metadata]
-                                         [--sas-token]
-                                         [--subscription]
-                                         [--timeout]
+    az storage metrics update --retention
+                              --services
+                              [--account-key]
+                              [--account-name]
+                              [--api {false, true}]
+                              [--connection-string]
+                              [--hour {false, true}]
+                              [--minute {false, true}]
+                              [--sas-token]
+                              [--subscription]
+                              [--timeout]
+  examples:
+  - summary: Aktualisieren Sie die Metrikeinstellungen für ein Speicherkonto. automatisch generierten
+    syntax: az storage metrics update --account-name MyAccount --api true --hour true --minute true --retention 10 --services bfqt
+  - summary: Aktualisieren Sie die Metrikeinstellungen für ein Speicherkonto nach Verbindungs Zeichenfolge. automatisch generierten
+    syntax: az storage metrics update --api true --connection-string $connectionString --hour true --minute true --retention 10 --services bfqt
   requiredParameters:
   - isRequired: true
-    name: --name -n
-    summary: Der Containername
+    name: --retention
+    summary: Anzahl der Tage, für die Metriken beibehalten werden sollen. 0 zum Deaktivieren. Gilt sowohl für Stunden-als auch für minütliche Metriken, wenn beide angegeben werden.
+    description: ''
+  - isRequired: true
+    name: --services
+    summary: 'Die Speicherdienste, von denen metrikinformationen abgerufen werden können: (b) Lob (q) ueue (t). Kann kombiniert werden.'
     description: ''
   optionalParameters:
   - name: --account-key
@@ -82,21 +90,20 @@ directCommands:
   - name: --account-name
     summary: 'Name des Speicherkontos Verwandte Umgebungsvariable: AZURE_STORAGE_ACCOUNT. Muss in Verbindung mit dem Speicherkonto Schlüssel oder einem SAS-Token verwendet werden. Wenn keines der beiden vorhanden ist, versucht der Befehl, den Speicherkonto Schlüssel mithilfe des authentifizierten Azure-Kontos abzufragen. Wenn eine große Anzahl von Speicher Befehlen ausgeführt wird, kann das API-Kontingent erreichen.'
     description: ''
-  - name: --auth-mode
-    parameterValueGroup: key, login
-    summary: 'Der Modus, in dem der Befehl ausgeführt werden soll. der Modus "Anmeldung" verwendet direkt Ihre Anmelde Informationen für die Authentifizierung. Der Legacy Modus "Schlüssel" versucht, einen Kontoschlüssel abzufragen, wenn keine Authentifizierungs Parameter für das Konto bereitgestellt werden. Umgebungsvariable: AZURE_STORAGE_AUTH_MODE.'
+  - name: --api
+    parameterValueGroup: false, true
+    summary: Geben Sie an, ob API in Metriken eingeschlossen werden soll Gilt sowohl für Stunden-als auch für minütliche Metriken, wenn beide angegeben werden. Muss angegeben werden, wenn die Metriken für die Stunde oder Minute aktiviert sind und aktualisiert werden.
     description: ''
   - name: --connection-string
     summary: 'Verbindungs Zeichenfolge des Speicher Kontos. Umgebungsvariable: AZURE_STORAGE_CONNECTION_STRING.'
     description: ''
-  - name: --if-modified-since
-    summary: Nur starten, wenn seit dem angegebenen UTC-DateTime-Wert (Y-m-d't ' h:m ' Z ') geändert wurde.
+  - name: --hour
+    parameterValueGroup: false, true
+    summary: Aktualisieren der stündlichen Metriken.
     description: ''
-  - name: --lease-id
-    summary: Wenn angegeben, wird set_container_metadata nur erfolgreich ausgeführt, wenn die Lease des Containers aktiv ist und mit dieser ID übereinstimmt.
-    description: ''
-  - name: --metadata
-    summary: Metadaten in durch Leerzeichen getrennten Schlüssel = Wert-Paaren. Dadurch werden alle vorhandenen Metadaten überschrieben.
+  - name: --minute
+    parameterValueGroup: false, true
+    summary: Aktualisieren Sie die Metriken nach Minuten.
     description: ''
   - name: --sas-token
     summary: 'Eine Shared Access Signature (SAS). Muss in Verbindung mit dem Speicherkonto Namen verwendet werden. Umgebungsvariable: AZURE_STORAGE_SAS_TOKEN.'
@@ -109,8 +116,8 @@ directCommands:
     description: ''
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/storage/_help.py
 commands:
-- az_storage_container_metadata_show
-- az_storage_container_metadata_update
+- az_storage_metrics_show
+- az_storage_metrics_update
 globalParameters:
 - name: --debug
   summary: Ausführlichkeit der Protokollierung erhöhen, um alle Debugprotokolle anzuzeigen.
@@ -129,10 +136,10 @@ globalParameters:
 metadata:
   doc_source_url_repo: https://github.com/Azure/azure-cli/blob/dev/
   ms.date: 02/26/2021
-  description: Verwalten von Container Metadaten.
-  ms.openlocfilehash: ed50ace4a6de86b05ef09653997dd027c6d8dffb
+  description: Verwalten von Speicher dienstmetriken.
+  ms.openlocfilehash: 39126ccad8d5021717a78d44ea95c6b776df95b8
   ms.sourcegitcommit: f9e23f29c59c6957d3df4d5ca2f4425093e6fd80
   ms.translationtype: MT
   ms.contentlocale: de-DE
   ms.lasthandoff: 03/16/2021
-  ms.locfileid: "103510809"
+  ms.locfileid: "103533640"
