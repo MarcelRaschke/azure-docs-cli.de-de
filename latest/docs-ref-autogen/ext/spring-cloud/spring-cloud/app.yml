@@ -16,12 +16,12 @@ directCommands:
     az spring-cloud app create --name
                                --resource-group
                                --service
+                               [--assign-endpoint {false, true}]
                                [--assign-identity {false, true}]
                                [--cpu]
                                [--enable-persistent-storage {false, true}]
                                [--env]
                                [--instance-count]
-                               [--is-public {false, true}]
                                [--jvm-options]
                                [--memory]
                                [--runtime-version {Java_11, Java_8, NetCore_31}]
@@ -29,7 +29,7 @@ directCommands:
   - summary: Erstellt eine App mit der Standardkonfiguration.
     syntax: az spring-cloud app create -n MyApp -s MyCluster -g MyResourceGroup
   - summary: Erstellen Sie eine öffentlich zugängliche App mit drei Instanzen und 2 CPU-Kernen und 3 GB Arbeitsspeicher pro Instanz.
-    syntax: az spring-cloud app create -n MyApp -s MyCluster -g MyResourceGroup --is-public true --cpu 2 --memory 3 --instance-count 3
+    syntax: az spring-cloud app create -n MyApp -s MyCluster -g MyResourceGroup --assign-endpoint true --cpu 2 --memory 3 --instance-count 3
   requiredParameters:
   - isRequired: true
     name: --name -n
@@ -44,6 +44,10 @@ directCommands:
     summary: Der Name der Azure Spring Cloud, Sie können den Standard Dienst mithilfe von AZ configure--defaults Spring-Cloud = konfigurieren <name> .
     description: ''
   optionalParameters:
+  - name: --assign-endpoint
+    parameterValueGroup: false, true
+    summary: Wenn true, wird die Endpunkt-URL für den direkten Zugriff zugewiesen.
+    description: ''
   - name: --assign-identity
     parameterValueGroup: false, true
     summary: Wenn true, wird eine verwaltete Dienst Identität zugewiesen.
@@ -62,10 +66,6 @@ directCommands:
   - name: --instance-count
     defaultValue: "1"
     summary: Anzahl der Instanzen
-    description: ''
-  - name: --is-public
-    parameterValueGroup: false, true
-    summary: Wenn der Wert true ist, wird die öffentliche Domäne zugewiesen.
     description: ''
   - name: --jvm-options
     summary: Eine Zeichenfolge, die JVM-Optionen enthält, verwenden Sie "=" anstelle von "" für dieses Argument, um bash-Analysefehler zu vermeiden, z. b. "--JVM-Options = '-Xms1024m-Xmx2048m".
@@ -192,6 +192,7 @@ directCommands:
     az spring-cloud app logs --name
                              --resource-group
                              --service
+                             [--deployment]
                              [--follow]
                              [--instance]
                              [--limit]
@@ -211,6 +212,9 @@ directCommands:
     summary: Der Name der Azure Spring Cloud, Sie können den Standard Dienst mithilfe von AZ configure--defaults Spring-Cloud = konfigurieren <name> .
     description: ''
   optionalParameters:
+  - name: --deployment -d
+    summary: Name einer vorhandenen Bereitstellung der App Standardmäßig auf die Produktions Bereitstellung, wenn Sie nicht angegeben ist.
+    description: ''
   - name: --follow  -f
     summary: Geben Sie an, ob die Protokolle gestreamt werden sollen.
     description: ''
@@ -483,11 +487,12 @@ directCommands:
     az spring-cloud app update --name
                                --resource-group
                                --service
+                               [--assign-endpoint {false, true}]
                                [--deployment]
+                               [--enable-end-to-end-tls {false, true}]
                                [--enable-persistent-storage {false, true}]
                                [--env]
                                [--https-only {false, true}]
-                               [--is-public {false, true}]
                                [--jvm-options]
                                [--main-entry]
                                [--runtime-version {Java_11, Java_8, NetCore_31}]
@@ -508,8 +513,16 @@ directCommands:
     summary: Der Name der Azure Spring Cloud, Sie können den Standard Dienst mithilfe von AZ configure--defaults Spring-Cloud = konfigurieren <name> .
     description: ''
   optionalParameters:
+  - name: --assign-endpoint
+    parameterValueGroup: false, true
+    summary: Wenn true, wird die Endpunkt-URL für den direkten Zugriff zugewiesen.
+    description: ''
   - name: --deployment -d
     summary: Name einer vorhandenen Bereitstellung der App Standardmäßig auf die Produktions Bereitstellung, wenn Sie nicht angegeben ist.
+    description: ''
+  - name: --enable-end-to-end-tls
+    parameterValueGroup: false, true
+    summary: Wenn true, aktivieren Sie End-to-End-TLS.
     description: ''
   - name: --enable-persistent-storage
     parameterValueGroup: false, true
@@ -521,10 +534,6 @@ directCommands:
   - name: --https-only
     parameterValueGroup: false, true
     summary: Wenn true, greifen Sie über HTTPS auf die APP zu.
-    description: ''
-  - name: --is-public
-    parameterValueGroup: false, true
-    summary: Wenn true, weisen Sie einen Endpunkt zu.
     description: ''
   - name: --jvm-options
     summary: Eine Zeichenfolge, die JVM-Optionen enthält, verwenden Sie "=" anstelle von "" für dieses Argument, um bash-Analysefehler zu vermeiden, z. b. "--JVM-Options = '-Xms1024m-Xmx2048m".
@@ -598,9 +607,9 @@ globalParameters:
   summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
 metadata:
   description: Befehle zum Verwalten von apps in der Azure Spring Cloud.
-  ms.openlocfilehash: 34c0197a6019e32fcd708c2752c305a28b91b25d
-  ms.sourcegitcommit: ed6ef14710d45916ff170a6127c340351e762098
+  ms.openlocfilehash: 60f4e627a778892bb02fa8afb7ebfa46edd5ca09
+  ms.sourcegitcommit: f9e23f29c59c6957d3df4d5ca2f4425093e6fd80
   ms.translationtype: MT
   ms.contentlocale: de-DE
-  ms.lasthandoff: 01/14/2021
-  ms.locfileid: "102900978"
+  ms.lasthandoff: 03/16/2021
+  ms.locfileid: "103501459"
