@@ -1,27 +1,27 @@
 ### YamlMime:AzureCLIGroup
-uid: az_storage_share_metadata
-name: az storage share metadata
-summary: Verwalten der Metadaten einer Dateifreigabe.
+uid: az_storage_queue_metadata
+name: az storage queue metadata
+summary: Verwalten der Metadaten für eine Speicher Warteschlange.
 description: ''
 directCommands:
-- uid: az_storage_share_metadata_show
-  name: az storage share metadata show
-  summary: Gibt alle benutzerdefinierten Metadaten für die angegebene Freigabe zurück.
-  description: ''
+- uid: az_storage_queue_metadata_show
+  name: az storage queue metadata show
+  summary: Ruft benutzerdefinierte Metadaten und Warteschlangen Eigenschaften für die angegebene Warteschlange ab.
+  description: Metadaten werden der Warteschlange als Name-Wert-Paare zugeordnet.
   syntax: >-
-    az storage share metadata show --name
+    az storage queue metadata show --name
                                    [--account-key]
                                    [--account-name]
+                                   [--auth-mode {key, login}]
                                    [--connection-string]
                                    [--query-examples]
                                    [--sas-token]
-                                   [--snapshot]
                                    [--subscription]
                                    [--timeout]
   requiredParameters:
   - isRequired: true
     name: --name -n
-    summary: Der Name der Dateifreigabe.
+    summary: Der Warteschlangenname.
     description: ''
   optionalParameters:
   - name: --account-key
@@ -29,6 +29,10 @@ directCommands:
     description: ''
   - name: --account-name
     summary: 'Name des Speicherkontos Verwandte Umgebungsvariable: AZURE_STORAGE_ACCOUNT. Muss in Verbindung mit dem Speicherkonto Schlüssel oder einem SAS-Token verwendet werden. Wenn keines der beiden vorhanden ist, versucht der Befehl, den Speicherkonto Schlüssel mithilfe des authentifizierten Azure-Kontos abzufragen. Wenn eine große Anzahl von Speicher Befehlen ausgeführt wird, kann das API-Kontingent erreichen.'
+    description: ''
+  - name: --auth-mode
+    parameterValueGroup: key, login
+    summary: 'Der Modus, in dem der Befehl ausgeführt werden soll. der Modus "Anmeldung" verwendet direkt Ihre Anmelde Informationen für die Authentifizierung. Der Legacy Modus "Schlüssel" versucht, einen Kontoschlüssel abzufragen, wenn keine Authentifizierungs Parameter für das Konto bereitgestellt werden. Umgebungsvariable: AZURE_STORAGE_AUTH_MODE.'
     description: ''
   - name: --connection-string
     summary: 'Verbindungs Zeichenfolge des Speicher Kontos. Umgebungsvariable: AZURE_STORAGE_CONNECTION_STRING.'
@@ -39,9 +43,6 @@ directCommands:
   - name: --sas-token
     summary: 'Eine Shared Access Signature (SAS). Muss in Verbindung mit dem Speicherkonto Namen verwendet werden. Umgebungsvariable: AZURE_STORAGE_SAS_TOKEN.'
     description: ''
-  - name: --snapshot
-    summary: Eine Zeichenfolge, die die Momentaufnahme Version darstellt (falls zutreffend).
-    description: ''
   - name: --subscription
     summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
     description: ''
@@ -49,14 +50,15 @@ directCommands:
     summary: Anforderungs Timeout in Sekunden. Gilt für jeden Dienst aufzurufen.
     description: ''
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/storage/_help.py
-- uid: az_storage_share_metadata_update
-  name: az storage share metadata update
-  summary: Legt ein oder mehrere benutzerdefinierte Name-Wert-Paare für die angegebene Freigabe fest.
-  description: Bei jedem Aufruf dieses Vorgangs werden alle vorhandenen Metadaten ersetzt, die an die Freigabe angefügt sind. Um alle Metadaten aus der Freigabe zu entfernen, nennen Sie diesen Vorgang ohne metadatendict.
+- uid: az_storage_queue_metadata_update
+  name: az storage queue metadata update
+  summary: Legt benutzerdefinierte Metadaten für die angegebene Warteschlange fest.
+  description: Metadaten werden der Warteschlange als Name-Wert-Paare zugeordnet.
   syntax: >-
-    az storage share metadata update --name
+    az storage queue metadata update --name
                                      [--account-key]
                                      [--account-name]
+                                     [--auth-mode {key, login}]
                                      [--connection-string]
                                      [--metadata]
                                      [--sas-token]
@@ -65,7 +67,7 @@ directCommands:
   requiredParameters:
   - isRequired: true
     name: --name -n
-    summary: Der Name der Dateifreigabe.
+    summary: Der Warteschlangenname.
     description: ''
   optionalParameters:
   - name: --account-key
@@ -73,6 +75,10 @@ directCommands:
     description: ''
   - name: --account-name
     summary: 'Name des Speicherkontos Verwandte Umgebungsvariable: AZURE_STORAGE_ACCOUNT. Muss in Verbindung mit dem Speicherkonto Schlüssel oder einem SAS-Token verwendet werden. Wenn keines der beiden vorhanden ist, versucht der Befehl, den Speicherkonto Schlüssel mithilfe des authentifizierten Azure-Kontos abzufragen. Wenn eine große Anzahl von Speicher Befehlen ausgeführt wird, kann das API-Kontingent erreichen.'
+    description: ''
+  - name: --auth-mode
+    parameterValueGroup: key, login
+    summary: 'Der Modus, in dem der Befehl ausgeführt werden soll. der Modus "Anmeldung" verwendet direkt Ihre Anmelde Informationen für die Authentifizierung. Der Legacy Modus "Schlüssel" versucht, einen Kontoschlüssel abzufragen, wenn keine Authentifizierungs Parameter für das Konto bereitgestellt werden. Umgebungsvariable: AZURE_STORAGE_AUTH_MODE.'
     description: ''
   - name: --connection-string
     summary: 'Verbindungs Zeichenfolge des Speicher Kontos. Umgebungsvariable: AZURE_STORAGE_CONNECTION_STRING.'
@@ -91,8 +97,8 @@ directCommands:
     description: ''
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/storage/_help.py
 commands:
-- az_storage_share_metadata_show
-- az_storage_share_metadata_update
+- az_storage_queue_metadata_show
+- az_storage_queue_metadata_update
 globalParameters:
 - name: --debug
   summary: Ausführlichkeit der Protokollierung erhöhen, um alle Debugprotokolle anzuzeigen.
@@ -111,10 +117,10 @@ globalParameters:
 metadata:
   doc_source_url_repo: https://github.com/Azure/azure-cli/blob/dev/
   ms.date: 02/26/2021
-  description: Verwalten der Metadaten einer Dateifreigabe.
-  ms.openlocfilehash: d54cbb90eb74e4a2f848bfd2c6d5b25c9b87e522
+  description: Verwalten der Metadaten für eine Speicher Warteschlange.
+  ms.openlocfilehash: af437f113ec62955b8d852095999e1056715f479
   ms.sourcegitcommit: f9e23f29c59c6957d3df4d5ca2f4425093e6fd80
   ms.translationtype: MT
   ms.contentlocale: de-DE
   ms.lasthandoff: 03/16/2021
-  ms.locfileid: "103499283"
+  ms.locfileid: "103527571"
