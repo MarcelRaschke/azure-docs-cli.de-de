@@ -1,0 +1,195 @@
+### YamlMime:AzureCLIGroup
+uid: ext_storage-preview_az_storage_blob
+name: az storage blob
+extensionInformation: >-
+  > [!Note]
+
+  > Diese Referenz ist Teil der **Storage-Preview-** Erweiterung für Azure CLI und erfordert Version 2.13.0 oder höher.  Die Erweiterung wird automatisch installiert, wenn Sie den Befehl **AZ Storage BLOB** zum ersten Mal ausführen.  [Weitere Informationen zu Erweiterungen](https://docs.microsoft.com/en-us/cli/azure/azure-cli-extensions-overview)
+summary: Verwalten von Objektspeicher für unstrukturierte Daten (BLOB).
+description: Geben Sie einen der folgenden Authentifizierungs Parameter für die Befehle an:--auth-Mode,--Account-Key,--Connection-String,--SAS-Token. Sie können auch entsprechende Umgebungsvariablen verwenden, um Ihre Anmelde Informationen für die Authentifizierung zu speichern, z. b. AZURE_STORAGE_KEY, AZURE_STORAGE_CONNECTION_STRING und AZURE_STORAGE_SAS_TOKEN.
+directCommands:
+- uid: ext_storage-preview_az_storage_blob_list
+  name: az storage blob list
+  summary: Listet blobin einem bestimmten Container auf.
+  description: ''
+  syntax: >-
+    az storage blob list --container-name
+                         [--account-key]
+                         [--account-name]
+                         [--auth-mode {key, login}]
+                         [--connection-string]
+                         [--delimiter]
+                         [--include]
+                         [--marker]
+                         [--num-results]
+                         [--prefix]
+                         [--sas-token]
+                         [--timeout]
+  examples:
+  - summary: Listet alle speicherblob in einem Container auf, deren Namen mit "foo" beginnen. entspricht Namen wie "foo", "Foobar" und "Foo/Bar".
+    syntax: az storage blob list -c mycontainer --prefix foo
+  requiredParameters:
+  - isRequired: true
+    name: --container-name -c
+    summary: Der Containername
+    description: ''
+  optionalParameters:
+  - name: --account-key
+    summary: 'Speicherkontoschlüssel Muss in Verbindung mit dem Speicherkonto Namen verwendet werden. Umgebungsvariable: AZURE_STORAGE_KEY.'
+    description: ''
+  - name: --account-name
+    summary: 'Name des Speicherkontos Verwandte Umgebungsvariable: AZURE_STORAGE_ACCOUNT. Muss in Verbindung mit dem Speicherkonto Schlüssel oder einem SAS-Token verwendet werden. Wenn keines der beiden vorhanden ist, versucht der Befehl, den Speicherkonto Schlüssel mithilfe des authentifizierten Azure-Kontos abzufragen. Wenn eine große Anzahl von Speicher Befehlen ausgeführt wird, kann das API-Kontingent erreichen.'
+    description: ''
+  - name: --auth-mode
+    parameterValueGroup: key, login
+    summary: 'Der Modus, in dem der Befehl ausgeführt werden soll. der Modus "Anmeldung" verwendet direkt Ihre Anmelde Informationen für die Authentifizierung. Der Legacy Modus "Schlüssel" versucht, einen Kontoschlüssel abzufragen, wenn keine Authentifizierungs Parameter für das Konto bereitgestellt werden. Umgebungsvariable: AZURE_STORAGE_AUTH_MODE.'
+    description: ''
+  - name: --connection-string
+    summary: 'Verbindungs Zeichenfolge des Speicher Kontos. Umgebungsvariable: AZURE_STORAGE_CONNECTION_STRING.'
+    description: ''
+  - name: --delimiter
+    summary: Wenn die Anforderung diesen Parameter enthält, gibt der Vorgang ein blobprefix-Element in der Ergebnisliste zurück, das als Platzhalter für alle BLOB fungiert, deren Namen mit derselben Teil Zeichenfolge bis zur Darstellung des Trenn Zeichens beginnen. Das Trennzeichen kann ein einzelnes Zeichen oder eine Zeichenfolge sein.
+    description: ''
+  - name: --include
+    defaultValue: mc
+    summary: Gibt ein oder mehrere zusätzliche Datasets an, die in die Antwort eingeschlossen werden sollen.
+    description: ''
+  - name: --marker
+    summary: Ein undurchsichtiges Fortsetzungs Token. Dieser Wert kann aus dem next_marker-Feld eines vorherigen Generator Objekts abgerufen werden, wenn num_results angegeben wurde und der Generator die Enumeration der Ergebnisse abgeschlossen hat. Wenn angegeben, beginnt dieser Generator mit der Rückgabe von Ergebnissen ab dem Zeitpunkt, an dem der vorherige Generator angehalten wurde.
+    description: ''
+  - name: --num-results
+    defaultValue: "5000"
+    summary: Gibt die maximale Anzahl der zurück zugebende Ergebnisse an. Geben \* Sie "" an, um alle zurückzugeben.
+    description: ''
+  - name: --prefix
+    summary: Filtert die Ergebnisse, um nur BLOBs zurückgegeben, deren Namen mit dem angegebenen Präfix beginnen.
+    description: ''
+  - name: --sas-token
+    summary: 'Eine Shared Access Signature (SAS). Muss in Verbindung mit dem Speicherkonto Namen verwendet werden. Umgebungsvariable: AZURE_STORAGE_SAS_TOKEN.'
+    description: ''
+  - name: --timeout
+    summary: Anforderungs Timeout in Sekunden. Gilt für jeden Dienst aufzurufen.
+    description: ''
+- uid: ext_storage-preview_az_storage_blob_move
+  name: az storage blob move
+  summary: Verschieben Sie ein BLOB in einen Speicher Container.
+  description: ''
+  syntax: >-
+    az storage blob move --container-name
+                         --destination-blob
+                         --source-blob
+                         [--account-key]
+                         [--account-name]
+                         [--auth-mode {key, login}]
+                         [--connection-string]
+                         [--lease-id]
+                         [--sas-token]
+                         [--source-if-match]
+                         [--source-if-modified-since]
+                         [--source-if-none-match]
+                         [--source-if-unmodified-since]
+                         [--source-lease-id]
+                         [--timeout]
+  examples:
+  - summary: Verschieben Sie ein BLOB in einen Speicher Container.
+    syntax: az storage blob move -c MyContainer -d DestinationBlobPath -s SourceBlobPath --account-name MyStorageAccount
+  requiredParameters:
+  - isRequired: true
+    name: --container-name -c
+    summary: Der Containername
+    description: ''
+  - isRequired: true
+    name: --destination-blob -d
+    summary: Der Name des zielblobs. Es muss sich um einen absoluten Pfad unter dem Container handeln. z. b. "topdir1/dirbar".
+    description: ''
+  - isRequired: true
+    name: --source-blob -s
+    summary: Der Name des quellblobs. Es muss sich um einen absoluten Pfad unter dem Container handeln. z. b. "topdir1/dirsubfoo".
+    description: ''
+  optionalParameters:
+  - name: --account-key
+    summary: 'Speicherkontoschlüssel Muss in Verbindung mit dem Speicherkonto Namen verwendet werden. Umgebungsvariable: AZURE_STORAGE_KEY.'
+    description: ''
+  - name: --account-name
+    summary: 'Name des Speicherkontos Verwandte Umgebungsvariable: AZURE_STORAGE_ACCOUNT. Muss in Verbindung mit dem Speicherkonto Schlüssel oder einem SAS-Token verwendet werden. Wenn keines der beiden vorhanden ist, versucht der Befehl, den Speicherkonto Schlüssel mithilfe des authentifizierten Azure-Kontos abzufragen. Wenn eine große Anzahl von Speicher Befehlen ausgeführt wird, kann das API-Kontingent erreichen.'
+    description: ''
+  - name: --auth-mode
+    parameterValueGroup: key, login
+    summary: 'Der Modus, in dem der Befehl ausgeführt werden soll. der Modus "Anmeldung" verwendet direkt Ihre Anmelde Informationen für die Authentifizierung. Der Legacy Modus "Schlüssel" versucht, einen Kontoschlüssel abzufragen, wenn keine Authentifizierungs Parameter für das Konto bereitgestellt werden. Umgebungsvariable: AZURE_STORAGE_AUTH_MODE.'
+    description: ''
+  - name: --connection-string
+    summary: 'Verbindungs Zeichenfolge des Speicher Kontos. Umgebungsvariable: AZURE_STORAGE_CONNECTION_STRING.'
+    description: ''
+  - name: --lease-id
+    summary: Optional. Eine Lease-ID für die new_path. Der new_path muss über eine aktive Lease verfügen, und die Lease-ID muss eine Entsprechung aufweisen.
+    description: ''
+  - name: --sas-token
+    summary: 'Eine Shared Access Signature (SAS). Muss in Verbindung mit dem Speicherkonto Namen verwendet werden. Umgebungsvariable: AZURE_STORAGE_SAS_TOKEN.'
+    description: ''
+  - name: --source-if-match
+    summary: Optional. Ein ETag-Wert. Geben Sie diesen Header an, um den Umbenennungs Vorgang nur auszuführen, wenn das ETag der Quelle mit dem angegebenen Wert übereinstimmt.
+    description: ''
+  - name: --source-if-modified-since
+    summary: Optional. Ein Datums- und Uhrzeitwert. Geben Sie diesen Header an, um den Umbenennungs Vorgang nur dann auszuführen, wenn die Quelle seit dem angegebenen Datum und der angegebenen Uhrzeit geändert wurde.
+    description: ''
+  - name: --source-if-none-match
+    summary: Optional. Ein ETag-Wert oder der spezielle Platzhalter \* Wert (""). Geben Sie diesen Header an, um den Umbenennungs Vorgang nur dann auszuführen, wenn das ETag der Quelle nicht mit dem angegebenen Wert identisch ist.
+    description: ''
+  - name: --source-if-unmodified-since
+    summary: Optional. Ein Datums- und Uhrzeitwert. Geben Sie diesen Header an, um den Umbenennungs Vorgang nur dann auszuführen, wenn die Quelle seit dem angegebenen Datum und der angegebenen Uhrzeit nicht geändert wurde.
+    description: ''
+  - name: --source-lease-id
+    summary: Optional. Eine Lease-ID für die source_path. Der source_path muss über eine aktive Lease verfügen, und die Lease-ID muss eine Entsprechung aufweisen.
+    description: ''
+  - name: --timeout
+    summary: Anforderungs Timeout in Sekunden. Gilt für jeden Dienst aufzurufen.
+    description: ''
+commands:
+- ext_storage-preview_az_storage_blob_access
+- ext_storage-preview_az_storage_blob_access_set
+- ext_storage-preview_az_storage_blob_access_show
+- ext_storage-preview_az_storage_blob_access_update
+- ext_storage-preview_az_storage_blob_directory
+- ext_storage-preview_az_storage_blob_directory_access
+- ext_storage-preview_az_storage_blob_directory_access_set
+- ext_storage-preview_az_storage_blob_directory_access_show
+- ext_storage-preview_az_storage_blob_directory_access_update
+- ext_storage-preview_az_storage_blob_directory_create
+- ext_storage-preview_az_storage_blob_directory_delete
+- ext_storage-preview_az_storage_blob_directory_download
+- ext_storage-preview_az_storage_blob_directory_exists
+- ext_storage-preview_az_storage_blob_directory_list
+- ext_storage-preview_az_storage_blob_directory_metadata
+- ext_storage-preview_az_storage_blob_directory_metadata_show
+- ext_storage-preview_az_storage_blob_directory_metadata_update
+- ext_storage-preview_az_storage_blob_directory_move
+- ext_storage-preview_az_storage_blob_directory_show
+- ext_storage-preview_az_storage_blob_directory_upload
+- ext_storage-preview_az_storage_blob_list
+- ext_storage-preview_az_storage_blob_move
+- ext_storage-preview_az_storage_blob_service_properties
+- ext_storage-preview_az_storage_blob_service_properties_show
+- ext_storage-preview_az_storage_blob_service_properties_update
+globalParameters:
+- name: --debug
+  summary: Ausführlichkeit der Protokollierung erhöhen, um alle Debugprotokolle anzuzeigen.
+- name: --help -h
+  summary: Zeigen Sie diese Hilfemeldung an, und schließen Sie sie.
+- name: --only-show-errors
+  summary: Nur Fehler anzeigen und Warnungen unterdrücken.
+- name: --output -o
+  defaultValue: json
+  parameterValueGroup: json, jsonc, table, tsv
+  summary: Ausgabeformat.
+- name: --query
+  summary: JMESPath-Abfragezeichenfolge. Weitere Informationen und Beispiele finden Sie unter <a href="http://jmespath.org/">http://jmespath.org/</a>.
+- name: --verbose
+  summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
+metadata:
+  description: Geben Sie einen der folgenden Authentifizierungs Parameter für die Befehle an:--auth-Mode,--Account-Key,--Connection-String,--SAS-Token. Sie können auch entsprechende Umgebungsvariablen verwenden, um Ihre Anmelde Informationen für die Authentifizierung zu speichern, z. b. AZURE_STORAGE_KEY, AZURE_STORAGE_CONNECTION_STRING und AZURE_STORAGE_SAS_TOKEN.
+  ms.openlocfilehash: 7c07d063e085e9b57a83ea06f95d55ce3776929d
+  ms.sourcegitcommit: 206495efe9707e52f6a3dc121133f26651f23f59
+  ms.translationtype: MT
+  ms.contentlocale: de-DE
+  ms.lasthandoff: 12/30/2020
+  ms.locfileid: "102897141"
