@@ -1,30 +1,31 @@
 ### YamlMime:AzureCLIGroup
-uid: az_storage_fs_metadata
-name: az storage fs metadata
-summary: Verwalten Sie die Metadaten für das Dateisystem.
+uid: az_storage_file_metadata
+name: az storage file metadata
+summary: Verwalten von Datei Metadaten.
 description: ''
 directCommands:
-- uid: az_storage_fs_metadata_show
-  name: az storage fs metadata show
-  summary: Gibt alle benutzerdefinierten Metadaten für das angegebene Dateisystem zurück.
+- uid: az_storage_file_metadata_show
+  name: az storage file metadata show
+  summary: Gibt alle benutzerdefinierten Metadaten für die angegebene Datei zurück.
   description: ''
   syntax: >-
-    az storage fs metadata show --name
-                                [--account-key]
-                                [--account-name]
-                                [--auth-mode {key, login}]
-                                [--connection-string]
-                                [--query-examples]
-                                [--sas-token]
-                                [--subscription]
-                                [--timeout]
-  examples:
-  - summary: Gibt alle benutzerdefinierten Metadaten für das angegebene Dateisystem zurück.
-    syntax: az storage fs metadata show -n myfilesystem --account-name myadlsaccount --account-key 0000-0000
+    az storage file metadata show --path
+                                  --share-name
+                                  [--account-key]
+                                  [--account-name]
+                                  [--connection-string]
+                                  [--query-examples]
+                                  [--sas-token]
+                                  [--subscription]
+                                  [--timeout]
   requiredParameters:
   - isRequired: true
-    name: --name -n
-    summary: Der Name des Dateisystems.
+    name: --path -p
+    summary: Der Pfad zu der Datei in der Dateifreigabe.
+    description: ''
+  - isRequired: true
+    name: --share-name -s
+    summary: Der Name der Dateifreigabe.
     description: ''
   optionalParameters:
   - name: --account-key
@@ -32,10 +33,6 @@ directCommands:
     description: ''
   - name: --account-name
     summary: 'Name des Speicherkontos Verwandte Umgebungsvariable: AZURE_STORAGE_ACCOUNT. Muss in Verbindung mit dem Speicherkonto Schlüssel oder einem SAS-Token verwendet werden. Wenn keines der beiden vorhanden ist, versucht der Befehl, den Speicherkonto Schlüssel mithilfe des authentifizierten Azure-Kontos abzufragen. Wenn eine große Anzahl von Speicher Befehlen ausgeführt wird, kann das API-Kontingent erreichen.'
-    description: ''
-  - name: --auth-mode
-    parameterValueGroup: key, login
-    summary: 'Der Modus, in dem der Befehl ausgeführt werden soll. der Modus "Anmeldung" verwendet direkt Ihre Anmelde Informationen für die Authentifizierung. Der Legacy Modus "Schlüssel" versucht, einen Kontoschlüssel abzufragen, wenn keine Authentifizierungs Parameter für das Konto bereitgestellt werden. Umgebungsvariable: AZURE_STORAGE_AUTH_MODE.'
     description: ''
   - name: --connection-string
     summary: 'Verbindungs Zeichenfolge des Speicher Kontos. Umgebungsvariable: AZURE_STORAGE_CONNECTION_STRING.'
@@ -53,28 +50,28 @@ directCommands:
     summary: Anforderungs Timeout in Sekunden. Gilt für jeden Dienst aufzurufen.
     description: ''
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/storage/_help.py
-- uid: az_storage_fs_metadata_update
-  name: az storage fs metadata update
-  summary: Legt ein oder mehrere benutzerdefinierte Name-Wert-Paare für das angegebene Dateisystem fest.
-  description: Bei jedem Aufrufvorgang dieses Vorgangs werden alle vorhandenen Metadaten ersetzt, die an das Dateisystem angefügt sind. Um alle Metadaten aus dem Dateisystem zu entfernen, nennen Sie diesen Vorgang ohne metadatendict.
+- uid: az_storage_file_metadata_update
+  name: az storage file metadata update
+  summary: Legt benutzerdefinierte Metadaten für die angegebene Datei als ein oder mehrere Name-Wert-Paare fest.
+  description: ''
   syntax: >-
-    az storage fs metadata update --metadata
-                                  --name
-                                  [--account-key]
-                                  [--account-name]
-                                  [--auth-mode {key, login}]
-                                  [--connection-string]
-                                  [--sas-token]
-                                  [--subscription]
-                                  [--timeout]
+    az storage file metadata update --path
+                                    --share-name
+                                    [--account-key]
+                                    [--account-name]
+                                    [--connection-string]
+                                    [--metadata]
+                                    [--sas-token]
+                                    [--subscription]
+                                    [--timeout]
   requiredParameters:
   - isRequired: true
-    name: --metadata
-    summary: Metadaten in durch Leerzeichen getrennten Schlüssel = Wert-Paaren. Dadurch werden alle vorhandenen Metadaten überschrieben.
+    name: --path -p
+    summary: Der Pfad zu der Datei in der Dateifreigabe.
     description: ''
   - isRequired: true
-    name: --name -n
-    summary: Der Name des Dateisystems.
+    name: --share-name -s
+    summary: Der Name der Dateifreigabe.
     description: ''
   optionalParameters:
   - name: --account-key
@@ -83,12 +80,11 @@ directCommands:
   - name: --account-name
     summary: 'Name des Speicherkontos Verwandte Umgebungsvariable: AZURE_STORAGE_ACCOUNT. Muss in Verbindung mit dem Speicherkonto Schlüssel oder einem SAS-Token verwendet werden. Wenn keines der beiden vorhanden ist, versucht der Befehl, den Speicherkonto Schlüssel mithilfe des authentifizierten Azure-Kontos abzufragen. Wenn eine große Anzahl von Speicher Befehlen ausgeführt wird, kann das API-Kontingent erreichen.'
     description: ''
-  - name: --auth-mode
-    parameterValueGroup: key, login
-    summary: 'Der Modus, in dem der Befehl ausgeführt werden soll. der Modus "Anmeldung" verwendet direkt Ihre Anmelde Informationen für die Authentifizierung. Der Legacy Modus "Schlüssel" versucht, einen Kontoschlüssel abzufragen, wenn keine Authentifizierungs Parameter für das Konto bereitgestellt werden. Umgebungsvariable: AZURE_STORAGE_AUTH_MODE.'
-    description: ''
   - name: --connection-string
     summary: 'Verbindungs Zeichenfolge des Speicher Kontos. Umgebungsvariable: AZURE_STORAGE_CONNECTION_STRING.'
+    description: ''
+  - name: --metadata
+    summary: Metadaten in durch Leerzeichen getrennten Schlüssel = Wert-Paaren. Dadurch werden alle vorhandenen Metadaten überschrieben.
     description: ''
   - name: --sas-token
     summary: 'Eine Shared Access Signature (SAS). Muss in Verbindung mit dem Speicherkonto Namen verwendet werden. Umgebungsvariable: AZURE_STORAGE_SAS_TOKEN.'
@@ -101,8 +97,8 @@ directCommands:
     description: ''
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/storage/_help.py
 commands:
-- az_storage_fs_metadata_show
-- az_storage_fs_metadata_update
+- az_storage_file_metadata_show
+- az_storage_file_metadata_update
 globalParameters:
 - name: --debug
   summary: Ausführlichkeit der Protokollierung erhöhen, um alle Debugprotokolle anzuzeigen.
@@ -120,11 +116,11 @@ globalParameters:
   summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
 metadata:
   doc_source_url_repo: https://github.com/Azure/azure-cli/blob/dev/
-  ms.date: 02/26/2021
-  description: Verwalten Sie die Metadaten für das Dateisystem.
-  ms.openlocfilehash: ff21473278dd1024498846f4ef031434cbe9a9aa
-  ms.sourcegitcommit: f9e23f29c59c6957d3df4d5ca2f4425093e6fd80
+  ms.date: 02/02/2021
+  description: Verwalten von Datei Metadaten.
+  ms.openlocfilehash: 0cfcf2dcfe79048ea26104396d7ec2c189b6e14d
+  ms.sourcegitcommit: df9d6597535ef9103775afbaee5a8282e0e218ee
   ms.translationtype: MT
   ms.contentlocale: de-DE
-  ms.lasthandoff: 03/16/2021
-  ms.locfileid: "103515535"
+  ms.lasthandoff: 02/09/2021
+  ms.locfileid: "102966439"

@@ -1,0 +1,891 @@
+### YamlMime:AzureCLIGroup
+uid: az_storage_file
+name: az storage file
+summary: Verwalten von Dateifreigaben, die das SMB 3,0-Protokoll verwenden.
+description: ''
+directCommands:
+- uid: az_storage_file_delete
+  name: az storage file delete
+  summary: Markiert die angegebene Datei zum Löschen.
+  description: Die Datei wird später während Garbage Collection gelöscht.
+  syntax: >-
+    az storage file delete --path
+                           --share-name
+                           [--account-key]
+                           [--account-name]
+                           [--connection-string]
+                           [--sas-token]
+                           [--subscription]
+                           [--timeout]
+  requiredParameters:
+  - isRequired: true
+    name: --path -p
+    summary: Der Pfad zu der Datei in der Dateifreigabe.
+    description: ''
+  - isRequired: true
+    name: --share-name -s
+    summary: Der Name der Dateifreigabe.
+    description: ''
+  optionalParameters:
+  - name: --account-key
+    summary: 'Speicherkontoschlüssel Muss in Verbindung mit dem Speicherkonto Namen verwendet werden. Umgebungsvariable: AZURE_STORAGE_KEY.'
+    description: ''
+  - name: --account-name
+    summary: 'Name des Speicherkontos Verwandte Umgebungsvariable: AZURE_STORAGE_ACCOUNT. Muss in Verbindung mit dem Speicherkonto Schlüssel oder einem SAS-Token verwendet werden. Wenn keines der beiden vorhanden ist, versucht der Befehl, den Speicherkonto Schlüssel mithilfe des authentifizierten Azure-Kontos abzufragen. Wenn eine große Anzahl von Speicher Befehlen ausgeführt wird, kann das API-Kontingent erreichen.'
+    description: ''
+  - name: --connection-string
+    summary: 'Verbindungs Zeichenfolge des Speicher Kontos. Umgebungsvariable: AZURE_STORAGE_CONNECTION_STRING.'
+    description: ''
+  - name: --sas-token
+    summary: 'Eine Shared Access Signature (SAS). Muss in Verbindung mit dem Speicherkonto Namen verwendet werden. Umgebungsvariable: AZURE_STORAGE_SAS_TOKEN.'
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  - name: --timeout
+    summary: Anforderungs Timeout in Sekunden. Gilt für jeden Dienst aufzurufen.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/storage/_help.py
+- uid: az_storage_file_delete_batch
+  name: az storage file delete-batch
+  summary: Löschen von Dateien aus einer Azure Storage-Dateifreigabe
+  description: ''
+  syntax: >-
+    az storage file delete-batch --source
+                                 [--account-key]
+                                 [--account-name]
+                                 [--connection-string]
+                                 [--dryrun]
+                                 [--pattern]
+                                 [--sas-token]
+                                 [--subscription]
+                                 [--timeout]
+  examples:
+  - summary: Löschen von Dateien aus einer Azure Storage-Dateifreigabe automatisch generierten
+    syntax: az storage file delete-batch --account-key 00000000 --account-name MyAccount --source /path/to/file
+  - summary: Löschen von Dateien aus einer Azure Storage-Dateifreigabe automatisch generierten
+    syntax: az storage file delete-batch --account-key 00000000 --account-name MyAccount --pattern *.py --source /path/to/file
+  requiredParameters:
+  - isRequired: true
+    name: --source -s
+    summary: Die Quelle des Datei Löschvorgangs. Bei der Quelle kann es sich um die Dateifreigabe-URL oder den Freigabe Namen handeln.
+    description: ''
+  optionalParameters:
+  - name: --account-key
+    summary: 'Speicherkontoschlüssel Muss in Verbindung mit dem Speicherkonto Namen verwendet werden. Umgebungsvariable: AZURE_STORAGE_KEY.'
+    description: ''
+  - name: --account-name
+    summary: 'Name des Speicherkontos Verwandte Umgebungsvariable: AZURE_STORAGE_ACCOUNT. Muss in Verbindung mit dem Speicherkonto Schlüssel oder einem SAS-Token verwendet werden. Wenn keines der beiden vorhanden ist, versucht der Befehl, den Speicherkonto Schlüssel mithilfe des authentifizierten Azure-Kontos abzufragen. Wenn eine große Anzahl von Speicher Befehlen ausgeführt wird, kann das API-Kontingent erreichen.'
+    description: ''
+  - name: --connection-string
+    summary: 'Verbindungs Zeichenfolge des Speicher Kontos. Umgebungsvariable: AZURE_STORAGE_CONNECTION_STRING.'
+    description: ''
+  - name: --dryrun
+    summary: Auflisten der zu löschenden Dateien und blobdateien. Es findet keine tatsächliche Daten Löschung statt.
+    description: ''
+  - name: --pattern
+    summary: Das für die Datei-globabbild verwendete Muster. Die unterstützten Muster sind " \* ", "?", "[ABF]" und "[! ABQ]". Weitere Informationen finden Sie unter <a href="https://docs.python.org/3.7/library/fnmatch.html">https://docs.python.org/3.7/library/fnmatch.html</a> .
+    description: Wenn Sie ' * ' in--Pattern verwenden, entspricht es jedem beliebigen Zeichen, einschließlich des Verzeichnis Trennzeichens '/'.
+  - name: --sas-token
+    summary: 'Eine Shared Access Signature (SAS). Muss in Verbindung mit dem Speicherkonto Namen verwendet werden. Umgebungsvariable: AZURE_STORAGE_SAS_TOKEN.'
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  - name: --timeout
+    summary: Anforderungs Timeout in Sekunden. Gilt für jeden Dienst aufzurufen.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/storage/_help.py
+- uid: az_storage_file_download
+  name: az storage file download
+  summary: Lädt eine Datei in einen Dateipfad mit automatischen segmentieren und Fortschritts Benachrichtigungen herunter.
+  description: Gibt eine Instanz der Datei mit Eigenschaften und Metadaten zurück.
+  syntax: >-
+    az storage file download --path
+                             --share-name
+                             [--account-key]
+                             [--account-name]
+                             [--connection-string]
+                             [--dest]
+                             [--end-range]
+                             [--max-connections]
+                             [--max-retries]
+                             [--no-progress]
+                             [--open-mode]
+                             [--range-get-content-md5]
+                             [--retry-interval]
+                             [--sas-token]
+                             [--start-range]
+                             [--subscription]
+                             [--timeout]
+  requiredParameters:
+  - isRequired: true
+    name: --path -p
+    summary: Der Pfad zu der Datei in der Dateifreigabe.
+    description: ''
+  - isRequired: true
+    name: --share-name -s
+    summary: Der Name der Dateifreigabe.
+    description: ''
+  optionalParameters:
+  - name: --account-key
+    summary: 'Speicherkontoschlüssel Muss in Verbindung mit dem Speicherkonto Namen verwendet werden. Umgebungsvariable: AZURE_STORAGE_KEY.'
+    description: ''
+  - name: --account-name
+    summary: 'Name des Speicherkontos Verwandte Umgebungsvariable: AZURE_STORAGE_ACCOUNT. Muss in Verbindung mit dem Speicherkonto Schlüssel oder einem SAS-Token verwendet werden. Wenn keines der beiden vorhanden ist, versucht der Befehl, den Speicherkonto Schlüssel mithilfe des authentifizierten Azure-Kontos abzufragen. Wenn eine große Anzahl von Speicher Befehlen ausgeführt wird, kann das API-Kontingent erreichen.'
+    description: ''
+  - name: --connection-string
+    summary: 'Verbindungs Zeichenfolge des Speicher Kontos. Umgebungsvariable: AZURE_STORAGE_CONNECTION_STRING.'
+    description: ''
+  - name: --dest
+    summary: Der Pfad der Datei, in die geschrieben werden soll. Der Quell Dateiname wird verwendet, wenn er nicht angegeben wird.
+    description: ''
+  - name: --end-range
+    summary: 'Ende des Byte Bereichs, der zum Herunterladen eines Abschnitts der Datei verwendet werden soll. Wenn end_range angegeben wird, müssen start_range bereitgestellt werden. Die start_range und end_range Parameter sind inklusiv. Beispiel: start_range = 0, end_range = 511 werden die ersten 512 Bytes der Datei heruntergeladen.'
+    description: ''
+  - name: --max-connections
+    defaultValue: "1"
+    summary: Legen Sie auf 1 fest, um die Datei sequenziell herunterzuladen. Legen Sie auf 2 oder höher fest, wenn Sie eine Datei, die größer als 64 MB ist, in Blöcken herunterladen möchten. Wenn die Dateigröße nicht länger als 64 MB ist, wird Sie in einem Block heruntergeladen.
+    description: ''
+  - name: --max-retries
+    defaultValue: "5"
+    summary: Gibt an, wie oft der Download des Datei Segments erneut versucht wird, wenn ein Fehler auftritt.
+    description: ''
+  - name: --no-progress
+    summary: Fügen Sie dieses Flag ein, um die Status Berichterstattung für den Befehl zu deaktivieren.
+    description: ''
+  - name: --open-mode
+    defaultValue: wb
+    summary: Der Modus, der beim Öffnen der Datei verwendet werden soll.
+    description: ''
+  - name: --range-get-content-md5
+    summary: Wenn dieser Header auf true festgelegt und mit dem Bereichs Header angegeben wird, gibt der Dienst den MD5-Hash für den Bereich zurück, sofern der Bereich kleiner oder gleich 4 MB ist.
+    description: ''
+  - name: --retry-interval
+    defaultValue: "1.0"
+    summary: Standbyzeit in Sekunden zwischen Wiederholungs versuchen.
+    description: ''
+  - name: --sas-token
+    summary: 'Eine Shared Access Signature (SAS). Muss in Verbindung mit dem Speicherkonto Namen verwendet werden. Umgebungsvariable: AZURE_STORAGE_SAS_TOKEN.'
+    description: ''
+  - name: --start-range
+    summary: 'Anfang des Byte Bereichs, der zum Herunterladen eines Abschnitts der Datei verwendet werden soll. Wenn keine end_range angegeben wird, werden alle Bytes nach dem start_range heruntergeladen. Die start_range und end_range Parameter sind inklusiv. Beispiel: start_range = 0, end_range = 511 werden die ersten 512 Bytes der Datei heruntergeladen.'
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  - name: --timeout
+    summary: Anforderungs Timeout in Sekunden. Gilt für jeden Dienst aufzurufen.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/storage/_help.py
+- uid: az_storage_file_download_batch
+  name: az storage file download-batch
+  summary: Herunterladen von Dateien aus einer Azure Storage-Dateifreigabe in ein lokales Verzeichnis in einem Batch Vorgang.
+  description: ''
+  syntax: >-
+    az storage file download-batch --destination
+                                   --source
+                                   [--account-key]
+                                   [--account-name]
+                                   [--connection-string]
+                                   [--dryrun]
+                                   [--max-connections]
+                                   [--no-progress]
+                                   [--pattern]
+                                   [--sas-token]
+                                   [--snapshot]
+                                   [--subscription]
+  examples:
+  - summary: Herunterladen von Dateien aus einer Azure Storage-Dateifreigabe in ein lokales Verzeichnis in einem Batch Vorgang. automatisch generierten
+    syntax: az storage file download-batch --account-key 00000000 --account-name MyAccount --destination . --no-progress --source /path/to/file
+  requiredParameters:
+  - isRequired: true
+    name: --destination -d
+    summary: Das lokale Verzeichnis, in das die Dateien heruntergeladen werden. Dieses Verzeichnis muss bereits vorhanden sein.
+    description: ''
+  - isRequired: true
+    name: --source -s
+    summary: Die Quelle des Datei Downloadvorgangs. Bei der Quelle kann es sich um die Dateifreigabe-URL oder den Freigabe Namen handeln.
+    description: ''
+  optionalParameters:
+  - name: --account-key
+    summary: 'Speicherkontoschlüssel Muss in Verbindung mit dem Speicherkonto Namen verwendet werden. Umgebungsvariable: AZURE_STORAGE_KEY.'
+    description: ''
+  - name: --account-name
+    summary: 'Name des Speicherkontos Verwandte Umgebungsvariable: AZURE_STORAGE_ACCOUNT. Muss in Verbindung mit dem Speicherkonto Schlüssel oder einem SAS-Token verwendet werden. Wenn keines der beiden vorhanden ist, versucht der Befehl, den Speicherkonto Schlüssel mithilfe des authentifizierten Azure-Kontos abzufragen. Wenn eine große Anzahl von Speicher Befehlen ausgeführt wird, kann das API-Kontingent erreichen.'
+    description: ''
+  - name: --connection-string
+    summary: 'Verbindungs Zeichenfolge des Speicher Kontos. Umgebungsvariable: AZURE_STORAGE_CONNECTION_STRING.'
+    description: ''
+  - name: --dryrun
+    summary: Auflisten der herunter zuladenden Dateien und blobdateien. Es findet keine tatsächliche Datenübertragung statt.
+    description: ''
+  - name: --max-connections
+    defaultValue: "1"
+    summary: Die maximale Anzahl von parallelen Verbindungen, die verwendet werden sollen. Der Standardwert ist 1.
+    description: ''
+  - name: --no-progress
+    summary: Fügen Sie dieses Flag ein, um die Status Berichterstattung für den Befehl zu deaktivieren.
+    description: ''
+  - name: --pattern
+    summary: Das für die Datei-globabbild verwendete Muster. Die unterstützten Muster sind " \* ", "?", "[ABF]" und "[! ABQ]". Weitere Informationen finden Sie unter <a href="https://docs.python.org/3.7/library/fnmatch.html">https://docs.python.org/3.7/library/fnmatch.html</a> .
+    description: Wenn Sie ' * ' in--Pattern verwenden, entspricht es jedem beliebigen Zeichen, einschließlich des Verzeichnis Trennzeichens '/'.
+  - name: --sas-token
+    summary: 'Eine Shared Access Signature (SAS). Muss in Verbindung mit dem Speicherkonto Namen verwendet werden. Umgebungsvariable: AZURE_STORAGE_SAS_TOKEN.'
+    description: ''
+  - name: --snapshot
+    summary: Eine Zeichenfolge, die die Momentaufnahme Version darstellt (falls zutreffend).
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/storage/_help.py
+- uid: az_storage_file_exists
+  name: az storage file exists
+  summary: Überprüfen Sie das Vorhandensein einer Datei.
+  description: ''
+  syntax: >-
+    az storage file exists --path
+                           --share-name
+                           [--account-key]
+                           [--account-name]
+                           [--connection-string]
+                           [--sas-token]
+                           [--subscription]
+                           [--timeout]
+  examples:
+  - summary: Überprüfen Sie das Vorhandensein einer Datei. automatisch generierten
+    syntax: az storage file exists --account-key 00000000 --account-name MyAccount --path path/file.txt --share-name MyShare
+  - summary: Überprüfen Sie das Vorhandensein einer Datei. automatisch generierten
+    syntax: az storage file exists --connection-string $connectionString --path path/file.txt --share-name MyShare
+  requiredParameters:
+  - isRequired: true
+    name: --path -p
+    summary: Der Pfad zu der Datei in der Dateifreigabe.
+    description: ''
+  - isRequired: true
+    name: --share-name -s
+    summary: Der Name der Dateifreigabe.
+    description: ''
+  optionalParameters:
+  - name: --account-key
+    summary: 'Speicherkontoschlüssel Muss in Verbindung mit dem Speicherkonto Namen verwendet werden. Umgebungsvariable: AZURE_STORAGE_KEY.'
+    description: ''
+  - name: --account-name
+    summary: 'Name des Speicherkontos Verwandte Umgebungsvariable: AZURE_STORAGE_ACCOUNT. Muss in Verbindung mit dem Speicherkonto Schlüssel oder einem SAS-Token verwendet werden. Wenn keines der beiden vorhanden ist, versucht der Befehl, den Speicherkonto Schlüssel mithilfe des authentifizierten Azure-Kontos abzufragen. Wenn eine große Anzahl von Speicher Befehlen ausgeführt wird, kann das API-Kontingent erreichen.'
+    description: ''
+  - name: --connection-string
+    summary: 'Verbindungs Zeichenfolge des Speicher Kontos. Umgebungsvariable: AZURE_STORAGE_CONNECTION_STRING.'
+    description: ''
+  - name: --sas-token
+    summary: 'Eine Shared Access Signature (SAS). Muss in Verbindung mit dem Speicherkonto Namen verwendet werden. Umgebungsvariable: AZURE_STORAGE_SAS_TOKEN.'
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  - name: --timeout
+    summary: Anforderungs Timeout in Sekunden. Gilt für jeden Dienst aufzurufen.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/storage/_help.py
+- uid: az_storage_file_generate_sas
+  name: az storage file generate-sas
+  summary: Generiert eine SAS für die Datei.
+  description: ''
+  syntax: >-
+    az storage file generate-sas --path
+                                 --share-name
+                                 [--account-key]
+                                 [--account-name]
+                                 [--cache-control]
+                                 [--connection-string]
+                                 [--content-disposition]
+                                 [--content-encoding]
+                                 [--content-language]
+                                 [--content-type]
+                                 [--expiry]
+                                 [--https-only]
+                                 [--ip]
+                                 [--permissions]
+                                 [--policy-name]
+                                 [--sas-token]
+                                 [--start]
+                                 [--subscription]
+  examples:
+  - summary: Generiert ein SAS-Token für eine Datei.
+    syntax: >-
+      end=`date -u -d "30 minutes" '+%Y-%m-%dT%H:%MZ'`
+
+      az storage file generate-sas -p path/file.txt -s MyShare --account-name MyStorageAccount --permissions rcdw --https-only --expiry $end
+  - summary: Generieren Sie eine SAS für die Datei. automatisch generierten
+    syntax: az storage file generate-sas --account-name MyStorageAccount --expiry 2037-12-31T23:59:00Z --path path/file.txt --permissions rcdw --share-name MyShare --start 2019-01-01T12:20Z
+  - summary: Generieren Sie eine SAS für die Datei. automatisch generierten
+    syntax: az storage file generate-sas --account-key 00000000 --account-name mystorageaccount --expiry 2037-12-31T23:59:00Z --https-only --path path/file.txt --permissions rcdw --share-name myshare
+  requiredParameters:
+  - isRequired: true
+    name: --path -p
+    summary: Der Pfad zu der Datei in der Dateifreigabe.
+    description: ''
+  - isRequired: true
+    name: --share-name -s
+    summary: Der Name der Dateifreigabe.
+    description: ''
+  optionalParameters:
+  - name: --account-key
+    summary: 'Speicherkontoschlüssel Muss in Verbindung mit dem Speicherkonto Namen verwendet werden. Umgebungsvariable: AZURE_STORAGE_KEY.'
+    description: ''
+  - name: --account-name
+    summary: 'Name des Speicherkontos Verwandte Umgebungsvariable: AZURE_STORAGE_ACCOUNT. Muss in Verbindung mit dem Speicherkonto Schlüssel oder einem SAS-Token verwendet werden. Wenn keines der beiden vorhanden ist, versucht der Befehl, den Speicherkonto Schlüssel mithilfe des authentifizierten Azure-Kontos abzufragen. Wenn eine große Anzahl von Speicher Befehlen ausgeführt wird, kann das API-Kontingent erreichen.'
+    description: ''
+  - name: --cache-control
+    summary: Der Antwortheader Wert für Cache-Control, wenn über diese Shared Access Signature auf die Ressource zugegriffen wird.
+    description: ''
+  - name: --connection-string
+    summary: 'Verbindungs Zeichenfolge des Speicher Kontos. Umgebungsvariable: AZURE_STORAGE_CONNECTION_STRING.'
+    description: ''
+  - name: --content-disposition
+    summary: Der Wert des Antwort Headers für die Inhalts Disposition, wenn über diese Shared Access Signature auf die Ressource zugegriffen wird.
+    description: ''
+  - name: --content-encoding
+    summary: Der Wert des Antwort Headers für die Inhalts Codierung, wenn über diese Shared Access Signature auf die Ressource zugegriffen wird.
+    description: ''
+  - name: --content-language
+    summary: Der Wert des Antwort Headers für Content-Language, wenn über diese Shared Access Signature auf die Ressource zugegriffen wird.
+    description: ''
+  - name: --content-type
+    summary: Der Wert des Antwort Headers für Content-Type, wenn über diese Shared Access Signature auf die Ressource zugegriffen wird.
+    description: ''
+  - name: --expiry
+    summary: Gibt den UTC-DateTime-Wert (Y-m-d't ' h:m ' Z ') an, bei dem die SAS ungültig wird. Verwenden Sie nicht, wenn auf eine gespeicherte Zugriffs Richtlinie mit--ID verwiesen wird, die diesen Wert angibt.
+    description: ''
+  - name: --https-only
+    summary: Nur Anforderungen zulassen, die mit dem HTTPS-Protokoll durchgeführt wurden. Wenn diese Angabe ausgelassen wird, sind Anforderungen aus dem HTTP-und HTTPS-Protokoll zulässig.
+    description: ''
+  - name: --ip
+    summary: Gibt die IP-Adresse oder den Bereich von IP-Adressen an, von denen Anforderungen akzeptiert werden. Unterstützt nur IPv4-Stil Adressen.
+    description: ''
+  - name: --permissions
+    summary: 'Die Berechtigungen, die von der SAS erteilt werden. Zulässige Werte: (c) (d) Elete (r) EAD (w)-Ritual. Verwenden Sie nicht, wenn auf eine gespeicherte Zugriffs Richtlinie mit--ID verwiesen wird, die diesen Wert angibt. Kann kombiniert werden.'
+    description: ''
+  - name: --policy-name
+    summary: Der Name einer gespeicherten Zugriffs Richtlinie innerhalb der ACL des Containers.
+    description: ''
+  - name: --sas-token
+    summary: 'Eine Shared Access Signature (SAS). Muss in Verbindung mit dem Speicherkonto Namen verwendet werden. Umgebungsvariable: AZURE_STORAGE_SAS_TOKEN.'
+    description: ''
+  - name: --start
+    summary: Gibt den UTC-DateTime-Wert (Y-m-d't ' h:m ' Z ') an, an dem die SAS gültig wird. Verwenden Sie nicht, wenn auf eine gespeicherte Zugriffs Richtlinie mit--ID verwiesen wird, die diesen Wert angibt. Der Standardwert ist die Zeit der Anforderung.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/storage/_help.py
+- uid: az_storage_file_list
+  name: az storage file list
+  summary: Auflisten von Dateien und Verzeichnissen in einer Freigabe.
+  description: ''
+  syntax: >-
+    az storage file list --share-name
+                         [--account-key]
+                         [--account-name]
+                         [--connection-string]
+                         [--exclude-dir]
+                         [--marker]
+                         [--num-results]
+                         [--path]
+                         [--query-examples]
+                         [--sas-token]
+                         [--snapshot]
+                         [--subscription]
+                         [--timeout]
+  examples:
+  - summary: Auflisten von Dateien und Verzeichnissen in einer Freigabe. automatisch generierten
+    syntax: az storage file list --share-name MyShare
+  requiredParameters:
+  - isRequired: true
+    name: --share-name -s
+    summary: Der Name der Dateifreigabe.
+    description: ''
+  optionalParameters:
+  - name: --account-key
+    summary: 'Speicherkontoschlüssel Muss in Verbindung mit dem Speicherkonto Namen verwendet werden. Umgebungsvariable: AZURE_STORAGE_KEY.'
+    description: ''
+  - name: --account-name
+    summary: 'Name des Speicherkontos Verwandte Umgebungsvariable: AZURE_STORAGE_ACCOUNT. Muss in Verbindung mit dem Speicherkonto Schlüssel oder einem SAS-Token verwendet werden. Wenn keines der beiden vorhanden ist, versucht der Befehl, den Speicherkonto Schlüssel mithilfe des authentifizierten Azure-Kontos abzufragen. Wenn eine große Anzahl von Speicher Befehlen ausgeführt wird, kann das API-Kontingent erreichen.'
+    description: ''
+  - name: --connection-string
+    summary: 'Verbindungs Zeichenfolge des Speicher Kontos. Umgebungsvariable: AZURE_STORAGE_CONNECTION_STRING.'
+    description: ''
+  - name: --exclude-dir
+    summary: Listet nur die Dateien in der angegebenen Freigabe auf.
+    description: ''
+  - name: --marker
+    summary: Ein undurchsichtiges Fortsetzungs Token. Dieser Wert kann aus dem next_marker-Feld eines vorherigen Generator Objekts abgerufen werden, wenn num_results angegeben wurde und der Generator die Enumeration der Ergebnisse abgeschlossen hat. Wenn angegeben, beginnt dieser Generator mit der Rückgabe von Ergebnissen ab dem Zeitpunkt, an dem der vorherige Generator angehalten wurde.
+    description: ''
+  - name: --num-results
+    defaultValue: "5000"
+    summary: Gibt die maximale Anzahl der zurück zugebende Ergebnisse an. Geben \* Sie "" an, um alle zurückzugeben.
+    description: ''
+  - name: --path -p
+    summary: Der Verzeichnispfad innerhalb der Dateifreigabe.
+    description: ''
+  - name: --query-examples
+    summary: Empfehlen Sie die jmespath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und Sie nach dem Abfrage Parameter in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positions Schlüsselwörter hinzufügen, um Vorschläge auf der Grundlage dieser Schlüsselwörter zu geben.
+    description: ''
+  - name: --sas-token
+    summary: 'Eine Shared Access Signature (SAS). Muss in Verbindung mit dem Speicherkonto Namen verwendet werden. Umgebungsvariable: AZURE_STORAGE_SAS_TOKEN.'
+    description: ''
+  - name: --snapshot
+    summary: ''
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  - name: --timeout
+    summary: Anforderungs Timeout in Sekunden. Gilt für jeden Dienst aufzurufen.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/storage/_help.py
+- uid: az_storage_file_resize
+  name: az storage file resize
+  summary: Ändert die Größe einer Datei in die angegebene Größe.
+  description: Wenn der angegebene Byte-Wert kleiner als die aktuelle Größe der Datei ist, werden alle Bereiche über dem angegebenen Byte-Wert gelöscht.
+  syntax: >-
+    az storage file resize --path
+                           --share-name
+                           --size
+                           [--account-key]
+                           [--account-name]
+                           [--connection-string]
+                           [--sas-token]
+                           [--subscription]
+                           [--timeout]
+  requiredParameters:
+  - isRequired: true
+    name: --path -p
+    summary: Der Pfad zu der Datei in der Dateifreigabe.
+    description: ''
+  - isRequired: true
+    name: --share-name -s
+    summary: Der Name der Dateifreigabe.
+    description: ''
+  - isRequired: true
+    name: --size
+    summary: Die Länge, in der die Dateigröße geändert werden soll.
+    description: ''
+  optionalParameters:
+  - name: --account-key
+    summary: 'Speicherkontoschlüssel Muss in Verbindung mit dem Speicherkonto Namen verwendet werden. Umgebungsvariable: AZURE_STORAGE_KEY.'
+    description: ''
+  - name: --account-name
+    summary: 'Name des Speicherkontos Verwandte Umgebungsvariable: AZURE_STORAGE_ACCOUNT. Muss in Verbindung mit dem Speicherkonto Schlüssel oder einem SAS-Token verwendet werden. Wenn keines der beiden vorhanden ist, versucht der Befehl, den Speicherkonto Schlüssel mithilfe des authentifizierten Azure-Kontos abzufragen. Wenn eine große Anzahl von Speicher Befehlen ausgeführt wird, kann das API-Kontingent erreichen.'
+    description: ''
+  - name: --connection-string
+    summary: 'Verbindungs Zeichenfolge des Speicher Kontos. Umgebungsvariable: AZURE_STORAGE_CONNECTION_STRING.'
+    description: ''
+  - name: --sas-token
+    summary: 'Eine Shared Access Signature (SAS). Muss in Verbindung mit dem Speicherkonto Namen verwendet werden. Umgebungsvariable: AZURE_STORAGE_SAS_TOKEN.'
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  - name: --timeout
+    summary: Anforderungs Timeout in Sekunden. Gilt für jeden Dienst aufzurufen.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/storage/_help.py
+- uid: az_storage_file_show
+  name: az storage file show
+  summary: Gibt alle benutzerdefinierten Metadaten, http-Standardeigenschaften und Systemeigenschaften für die Datei zurück.
+  description: Gibt eine Instanz der Datei mit Dateieigenschaften und einem dict zurück.
+  syntax: >-
+    az storage file show --path
+                         --share-name
+                         [--account-key]
+                         [--account-name]
+                         [--connection-string]
+                         [--query-examples]
+                         [--sas-token]
+                         [--subscription]
+                         [--timeout]
+  requiredParameters:
+  - isRequired: true
+    name: --path -p
+    summary: Der Pfad zu der Datei in der Dateifreigabe.
+    description: ''
+  - isRequired: true
+    name: --share-name -s
+    summary: Der Name der Dateifreigabe.
+    description: ''
+  optionalParameters:
+  - name: --account-key
+    summary: 'Speicherkontoschlüssel Muss in Verbindung mit dem Speicherkonto Namen verwendet werden. Umgebungsvariable: AZURE_STORAGE_KEY.'
+    description: ''
+  - name: --account-name
+    summary: 'Name des Speicherkontos Verwandte Umgebungsvariable: AZURE_STORAGE_ACCOUNT. Muss in Verbindung mit dem Speicherkonto Schlüssel oder einem SAS-Token verwendet werden. Wenn keines der beiden vorhanden ist, versucht der Befehl, den Speicherkonto Schlüssel mithilfe des authentifizierten Azure-Kontos abzufragen. Wenn eine große Anzahl von Speicher Befehlen ausgeführt wird, kann das API-Kontingent erreichen.'
+    description: ''
+  - name: --connection-string
+    summary: 'Verbindungs Zeichenfolge des Speicher Kontos. Umgebungsvariable: AZURE_STORAGE_CONNECTION_STRING.'
+    description: ''
+  - name: --query-examples
+    summary: Empfehlen Sie die jmespath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und Sie nach dem Abfrage Parameter in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positions Schlüsselwörter hinzufügen, um Vorschläge auf der Grundlage dieser Schlüsselwörter zu geben.
+    description: ''
+  - name: --sas-token
+    summary: 'Eine Shared Access Signature (SAS). Muss in Verbindung mit dem Speicherkonto Namen verwendet werden. Umgebungsvariable: AZURE_STORAGE_SAS_TOKEN.'
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  - name: --timeout
+    summary: Anforderungs Timeout in Sekunden. Gilt für jeden Dienst aufzurufen.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/storage/_help.py
+- uid: az_storage_file_update
+  name: az storage file update
+  summary: Legt Systemeigenschaften für die Datei fest.
+  description: Wenn eine Eigenschaft für den content_settings festgelegt ist, werden alle Eigenschaften überschrieben.
+  syntax: >-
+    az storage file update --path
+                           --share-name
+                           [--account-key]
+                           [--account-name]
+                           [--clear-content-settings {false, true}]
+                           [--connection-string]
+                           [--content-cache-control]
+                           [--content-disposition]
+                           [--content-encoding]
+                           [--content-language]
+                           [--content-md5]
+                           [--content-type]
+                           [--sas-token]
+                           [--subscription]
+                           [--timeout]
+  requiredParameters:
+  - isRequired: true
+    name: --path -p
+    summary: Der Pfad zu der Datei in der Dateifreigabe.
+    description: ''
+  - isRequired: true
+    name: --share-name -s
+    summary: Der Name der Dateifreigabe.
+    description: ''
+  optionalParameters:
+  - name: --account-key
+    summary: 'Speicherkontoschlüssel Muss in Verbindung mit dem Speicherkonto Namen verwendet werden. Umgebungsvariable: AZURE_STORAGE_KEY.'
+    description: ''
+  - name: --account-name
+    summary: 'Name des Speicherkontos Verwandte Umgebungsvariable: AZURE_STORAGE_ACCOUNT. Muss in Verbindung mit dem Speicherkonto Schlüssel oder einem SAS-Token verwendet werden. Wenn keines der beiden vorhanden ist, versucht der Befehl, den Speicherkonto Schlüssel mithilfe des authentifizierten Azure-Kontos abzufragen. Wenn eine große Anzahl von Speicher Befehlen ausgeführt wird, kann das API-Kontingent erreichen.'
+    description: ''
+  - name: --clear-content-settings
+    parameterValueGroup: false, true
+    summary: Wenn dieses Flag festgelegt ist und eine oder mehrere der folgenden Eigenschaften (--Content-Cache-Control,--Content-Disposition,--Content-Encoding,--Content-Language,--Content-MD5,--Content-Type) festgelegt ist, werden alle diese Eigenschaften miteinander festgelegt. Wenn für eine bestimmte Eigenschaft kein Wert angegeben wird, wenn mindestens eine der unten aufgeführten Eigenschaften festgelegt ist, wird diese Eigenschaft gelöscht.
+    description: ''
+  - name: --connection-string
+    summary: 'Verbindungs Zeichenfolge des Speicher Kontos. Umgebungsvariable: AZURE_STORAGE_CONNECTION_STRING.'
+    description: ''
+  - name: --content-cache-control
+    summary: Die Cache Steuerelement-Zeichenfolge.
+    description: ''
+  - name: --content-disposition
+    summary: Stellt zusätzliche Informationen zum Verarbeiten der Antwort Nutzlast dar und kann auch verwendet werden, um zusätzliche Metadaten anzufügen.
+    description: ''
+  - name: --content-encoding
+    summary: Der Inhalts Codierungstyp.
+    description: ''
+  - name: --content-language
+    summary: Die Inhalts Sprache.
+    description: ''
+  - name: --content-md5
+    summary: Der MD5-Hash des Inhalts.
+    description: ''
+  - name: --content-type
+    summary: Der MIME-Inhaltstyp.
+    description: ''
+  - name: --sas-token
+    summary: 'Eine Shared Access Signature (SAS). Muss in Verbindung mit dem Speicherkonto Namen verwendet werden. Umgebungsvariable: AZURE_STORAGE_SAS_TOKEN.'
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  - name: --timeout
+    summary: Anforderungs Timeout in Sekunden. Gilt für jeden Dienst aufzurufen.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/storage/_help.py
+- uid: az_storage_file_upload
+  name: az storage file upload
+  summary: Laden Sie eine Datei in eine Freigabe hoch, die das SMB 3,0-Protokoll verwendet.
+  description: Erstellt oder aktualisiert eine Azure-Datei aus einem Quellpfad mit automatischen segmentieren und Status Benachrichtigungen.
+  syntax: >-
+    az storage file upload --share-name
+                           --source
+                           [--account-key]
+                           [--account-name]
+                           [--connection-string]
+                           [--content-cache-control]
+                           [--content-disposition]
+                           [--content-encoding]
+                           [--content-language]
+                           [--content-md5]
+                           [--content-type]
+                           [--max-connections]
+                           [--max-retries]
+                           [--metadata]
+                           [--no-progress]
+                           [--path]
+                           [--retry-interval]
+                           [--sas-token]
+                           [--subscription]
+                           [--timeout]
+  examples:
+  - summary: Hochladen in eine lokale Datei in eine Freigabe.
+    syntax: az storage file upload -s MyShare --source /path/to/file
+  - summary: Laden Sie eine Datei in eine Freigabe hoch, die das SMB 3,0-Protokoll verwendet. automatisch generierten
+    syntax: az storage file upload --account-key 00000000 --account-name MyStorageAccount --path path/file.txt --share-name MyShare --source /path/to/file
+  requiredParameters:
+  - isRequired: true
+    name: --share-name -s
+    summary: Der Name der Dateifreigabe.
+    description: ''
+  - isRequired: true
+    name: --source
+    summary: Pfad der lokalen Datei, die als Dateiinhalt hochgeladen werden soll.
+    description: ''
+  optionalParameters:
+  - name: --account-key
+    summary: 'Speicherkontoschlüssel Muss in Verbindung mit dem Speicherkonto Namen verwendet werden. Umgebungsvariable: AZURE_STORAGE_KEY.'
+    description: ''
+  - name: --account-name
+    summary: 'Name des Speicherkontos Verwandte Umgebungsvariable: AZURE_STORAGE_ACCOUNT. Muss in Verbindung mit dem Speicherkonto Schlüssel oder einem SAS-Token verwendet werden. Wenn keines der beiden vorhanden ist, versucht der Befehl, den Speicherkonto Schlüssel mithilfe des authentifizierten Azure-Kontos abzufragen. Wenn eine große Anzahl von Speicher Befehlen ausgeführt wird, kann das API-Kontingent erreichen.'
+    description: ''
+  - name: --connection-string
+    summary: 'Verbindungs Zeichenfolge des Speicher Kontos. Umgebungsvariable: AZURE_STORAGE_CONNECTION_STRING.'
+    description: ''
+  - name: --content-cache-control
+    summary: Die Cache Steuerelement-Zeichenfolge.
+    description: ''
+  - name: --content-disposition
+    summary: Stellt zusätzliche Informationen zum Verarbeiten der Antwort Nutzlast dar und kann auch verwendet werden, um zusätzliche Metadaten anzufügen.
+    description: ''
+  - name: --content-encoding
+    summary: Der Inhalts Codierungstyp.
+    description: ''
+  - name: --content-language
+    summary: Die Inhalts Sprache.
+    description: ''
+  - name: --content-md5
+    summary: Der MD5-Hash des Inhalts.
+    description: ''
+  - name: --content-type
+    summary: Der MIME-Inhaltstyp.
+    description: ''
+  - name: --max-connections
+    defaultValue: "1"
+    summary: Maximale Anzahl paralleler Verbindungen, die verwendet werden, wenn die Dateigröße 64 MB überschreitet. Legen Sie auf 1 fest, um die Datei Blöcke sequenziell hochzuladen. Legen Sie auf 2 oder mehr fest, um die Datei Blöcke parallel hochzuladen. Dadurch werden mehr Systemressourcen beansprucht, aber es wird schneller hochgeladen.
+    description: ''
+  - name: --max-retries
+    defaultValue: "5"
+    summary: Gibt an, wie oft der Upload der Datei Blöcke beim Auftreten eines Fehlers erneut versucht wird.
+    description: ''
+  - name: --metadata
+    summary: Metadaten in durch Leerzeichen getrennten Schlüssel = Wert-Paaren. Dadurch werden alle vorhandenen Metadaten überschrieben.
+    description: ''
+  - name: --no-progress
+    summary: Fügen Sie dieses Flag ein, um die Status Berichterstattung für den Befehl zu deaktivieren.
+    description: ''
+  - name: --path -p
+    summary: Der Pfad zu der Datei in der Dateifreigabe. Wenn der Dateiname weggelassen wird, wird der Name der Quelldatei verwendet.
+    description: ''
+  - name: --retry-interval
+    defaultValue: "1.0"
+    summary: Standbyzeit in Sekunden zwischen Wiederholungs versuchen.
+    description: ''
+  - name: --sas-token
+    summary: 'Eine Shared Access Signature (SAS). Muss in Verbindung mit dem Speicherkonto Namen verwendet werden. Umgebungsvariable: AZURE_STORAGE_SAS_TOKEN.'
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  - name: --timeout
+    summary: Anforderungs Timeout in Sekunden. Gilt für jeden Dienst aufzurufen.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/storage/_help.py
+- uid: az_storage_file_upload_batch
+  name: az storage file upload-batch
+  summary: Hochladen von Dateien aus einem lokalen Verzeichnis in eine Azure Storage Dateifreigabe in einem Batch Vorgang.
+  description: ''
+  syntax: >-
+    az storage file upload-batch --destination
+                                 --source
+                                 [--account-key]
+                                 [--account-name]
+                                 [--connection-string]
+                                 [--content-cache-control]
+                                 [--content-disposition]
+                                 [--content-encoding]
+                                 [--content-language]
+                                 [--content-md5]
+                                 [--content-type]
+                                 [--destination-path]
+                                 [--dryrun]
+                                 [--max-connections]
+                                 [--metadata]
+                                 [--no-progress]
+                                 [--pattern]
+                                 [--sas-token]
+                                 [--subscription]
+  examples:
+  - summary: Hochladen von Dateien aus einem lokalen Verzeichnis in eine Azure Storage Dateifreigabe in einem Batch Vorgang. automatisch generierten
+    syntax: az storage file upload-batch --account-key 00000000 --account-name MyAccount --destination . --source /path/to/file
+  requiredParameters:
+  - isRequired: true
+    name: --destination -d
+    summary: Das Ziel des Uploadvorgangs.
+    description: Bei dem Ziel kann es sich um die Dateifreigabe-URL oder den Freigabe Namen handeln. Wenn das Ziel die Freigabe-URL ist, wird der Name des Speicher Kontos aus der URL analysiert.
+  - isRequired: true
+    name: --source -s
+    summary: Das Verzeichnis, aus dem Dateien hochgeladen werden sollen.
+    description: ''
+  optionalParameters:
+  - name: --account-key
+    summary: 'Speicherkontoschlüssel Muss in Verbindung mit dem Speicherkonto Namen verwendet werden. Umgebungsvariable: AZURE_STORAGE_KEY.'
+    description: ''
+  - name: --account-name
+    summary: 'Name des Speicherkontos Verwandte Umgebungsvariable: AZURE_STORAGE_ACCOUNT. Muss in Verbindung mit dem Speicherkonto Schlüssel oder einem SAS-Token verwendet werden. Wenn keines der beiden vorhanden ist, versucht der Befehl, den Speicherkonto Schlüssel mithilfe des authentifizierten Azure-Kontos abzufragen. Wenn eine große Anzahl von Speicher Befehlen ausgeführt wird, kann das API-Kontingent erreichen.'
+    description: ''
+  - name: --connection-string
+    summary: 'Verbindungs Zeichenfolge des Speicher Kontos. Umgebungsvariable: AZURE_STORAGE_CONNECTION_STRING.'
+    description: ''
+  - name: --content-cache-control
+    summary: Die Cache Steuerelement-Zeichenfolge.
+    description: ''
+  - name: --content-disposition
+    summary: Stellt zusätzliche Informationen zum Verarbeiten der Antwort Nutzlast dar und kann auch verwendet werden, um zusätzliche Metadaten anzufügen.
+    description: ''
+  - name: --content-encoding
+    summary: Der Inhalts Codierungstyp.
+    description: ''
+  - name: --content-language
+    summary: Die Inhalts Sprache.
+    description: ''
+  - name: --content-md5
+    summary: Der MD5-Hash des Inhalts.
+    description: ''
+  - name: --content-type
+    summary: Der MIME-Inhaltstyp.
+    description: ''
+  - name: --destination-path
+    summary: Das Verzeichnis, in das die Quelldaten kopiert werden. Wenn der Wert nicht ausgelassen wird, werden die Daten in das Stammverzeichnis kopiert.
+    description: ''
+  - name: --dryrun
+    summary: Listet die Dateien und blobdateien auf, die hochgeladen werden sollen. Es findet keine tatsächliche Datenübertragung statt.
+    description: ''
+  - name: --max-connections
+    defaultValue: "1"
+    summary: Die maximale Anzahl von parallelen Verbindungen, die verwendet werden sollen. Der Standardwert ist 1.
+    description: ''
+  - name: --metadata
+    summary: Metadaten in durch Leerzeichen getrennten Schlüssel = Wert-Paaren. Dadurch werden alle vorhandenen Metadaten überschrieben.
+    description: ''
+  - name: --no-progress
+    summary: Fügen Sie dieses Flag ein, um die Status Berichterstattung für den Befehl zu deaktivieren.
+    description: ''
+  - name: --pattern
+    summary: Das für die Datei-globabbild verwendete Muster. Die unterstützten Muster sind " \* ", "?", "[ABF]" und "[! ABQ]". Weitere Informationen finden Sie unter <a href="https://docs.python.org/3.7/library/fnmatch.html">https://docs.python.org/3.7/library/fnmatch.html</a> .
+    description: Wenn Sie ' * ' in--Pattern verwenden, entspricht es jedem beliebigen Zeichen, einschließlich des Verzeichnis Trennzeichens '/'.
+  - name: --sas-token
+    summary: 'Eine Shared Access Signature (SAS). Muss in Verbindung mit dem Speicherkonto Namen verwendet werden. Umgebungsvariable: AZURE_STORAGE_SAS_TOKEN.'
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/storage/_help.py
+- uid: az_storage_file_url
+  name: az storage file url
+  summary: Erstellen Sie die URL für den Zugriff auf eine Datei.
+  description: ''
+  syntax: >-
+    az storage file url --path
+                        --share-name
+                        [--account-key]
+                        [--account-name]
+                        [--connection-string]
+                        [--protocol {http, https}]
+                        [--sas-token]
+                        [--subscription]
+  examples:
+  - summary: Erstellen Sie die URL für den Zugriff auf eine Datei. automatisch generierten
+    syntax: az storage file url --account-key 00000000 --account-name mystorageaccount --path path/file.txt --share-name myshare
+  requiredParameters:
+  - isRequired: true
+    name: --path -p
+    summary: Der Pfad zu der Datei in der Dateifreigabe.
+    description: ''
+  - isRequired: true
+    name: --share-name -s
+    summary: Der Name der Dateifreigabe.
+    description: ''
+  optionalParameters:
+  - name: --account-key
+    summary: 'Speicherkontoschlüssel Muss in Verbindung mit dem Speicherkonto Namen verwendet werden. Umgebungsvariable: AZURE_STORAGE_KEY.'
+    description: ''
+  - name: --account-name
+    summary: 'Name des Speicherkontos Verwandte Umgebungsvariable: AZURE_STORAGE_ACCOUNT. Muss in Verbindung mit dem Speicherkonto Schlüssel oder einem SAS-Token verwendet werden. Wenn keines der beiden vorhanden ist, versucht der Befehl, den Speicherkonto Schlüssel mithilfe des authentifizierten Azure-Kontos abzufragen. Wenn eine große Anzahl von Speicher Befehlen ausgeführt wird, kann das API-Kontingent erreichen.'
+    description: ''
+  - name: --connection-string
+    summary: 'Verbindungs Zeichenfolge des Speicher Kontos. Umgebungsvariable: AZURE_STORAGE_CONNECTION_STRING.'
+    description: ''
+  - name: --protocol
+    defaultValue: https
+    parameterValueGroup: http, https
+    summary: Zu verwendende Protokoll.
+    description: ''
+  - name: --sas-token
+    summary: 'Eine Shared Access Signature (SAS). Muss in Verbindung mit dem Speicherkonto Namen verwendet werden. Umgebungsvariable: AZURE_STORAGE_SAS_TOKEN.'
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/storage/_help.py
+commands:
+- az_storage_file_copy
+- az_storage_file_copy_cancel
+- az_storage_file_copy_start
+- az_storage_file_copy_start_batch
+- az_storage_file_delete
+- az_storage_file_delete_batch
+- az_storage_file_download
+- az_storage_file_download_batch
+- az_storage_file_exists
+- az_storage_file_generate_sas
+- az_storage_file_list
+- az_storage_file_metadata
+- az_storage_file_metadata_show
+- az_storage_file_metadata_update
+- az_storage_file_resize
+- az_storage_file_show
+- az_storage_file_update
+- az_storage_file_upload
+- az_storage_file_upload_batch
+- az_storage_file_url
+globalParameters:
+- name: --debug
+  summary: Ausführlichkeit der Protokollierung erhöhen, um alle Debugprotokolle anzuzeigen.
+- name: --help -h
+  summary: Zeigen Sie diese Hilfemeldung an, und schließen Sie sie.
+- name: --only-show-errors
+  summary: Nur Fehler anzeigen und Warnungen unterdrücken.
+- name: --output -o
+  defaultValue: json
+  parameterValueGroup: json, jsonc, table, tsv
+  summary: Ausgabeformat.
+- name: --query
+  summary: JMESPath-Abfragezeichenfolge. Weitere Informationen und Beispiele finden Sie unter <a href="http://jmespath.org/">http://jmespath.org/</a>.
+- name: --verbose
+  summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
+metadata:
+  doc_source_url_repo: https://github.com/Azure/azure-cli/blob/dev/
+  ms.date: 02/02/2021
+  description: Verwalten von Dateifreigaben, die das SMB 3,0-Protokoll verwenden.
+  ms.openlocfilehash: af13878b53d459d3c78c2dabea699ce9161ed3e8
+  ms.sourcegitcommit: df9d6597535ef9103775afbaee5a8282e0e218ee
+  ms.translationtype: MT
+  ms.contentlocale: de-DE
+  ms.lasthandoff: 02/09/2021
+  ms.locfileid: "102966455"

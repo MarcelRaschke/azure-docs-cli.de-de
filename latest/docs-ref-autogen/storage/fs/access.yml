@@ -1,0 +1,371 @@
+### YamlMime:AzureCLIGroup
+uid: az_storage_fs_access
+name: az storage fs access
+summary: Verwalten Sie den Dateisystem Zugriff und die Berechtigungen für Azure Data Lake Storage Gen2 Konto.
+description: ''
+directCommands:
+- uid: az_storage_fs_access_remove_recursive
+  name: az storage fs access remove-recursive
+  summary: Entfernen Sie die Access Control für einen Pfad und unter Pfade in Azure Data Lake Storage Gen2 Konto.
+  description: ''
+  syntax: >-
+    az storage fs access remove-recursive --acl
+                                          --file-system
+                                          --path
+                                          [--account-key]
+                                          [--account-name]
+                                          [--auth-mode {key, login}]
+                                          [--batch-size]
+                                          [--connection-string]
+                                          [--continuation]
+                                          [--continue-on-failure {false, true}]
+                                          [--max-batches]
+                                          [--sas-token]
+                                          [--subscription]
+                                          [--timeout]
+  examples:
+  - summary: Entfernen Sie die Access Control für einen Pfad und unter Pfade in Azure Data Lake Storage Gen2 Konto.
+    syntax: az storage fs access remove-recursive --acl "default:user:21cd756e-e290-4a26-9547-93e8cc1a8923" -p dir -f myfilesystem --account-name myadlsaccount --account-key 0000-0000
+  requiredParameters:
+  - isRequired: true
+    name: --acl
+    summary: 'Entfernen Sie POSIX-Zugriffs Steuerungs Rechte für Dateien und Verzeichnisse. Der Wert ist eine durch Trennzeichen getrennte Liste von Zugriffs Steuerungs Einträgen. Jeder Zugriffs Steuerungs Eintrag (ACE) besteht aus einem Bereich, einem Typ und einem Benutzer-oder Gruppen Bezeichner im Format "[Scope:] [Type]: [ID]".'
+    description: ''
+  - isRequired: true
+    name: --file-system -f
+    summary: Der Name des Dateisystems.
+    description: ''
+  - isRequired: true
+    name: --path -p
+    summary: Der Pfad zu einer Datei oder einem Verzeichnis im angegebenen Dateisystem.
+    description: ''
+  optionalParameters:
+  - name: --account-key
+    summary: 'Speicherkontoschlüssel Muss in Verbindung mit dem Speicherkonto Namen verwendet werden. Umgebungsvariable: AZURE_STORAGE_KEY.'
+    description: ''
+  - name: --account-name
+    summary: 'Name des Speicherkontos Verwandte Umgebungsvariable: AZURE_STORAGE_ACCOUNT. Muss in Verbindung mit dem Speicherkonto Schlüssel oder einem SAS-Token verwendet werden. Wenn keines der beiden vorhanden ist, versucht der Befehl, den Speicherkonto Schlüssel mithilfe des authentifizierten Azure-Kontos abzufragen. Wenn eine große Anzahl von Speicher Befehlen ausgeführt wird, kann das API-Kontingent erreichen.'
+    description: ''
+  - name: --auth-mode
+    parameterValueGroup: key, login
+    summary: 'Der Modus, in dem der Befehl ausgeführt werden soll. der Modus "Anmeldung" verwendet direkt Ihre Anmelde Informationen für die Authentifizierung. Der Legacy Modus "Schlüssel" versucht, einen Kontoschlüssel abzufragen, wenn keine Authentifizierungs Parameter für das Konto bereitgestellt werden. Umgebungsvariable: AZURE_STORAGE_AUTH_MODE.'
+    description: ''
+  - name: --batch-size
+    summary: Optional. Wenn die Größe des Datasets die Batch Größe überschreitet, wird der Vorgang in mehrere Anforderungen aufgeteilt, sodass der Fortschritt nachverfolgt werden kann. Die Batch Größe muss zwischen 1 und 2000 liegen. Der Standardwert ist 2000, wenn er nicht angegeben ist.
+    description: ''
+  - name: --connection-string
+    summary: 'Verbindungs Zeichenfolge des Speicher Kontos. Umgebungsvariable: AZURE_STORAGE_CONNECTION_STRING.'
+    description: ''
+  - name: --continuation
+    summary: Optionales Fortsetzungs Token, das verwendet werden kann, um den zuvor beendeten Vorgang fortzusetzen.
+    description: ''
+  - name: --continue-on-failure
+    parameterValueGroup: false, true
+    summary: Wenn der Wert auf false festgelegt ist, wird der Vorgang beim Auftreten von Benutzerfehlern (4xx) schnell beendet. True gibt an, dass der Vorgang Benutzerfehler ignoriert und mit dem Vorgang für andere untergeordnete Entitäten des Verzeichnisses fortgesetzt wird. Das Fortsetzungs Token wird nur zurückgegeben, wenn "--Continue-on-Failure" bei Benutzerfehlern den Wert "true" hat. Wenn nicht festgelegt, ist der Standardwert für diesen Wert false.
+    description: ''
+  - name: --max-batches
+    summary: Optional. Hiermit wird die maximale Anzahl von Batches definiert, die durch einzelne Änderungen Access Control Vorgang ausgeführt werden kann. Wenn die maximale Anzahl erreicht wird, bevor alle unter Pfade verarbeitet werden, kann das Fortsetzungs Token verwendet werden, um den Vorgang wieder aufzunehmen. Ein leerer Wert gibt an, dass die maximale Anzahl von Batches in ungebundenen und der Vorgang bis zum Ende fortgesetzt wird
+    description: ''
+  - name: --sas-token
+    summary: 'Eine Shared Access Signature (SAS). Muss in Verbindung mit dem Speicherkonto Namen verwendet werden. Umgebungsvariable: AZURE_STORAGE_SAS_TOKEN.'
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  - name: --timeout
+    summary: Anforderungs Timeout in Sekunden. Gilt für jeden Dienst aufzurufen.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/storage/_help.py
+- uid: az_storage_fs_access_set
+  name: az storage fs access set
+  summary: Legen Sie die Zugriffs Steuerungseigenschaften eines Pfads (Verzeichnis oder Datei) in Azure Data Lake Storage Gen2 Konto fest.
+  description: ''
+  syntax: >-
+    az storage fs access set --file-system
+                             --path
+                             [--account-key]
+                             [--account-name]
+                             [--acl]
+                             [--auth-mode {key, login}]
+                             [--connection-string]
+                             [--group]
+                             [--owner]
+                             [--permissions]
+                             [--sas-token]
+                             [--subscription]
+  examples:
+  - summary: Legen Sie die Zugriffs Steuerungs Liste eines Pfads fest.
+    syntax: az storage fs access set --acl "user::rwx,group::r--,other::---" -p dir -f myfilesystem --account-name mystorageaccount --account-key 0000-0000
+  - summary: Legen Sie Berechtigungen für einen Pfad fest.
+    syntax: az storage fs access set --permissions "rwxrwx---" -p dir -f myfilesystem --account-name mystorageaccount --account-key 0000-0000
+  - summary: Legen Sie den Besitzer eines Pfads fest.
+    syntax: az storage fs access set --owner example@microsoft.com -p dir -f myfilesystem --account-name mystorageaccount --account-key 0000-0000
+  - summary: Festlegen der besitzenden Gruppe eines Pfads.
+    syntax: az storage fs access set --group 68390a19-a897-236b-b453-488abf67b4dc -p dir -f myfilesystem --account-name mystorageaccount --account-key 0000-0000
+  requiredParameters:
+  - isRequired: true
+    name: --file-system -f
+    summary: Der Name des Dateisystems.
+    description: ''
+  - isRequired: true
+    name: --path -p
+    summary: Der Pfad zu einer Datei oder einem Verzeichnis im angegebenen Dateisystem.
+    description: ''
+  optionalParameters:
+  - name: --account-key
+    summary: 'Speicherkontoschlüssel Muss in Verbindung mit dem Speicherkonto Namen verwendet werden. Umgebungsvariable: AZURE_STORAGE_KEY.'
+    description: ''
+  - name: --account-name
+    summary: 'Name des Speicherkontos Verwandte Umgebungsvariable: AZURE_STORAGE_ACCOUNT. Muss in Verbindung mit dem Speicherkonto Schlüssel oder einem SAS-Token verwendet werden. Wenn keines der beiden vorhanden ist, versucht der Befehl, den Speicherkonto Schlüssel mithilfe des authentifizierten Azure-Kontos abzufragen. Wenn eine große Anzahl von Speicher Befehlen ausgeführt wird, kann das API-Kontingent erreichen.'
+    description: ''
+  - name: --acl
+    summary: 'In Verbindung mit ACL ungültig. POSIX-Zugriffs Steuerungs Rechte für Dateien und Verzeichnisse im Format "[Scope:] [Type]: [ID]: [Berechtigungen]". Beispiel: "User:: rwx, Group:: r--, Other::---, Mask:: rwx".'
+    description: 'Der Wert ist eine durch Trennzeichen getrennte Liste von Zugriffs Steuerungs Einträgen. Jeder Zugriffs Steuerungs Eintrag (Access Control Entry, ACE) besteht aus einem Bereich, einem Typ, einem Benutzer-oder Gruppen Bezeichner und Berechtigungen im Format "[Scope:] [Type]: [ID]: [Berechtigungen]". Der Gültigkeitsbereich muss "Default" lauten, um anzugeben, dass der ACE zur Standard-ACL für ein Verzeichnis gehört. Andernfalls ist der Gültigkeitsbereich implizit, und der ACE gehört zur Zugriffs-ACL. Es gibt vier ACE-Typen: "User" erteilt Rechte für den Besitzer oder einen benannten Benutzer, "Gruppe" erteilt Rechte für die zuständige Gruppe oder eine benannte Gruppe, "Maske" schränkt Rechte ein, die benannten Benutzern und Mitgliedern von Gruppen gewährt werden, und "Sonstige" gewährt allen Benutzern, die nicht in den anderen Einträgen gefunden werden, Rechte. Der Benutzer-oder Gruppen Bezeichner wird für Einträge vom Typ "Mask" und "Other" ausgelassen. Der Benutzer-oder Gruppen Bezeichner wird auch für den Besitzer und die zuständige Gruppe ausgelassen. Die folgende ACL erteilt z. b. Lese-, Schreib-und Ausführungsrechte für den Dateibesitzer a john.doe@contoso , den Lesezugriff für die zuständige Gruppe und nichts für alle anderen: "User:: rwx, user:john.doe@contoso:rwx , Group:: r--, Other::---, Mask:: rwx". Weitere Informationen finden Sie unter https://docs.microsoft.com/en-us/azure/storage/blobs/data-lake-storage-access-control .'
+  - name: --auth-mode
+    parameterValueGroup: key, login
+    summary: 'Der Modus, in dem der Befehl ausgeführt werden soll. der Modus "Anmeldung" verwendet direkt Ihre Anmelde Informationen für die Authentifizierung. Der Legacy Modus "Schlüssel" versucht, einen Kontoschlüssel abzufragen, wenn keine Authentifizierungs Parameter für das Konto bereitgestellt werden. Umgebungsvariable: AZURE_STORAGE_AUTH_MODE.'
+    description: ''
+  - name: --connection-string
+    summary: 'Verbindungs Zeichenfolge des Speicher Kontos. Umgebungsvariable: AZURE_STORAGE_CONNECTION_STRING.'
+    description: ''
+  - name: --group
+    summary: Die zuständige Gruppe der Datei oder des Verzeichnisses. Die Gruppe Azure Active Directory Objekt-ID oder der Benutzer Prinzipal Name, die als zuständige Gruppe festgelegt werden soll. Weitere Informationen finden Sie unter <a href="https://docs.microsoft.com/en-us/azure/storage/blobs/data-lake-storage-access-control#changing-the-owning-group">https://docs.microsoft.com/en-us/azure/storage/blobs/data-lake-storage-access-control#changing-the-owning-group</a> .
+    description: ''
+  - name: --owner
+    summary: Der besitzende Benutzer der Datei oder des Verzeichnisses. Der Benutzer Azure Active Directory die Objekt-ID oder den Benutzer Prinzipal Namen, die als Besitzer festgelegt werden soll. Weitere Informationen finden Sie unter <a href="https://docs.microsoft.com/en-us/azure/storage/blobs/data-lake-storage-access-control#the-owning-user">https://docs.microsoft.com/en-us/azure/storage/blobs/data-lake-storage-access-control#the-owning-user</a> .
+    description: ''
+  - name: --permissions
+    summary: In Verbindung mit ACL ungültig. POSIX-Zugriffsberechtigungen für den Dateibesitzer, die Datei, die die Gruppe besitzt, und andere. Jeder Klasse kann die Berechtigung Lesen (r), Write (w) oder Execute (x) erteilt werden. Beide symbolischen (rwxrw-RW-) und 4-stellige oktale Schreibweise (z. b. 0766) werden unterstützt. "
+    description: ''
+  - name: --sas-token
+    summary: 'Eine Shared Access Signature (SAS). Muss in Verbindung mit dem Speicherkonto Namen verwendet werden. Umgebungsvariable: AZURE_STORAGE_SAS_TOKEN.'
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/storage/_help.py
+- uid: az_storage_fs_access_set_recursive
+  name: az storage fs access set-recursive
+  summary: Legen Sie den Access Control für einen Pfad und unter Pfade in Azure Data Lake Storage Gen2 Konto fest.
+  description: ''
+  syntax: >-
+    az storage fs access set-recursive --acl
+                                       --file-system
+                                       --path
+                                       [--account-key]
+                                       [--account-name]
+                                       [--auth-mode {key, login}]
+                                       [--batch-size]
+                                       [--connection-string]
+                                       [--continuation]
+                                       [--continue-on-failure {false, true}]
+                                       [--max-batches]
+                                       [--sas-token]
+                                       [--subscription]
+                                       [--timeout]
+  examples:
+  - summary: Legen Sie den Access Control für einen Pfad und unter Pfade in Azure Data Lake Storage Gen2 Konto fest.
+    syntax: az storage fs access set-recursive --acl "default:user:21cd756e-e290-4a26-9547-93e8cc1a8923:rwx" -p dir -f myfilesystem --account-name myadlsaccount --account-key 0000-0000
+  requiredParameters:
+  - isRequired: true
+    name: --acl
+    summary: 'Der Wert ist eine durch Trennzeichen getrennte Liste von Zugriffs Steuerungs Einträgen. Jeder Zugriffs Steuerungs Eintrag (Access Control Entry, ACE) besteht aus einem Bereich, einem Typ, einem Benutzer-oder Gruppen Bezeichner und Berechtigungen im Format "[Scope:] [Type]: [ID]: [Berechtigungen]".  Weitere Informationen finden Sie unter https://docs.microsoft.com/en-us/azure/storage/blobs/data-lake-storage-access-control .'
+    description: ''
+  - isRequired: true
+    name: --file-system -f
+    summary: Der Name des Dateisystems.
+    description: ''
+  - isRequired: true
+    name: --path -p
+    summary: Der Pfad zu einer Datei oder einem Verzeichnis im angegebenen Dateisystem.
+    description: ''
+  optionalParameters:
+  - name: --account-key
+    summary: 'Speicherkontoschlüssel Muss in Verbindung mit dem Speicherkonto Namen verwendet werden. Umgebungsvariable: AZURE_STORAGE_KEY.'
+    description: ''
+  - name: --account-name
+    summary: 'Name des Speicherkontos Verwandte Umgebungsvariable: AZURE_STORAGE_ACCOUNT. Muss in Verbindung mit dem Speicherkonto Schlüssel oder einem SAS-Token verwendet werden. Wenn keines der beiden vorhanden ist, versucht der Befehl, den Speicherkonto Schlüssel mithilfe des authentifizierten Azure-Kontos abzufragen. Wenn eine große Anzahl von Speicher Befehlen ausgeführt wird, kann das API-Kontingent erreichen.'
+    description: ''
+  - name: --auth-mode
+    parameterValueGroup: key, login
+    summary: 'Der Modus, in dem der Befehl ausgeführt werden soll. der Modus "Anmeldung" verwendet direkt Ihre Anmelde Informationen für die Authentifizierung. Der Legacy Modus "Schlüssel" versucht, einen Kontoschlüssel abzufragen, wenn keine Authentifizierungs Parameter für das Konto bereitgestellt werden. Umgebungsvariable: AZURE_STORAGE_AUTH_MODE.'
+    description: ''
+  - name: --batch-size
+    summary: Optional. Wenn die Größe des Datasets die Batch Größe überschreitet, wird der Vorgang in mehrere Anforderungen aufgeteilt, sodass der Fortschritt nachverfolgt werden kann. Die Batch Größe muss zwischen 1 und 2000 liegen. Der Standardwert ist 2000, wenn er nicht angegeben ist.
+    description: ''
+  - name: --connection-string
+    summary: 'Verbindungs Zeichenfolge des Speicher Kontos. Umgebungsvariable: AZURE_STORAGE_CONNECTION_STRING.'
+    description: ''
+  - name: --continuation
+    summary: Optionales Fortsetzungs Token, das verwendet werden kann, um den zuvor beendeten Vorgang fortzusetzen.
+    description: ''
+  - name: --continue-on-failure
+    parameterValueGroup: false, true
+    summary: Wenn der Wert auf false festgelegt ist, wird der Vorgang beim Auftreten von Benutzerfehlern (4xx) schnell beendet. True gibt an, dass der Vorgang Benutzerfehler ignoriert und mit dem Vorgang für andere untergeordnete Entitäten des Verzeichnisses fortgesetzt wird. Das Fortsetzungs Token wird nur zurückgegeben, wenn "--Continue-on-Failure" bei Benutzerfehlern den Wert "true" hat. Wenn nicht festgelegt, ist der Standardwert für diesen Wert false.
+    description: ''
+  - name: --max-batches
+    summary: Optional. Hiermit wird die maximale Anzahl von Batches definiert, die durch einzelne Änderungen Access Control Vorgang ausgeführt werden kann. Wenn die maximale Anzahl erreicht wird, bevor alle unter Pfade verarbeitet werden, kann das Fortsetzungs Token verwendet werden, um den Vorgang wieder aufzunehmen. Ein leerer Wert gibt an, dass die maximale Anzahl von Batches in ungebundenen und der Vorgang bis zum Ende fortgesetzt wird
+    description: ''
+  - name: --sas-token
+    summary: 'Eine Shared Access Signature (SAS). Muss in Verbindung mit dem Speicherkonto Namen verwendet werden. Umgebungsvariable: AZURE_STORAGE_SAS_TOKEN.'
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  - name: --timeout
+    summary: Anforderungs Timeout in Sekunden. Gilt für jeden Dienst aufzurufen.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/storage/_help.py
+- uid: az_storage_fs_access_show
+  name: az storage fs access show
+  summary: Hiermit werden die Zugriffs Steuerungseigenschaften eines Pfads (Verzeichnis oder Datei) in Azure Data Lake Storage Gen2 Konto angezeigt.
+  description: ''
+  syntax: >-
+    az storage fs access show --file-system
+                              --path
+                              [--account-key]
+                              [--account-name]
+                              [--auth-mode {key, login}]
+                              [--connection-string]
+                              [--query-examples]
+                              [--sas-token]
+                              [--subscription]
+  examples:
+  - summary: Anzeigen der Zugriffs Steuerungseigenschaften eines Pfads.
+    syntax: az storage fs access show -p dir -f myfilesystem --account-name myadlsaccount --account-key 0000-0000
+  requiredParameters:
+  - isRequired: true
+    name: --file-system -f
+    summary: Der Name des Dateisystems.
+    description: ''
+  - isRequired: true
+    name: --path -p
+    summary: Der Pfad zu einer Datei oder einem Verzeichnis im angegebenen Dateisystem.
+    description: ''
+  optionalParameters:
+  - name: --account-key
+    summary: 'Speicherkontoschlüssel Muss in Verbindung mit dem Speicherkonto Namen verwendet werden. Umgebungsvariable: AZURE_STORAGE_KEY.'
+    description: ''
+  - name: --account-name
+    summary: 'Name des Speicherkontos Verwandte Umgebungsvariable: AZURE_STORAGE_ACCOUNT. Muss in Verbindung mit dem Speicherkonto Schlüssel oder einem SAS-Token verwendet werden. Wenn keines der beiden vorhanden ist, versucht der Befehl, den Speicherkonto Schlüssel mithilfe des authentifizierten Azure-Kontos abzufragen. Wenn eine große Anzahl von Speicher Befehlen ausgeführt wird, kann das API-Kontingent erreichen.'
+    description: ''
+  - name: --auth-mode
+    parameterValueGroup: key, login
+    summary: 'Der Modus, in dem der Befehl ausgeführt werden soll. der Modus "Anmeldung" verwendet direkt Ihre Anmelde Informationen für die Authentifizierung. Der Legacy Modus "Schlüssel" versucht, einen Kontoschlüssel abzufragen, wenn keine Authentifizierungs Parameter für das Konto bereitgestellt werden. Umgebungsvariable: AZURE_STORAGE_AUTH_MODE.'
+    description: ''
+  - name: --connection-string
+    summary: 'Verbindungs Zeichenfolge des Speicher Kontos. Umgebungsvariable: AZURE_STORAGE_CONNECTION_STRING.'
+    description: ''
+  - name: --query-examples
+    summary: Empfehlen Sie die jmespath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und Sie nach dem Abfrage Parameter in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positions Schlüsselwörter hinzufügen, um Vorschläge auf der Grundlage dieser Schlüsselwörter zu geben.
+    description: ''
+  - name: --sas-token
+    summary: 'Eine Shared Access Signature (SAS). Muss in Verbindung mit dem Speicherkonto Namen verwendet werden. Umgebungsvariable: AZURE_STORAGE_SAS_TOKEN.'
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/storage/_help.py
+- uid: az_storage_fs_access_update_recursive
+  name: az storage fs access update-recursive
+  summary: Ändern Sie die Access Control für einen Pfad und unter Pfade in Azure Data Lake Storage Gen2 Konto.
+  description: ''
+  syntax: >-
+    az storage fs access update-recursive --acl
+                                          --file-system
+                                          --path
+                                          [--account-key]
+                                          [--account-name]
+                                          [--auth-mode {key, login}]
+                                          [--batch-size]
+                                          [--connection-string]
+                                          [--continuation]
+                                          [--continue-on-failure {false, true}]
+                                          [--max-batches]
+                                          [--sas-token]
+                                          [--subscription]
+                                          [--timeout]
+  examples:
+  - summary: Ändern Sie die Access Control für einen Pfad und unter Pfade in Azure Data Lake Storage Gen2 Konto.
+    syntax: az storage fs access update-recursive --acl "user::r-x" -p dir -f myfilesystem --account-name myadlsaccount --account-key 0000-0000
+  requiredParameters:
+  - isRequired: true
+    name: --acl
+    summary: 'Der Wert ist eine durch Trennzeichen getrennte Liste von Zugriffs Steuerungs Einträgen. Jeder Zugriffs Steuerungs Eintrag (Access Control Entry, ACE) besteht aus einem Bereich, einem Typ, einem Benutzer-oder Gruppen Bezeichner und Berechtigungen im Format "[Scope:] [Type]: [ID]: [Berechtigungen]".  Weitere Informationen finden Sie unter https://docs.microsoft.com/en-us/azure/storage/blobs/data-lake-storage-access-control .'
+    description: ''
+  - isRequired: true
+    name: --file-system -f
+    summary: Der Name des Dateisystems.
+    description: ''
+  - isRequired: true
+    name: --path -p
+    summary: Der Pfad zu einer Datei oder einem Verzeichnis im angegebenen Dateisystem.
+    description: ''
+  optionalParameters:
+  - name: --account-key
+    summary: 'Speicherkontoschlüssel Muss in Verbindung mit dem Speicherkonto Namen verwendet werden. Umgebungsvariable: AZURE_STORAGE_KEY.'
+    description: ''
+  - name: --account-name
+    summary: 'Name des Speicherkontos Verwandte Umgebungsvariable: AZURE_STORAGE_ACCOUNT. Muss in Verbindung mit dem Speicherkonto Schlüssel oder einem SAS-Token verwendet werden. Wenn keines der beiden vorhanden ist, versucht der Befehl, den Speicherkonto Schlüssel mithilfe des authentifizierten Azure-Kontos abzufragen. Wenn eine große Anzahl von Speicher Befehlen ausgeführt wird, kann das API-Kontingent erreichen.'
+    description: ''
+  - name: --auth-mode
+    parameterValueGroup: key, login
+    summary: 'Der Modus, in dem der Befehl ausgeführt werden soll. der Modus "Anmeldung" verwendet direkt Ihre Anmelde Informationen für die Authentifizierung. Der Legacy Modus "Schlüssel" versucht, einen Kontoschlüssel abzufragen, wenn keine Authentifizierungs Parameter für das Konto bereitgestellt werden. Umgebungsvariable: AZURE_STORAGE_AUTH_MODE.'
+    description: ''
+  - name: --batch-size
+    summary: Optional. Wenn die Größe des Datasets die Batch Größe überschreitet, wird der Vorgang in mehrere Anforderungen aufgeteilt, sodass der Fortschritt nachverfolgt werden kann. Die Batch Größe muss zwischen 1 und 2000 liegen. Der Standardwert ist 2000, wenn er nicht angegeben ist.
+    description: ''
+  - name: --connection-string
+    summary: 'Verbindungs Zeichenfolge des Speicher Kontos. Umgebungsvariable: AZURE_STORAGE_CONNECTION_STRING.'
+    description: ''
+  - name: --continuation
+    summary: Optionales Fortsetzungs Token, das verwendet werden kann, um den zuvor beendeten Vorgang fortzusetzen.
+    description: ''
+  - name: --continue-on-failure
+    parameterValueGroup: false, true
+    summary: Wenn der Wert auf false festgelegt ist, wird der Vorgang beim Auftreten von Benutzerfehlern (4xx) schnell beendet. True gibt an, dass der Vorgang Benutzerfehler ignoriert und mit dem Vorgang für andere untergeordnete Entitäten des Verzeichnisses fortgesetzt wird. Das Fortsetzungs Token wird nur zurückgegeben, wenn "--Continue-on-Failure" bei Benutzerfehlern den Wert "true" hat. Wenn nicht festgelegt, ist der Standardwert für diesen Wert false.
+    description: ''
+  - name: --max-batches
+    summary: Optional. Hiermit wird die maximale Anzahl von Batches definiert, die durch einzelne Änderungen Access Control Vorgang ausgeführt werden kann. Wenn die maximale Anzahl erreicht wird, bevor alle unter Pfade verarbeitet werden, kann das Fortsetzungs Token verwendet werden, um den Vorgang wieder aufzunehmen. Ein leerer Wert gibt an, dass die maximale Anzahl von Batches in ungebundenen und der Vorgang bis zum Ende fortgesetzt wird
+    description: ''
+  - name: --sas-token
+    summary: 'Eine Shared Access Signature (SAS). Muss in Verbindung mit dem Speicherkonto Namen verwendet werden. Umgebungsvariable: AZURE_STORAGE_SAS_TOKEN.'
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  - name: --timeout
+    summary: Anforderungs Timeout in Sekunden. Gilt für jeden Dienst aufzurufen.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/storage/_help.py
+commands:
+- az_storage_fs_access_remove_recursive
+- az_storage_fs_access_set
+- az_storage_fs_access_set_recursive
+- az_storage_fs_access_show
+- az_storage_fs_access_update_recursive
+globalParameters:
+- name: --debug
+  summary: Ausführlichkeit der Protokollierung erhöhen, um alle Debugprotokolle anzuzeigen.
+- name: --help -h
+  summary: Zeigen Sie diese Hilfemeldung an, und schließen Sie sie.
+- name: --only-show-errors
+  summary: Nur Fehler anzeigen und Warnungen unterdrücken.
+- name: --output -o
+  defaultValue: json
+  parameterValueGroup: json, jsonc, table, tsv
+  summary: Ausgabeformat.
+- name: --query
+  summary: JMESPath-Abfragezeichenfolge. Weitere Informationen und Beispiele finden Sie unter <a href="http://jmespath.org/">http://jmespath.org/</a>.
+- name: --verbose
+  summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
+metadata:
+  doc_source_url_repo: https://github.com/Azure/azure-cli/blob/dev/
+  ms.date: 02/26/2021
+  description: Verwalten Sie den Dateisystem Zugriff und die Berechtigungen für Azure Data Lake Storage Gen2 Konto.
+  ms.openlocfilehash: 120d4edd0ebe9df2266b18d50c167875273353fb
+  ms.sourcegitcommit: f9e23f29c59c6957d3df4d5ca2f4425093e6fd80
+  ms.translationtype: MT
+  ms.contentlocale: de-DE
+  ms.lasthandoff: 03/16/2021
+  ms.locfileid: "103515586"
