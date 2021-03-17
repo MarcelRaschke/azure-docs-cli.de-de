@@ -1,0 +1,147 @@
+### YamlMime:AzureCLIGroup
+uid: az_vm_monitor_metrics
+name: az vm monitor metrics
+summary: Verwalten Sie Metriken für einen virtuellen Computer.
+description: ''
+directCommands:
+- uid: az_vm_monitor_metrics_list_definitions
+  name: az vm monitor metrics list-definitions
+  summary: Auflisten der metrikdefinitionen für eine VM.
+  description: ''
+  syntax: >-
+    az vm monitor metrics list-definitions --name
+                                           --resource-group
+                                           [--namespace]
+                                           [--subscription]
+  examples:
+  - summary: Auflisten der metrikdefinitionen für eine VM. automatisch generierten
+    syntax: az vm monitor metrics list-definitions --name MyIDVirtualMachine --resource-group MyResourceGroup
+  requiredParameters:
+  - isRequired: true
+    name: --name -n
+    summary: Der Name oder die ID einer virtuellen Maschine.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  optionalParameters:
+  - name: --namespace
+    summary: Namespace zum Abfragen von metrikdefinitionen.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/vm/_help.py
+- uid: az_vm_monitor_metrics_tail
+  name: az vm monitor metrics tail
+  summary: Auflisten der Metrikwerte für eine VM.
+  description: ''
+  syntax: >-
+    az vm monitor metrics tail --name
+                               --resource-group
+                               [--aggregation {Average, Count, Maximum, Minimum, Total}]
+                               [--dimension]
+                               [--end-time]
+                               [--filter]
+                               [--interval]
+                               [--metadata]
+                               [--metrics]
+                               [--namespace]
+                               [--offset]
+                               [--orderby]
+                               [--start-time]
+                               [--subscription]
+                               [--top]
+  examples:
+  - summary: Auflisten der CPU-Auslastung des virtuellen Computers in der letzten Stunde
+    syntax: az vm monitor metrics tail --name myVM -g myRG --metric "Percentage CPU"
+  - summary: Auflisten der CPU-Auslastung des virtuellen Computers mit einer Stunde, gestartet um 2019-12-18t00:00:00Z
+    syntax: az vm monitor metrics tail --name myVM -g myRG --metric "Percentage CPU" --start-time 2019-12-18T00:00:00Z
+  - summary: Auflisten der CPU-Auslastung der VM für die letzte Stunde mit Filter
+    syntax: az vm monitor metrics tail --name myVM -g myRG --metrics "Per Disk Read Bytes/sec" --filter "SlotId eq '*'"
+  requiredParameters:
+  - isRequired: true
+    name: --name -n
+    summary: Der Name oder die ID einer virtuellen Maschine.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  optionalParameters:
+  - name: --aggregation
+    parameterValueGroup: Average, Count, Maximum, Minimum, Total
+    summary: Die Liste der abzurufenden Aggregations Typen (durch Leerzeichen getrennt).
+    description: ''
+    valueFrom: az vm monitor metrics list-definitions -n MyVM -g MyRG --query "@[*].supportedAggregationTypes"
+  - name: --dimension
+    summary: Die Liste der Dimensionen (durch Trennzeichen getrennt), in die die Metriken abgefragt werden.
+    description: ''
+    valueFrom: az vm monitor metrics list-definitions -n MyVM -g MyRG --query "@[*].dimensions"
+  - name: --end-time
+    summary: 'Die Endzeit der Abfrage. Der Standardwert ist die aktuelle Zeit. Format: Date (yyyy-mm-dd) time (hh: mm: SS. xxxxx) Zeitzone (+/-hh: mm).'
+    description: ''
+  - name: --filter
+    summary: "Eine Zeichenfolge, mit der der Satz der zurückgegebenen Metrikdaten reduziert wird. Beispiel: \"LUN EQ ' \\* '\"."
+    description: Eine vollständige Liste der Filter finden Sie in der Filter Zeichenfolgen-Referenz unter <a href="https://docs.microsoft.com/rest/api/monitor/metrics/list">https://docs.microsoft.com/rest/api/monitor/metrics/list</a> .
+  - name: --interval
+    defaultValue: 1m
+    summary: 'Das Intervall, in dem Metriken aggregiert werden sollen, im # #h # #m-Format.'
+    description: ''
+  - name: --metadata
+    summary: Gibt die Metadatenwerte anstelle von Metrikdaten zurück.
+    description: ''
+  - name: --metrics
+    summary: Durch Leerzeichen getrennte Liste der abzurufenden metriknamen.
+    description: ''
+    valueFrom: az vm monitor metrics list-definitions -n MyVM -g MyRG --query "@[*].name.value"
+  - name: --namespace
+    summary: Namespace zum Abfragen von metrikdefinitionen.
+    description: ''
+  - name: --offset
+    defaultValue: 1h
+    summary: 'Zeit Offset des Abfrage Bereichs im # #d # #h-Format.'
+    description: Kann entweder mit---Start-oder--Endzeit verwendet werden. Bei Verwendung mit--Start Zeit wird die Endzeit durch Hinzufügen des Offsets berechnet. Bei Verwendung mit--End-Time (Standard) wird die Startzeit durch Subtrahieren des Offsets berechnet. Wenn--Start-Time und--End-Time bereitgestellt werden, wird--Offset ignoriert.
+  - name: --orderby
+    summary: 'Aggregation, die für Sortierergebnisse und die Sortierrichtung verwendet werden soll. Es kann nur eine Bestellung angegeben werden. Beispiele: Sum ASC.'
+    description: ''
+  - name: --start-time
+    summary: 'Die Startzeit der Abfrage. Format: Date (yyyy-mm-dd) time (hh: mm: SS. xxxxx) Zeitzone (+/-hh: mm).'
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  - name: --top
+    defaultValue: "10"
+    summary: Maximale Anzahl der abzurufenden Datensätze. Nur gültig, wenn--Filter verwendet wird.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/vm/_help.py
+commands:
+- az_vm_monitor_metrics_list_definitions
+- az_vm_monitor_metrics_tail
+globalParameters:
+- name: --debug
+  summary: Ausführlichkeit der Protokollierung erhöhen, um alle Debugprotokolle anzuzeigen.
+- name: --help -h
+  summary: Zeigen Sie diese Hilfemeldung an, und schließen Sie sie.
+- name: --only-show-errors
+  summary: Nur Fehler anzeigen und Warnungen unterdrücken.
+- name: --output -o
+  defaultValue: json
+  parameterValueGroup: json, jsonc, table, tsv
+  summary: Ausgabeformat.
+- name: --query
+  summary: JMESPath-Abfragezeichenfolge. Weitere Informationen und Beispiele finden Sie unter <a href="http://jmespath.org/">http://jmespath.org/</a>.
+- name: --verbose
+  summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
+metadata:
+  doc_source_url_repo: https://github.com/Azure/azure-cli/blob/dev/
+  ms.date: 02/05/2021
+  description: Verwalten Sie Metriken für einen virtuellen Computer.
+  ms.openlocfilehash: 4ed96fd835a2ee0929ccc935191e7c53bb80cecf
+  ms.sourcegitcommit: df9d6597535ef9103775afbaee5a8282e0e218ee
+  ms.translationtype: MT
+  ms.contentlocale: de-DE
+  ms.lasthandoff: 02/09/2021
+  ms.locfileid: "102969103"

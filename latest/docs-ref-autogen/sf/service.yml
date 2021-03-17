@@ -1,0 +1,213 @@
+### YamlMime:AzureCLIGroup
+uid: az_sf_service
+name: az sf service
+summary: Dienste verwalten, die auf einem Azure Service Fabric-Cluster ausgeführt werden. Unterstützt nur Arm-bereitgestellte Dienste.
+description: ''
+directCommands:
+- uid: az_sf_service_create
+  name: az sf service create
+  summary: Erstellen Sie einen neuen Dienst in einem Azure Service Fabric-Cluster.
+  description: ''
+  syntax: >-
+    az sf service create --application
+                         --cluster-name
+                         --name
+                         --resource-group
+                         --service-type
+                         --state {stateful, stateless}
+                         [--default-move-cost {High, Low, Medium, Zero}]
+                         [--instance-count]
+                         [--min-replica]
+                         [--partition-scheme {named, singleton, uniformInt64}]
+                         [--subscription]
+                         [--target-replica]
+  examples:
+  - summary: Erstellen Sie einen neuen Zustands losen Dienst "TestApp ~ testService1" mit Instanzanzahl-1 (auf allen Knoten).
+    syntax: >-
+      az sf service create -g testRG -c testCluster --application-name testApp --state stateless --service-name testApp~testService \
+        --service-type testStateless --instance-count -1 --partition-scheme singleton
+  - summary: Erstellen Sie einen neuen Zustands behafteten Dienst "TestApp ~ testService2" mit einem Ziel von 5 Knoten.
+    syntax: >-
+      az sf service create -g testRG -c testCluster --application-name testApp --state stateful --service-name testApp~testService2 \
+        --service-type testStatefulType --min-replica-set-size 3 --target-replica-set-size 5
+  requiredParameters:
+  - isRequired: true
+    name: --application --application-name
+    summary: 'Geben Sie den Namen des Dienstanbieter an. Der Anwendungsname muss ein Präfix des Dienst namens sein, z. b.: appname ~ ServiceName.'
+    description: ''
+  - isRequired: true
+    name: --cluster-name -c
+    summary: Geben Sie den Namen des Clusters an. Wenn dieser nicht angegeben wird, entspricht er dem Ressourcengruppen Namen.
+    description: ''
+  - isRequired: true
+    name: --name --service-name
+    summary: 'Geben Sie den Namen des Dienstanbieter an. Der Anwendungsname muss ein Präfix des Dienst namens sein, z. b.: appname ~ ServiceName.'
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Geben Sie den Namen der Ressourcengruppe an. Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - isRequired: true
+    name: --service-type
+    summary: Geben Sie den Diensttyp Namen der Anwendung an, der im Anwendungs Manifest vorhanden sein sollte.
+    description: ''
+  - isRequired: true
+    name: --state
+    parameterValueGroup: stateful, stateless
+    summary: Gibt an, ob der Dienst zustandslos oder Zustands behaftet ist.
+    description: ''
+  optionalParameters:
+  - name: --default-move-cost
+    parameterValueGroup: High, Low, Medium, Zero
+    summary: Geben Sie die Standardkosten für eine Verschiebung an. Höhere Kosten erhöhen die Wahrscheinlichkeit, dass die Cluster Ressourcen-Manager das Replikat verschieben, wenn versucht wird, den Cluster auszugleichen.
+    description: ''
+  - name: --instance-count
+    summary: Geben Sie die Anzahl der Instanzen für den Zustands losen Dienst an. Wenn-1 verwendet wird, bedeutet dies, dass es auf allen Knoten ausgeführt wird.
+    description: ''
+  - name: --min-replica --min-replica-set-size
+    summary: Legen Sie die minimale Replikat Gruppengröße für den Zustands behafteten Dienst fest.
+    description: ''
+  - name: --partition-scheme
+    defaultValue: singleton
+    parameterValueGroup: named, singleton, uniformInt64
+    summary: Geben Sie an, welches Partitionsschema verwendet werden soll. Singleton-Partitionen werden normalerweise verwendet, wenn für den Dienst kein zusätzliches Routing benötigt wird. UniformInt64 bedeutet, dass jede Partition einen Bereich von Int64-Schlüsseln besitzt. Der benannte Wert ist in der Regel für Dienste mit Daten, die in einer begrenzten Menge buckettiert werden können. Einige allgemeine Beispiele für Datenfelder, die als Schlüssel für namensbasierte Partitionen verwendet werden, sind Regionen, Postleitzahlen, Kundengruppen oder andere geschäftliche Grenzen.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  - name: --target-replica --target-replica-set-size
+    summary: Geben Sie die Ziel Replikat Gruppengröße für den Zustands behafteten Dienst an.
+    description: ''
+- uid: az_sf_service_delete
+  name: az sf service delete
+  summary: Löschen eines Diensts.
+  description: ''
+  syntax: >-
+    az sf service delete --application-name
+                         --cluster-name
+                         --name
+                         --resource-group
+                         [--subscription]
+  examples:
+  - summary: Löschen Sie den Dienst.
+    syntax: az sf service delete -g testRG -c testCluster --application-name testApp --service-name testApp~testService
+  requiredParameters:
+  - isRequired: true
+    name: --application-name
+    summary: Der Name der Anwendungs Ressource.
+    description: ''
+  - isRequired: true
+    name: --cluster-name -c
+    summary: Geben Sie den Namen des Clusters an. Wenn dieser nicht angegeben wird, entspricht er dem Ressourcengruppen Namen.
+    description: ''
+  - isRequired: true
+    name: --name --service-name
+    summary: 'Geben Sie den Namen des Dienstanbieter an. Der Anwendungsname muss ein Präfix des Dienst namens sein, z. b.: appname ~ ServiceName.'
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Geben Sie den Namen der Ressourcengruppe an. Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  optionalParameters:
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+- uid: az_sf_service_list
+  name: az sf service list
+  summary: Auflisten der Dienste einer bestimmten Anwendung.
+  description: ''
+  syntax: >-
+    az sf service list --application-name
+                       --cluster-name
+                       --resource-group
+                       [--query-examples]
+                       [--subscription]
+  examples:
+  - summary: Auflisten von Diensten.
+    syntax: az sf service list -g testRG -c testCluster --application-name testApp
+  requiredParameters:
+  - isRequired: true
+    name: --application-name
+    summary: Der Name der Anwendungs Ressource.
+    description: ''
+  - isRequired: true
+    name: --cluster-name -c
+    summary: Geben Sie den Namen des Clusters an. Wenn dieser nicht angegeben wird, entspricht er dem Ressourcengruppen Namen.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Geben Sie den Namen der Ressourcengruppe an. Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  optionalParameters:
+  - name: --query-examples
+    summary: Empfehlen Sie die jmespath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und Sie nach dem Abfrage Parameter in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positions Schlüsselwörter hinzufügen, um Vorschläge auf der Grundlage dieser Schlüsselwörter zu geben.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+- uid: az_sf_service_show
+  name: az sf service show
+  summary: Holen Sie sich einen Dienst.
+  description: ''
+  syntax: >-
+    az sf service show --application-name
+                       --cluster-name
+                       --name
+                       --resource-group
+                       [--query-examples]
+                       [--subscription]
+  examples:
+  - summary: Zeigen Sie die Eigenschaften eines Dienstanbieter in einem Azure Service Fabric-Cluster an.
+    syntax: az sf service show -g testRG -c testCluster --application-name testApp --service-name testApp~testService
+  requiredParameters:
+  - isRequired: true
+    name: --application-name
+    summary: Der Name der Anwendungs Ressource.
+    description: ''
+  - isRequired: true
+    name: --cluster-name -c
+    summary: Geben Sie den Namen des Clusters an. Wenn dieser nicht angegeben wird, entspricht er dem Ressourcengruppen Namen.
+    description: ''
+  - isRequired: true
+    name: --name --service-name
+    summary: 'Geben Sie den Namen des Dienstanbieter an. Der Anwendungsname muss ein Präfix des Dienst namens sein, z. b.: appname ~ ServiceName.'
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Geben Sie den Namen der Ressourcengruppe an. Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  optionalParameters:
+  - name: --query-examples
+    summary: Empfehlen Sie die jmespath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und Sie nach dem Abfrage Parameter in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positions Schlüsselwörter hinzufügen, um Vorschläge auf der Grundlage dieser Schlüsselwörter zu geben.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+commands:
+- az_sf_service_create
+- az_sf_service_delete
+- az_sf_service_list
+- az_sf_service_show
+globalParameters:
+- name: --debug
+  summary: Ausführlichkeit der Protokollierung erhöhen, um alle Debugprotokolle anzuzeigen.
+- name: --help -h
+  summary: Zeigen Sie diese Hilfemeldung an, und schließen Sie sie.
+- name: --only-show-errors
+  summary: Nur Fehler anzeigen und Warnungen unterdrücken.
+- name: --output -o
+  defaultValue: json
+  parameterValueGroup: json, jsonc, table, tsv
+  summary: Ausgabeformat.
+- name: --query
+  summary: JMESPath-Abfragezeichenfolge. Weitere Informationen und Beispiele finden Sie unter <a href="http://jmespath.org/">http://jmespath.org/</a>.
+- name: --verbose
+  summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
+metadata:
+  description: Dienste verwalten, die auf einem Azure Service Fabric-Cluster ausgeführt werden. Unterstützt nur Arm-bereitgestellte Dienste.
+  ms.openlocfilehash: 0ced6ccb92d447187548a7ffd6fe9380994e8ab3
+  ms.sourcegitcommit: f379fad9c4e873cd2ca68b5494b6c240a5016b5b
+  ms.translationtype: MT
+  ms.contentlocale: de-DE
+  ms.lasthandoff: 12/09/2020
+  ms.locfileid: "102821277"
