@@ -108,34 +108,6 @@ directCommands:
     summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
     description: ''
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/vm/_help.py
-- uid: az_vm_convert
-  name: az vm convert
-  summary: Konvertieren Sie einen virtuellen Computer mit nicht verwalteten Datenträgern, um verwaltete Datenträger zu verwenden.
-  description: ''
-  syntax: >-
-    az vm convert [--ids]
-                  [--name]
-                  [--resource-group]
-                  [--subscription]
-  examples:
-  - summary: Konvertieren Sie einen virtuellen Computer mit nicht verwalteten Datenträgern, um verwaltete Datenträger zu verwenden.
-    syntax: az vm convert -g MyResourceGroup -n MyVm
-  - summary: Konvertieren Sie alle VMs mit nicht verwalteten Datenträgern in einer Ressourcengruppe, um verwaltete Datenträger zu verwenden.
-    syntax: az vm convert --ids $(az vm list -g MyResourceGroup --query "[].id" -o tsv)
-  optionalParameters:
-  - name: --ids
-    summary: Mindestens eine Ressourcen-ID (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID handeln, die alle Informationen von Ressourcen-ID-Argumenten enthält. Sie sollten entweder--IDs oder andere Ressourcen-ID-Argumente angeben.
-    description: ''
-  - name: --name -n
-    summary: Der Name des virtuellen Computers. Sie können den Standard mit konfigurieren `az configure --defaults vm=<name>` .
-    description: ''
-  - name: --resource-group -g
-    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
-    description: ''
-  - name: --subscription
-    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
-    description: ''
-  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/vm/_help.py
 - uid: az_vm_create
   name: az vm create
   summary: Erstellen eines virtuellen Azure-Computers
@@ -143,10 +115,8 @@ directCommands:
   syntax: >-
     az vm create --name
                  --resource-group
-                 [--accelerated-networking {false, true}]
                  [--admin-password]
                  [--admin-username]
-                 [--asgs]
                  [--assign-identity]
                  [--attach-data-disks]
                  [--attach-os-disk]
@@ -179,7 +149,7 @@ directCommands:
                  [--public-ip-address]
                  [--public-ip-address-allocation {dynamic, static}]
                  [--public-ip-address-dns-name]
-                 [--public-ip-sku {Basic, Standard}]
+                 [--public-ip-sku]
                  [--role]
                  [--scope]
                  [--secrets]
@@ -201,7 +171,6 @@ directCommands:
                  [--vnet-address-prefix]
                  [--vnet-name]
                  [--workspace]
-                 [--zone {1, 2, 3}]
   examples:
   - summary: Erstellen Sie eine Standard-Ubuntu-VM mit automatischer SSH-Authentifizierung.
     syntax: az vm create -n MyVm -g MyResourceGroup --image UbuntuLTS
@@ -256,18 +225,11 @@ directCommands:
     summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
     description: ''
   optionalParameters:
-  - name: --accelerated-networking
-    parameterValueGroup: false, true
-    summary: Aktivieren Sie beschleunigten Netzwerkbetrieb. Sofern nicht angegeben, wird Sie von der CLI basierend auf dem Computer Image und der Größe aktiviert.
-    description: ''
   - name: --admin-password
     summary: Kennwort für den virtuellen Computer, wenn der Authentifizierungstyp "Password" lautet.
     description: ''
   - name: --admin-username
     summary: Der Benutzername für die VM. Der Standardwert ist der aktuelle Benutzername des Betriebssystems. Wenn der Standardwert System reserviert ist, wird der Standardwert auf azureuser festgelegt. Weitere Informationen finden Sie unter <a href="https://docs.microsoft.com/en-us/rest/api/compute/virtualmachines/createorupdate#osprofile">https://docs.microsoft.com/en-us/rest/api/compute/virtualmachines/createorupdate#osprofile</a> , um eine vollständige Liste der reservierten Werte zu erhalten.
-    description: ''
-  - name: --asgs
-    summary: Durch Leerzeichen getrennte Liste vorhandener Anwendungs Sicherheitsgruppen, die der VM zugeordnet werden sollen.
     description: ''
   - name: --assign-identity
     summary: Akzeptieren Sie vom System oder vom Benutzer zugewiesene Identitäten durch Leerzeichen voneinander getrennt. Verwenden Sie [System], um die vom System zugewiesene Identität oder eine Ressourcen-ID zu verweisen, um die vom Benutzer zugewiesene Identität zu verweisen. Weitere Beispiele finden Sie in der Hilfe.
@@ -374,8 +336,7 @@ directCommands:
     summary: Global eindeutiger DNS-Name für eine neu erstellte öffentliche IP-Adresse.
     description: ''
   - name: --public-ip-sku
-    parameterValueGroup: Basic, Standard
-    summary: Öffentliche IP-SKU. Der Standardwert ist standardmäßig auf Basic festgelegt.
+    summary: ''
     description: ''
   - name: --role
     defaultValue: Contributor
@@ -412,7 +373,7 @@ directCommands:
     summary: 'Gilt nur, wenn Sie mit verwendet werden `--use-unmanaged-disk` . Der Name des Speicher Containers für den VM-Betriebssystem Datenträger. Standard: VHDs.'
     description: ''
   - name: --storage-sku
-    summary: 'Die SKU des Speicher Kontos, mit dem die VM beibehalten werden soll. Verwenden Sie eine Singular-SKU, die auf alle Datenträger angewendet werden soll, oder geben Sie einzelne Datenträger an. Verwendung: [--Storage-SKU-SKU |--Storage-SKU ID = SKU ID = SKU ID = SKU...], wobei jede ID "OS" oder eine 0-indizierte LUN ist. Zulässige Werte: Standard_LRS Premium_LRS.'
+    summary: 'Die SKU des Speicher Kontos, mit dem die VM beibehalten werden soll. Verwenden Sie eine Singular-SKU, die auf alle Datenträger angewendet werden soll, oder geben Sie einzelne Datenträger an. Verwendung: [--Storage-SKU-SKU |--Storage-SKU ID = SKU ID = SKU ID = SKU...], wobei jede ID "OS" oder eine 0-indizierte LUN ist. Zulässige Werte: Premium_LRS Standard_LRS.'
     description: ''
   - name: --subnet
     summary: Der Name des Subnetzes, wenn ein neues vnet erstellt oder auf ein vorhandenes verwiesen wird. Kann auch auf ein vorhandenes Subnetz anhand der ID verweisen. Wenn sowohl vnet-Name als auch Subnetz weggelassen werden, werden automatisch ein entsprechendes vnet und Subnetz ausgewählt, oder es wird ein neues erstellt.
@@ -445,10 +406,6 @@ directCommands:
     description: ''
   - name: --workspace
     summary: Der Name oder die ID Log Analytics Arbeitsbereichs. Wenn Sie den Arbeitsbereich anhand seines Namens angeben, sollte sich der Arbeitsbereich in derselben Ressourcengruppe wie die VM befinden. andernfalls wird ein neuer Arbeitsbereich erstellt.
-    description: ''
-  - name: --zone -z
-    parameterValueGroup: 1, 2, 3
-    summary: Verfügbarkeits Zone, in der die Ressource bereitgestellt werden soll.
     description: ''
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/vm/_help.py
 - uid: az_vm_deallocate
@@ -683,48 +640,6 @@ directCommands:
     summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
     description: ''
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/vm/_help.py
-- uid: az_vm_list_skus
-  name: az vm list-skus
-  summary: Hier finden Sie Details zu Compute-bezogenen Ressourcen-SKUs.
-  description: Dieser Befehl beinhaltet eine Einschränkung auf Abonnement Ebene, die die genauesten Informationen bietet.
-  syntax: >-
-    az vm list-skus [--all {false, true}]
-                    [--location]
-                    [--resource-type]
-                    [--size]
-                    [--subscription]
-                    [--zone {false, true}]
-  examples:
-  - summary: Listet alle SKUs in der Region "USA, Westen" auf.
-    syntax: az vm list-skus -l westus
-  - summary: Auflisten aller verfügbaren VM-Größen in der Region "Osten USA", die Verfügbarkeits Zonen unterstützen.
-    syntax: az vm list-skus -l eastus2 --zone
-  - summary: Auflisten aller verfügbaren VM-Größen in der Region "Osten USA", die eine Verfügbarkeits Zone mit einem Namen wie "standard_ds1..." unterstützen.
-    syntax: az vm list-skus -l eastus2 --zone --size standard_ds1
-  - summary: Listet Verfügbarkeits gruppenbezogene SKU-Informationen in der Region "USA, Westen" auf.
-    syntax: az vm list-skus -l westus --resource-type availabilitySets
-  optionalParameters:
-  - name: --all
-    parameterValueGroup: false, true
-    summary: Zeigt alle Informationen einschließlich der VM-Größen an, die unter dem aktuellen Abonnement nicht verfügbar sind.
-    description: ''
-  - name: --location -l
-    summary: 'Der Standort. Werte aus: `az account list-locations`. Sie können den standardmäßig verwendeten Standort mit `az configure --defaults location=<location>` konfigurieren.'
-    description: ''
-  - name: --resource-type -r
-    summary: Ressourcentypen, z. b. "availabilitysets", "Momentaufnahmen", "Datenträger" usw.
-    description: ''
-  - name: --size -s
-    summary: Name der Größe, partieller Name wird akzeptiert.
-    description: ''
-  - name: --subscription
-    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
-    description: ''
-  - name: --zone -z
-    parameterValueGroup: false, true
-    summary: SKUs anzeigen, die Verfügbarkeits Zonen unterstützen.
-    description: ''
-  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/vm/_help.py
 - uid: az_vm_list_usage
   name: az vm list-usage
   summary: Auflisten der verfügbaren Verwendungs Ressourcen für VMs.
@@ -814,29 +729,6 @@ directCommands:
   - name: --priority
     defaultValue: "900"
     summary: 'Regel Priorität: zwischen 100 (höchste Priorität) und 4096 (niedrigste Priorität). Muss für jede Regel in der Sammlung eindeutig sein.'
-    description: ''
-  - name: --resource-group -g
-    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
-    description: ''
-  - name: --subscription
-    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
-    description: ''
-  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/vm/_help.py
-- uid: az_vm_perform_maintenance
-  name: az vm perform-maintenance
-  summary: Der Vorgang zum Ausführen der Wartung für eine virtuelle Maschine.
-  description: ''
-  syntax: >-
-    az vm perform-maintenance [--ids]
-                              [--name]
-                              [--resource-group]
-                              [--subscription]
-  optionalParameters:
-  - name: --ids
-    summary: Mindestens eine Ressourcen-ID (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID handeln, die alle Informationen von Ressourcen-ID-Argumenten enthält. Sie sollten entweder--IDs oder andere Ressourcen-ID-Argumente angeben.
-    description: ''
-  - name: --name -n
-    summary: Der Name des virtuellen Computers. Sie können den Standard mit konfigurieren `az configure --defaults vm=<name>` .
     description: ''
   - name: --resource-group -g
     summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
@@ -1068,13 +960,11 @@ directCommands:
                  [--license-type {None, RHEL_BYOS, RHEL_ELS_6, SLES_BYOS, Windows_Client, Windows_Server}]
                  [--name]
                  [--no-wait]
-                 [--os-disk]
                  [--remove]
                  [--resource-group]
                  [--set]
                  [--subscription]
                  [--workspace]
-                 [--write-accelerator]
   examples:
   - summary: Fügen Sie ein Tag hinzu oder aktualisieren Sie es.
     syntax: az vm update -n name -g group --set tags.tagName=tagValue
@@ -1109,9 +999,6 @@ directCommands:
   - name: --no-wait
     summary: Nicht auf den Abschluss lang andauernder Vorgänge warten
     description: ''
-  - name: --os-disk
-    summary: ID oder Name des verwalteten Betriebssystem Datenträgers
-    description: ''
   - name: --remove
     summary: Entfernt eine Eigenschaft oder ein Element aus einer Liste.  Beispiel:--Remove Property. List <indexToRemove> oder--Remove propertytoremove.
     description: ''
@@ -1126,9 +1013,6 @@ directCommands:
     description: ''
   - name: --workspace
     summary: Der Name oder die ID Log Analytics Arbeitsbereichs. Wenn Sie den Arbeitsbereich anhand seines Namens angeben, sollte sich der Arbeitsbereich in derselben Ressourcengruppe wie die VM befinden. andernfalls wird ein neuer Arbeitsbereich erstellt.
-    description: ''
-  - name: --write-accelerator
-    summary: Aktivieren/Deaktivieren der Datenträger Schreib Beschleunigung. Verwenden Sie für den Betriebssystem Datenträger und die Datenträger mit der LUN 1 & 2 den Singular Wert "true/false", oder geben Sie einzelne Datenträger an, z. b. "OS = true 1 = true 2 = true".
     description: ''
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/vm/_help.py
 - uid: az_vm_wait
@@ -1192,7 +1076,6 @@ directCommands:
 commands:
 - az_vm_auto_shutdown
 - az_vm_availability_set
-- az_vm_availability_set_convert
 - az_vm_availability_set_create
 - az_vm_availability_set_delete
 - az_vm_availability_set_list
@@ -1204,16 +1087,12 @@ commands:
 - az_vm_boot_diagnostics_enable
 - az_vm_boot_diagnostics_get_boot_log
 - az_vm_capture
-- az_vm_convert
 - az_vm_create
 - az_vm_deallocate
 - az_vm_delete
 - az_vm_diagnostics
 - az_vm_diagnostics_get_default_config
 - az_vm_diagnostics_set
-- az_vm_disk
-- az_vm_disk_attach
-- az_vm_disk_detach
 - az_vm_encryption
 - az_vm_encryption_disable
 - az_vm_encryption_enable
@@ -1233,7 +1112,6 @@ commands:
 - az_vm_get_instance_view
 - az_vm_identity
 - az_vm_identity_assign
-- az_vm_identity_remove
 - az_vm_identity_show
 - az_vm_image
 - az_vm_image_accept_terms
@@ -1249,7 +1127,6 @@ commands:
 - az_vm_list
 - az_vm_list_ip_addresses
 - az_vm_list_sizes
-- az_vm_list_skus
 - az_vm_list_usage
 - az_vm_list_vm_resize_options
 - az_vm_monitor
@@ -1262,14 +1139,9 @@ commands:
 - az_vm_nic_set
 - az_vm_nic_show
 - az_vm_open_port
-- az_vm_perform_maintenance
 - az_vm_redeploy
 - az_vm_resize
 - az_vm_restart
-- az_vm_run_command
-- az_vm_run_command_invoke
-- az_vm_run_command_list
-- az_vm_run_command_show
 - az_vm_secret
 - az_vm_secret_add
 - az_vm_secret_format
@@ -1305,11 +1177,11 @@ globalParameters:
   summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
 metadata:
   doc_source_url_repo: https://github.com/Azure/azure-cli/blob/dev/
-  ms.date: 02/24/2021
+  ms.date: 02/05/2021
   description: Verwalten Sie virtuelle Linux-oder Windows-Computer.
-  ms.openlocfilehash: f2734aded674d535379386a7782a8175966d46a7
-  ms.sourcegitcommit: f9e23f29c59c6957d3df4d5ca2f4425093e6fd80
+  ms.openlocfilehash: d9e550bea67830806b09035c08e878163948cb2e
+  ms.sourcegitcommit: df9d6597535ef9103775afbaee5a8282e0e218ee
   ms.translationtype: MT
   ms.contentlocale: de-DE
-  ms.lasthandoff: 03/16/2021
-  ms.locfileid: "103502105"
+  ms.lasthandoff: 02/09/2021
+  ms.locfileid: "102912668"
