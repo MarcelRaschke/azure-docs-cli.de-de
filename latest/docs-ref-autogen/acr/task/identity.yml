@@ -1,0 +1,148 @@
+### YamlMime:AzureCLIGroup
+uid: az_acr_task_identity
+name: az acr task identity
+summary: Verwaltete Identitäten für den Task. Weitere Informationen finden Sie unter <a href="https://aka.ms/acr/tasks/task-create-managed-identity">https://aka.ms/acr/tasks/task-create-managed-identity</a> .
+description: ''
+directCommands:
+- uid: az_acr_task_identity_assign
+  name: az acr task identity assign
+  summary: Aktualisieren Sie die verwaltete Identität für eine Aufgabe.
+  description: ''
+  syntax: >-
+    az acr task identity assign --name
+                                --registry
+                                [--identities]
+                                [--resource-group]
+                                [--subscription]
+  examples:
+  - summary: Aktivieren Sie die vom System zugewiesene Identität für eine vorhandene Aufgabe. Dadurch werden alle vorhandenen vom Benutzer zugewiesenen Identitäten für diese Aufgabe ersetzt.
+    syntax: az acr task identity assign -n MyTask -r MyRegistry
+  - summary: Zuweisen von vom Benutzer zugewiesenen verwalteten Identitäten zu einer vorhandenen Aufgabe Dadurch wird die vorhandene vom System zugewiesene Identität entfernt.
+    syntax: >-
+      az acr task identity assign -n MyTask -r MyRegistry \
+          --identities "/subscriptions/<SUBSCRIPTON ID>/resourcegroups/<RESOURCE GROUP>/providers/Microsoft.ManagedIdentity/userAssignedIdentities/myUserAssignedIdentitiy"
+  - summary: Zuweisen von vom System zugewiesenen und vom Benutzer zugewiesenen verwalteten Identitäten zu einer vorhandenen Aufgabe
+    syntax: >-
+      az acr task identity assign -n MyTask -r MyRegistry \
+          --identities [system] "/subscriptions/<SUBSCRIPTON ID>/resourcegroups/<RESOURCE GROUP>/providers/Microsoft.ManagedIdentity/userAssignedIdentities/myUserAssignedIdentitiy"
+  requiredParameters:
+  - isRequired: true
+    name: --name -n
+    summary: Der Name der Aufgabe.
+    description: ''
+  - isRequired: true
+    name: --registry -r
+    summary: Der Name der Containerregistrierung. Sie können den Standard Registrierungs Namen mithilfe von konfigurieren `az configure --defaults acr=<registry name>` .
+    description: ''
+  optionalParameters:
+  - name: --identities
+    summary: Weist der Aufgabe verwaltete Identitäten zu. Verwenden Sie "[System]", um auf die vom System zugewiesene Identität oder eine Ressourcen-ID zu verweisen, um auf eine vom Benutzer zugewiesene Identität zu verweisen.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/acr/_help.py
+- uid: az_acr_task_identity_remove
+  name: az acr task identity remove
+  summary: Entfernen Sie verwaltete Identitäten für eine Aufgabe.
+  description: ''
+  syntax: >-
+    az acr task identity remove --name
+                                --registry
+                                [--identities]
+                                [--resource-group]
+                                [--subscription]
+  examples:
+  - summary: Entfernen Sie die vom System zugewiesene Identität aus einer Aufgabe.
+    syntax: az acr task identity remove -n MyTask -r MyRegistry
+  - summary: Entfernen Sie eine vom Benutzer zugewiesene Identität aus einer Aufgabe.
+    syntax: >-
+      az acr task identity remove -n MyTask -r MyRegistry \
+          --identities "/subscriptions/<SUBSCRIPTON ID>/resourcegroups/<RESOURCE GROUP>/providers/Microsoft.ManagedIdentity/userAssignedIdentities/myUserAssignedIdentitiy"
+  - summary: Entfernt alle verwalteten Identitäten aus einer Aufgabe.
+    syntax: az acr task identity remove -n MyTask -r MyRegistry --identities [all]
+  requiredParameters:
+  - isRequired: true
+    name: --name -n
+    summary: Der Name der Aufgabe.
+    description: ''
+  - isRequired: true
+    name: --registry -r
+    summary: Der Name der Containerregistrierung. Sie können den Standard Registrierungs Namen mithilfe von konfigurieren `az configure --defaults acr=<registry name>` .
+    description: ''
+  optionalParameters:
+  - name: --identities
+    summary: Weist der Aufgabe verwaltete Identitäten zu. Verwenden Sie "[System]", um auf die vom System zugewiesene Identität oder eine Ressourcen-ID zu verweisen, um auf eine vom Benutzer zugewiesene Identität zu verweisen.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/acr/_help.py
+- uid: az_acr_task_identity_show
+  name: az acr task identity show
+  summary: Anzeigen der verwalteten Identitäten für den Task.
+  description: ''
+  syntax: >-
+    az acr task identity show --name
+                              --registry
+                              [--query-examples]
+                              [--resource-group]
+                              [--subscription]
+  examples:
+  - summary: Anzeigen der verwalteten Identitäten für eine Aufgabe.
+    syntax: az acr task identity show -n MyTask -r MyRegistry
+  requiredParameters:
+  - isRequired: true
+    name: --name -n
+    summary: Der Name der Aufgabe.
+    description: ''
+  - isRequired: true
+    name: --registry -r
+    summary: Der Name der Containerregistrierung. Sie können den Standard Registrierungs Namen mithilfe von konfigurieren `az configure --defaults acr=<registry name>` .
+    description: ''
+  optionalParameters:
+  - name: --query-examples
+    summary: Empfehlen Sie die jmespath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und Sie nach dem Abfrage Parameter in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positions Schlüsselwörter hinzufügen, um Vorschläge auf der Grundlage dieser Schlüsselwörter zu geben.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/acr/_help.py
+commands:
+- az_acr_task_identity_assign
+- az_acr_task_identity_remove
+- az_acr_task_identity_show
+globalParameters:
+- name: --debug
+  summary: Ausführlichkeit der Protokollierung erhöhen, um alle Debugprotokolle anzuzeigen.
+- name: --help -h
+  summary: Zeigen Sie diese Hilfemeldung an, und schließen Sie sie.
+- name: --only-show-errors
+  summary: Nur Fehler anzeigen und Warnungen unterdrücken.
+- name: --output -o
+  defaultValue: json
+  parameterValueGroup: json, jsonc, table, tsv
+  summary: Ausgabeformat.
+- name: --query
+  summary: JMESPath-Abfragezeichenfolge. Weitere Informationen und Beispiele finden Sie unter <a href="http://jmespath.org/">http://jmespath.org/</a>.
+- name: --verbose
+  summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
+metadata:
+  doc_source_url_repo: https://github.com/Azure/azure-cli/blob/dev/
+  ms.date: 01/26/2021
+  description: Verwaltete Identitäten für den Task. Weitere Informationen finden Sie unter <a href="https://aka.ms/acr/tasks/task-create-managed-identity">https://aka.ms/acr/tasks/task-create-managed-identity</a> .
+  ms.openlocfilehash: 168c0d9ba0bc60960de5c40a530330ee4365df9f
+  ms.sourcegitcommit: df9d6597535ef9103775afbaee5a8282e0e218ee
+  ms.translationtype: MT
+  ms.contentlocale: de-DE
+  ms.lasthandoff: 02/09/2021
+  ms.locfileid: "102967575"

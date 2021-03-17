@@ -1,0 +1,432 @@
+### YamlMime:AzureCLIGroup
+uid: az_acs
+name: az acs
+summary: Verwalten von Azure Container Services.
+description: >-
+  ACS wird am 31. Januar 2020 als eigenständiger Dienst eingestellt.
+
+
+  Falls Sie den Kubernetes-Orchestrator verwenden, migrieren Sie bitte bis spätestens 31. Januar 2020 zu Azure Kubernetes Service.
+directCommands:
+- uid: az_acs_browse
+  name: az acs browse
+  summary: Zeigen Sie das Dashboard für den Orchestrator eines Dienst Containers in einem Webbrowser an.
+  description: ''
+  syntax: >-
+    az acs browse --name
+                  --resource-group
+                  [--disable-browser]
+                  [--ssh-key-file]
+                  [--subscription]
+  examples:
+  - summary: Zeigen Sie das Dashboard für den Orchestrator eines Dienst Containers in einem Webbrowser an. automatisch generierten
+    syntax: az acs browse --name MyContainerService --resource-group MyResourceGroup
+  requiredParameters:
+  - isRequired: true
+    name: --name -n
+    summary: Der Name des Container Dienstanbieter. Sie können den Standard mit konfigurieren `az configure --defaults acs=<name>` .
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  optionalParameters:
+  - name: --disable-browser
+    summary: Öffnen Sie den Browser nach dem Öffnen eines Proxys für die clusterweb-Benutzeroberfläche nicht.
+    description: ''
+  - name: --ssh-key-file
+    summary: Wenn Sie einen Pfad zu einem SSH-Schlüssel festlegen, der verwendet werden soll, gilt nur für DCOS.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/acs/_help.py
+- uid: az_acs_create
+  name: az acs create
+  summary: Erstellen Sie einen neuen Containerdienst.
+  description: ''
+  syntax: >-
+    az acs create --name
+                  --resource-group
+                  [--admin-password]
+                  [--admin-username]
+                  [--agent-count]
+                  [--agent-osdisk-size]
+                  [--agent-ports]
+                  [--agent-profiles]
+                  [--agent-storage-profile {ManagedDisks, StorageAccount}]
+                  [--agent-vm-size]
+                  [--agent-vnet-subnet-id]
+                  [--api-version]
+                  [--client-secret]
+                  [--dns-prefix]
+                  [--generate-ssh-keys]
+                  [--location]
+                  [--master-count]
+                  [--master-first-consecutive-static-ip]
+                  [--master-osdisk-size]
+                  [--master-profile]
+                  [--master-storage-profile {ManagedDisks, StorageAccount}]
+                  [--master-vm-size]
+                  [--master-vnet-subnet-id]
+                  [--no-wait]
+                  [--orchestrator-type {Custom, DCOS, DockerCE, Kubernetes, Swarm}]
+                  [--orchestrator-version]
+                  [--service-principal]
+                  [--ssh-key-value]
+                  [--subscription]
+                  [--tags]
+                  [--validate]
+                  [--windows]
+  examples:
+  - summary: Erstellen Sie einen DCOS-Cluster mit einem vorhandenen SSH-Schlüssel.
+    syntax: >-
+      az acs create --orchestrator-type DCOS -g MyResourceGroup -n MyContainerService \
+        --ssh-key-value /path/to/publickey
+  - summary: Erstellen Sie einen DCOS-Cluster mit zwei Agent-Pools.
+    syntax: >-
+      az acs create -g MyResourceGroup -n MyContainerService --agent-profiles '[ \
+        { \
+          "name": "agentpool1" \
+        }, \
+        { \
+          "name": "agentpool2" \
+        }]'
+  - summary: Erstellen Sie einen DCOS-Cluster, in dem für den zweiten agentpool eine vmsize angegeben ist.
+    syntax: >-
+      az acs create -g MyResourceGroup -n MyContainerService --agent-profiles '[ \
+        { \
+          "name": "agentpool1" \
+        }, \
+        { \
+          "name": "agentpool2", \
+          "vmSize": "Standard_D2" \
+        }]'
+  - summary: Erstellen Sie einen DCOS-Cluster mit Agentprofilen, die in einer Datei angegeben sind.
+    syntax: az acs create -g MyResourceGroup -n MyContainerService --agent-profiles MyAgentProfiles.json
+  requiredParameters:
+  - isRequired: true
+    name: --name -n
+    summary: Der Name des Container Dienstanbieter. Sie können den Standard mit konfigurieren `az configure --defaults acs=<name>` .
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  optionalParameters:
+  - name: --admin-password
+    summary: Das Verwaltung-Kennwort für Windows-Knoten. Nur verfügbar, wenn--Windows = true.
+    description: ''
+  - name: --admin-username -u
+    defaultValue: azureuser
+    summary: Benutzername für die virtuellen Linux-Computer.
+    description: ''
+  - name: --agent-count
+    defaultValue: "3"
+    summary: Legen Sie die Standard Anzahl von Agents für die agentpools fest.
+    description: Beachten Sie, dass DC/OS-Cluster über 1 oder 2 zusätzliche öffentliche Agents verfügen.
+  - name: --agent-osdisk-size
+    summary: 'Feature in der Vorschau, nur in canadacentral, canadaeast, centralindia, koreasouth, koreacentral, southindia, uksouth, ukwest, westcentralus, westindia, westus2. Legen Sie die Standard Datenträger für virtuelle Agent-Pools fest. Einheit in GB. Standardwert: zugehörige vmsize-Datenträger Größe.'
+    description: ''
+  - name: --agent-ports
+    summary: 'Feature in der Vorschau, nur in canadacentral, canadaeast, centralindia, koreasouth, koreacentral, southindia, uksouth, ukwest, westcentralus, westindia, westus2. Festlegen der Standardports, die für die agentpools verfügbar gemacht werden. Nur für nicht-Kubernetes verwendbar. Standardwert: 8080, 4000, 80.'
+    description: ''
+  - name: --agent-profiles -a
+    summary: Feature in der Vorschau, nur in canadacentral, canadaeast, centralindia, koreasouth, koreacentral, southindia, uksouth, ukwest, westcentralus, westindia, westus2. Die Datei-oder Wörterbuch Darstellung der Agentprofile. Beachten Sie, dass alle Agenteinstellungen außer Kraft gesetzt werden.
+    description: ''
+  - name: --agent-storage-profile
+    parameterValueGroup: ManagedDisks, StorageAccount
+    summary: 'Feature in der Vorschau, nur in canadacentral, canadaeast, centralindia, koreasouth, koreacentral, southindia, uksouth, ukwest, westcentralus, westindia, westus2. Legen Sie das Standard Speicher Profil für Agent-Pools fest. Standard: variiert basierend auf Orchestrator.'
+    description: ''
+  - name: --agent-vm-size
+    defaultValue: Standard_D2_v2
+    summary: Legen Sie die Standardgröße für VM-Agent-Pools fest.
+    description: ''
+  - name: --agent-vnet-subnet-id
+    summary: 'Feature in der Vorschau, nur in canadacentral, canadaeast, centralindia, koreasouth, koreacentral, southindia, uksouth, ukwest, westcentralus, westindia, westus2. Legen Sie die standardmäßige benutzerdefinierte vnet-Subnetz-ID für agentpools fest. Hinweis der Agent muss dasselbe vnet verwenden, wenn der Master Satz verwendet wird. Standardwert: "".'
+    description: ''
+  - name: --api-version
+    summary: 'Feature in der Vorschau, nur in canadacentral, canadaeast, centralindia, koreasouth, koreacentral, southindia, uksouth, ukwest, westcentralus, westindia, westus2. Verwenden Sie die API-Version von ACS, um AZ ACS-Vorgänge auszuführen. Verfügbare Optionen: 2017-01-31, 2017-07-01. Standard: die neueste Version für den Speicherort.'
+    description: ''
+  - name: --client-secret
+    summary: Dem Dienstprinzipal zugeordnetes Geheimnis Dieses Argument ist erforderlich, wenn `--service-principal` angegeben wird.
+    description: ''
+  - name: --dns-prefix -d
+    summary: Legt das Domänen Namen Präfix für den Cluster fest. Die Verkettung des Domänen Namens und der regionalisierten DNS-Zone bilden den voll qualifizierten Domänen Namen, der der öffentlichen IP-Adresse zugeordnet ist.
+    description: ''
+  - name: --generate-ssh-keys
+    summary: Erstellen der Dateien für öffentliche und private SSH-Schlüssel, sofern diese fehlen.
+    description: ''
+  - name: --location -l
+    summary: 'Der Standort. Werte aus: `az account list-locations`. Sie können den standardmäßig verwendeten Standort mit `az configure --defaults location=<location>` konfigurieren.'
+    description: ''
+  - name: --master-count
+    defaultValue: "1"
+    summary: Die Anzahl von Masters für den Cluster.
+    description: ''
+  - name: --master-first-consecutive-static-ip
+    defaultValue: 10.240.255.5
+    summary: Feature in der Vorschau, nur in canadacentral, canadaeast, centralindia, koreasouth, koreacentral, southindia, uksouth, ukwest, westcentralus, westindia, westus2. Die erste aufeinander folgende IP-Adresse, die zum Angeben des statischen IP-Blocks
+    description: ''
+  - name: --master-osdisk-size
+    summary: 'Feature in der Vorschau, nur in canadacentral, canadaeast, centralindia, koreasouth, koreacentral, southindia, uksouth, ukwest, westcentralus, westindia, westus2. Die Datenträger Größe für Master-Pool-VMS. Einheit in GB. Standardwert: zugehörige vmsize-Datenträger Größe.'
+    description: ''
+  - name: --master-profile -m
+    summary: Feature in der Vorschau, nur in canadacentral, canadaeast, centralindia, koreasouth, koreacentral, southindia, uksouth, ukwest, westcentralus, westindia, westus2. Die Datei-oder Wörterbuch Darstellung des Master Profils. Beachten Sie, dass alle Master Einstellungen außer Kraft gesetzt werden.
+    description: ''
+  - name: --master-storage-profile
+    parameterValueGroup: ManagedDisks, StorageAccount
+    summary: 'Feature in der Vorschau, nur in canadacentral, canadaeast, centralindia, koreasouth, koreacentral, southindia, uksouth, ukwest, westcentralus, westindia, westus2. Standard: variiert basierend auf Orchestrator.'
+    description: ''
+  - name: --master-vm-size
+    defaultValue: Standard_D2_v2
+    summary: Feature in der Vorschau, nur in canadacentral, canadaeast, centralindia, koreasouth, koreacentral, southindia, uksouth, ukwest, westcentralus, westindia, westus2.
+    description: ''
+  - name: --master-vnet-subnet-id
+    summary: 'Feature in der Vorschau, nur in canadacentral, canadaeast, centralindia, koreasouth, koreacentral, southindia, uksouth, ukwest, westcentralus, westindia, westus2. Die benutzerdefinierte vnet-Subnetz-ID. Hinweis der Agent muss dasselbe vnet verwenden, wenn der Master Satz verwendet wird. Standardwert: "".'
+    description: ''
+  - name: --no-wait
+    summary: Nicht auf den Abschluss lang andauernder Vorgänge warten
+    description: ''
+  - name: --orchestrator-type -t
+    defaultValue: DCOS
+    parameterValueGroup: Custom, DCOS, DockerCE, Kubernetes, Swarm
+    summary: Der Typ von Orchestrator, der zum Verwalten der Anwendungen im Cluster verwendet wird.
+    description: ''
+  - name: --orchestrator-version
+    summary: Feature in der Vorschau, nur in canadacentral, canadaeast, centralindia, koreasouth, koreacentral, southindia, uksouth, ukwest, westcentralus, westindia, westus2. Verwenden Sie die Orchestrator-Version, um die semantische Version für die gewünschte Orchestrator-Version anzugeben.
+    description: ''
+  - name: --service-principal
+    summary: Dienstprinzipal für die Authentifizierung bei Azure-APIs
+    description: Wenn keine Angabe erfolgt, wird ein neuer Dienst Prinzipal mit der Rolle "Mitwirkender" erstellt und unter $Home/.Azure/acsServicePrincipal.js, der von nachfolgenden Befehlen verwendet wird, zwischengespeichert `az acs` .
+  - name: --ssh-key-value
+    defaultValue: ~\.ssh\id_rsa.pub
+    summary: Konfigurieren Sie alle Linux-Computer mit der öffentlichen SSH-RSA-Schlüssel Zeichenfolge.  Ihr Schlüssel sollte drei Teile umfassen, z. b. "SSH-RSA AAAAB... Snip... Ucyupgh azureuser@linuxvm .
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  - name: --tags
+    summary: 'Durch Leerzeichen getrennte Tags: Key [= value] [key [= value]...]. Verwenden Sie "", um vorhandene Tags zu löschen.'
+    description: ''
+  - name: --validate
+    summary: Generieren und Validieren der Arm-Vorlage, ohne Ressourcen zu erstellen.
+    description: ''
+  - name: --windows
+    summary: Wenn true, legen Sie den standardmäßigen OSType-Wert von Agent-Pools auf Windows fest.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/acs/_help.py
+- uid: az_acs_delete
+  name: az acs delete
+  summary: Löschen Sie einen Containerdienst.
+  description: ''
+  syntax: >-
+    az acs delete --name
+                  --resource-group
+                  [--subscription]
+                  [--yes]
+  examples:
+  - summary: Löschen Sie einen Containerdienst. automatisch generierten
+    syntax: az acs delete --name MyContainerService --resource-group MyResourceGroup
+  requiredParameters:
+  - isRequired: true
+    name: --name -n
+    summary: Der Name des Container Dienstanbieter. Sie können den Standard mit konfigurieren `az configure --defaults acs=<name>` .
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  optionalParameters:
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  - name: --yes -y
+    summary: Nicht zur Bestätigung auffordern
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/acs/_help.py
+- uid: az_acs_list
+  name: az acs list
+  summary: Listet Containerdienste auf.
+  description: ''
+  syntax: >-
+    az acs list [--query-examples]
+                [--resource-group]
+                [--subscription]
+  optionalParameters:
+  - name: --query-examples
+    summary: Empfehlen Sie die jmespath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und Sie nach dem Abfrage Parameter in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positions Schlüsselwörter hinzufügen, um Vorschläge auf der Grundlage dieser Schlüsselwörter zu geben.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/acs/_help.py
+- uid: az_acs_list_locations
+  name: az acs list-locations
+  summary: Auflisten der Standorte, an denen sich Azure Container Service in der Vorschau Phase und in der Produktion
+  description: ''
+  syntax: az acs list-locations [--subscription]
+  optionalParameters:
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/acs/_help.py
+- uid: az_acs_scale
+  name: az acs scale
+  summary: Ändern Sie die Anzahl der privaten Agents eines Container Dienstanbieter.
+  description: ''
+  syntax: >-
+    az acs scale --name
+                 --new-agent-count
+                 --resource-group
+                 [--subscription]
+  examples:
+  - summary: Ändern Sie die Anzahl der privaten Agents eines Container Dienstanbieter. automatisch generierten
+    syntax: az acs scale --name MyContainerService --new-agent-count 10 --resource-group MyResourceGroup
+  requiredParameters:
+  - isRequired: true
+    name: --name -n
+    summary: Der Name des Container Dienstanbieter. Sie können den Standard mit konfigurieren `az configure --defaults acs=<name>` .
+    description: ''
+  - isRequired: true
+    name: --new-agent-count
+    summary: Die Anzahl der Agents für den Containerdienst.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  optionalParameters:
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/acs/_help.py
+- uid: az_acs_show
+  name: az acs show
+  summary: Anzeigen der Details für einen Containerdienst.
+  description: ''
+  syntax: >-
+    az acs show --name
+                --resource-group
+                [--query-examples]
+                [--subscription]
+  examples:
+  - summary: Anzeigen der Details für einen Containerdienst. automatisch generierten
+    syntax: az acs show --name MyContainerService --resource-group MyResourceGroup
+  requiredParameters:
+  - isRequired: true
+    name: --name -n
+    summary: Der Name des Container Dienstanbieter. Sie können den Standard mit konfigurieren `az configure --defaults acs=<name>` .
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  optionalParameters:
+  - name: --query-examples
+    summary: Empfehlen Sie die jmespath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und Sie nach dem Abfrage Parameter in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positions Schlüsselwörter hinzufügen, um Vorschläge auf der Grundlage dieser Schlüsselwörter zu geben.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/acs/_help.py
+- uid: az_acs_wait
+  name: az acs wait
+  summary: Warten Sie, bis ein Containerdienst den gewünschten Zustand erreicht hat.
+  description: Wenn ein Vorgang für einen Containerdienst unterbrochen wurde oder mit gestartet wurde `--no-wait` , verwenden Sie diesen Befehl, um zu warten, bis er beendet wurde.
+  syntax: >-
+    az acs wait --name
+                --resource-group
+                [--created]
+                [--custom]
+                [--deleted]
+                [--exists]
+                [--interval]
+                [--subscription]
+                [--timeout]
+                [--updated]
+  requiredParameters:
+  - isRequired: true
+    name: --name -n
+    summary: Der Name des Container Dienstanbieter. Sie können den Standard mit konfigurieren `az configure --defaults acs=<name>` .
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  optionalParameters:
+  - name: --created
+    summary: Warten Sie, bis "provisioningstate" bei "erfolgreich" erstellt wurde.
+    description: ''
+  - name: --custom
+    summary: "Warten Sie, bis die Bedingung eine benutzerdefinierte jmespath-Abfrage erfüllt. Beispiel: provisioningstate! = ' InProgress ', instanceview. statuses [? Code = = ' PowerState/Running ']."
+    description: ''
+  - name: --deleted
+    summary: Warten Sie bis zum Löschen.
+    description: ''
+  - name: --exists
+    summary: Warten Sie, bis die Ressource vorhanden ist.
+    description: ''
+  - name: --interval
+    defaultValue: "30"
+    summary: Abruf Intervall in Sekunden.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  - name: --timeout
+    defaultValue: "3600"
+    summary: Maximale Wartezeit in Sekunden.
+    description: ''
+  - name: --updated
+    summary: Warten Sie, bis das Update mit provisioningstate bei "erfolgreich" abgeschlossen ist.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/acs/_help.py
+commands:
+- az_acs_browse
+- az_acs_create
+- az_acs_dcos
+- az_acs_dcos_browse
+- az_acs_dcos_install_cli
+- az_acs_delete
+- az_acs_kubernetes
+- az_acs_kubernetes_browse
+- az_acs_kubernetes_get_credentials
+- az_acs_kubernetes_install_cli
+- az_acs_list
+- az_acs_list_locations
+- az_acs_scale
+- az_acs_show
+- az_acs_wait
+globalParameters:
+- name: --debug
+  summary: Ausführlichkeit der Protokollierung erhöhen, um alle Debugprotokolle anzuzeigen.
+- name: --help -h
+  summary: Zeigen Sie diese Hilfemeldung an, und schließen Sie sie.
+- name: --only-show-errors
+  summary: Nur Fehler anzeigen und Warnungen unterdrücken.
+- name: --output -o
+  defaultValue: json
+  parameterValueGroup: json, jsonc, table, tsv
+  summary: Ausgabeformat.
+- name: --query
+  summary: JMESPath-Abfragezeichenfolge. Weitere Informationen und Beispiele finden Sie unter <a href="http://jmespath.org/">http://jmespath.org/</a>.
+- name: --verbose
+  summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
+metadata:
+  doc_source_url_repo: https://github.com/Azure/azure-cli/blob/dev/
+  ms.date: 02/04/2021
+  description: >-
+    ACS wird am 31. Januar 2020 als eigenständiger Dienst eingestellt.
+
+
+    Falls Sie den Kubernetes-Orchestrator verwenden, migrieren Sie bitte bis spätestens 31. Januar 2020 zu Azure Kubernetes Service.
+  ms.openlocfilehash: bf78d5e9479c1317dee688ae6818b146f97a41d4
+  ms.sourcegitcommit: df9d6597535ef9103775afbaee5a8282e0e218ee
+  ms.translationtype: MT
+  ms.contentlocale: de-DE
+  ms.lasthandoff: 02/09/2021
+  ms.locfileid: "102967556"
