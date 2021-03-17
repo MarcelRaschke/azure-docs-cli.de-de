@@ -1,0 +1,226 @@
+### YamlMime:AzureCLIGroup
+uid: az_acr_scope_map
+name: az acr scope-map
+summary: Verwalten von Bereichs Zugriffs Zuordnungen für Azure-Container Registrierungen.
+description: ''
+directCommands:
+- uid: az_acr_scope_map_create
+  name: az acr scope-map create
+  summary: Erstellen Sie eine Bereichs Zuordnung für eine Azure Container Registry.
+  description: ''
+  syntax: >-
+    az acr scope-map create --name
+                            --registry
+                            [--description]
+                            [--gateway]
+                            [--repository]
+                            [--resource-group]
+                            [--subscription]
+  examples:
+  - summary: Erstellen Sie eine Bereichs Zuordnung, die Inhalts-/Schreib-und Metadaten-/leseaktionen für das `hello-world` Repository sowie die Inhalts-/Leseaktion für ermöglicht `hello-world-again` .
+    syntax: az acr scope-map create -n MyScopeMap -r MyRegistry --repository hello-world content/write metadata/read --repository hello-world-again content/read --description "Sample scope map."
+  - summary: Erstellen Sie eine Bereichs Zuordnung, die alle Repository-Aktionen für `test` und alle gatewayaktionen für zulässt `connectedRegistry` .
+    syntax: >-
+      az acr scope-map create -n MyScopeMap -r MyRegistry --description "Sample scope map."
+        --repository test content/delete content/read content/write metadata/read metadata/write
+        --gateway connectedRegistry config/read config/write message/read message/write
+  requiredParameters:
+  - isRequired: true
+    name: --name -n
+    summary: Der Name der Bereichs Zuordnung.
+    description: ''
+  - isRequired: true
+    name: --registry -r
+    summary: Der Name der Containerregistrierung. Sie können den Standard Registrierungs Namen mithilfe von konfigurieren `az configure --defaults acr=<registry name>` .
+    description: ''
+  optionalParameters:
+  - name: --description
+    summary: Beschreibung für die Bereichs Zuordnung. Maximal 256 Zeichen sind zulässig.
+    description: ''
+  - name: --gateway
+    summary: Gateway-Berechtigungen. Verwenden Sie das Format "--Gateway Gateway [ACTION1 ACTION2...]" pro Flag. Gültige Aktionen sind {"config/Write", "Message/Read", "config/Read", "Message/Write"}.
+    description: ''
+  - name: --repository
+    summary: Repository-Berechtigungen. Verwenden Sie das Format "--Repository Repository [ACTION1 ACTION2...]" pro Flag. Gültige Aktionen sind {' Metadata/Read ', ' Content/Write ', ' Content/Read ', ' Metadata/Write ', ' Content/delete '}.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/acr/_help.py
+- uid: az_acr_scope_map_delete
+  name: az acr scope-map delete
+  summary: Löschen Sie eine Bereichs Zuordnung für einen Azure Container Registry.
+  description: ''
+  syntax: >-
+    az acr scope-map delete --name
+                            --registry
+                            [--resource-group]
+                            [--subscription]
+                            [--yes]
+  examples:
+  - summary: Löschen Sie die Bereichs Zuordnung "myscopemap".
+    syntax: az acr scope-map delete -n MyScopeMap -r MyRegistry
+  requiredParameters:
+  - isRequired: true
+    name: --name -n
+    summary: Der Name der Bereichs Zuordnung.
+    description: ''
+  - isRequired: true
+    name: --registry -r
+    summary: Der Name der Containerregistrierung. Sie können den Standard Registrierungs Namen mithilfe von konfigurieren `az configure --defaults acr=<registry name>` .
+    description: ''
+  optionalParameters:
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  - name: --yes -y
+    summary: Nicht zur Bestätigung auffordern
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/acr/_help.py
+- uid: az_acr_scope_map_list
+  name: az acr scope-map list
+  summary: Listet alle Bereichs Zuordnungen für eine Azure Container Registry auf.
+  description: ''
+  syntax: >-
+    az acr scope-map list --registry
+                          [--query-examples]
+                          [--resource-group]
+                          [--subscription]
+  examples:
+  - summary: Auflisten von Bereichs Zuordnungen in der Registrierung "myregistry".
+    syntax: az acr scope-map list -r MyRegistry
+  requiredParameters:
+  - isRequired: true
+    name: --registry -r
+    summary: Der Name der Containerregistrierung. Sie können den Standard Registrierungs Namen mithilfe von konfigurieren `az configure --defaults acr=<registry name>` .
+    description: ''
+  optionalParameters:
+  - name: --query-examples
+    summary: Empfehlen Sie die jmespath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und Sie nach dem Abfrage Parameter in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positions Schlüsselwörter hinzufügen, um Vorschläge auf der Grundlage dieser Schlüsselwörter zu geben.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/acr/_help.py
+- uid: az_acr_scope_map_show
+  name: az acr scope-map show
+  summary: Details und Attribute einer Bereichs Zuordnung für eine Azure Container Registry anzeigen.
+  description: ''
+  syntax: >-
+    az acr scope-map show --name
+                          --registry
+                          [--query-examples]
+                          [--resource-group]
+                          [--subscription]
+  examples:
+  - summary: Informationen für die Bereichs Zuordnung "myscopemap" erhalten.
+    syntax: az acr scope-map show -n MyScopeMap -r MyRegistry
+  requiredParameters:
+  - isRequired: true
+    name: --name -n
+    summary: Der Name der Bereichs Zuordnung.
+    description: ''
+  - isRequired: true
+    name: --registry -r
+    summary: Der Name der Containerregistrierung. Sie können den Standard Registrierungs Namen mithilfe von konfigurieren `az configure --defaults acr=<registry name>` .
+    description: ''
+  optionalParameters:
+  - name: --query-examples
+    summary: Empfehlen Sie die jmespath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und Sie nach dem Abfrage Parameter in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positions Schlüsselwörter hinzufügen, um Vorschläge auf der Grundlage dieser Schlüsselwörter zu geben.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/acr/_help.py
+- uid: az_acr_scope_map_update
+  name: az acr scope-map update
+  summary: Aktualisiert eine Bereichs Zuordnung für eine Azure Container Registry.
+  description: ''
+  syntax: >-
+    az acr scope-map update --name
+                            --registry
+                            [--add-gateway]
+                            [--add-repository]
+                            [--description]
+                            [--remove-gateway]
+                            [--remove-repository]
+                            [--resource-group]
+                            [--subscription]
+  examples:
+  - summary: Aktualisieren Sie die Bereichs Zuordnung "myscopemap", indem Sie Metadaten/Lese-und Inhalts-/leseaktionen für das `hello-world` Repository und eine Nachricht/Schreibaktion für entfernen `connectedRegistry` .
+    syntax: az acr scope-map update -n MyScopeMap -r MyRegistry --remove-repo hello-world metadata/read content/read --remove-gateway connectedRegistry message/write
+  requiredParameters:
+  - isRequired: true
+    name: --name -n
+    summary: Der Name der Bereichs Zuordnung.
+    description: ''
+  - isRequired: true
+    name: --registry -r
+    summary: Der Name der Containerregistrierung. Sie können den Standard Registrierungs Namen mithilfe von konfigurieren `az configure --defaults acr=<registry name>` .
+    description: ''
+  optionalParameters:
+  - name: --add-gateway
+    summary: Gateway-Berechtigungen, die hinzugefügt werden sollen. Verwenden Sie das Format "--Add-Gateway Gateway [ACTION1 ACTION2...]" pro Flag. Gültige Aktionen sind {"config/Write", "Message/Read", "config/Read", "Message/Write"}.
+    description: ''
+  - name: --add-repository
+    summary: Repository-Berechtigungen, die hinzugefügt werden sollen. Verwenden Sie das Format "--Add-Repository Repository [ACTION1 ACTION2...]" pro Flag. Gültige Aktionen sind {' Metadata/Read ', ' Content/Write ', ' Content/Read ', ' Metadata/Write ', ' Content/delete '}.
+    description: ''
+  - name: --description
+    summary: Beschreibung für die Bereichs Zuordnung. Maximal 256 Zeichen sind zulässig.
+    description: ''
+  - name: --remove-gateway
+    summary: Gatewayberechtigungen, die entfernt werden sollen. Verwenden Sie das Format "--Remove-Gateway Gateway [ACTION1 ACTION2...]" pro Flag. Gültige Aktionen sind {"config/Write", "Message/Read", "config/Read", "Message/Write"}.
+    description: ''
+  - name: --remove-repository
+    summary: Die zu entfernenden Berechtigungen. Verwenden Sie das Format "--Remove-Repository Repository [ACTION1 ACTION2...]" pro Flag. Gültige Aktionen sind {' Metadata/Read ', ' Content/Write ', ' Content/Read ', ' Metadata/Write ', ' Content/delete '}.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/acr/_help.py
+commands:
+- az_acr_scope_map_create
+- az_acr_scope_map_delete
+- az_acr_scope_map_list
+- az_acr_scope_map_show
+- az_acr_scope_map_update
+globalParameters:
+- name: --debug
+  summary: Ausführlichkeit der Protokollierung erhöhen, um alle Debugprotokolle anzuzeigen.
+- name: --help -h
+  summary: Zeigen Sie diese Hilfemeldung an, und schließen Sie sie.
+- name: --only-show-errors
+  summary: Nur Fehler anzeigen und Warnungen unterdrücken.
+- name: --output -o
+  defaultValue: json
+  parameterValueGroup: json, jsonc, table, tsv
+  summary: Ausgabeformat.
+- name: --query
+  summary: JMESPath-Abfragezeichenfolge. Weitere Informationen und Beispiele finden Sie unter <a href="http://jmespath.org/">http://jmespath.org/</a>.
+- name: --verbose
+  summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
+metadata:
+  doc_source_url_repo: https://github.com/Azure/azure-cli/blob/dev/
+  ms.date: 01/26/2021
+  description: Verwalten von Bereichs Zugriffs Zuordnungen für Azure-Container Registrierungen.
+  ms.openlocfilehash: df581e594f671b137bc2cf1b36aa2c4bef725d5e
+  ms.sourcegitcommit: 594e9c620a6f74f5eaedf91a7f6a791e03a64c74
+  ms.translationtype: MT
+  ms.contentlocale: de-DE
+  ms.lasthandoff: 02/17/2021
+  ms.locfileid: "102987668"

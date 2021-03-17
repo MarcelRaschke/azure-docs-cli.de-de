@@ -1,0 +1,241 @@
+### YamlMime:AzureCLIGroup
+uid: az_acr_token
+name: az acr token
+summary: Verwalten von Token für eine Azure Container Registry.
+description: ''
+directCommands:
+- uid: az_acr_token_create
+  name: az acr token create
+  summary: Erstellen Sie ein Token, das einer Bereichs Zuordnung für eine Azure Container Registry zugeordnet ist.
+  description: ''
+  syntax: >-
+    az acr token create --name
+                        --registry
+                        [--expiration]
+                        [--expiration-in-days]
+                        [--gateway]
+                        [--no-passwords {false, true}]
+                        [--repository]
+                        [--resource-group]
+                        [--scope-map]
+                        [--status {disabled, enabled}]
+                        [--subscription]
+  examples:
+  - summary: Erstellen Sie ein Token mit Repository-Berechtigungen, die in der Bereichs Zuordnung "myscopemap" definiert sind.
+    syntax: az acr token create -n MyToken -r MyRegistry --scope-map MyScopeMap
+  - summary: Erstellen Sie ein Token, das über Leseberechtigungen für das Hello-World-Repository verfügt.
+    syntax: az acr token create -n myToken -r MyRegistry --repository hello-world content/read metadata/read
+  - summary: Erstellen Sie ein Token ohne Anmelde Informationen und mit allen gatewayberechtigungen.
+    syntax: >-
+      az acr token create -n myToken -r MyRegistry --repository hello-world content/read
+        --gateway registry config/read config/write message/read message/write --no-passwords
+  - summary: Erstellen Sie ein Token im deaktivierten Status.
+    syntax: az acr token create -n MyToken -r MyRegistry --scope-map MyScopeMap --status disabled
+  requiredParameters:
+  - isRequired: true
+    name: --name -n
+    summary: Der Name des Tokens.
+    description: ''
+  - isRequired: true
+    name: --registry -r
+    summary: Der Name der Containerregistrierung. Sie können den Standard Registrierungs Namen mithilfe von konfigurieren `az configure --defaults acr=<registry name>` .
+    description: ''
+  optionalParameters:
+  - name: --expiration
+    summary: Die UTC-Zeit, für die die Anmelde Informationen gültig sind. Im Format% Y-% m-% dt% h:%m:% SZ, z. b. 2025-12-31t12:59:59Z.
+    description: ''
+  - name: --expiration-in-days
+    summary: Anzahl der Tage, für die die Anmelde Informationen gültig sind. Wenn keine Angabe erfolgt, wird der Ablauf standardmäßig auf den maximalen Wert "9999-12-31t23:59:59,999999 + 00:00" festgelegt.
+    description: ''
+  - name: --gateway
+    summary: Gateway-Berechtigungen. Verwenden Sie das Format "--Gateway Gateway [ACTION1 ACTION2...]" pro Flag. Gültige Aktionen sind {"config/Write", "Message/Read", "config/Read", "Message/Write"}.
+    description: ''
+  - name: --no-passwords
+    parameterValueGroup: false, true
+    summary: Generieren Sie keine Kenn Wörter, sondern verwenden Sie stattdessen "AZ ACR Token Anmelde Informationen Generate".
+    description: ''
+  - name: --repository
+    summary: Repository-Berechtigungen. Verwenden Sie das Format "--Repository Repository [ACTION1 ACTION2...]" pro Flag. Gültige Aktionen sind {' Metadata/Read ', ' Content/Write ', ' Content/Read ', ' Metadata/Write ', ' Content/delete '}.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --scope-map
+    summary: Der Name der Bereichs Zuordnung mit vorkonfigurierten Repository-Berechtigungen. Verwenden Sie "--Repository" und/oder "--Gateway", wenn Sie eine Befehlszeilenschnittstelle für Sie konfigurieren möchten.
+    description: ''
+  - name: --status
+    defaultValue: enabled
+    parameterValueGroup: disabled, enabled
+    summary: Der Status des Tokens.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/acr/_help.py
+- uid: az_acr_token_delete
+  name: az acr token delete
+  summary: Löschen eines Tokens für einen Azure Container Registry.
+  description: ''
+  syntax: >-
+    az acr token delete --name
+                        --registry
+                        [--resource-group]
+                        [--subscription]
+                        [--yes]
+  examples:
+  - summary: Löschen Sie das Token "MyToken".
+    syntax: az acr token delete -n MyToken -r MyRegistry
+  requiredParameters:
+  - isRequired: true
+    name: --name -n
+    summary: Der Name des Tokens.
+    description: ''
+  - isRequired: true
+    name: --registry -r
+    summary: Der Name der Containerregistrierung. Sie können den Standard Registrierungs Namen mithilfe von konfigurieren `az configure --defaults acr=<registry name>` .
+    description: ''
+  optionalParameters:
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  - name: --yes -y
+    summary: Nicht zur Bestätigung auffordern
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/acr/_help.py
+- uid: az_acr_token_list
+  name: az acr token list
+  summary: Listet alle Token für eine Azure Container Registry auf.
+  description: ''
+  syntax: >-
+    az acr token list --registry
+                      [--query-examples]
+                      [--resource-group]
+                      [--subscription]
+  examples:
+  - summary: Auflisten von Token in der Registrierung "myregistry".
+    syntax: az acr token list -r MyRegistry
+  requiredParameters:
+  - isRequired: true
+    name: --registry -r
+    summary: Der Name der Containerregistrierung. Sie können den Standard Registrierungs Namen mithilfe von konfigurieren `az configure --defaults acr=<registry name>` .
+    description: ''
+  optionalParameters:
+  - name: --query-examples
+    summary: Empfehlen Sie die jmespath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und Sie nach dem Abfrage Parameter in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positions Schlüsselwörter hinzufügen, um Vorschläge auf der Grundlage dieser Schlüsselwörter zu geben.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/acr/_help.py
+- uid: az_acr_token_show
+  name: az acr token show
+  summary: Hiermit werden Details und Attribute eines Tokens für eine Azure Container Registry angezeigt.
+  description: ''
+  syntax: >-
+    az acr token show --name
+                      --registry
+                      [--query-examples]
+                      [--resource-group]
+                      [--subscription]
+  examples:
+  - summary: Informationen für das Token "MyToken" erhalten.
+    syntax: az acr token show -n MyToken -r MyRegistry
+  requiredParameters:
+  - isRequired: true
+    name: --name -n
+    summary: Der Name des Tokens.
+    description: ''
+  - isRequired: true
+    name: --registry -r
+    summary: Der Name der Containerregistrierung. Sie können den Standard Registrierungs Namen mithilfe von konfigurieren `az configure --defaults acr=<registry name>` .
+    description: ''
+  optionalParameters:
+  - name: --query-examples
+    summary: Empfehlen Sie die jmespath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und Sie nach dem Abfrage Parameter in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positions Schlüsselwörter hinzufügen, um Vorschläge auf der Grundlage dieser Schlüsselwörter zu geben.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/acr/_help.py
+- uid: az_acr_token_update
+  name: az acr token update
+  summary: Aktualisieren eines Tokens (zugeordnete Bereichs Zuordnung ersetzen) für eine Azure Container Registry.
+  description: ''
+  syntax: >-
+    az acr token update --name
+                        --registry
+                        [--resource-group]
+                        [--scope-map]
+                        [--status {disabled, enabled}]
+                        [--subscription]
+  examples:
+  - summary: Aktualisieren Sie das Token "MyToken", sodass es der Bereichs Zuordnung "mynewscopemap" zugeordnet ist.
+    syntax: az acr token update -n MyToken -r MyRegistry --scope-map MyNewScopeMap
+  requiredParameters:
+  - isRequired: true
+    name: --name -n
+    summary: Der Name des Tokens.
+    description: ''
+  - isRequired: true
+    name: --registry -r
+    summary: Der Name der Containerregistrierung. Sie können den Standard Registrierungs Namen mithilfe von konfigurieren `az configure --defaults acr=<registry name>` .
+    description: ''
+  optionalParameters:
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --scope-map
+    summary: Der Name der Bereichs Zuordnung, die dem Token zugeordnet ist. Wenn keine Angabe erfolgt, wird durch das Ausführen dieses Befehls die Zuordnung der aktuellen Bereichs Zuordnung, die dem Token zugeordnet ist, aufgehoben.
+    description: ''
+  - name: --status
+    defaultValue: enabled
+    parameterValueGroup: disabled, enabled
+    summary: Der Status des Tokens.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/acr/_help.py
+commands:
+- az_acr_token_create
+- az_acr_token_credential
+- az_acr_token_credential_delete
+- az_acr_token_credential_generate
+- az_acr_token_delete
+- az_acr_token_list
+- az_acr_token_show
+- az_acr_token_update
+globalParameters:
+- name: --debug
+  summary: Ausführlichkeit der Protokollierung erhöhen, um alle Debugprotokolle anzuzeigen.
+- name: --help -h
+  summary: Zeigen Sie diese Hilfemeldung an, und schließen Sie sie.
+- name: --only-show-errors
+  summary: Nur Fehler anzeigen und Warnungen unterdrücken.
+- name: --output -o
+  defaultValue: json
+  parameterValueGroup: json, jsonc, table, tsv
+  summary: Ausgabeformat.
+- name: --query
+  summary: JMESPath-Abfragezeichenfolge. Weitere Informationen und Beispiele finden Sie unter <a href="http://jmespath.org/">http://jmespath.org/</a>.
+- name: --verbose
+  summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
+metadata:
+  doc_source_url_repo: https://github.com/Azure/azure-cli/blob/dev/
+  ms.date: 01/26/2021
+  description: Verwalten von Token für eine Azure Container Registry.
+  ms.openlocfilehash: 4205ad7256e1115a227f587c5d6210f2fe1057ea
+  ms.sourcegitcommit: 594e9c620a6f74f5eaedf91a7f6a791e03a64c74
+  ms.translationtype: MT
+  ms.contentlocale: de-DE
+  ms.lasthandoff: 02/17/2021
+  ms.locfileid: "102987654"
