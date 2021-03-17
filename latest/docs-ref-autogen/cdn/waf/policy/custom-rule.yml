@@ -1,0 +1,194 @@
+### YamlMime:AzureCLIGroup
+uid: az_cdn_waf_policy_custom_rule
+name: az cdn waf policy custom-rule
+summary: Verwalten Sie benutzerdefinierte Regeln für eine CDN-WAF-Richtlinie.
+description: ''
+directCommands:
+- uid: az_cdn_waf_policy_custom_rule_delete
+  name: az cdn waf policy custom-rule delete
+  summary: Entfernen Sie eine benutzerdefinierte Regel aus einer CDN-WAF-Richtlinie.
+  description: ''
+  syntax: >-
+    az cdn waf policy custom-rule delete --name
+                                         [--ids]
+                                         [--policy-name]
+                                         [--resource-group]
+                                         [--subscription]
+                                         [--yes]
+  examples:
+  - summary: Entfernen Sie eine benutzerdefinierte Regel aus einer CDN-WAF-Richtlinie.
+    syntax: az cdn waf policy custom-rule delete -g group --policy-name policy -n customrule
+  requiredParameters:
+  - isRequired: true
+    name: --name -n
+    summary: Der Name der benutzerdefinierten Regel.
+    description: ''
+  optionalParameters:
+  - name: --ids
+    summary: Mindestens eine Ressourcen-ID (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID handeln, die alle Informationen von Ressourcen-ID-Argumenten enthält. Sie sollten entweder--IDs oder andere Ressourcen-ID-Argumente angeben.
+    description: ''
+  - name: --policy-name
+    summary: Der Name der CDN-WAF-Richtlinie.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  - name: --yes -y
+    summary: Nicht zur Bestätigung auffordern
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/cdn/_help.py
+- uid: az_cdn_waf_policy_custom_rule_list
+  name: az cdn waf policy custom-rule list
+  summary: Auflisten von benutzerdefinierten Regeln für eine CDN-WAF-Richtlinie.
+  description: ''
+  syntax: >-
+    az cdn waf policy custom-rule list --policy-name
+                                       --resource-group
+                                       [--query-examples]
+                                       [--subscription]
+  examples:
+  - summary: Auflisten von benutzerdefinierten Regeln für eine CDN-WAF-Richtlinie.
+    syntax: az cdn waf policy custom-rule list -g group --policy-name policy
+  requiredParameters:
+  - isRequired: true
+    name: --policy-name
+    summary: Der Name der CDN-WAF-Richtlinie.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  optionalParameters:
+  - name: --query-examples
+    summary: Empfehlen Sie die jmespath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und Sie nach dem Abfrage Parameter in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positions Schlüsselwörter hinzufügen, um Vorschläge auf der Grundlage dieser Schlüsselwörter zu geben.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/cdn/_help.py
+- uid: az_cdn_waf_policy_custom_rule_set
+  name: az cdn waf policy custom-rule set
+  summary: Fügen Sie eine benutzerdefinierte Regel zu einer CDN-WAF-Richtlinie hinzu.
+  description: ''
+  syntax: >-
+    az cdn waf policy custom-rule set --action {Allow, Block, Log, Redirect}
+                                      --match-condition
+                                      --name
+                                      --priority
+                                      [--disabled]
+                                      [--ids]
+                                      [--policy-name]
+                                      [--resource-group]
+                                      [--subscription]
+  examples:
+  - summary: Dient zum Erstellen oder Aktualisieren einer Regel, die Anforderungen blockiert, sofern die Methode nicht Get oder Post ist.
+    syntax: az cdn waf policy custom-rule set -g group --policy-name policy -n customrule --action Block --priority 100 --match-condition match-variable=RequestMethod operator=Equal negate=true match-value=GET match-value=HEAD
+  - summary: Erstellen oder aktualisieren Sie eine benutzerdefinierte Regel mit mehreren Übereinstimmungs Bedingungen und Leerzeichen in einem Übereinstimmungs Wert.
+    syntax: az cdn waf policy custom-rule set -g group --policy-name policy -n customrule --action Redirect --priority 100 -m match-variable=RequestUri operator=Contains match-value=.. -m match-variable=QueryString operator=Contains "match-value= "
+  requiredParameters:
+  - isRequired: true
+    name: --action
+    parameterValueGroup: Allow, Block, Log, Redirect
+    summary: Die Aktion, die ausgeführt werden soll, wenn die Regel abgeglichen wird.
+    description: ''
+  - isRequired: true
+    name: --match-condition -m
+    summary: Bedingungen, die verwendet werden, um zu bestimmen, ob die Regel für eine Anforderung übereinstimmt.
+    description: >-
+      Übereinstimmungs Bedingungen werden als Schlüssel-Wert-Paare in der Form "Key = Value [key = value...]" angegeben. Verfügbare Schlüssel sind "Match-Variable", "Operator", "Match-Value", "Selector", "Negate" und "Transform". "Match-Variable", "Operator" und "Match-Value" sind erforderlich. "Match-Value" und "Transform" können pro Übereinstimmungs Bedingung mehrmals angegeben werden.
+
+      Gültige Werte für ' Match-Variable ' sind ' remoteaddr ', ' socketaddr ', ' requestmethod ', ' RequestHeader ', ' RequestUri ', ' QueryString ', ' Requestbody ', ' Cookies ' und ' postargs '. Gültige Werte für "Operator" sind "Any", "ipmatch", "geomatch", "equal", "enthält", "LessThan", "GreaterThan", "LessThanOrEqual", "GreaterThanOrEqual", "beginswith", "endsWith" und "regex". Gültige Werte für ' Transform ' sind ' lowercase ', ' UpperCase ', ' Trim ', ' UrlDecode ', ' UrlEncode ' und ' removenulls '. Gültige Werte für ' Negate ' sind ' true ' und ' false ', und ' Negate ' ist standardmäßig ' false '.
+  - isRequired: true
+    name: --name -n
+    summary: Der Name der benutzerdefinierten Regel.
+    description: ''
+  - isRequired: true
+    name: --priority
+    summary: Die Priorität der benutzerdefinierten Regel als nicht negative Ganzzahl.
+    description: ''
+  optionalParameters:
+  - name: --disabled
+    summary: Deaktivieren Sie die benutzerdefinierte Regel.
+    description: ''
+  - name: --ids
+    summary: Mindestens eine Ressourcen-ID (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID handeln, die alle Informationen von Ressourcen-ID-Argumenten enthält. Sie sollten entweder--IDs oder andere Ressourcen-ID-Argumente angeben.
+    description: ''
+  - name: --policy-name
+    summary: Der Name der CDN-WAF-Richtlinie.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/cdn/_help.py
+- uid: az_cdn_waf_policy_custom_rule_show
+  name: az cdn waf policy custom-rule show
+  summary: Zeigen Sie eine benutzerdefinierte Regel einer CDN-WAF-Richtlinie an.
+  description: ''
+  syntax: >-
+    az cdn waf policy custom-rule show --name
+                                       [--ids]
+                                       [--policy-name]
+                                       [--query-examples]
+                                       [--resource-group]
+                                       [--subscription]
+  examples:
+  - summary: Sie erhalten eine benutzerdefinierte Regel für eine CDN-WAF-Richtlinie.
+    syntax: az cdn waf policy custom-rule show -g group --policy-name policy -n customrule
+  requiredParameters:
+  - isRequired: true
+    name: --name -n
+    summary: Der Name der benutzerdefinierten Regel.
+    description: ''
+  optionalParameters:
+  - name: --ids
+    summary: Mindestens eine Ressourcen-ID (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID handeln, die alle Informationen von Ressourcen-ID-Argumenten enthält. Sie sollten entweder--IDs oder andere Ressourcen-ID-Argumente angeben.
+    description: ''
+  - name: --policy-name
+    summary: Der Name der CDN-WAF-Richtlinie.
+    description: ''
+  - name: --query-examples
+    summary: Empfehlen Sie die jmespath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und Sie nach dem Abfrage Parameter in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positions Schlüsselwörter hinzufügen, um Vorschläge auf der Grundlage dieser Schlüsselwörter zu geben.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/cdn/_help.py
+commands:
+- az_cdn_waf_policy_custom_rule_delete
+- az_cdn_waf_policy_custom_rule_list
+- az_cdn_waf_policy_custom_rule_set
+- az_cdn_waf_policy_custom_rule_show
+globalParameters:
+- name: --debug
+  summary: Ausführlichkeit der Protokollierung erhöhen, um alle Debugprotokolle anzuzeigen.
+- name: --help -h
+  summary: Zeigen Sie diese Hilfemeldung an, und schließen Sie sie.
+- name: --only-show-errors
+  summary: Nur Fehler anzeigen und Warnungen unterdrücken.
+- name: --output -o
+  defaultValue: json
+  parameterValueGroup: json, jsonc, table, tsv
+  summary: Ausgabeformat.
+- name: --query
+  summary: JMESPath-Abfragezeichenfolge. Weitere Informationen und Beispiele finden Sie unter <a href="http://jmespath.org/">http://jmespath.org/</a>.
+- name: --verbose
+  summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
+metadata:
+  doc_source_url_repo: https://github.com/Azure/azure-cli/blob/dev/
+  ms.date: 12/02/2020
+  description: Verwalten Sie benutzerdefinierte Regeln für eine CDN-WAF-Richtlinie.
+  ms.openlocfilehash: 7848e4bdf2dbdcb93e92992a513478f2e57268f9
+  ms.sourcegitcommit: f379fad9c4e873cd2ca68b5494b6c240a5016b5b
+  ms.translationtype: MT
+  ms.contentlocale: de-DE
+  ms.lasthandoff: 12/09/2020
+  ms.locfileid: "102821926"
