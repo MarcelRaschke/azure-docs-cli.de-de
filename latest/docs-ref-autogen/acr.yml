@@ -1,0 +1,790 @@
+### YamlMime:AzureCLIGroup
+uid: az_acr
+name: az acr
+summary: Verwalten von privaten Registrierungen mit Azure-Container Registrierungen.
+description: ''
+directCommands:
+- uid: az_acr_build
+  name: az acr build
+  summary: Fügt einen schnell Build in die Warteschlange ein und stellt Streamingprotokolle für eine Azure Container Registry bereit
+  description: ''
+  syntax: >-
+    az acr build --registry
+                 [--agent-pool]
+                 [--auth-mode {Default, None}]
+                 [--build-arg]
+                 [--file]
+                 [--image]
+                 [--log-template]
+                 [--no-format]
+                 [--no-logs]
+                 [--no-push]
+                 [--no-wait]
+                 [--platform]
+                 [--resource-group]
+                 [--secret-build-arg]
+                 [--subscription]
+                 [--target]
+                 [--timeout]
+                 [<SOURCE_LOCATION>]
+  examples:
+  - summary: Stellen Sie einen lokalen Kontext als Linux-Build in die Warteschlange, markieren Sie ihn, und Pushen Sie ihn an die Registrierung.
+    syntax: az acr build -t sample/hello-world:{{.Run.ID}} -r MyRegistry .
+  - summary: Stellen Sie einen lokalen Kontext als Linux-Build in die Warteschlange, markieren Sie ihn, und Pushen Sie ihn ohne Streamingprotokolle in die Registrierung
+    syntax: az acr build -t sample/hello-world:{{.Run.ID}} -r MyRegistry --no-logs .
+  - summary: Stellen Sie einen lokalen Kontext in die Warteschlange, ohne ihn in die Registrierung zu übertragen.
+    syntax: az acr build -t sample/hello-world:{{.Run.ID}} -r MyRegistry --no-push .
+  - summary: Stellen Sie einen lokalen Kontext in die Warteschlange, ohne ihn in die Registrierung zu übertragen.
+    syntax: az acr build -r MyRegistry .
+  - summary: Stellen Sie einen GitHub-Remote Kontext als Windows Build in die Warteschlange, markieren Sie ihn, und Pushen Sie ihn an die Registrierung.
+    syntax: az acr build -r MyRegistry https://github.com/Azure/acr-builder.git -f Windows.Dockerfile --platform windows
+  - summary: Einen remotebuild für OCI-Artefakte in die Warteschlange stellen
+    syntax: az acr build -r MyRegistry oci://myregistry.azurecr.io/myartifact:mytag
+  - summary: Stellen Sie einen lokalen Kontext als Linux-Build in der Arm/V7-Architektur in die Warteschlange, markieren Sie ihn, und Pushen Sie ihn in die Registrierung
+    syntax: az acr build -t sample/hello-world:{{.Run.ID}} -r MyRegistry . --platform linux/arm/v7
+  requiredParameters:
+  - isRequired: true
+    name: --registry -r
+    summary: Der Name der Containerregistrierung. Sie können den Standard Registrierungs Namen mithilfe von konfigurieren `az configure --defaults acr=<registry name>` .
+    description: ''
+  optionalParameters:
+  - name: --agent-pool
+    summary: Der Name des agentpools.
+    description: ''
+  - name: --auth-mode
+    parameterValueGroup: Default, None
+    summary: Authentifizierungsmodus der Quell Registrierung.
+    description: ''
+  - name: --build-arg
+    summary: Build-Argument im Format "--Build-arg Name [= value]". Vielfache werden durch die Übergabe von--Build-arg mehrmals unterstützt.
+    description: ''
+  - name: --file -f
+    summary: Der relative Pfad der Docker-Datei zum Stamm Ordner des Quellcodes. Der Standardwert ist "dockerfile".
+    description: ''
+  - name: --image -t
+    summary: 'Der Name und das Tag des Bilds mit dem folgenden Format: "-t Repository/Image: Tag". Mehrere Tags werden durch Übergabe von-t mehrmals unterstützt.'
+    description: ''
+  - name: --log-template
+    summary: "Die Repository-und tagvorlage für das Ausführen des Protokoll Artefakts mit dem folgenden Format: \"Log/Repo: Tag\" (z. b. \"ACR/Logs: {{... Run.ID}} '). Gilt nur für die CMK-aktivierte Registrierung."
+    description: ''
+  - name: --no-format
+    summary: Gibt an, ob die Protokolle im RAW-Format angezeigt werden sollen.
+    description: ''
+  - name: --no-logs
+    summary: Keine Protokolle anzeigen, nachdem der Build erfolgreich in die Warteschlange eingereiht wurde.
+    description: ''
+  - name: --no-push
+    summary: Gibt an, ob das Image, das erstellt wurde, in die Registrierung verschoben werden soll.
+    description: ''
+  - name: --no-wait
+    summary: Warten Sie nicht, bis der Build beendet wurde, und kehren Sie unmittelbar nach dem Warteschlangen-Build zurück.
+    description: ''
+  - name: --platform
+    summary: Die Plattform, auf der Build/Task ausgeführt wird, z. b. "Windows" und "Linux". Wenn Sie in buildbefehlen verwendet wird, kann Sie auch im Format "OS/Arch/Variant" für das resultierende Image angegeben werden. Z. b. Linux/ARM/V7. Die Teile "Arch" und "Variant" sind optional.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --secret-build-arg
+    summary: Geheimer Build-Argument im Format "--Secret-Build-arg Name [= value]". Vielfache werden unterstützt, indem "--Secret-Build-arg Name [= value]" mehrmals übergeben wird.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  - name: --target
+    summary: Der Name der zielbuildphase.
+    description: ''
+  - name: --timeout
+    summary: Das Timeout in Sekunden.
+    description: ''
+  - name: <SOURCE_LOCATION>
+    summary: Der Pfad des lokalen Quell Code Verzeichnisses (z. b. "./src") oder die URL zu einem git-Repository (z. b. "" <a href="https://github.com/Azure-Samples/acr-build-helloworld-node.git">https://github.com/Azure-Samples/acr-build-helloworld-node.git</a> ) oder ein Remote-Tarball (z. b. "") oder <a href="http://server/context.tar.gz">http://server/context.tar.gz</a> das Repository eines OCI-Artefakts in einer Azure-Container Registrierung (z. b. "OCI://myregistry.azurecr.IO/myartifact:MyTag").
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/acr/_help.py
+- uid: az_acr_check_health
+  name: az acr check-health
+  summary: Ruft Integritäts Informationen für die Umgebung und optional eine Ziel Registrierung ab.
+  description: ''
+  syntax: >-
+    az acr check-health [--ignore-errors]
+                        [--name]
+                        [--subscription]
+                        [--yes]
+  examples:
+  - summary: Ruft den Integritäts Status mit der Ziel Registrierung ' myregistry ' ab und überspringt die Bestätigung für das Pullen
+    syntax: az acr check-health -n MyRegistry -y
+  - summary: Ruft den Integritäts Status der Umgebung ab, ohne beim ersten Fehler anzuhalten.
+    syntax: az acr check-health --ignore-errors
+  optionalParameters:
+  - name: --ignore-errors
+    summary: Geben Sie alle Integritätsprüfungen an, auch wenn Fehler gefunden werden.
+    description: ''
+  - name: --name -n
+    summary: Der Name der Containerregistrierung. Sie können den Standard Registrierungs Namen mithilfe von konfigurieren `az configure --defaults acr=<registry name>` .
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  - name: --yes -y
+    summary: Nicht zur Bestätigung auffordern
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/acr/_help.py
+- uid: az_acr_check_name
+  name: az acr check-name
+  summary: Überprüft, ob ein Azure Container Registry Name gültig ist und zur Verwendung verfügbar ist.
+  description: ''
+  syntax: >-
+    az acr check-name --name
+                      [--subscription]
+  examples:
+  - summary: Überprüfen Sie, ob bereits ein Registrierungs Name vorhanden ist.
+    syntax: az acr check-name -n doesthisnameexist
+  requiredParameters:
+  - isRequired: true
+    name: --name -n
+    summary: Der Name der Containerregistrierung. Sie können den Standard Registrierungs Namen mithilfe von konfigurieren `az configure --defaults acr=<registry name>` .
+    description: ''
+  optionalParameters:
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/acr/_help.py
+- uid: az_acr_create
+  name: az acr create
+  summary: Erstellen Sie eine Azure Container Registry.
+  description: ''
+  syntax: >-
+    az acr create --name
+                  --resource-group
+                  --sku {Basic, Classic, Premium, Standard}
+                  [--admin-enabled {false, true}]
+                  [--allow-trusted-services {false, true}]
+                  [--default-action {Allow, Deny}]
+                  [--identity]
+                  [--key-encryption-key]
+                  [--location]
+                  [--public-network-enabled {false, true}]
+                  [--subscription]
+                  [--tags]
+                  [--workspace]
+                  [--zone-redundancy {Disabled, Enabled}]
+  examples:
+  - summary: Erstellen Sie eine verwaltete Container Registrierung mit der Standard-SKU.
+    syntax: az acr create -n MyRegistry -g MyResourceGroup --sku Standard
+  requiredParameters:
+  - isRequired: true
+    name: --name -n
+    summary: Der Name der Containerregistrierung. Sie können den Standard Registrierungs Namen mithilfe von konfigurieren `az configure --defaults acr=<registry name>` .
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - isRequired: true
+    name: --sku
+    parameterValueGroup: Basic, Classic, Premium, Standard
+    summary: Die SKU der Container Registrierung.
+    description: ''
+  optionalParameters:
+  - name: --admin-enabled
+    parameterValueGroup: false, true
+    summary: Gibt an, ob der Administrator Benutzer aktiviert ist.
+    description: ''
+  - name: --allow-trusted-services
+    parameterValueGroup: false, true
+    summary: Erlauben Sie vertrauenswürdigen Azure-Diensten den Zugriff auf Netzwerk eingeschränkte Registrierungen. Weitere Informationen finden Sie unter <a href="https://aka.ms/acr/trusted-services">https://aka.ms/acr/trusted-services</a>. Der Standardwert ist, um zuzulassen.
+    description: ''
+  - name: --default-action
+    parameterValueGroup: Allow, Deny
+    summary: Standardaktion, die angewendet werden soll, wenn keine Regel übereinstimmt. Gilt nur für Premium-SKU.
+    description: ''
+  - name: --identity
+    summary: Verwenden Sie die zugewiesene verwaltete Identitäts Ressourcen-ID oder den Namen, wenn Sie sich in derselben Ressourcengruppe befinden.
+    description: ''
+  - name: --key-encryption-key
+    summary: Key Vault-Schlüssel-URI. Um die automatisierte Drehung zu aktivieren, stellen Sie einen Versions losen Schlüssel-URI bereit. Geben Sie bei manueller Drehung einen Schlüssel-URI mit Versions Angabe an.
+    description: ''
+  - name: --location -l
+    summary: 'Der Standort. Werte aus: `az account list-locations`. Sie können den standardmäßig verwendeten Standort mit `az configure --defaults location=<location>` konfigurieren.'
+    description: ''
+  - name: --public-network-enabled
+    parameterValueGroup: false, true
+    summary: Gewähren des öffentlichen Netzwerk Zugriffs für die Container Registrierung. Der Standardwert ist, um zuzulassen.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  - name: --tags
+    summary: 'Durch Leerzeichen getrennte Tags: Key [= value] [key [= value]...]. Verwenden Sie "", um vorhandene Tags zu löschen.'
+    description: ''
+  - name: --workspace
+    summary: Der Name oder die ID des Log Analytics Arbeitsbereichs, an den die Registrierungs Diagnoseprotokolle gesendet werden sollen. Alle Ereignisse werden aktiviert. Sie können "AZ Monitor Log-Analytics Workspace Create" verwenden, um eines zu erstellen. Möglicherweise fallen zusätzliche Gebühren an.
+    description: ''
+  - name: --zone-redundancy
+    parameterValueGroup: Disabled, Enabled
+    summary: Gibt an, ob Zonen Redundanz für diese Registrierung oder Replikation aktiviert werden soll. Weitere Informationen, wie z. b. Unterstützte Standorte, finden Sie unter <a href="https://aka.ms/acr/az">https://aka.ms/acr/az</a> . Zonen Redundanz kann nicht aktualisiert werden. Der Standardwert ist "deaktiviert".
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/acr/_help.py
+- uid: az_acr_delete
+  name: az acr delete
+  summary: Löscht einen Azure Container Registry.
+  description: ''
+  syntax: >-
+    az acr delete --name
+                  [--resource-group]
+                  [--subscription]
+                  [--yes]
+  examples:
+  - summary: Löschen eines Azure Container Registry.
+    syntax: az acr delete -n MyRegistry
+  requiredParameters:
+  - isRequired: true
+    name: --name -n
+    summary: Der Name der Containerregistrierung. Sie können den Standard Registrierungs Namen mithilfe von konfigurieren `az configure --defaults acr=<registry name>` .
+    description: ''
+  optionalParameters:
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  - name: --yes -y
+    summary: Nicht zur Bestätigung auffordern
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/acr/_help.py
+- uid: az_acr_import
+  name: az acr import
+  summary: Importiert ein Bild aus einem anderen Container Registry in ein Azure Container Registry. Beim Importieren entfällt die Notwendigkeit, die Docker Pull, das docker-Tag und docker Push zu.
+  description: ''
+  syntax: >-
+    az acr import --name
+                  --source
+                  [--force]
+                  [--image]
+                  [--password]
+                  [--registry]
+                  [--repository]
+                  [--resource-group]
+                  [--subscription]
+                  [--username]
+  examples:
+  - summary: Importieren Sie ein Image aus "sourceregistry" in "myregistry". Das Image erbt das Quellrepository und die Tagnamen.
+    syntax: az acr import -n MyRegistry --source sourceregistry.azurecr.io/sourcerepository:sourcetag
+  - summary: Importieren Sie ein Image aus einem öffentlichen Repository auf dem docker-Hub. Das Image verwendet das angegebene Repository und die Tagnamen.
+    syntax: az acr import -n MyRegistry --source docker.io/library/hello-world:latest -t targetrepository:targettag
+  - summary: Importieren Sie ein Image aus einem privaten Repository mithilfe seines Benutzernamens und Kennworts. Dies gilt auch für Registrierungen außerhalb von Azure.
+    syntax: az acr import -n MyRegistry --source myprivateregistry.azurecr.io/hello-world:latest -u username -p password
+  - summary: Importieren Sie ein Image aus einer Azure-Container Registrierung in einem anderen Abonnement.
+    syntax: >-
+      az acr import -n MyRegistry --source sourcerepository:sourcetag -t targetrepository:targettag \
+          -r /subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/sourceResourceGroup/providers/Microsoft.ContainerRegistry/registries/sourceRegistry
+  requiredParameters:
+  - isRequired: true
+    name: --name -n
+    summary: Der Name der Containerregistrierung. Sie können den Standard Registrierungs Namen mithilfe von konfigurieren `az configure --defaults acr=<registry name>` .
+    description: ''
+  - isRequired: true
+    name: --source
+    summary: Der Name des Quell Images oder die voll qualifizierte Quelle, die den Registrierungs Anmelde Server enthält. Wenn `--registry` verwendet wird, `--source` wird immer als Quell Image interpretiert, auch wenn es den Anmelde Server enthält.
+    description: ''
+  optionalParameters:
+  - name: --force
+    summary: Überschreiben Sie das vorhandene Tag des zu importierenden Bilds.
+    description: ''
+  - name: --image -t
+    summary: 'Der Name und das Tag des Bilds mit dem folgenden Format: "-t Repository/Image: Tag". Mehrere Tags werden durch Übergabe von-t mehrmals unterstützt.'
+    description: ''
+  - name: --password -p
+    summary: Das Kennwort der Quell Container Registrierung.
+    description: ''
+  - name: --registry -r
+    summary: Die Azure-Quell Container Registrierung. Dies kann der Name, der Anmelde Server oder die Ressourcen-ID der Quell Registrierung sein.
+    description: ''
+  - name: --repository
+    summary: Der Repository-Name für eine nur-Manifest-Kopie von Bildern. Mehrere Kopien werden durch Übergabe von--Repository mehrmals unterstützt.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  - name: --username -u
+    summary: Der Benutzername der Quell Container Registrierung.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/acr/_help.py
+- uid: az_acr_list
+  name: az acr list
+  summary: Listet alle Container Registrierungen unter dem aktuellen Abonnement auf.
+  description: ''
+  syntax: >-
+    az acr list [--query-examples]
+                [--resource-group]
+                [--subscription]
+  examples:
+  - summary: Auflisten von Container Registrierungen und Anzeigen der Ergebnisse in einer Tabelle über mehrere Ressourcengruppen hinweg.
+    syntax: az acr list -o table
+  - summary: Listen Sie Container Registrierungen in einer Ressourcengruppe auf, und zeigen Sie die Ergebnisse in einer Tabelle an.
+    syntax: az acr list -g MyResourceGroup -o table
+  optionalParameters:
+  - name: --query-examples
+    summary: Empfehlen Sie die jmespath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und Sie nach dem Abfrage Parameter in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positions Schlüsselwörter hinzufügen, um Vorschläge auf der Grundlage dieser Schlüsselwörter zu geben.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/acr/_help.py
+- uid: az_acr_login
+  name: az acr login
+  summary: Melden Sie sich über die Docker-CLI bei einem Azure Container Registry an.
+  description: Docker muss auf Ihrem Computer installiert sein. Verwenden Sie anschließend "docker Abmelde <registry url> ", um sich abzumelden. (Wenn Sie nur ein Zugriffs Token benötigen und nicht docker installieren möchten, geben Sie "--verfügbar-Token" an).
+  syntax: >-
+    az acr login --name
+                 [--expose-token]
+                 [--password]
+                 [--resource-group]
+                 [--subscription]
+                 [--suffix]
+                 [--username]
+  examples:
+  - summary: Melden Sie sich bei einem Azure Container Registry
+    syntax: az acr login -n MyRegistry
+  - summary: Abrufen eines Azure Container Registry Zugriffs Tokens
+    syntax: az acr login -n MyRegistry --expose-token
+  requiredParameters:
+  - isRequired: true
+    name: --name -n
+    summary: Der Name der Containerregistrierung. Sie können den Standard Registrierungs Namen mithilfe von konfigurieren `az configure --defaults acr=<registry name>` .
+    description: ''
+  optionalParameters:
+  - name: --expose-token -t
+    summary: Machen Sie das Zugriffs Token verfügbar, anstatt sich automatisch über die Docker-CLI anzumelden.
+    description: ''
+  - name: --password -p
+    summary: Das Kennwort, das zum Anmelden bei einer Container Registrierung verwendet wird.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  - name: --suffix
+    summary: Das Mandanten Suffix im Registrierungs Anmelde Server. Sie können "--Suffix Tenant" angeben, wenn der Registrierungs Anmelde Server das Format "Registry-Tenant.azurecr.IO" hat. Anwendbar, wenn Sie von einem anderen Abonnement aus auf die Registrierung zugreifen oder wenn Sie über die Berechtigung zum Zugriff auf Images verfügen, aber nicht über die Berechtigung zum Verwalten der Registrierungs Ressource.
+    description: ''
+  - name: --username -u
+    summary: Der Benutzername, der zum Anmelden bei einer Container Registrierung verwendet wird.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/acr/_help.py
+- uid: az_acr_run
+  name: az acr run
+  summary: Fügt einen schnell Lauf in Azure Container Registry die Warteschlange ein.
+  description: ''
+  syntax: >-
+    az acr run --registry
+               [--agent-pool]
+               [--auth-mode {Default, None}]
+               [--cmd]
+               [--file]
+               [--log-template]
+               [--no-format]
+               [--no-logs]
+               [--no-wait]
+               [--platform]
+               [--resource-group]
+               [--set]
+               [--set-secret]
+               [--subscription]
+               [--timeout]
+               [--values]
+               [<SOURCE_LOCATION>]
+  examples:
+  - summary: Führt eine Ausführung in die Warteschlange, um einen Container Befehl auszuführen.
+    syntax: az acr run -r MyRegistry --cmd '$Registry/myimage' /dev/null
+  - summary: Stellen Sie einen Testlauf mit der Aufgabendefinition aus der Standardeingabe in die Warteschlange. Der Eingabestream wird entweder mit "STRG + Z" (Windows) oder "Strg + D" (Linux) beendet.
+    syntax: az acr run -r MyRegistry -f - /dev/null
+  - summary: Führt eine Ausführung in die Warteschlange ein, um die Aufgaben auszuführen, die über die Pipe
+    syntax: cat task.yaml | az acr run -r MyRegistry -f - /dev/null
+  - summary: Stellen Sie einen lokalen Kontext in die Warteschlange, und über die Streamingprotokolle an ACR
+    syntax: az acr run -r MyRegistry -f bash-echo.yaml ./workspace
+  - summary: Stellen Sie einen git-Remote Kontext mit Streamingprotokollen in die Warte
+    syntax: az acr run -r MyRegistry https://github.com/Azure-Samples/acr-tasks.git -f hello-world.yaml
+  - summary: Stellen Sie einen Remote-git-Kontext mithilfe von Streamingprotokollen in die Warteschlange
+    syntax: az acr run -r MyRegistry https://github.com/Azure-Samples/acr-tasks.git -f build-hello-world.yaml --platform linux
+  - summary: Führt einen OCI-artefaktkontext in die Warteschlange ein und führt den Task aus
+    syntax: az acr run -r MyRegistry oci://myregistry.azurecr.io/myartifact:mytag -f hello-world.yaml
+  requiredParameters:
+  - isRequired: true
+    name: --registry -r
+    summary: Der Name der Containerregistrierung. Sie können den Standard Registrierungs Namen mithilfe von konfigurieren `az configure --defaults acr=<registry name>` .
+    description: ''
+  optionalParameters:
+  - name: --agent-pool
+    summary: Der Name des agentpools.
+    description: ''
+  - name: --auth-mode
+    parameterValueGroup: Default, None
+    summary: Authentifizierungsmodus der Quell Registrierung.
+    description: ''
+  - name: --cmd
+    summary: Auszuführende Befehle.
+    description: ''
+  - name: --file -f
+    summary: Der Task Vorlagen-/definitionsdateipfad relativ zum Quell Kontext. Es kann "-" sein, um eine Datei von der Standardeingabe zu übergeben.
+    description: ''
+  - name: --log-template
+    summary: "Die Repository-und tagvorlage für das Ausführen des Protokoll Artefakts mit dem folgenden Format: \"Log/Repo: Tag\" (z. b. \"ACR/Logs: {{... Run.ID}} '). Gilt nur für die CMK-aktivierte Registrierung."
+    description: ''
+  - name: --no-format
+    summary: Gibt an, ob die Protokolle im RAW-Format angezeigt werden sollen.
+    description: ''
+  - name: --no-logs
+    summary: Keine Protokolle anzeigen, nachdem der Build erfolgreich in die Warteschlange eingereiht wurde.
+    description: ''
+  - name: --no-wait
+    summary: Warten Sie nicht, bis die Ausführung beendet wurde, und kehren Sie sofort nach der Warteschlange der Ausführung zurück.
+    description: ''
+  - name: --platform
+    summary: Die Plattform, auf der Build/Task ausgeführt wird, z. b. "Windows" und "Linux". Wenn Sie in buildbefehlen verwendet wird, kann Sie auch im Format "OS/Arch/Variant" für das resultierende Image angegeben werden. Z. b. Linux/ARM/V7. Die Teile "Arch" und "Variant" sind optional.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --set
+    summary: Wert im Format "Name [= value]". Vielfache, die durch Übergabe von--festgelegt unterstützt werden.
+    description: ''
+  - name: --set-secret
+    summary: Geheimer Wert im Format "--Set Name [= value]". Vielfache, die durch Übergabe von--festgelegt unterstützt werden.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  - name: --timeout
+    summary: Das Timeout in Sekunden.
+    description: ''
+  - name: --values
+    summary: Der Dateipfad der Aufgaben Werte relativ zum Quell Kontext.
+    description: ''
+  - name: <SOURCE_LOCATION>
+    summary: Der Pfad des lokalen Quell Code Verzeichnisses (z. b. "./src") oder die URL zu einem git-Repository (z. b. "" <a href="https://github.com/Azure-Samples/acr-build-helloworld-node.git">https://github.com/Azure-Samples/acr-build-helloworld-node.git</a> ) oder ein Remote-Tarball (z. b. "") oder <a href="http://server/context.tar.gz">http://server/context.tar.gz</a> das Repository eines OCI-Artefakts in einer Azure-Container Registrierung (z. b. "OCI://myregistry.azurecr.IO/myartifact:MyTag"). Wenn "/dev/null" angegeben ist, wird der Wert auf "None" festgelegt und wird ignoriert.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/acr/_help.py
+- uid: az_acr_show
+  name: az acr show
+  summary: Die Details eines Azure Container Registry werden angezeigt.
+  description: ''
+  syntax: >-
+    az acr show --name
+                [--query-examples]
+                [--resource-group]
+                [--subscription]
+  examples:
+  - summary: Sie erhalten den Anmelde Server für eine Azure Container Registry.
+    syntax: az acr show -n MyRegistry --query loginServer
+  - summary: Details eines Azure Container Registry anzeigen
+    syntax: az acr show --name MyRegistry --resource-group MyResourceGroup
+  requiredParameters:
+  - isRequired: true
+    name: --name -n
+    summary: Der Name der Containerregistrierung. Sie können den Standard Registrierungs Namen mithilfe von konfigurieren `az configure --defaults acr=<registry name>` .
+    description: ''
+  optionalParameters:
+  - name: --query-examples
+    summary: Empfehlen Sie die jmespath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und Sie nach dem Abfrage Parameter in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positions Schlüsselwörter hinzufügen, um Vorschläge auf der Grundlage dieser Schlüsselwörter zu geben.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/acr/_help.py
+- uid: az_acr_show_endpoints
+  name: az acr show-endpoints
+  summary: Anzeigen von Registrierungs Endpunkten.
+  description: ''
+  syntax: >-
+    az acr show-endpoints --name
+                          [--resource-group]
+                          [--subscription]
+  requiredParameters:
+  - isRequired: true
+    name: --name -n
+    summary: Der Name der Containerregistrierung. Sie können den Standard Registrierungs Namen mithilfe von konfigurieren `az configure --defaults acr=<registry name>` .
+    description: ''
+  optionalParameters:
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/acr/_help.py
+- uid: az_acr_show_usage
+  name: az acr show-usage
+  summary: Die Speicherauslastung für eine Azure Container Registry erhalten.
+  description: ''
+  syntax: >-
+    az acr show-usage --name
+                      [--resource-group]
+                      [--subscription]
+  examples:
+  - summary: Die Speicherauslastung für eine Azure Container Registry erhalten.
+    syntax: az acr show-usage -n MyRegistry
+  requiredParameters:
+  - isRequired: true
+    name: --name -n
+    summary: Der Name der Containerregistrierung. Sie können den Standard Registrierungs Namen mithilfe von konfigurieren `az configure --defaults acr=<registry name>` .
+    description: ''
+  optionalParameters:
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/acr/_help.py
+- uid: az_acr_update
+  name: az acr update
+  summary: Aktualisieren eines Azure Container Registry.
+  description: ''
+  syntax: >-
+    az acr update --name
+                  [--add]
+                  [--admin-enabled {false, true}]
+                  [--allow-trusted-services {false, true}]
+                  [--data-endpoint-enabled {false, true}]
+                  [--default-action {Allow, Deny}]
+                  [--force-string]
+                  [--public-network-enabled {false, true}]
+                  [--remove]
+                  [--resource-group]
+                  [--set]
+                  [--sku {Basic, Classic, Premium, Standard}]
+                  [--subscription]
+                  [--tags]
+  examples:
+  - summary: Aktualisieren Sie Tags für eine Azure Container Registry.
+    syntax: az acr update -n MyRegistry --tags key1=value1 key2=value2
+  - summary: Aktivieren Sie das Administrator Benutzerkonto für einen Azure Container Registry.
+    syntax: az acr update -n MyRegistry --admin-enabled true
+  requiredParameters:
+  - isRequired: true
+    name: --name -n
+    summary: Der Name der Containerregistrierung. Sie können den Standard Registrierungs Namen mithilfe von konfigurieren `az configure --defaults acr=<registry name>` .
+    description: ''
+  optionalParameters:
+  - name: --add
+    summary: Fügen Sie einer Liste von-Objekten ein Objekt hinzu, indem Sie ein Pfad-und Schlüssel-Wert-Paar angeben.  Beispiel:--Add Property. ListProperty <Key = Value, String oder JSON String>.
+    description: ''
+  - name: --admin-enabled
+    parameterValueGroup: false, true
+    summary: Gibt an, ob der Administrator Benutzer aktiviert ist.
+    description: ''
+  - name: --allow-trusted-services
+    parameterValueGroup: false, true
+    summary: Erlauben Sie vertrauenswürdigen Azure-Diensten den Zugriff auf Netzwerk eingeschränkte Registrierungen. Weitere Informationen finden Sie unter <a href="https://aka.ms/acr/trusted-services">https://aka.ms/acr/trusted-services</a>.
+    description: ''
+  - name: --data-endpoint-enabled
+    parameterValueGroup: false, true
+    summary: Aktivieren Sie einen dedizierten Daten Endpunkt für die Konfiguration der Client Firewall.
+    description: ''
+  - name: --default-action
+    parameterValueGroup: Allow, Deny
+    summary: Standardaktion, die angewendet werden soll, wenn keine Regel übereinstimmt. Gilt nur für Premium-SKU.
+    description: ''
+  - name: --force-string
+    summary: Wenn Sie "Set" oder "Add" verwenden, erhalten Sie Zeichen folgen Literale, anstatt zu versuchen, in JSON zu konvertieren.
+    description: ''
+  - name: --public-network-enabled
+    parameterValueGroup: false, true
+    summary: Gewähren des öffentlichen Netzwerk Zugriffs für die Container Registrierung.
+    description: ''
+  - name: --remove
+    summary: Entfernt eine Eigenschaft oder ein Element aus einer Liste.  Beispiel:--Remove Property. List <indexToRemove> oder--Remove propertytoremove.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --set
+    summary: Aktualisieren Sie ein Objekt, indem Sie einen Eigenschafts Pfad und einen festzulegenden Wert angeben.  Beispiel:--Set Eigenschaft1. Eigenschaft2 =<value>.
+    description: ''
+  - name: --sku
+    parameterValueGroup: Basic, Classic, Premium, Standard
+    summary: Die SKU der Container Registrierung.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  - name: --tags
+    summary: 'Durch Leerzeichen getrennte Tags: Key [= value] [key [= value]...]. Verwenden Sie "", um vorhandene Tags zu löschen.'
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/acr/_help.py
+commands:
+- az_acr_agentpool
+- az_acr_agentpool_create
+- az_acr_agentpool_delete
+- az_acr_agentpool_list
+- az_acr_agentpool_show
+- az_acr_agentpool_update
+- az_acr_build
+- az_acr_check_health
+- az_acr_check_name
+- az_acr_config
+- az_acr_config_content_trust
+- az_acr_config_content_trust_show
+- az_acr_config_content_trust_update
+- az_acr_config_retention
+- az_acr_config_retention_show
+- az_acr_config_retention_update
+- az_acr_connected_registry
+- az_acr_connected_registry_create
+- az_acr_connected_registry_deactivate
+- az_acr_connected_registry_delete
+- az_acr_connected_registry_install
+- az_acr_connected_registry_install_info
+- az_acr_connected_registry_install_renew_credentials
+- az_acr_connected_registry_list
+- az_acr_connected_registry_list_client_tokens
+- az_acr_connected_registry_show
+- az_acr_connected_registry_update
+- az_acr_create
+- az_acr_credential
+- az_acr_credential_renew
+- az_acr_credential_show
+- az_acr_delete
+- az_acr_encryption
+- az_acr_encryption_rotate_key
+- az_acr_encryption_show
+- az_acr_helm
+- az_acr_helm_delete
+- az_acr_helm_install_cli
+- az_acr_helm_list
+- az_acr_helm_push
+- az_acr_helm_repo
+- az_acr_helm_repo_add
+- az_acr_helm_show
+- az_acr_identity
+- az_acr_identity_assign
+- az_acr_identity_remove
+- az_acr_identity_show
+- az_acr_import
+- az_acr_list
+- az_acr_login
+- az_acr_network_rule
+- az_acr_network_rule_add
+- az_acr_network_rule_list
+- az_acr_network_rule_remove
+- az_acr_pack
+- az_acr_pack_build
+- az_acr_private_endpoint_connection
+- az_acr_private_endpoint_connection_approve
+- az_acr_private_endpoint_connection_delete
+- az_acr_private_endpoint_connection_list
+- az_acr_private_endpoint_connection_reject
+- az_acr_private_endpoint_connection_show
+- az_acr_private_link_resource
+- az_acr_private_link_resource_list
+- az_acr_replication
+- az_acr_replication_create
+- az_acr_replication_delete
+- az_acr_replication_list
+- az_acr_replication_show
+- az_acr_replication_update
+- az_acr_repository
+- az_acr_repository_delete
+- az_acr_repository_list
+- az_acr_repository_show
+- az_acr_repository_show_manifests
+- az_acr_repository_show_tags
+- az_acr_repository_untag
+- az_acr_repository_update
+- az_acr_run
+- az_acr_scope_map
+- az_acr_scope_map_create
+- az_acr_scope_map_delete
+- az_acr_scope_map_list
+- az_acr_scope_map_show
+- az_acr_scope_map_update
+- az_acr_show
+- az_acr_show_endpoints
+- az_acr_show_usage
+- az_acr_task
+- az_acr_task_cancel_run
+- az_acr_task_create
+- az_acr_task_credential
+- az_acr_task_credential_add
+- az_acr_task_credential_list
+- az_acr_task_credential_remove
+- az_acr_task_credential_update
+- az_acr_task_delete
+- az_acr_task_identity
+- az_acr_task_identity_assign
+- az_acr_task_identity_remove
+- az_acr_task_identity_show
+- az_acr_task_list
+- az_acr_task_list_runs
+- az_acr_task_logs
+- az_acr_task_run
+- az_acr_task_show
+- az_acr_task_show_run
+- az_acr_task_timer
+- az_acr_task_timer_add
+- az_acr_task_timer_list
+- az_acr_task_timer_remove
+- az_acr_task_timer_update
+- az_acr_task_update
+- az_acr_task_update_run
+- az_acr_taskrun
+- az_acr_taskrun_delete
+- az_acr_taskrun_list
+- az_acr_taskrun_logs
+- az_acr_taskrun_show
+- az_acr_token
+- az_acr_token_create
+- az_acr_token_credential
+- az_acr_token_credential_delete
+- az_acr_token_credential_generate
+- az_acr_token_delete
+- az_acr_token_list
+- az_acr_token_show
+- az_acr_token_update
+- az_acr_update
+- az_acr_webhook
+- az_acr_webhook_create
+- az_acr_webhook_delete
+- az_acr_webhook_get_config
+- az_acr_webhook_list
+- az_acr_webhook_list_events
+- az_acr_webhook_ping
+- az_acr_webhook_show
+- az_acr_webhook_update
+globalParameters:
+- name: --debug
+  summary: Ausführlichkeit der Protokollierung erhöhen, um alle Debugprotokolle anzuzeigen.
+- name: --help -h
+  summary: Zeigen Sie diese Hilfemeldung an, und schließen Sie sie.
+- name: --only-show-errors
+  summary: Nur Fehler anzeigen und Warnungen unterdrücken.
+- name: --output -o
+  defaultValue: json
+  parameterValueGroup: json, jsonc, table, tsv
+  summary: Ausgabeformat.
+- name: --query
+  summary: JMESPath-Abfragezeichenfolge. Weitere Informationen und Beispiele finden Sie unter <a href="http://jmespath.org/">http://jmespath.org/</a>.
+- name: --verbose
+  summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
+metadata:
+  doc_source_url_repo: https://github.com/Azure/azure-cli/blob/dev/
+  ms.date: 01/26/2021
+  description: Verwalten von privaten Registrierungen mit Azure-Container Registrierungen.
+  ms.openlocfilehash: a849b1b4fc45f76ff18bd312b94e493ac3eef227
+  ms.sourcegitcommit: df9d6597535ef9103775afbaee5a8282e0e218ee
+  ms.translationtype: MT
+  ms.contentlocale: de-DE
+  ms.lasthandoff: 02/09/2021
+  ms.locfileid: "102987052"
