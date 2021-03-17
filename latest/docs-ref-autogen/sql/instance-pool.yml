@@ -1,0 +1,280 @@
+### YamlMime:AzureCLIGroup
+uid: az_sql_instance_pool
+name: az sql instance-pool
+summary: Instanzen Pools verwalten.
+description: ''
+directCommands:
+- uid: az_sql_instance_pool_create
+  name: az sql instance-pool create
+  summary: Erstellen Sie einen instanzpool.
+  description: ''
+  syntax: >-
+    az sql instance-pool create --capacity
+                                --edition
+                                --family
+                                --license-type {BasePrice, LicenseIncluded}
+                                --location
+                                --name
+                                --resource-group
+                                --subnet
+                                [--no-wait]
+                                [--subscription]
+                                [--tags]
+                                [--vnet-name]
+  examples:
+  - summary: Beispiel für das Erstellen eines instanzpools (Include--No-Wait am Ende, um eine asynchrone Darstellung zu erhalten)
+    syntax: az sql instance-pool create -g resource_group_name -n instance_pool_name -l location --subnet /subscriptions/{SubID}/resourceGroups/{ResourceGroup}/providers/Microsoft.Network/virtualNetworks/{VNETName}/subnets/{SubnetName} --license-type LicenseIncluded --capacity 8 -e GeneralPurpose -f Gen5 --no-wait
+  - summary: Beispiel für das Erstellen eines instanzpools mit subnetzname und vnet-Name
+    syntax: az sql instance-pool create --license-type LicenseIncluded -l northcentralus -n myinstancepool -c 8 -e GeneralPurpose -f Gen5 -g billingPools --subnet mysubnetname --vnet-name myvnetname
+  requiredParameters:
+  - isRequired: true
+    name: --capacity -c
+    summary: Kapazität des instanzpools in virtuellen Kernen.
+    description: ''
+  - isRequired: true
+    name: --edition --tier -e
+    summary: 'Die Editions Komponente der SKU. Zulässiger Wert: General Purpose.'
+    description: ''
+  - isRequired: true
+    name: --family -f
+    summary: 'Die COMPUTE-Generierungs Komponente der SKU. Zulässiger Wert: Gen5.'
+    description: ''
+  - isRequired: true
+    name: --license-type
+    parameterValueGroup: BasePrice, LicenseIncluded
+    summary: Der Lizenztyp, der für diesen instanzpool angewendet werden soll.
+    description: ''
+  - isRequired: true
+    name: --location -l
+    summary: 'Der Standort. Werte aus: `az account list-locations`. Sie können den standardmäßig verwendeten Standort mit `az configure --defaults location=<location>` konfigurieren.'
+    description: ''
+  - isRequired: true
+    name: --name -n
+    summary: Name des instanzpools.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - isRequired: true
+    name: --subnet
+    summary: Der Name oder die ID des Subnetzes, das den Zugriff auf einen instanzpool zulässt. Wenn subnetzname angegeben ist, muss--vnet-Name angegeben werden.
+    description: ''
+  optionalParameters:
+  - name: --no-wait
+    summary: Nicht auf den Abschluss lang andauernder Vorgänge warten
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  - name: --tags
+    summary: 'Durch Leerzeichen getrennte Tags: Key [= value] [key [= value]...]. Verwenden Sie "", um vorhandene Tags zu löschen.'
+    description: ''
+  - name: --vnet-name
+    summary: Der Name des virtuellen Netzwerks.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/sql/_help.py
+- uid: az_sql_instance_pool_delete
+  name: az sql instance-pool delete
+  summary: Löschen eines instanzpools.
+  description: ''
+  syntax: >-
+    az sql instance-pool delete --name
+                                --resource-group
+                                [--no-wait]
+                                [--subscription]
+                                [--yes]
+  examples:
+  - summary: Löschen eines Instanzpools
+    syntax: az sql instance-pool delete -g mygroup -n myinstancepool --yes
+  requiredParameters:
+  - isRequired: true
+    name: --name -n
+    summary: Name des instanzpools.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  optionalParameters:
+  - name: --no-wait
+    summary: Nicht auf den Abschluss lang andauernder Vorgänge warten
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  - name: --yes -y
+    summary: Nicht zur Bestätigung auffordern
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/sql/_help.py
+- uid: az_sql_instance_pool_list
+  name: az sql instance-pool list
+  summary: Auflisten der verfügbaren instanzpools.
+  description: ''
+  syntax: >-
+    az sql instance-pool list [--query-examples]
+                              [--resource-group]
+                              [--subscription]
+  examples:
+  - summary: Listet alle instanzpools im aktuellen Abonnement auf.
+    syntax: az sql instance-pool list
+  - summary: Listet alle instanzpools in einer Ressourcengruppe auf.
+    syntax: az sql instance-pool list -g mygroup
+  optionalParameters:
+  - name: --query-examples
+    summary: Empfehlen Sie die jmespath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und Sie nach dem Abfrage Parameter in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positions Schlüsselwörter hinzufügen, um Vorschläge auf der Grundlage dieser Schlüsselwörter zu geben.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/sql/_help.py
+- uid: az_sql_instance_pool_show
+  name: az sql instance-pool show
+  summary: Hier werden die Details für einen instanzpool angezeigt.
+  description: ''
+  syntax: >-
+    az sql instance-pool show --name
+                              --resource-group
+                              [--query-examples]
+                              [--subscription]
+  examples:
+  - summary: Details für einen instanzpool
+    syntax: az sql instance-pool show -g mygroup -n myinstancepool
+  requiredParameters:
+  - isRequired: true
+    name: --name -n
+    summary: Name des instanzpools.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  optionalParameters:
+  - name: --query-examples
+    summary: Empfehlen Sie die jmespath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und Sie nach dem Abfrage Parameter in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positions Schlüsselwörter hinzufügen, um Vorschläge auf der Grundlage dieser Schlüsselwörter zu geben.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/sql/_help.py
+- uid: az_sql_instance_pool_update
+  name: az sql instance-pool update
+  summary: Aktualisieren Sie einen instanzpool.
+  description: ''
+  syntax: >-
+    az sql instance-pool update --name
+                                --resource-group
+                                [--subscription]
+                                [--tags]
+  examples:
+  - summary: Aktualisieren eines instanzpools mit neuen Tags (stellen Sie sicher, dass diese durch Leerzeichen getrennt sind, wenn mehrere Tags vorhanden sind)
+    syntax: az sql instance-pool update -n myinstancepool -g mygroup --tags mykey1=myvalue1 mykey2=myvalue2
+  - summary: Löschen der einem instanzpool zugewiesenen Tags
+    syntax: az sql instance-pool update -n myinstancepool -g mygroup --tags ""
+  requiredParameters:
+  - isRequired: true
+    name: --name -n
+    summary: Name des instanzpools.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  optionalParameters:
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  - name: --tags
+    summary: 'Durch Leerzeichen getrennte Tags: Key [= value] [key [= value]...]. Verwenden Sie "", um vorhandene Tags zu löschen.'
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/sql/_help.py
+- uid: az_sql_instance_pool_wait
+  name: az sql instance-pool wait
+  summary: Warten Sie, bis ein instanzpool einen gewünschten Zustand erreicht hat.
+  description: ''
+  syntax: >-
+    az sql instance-pool wait --name
+                              --resource-group
+                              [--created]
+                              [--custom]
+                              [--deleted]
+                              [--exists]
+                              [--interval]
+                              [--subscription]
+                              [--timeout]
+                              [--updated]
+  examples:
+  - summary: Warten Sie, bis ein instanzpool erstellt wird.
+    syntax: az sql instance-pool wait -n myinstancepool -g mygroup --created
+  requiredParameters:
+  - isRequired: true
+    name: --name -n
+    summary: Name des instanzpools.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  optionalParameters:
+  - name: --created
+    summary: Warten Sie, bis "provisioningstate" bei "erfolgreich" erstellt wurde.
+    description: ''
+  - name: --custom
+    summary: "Warten Sie, bis die Bedingung eine benutzerdefinierte jmespath-Abfrage erfüllt. Beispiel: provisioningstate! = ' InProgress ', instanceview. statuses [? Code = = ' PowerState/Running ']."
+    description: ''
+  - name: --deleted
+    summary: Warten Sie bis zum Löschen.
+    description: ''
+  - name: --exists
+    summary: Warten Sie, bis die Ressource vorhanden ist.
+    description: ''
+  - name: --interval
+    defaultValue: "30"
+    summary: Abruf Intervall in Sekunden.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  - name: --timeout
+    defaultValue: "3600"
+    summary: Maximale Wartezeit in Sekunden.
+    description: ''
+  - name: --updated
+    summary: Warten Sie, bis das Update mit provisioningstate bei "erfolgreich" abgeschlossen ist.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/sql/_help.py
+commands:
+- az_sql_instance_pool_create
+- az_sql_instance_pool_delete
+- az_sql_instance_pool_list
+- az_sql_instance_pool_show
+- az_sql_instance_pool_update
+- az_sql_instance_pool_wait
+globalParameters:
+- name: --debug
+  summary: Ausführlichkeit der Protokollierung erhöhen, um alle Debugprotokolle anzuzeigen.
+- name: --help -h
+  summary: Zeigen Sie diese Hilfemeldung an, und schließen Sie sie.
+- name: --only-show-errors
+  summary: Nur Fehler anzeigen und Warnungen unterdrücken.
+- name: --output -o
+  defaultValue: json
+  parameterValueGroup: json, jsonc, table, tsv
+  summary: Ausgabeformat.
+- name: --query
+  summary: JMESPath-Abfragezeichenfolge. Weitere Informationen und Beispiele finden Sie unter <a href="http://jmespath.org/">http://jmespath.org/</a>.
+- name: --verbose
+  summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
+metadata:
+  doc_source_url_repo: https://github.com/Azure/azure-cli/blob/dev/
+  ms.date: 02/18/2021
+  description: Instanzen Pools verwalten.
+  ms.openlocfilehash: dd596f2cb7cf1cab5220726155d1a27f1e1004cc
+  ms.sourcegitcommit: f9e23f29c59c6957d3df4d5ca2f4425093e6fd80
+  ms.translationtype: MT
+  ms.contentlocale: de-DE
+  ms.lasthandoff: 03/16/2021
+  ms.locfileid: "103515858"

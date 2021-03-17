@@ -1,0 +1,729 @@
+### YamlMime:AzureCLIGroup
+uid: az_storage_account
+name: az storage account
+summary: Verwalten von Speicher Konten.
+description: ''
+directCommands:
+- uid: az_storage_account_check_name
+  name: az storage account check-name
+  summary: Überprüfen Sie, ob der Name des Speicher Kontos gültig ist und nicht bereits verwendet wird.
+  description: ''
+  syntax: >-
+    az storage account check-name --name
+                                  [--subscription]
+  requiredParameters:
+  - isRequired: true
+    name: --name -n
+    summary: Der Name des Speicher Kontos in der angegebenen Ressourcengruppe.
+    description: ''
+  optionalParameters:
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/storage/_help.py
+- uid: az_storage_account_create
+  name: az storage account create
+  summary: Erstellen Sie ein Speicherkonto.
+  description: Die SKU des Speicher Kontos ist standardmäßig auf "Standard_RAGRS" eingestellt.
+  syntax: >-
+    az storage account create --name
+                              --resource-group
+                              [--access-tier {Cool, Hot}]
+                              [--allow-blob-public-access]
+                              [--assign-identity]
+                              [--azure-storage-sid]
+                              [--bypass {AzureServices, Logging, Metrics, None}]
+                              [--custom-domain]
+                              [--default-action {Allow, Deny}]
+                              [--domain-guid]
+                              [--domain-name]
+                              [--domain-sid]
+                              [--enable-files-aadds {false, true}]
+                              [--enable-files-adds {false, true}]
+                              [--enable-hierarchical-namespace {false, true}]
+                              [--enable-large-file-share]
+                              [--encryption-key-type-for-queue {Account, Service}]
+                              [--encryption-key-type-for-table {Account, Service}]
+                              [--encryption-services {blob, file, queue, table}]
+                              [--forest-name]
+                              [--https-only {false, true}]
+                              [--kind {BlobStorage, BlockBlobStorage, FileStorage, Storage, StorageV2}]
+                              [--location]
+                              [--min-tls-version]
+                              [--net-bios-domain-name]
+                              [--publish-internet-endpoints {false, true}]
+                              [--publish-microsoft-endpoints {false, true}]
+                              [--require-infrastructure-encryption]
+                              [--routing-choice {InternetRouting, MicrosoftRouting}]
+                              [--sku {Premium_LRS, Premium_ZRS, Standard_GRS, Standard_GZRS, Standard_LRS, Standard_RAGRS, Standard_RAGZRS, Standard_ZRS}]
+                              [--subscription]
+                              [--tags]
+  examples:
+  - summary: Erstellen Sie ein Speicherkonto "mystorageaccount" in der Ressourcengruppe "myresourcegroup" in der Region "USA, Westen" mit lokal redundantem Speicher.
+    syntax: az storage account create -n mystorageaccount -g MyResourceGroup -l westus --sku Standard_LRS
+  - summary: Erstellen Sie ein Speicherkonto "mystorageaccount" in der Ressourcengruppe "myresourcegroup" in der Region "eastus2euap" mit aktiviertem Verschlüsselungsschlüssel für den Tabellen Speicherdienst.
+    syntax: az storage account create -n mystorageaccount -g MyResourceGroup --kind StorageV2 -l eastus2euap -t Account
+  requiredParameters:
+  - isRequired: true
+    name: --name -n
+    summary: Der Name des Speicherkontos.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  optionalParameters:
+  - name: --access-tier
+    parameterValueGroup: Cool, Hot
+    summary: Die Zugriffsebene, die für Abrechnungs standardblob-Konten verwendet wird. Kann nicht für die Konto Typen Standard, standardgrs, standardragrs oder premiumlrs festgelegt werden. Es ist für standardblob-Konten während der Erstellung erforderlich.
+    description: ''
+  - name: --allow-blob-public-access
+    summary: ''
+    description: ''
+  - name: --assign-identity
+    summary: Generieren Sie eine neue Speicherkonto Identität für dieses Speicherkonto, und weisen Sie diese für die Verwendung mit Schlüssel Verwaltungsdiensten wie Azure keyvault zu.
+    description: ''
+  - name: --azure-storage-sid
+    summary: Geben Sie die Sicherheits-ID (SID) für Azure Storage an. Erforderlich, wenn "--Enable-files-Adds" auf "true" festgelegt ist.
+    description: ''
+  - name: --bypass
+    parameterValueGroup: AzureServices, Logging, Metrics, None
+    summary: Umgehung von Datenverkehr für durch Leerzeichen getrennte Verwendungen.
+    description: ''
+  - name: --custom-domain
+    summary: Benutzer Domäne, die dem Speicherkonto zugewiesen ist. Name ist die CNAME-Quelle.
+    description: ''
+  - name: --default-action
+    parameterValueGroup: Allow, Deny
+    summary: Standardaktion, die angewendet werden soll, wenn keine Regel übereinstimmt.
+    description: ''
+  - name: --domain-guid
+    summary: Geben Sie die Domänen-GUID an. Erforderlich, wenn "--Enable-files-Adds" auf "true" festgelegt ist.
+    description: ''
+  - name: --domain-name
+    summary: Geben Sie die primäre Domäne an, für die der AD DNS-Server autoritativ ist. Erforderlich, wenn "--Enable-files-Adds" auf "true" festgelegt ist.
+    description: ''
+  - name: --domain-sid
+    summary: Geben Sie die Sicherheits-ID (SID) an. Erforderlich, wenn "--Enable-files-Adds" auf "true" festgelegt ist.
+    description: ''
+  - name: --enable-files-aadds
+    parameterValueGroup: false, true
+    summary: Aktivieren Sie Azure Active Directory Domain Services Authentifizierung für Azure files.
+    description: ''
+  - name: --enable-files-adds
+    parameterValueGroup: false, true
+    summary: Aktivieren Sie Azure files Active Directory-Domäne Dienst Authentifizierung für das Speicherkonto. Wenn--Enable-files-Adds auf true festgelegt ist, müssen Azure Active Directory Properties-Argumente angegeben werden.
+    description: ''
+  - name: --enable-hierarchical-namespace --hns
+    parameterValueGroup: false, true
+    summary: Ermöglicht dem BLOB-Dienst das Anzeigen der Dateisystem Semantik. Diese Eigenschaft kann nur aktiviert werden, wenn die Art des Speicher Kontos StorageV2 lautet.
+    description: ''
+  - name: --enable-large-file-share
+    summary: Aktivieren Sie die Funktion, große Dateifreigaben mit mehr als 5 tib-Kapazität für das Speicherkonto zu unterstützen. Wenn die Eigenschaft aktiviert ist, kann die Funktion nicht deaktiviert werden. Wird derzeit nur für die Replikations Typen LRS und ZRS unterstützt. Daher sind Konto Konvertierungen in georedundante Konten nicht möglich. Weitere Informationen finden Sie unter <a href="https://go.microsoft.com/fwlink/?linkid=2086047">https://go.microsoft.com/fwlink/?linkid=2086047</a> .
+    description: ''
+  - name: --encryption-key-type-for-queue -q
+    parameterValueGroup: Account, Service
+    summary: 'Legen Sie den Verschlüsselungs Schlüsseltyp für Warteschlangendienst fest. "Account": die Warteschlange wird mit dem Konto bezogenen Verschlüsselungsschlüssel verschlüsselt. "Service": die Warteschlange wird immer mit Dienst bezogenen Schlüsseln verschlüsselt. Der standardmäßige Verschlüsselungs Schlüsseltyp ist "Service".'
+    description: ''
+  - name: --encryption-key-type-for-table -t
+    parameterValueGroup: Account, Service
+    summary: 'Legen Sie den Verschlüsselungs Schlüsseltyp für den Tabellen Speicherdienst fest. "Account": die Tabelle wird mit dem Konto bezogenen Verschlüsselungsschlüssel verschlüsselt. "Service": die Tabelle wird immer mit Dienst bezogenen Schlüsseln verschlüsselt. Der standardmäßige Verschlüsselungs Schlüsseltyp ist "Service".'
+    description: ''
+  - name: --encryption-services
+    parameterValueGroup: blob, file, queue, table
+    summary: Gibt an, welche Dienste verschlüsselt werden sollen.
+    description: ''
+  - name: --forest-name
+    summary: Geben Sie die Active Directory Gesamtstruktur an. Erforderlich, wenn "--Enable-files-Adds" auf "true" festgelegt ist.
+    description: ''
+  - name: --https-only
+    parameterValueGroup: false, true
+    summary: HTTPS-Datenverkehr nur an Speicherdienst zulassen, wenn auf "true" festgelegt. Der Standardwert lautet „true“.
+    description: ''
+  - name: --kind
+    defaultValue: Storage
+    parameterValueGroup: BlobStorage, BlockBlobStorage, FileStorage, Storage, StorageV2
+    summary: Geben Sie den Typ des Speicher Kontos an.
+    description: ''
+  - name: --location -l
+    summary: 'Der Standort. Werte aus: `az account list-locations`. Sie können den standardmäßig verwendeten Standort mit `az configure --defaults location=<location>` konfigurieren.'
+    description: ''
+  - name: --min-tls-version
+    summary: ''
+    description: ''
+  - name: --net-bios-domain-name
+    summary: Geben Sie den NetBIOS-Domänen Namen an. Erforderlich, wenn "--Enable-files-Adds" auf "true" festgelegt ist.
+    description: ''
+  - name: --publish-internet-endpoints
+    parameterValueGroup: false, true
+    summary: Ein boolesches Flag, das angibt, ob Endpunkte für den Internet Routing-Speicher veröffentlicht werden sollen.
+    description: ''
+  - name: --publish-microsoft-endpoints
+    parameterValueGroup: false, true
+    summary: Ein boolesches Flag, das angibt, ob Microsoft-Routing Speicher Endpunkte veröffentlicht werden sollen.
+    description: ''
+  - name: --require-infrastructure-encryption
+    summary: ''
+    description: ''
+  - name: --routing-choice
+    parameterValueGroup: InternetRouting, MicrosoftRouting
+    summary: Routing Auswahl definiert die Art des Netzwerk Routings, das vom Benutzer gewählt wurde.
+    description: ''
+  - name: --sku
+    defaultValue: Standard_RAGRS
+    parameterValueGroup: Premium_LRS, Premium_ZRS, Standard_GRS, Standard_GZRS, Standard_LRS, Standard_RAGRS, Standard_RAGZRS, Standard_ZRS
+    summary: Der Name der SKU des Speicherkontos.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  - name: --tags
+    summary: 'Durch Leerzeichen getrennte Tags: Key [= value] [key [= value]...]. Verwenden Sie "", um vorhandene Tags zu löschen.'
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/storage/_help.py
+- uid: az_storage_account_delete
+  name: az storage account delete
+  summary: Löschen Sie ein Speicherkonto.
+  description: ''
+  syntax: >-
+    az storage account delete [--ids]
+                              [--name]
+                              [--resource-group]
+                              [--subscription]
+                              [--yes]
+  examples:
+  - summary: Löschen Sie ein Speicherkonto mit einer Ressourcen-ID.
+    syntax: az storage account delete --ids /subscriptions/{SubID}/resourceGroups/{ResourceGroup}/providers/Microsoft.Storage/storageAccounts/{StorageAccount}
+  - summary: Löschen Sie ein Speicherkonto mit einem Kontonamen und einer Ressourcengruppe.
+    syntax: az storage account delete -n MyStorageAccount -g MyResourceGroup
+  optionalParameters:
+  - name: --ids
+    summary: Mindestens eine Ressourcen-ID (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID handeln, die alle Informationen von Ressourcen-ID-Argumenten enthält. Sie sollten entweder--IDs oder andere Ressourcen-ID-Argumente angeben.
+    description: ''
+  - name: --name -n
+    summary: Der Name des Speicherkontos.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  - name: --yes -y
+    summary: Nicht zur Bestätigung auffordern
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/storage/_help.py
+- uid: az_storage_account_failover
+  name: az storage account failover
+  summary: Eine failoveranforderung kann für ein Speicherkonto bei Verfügbarkeitsproblemen ausgelöst werden.
+  description: Das Failover erfolgt vom primären Cluster des Speicher Kontos bis zum sekundären Cluster für (RA-) GRS/gzrs-Konten. Der sekundäre Cluster wird nach einem Failover zu einem primären Cluster. Weitere Informationen finden Sie unter <a href="https://docs.microsoft.com/en-us/azure/storage/common/storage-disaster-recovery-guidance">https://docs.microsoft.com/en-us/azure/storage/common/storage-disaster-recovery-guidance</a> .
+  syntax: >-
+    az storage account failover [--ids]
+                                [--name]
+                                [--no-wait]
+                                [--resource-group]
+                                [--subscription]
+                                [--yes]
+  examples:
+  - summary: Failover für ein Speicherkonto.
+    syntax: az storage account failover -n mystorageaccount -g MyResourceGroup
+  - summary: Failover eines Speicher Kontos, ohne auf den Abschluss des Vorgangs zu warten.
+    syntax: >-
+      az storage account failover -n mystorageaccount -g MyResourceGroup --no-wait
+
+      az storage account show -n mystorageaccount --expand geoReplicationStats
+  optionalParameters:
+  - name: --ids
+    summary: Mindestens eine Ressourcen-ID (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID handeln, die alle Informationen von Ressourcen-ID-Argumenten enthält. Sie sollten entweder--IDs oder andere Ressourcen-ID-Argumente angeben.
+    description: ''
+  - name: --name -n
+    summary: Der Name des Speicherkontos.
+    description: ''
+  - name: --no-wait
+    summary: Nicht auf den Abschluss lang andauernder Vorgänge warten
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  - name: --yes -y
+    summary: Nicht zur Bestätigung auffordern
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/storage/_help.py
+- uid: az_storage_account_generate_sas
+  name: az storage account generate-sas
+  summary: Generiert eine SAS für das Konto.
+  description: ''
+  syntax: >-
+    az storage account generate-sas --expiry
+                                    --permissions
+                                    --resource-types
+                                    --services
+                                    [--account-key]
+                                    [--account-name]
+                                    [--connection-string]
+                                    [--https-only]
+                                    [--ids]
+                                    [--ip]
+                                    [--start]
+                                    [--subscription]
+  examples:
+  - summary: Generieren Sie ein SAS-Token für das Konto, das für Warteschlangen-und Tabellen Dienste unter Linux gültig ist.
+    syntax: >-
+      end=`date -u -d "30 minutes" '+%Y-%m-%dT%H:%MZ'`
+
+      az storage account generate-sas --permissions cdlruwap --account-name MyStorageAccount --services qt --resource-types sco --expiry $end -o tsv
+  - summary: Generieren Sie ein SAS-Token für das Konto, das für Warteschlangen-und Tabellen Dienste unter MacOS gültig ist.
+    syntax: >-
+      end=`date -v+30M '+%Y-%m-%dT%H:%MZ'`
+
+      az storage account generate-sas --permissions cdlruwap --account-name MyStorageAccount --services qt --resource-types sco --expiry $end -o tsv
+  - summary: Generieren einer Shared Access Signature für das Konto (automatisch generiert)
+    syntax: az storage account generate-sas --account-key 00000000 --account-name MyStorageAccount --expiry 2020-01-01 --https-only --permissions acuw --resource-types co --services bfqt
+  requiredParameters:
+  - isRequired: true
+    name: --expiry
+    summary: Gibt den UTC-DateTime-Wert (Y-m-d't ' h:m ' Z ') an, bei dem die SAS ungültig wird.
+    description: ''
+  - isRequired: true
+    name: --permissions
+    summary: 'Die Berechtigungen, die von der SAS erteilt werden. Zulässige Werte: (a) dd (c) reate (d) Elete (l) ist (p) rocess (r) EAD (u) pdate (w)-Ritual. Kann kombiniert werden.'
+    description: ''
+  - isRequired: true
+    name: --resource-types
+    summary: 'Die Ressourcentypen, für die die SAS gilt. Zulässige Werte: (s) ervice (c) ontainer (o) bject. Kann kombiniert werden.'
+    description: ''
+  - isRequired: true
+    name: --services
+    summary: 'Die Speicherdienste, auf die die SAS anwendbar ist. Zulässige Werte: (b) Lob (f) (q) ueue (t)-fähig. Kann kombiniert werden.'
+    description: ''
+  optionalParameters:
+  - name: --account-key
+    summary: 'Speicherkontoschlüssel Muss in Verbindung mit dem Speicherkonto Namen verwendet werden. Umgebungsvariable: AZURE_STORAGE_KEY.'
+    description: ''
+  - name: --account-name
+    summary: 'Name des Speicherkontos Muss in Verbindung mit dem Speicherkonto Schlüssel oder einem SAS-Token verwendet werden. Umgebungs Variable: AZURE_STORAGE_ACCOUNT.'
+    description: ''
+  - name: --connection-string
+    summary: 'Verbindungs Zeichenfolge des Speicher Kontos. Umgebungsvariable: AZURE_STORAGE_CONNECTION_STRING.'
+    description: ''
+  - name: --https-only
+    summary: Nur Anforderungen zulassen, die mit dem HTTPS-Protokoll durchgeführt wurden. Wenn diese Angabe ausgelassen wird, sind Anforderungen aus dem HTTP-und HTTPS-Protokoll zulässig.
+    description: ''
+  - name: --ids
+    summary: Mindestens eine Ressourcen-ID (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID handeln, die alle Informationen von Ressourcen-ID-Argumenten enthält. Sie sollten entweder--IDs oder andere Ressourcen-ID-Argumente angeben.
+    description: ''
+  - name: --ip
+    summary: Gibt die IP-Adresse oder den Bereich von IP-Adressen an, von denen Anforderungen akzeptiert werden. Unterstützt nur IPv4-Stil Adressen.
+    description: ''
+  - name: --start
+    summary: Gibt den UTC-DateTime-Wert (Y-m-d't ' h:m ' Z ') an, an dem die SAS gültig wird. Der Standardwert ist die Zeit der Anforderung.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/storage/_help.py
+- uid: az_storage_account_list
+  name: az storage account list
+  summary: Auflisten von Speicher Konten.
+  description: ''
+  syntax: >-
+    az storage account list [--query-examples]
+                            [--resource-group]
+                            [--subscription]
+  examples:
+  - summary: Listet alle Speicher Konten in einem Abonnement auf.
+    syntax: az storage account list
+  - summary: Listet alle Speicher Konten in einer Ressourcengruppe auf.
+    syntax: az storage account list -g MyResourceGroup
+  optionalParameters:
+  - name: --query-examples
+    summary: Empfehlen Sie die jmespath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und Sie nach dem Abfrage Parameter in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positions Schlüsselwörter hinzufügen, um Vorschläge auf der Grundlage dieser Schlüsselwörter zu geben.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/storage/_help.py
+- uid: az_storage_account_revoke_delegation_keys
+  name: az storage account revoke-delegation-keys
+  summary: Widerrufen Sie alle Benutzer Delegierungs Schlüssel für ein Speicherkonto.
+  description: ''
+  syntax: >-
+    az storage account revoke-delegation-keys [--ids]
+                                              [--name]
+                                              [--resource-group]
+                                              [--subscription]
+  examples:
+  - summary: Widerrufen Sie alle Benutzer Delegierungs Schlüssel für ein Speicherkonto nach Ressourcen-ID.
+    syntax: az storage account revoke-delegation-keys --ids /subscriptions/{SubID}/resourceGroups/{ResourceGroup}/providers/Microsoft.Storage/storageAccounts/{StorageAccount}
+  - summary: Widerrufen Sie alle Benutzer Delegierungs Schlüssel für ein Speicherkonto "mystorageaccount" in der Ressourcengruppe "myresourcegroup" in der Region "USA, Westen" mit lokal redundantem Speicher.
+    syntax: az storage account revoke-delegation-keys -n mystorageaccount -g MyResourceGroup
+  optionalParameters:
+  - name: --ids
+    summary: Mindestens eine Ressourcen-ID (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID handeln, die alle Informationen von Ressourcen-ID-Argumenten enthält. Sie sollten entweder--IDs oder andere Ressourcen-ID-Argumente angeben.
+    description: ''
+  - name: --name -n
+    summary: Der Name des Speicherkontos.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/storage/_help.py
+- uid: az_storage_account_show
+  name: az storage account show
+  summary: Speicherkonto Eigenschaften anzeigen.
+  description: ''
+  syntax: >-
+    az storage account show [--expand]
+                            [--ids]
+                            [--name]
+                            [--query-examples]
+                            [--resource-group]
+                            [--subscription]
+  examples:
+  - summary: Anzeigen von Eigenschaften für ein Speicherkonto nach Ressourcen-ID.
+    syntax: az storage account show --ids /subscriptions/{SubID}/resourceGroups/{ResourceGroup}/providers/Microsoft.Storage/storageAccounts/{StorageAccount}
+  - summary: Anzeigen von Eigenschaften für ein Speicherkonto mit einem Kontonamen und einer Ressourcengruppe.
+    syntax: az storage account show -g MyResourceGroup -n MyStorageAccount
+  optionalParameters:
+  - name: --expand
+    summary: Kann verwendet werden, um die Eigenschaften innerhalb der Konto Eigenschaften zu erweitern. Standardmäßig werden beim Abrufen von Eigenschaften keine Daten eingeschlossen. Zurzeit werden nur georeplicationstats und blobrestorestatus unterstützt.
+    description: ''
+  - name: --ids
+    summary: Mindestens eine Ressourcen-ID (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID handeln, die alle Informationen von Ressourcen-ID-Argumenten enthält. Sie sollten entweder--IDs oder andere Ressourcen-ID-Argumente angeben.
+    description: ''
+  - name: --name -n
+    summary: Der Name des Speicherkontos.
+    description: ''
+  - name: --query-examples
+    summary: Empfehlen Sie die jmespath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und Sie nach dem Abfrage Parameter in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positions Schlüsselwörter hinzufügen, um Vorschläge auf der Grundlage dieser Schlüsselwörter zu geben.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/storage/_help.py
+- uid: az_storage_account_show_connection_string
+  name: az storage account show-connection-string
+  summary: Abrufen der Verbindungszeichenfolge für ein Speicherkonto
+  description: ''
+  syntax: >-
+    az storage account show-connection-string [--blob-endpoint]
+                                              [--file-endpoint]
+                                              [--ids]
+                                              [--key {primary, secondary}]
+                                              [--name]
+                                              [--protocol {http, https}]
+                                              [--queue-endpoint]
+                                              [--resource-group]
+                                              [--sas-token]
+                                              [--subscription]
+                                              [--table-endpoint]
+  examples:
+  - summary: Sie erhalten eine Verbindungs Zeichenfolge für ein Speicherkonto.
+    syntax: az storage account show-connection-string -g MyResourceGroup -n MyStorageAccount
+  - summary: Abrufen der Verbindungszeichenfolge für ein Speicherkonto automatisch generierten
+    syntax: az storage account show-connection-string --name MyStorageAccount --resource-group MyResourceGroup --subscription MySubscription
+  optionalParameters:
+  - name: --blob-endpoint
+    summary: Benutzerdefinierter Endpunkt für BLOB.
+    description: ''
+  - name: --file-endpoint
+    summary: Benutzerdefinierter Endpunkt für Dateien.
+    description: ''
+  - name: --ids
+    summary: Mindestens eine Ressourcen-ID (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID handeln, die alle Informationen von Ressourcen-ID-Argumenten enthält. Sie sollten entweder--IDs oder andere Ressourcen-ID-Argumente angeben.
+    description: ''
+  - name: --key
+    defaultValue: primary
+    parameterValueGroup: primary, secondary
+    summary: Der zu verwendende Schlüssel.
+    description: ''
+  - name: --name -n
+    summary: Der Name des Speicherkontos.
+    description: ''
+  - name: --protocol
+    defaultValue: https
+    parameterValueGroup: http, https
+    summary: Das standardend Punkt Protokoll.
+    description: ''
+  - name: --queue-endpoint
+    summary: Benutzerdefinierter Endpunkt für Warteschlangen.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --sas-token
+    summary: Das SAS-Token, das in der Verbindungs Zeichenfolge verwendet werden soll.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  - name: --table-endpoint
+    summary: Benutzerdefinierter Endpunkt für Tabellen.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/storage/_help.py
+- uid: az_storage_account_show_usage
+  name: az storage account show-usage
+  summary: Zeigt die aktuelle Anzahl und das Limit für die Speicher Konten im Abonnement an.
+  description: ''
+  syntax: >-
+    az storage account show-usage --location
+                                  [--subscription]
+  examples:
+  - summary: Zeigt die aktuelle Anzahl und das Limit für die Speicher Konten im Abonnement an. automatisch generierten
+    syntax: az storage account show-usage --location westus2
+  requiredParameters:
+  - isRequired: true
+    name: --location -l
+    summary: 'Der Standort. Werte aus: `az account list-locations`. Sie können den standardmäßig verwendeten Standort mit `az configure --defaults location=<location>` konfigurieren.'
+    description: ''
+  optionalParameters:
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/storage/_help.py
+- uid: az_storage_account_update
+  name: az storage account update
+  summary: Aktualisieren Sie die Eigenschaften eines Speicher Kontos.
+  description: ''
+  syntax: >-
+    az storage account update [--access-tier {Cool, Hot}]
+                              [--add]
+                              [--allow-blob-public-access]
+                              [--assign-identity]
+                              [--azure-storage-sid]
+                              [--bypass {AzureServices, Logging, Metrics, None}]
+                              [--custom-domain]
+                              [--default-action {Allow, Deny}]
+                              [--domain-guid]
+                              [--domain-name]
+                              [--domain-sid]
+                              [--enable-files-aadds {false, true}]
+                              [--enable-files-adds {false, true}]
+                              [--enable-large-file-share]
+                              [--encryption-key-name]
+                              [--encryption-key-source {Microsoft.Keyvault, Microsoft.Storage}]
+                              [--encryption-key-vault]
+                              [--encryption-key-version]
+                              [--encryption-services {blob, file, queue, table}]
+                              [--force-string]
+                              [--forest-name]
+                              [--https-only {false, true}]
+                              [--ids]
+                              [--min-tls-version]
+                              [--name]
+                              [--net-bios-domain-name]
+                              [--publish-internet-endpoints {false, true}]
+                              [--publish-microsoft-endpoints {false, true}]
+                              [--remove]
+                              [--resource-group]
+                              [--routing-choice {InternetRouting, MicrosoftRouting}]
+                              [--set]
+                              [--sku {Premium_LRS, Premium_ZRS, Standard_GRS, Standard_GZRS, Standard_LRS, Standard_RAGRS, Standard_RAGZRS, Standard_ZRS}]
+                              [--subscription]
+                              [--tags]
+                              [--use-subdomain {false, true}]
+  examples:
+  - summary: Aktualisieren Sie die Eigenschaften eines Speicher Kontos. automatisch generierten
+    syntax: az storage account update --default-action Allow --name MyStorageAccount --resource-group MyResourceGroup
+  optionalParameters:
+  - name: --access-tier
+    parameterValueGroup: Cool, Hot
+    summary: Die Zugriffsebene, die für Abrechnungs standardblob-Konten verwendet wird. Kann nicht für die Konto Typen Standard, standardgrs, standardragrs oder premiumlrs festgelegt werden. Es ist für standardblob-Konten während der Erstellung erforderlich.
+    description: ''
+  - name: --add
+    summary: Fügen Sie einer Liste von-Objekten ein Objekt hinzu, indem Sie ein Pfad-und Schlüssel-Wert-Paar angeben.  Beispiel:--Add Property. ListProperty <Key = Value, String oder JSON String>.
+    description: ''
+  - name: --allow-blob-public-access
+    summary: ''
+    description: ''
+  - name: --assign-identity
+    summary: Generieren Sie eine neue Speicherkonto Identität für dieses Speicherkonto, und weisen Sie diese für die Verwendung mit Schlüssel Verwaltungsdiensten wie Azure keyvault zu.
+    description: ''
+  - name: --azure-storage-sid
+    summary: Geben Sie die Sicherheits-ID (SID) für Azure Storage an. Erforderlich, wenn "--Enable-files-Adds" auf "true" festgelegt ist.
+    description: ''
+  - name: --bypass
+    parameterValueGroup: AzureServices, Logging, Metrics, None
+    summary: Umgehung von Datenverkehr für durch Leerzeichen getrennte Verwendungen.
+    description: ''
+  - name: --custom-domain
+    summary: Benutzer Domäne, die dem Speicherkonto zugewiesen ist. Name ist die CNAME-Quelle. Verwenden Sie "", um einen vorhandenen Wert zu löschen.
+    description: ''
+  - name: --default-action
+    parameterValueGroup: Allow, Deny
+    summary: Standardaktion, die angewendet werden soll, wenn keine Regel übereinstimmt.
+    description: ''
+  - name: --domain-guid
+    summary: Geben Sie die Domänen-GUID an. Erforderlich, wenn "--Enable-files-Adds" auf "true" festgelegt ist.
+    description: ''
+  - name: --domain-name
+    summary: Geben Sie die primäre Domäne an, für die der AD DNS-Server autoritativ ist. Erforderlich, wenn "--Enable-files-Adds" auf "true" festgelegt ist.
+    description: ''
+  - name: --domain-sid
+    summary: Geben Sie die Sicherheits-ID (SID) an. Erforderlich, wenn "--Enable-files-Adds" auf "true" festgelegt ist.
+    description: ''
+  - name: --enable-files-aadds
+    parameterValueGroup: false, true
+    summary: Aktivieren Sie Azure Active Directory Domain Services Authentifizierung für Azure files.
+    description: ''
+  - name: --enable-files-adds
+    parameterValueGroup: false, true
+    summary: Aktivieren Sie Azure files Active Directory-Domäne Dienst Authentifizierung für das Speicherkonto. Wenn--Enable-files-Adds auf true festgelegt ist, müssen Azure Active Directory Properties-Argumente angegeben werden.
+    description: ''
+  - name: --enable-large-file-share
+    summary: Aktivieren Sie die Funktion, große Dateifreigaben mit mehr als 5 tib-Kapazität für das Speicherkonto zu unterstützen. Wenn die Eigenschaft aktiviert ist, kann die Funktion nicht deaktiviert werden. Wird derzeit nur für die Replikations Typen LRS und ZRS unterstützt. Daher sind Konto Konvertierungen in georedundante Konten nicht möglich. Weitere Informationen finden Sie unter <a href="https://go.microsoft.com/fwlink/?linkid=2086047">https://go.microsoft.com/fwlink/?linkid=2086047</a> .
+    description: ''
+  - name: --encryption-key-name
+    summary: Der Name des keyvault-Schlüssels.
+    description: ''
+  - name: --encryption-key-source
+    parameterValueGroup: Microsoft.Keyvault, Microsoft.Storage
+    summary: Die Standard Quelle für den Verschlüsselungsschlüssel.
+    description: ''
+  - name: --encryption-key-vault
+    summary: Der URI des keyvault.
+    description: ''
+  - name: --encryption-key-version
+    summary: Die Version des zu verwendenden keyvault-Schlüssels, die die implizite Schlüssel Rotation deaktiviert. Verwenden Sie "", um die automatische Rotation der Schlüssel zu abonnieren.
+    description: ''
+  - name: --encryption-services
+    parameterValueGroup: blob, file, queue, table
+    summary: Gibt an, welche Dienste verschlüsselt werden sollen.
+    description: ''
+  - name: --force-string
+    summary: Wenn Sie "Set" oder "Add" verwenden, erhalten Sie Zeichen folgen Literale, anstatt zu versuchen, in JSON zu konvertieren.
+    description: ''
+  - name: --forest-name
+    summary: Geben Sie die Active Directory Gesamtstruktur an. Erforderlich, wenn "--Enable-files-Adds" auf "true" festgelegt ist.
+    description: ''
+  - name: --https-only
+    parameterValueGroup: false, true
+    summary: Ermöglicht den HTTPS-Datenverkehr nur an den Speicherdienst.
+    description: ''
+  - name: --ids
+    summary: Mindestens eine Ressourcen-ID (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID handeln, die alle Informationen von Ressourcen-ID-Argumenten enthält. Sie sollten entweder--IDs oder andere Ressourcen-ID-Argumente angeben.
+    description: ''
+  - name: --min-tls-version
+    summary: ''
+    description: ''
+  - name: --name -n
+    summary: Der Name des Speicherkontos.
+    description: ''
+  - name: --net-bios-domain-name
+    summary: Geben Sie den NetBIOS-Domänen Namen an. Erforderlich, wenn "--Enable-files-Adds" auf "true" festgelegt ist.
+    description: ''
+  - name: --publish-internet-endpoints
+    parameterValueGroup: false, true
+    summary: Ein boolesches Flag, das angibt, ob Endpunkte für den Internet Routing-Speicher veröffentlicht werden sollen.
+    description: ''
+  - name: --publish-microsoft-endpoints
+    parameterValueGroup: false, true
+    summary: Ein boolesches Flag, das angibt, ob Microsoft-Routing Speicher Endpunkte veröffentlicht werden sollen.
+    description: ''
+  - name: --remove
+    summary: Entfernt eine Eigenschaft oder ein Element aus einer Liste.  Beispiel:--Remove Property. List <indexToRemove> oder--Remove propertytoremove.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --routing-choice
+    parameterValueGroup: InternetRouting, MicrosoftRouting
+    summary: Routing Auswahl definiert die Art des Netzwerk Routings, das vom Benutzer gewählt wurde.
+    description: ''
+  - name: --set
+    summary: Aktualisieren Sie ein Objekt, indem Sie einen Eigenschafts Pfad und einen festzulegenden Wert angeben.  Beispiel:--Set Eigenschaft1. Eigenschaft2 =<value>.
+    description: ''
+  - name: --sku
+    parameterValueGroup: Premium_LRS, Premium_ZRS, Standard_GRS, Standard_GZRS, Standard_LRS, Standard_RAGRS, Standard_RAGZRS, Standard_ZRS
+    summary: Der Name der SKU des Speicherkontos.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  - name: --tags
+    summary: 'Durch Leerzeichen getrennte Tags: Key [= value] [key [= value]...]. Verwenden Sie "", um vorhandene Tags zu löschen.'
+    description: ''
+  - name: --use-subdomain
+    parameterValueGroup: false, true
+    summary: Geben Sie an, ob die indirekte CNAME-Validierung verwendet werden soll
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/storage/_help.py
+commands:
+- az_storage_account_blob_service_properties
+- az_storage_account_blob_service_properties_show
+- az_storage_account_blob_service_properties_update
+- az_storage_account_check_name
+- az_storage_account_create
+- az_storage_account_delete
+- az_storage_account_encryption_scope
+- az_storage_account_encryption_scope_create
+- az_storage_account_encryption_scope_list
+- az_storage_account_encryption_scope_show
+- az_storage_account_encryption_scope_update
+- az_storage_account_failover
+- az_storage_account_file_service_properties
+- az_storage_account_file_service_properties_show
+- az_storage_account_file_service_properties_update
+- az_storage_account_generate_sas
+- az_storage_account_keys
+- az_storage_account_keys_list
+- az_storage_account_keys_renew
+- az_storage_account_list
+- az_storage_account_management_policy
+- az_storage_account_management_policy_create
+- az_storage_account_management_policy_delete
+- az_storage_account_management_policy_show
+- az_storage_account_management_policy_update
+- az_storage_account_network_rule
+- az_storage_account_network_rule_add
+- az_storage_account_network_rule_list
+- az_storage_account_network_rule_remove
+- az_storage_account_private_endpoint_connection
+- az_storage_account_private_endpoint_connection_approve
+- az_storage_account_private_endpoint_connection_delete
+- az_storage_account_private_endpoint_connection_reject
+- az_storage_account_private_endpoint_connection_show
+- az_storage_account_private_link_resource
+- az_storage_account_private_link_resource_list
+- az_storage_account_revoke_delegation_keys
+- az_storage_account_show
+- az_storage_account_show_connection_string
+- az_storage_account_show_usage
+- az_storage_account_update
+globalParameters:
+- name: --debug
+  summary: Ausführlichkeit der Protokollierung erhöhen, um alle Debugprotokolle anzuzeigen.
+- name: --help -h
+  summary: Zeigen Sie diese Hilfemeldung an, und schließen Sie sie.
+- name: --only-show-errors
+  summary: Nur Fehler anzeigen und Warnungen unterdrücken.
+- name: --output -o
+  defaultValue: json
+  parameterValueGroup: json, jsonc, table, tsv
+  summary: Ausgabeformat.
+- name: --query
+  summary: JMESPath-Abfragezeichenfolge. Weitere Informationen und Beispiele finden Sie unter <a href="http://jmespath.org/">http://jmespath.org/</a>.
+- name: --verbose
+  summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
+metadata:
+  doc_source_url_repo: https://github.com/Azure/azure-cli/blob/dev/
+  ms.date: 02/02/2021
+  description: Verwalten von Speicher Konten.
+  ms.openlocfilehash: 1e922dc480a86be8c35a4b7976ff7e02edecef54
+  ms.sourcegitcommit: df9d6597535ef9103775afbaee5a8282e0e218ee
+  ms.translationtype: MT
+  ms.contentlocale: de-DE
+  ms.lasthandoff: 02/09/2021
+  ms.locfileid: "102911296"
