@@ -1,0 +1,222 @@
+### YamlMime:AzureCLIGroup
+uid: az_ad_sp
+name: az ad sp
+summary: Verwalten Sie Azure Active Directory Dienst Prinzipale für die Automatisierung der Authentifizierung.
+description: ''
+directCommands:
+- uid: az_ad_sp_create
+  name: az ad sp create
+  summary: Erstellen eines Dienstprinzipals
+  description: ''
+  syntax: az ad sp create --id
+  examples:
+  - summary: Erstellen eines Dienstprinzipals automatisch generierten
+    syntax: az ad sp create --id 00000000-0000-0000-0000-000000000000
+  requiredParameters:
+  - isRequired: true
+    name: --id
+    summary: Der Bezeichner-URI, die Anwendungs-ID oder die Objekt-ID der zugeordneten Anwendung.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/role/_help.py
+- uid: az_ad_sp_create_for_rbac
+  name: az ad sp create-for-rbac
+  summary: Erstellen Sie einen Dienst Prinzipal, und konfigurieren Sie den Zugriff auf Azure-Ressourcen.
+  description: >-
+    Die Ausgabe enthält Anmelde Informationen, die Sie schützen müssen. Schließen Sie diese Anmeldeinformationen nicht in Ihren Code ein, und checken Sie sie nicht in Ihre Quellcodeverwaltung ein. Als Alternative sollten Sie ggf. [verwaltete Identitäten] ( <a href="https://aka.ms/azadsp-managed-identities">https://aka.ms/azadsp-managed-identities</a> ) verwenden, um zu vermeiden, dass Anmelde Informationen verwendet werden müssen.
+
+
+    Standardmäßig weist dieser Befehl dem Dienst Prinzipal im Abonnement Bereich die Rolle "Mitwirkender" zu. Um das Risiko eines kompromittierten Dienst Prinzipals zu verringern, verwenden Sie--Skip-Zuweisung, um das Erstellen einer Rollenzuweisung zu vermeiden, und weisen Sie dann eine spezifischere Rolle zu, und schränken Sie den Bereich auf eine Ressource oder Ressourcengruppe ein Weitere Informationen finden Sie unter [Schritte zum Hinzufügen einer Rollenzuweisung] ( <a href="https://aka.ms/azadsp-more">https://aka.ms/azadsp-more</a> ).
+
+
+    Warnung: in einer zukünftigen Version erstellt dieser Befehl standardmäßig keine Rollenzuweisung "Mitwirkender". Verwenden Sie bei Bedarf das Argument--Role, um explizit eine Rollenzuweisung zu erstellen.
+  syntax: >-
+    az ad sp create-for-rbac [--cert]
+                             [--create-cert]
+                             [--keyvault]
+                             [--name]
+                             [--role]
+                             [--scopes]
+                             [--sdk-auth {false, true}]
+                             [--skip-assignment {false, true}]
+                             [--years]
+  examples:
+  - summary: Erstellen Sie mit einer Standardrollen Zuweisung.
+    syntax: az ad sp create-for-rbac
+  - summary: Erstellen Sie mit einem benutzerdefinierten Namen und mit einer Standard Zuweisung.
+    syntax: az ad sp create-for-rbac -n "MyApp"
+  - summary: Erstellen ohne Standard Zuweisung.
+    syntax: az ad sp create-for-rbac --skip-assignment
+  - summary: Erstellen Sie mit der Rollenzuweisung Mitwirkender für den angegebenen Bereich.
+    syntax: az ad sp create-for-rbac -n "MyApp" --role Contributor --scopes /subscriptions/{SubID}/resourceGroups/{ResourceGroup1} /subscriptions/{SubID}/resourceGroups/{ResourceGroup2}
+  - summary: Erstellen Sie mithilfe eines selbst signierten Zertifikats.
+    syntax: az ad sp create-for-rbac --create-cert
+  - summary: Erstellen Sie mit einem selbst signierten Zertifikat, und speichern Sie es in keyvault.
+    syntax: az ad sp create-for-rbac --keyvault MyVault --cert CertName --create-cert
+  - summary: Erstellen Sie ein vorhandenes Zertifikat in Key Vault.
+    syntax: az ad sp create-for-rbac --keyvault MyVault --cert CertName
+  optionalParameters:
+  - name: --cert
+    summary: Zertifikat, das für Anmelde Informationen verwendet werden soll.
+    description: Bei Verwendung mit wird `--keyvault,` der Name des zu verwendenden oder zu erstellenden Zertifikats angegeben. Stellen Sie andernfalls eine öffentliche Zertifikat Zeichenfolge im PEM-oder der-Format bereit. Verwenden `@{path}` Sie, um aus einer Datei zu laden. Fügen Sie keine Informationen zum privaten Schlüssel ein.
+  - name: --create-cert
+    summary: Erstellen Sie ein selbst signiertes Zertifikat, das für die Anmelde Informationen verwendet werden soll. Nur der aktuelle Betriebssystem Benutzer verfügt über Lese-/Schreibberechtigung für dieses Zertifikat.
+    description: Verwenden `--keyvault` Sie mit, um das Zertifikat in Key Vault zu erstellen. Andernfalls wird ein Zertifikat lokal erstellt.
+  - name: --keyvault
+    summary: Der Name oder die ID eines Schlüssel Tresors, der zum Erstellen oder Abrufen von Zertifikaten verwendet werden soll.
+    description: ''
+  - name: --name -n
+    summary: Ein URI, der als Logik Name verwendet werden soll. Er muss nicht vorhanden sein. Wenn diese nicht vorhanden sind, generiert die CLI eine.
+    description: ''
+  - name: --role
+    summary: Rolle des Dienst Prinzipals.
+    description: ''
+  - name: --scopes
+    summary: Durch Leerzeichen getrennte Liste der Bereiche, für die die Rollenzuweisung des Dienst Prinzipals gilt. Der Standardwert ist der Stamm des aktuellen Abonnements. z. b./Subscriptions/0b1f6471-1bf0-4dda-aec3-111122223333,/Subscriptions/0b1f6471-1bf0-4dda-aec3-111122223333/resourceGroups/myGroup oder/Subscriptions/0b1f6471-1bf0-4dda-aec3-111122223333/resourceGroups/myGroup/Providers/Microsoft.Compute/virtualMachines/myVM.
+    description: ''
+  - name: --sdk-auth
+    parameterValueGroup: false, true
+    summary: Ausgabe Ergebnis in kompatibel mit der Azure SDK-Authentifizierungs Datei.
+    description: ''
+  - name: --skip-assignment
+    parameterValueGroup: false, true
+    summary: Überspringen Sie das Erstellen der Standard Zuweisung, sodass der Dienst Prinzipal auf Ressourcen unter dem aktuellen Abonnement zugreifen kann. Wenn angegeben, werden--Bereiche ignoriert. Sie können `az role assignment create` später zum Erstellen von Rollenzuweisungen für diesen Dienst Prinzipal verwenden.
+    description: ''
+  - name: --years
+    summary: 'Gibt an, wie viele Jahre die Anmelde Informationen gültig sind. Standardwert: 1 Jahr.'
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/role/_help.py
+- uid: az_ad_sp_delete
+  name: az ad sp delete
+  summary: Löschen Sie einen Dienst Prinzipal und seine Rollenzuweisungen.
+  description: ''
+  syntax: az ad sp delete --id
+  examples:
+  - summary: Löschen Sie einen Dienst Prinzipal und seine Rollenzuweisungen. automatisch generierten
+    syntax: az ad sp delete --id 00000000-0000-0000-0000-000000000000
+  requiredParameters:
+  - isRequired: true
+    name: --id
+    summary: Der Dienst Prinzipal Name oder die Objekt-ID.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/role/_help.py
+- uid: az_ad_sp_list
+  name: az ad sp list
+  summary: Auflisten von Dienst Prinzipale.
+  description: Bei geringer Latenz werden standardmäßig nur die ersten 100 zurückgegeben, es sei denn, Sie geben Filter Argumente an oder verwenden "--All".
+  syntax: >-
+    az ad sp list [--all]
+                  [--display-name]
+                  [--filter]
+                  [--query-examples]
+                  [--show-mine]
+                  [--spn]
+  optionalParameters:
+  - name: --all
+    summary: Listet alle Entitäten auf, erwartet eine lange Verzögerung bei einer großen Organisation.
+    description: ''
+  - name: --display-name
+    summary: Der Anzeige Name des Objekts oder das Präfix.
+    description: ''
+  - name: --filter
+    summary: Odata-Filter, z. b.--Filter "Display Name EQ ' Test ' und serviceprincipaltype EQ ' Application '".
+    description: ''
+  - name: --query-examples
+    summary: Empfehlen Sie die jmespath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und Sie nach dem Abfrage Parameter in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positions Schlüsselwörter hinzufügen, um Vorschläge auf der Grundlage dieser Schlüsselwörter zu geben.
+    description: ''
+  - name: --show-mine
+    summary: Listet Entitäten auf, die dem aktuellen Benutzer gehören.
+    description: ''
+  - name: --spn
+    summary: Dienst Prinzipal Name.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/role/_help.py
+- uid: az_ad_sp_show
+  name: az ad sp show
+  summary: Hier werden die Details eines Dienst Prinzipals angezeigt.
+  description: ''
+  syntax: >-
+    az ad sp show --id
+                  [--query-examples]
+  examples:
+  - summary: Hier werden die Details eines Dienst Prinzipals angezeigt. automatisch generierten
+    syntax: az ad sp show --id 00000000-0000-0000-0000-000000000000
+  requiredParameters:
+  - isRequired: true
+    name: --id
+    summary: Der Dienst Prinzipal Name oder die Objekt-ID.
+    description: ''
+  optionalParameters:
+  - name: --query-examples
+    summary: Empfehlen Sie die jmespath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und Sie nach dem Abfrage Parameter in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positions Schlüsselwörter hinzufügen, um Vorschläge auf der Grundlage dieser Schlüsselwörter zu geben.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/role/_help.py
+- uid: az_ad_sp_update
+  name: az ad sp update
+  summary: Aktualisieren eines Dienst Prinzipals.
+  description: ''
+  syntax: >-
+    az ad sp update --id
+                    [--add]
+                    [--force-string]
+                    [--remove]
+                    [--set]
+  examples:
+  - summary: Aktualisieren eines Dienst Prinzipals (automatisch generiert)
+    syntax: az ad sp update --id 00000000-0000-0000-0000-000000000000 --set groupMembershipClaims=All
+  requiredParameters:
+  - isRequired: true
+    name: --id
+    summary: Der Dienst Prinzipal Name oder die Objekt-ID.
+    description: ''
+  optionalParameters:
+  - name: --add
+    summary: Fügen Sie einer Liste von-Objekten ein Objekt hinzu, indem Sie ein Pfad-und Schlüssel-Wert-Paar angeben.  Beispiel:--Add Property. ListProperty <Key = Value, String oder JSON String>.
+    description: ''
+  - name: --force-string
+    summary: Wenn Sie "Set" oder "Add" verwenden, erhalten Sie Zeichen folgen Literale, anstatt zu versuchen, in JSON zu konvertieren.
+    description: ''
+  - name: --remove
+    summary: Entfernt eine Eigenschaft oder ein Element aus einer Liste.  Beispiel:--Remove Property. List <indexToRemove> oder--Remove propertytoremove.
+    description: ''
+  - name: --set
+    summary: Aktualisieren Sie ein Objekt, indem Sie einen Eigenschafts Pfad und einen festzulegenden Wert angeben.  Beispiel:--Set Eigenschaft1. Eigenschaft2 =<value>.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/role/_help.py
+commands:
+- az_ad_sp_create
+- az_ad_sp_create_for_rbac
+- az_ad_sp_credential
+- az_ad_sp_credential_delete
+- az_ad_sp_credential_list
+- az_ad_sp_credential_reset
+- az_ad_sp_delete
+- az_ad_sp_list
+- az_ad_sp_owner
+- az_ad_sp_owner_list
+- az_ad_sp_show
+- az_ad_sp_update
+globalParameters:
+- name: --debug
+  summary: Ausführlichkeit der Protokollierung erhöhen, um alle Debugprotokolle anzuzeigen.
+- name: --help -h
+  summary: Zeigen Sie diese Hilfemeldung an, und schließen Sie sie.
+- name: --only-show-errors
+  summary: Nur Fehler anzeigen und Warnungen unterdrücken.
+- name: --output -o
+  defaultValue: json
+  parameterValueGroup: json, jsonc, table, tsv
+  summary: Ausgabeformat.
+- name: --query
+  summary: JMESPath-Abfragezeichenfolge. Weitere Informationen und Beispiele finden Sie unter <a href="http://jmespath.org/">http://jmespath.org/</a>.
+- name: --verbose
+  summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
+metadata:
+  doc_source_url_repo: https://github.com/Azure/azure-cli/blob/dev/
+  ms.date: 01/20/2021
+  description: Verwalten Sie Azure Active Directory Dienst Prinzipale für die Automatisierung der Authentifizierung.
+  ms.openlocfilehash: ff6541ff8db81a9c9e1775b087ec29e6b5fc711d
+  ms.sourcegitcommit: df9d6597535ef9103775afbaee5a8282e0e218ee
+  ms.translationtype: MT
+  ms.contentlocale: de-DE
+  ms.lasthandoff: 02/09/2021
+  ms.locfileid: "102968140"
