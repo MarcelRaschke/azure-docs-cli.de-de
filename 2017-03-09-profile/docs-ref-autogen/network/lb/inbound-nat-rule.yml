@@ -1,71 +1,86 @@
 ### YamlMime:AzureCLIGroup
-uid: az_network_lb_frontend_ip
-name: az network lb frontend-ip
-summary: Verwalten von Front-End-IP-Adressen eines Load Balancers.
+uid: az_network_lb_inbound_nat_rule
+name: az network lb inbound-nat-rule
+summary: Verwalten von NAT-Eingangs Regeln für einen Load Balancer.
 description: ''
 directCommands:
-- uid: az_network_lb_frontend_ip_create
-  name: az network lb frontend-ip create
-  summary: Erstellen einer Front-End-IP-Adresse.
+- uid: az_network_lb_inbound_nat_rule_create
+  name: az network lb inbound-nat-rule create
+  summary: Erstellen Sie eine NAT-Eingangs Regel.
   description: ''
   syntax: >-
-    az network lb frontend-ip create --lb-name
-                                     --name
-                                     --resource-group
-                                     [--private-ip-address]
-                                     [--public-ip-address]
-                                     [--subnet]
-                                     [--subscription]
-                                     [--vnet-name]
+    az network lb inbound-nat-rule create --backend-port
+                                          --frontend-port
+                                          --lb-name
+                                          --name
+                                          --protocol {Tcp, Udp}
+                                          --resource-group
+                                          [--floating-ip {false, true}]
+                                          [--frontend-ip-name]
+                                          [--idle-timeout]
+                                          [--subscription]
   examples:
-  - summary: Erstellen Sie eine Front-End-IP-Adresse für einen öffentlichen Load Balancer.
-    syntax: az network lb frontend-ip create -g MyResourceGroup -n MyFrontendIp --lb-name MyLb --public-ip-address MyFrontendIp
-  - summary: Erstellen Sie eine Front-End-IP-Adresse für einen internen Load Balancer.
+  - summary: Erstellen Sie eine grundlegende NAT-Eingangs Regel für Port 80.
     syntax: >-
-      az network lb frontend-ip create -g MyResourceGroup -n MyFrontendIp --lb-name MyLb \
-          --private-ip-address 10.10.10.100 --subnet MySubnet --vnet-name MyVnet
+      az network lb inbound-nat-rule create -g MyResourceGroup --lb-name MyLb -n MyNatRule \
+          --protocol Tcp --frontend-port 80 --backend-port 80
+  - summary: Erstellen Sie eine grundlegende NAT-Eingangs Regel für eine bestimmte Front-End-IP-Adresse, und aktivieren Sie Floating IP for NAT
+    syntax: >-
+      az network lb inbound-nat-rule create -g MyResourceGroup --lb-name MyLb -n MyNatRule --protocol Tcp \
+          --frontend-port 5432 --backend-port 3389 --frontend-ip-name MyFrontendIp --floating-ip true
   requiredParameters:
+  - isRequired: true
+    name: --backend-port
+    summary: Portnummer
+    description: ''
+  - isRequired: true
+    name: --frontend-port
+    summary: Portnummer
+    description: ''
   - isRequired: true
     name: --lb-name
     summary: Der Name des Load Balancers.
     description: ''
   - isRequired: true
     name: --name -n
-    summary: Der Name der Front-End-IP-Konfiguration.
+    summary: Der Name der NAT-Eingangs Regel.
+    description: ''
+  - isRequired: true
+    name: --protocol
+    parameterValueGroup: Tcp, Udp
+    summary: Netzwerk Transportprotokoll.
     description: ''
   - isRequired: true
     name: --resource-group -g
     summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
     description: ''
   optionalParameters:
-  - name: --private-ip-address
-    summary: Statische private IP-Adresse, die der Konfiguration zugeordnet werden soll.
+  - name: --floating-ip
+    parameterValueGroup: false, true
+    summary: Floating IP aktivieren.
     description: ''
-  - name: --public-ip-address
-    summary: Der Name oder die ID der vorhandenen öffentlichen IP-Adresse, die der Konfiguration zugeordnet werden soll.
+  - name: --frontend-ip-name
+    summary: Der Name der Front-End-IP-Konfiguration. Wenn nur eine vorhanden ist, lassen Sie aus, um als Standard zu verwenden.
     description: ''
-  - name: --subnet
-    summary: Der Name oder die ID eines vorhandenen Subnetzes. Wenn Name angegeben ist, geben Sie auch--vnet-Name an.
+  - name: --idle-timeout
+    summary: Leerlauf Timeout in Minuten.
     description: ''
   - name: --subscription
     summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
     description: ''
-  - name: --vnet-name
-    summary: Das virtuelle Netzwerk (vnet), das dem Subnetz zugeordnet ist (bei Angabe einer Subnetz-ID weglassen).
-    description: ''
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/network/_help.py
-- uid: az_network_lb_frontend_ip_delete
-  name: az network lb frontend-ip delete
-  summary: Löscht eine Front-End-IP-Adresse.
+- uid: az_network_lb_inbound_nat_rule_delete
+  name: az network lb inbound-nat-rule delete
+  summary: Löschen Sie eine eingehende NAT-Regel.
   description: ''
   syntax: >-
-    az network lb frontend-ip delete --lb-name
-                                     --name
-                                     --resource-group
-                                     [--subscription]
+    az network lb inbound-nat-rule delete --lb-name
+                                          --name
+                                          --resource-group
+                                          [--subscription]
   examples:
-  - summary: Löscht eine Front-End-IP-Adresse.
-    syntax: az network lb frontend-ip delete -g MyResourceGroup --lb-name MyLb -n MyFrontendIp
+  - summary: Löschen Sie eine eingehende NAT-Regel.
+    syntax: az network lb inbound-nat-rule delete -g MyResourceGroup --lb-name MyLb -n MyNatRule
   requiredParameters:
   - isRequired: true
     name: --lb-name
@@ -73,7 +88,7 @@ directCommands:
     description: ''
   - isRequired: true
     name: --name -n
-    summary: Der Name der Front-End-IP-Konfiguration.
+    summary: Der Name der NAT-Eingangs Regel.
     description: ''
   - isRequired: true
     name: --resource-group -g
@@ -84,18 +99,18 @@ directCommands:
     summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
     description: ''
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/network/_help.py
-- uid: az_network_lb_frontend_ip_list
-  name: az network lb frontend-ip list
-  summary: Listet Frontend-IP-Adressen auf.
+- uid: az_network_lb_inbound_nat_rule_list
+  name: az network lb inbound-nat-rule list
+  summary: Auflisten eingehender NAT-Regeln.
   description: ''
   syntax: >-
-    az network lb frontend-ip list --lb-name
-                                   --resource-group
-                                   [--query-examples]
-                                   [--subscription]
+    az network lb inbound-nat-rule list --lb-name
+                                        --resource-group
+                                        [--query-examples]
+                                        [--subscription]
   examples:
-  - summary: Listet Frontend-IP-Adressen auf.
-    syntax: az network lb frontend-ip list -g MyResourceGroup --lb-name MyLb
+  - summary: Auflisten eingehender NAT-Regeln.
+    syntax: az network lb inbound-nat-rule list -g MyResourceGroup --lb-name MyLb -o table
   requiredParameters:
   - isRequired: true
     name: --lb-name
@@ -113,21 +128,19 @@ directCommands:
     summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
     description: ''
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/network/_help.py
-- uid: az_network_lb_frontend_ip_show
-  name: az network lb frontend-ip show
-  summary: Details einer Front-End-IP-Adresse erhalten.
+- uid: az_network_lb_inbound_nat_rule_show
+  name: az network lb inbound-nat-rule show
+  summary: Hier finden Sie Details zu einer eingehenden NAT-Regel.
   description: ''
   syntax: >-
-    az network lb frontend-ip show --lb-name
-                                   --name
-                                   --resource-group
-                                   [--query-examples]
-                                   [--subscription]
+    az network lb inbound-nat-rule show --lb-name
+                                        --name
+                                        --resource-group
+                                        [--query-examples]
+                                        [--subscription]
   examples:
-  - summary: Details einer Front-End-IP-Adresse erhalten.
-    syntax: az network lb frontend-ip show -g MyResourceGroup --lb-name MyLb -n MyFrontendIp
-  - summary: Details einer Front-End-IP-Adresse (automatisch generiert)
-    syntax: az network lb frontend-ip show --lb-name MyLb --name MyFrontendIp --resource-group MyResourceGroup --subscription MySubscription
+  - summary: Hier finden Sie Details zu einer eingehenden NAT-Regel.
+    syntax: az network lb inbound-nat-rule show -g MyResourceGroup --lb-name MyLb -n MyNatRule
   requiredParameters:
   - isRequired: true
     name: --lb-name
@@ -135,7 +148,7 @@ directCommands:
     description: ''
   - isRequired: true
     name: --name -n
-    summary: Der Name der Front-End-IP-Konfiguration.
+    summary: Der Name der NAT-Eingangs Regel.
     description: ''
   - isRequired: true
     name: --resource-group -g
@@ -149,37 +162,57 @@ directCommands:
     summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
     description: ''
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/network/_help.py
-- uid: az_network_lb_frontend_ip_update
-  name: az network lb frontend-ip update
-  summary: Aktualisieren einer Front-End-IP-Adresse.
+- uid: az_network_lb_inbound_nat_rule_update
+  name: az network lb inbound-nat-rule update
+  summary: Aktualisieren Sie eine eingehende NAT-Regel.
   description: ''
   syntax: >-
-    az network lb frontend-ip update [--add]
-                                     [--force-string]
-                                     [--ids]
-                                     [--lb-name]
-                                     [--name]
-                                     [--private-ip-address]
-                                     [--public-ip-address]
-                                     [--remove]
-                                     [--resource-group]
-                                     [--set]
-                                     [--subnet]
-                                     [--subscription]
-                                     [--vnet-name]
+    az network lb inbound-nat-rule update [--add]
+                                          [--backend-port]
+                                          [--floating-ip {false, true}]
+                                          [--force-string]
+                                          [--frontend-ip-name]
+                                          [--frontend-port]
+                                          [--idle-timeout]
+                                          [--ids]
+                                          [--lb-name]
+                                          [--name]
+                                          [--protocol {Tcp, Udp}]
+                                          [--remove]
+                                          [--resource-group]
+                                          [--set]
+                                          [--subscription]
   examples:
-  - summary: Aktualisieren Sie die Front-End-IP-Adresse eines öffentlichen Load Balancers.
-    syntax: az network lb frontend-ip update -g MyResourceGroup --lb-name MyLb -n MyFrontendIp --public-ip-address MyNewPublicIp
-  - summary: Aktualisieren Sie die Front-End-IP-Adresse eines internen Load Balancers.
-    syntax: az network lb frontend-ip update -g MyResourceGroup --lb-name MyLb -n MyFrontendIp --private-ip-address 10.10.10.50
-  - summary: Aktualisieren einer Front-End-IP-Adresse. automatisch generierten
-    syntax: az network lb frontend-ip update --lb-name MyLb --name MyFrontendIp --resource-group MyResourceGroup --set tags.CostCenter=MyBusinessGroup
+  - summary: Aktualisieren Sie eine NAT-Eingangs Regel, um Floating IP zu deaktivieren und die Leerlaufzeit Überschreitung zu ändern.
+    syntax: >-
+      az network lb inbound-nat-rule update -g MyResourceGroup --lb-name MyLb -n MyNatRule \
+          --floating-ip false --idle-timeout 5
+  - summary: Aktualisieren Sie eine eingehende NAT-Regel. automatisch generierten
+    syntax: az network lb inbound-nat-rule update --backend-port 3389 --frontend-port 5432 --lb-name MyLb --name MyNatRule --protocol Udp --resource-group MyResourceGroup
+  - summary: Aktualisieren Sie eine eingehende NAT-Regel. automatisch generierten
+    syntax: az network lb inbound-nat-rule update --lb-name MyLb --name MyNatRule --resource-group MyResourceGroup --set tags.CostCenter=MyBusinessGroup
   optionalParameters:
   - name: --add
     summary: Fügen Sie einer Liste von-Objekten ein Objekt hinzu, indem Sie ein Pfad-und Schlüssel-Wert-Paar angeben.  Beispiel:--Add Property. ListProperty <Key = Value, String oder JSON String>.
     description: ''
+  - name: --backend-port
+    summary: Portnummer
+    description: ''
+  - name: --floating-ip
+    parameterValueGroup: false, true
+    summary: Floating IP aktivieren.
+    description: ''
   - name: --force-string
     summary: Wenn Sie "Set" oder "Add" verwenden, erhalten Sie Zeichen folgen Literale, anstatt zu versuchen, in JSON zu konvertieren.
+    description: ''
+  - name: --frontend-ip-name
+    summary: Der Name der Front-End-IP-Konfiguration.
+    description: ''
+  - name: --frontend-port
+    summary: Portnummer
+    description: ''
+  - name: --idle-timeout
+    summary: Leerlauf Timeout in Minuten.
     description: ''
   - name: --ids
     summary: Mindestens eine Ressourcen-ID (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID handeln, die alle Informationen von Ressourcen-ID-Argumenten enthält. Sie sollten entweder--IDs oder andere Ressourcen-ID-Argumente angeben.
@@ -188,13 +221,11 @@ directCommands:
     summary: Der Name des Load Balancers.
     description: ''
   - name: --name -n
-    summary: Der Name der Front-End-IP-Konfiguration.
+    summary: Der Name der NAT-Eingangs Regel.
     description: ''
-  - name: --private-ip-address
-    summary: Statische private IP-Adresse, die der Konfiguration zugeordnet werden soll. Verwenden Sie "" ("" "in PowerShell), um die statische Adresse zu entfernen und stattdessen eine dynamische Adresse zu verwenden.
-    description: ''
-  - name: --public-ip-address
-    summary: Der Name oder die ID der vorhandenen öffentlichen IP-Adresse, die der Konfiguration zugeordnet werden soll.
+  - name: --protocol
+    parameterValueGroup: Tcp, Udp
+    summary: Netzwerk Transportprotokoll.
     description: ''
   - name: --remove
     summary: Entfernt eine Eigenschaft oder ein Element aus einer Liste.  Beispiel:--Remove Property. List <indexToRemove> oder--Remove propertytoremove.
@@ -205,22 +236,16 @@ directCommands:
   - name: --set
     summary: Aktualisieren Sie ein Objekt, indem Sie einen Eigenschafts Pfad und einen festzulegenden Wert angeben.  Beispiel:--Set Eigenschaft1. Eigenschaft2 =<value>.
     description: ''
-  - name: --subnet
-    summary: Der Name oder die ID eines vorhandenen Subnetzes. Wenn Name angegeben ist, geben Sie auch--vnet-Name an.
-    description: ''
   - name: --subscription
     summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
     description: ''
-  - name: --vnet-name
-    summary: Das virtuelle Netzwerk (vnet), das dem Subnetz zugeordnet ist (bei Angabe einer Subnetz-ID weglassen).
-    description: ''
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/network/_help.py
 commands:
-- az_network_lb_frontend_ip_create
-- az_network_lb_frontend_ip_delete
-- az_network_lb_frontend_ip_list
-- az_network_lb_frontend_ip_show
-- az_network_lb_frontend_ip_update
+- az_network_lb_inbound_nat_rule_create
+- az_network_lb_inbound_nat_rule_delete
+- az_network_lb_inbound_nat_rule_list
+- az_network_lb_inbound_nat_rule_show
+- az_network_lb_inbound_nat_rule_update
 globalParameters:
 - name: --debug
   summary: Ausführlichkeit der Protokollierung erhöhen, um alle Debugprotokolle anzuzeigen.
@@ -239,10 +264,10 @@ globalParameters:
 metadata:
   doc_source_url_repo: https://github.com/Azure/azure-cli/blob/dev/
   ms.date: 02/25/2021
-  description: Verwalten von Front-End-IP-Adressen eines Load Balancers.
-  ms.openlocfilehash: da50ca0ef158bddf4e9ec33106b133b3bd688cbc
+  description: Verwalten von NAT-Eingangs Regeln für einen Load Balancer.
+  ms.openlocfilehash: b3afc5ab5c30ff7108a7996dfef0f8fbe91a033b
   ms.sourcegitcommit: f9e23f29c59c6957d3df4d5ca2f4425093e6fd80
   ms.translationtype: MT
   ms.contentlocale: de-DE
   ms.lasthandoff: 03/16/2021
-  ms.locfileid: "103513852"
+  ms.locfileid: "103513835"

@@ -28,6 +28,11 @@ directCommands:
           --peering-type MicrosoftPeering --peer-asn 10002 --vlan-id 103 \
           --primary-peer-subnet 101.0.0.0/30 --secondary-peer-subnet 102.0.0.0/30 \
           --advertised-public-prefixes 101.0.0.0/30
+  - summary: Erstellen Sie Microsoft-peeringeinstellungen mit IPv6-Konfiguration.
+    syntax: >-
+      az network express-route peering create -g MyResourceGroup --circuit-name MyCircuit \
+          --peering-type AzurePrivatePeering --peer-asn 10002 --vlan-id 103 --ip-version ipv6\
+          --primary-peer-subnet 2002:db00::/126 --secondary-peer-subnet 2003:db00::/126
   - summary: Erstellen Sie Peering-Einstellungen für eine expressroute-Verbindung. automatisch generierten
     syntax: az network express-route peering create --circuit-name MyCircuit --peer-asn 10002 --peering-type AzurePublicPeering --primary-peer-subnet 101.0.0.0/30 --resource-group MyResourceGroup --secondary-peer-subnet 102.0.0.0/30 --shared-key Abc123 --vlan-id 103
   requiredParameters:
@@ -46,7 +51,7 @@ directCommands:
     description: ''
   - isRequired: true
     name: --primary-peer-subnet
-    summary: /30 Subnetz, mit dem IP-Adressen für die primäre Schnittstelle konfiguriert werden.
+    summary: /30 (IPv4) oder/126 (IPv6)-Subnetz, das zum Konfigurieren von IP-Adressen für die primäre Schnittstelle verwendet wird.
     description: ''
   - isRequired: true
     name: --resource-group -g
@@ -54,7 +59,7 @@ directCommands:
     description: ''
   - isRequired: true
     name: --secondary-peer-subnet
-    summary: /30 Subnetz, das zum Konfigurieren von IP-Adressen für sekundäre Schnittstellen verwendet wird.
+    summary: /30 (IPv4) oder/126 (IPv6)-Subnetz, das zum Konfigurieren von IP-Adressen für sekundäre Schnittstellen verwendet wird.
     description: ''
   - isRequired: true
     name: --vlan-id
@@ -222,7 +227,7 @@ directCommands:
     summary: Autonome System Nummer des Kunden-/konnektivitätsanbieters.
     description: ''
   - name: --primary-peer-subnet
-    summary: /30 Subnetz, mit dem IP-Adressen für die primäre Schnittstelle konfiguriert werden.
+    summary: /30 (IPv4) oder/126 (IPv6)-Subnetz, das zum Konfigurieren von IP-Adressen für die primäre Schnittstelle verwendet wird.
     description: ''
   - name: --remove
     summary: Entfernt eine Eigenschaft oder ein Element aus einer Liste.  Beispiel:--Remove Property. List <indexToRemove> oder--Remove propertytoremove.
@@ -235,7 +240,7 @@ directCommands:
     summary: Internet Routing Registrierung/regionale Internet Registrierung.
     description: ''
   - name: --secondary-peer-subnet
-    summary: /30 Subnetz, das zum Konfigurieren von IP-Adressen für sekundäre Schnittstellen verwendet wird.
+    summary: /30 (IPv4) oder/126 (IPv6)-Subnetz, das zum Konfigurieren von IP-Adressen für sekundäre Schnittstellen verwendet wird.
     description: ''
   - name: --set
     summary: Aktualisieren Sie ein Objekt, indem Sie einen Eigenschafts Pfad und einen festzulegenden Wert angeben.  Beispiel:--Set Eigenschaft1. Eigenschaft2 =<value>.
@@ -275,11 +280,11 @@ globalParameters:
   summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
 metadata:
   doc_source_url_repo: https://github.com/Azure/azure-cli/blob/dev/
-  ms.date: 02/03/2021
+  ms.date: 02/25/2021
   description: Verwalten von expressroute-Peering einer expressroute-Verbindung.
-  ms.openlocfilehash: a21b2ec35a9bc49081916dbe1a4ddcef08d7b47f
-  ms.sourcegitcommit: df9d6597535ef9103775afbaee5a8282e0e218ee
+  ms.openlocfilehash: c0f97b61bdbecc8f07911f294ed44c04b7f49ee7
+  ms.sourcegitcommit: f9e23f29c59c6957d3df4d5ca2f4425093e6fd80
   ms.translationtype: MT
   ms.contentlocale: de-DE
-  ms.lasthandoff: 02/09/2021
-  ms.locfileid: "102967236"
+  ms.lasthandoff: 03/16/2021
+  ms.locfileid: "103513886"

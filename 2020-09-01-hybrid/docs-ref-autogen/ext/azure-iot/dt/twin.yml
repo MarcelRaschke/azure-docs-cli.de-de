@@ -19,11 +19,14 @@ directCommands:
     az dt twin create --dt-name
                       --dtmi
                       --twin-id
+                      [--if-none-match]
                       [--properties]
                       [--resource-group]
   examples:
   - summary: Erstellen Sie einen digitalen Zwilling aus einem vorhandenen (vorher erstellten) Modell.
     syntax: az dt twin create -n {instance_or_hostname} --dtmi "dtmi:com:example:Room;1" --twin-id {twin_id}
+  - summary: Erstellen Sie einen digitalen Zwilling aus einem vorhandenen (vorher erstellten) Modell mit dem Tag "If-None-Match".
+    syntax: az dt twin create -n {instance_or_hostname} --dtmi "dtmi:com:example:Room;1" --twin-id {twin_id} --if-none-match
   - summary: Erstellen Sie einen digitalen Zwilling aus einem vorhandenen (vorher erstellten) Modell. Instanziieren Sie mit Eigenschafts Werten.
     syntax: "az dt twin create -n {instance_or_hostname} --dtmi \"dtmi:com:example:DeviceInformation;1\" --twin-id {twin_id} --properties '{\"manufacturer\": \"Microsoft\"}'"
   - summary: Erstellen Sie einen digitalen Zwilling mit einer Komponente aus vorhandenen (vorher erstellten) Modellen. Instanziieren Sie die Komponente mit den minimalen Eigenschaften.
@@ -56,6 +59,9 @@ directCommands:
     summary: Die ID des digitalen Zwillings.
     description: ''
   optionalParameters:
+  - name: --if-none-match
+    summary: Gibt an, dass der Erstellungs Vorgang fehlschlägt, wenn ein vorhandener Zwilling mit derselben ID vorhanden ist.
+    description: ''
   - name: --properties -p
     summary: Anfängliche Eigenschaftswerte für die Instanziierung eines digitalen Zwillings oder zugehöriger Komponenten. Geben Sie einen Dateipfad oder eine Inline-JSON Eigenschaften sind für Zwillinge erforderlich, die-Komponenten enthalten. Sie müssen mindestens ein leeres $Metadata-Objekt für jede Komponente bereitstellen.
     description: ''
@@ -69,10 +75,13 @@ directCommands:
   syntax: >-
     az dt twin delete --dt-name
                       --twin-id
+                      [--etag]
                       [--resource-group]
   examples:
   - summary: Entfernen Sie einen digitalen Zwilling anhand der ID.
     syntax: az dt twin delete -n {instance_or_hostname} --twin-id {twin_id}
+  - summary: Entfernen Sie mit dem ETag einen digitalen Zwilling anhand der ID.
+    syntax: az dt twin delete -n {instance_or_hostname} --twin-id {twin_id} --etag {etag}
   requiredParameters:
   - isRequired: true
     name: --dt-name --dtn -n
@@ -83,6 +92,9 @@ directCommands:
     summary: Die ID des digitalen Zwillings.
     description: ''
   optionalParameters:
+  - name: --etag -e
+    summary: Der Entitätstag Wert. Der Befehl wird erfolgreich ausgeführt, wenn das ETag mit dem aktuellen ETag für die Ressource übereinstimmt.
+    description: ''
   - name: --resource-group -g
     summary: Instanzen Ressourcengruppe für digitale Zwillinge. Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
     description: ''
@@ -149,10 +161,13 @@ directCommands:
     az dt twin update --dt-name
                       --json-patch
                       --twin-id
+                      [--etag]
                       [--resource-group]
   examples:
   - summary: Aktualisieren Sie einen Digital Zwilling über JSON Patch Specification.
     syntax: "az dt twin update -n {instance_or_hostname} --twin-id {twin_id} --json-patch '{\"op\":\"replace\", \"path\":\"/Temperature\", \"value\": 20.5}'"
+  - summary: Aktualisieren Sie einen digitalen Zwilling über die JSON-patchspezifikation und mithilfe von ETag.
+    syntax: "az dt twin update -n {instance_or_hostname} --twin-id {twin_id} --etag {etag} --json-patch '{\"op\":\"replace\", \"path\":\"/Temperature\", \"value\": 20.5}'"
   - summary: Aktualisieren Sie einen Digital Zwilling über JSON Patch Specification.
     syntax: >-
       az dt twin update -n {instance_or_hostname} --twin-id {twin_id} --json-patch '[
@@ -175,6 +190,9 @@ directCommands:
     summary: Die ID des digitalen Zwillings.
     description: ''
   optionalParameters:
+  - name: --etag -e
+    summary: Der Entitätstag Wert. Der Befehl wird erfolgreich ausgeführt, wenn das ETag mit dem aktuellen ETag für die Ressource übereinstimmt.
+    description: ''
   - name: --resource-group -g
     summary: Instanzen Ressourcengruppe für digitale Zwillinge. Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
     description: ''
@@ -212,9 +230,9 @@ globalParameters:
   summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
 metadata:
   description: Verwalten und konfigurieren Sie die digitalen Zwillinge einer digitalen Zwillinge-Instanz.
-  ms.openlocfilehash: 581e3b64c425905646c7f0cb4c07bdbd4f71bb16
-  ms.sourcegitcommit: e1faf297ba2cdf2ba7e821fbeedff9c9a724c975
+  ms.openlocfilehash: 1fb1a2d57ad9c6bb70be1a5168bda02d01adfe1c
+  ms.sourcegitcommit: f9e23f29c59c6957d3df4d5ca2f4425093e6fd80
   ms.translationtype: MT
   ms.contentlocale: de-DE
-  ms.lasthandoff: 12/16/2020
-  ms.locfileid: "102822160"
+  ms.lasthandoff: 03/16/2021
+  ms.locfileid: "103505539"
