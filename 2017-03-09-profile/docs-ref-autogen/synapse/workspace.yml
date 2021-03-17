@@ -1,0 +1,360 @@
+### YamlMime:AzureCLIGroup
+uid: az_synapse_workspace
+name: az synapse workspace
+summary: Verwalten von Synapse-Arbeitsbereichen.
+description: ''
+directCommands:
+- uid: az_synapse_workspace_check_name
+  name: az synapse workspace check-name
+  summary: Überprüfen Sie, ob ein Synapse-Arbeitsbereichs Name verfügbar ist.
+  description: ''
+  syntax: >-
+    az synapse workspace check-name --name
+                                    [--subscription]
+  examples:
+  - summary: Überprüfen Sie, ob ein Synapse-Arbeitsbereichs Name verfügbar ist.
+    syntax: az synapse workspace check-name --name testsynapseworkspace
+  requiredParameters:
+  - isRequired: true
+    name: --name -n
+    summary: Der Name, den Sie überprüfen möchten.
+    description: ''
+  optionalParameters:
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/synapse/_help.py
+- uid: az_synapse_workspace_create
+  name: az synapse workspace create
+  summary: Erstellen Sie einen Synapse-Arbeitsbereich.
+  description: ''
+  syntax: >-
+    az synapse workspace create --file-system
+                                --name
+                                --resource-group
+                                --sql-admin-login-password
+                                --sql-admin-login-user
+                                --storage-account
+                                [--allowed-tenant-ids]
+                                [--cmk]
+                                [--enable-managed-virtual-network {false, true}]
+                                [--key-name]
+                                [--location]
+                                [--no-wait]
+                                [--prevent-data-exfiltration {false, true}]
+                                [--subscription]
+                                [--tags]
+  examples:
+  - summary: Erstellen eines Synapse-Arbeitsbereichs
+    syntax: >-
+      az synapse workspace create --name fromcli4 --resource-group rg \
+        --storage-account testadlsgen2 --file-system testfilesystem \
+        --sql-admin-login-user cliuser1 --sql-admin-login-password Password123! --location "East US"
+  - summary: Erstellen eines Synapse-Arbeitsbereichs mit der Speicherressourcen-ID
+    syntax: >-
+      az synapse workspace create --name fromcli4 --resource-group rg \
+        --storage-account /subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg/providers/Microsoft.Storage/storageAccounts/testadlsgen2 --file-system testfilesystem \
+        --sql-admin-login-user cliuser1 --sql-admin-login-password Password123! --location "East US"
+  - summary: Erstellen eines Synapse-Arbeitsbereichs mit vom Kunden verwalteten Schlüssel
+    syntax: >-
+      az synapse workspace create --name fromcli4 --resource-group rg \
+        --storage-account testadlsgen2 --file-system testfilesystem \
+        --sql-admin-login-user cliuser1 --sql-admin-login-password Password123! --location "East US" \
+        --key-identifier https://{keyvaultname}.vault.azure.net/keys/{keyname} --key-name testcmk
+  requiredParameters:
+  - isRequired: true
+    name: --file-system
+    summary: Das Dateisystem des Data Lake-Speicher Kontos.
+    description: ''
+  - isRequired: true
+    name: --name -n
+    summary: Der Name des Arbeitsbereichs.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - isRequired: true
+    name: --sql-admin-login-password -p
+    summary: Das Anmelde Kennwort für den SQL-Administrator.
+    description: ''
+  - isRequired: true
+    name: --sql-admin-login-user -u
+    summary: Der Benutzername des SQL-Administrator Anmelde namens.
+    description: ''
+  - isRequired: true
+    name: --storage-account
+    summary: Der Name oder die Ressourcen-ID des Data Lake-Speicher Kontos.
+    description: ''
+  optionalParameters:
+  - name: --allowed-tenant-ids
+    summary: Der genehmigte Azure AD Mandanten, für den Datenverkehr in ausgehender Richtung zugelassen wurde. Der Azure AD Mandanten des aktuellen Benutzers wird standardmäßig eingeschlossen. Verwenden Sie (' ' in PowerShell), um alle zulässigen Mandanten-IDs zu deaktivieren.
+    description: ''
+  - name: --cmk --key-identifier
+    summary: 'Der vom Kunden verwaltete Schlüssel, der zum Verschlüsseln aller ruhenden Daten im Arbeitsbereich verwendet wird. Der Schlüssel Bezeichner muss das folgende Format aufweisen: https://{keyvaultname}. Vault. Azure. net/Keys/{keyName}.'
+    description: ''
+  - name: --enable-managed-virtual-network --enable-managed-vnet
+    parameterValueGroup: false, true
+    summary: Das Flag gibt an, ob verwaltetes virtuelles Netzwerk aktiviert werden soll.
+    description: ''
+  - name: --key-name
+    defaultValue: default
+    summary: Anzeige Name des vom Kunden verwalteten Arbeitsbereichs Schlüssels Alle vorhandenen Schlüssel können mithilfe des Cmdlets "AZ Synapse Workspace Key List" gefunden werden.
+    description: ''
+  - name: --location -l
+    summary: 'Der Standort. Werte aus: `az account list-locations`. Sie können den standardmäßig verwendeten Standort mit `az configure --defaults location=<location>` konfigurieren.'
+    description: ''
+  - name: --no-wait
+    summary: Nicht auf den Abschluss lang andauernder Vorgänge warten
+    description: ''
+  - name: --prevent-data-exfiltration --prevent-exfiltration
+    parameterValueGroup: false, true
+    summary: Das Flag gibt an, ob die Datenausführung aktiviert werden soll.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  - name: --tags
+    summary: 'Durch Leerzeichen getrennte Tags: Key [= value] [key [= value]...]. Verwenden Sie "", um vorhandene Tags zu löschen.'
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/synapse/_help.py
+- uid: az_synapse_workspace_delete
+  name: az synapse workspace delete
+  summary: Löschen Sie einen Synapse-Arbeitsbereich.
+  description: ''
+  syntax: >-
+    az synapse workspace delete [--ids]
+                                [--name]
+                                [--no-wait]
+                                [--resource-group]
+                                [--subscription]
+                                [--yes]
+  examples:
+  - summary: Löschen Sie einen Synapse-Arbeitsbereich.
+    syntax: az synapse workspace delete --name testsynapseworkspace --resource-group rg
+  optionalParameters:
+  - name: --ids
+    summary: Mindestens eine Ressourcen-ID (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID handeln, die alle Informationen von Ressourcen-ID-Argumenten enthält. Sie sollten entweder--IDs oder andere Ressourcen-ID-Argumente angeben.
+    description: ''
+  - name: --name -n
+    summary: Der Name des Arbeitsbereichs.
+    description: ''
+  - name: --no-wait
+    summary: Nicht auf den Abschluss lang andauernder Vorgänge warten
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  - name: --yes -y
+    summary: Nicht zur Bestätigung auffordern
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/synapse/_help.py
+- uid: az_synapse_workspace_list
+  name: az synapse workspace list
+  summary: Listet alle Synapse-Arbeitsbereiche auf.
+  description: ''
+  syntax: >-
+    az synapse workspace list [--query-examples]
+                              [--resource-group]
+                              [--subscription]
+  examples:
+  - summary: Auflisten aller Synapse-Arbeitsbereiche unter einem Abonnement
+    syntax: az synapse workspace list
+  - summary: Auflisten aller Synapse-Arbeitsbereiche unter einer bestimmten Ressourcengruppe
+    syntax: az synapse workspace list --resource-group rg
+  optionalParameters:
+  - name: --query-examples
+    summary: Empfehlen Sie die jmespath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und Sie nach dem Abfrage Parameter in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positions Schlüsselwörter hinzufügen, um Vorschläge auf der Grundlage dieser Schlüsselwörter zu geben.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/synapse/_help.py
+- uid: az_synapse_workspace_show
+  name: az synapse workspace show
+  summary: Erhalten Sie einen Synapse-Arbeitsbereich.
+  description: ''
+  syntax: >-
+    az synapse workspace show [--ids]
+                              [--name]
+                              [--query-examples]
+                              [--resource-group]
+                              [--subscription]
+  examples:
+  - summary: Erhalten Sie einen Synapse-Arbeitsbereich.
+    syntax: az synapse workspace show --name testsynapseworkspace --resource-group rg
+  optionalParameters:
+  - name: --ids
+    summary: Mindestens eine Ressourcen-ID (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID handeln, die alle Informationen von Ressourcen-ID-Argumenten enthält. Sie sollten entweder--IDs oder andere Ressourcen-ID-Argumente angeben.
+    description: ''
+  - name: --name -n
+    summary: Der Name des Arbeitsbereichs.
+    description: ''
+  - name: --query-examples
+    summary: Empfehlen Sie die jmespath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und Sie nach dem Abfrage Parameter in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positions Schlüsselwörter hinzufügen, um Vorschläge auf der Grundlage dieser Schlüsselwörter zu geben.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/synapse/_help.py
+- uid: az_synapse_workspace_update
+  name: az synapse workspace update
+  summary: Aktualisieren Sie einen Synapse-Arbeitsbereich.
+  description: ''
+  syntax: >-
+    az synapse workspace update [--allowed-tenant-ids]
+                                [--ids]
+                                [--key-name]
+                                [--name]
+                                [--no-wait]
+                                [--resource-group]
+                                [--sql-admin-login-password]
+                                [--subscription]
+                                [--tags]
+  examples:
+  - summary: Aktualisieren eines Synapse-Arbeitsbereichs
+    syntax: >-
+      az synapse workspace update --name fromcli4 --resource-group rg \
+        --tags key1=value1
+  optionalParameters:
+  - name: --allowed-tenant-ids
+    summary: Der genehmigte Azure AD Mandanten, für den Datenverkehr in ausgehender Richtung zugelassen wurde. Der Azure AD Mandanten des aktuellen Benutzers wird standardmäßig eingeschlossen. Verwenden Sie (' ' in PowerShell), um alle zulässigen Mandanten-IDs zu deaktivieren.
+    description: ''
+  - name: --ids
+    summary: Mindestens eine Ressourcen-ID (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID handeln, die alle Informationen von Ressourcen-ID-Argumenten enthält. Sie sollten entweder--IDs oder andere Ressourcen-ID-Argumente angeben.
+    description: ''
+  - name: --key-name
+    summary: Anzeige Name des vom Kunden verwalteten Arbeitsbereichs Schlüssels Alle vorhandenen Schlüssel können mithilfe des Cmdlets "AZ Synapse Workspace Key List" gefunden werden.
+    description: ''
+  - name: --name -n
+    summary: Der Name des Arbeitsbereichs.
+    description: ''
+  - name: --no-wait
+    summary: Nicht auf den Abschluss lang andauernder Vorgänge warten
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --sql-admin-login-password -p
+    summary: Das Anmelde Kennwort für den SQL-Administrator.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  - name: --tags
+    summary: 'Durch Leerzeichen getrennte Tags: Key [= value] [key [= value]...]. Verwenden Sie "", um vorhandene Tags zu löschen.'
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/synapse/_help.py
+- uid: az_synapse_workspace_wait
+  name: az synapse workspace wait
+  summary: Platzieren Sie die CLI in einem Wartezustand, bis eine Bedingung des Arbeitsbereichs erfüllt ist.
+  description: ''
+  syntax: >-
+    az synapse workspace wait --resource-group
+                              --workspace-name
+                              [--created]
+                              [--custom]
+                              [--deleted]
+                              [--exists]
+                              [--interval]
+                              [--subscription]
+                              [--timeout]
+                              [--updated]
+  requiredParameters:
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - isRequired: true
+    name: --workspace-name
+    summary: Den Namen des Arbeitsbereichs
+    description: ''
+  optionalParameters:
+  - name: --created
+    summary: Warten Sie, bis "provisioningstate" bei "erfolgreich" erstellt wurde.
+    description: ''
+  - name: --custom
+    summary: "Warten Sie, bis die Bedingung eine benutzerdefinierte jmespath-Abfrage erfüllt. Beispiel: provisioningstate! = ' InProgress ', instanceview. statuses [? Code = = ' PowerState/Running ']."
+    description: ''
+  - name: --deleted
+    summary: Warten Sie bis zum Löschen.
+    description: ''
+  - name: --exists
+    summary: Warten Sie, bis die Ressource vorhanden ist.
+    description: ''
+  - name: --interval
+    defaultValue: "30"
+    summary: Abruf Intervall in Sekunden.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  - name: --timeout
+    defaultValue: "3600"
+    summary: Maximale Wartezeit in Sekunden.
+    description: ''
+  - name: --updated
+    summary: Warten Sie, bis das Update mit provisioningstate bei "erfolgreich" abgeschlossen ist.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/synapse/_help.py
+commands:
+- az_synapse_workspace_check_name
+- az_synapse_workspace_create
+- az_synapse_workspace_delete
+- az_synapse_workspace_firewall_rule
+- az_synapse_workspace_firewall_rule_create
+- az_synapse_workspace_firewall_rule_delete
+- az_synapse_workspace_firewall_rule_list
+- az_synapse_workspace_firewall_rule_show
+- az_synapse_workspace_firewall_rule_update
+- az_synapse_workspace_firewall_rule_wait
+- az_synapse_workspace_key
+- az_synapse_workspace_key_create
+- az_synapse_workspace_key_delete
+- az_synapse_workspace_key_list
+- az_synapse_workspace_key_show
+- az_synapse_workspace_key_update
+- az_synapse_workspace_key_wait
+- az_synapse_workspace_list
+- az_synapse_workspace_managed_identity
+- az_synapse_workspace_managed_identity_grant_sql_access
+- az_synapse_workspace_managed_identity_revoke_sql_access
+- az_synapse_workspace_managed_identity_show_sql_access
+- az_synapse_workspace_managed_identity_wait
+- az_synapse_workspace_show
+- az_synapse_workspace_update
+- az_synapse_workspace_wait
+globalParameters:
+- name: --debug
+  summary: Ausführlichkeit der Protokollierung erhöhen, um alle Debugprotokolle anzuzeigen.
+- name: --help -h
+  summary: Zeigen Sie diese Hilfemeldung an, und schließen Sie sie.
+- name: --only-show-errors
+  summary: Nur Fehler anzeigen und Warnungen unterdrücken.
+- name: --output -o
+  defaultValue: json
+  parameterValueGroup: json, jsonc, table, tsv
+  summary: Ausgabeformat.
+- name: --query
+  summary: JMESPath-Abfragezeichenfolge. Weitere Informationen und Beispiele finden Sie unter <a href="http://jmespath.org/">http://jmespath.org/</a>.
+- name: --verbose
+  summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
+metadata:
+  doc_source_url_repo: https://github.com/Azure/azure-cli/blob/dev/
+  ms.date: 01/26/2021
+  description: Verwalten von Synapse-Arbeitsbereichen.
+  ms.openlocfilehash: 8a129be5fc703bea5fd6802336371c5baffef723
+  ms.sourcegitcommit: df9d6597535ef9103775afbaee5a8282e0e218ee
+  ms.translationtype: MT
+  ms.contentlocale: de-DE
+  ms.lasthandoff: 02/09/2021
+  ms.locfileid: "102968303"
