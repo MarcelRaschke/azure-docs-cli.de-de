@@ -1,0 +1,151 @@
+### YamlMime:AzureCLIGroup
+uid: az_vm_disk
+name: az vm disk
+summary: Verwalten der an einen virtuellen Computer angefügten verwalteten Datenträger.
+description: >-
+  Azure Virtual Machines Datenträger als Speicherort zum Speichern von Betriebssystemen, Anwendungen und Daten verwenden. Alle virtuellen Azure-Computer verfügen über mindestens zwei Datenträger: einen Betriebssystem Datenträger und einen temporären Datenträger. Der Betriebssystem-Datenträger wird aus einem Image erstellt. Sowohl der Betriebssystem-Datenträger als auch das Image sind virtuelle Festplatten (VHDs), die im Azure-Speicherkonto gespeichert sind. Virtuelle Computer können auch über einen oder mehrere Datenträger verfügen, die ebenfalls als VHDs gespeichert werden.
+
+
+  Verwaltete und nicht verwaltete Azure-Datenträger haben eine maximale Größe von 4095 GB (mit Ausnahme von größeren Datenträgern in der Vorschau). Nicht verwaltete Azure-Datenträger verfügen auch über eine maximale Kapazität von 4095 GB.
+
+
+  Weitere Informationen finden Sie unter
+
+  - Azure-Datenträger: <a href="https://docs.microsoft.com/azure/virtual-machines/linux/about-disks-and-vhds">https://docs.microsoft.com/azure/virtual-machines/linux/about-disks-and-vhds</a> und <a href="https://docs.microsoft.com/azure/virtual-machines/windows/about-disks-and-vhds">https://docs.microsoft.com/azure/virtual-machines/windows/about-disks-and-vhds</a> .
+
+  - Größere Managed Disks in Public Preview- <a href="https://azure.microsoft.com/blog/introducing-the-public-preview-of-larger-managed-disks-sizes/">https://azure.microsoft.com/blog/introducing-the-public-preview-of-larger-managed-disks-sizes/</a>
+
+  - SSD Ultra Managed Disks in Public Preview- <a href="https://docs.microsoft.com/azure/virtual-machines/windows/disks-ultra-ssd">https://docs.microsoft.com/azure/virtual-machines/windows/disks-ultra-ssd</a> .
+directCommands:
+- uid: az_vm_disk_attach
+  name: az vm disk attach
+  summary: Fügen Sie einen verwalteten persistenten Datenträger an einen virtuellen Computer an. Beachten Sie, dass--IDs nur einen Datenträger unterstützen.
+  description: Dies ermöglicht die Beibehaltung von Daten, auch wenn die VM aufgrund der Wartung oder der Größe der Größe neu bereitgestellt wird.
+  syntax: >-
+    az vm disk attach --vm-name
+                      [--caching {None, ReadOnly, ReadWrite}]
+                      [--enable-write-accelerator]
+                      [--ids]
+                      [--lun]
+                      [--name]
+                      [--new]
+                      [--resource-group]
+                      [--size-gb]
+                      [--sku {Premium_LRS, StandardSSD_LRS, Standard_LRS, UltraSSD_LRS}]
+                      [--subscription]
+  examples:
+  - summary: Fügen Sie einen neuen, von der Größe verwalteten Datenträger mit einer Größe von 1023 GB an einen virtuellen Computer an.
+    syntax: az vm disk attach -g MyResourceGroup --vm-name MyVm --name disk_name --new
+  - summary: Fügen Sie einen verwalteten persistenten Datenträger an einen virtuellen Computer an. automatisch generierten
+    syntax: az vm disk attach --disk $diskId --new --resource-group MyResourceGroup --size-gb 128 --sku Standard_LRS --vm-name MyVm
+  requiredParameters:
+  - isRequired: true
+    name: --vm-name
+    summary: Der Name des virtuellen Computers. Sie können den Standard mit konfigurieren `az configure --defaults vm=<name>` .
+    description: ''
+  optionalParameters:
+  - name: --caching
+    parameterValueGroup: None, ReadOnly, ReadWrite
+    summary: Datenträger-Cache Richtlinie.
+    description: ''
+  - name: --enable-write-accelerator
+    summary: Aktivieren der Schreib Beschleunigung.
+    description: ''
+  - name: --ids
+    summary: Mindestens eine Ressourcen-ID (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID handeln, die alle Informationen von Ressourcen-ID-Argumenten enthält. Sie sollten entweder--IDs oder andere Ressourcen-ID-Argumente angeben.
+    description: ''
+  - name: --lun
+    summary: 0-basierte logische Gerätenummer (Logical Unit Number, LUN). Der Maximalwert hängt von der Größe des virtuellen Computers ab.
+    description: ''
+  - name: --name -n
+    summary: Der Name oder die ID des verwalteten Datenträgers.
+    description: ''
+  - name: --new
+    summary: Erstellen Sie einen neuen Datenträger.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --size-gb -z
+    defaultValue: "1023"
+    summary: 'Größe in GB. Maximale Größe: 4095 GB (bestimmte Vorschau Datenträger können größer sein).'
+    description: ''
+  - name: --sku
+    parameterValueGroup: Premium_LRS, StandardSSD_LRS, Standard_LRS, UltraSSD_LRS
+    summary: Zugrunde liegende Speicher-SKU.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/vm/_help.py
+- uid: az_vm_disk_detach
+  name: az vm disk detach
+  summary: Trennen eines verwalteten Datenträgers von einem virtuellen Computer
+  description: ''
+  syntax: >-
+    az vm disk detach --name
+                      --resource-group
+                      --vm-name
+                      [--subscription]
+  examples:
+  - summary: Trennen eines Datenträgers von einem virtuellen Computer
+    syntax: az vm disk detach -g MyResourceGroup --vm-name MyVm --name disk_name
+  requiredParameters:
+  - isRequired: true
+    name: --name -n
+    summary: Der Name des Datenträgers.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - isRequired: true
+    name: --vm-name
+    summary: Der Name des virtuellen Computers. Sie können den Standard mit konfigurieren `az configure --defaults vm=<name>` .
+    description: ''
+  optionalParameters:
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/vm/_help.py
+commands:
+- az_vm_disk_attach
+- az_vm_disk_detach
+globalParameters:
+- name: --debug
+  summary: Ausführlichkeit der Protokollierung erhöhen, um alle Debugprotokolle anzuzeigen.
+- name: --help -h
+  summary: Zeigen Sie diese Hilfemeldung an, und schließen Sie sie.
+- name: --only-show-errors
+  summary: Nur Fehler anzeigen und Warnungen unterdrücken.
+- name: --output -o
+  defaultValue: json
+  parameterValueGroup: json, jsonc, table, tsv
+  summary: Ausgabeformat.
+- name: --query
+  summary: JMESPath-Abfragezeichenfolge. Weitere Informationen und Beispiele finden Sie unter <a href="http://jmespath.org/">http://jmespath.org/</a>.
+- name: --verbose
+  summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
+metadata:
+  doc_source_url_repo: https://github.com/Azure/azure-cli/blob/dev/
+  ms.date: 02/05/2021
+  description: >-
+    Azure Virtual Machines Datenträger als Speicherort zum Speichern von Betriebssystemen, Anwendungen und Daten verwenden. Alle virtuellen Azure-Computer verfügen über mindestens zwei Datenträger: einen Betriebssystem Datenträger und einen temporären Datenträger. Der Betriebssystem-Datenträger wird aus einem Image erstellt. Sowohl der Betriebssystem-Datenträger als auch das Image sind virtuelle Festplatten (VHDs), die im Azure-Speicherkonto gespeichert sind. Virtuelle Computer können auch über einen oder mehrere Datenträger verfügen, die ebenfalls als VHDs gespeichert werden.
+
+
+    Verwaltete und nicht verwaltete Azure-Datenträger haben eine maximale Größe von 4095 GB (mit Ausnahme von größeren Datenträgern in der Vorschau). Nicht verwaltete Azure-Datenträger verfügen auch über eine maximale Kapazität von 4095 GB.
+
+
+    Weitere Informationen finden Sie unter
+
+    - Azure-Datenträger: <a href="https://docs.microsoft.com/azure/virtual-machines/linux/about-disks-and-vhds">https://docs.microsoft.com/azure/virtual-machines/linux/about-disks-and-vhds</a> und <a href="https://docs.microsoft.com/azure/virtual-machines/windows/about-disks-and-vhds">https://docs.microsoft.com/azure/virtual-machines/windows/about-disks-and-vhds</a> .
+
+    - Größere Managed Disks in Public Preview- <a href="https://azure.microsoft.com/blog/introducing-the-public-preview-of-larger-managed-disks-sizes/">https://azure.microsoft.com/blog/introducing-the-public-preview-of-larger-managed-disks-sizes/</a>
+
+    - SSD Ultra Managed Disks in Public Preview- <a href="https://docs.microsoft.com/azure/virtual-machines/windows/disks-ultra-ssd">https://docs.microsoft.com/azure/virtual-machines/windows/disks-ultra-ssd</a> .
+  ms.openlocfilehash: 7cca7b33e58d355f4181669ed5d316a06e7e258e
+  ms.sourcegitcommit: df9d6597535ef9103775afbaee5a8282e0e218ee
+  ms.translationtype: MT
+  ms.contentlocale: de-DE
+  ms.lasthandoff: 02/09/2021
+  ms.locfileid: "102963851"
