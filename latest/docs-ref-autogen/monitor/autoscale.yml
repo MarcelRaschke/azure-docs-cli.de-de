@@ -1,0 +1,301 @@
+### YamlMime:AzureCLIGroup
+uid: az_monitor_autoscale
+name: az monitor autoscale
+summary: Verwalten von Autoskalierungseinstellungen.
+description: 'Weitere Informationen zur automatischen Skalierung finden Sie unter: <a href="https://docs.microsoft.com/azure/monitoring-and-diagnostics/monitoring-understanding-autoscale-settings">https://docs.microsoft.com/azure/monitoring-and-diagnostics/monitoring-understanding-autoscale-settings</a> .'
+directCommands:
+- uid: az_monitor_autoscale_create
+  name: az monitor autoscale create
+  summary: Erstellen Sie neue Einstellungen für die automatische Skalierung.
+  description: 'Weitere Informationen zur automatischen Skalierung finden Sie unter: <a href="https://docs.microsoft.com/azure/monitoring-and-diagnostics/monitoring-understanding-autoscale-settings">https://docs.microsoft.com/azure/monitoring-and-diagnostics/monitoring-understanding-autoscale-settings</a> .'
+  syntax: >-
+    az monitor autoscale create --count
+                                --resource
+                                [--action]
+                                [--disabled {false, true}]
+                                [--email-administrator {false, true}]
+                                [--email-coadministrators {false, true}]
+                                [--location]
+                                [--max-count]
+                                [--min-count]
+                                [--name]
+                                [--resource-group]
+                                [--resource-namespace]
+                                [--resource-parent]
+                                [--resource-type]
+                                [--subscription]
+                                [--tags]
+  examples:
+  - summary: Erstellen Sie Einstellungen für die automatische Skalierung, um zwischen 2 und 5 Instanzen (standardmäßig 3) zu skalieren. E-Mail an den Administrator, wenn die Skalierung erfolgt.
+    syntax: >-
+      az monitor autoscale create -g {myrg} --resource {resource-id} --min-count 2 --max-count 5 \
+        --count 3 --email-administrator
+
+      az monitor autoscale rule create -g {myrg} --autoscale-name {resource-name} --scale out 1 \
+        --condition "Percentage CPU > 75 avg 5m"
+
+      az monitor autoscale rule create -g {myrg} --autoscale-name {resource-name} --scale in 1 \
+        --condition "Percentage CPU < 25 avg 5m"
+  - summary: Erstellen Sie Einstellungen für die automatische Skalierung für exakt vier Instanzen.
+    syntax: az monitor autoscale create -g {myrg} --resource {resource-id} --count 4
+  - summary: Erstellen Sie neue Einstellungen für die automatische Skalierung. automatisch generierten
+    syntax: az monitor autoscale create --count 3 --max-count 5 --min-count 2 --name MyAutoscaleSettings --resource myScaleSet --resource-group MyResourceGroup --resource-type Microsoft.Compute/virtualMachineScaleSets
+  requiredParameters:
+  - isRequired: true
+    name: --count
+    summary: Der Zahl der zu verwendenden-Instanzen. Bei Verwendung mit--Min/Max-count die Standard Anzahl der zu verwendenden-Instanzen.
+    description: ''
+  - isRequired: true
+    name: --resource
+    summary: Der Name oder die ID der Ziel Ressource.
+    description: ''
+  optionalParameters:
+  - name: --action -a
+    summary: Fügt eine Aktion hinzu, die ausgelöst wird, wenn ein Skalierungs Ereignis auftritt.
+    description: Syntax:--Action Type Key [Arg...] E-Mail:--Action-e-Mail- bob@contoso.comann @contoso.com Webhook:--Action Webhook <a href="https://www.contoso.com/alert">https://www.contoso.com/alert</a> APIKey = Value Webhook:--Action Webhook <a href="https://www.contoso.com/alert?apiKey=value">https://www.contoso.com/alert?apiKey=value</a> mehrere Aktionen können mit mehr als einem Argument angegeben werden `--action` .
+  - name: --disabled
+    parameterValueGroup: false, true
+    summary: Erstellen Sie die Einstellungen für die automatische Skalierung in deaktiviertem Zustand.
+    description: ''
+  - name: --email-administrator
+    parameterValueGroup: false, true
+    summary: Senden von e-Mails an den Abonnement Administrator bei der Skalierung.
+    description: ''
+  - name: --email-coadministrators
+    parameterValueGroup: false, true
+    summary: Senden Sie eine e-Mail an Abonnement-Co-Administratoren bei der Skalierung.
+    description: ''
+  - name: --location -l
+    summary: 'Der Standort. Werte aus: `az account list-locations`. Sie können den standardmäßig verwendeten Standort mit `az configure --defaults location=<location>` konfigurieren.'
+    description: ''
+  - name: --max-count
+    summary: Die maximale Anzahl von Instanzen.
+    description: ''
+  - name: --min-count
+    summary: Die minimale Anzahl von Instanzen.
+    description: ''
+  - name: --name -n
+    summary: Name der Einstellungen für die automatische Skalierung.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --resource-namespace
+    summary: Der Ziel Ressourcenanbieter-Namespace.
+    description: ''
+  - name: --resource-parent
+    summary: Der übergeordnete Pfad der Ziel Ressource, falls zutreffend.
+    description: ''
+  - name: --resource-type
+    summary: "Der Ziel Ressourcentyp. Kann auch das Namespace-/Typformat akzeptieren (Beispiel: ' Microsoft. Compute/VirtualMachines ')."
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  - name: --tags
+    summary: 'Durch Leerzeichen getrennte Tags: Key [= value] [key [= value]...]. Verwenden Sie "", um vorhandene Tags zu löschen.'
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/monitor/_help.py
+- uid: az_monitor_autoscale_delete
+  name: az monitor autoscale delete
+  summary: Löscht die Einstellung für die automatische Skalierung.
+  description: ''
+  syntax: >-
+    az monitor autoscale delete [--ids]
+                                [--name]
+                                [--resource-group]
+                                [--subscription]
+  optionalParameters:
+  - name: --ids
+    summary: Mindestens eine Ressourcen-ID (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID handeln, die alle Informationen von Ressourcen-ID-Argumenten enthält. Sie sollten entweder--IDs oder andere Ressourcen-ID-Argumente angeben.
+    description: ''
+  - name: --name -n
+    summary: Name der Einstellungen für die automatische Skalierung.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/monitor/_help.py
+- uid: az_monitor_autoscale_list
+  name: az monitor autoscale list
+  summary: Listet die Einstellungen für die automatische Skalierung einer Ressourcengruppe auf.
+  description: ''
+  syntax: >-
+    az monitor autoscale list --resource-group
+                              [--query-examples]
+                              [--subscription]
+  requiredParameters:
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  optionalParameters:
+  - name: --query-examples
+    summary: Empfehlen Sie die jmespath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und Sie nach dem Abfrage Parameter in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positions Schlüsselwörter hinzufügen, um Vorschläge auf der Grundlage dieser Schlüsselwörter zu geben.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/monitor/_help.py
+- uid: az_monitor_autoscale_show
+  name: az monitor autoscale show
+  summary: Details der automatischen Skalierungs Einstellung anzeigen.
+  description: ''
+  syntax: >-
+    az monitor autoscale show [--ids]
+                              [--name]
+                              [--query-examples]
+                              [--resource-group]
+                              [--subscription]
+  examples:
+  - summary: Details der automatischen Skalierungs Einstellung anzeigen. automatisch generierten
+    syntax: az monitor autoscale show --name MyAutoscaleSettings --resource-group MyResourceGroup
+  optionalParameters:
+  - name: --ids
+    summary: Mindestens eine Ressourcen-ID (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID handeln, die alle Informationen von Ressourcen-ID-Argumenten enthält. Sie sollten entweder--IDs oder andere Ressourcen-ID-Argumente angeben.
+    description: ''
+  - name: --name -n
+    summary: Name der Einstellungen für die automatische Skalierung.
+    description: ''
+  - name: --query-examples
+    summary: Empfehlen Sie die jmespath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und Sie nach dem Abfrage Parameter in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positions Schlüsselwörter hinzufügen, um Vorschläge auf der Grundlage dieser Schlüsselwörter zu geben.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/monitor/_help.py
+- uid: az_monitor_autoscale_update
+  name: az monitor autoscale update
+  summary: Aktualisieren der Einstellungen für die automatische Skalierung
+  description: 'Weitere Informationen zur automatischen Skalierung finden Sie unter: <a href="https://docs.microsoft.com/azure/monitoring-and-diagnostics/monitoring-understanding-autoscale-settings">https://docs.microsoft.com/azure/monitoring-and-diagnostics/monitoring-understanding-autoscale-settings</a> .'
+  syntax: >-
+    az monitor autoscale update [--add]
+                                [--add-action]
+                                [--count]
+                                [--email-administrator {false, true}]
+                                [--email-coadministrators {false, true}]
+                                [--enabled {false, true}]
+                                [--force-string]
+                                [--ids]
+                                [--max-count]
+                                [--min-count]
+                                [--name]
+                                [--remove]
+                                [--remove-action]
+                                [--resource-group]
+                                [--set]
+                                [--subscription]
+                                [--tags]
+  examples:
+  - summary: Aktualisieren Sie die Einstellungen für die automatische Skalierung so, dass standardmäßig eine Standard Instanz von 3
+    syntax: az monitor autoscale update -g {myrg} -n {autoscale-name} --count 3
+  - summary: Aktualisieren Sie die Einstellungen für die automatische Skalierung, um eine e-Mail zu entfernen
+    syntax: >-
+      az monitor autoscale update -g {myrg} -n {autoscale-name} \
+        --remove-action email bob@contoso.com
+  - summary: Aktualisieren der Einstellungen für die automatische Skalierung automatisch generierten
+    syntax: az monitor autoscale update --count 3 --email-administrator true --enabled true --max-count 5 --min-count 2 --name MyAutoscaleSettings --resource-group MyResourceGroup --tags key[=value]
+  optionalParameters:
+  - name: --add
+    summary: Fügen Sie einer Liste von-Objekten ein Objekt hinzu, indem Sie ein Pfad-und Schlüssel-Wert-Paar angeben.  Beispiel:--Add Property. ListProperty <Key = Value, String oder JSON String>.
+    description: ''
+  - name: --add-action -a
+    summary: Fügt eine Aktion hinzu, die ausgelöst wird, wenn ein Skalierungs Ereignis auftritt.
+    description: Syntax:--Add-Action Type Key [Arg...] E-Mail:--Add-Action Email bob@contoso.comann @contoso.com Webhook:--Add-Action Webhook <a href="https://www.contoso.com/alert">https://www.contoso.com/alert</a> APIKey = Value Webhook:--Add-Action Webhook <a href="https://www.contoso.com/alert?apiKey=value">https://www.contoso.com/alert?apiKey=value</a> mehrere Aktionen können mit mehr als einem Argument angegeben werden `--add-action` .
+  - name: --count
+    summary: Der Zahl der zu verwendenden-Instanzen. Bei Verwendung mit--Min/Max-count die Standard Anzahl der zu verwendenden-Instanzen.
+    description: ''
+  - name: --email-administrator
+    parameterValueGroup: false, true
+    summary: Senden von e-Mails an den Abonnement Administrator bei der Skalierung.
+    description: ''
+  - name: --email-coadministrators
+    parameterValueGroup: false, true
+    summary: Senden Sie eine e-Mail an Abonnement-Co-Administratoren bei der Skalierung.
+    description: ''
+  - name: --enabled
+    parameterValueGroup: false, true
+    summary: Der Status für die automatische Skalierung wurde aktiviert.
+    description: ''
+  - name: --force-string
+    summary: Wenn Sie "Set" oder "Add" verwenden, erhalten Sie Zeichen folgen Literale, anstatt zu versuchen, in JSON zu konvertieren.
+    description: ''
+  - name: --ids
+    summary: Mindestens eine Ressourcen-ID (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID handeln, die alle Informationen von Ressourcen-ID-Argumenten enthält. Sie sollten entweder--IDs oder andere Ressourcen-ID-Argumente angeben.
+    description: ''
+  - name: --max-count
+    summary: Die maximale Anzahl von Instanzen.
+    description: ''
+  - name: --min-count
+    summary: Die minimale Anzahl von Instanzen.
+    description: ''
+  - name: --name -n
+    summary: Name der Einstellungen für die automatische Skalierung.
+    description: ''
+  - name: --remove
+    summary: Entfernt eine Eigenschaft oder ein Element aus einer Liste.  Beispiel:--Remove Property. List <indexToRemove> oder--Remove propertytoremove.
+    description: ''
+  - name: --remove-action -r
+    summary: Entfernen Sie eine oder mehrere Aktionen.
+    description: Syntax:--Remove-Action Type Key [key...] E-Mail:--Remove-Action-e-Mail- bob@contoso.comann @contoso.com Webhook:--Remove-Action Webhook <a href="https://contoso.com/alert">https://contoso.com/alert</a> <a href="https://alerts.contoso.com">https://alerts.contoso.com</a> .
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --set
+    summary: Aktualisieren Sie ein Objekt, indem Sie einen Eigenschafts Pfad und einen festzulegenden Wert angeben.  Beispiel:--Set Eigenschaft1. Eigenschaft2 =<value>.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  - name: --tags
+    summary: 'Durch Leerzeichen getrennte Tags: Key [= value] [key [= value]...]. Verwenden Sie "", um vorhandene Tags zu löschen.'
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/monitor/_help.py
+commands:
+- az_monitor_autoscale_create
+- az_monitor_autoscale_delete
+- az_monitor_autoscale_list
+- az_monitor_autoscale_profile
+- az_monitor_autoscale_profile_create
+- az_monitor_autoscale_profile_delete
+- az_monitor_autoscale_profile_list
+- az_monitor_autoscale_profile_list_timezones
+- az_monitor_autoscale_profile_show
+- az_monitor_autoscale_rule
+- az_monitor_autoscale_rule_copy
+- az_monitor_autoscale_rule_create
+- az_monitor_autoscale_rule_delete
+- az_monitor_autoscale_rule_list
+- az_monitor_autoscale_show
+- az_monitor_autoscale_update
+globalParameters:
+- name: --debug
+  summary: Ausführlichkeit der Protokollierung erhöhen, um alle Debugprotokolle anzuzeigen.
+- name: --help -h
+  summary: Zeigen Sie diese Hilfemeldung an, und schließen Sie sie.
+- name: --only-show-errors
+  summary: Nur Fehler anzeigen und Warnungen unterdrücken.
+- name: --output -o
+  defaultValue: json
+  parameterValueGroup: json, jsonc, table, tsv
+  summary: Ausgabeformat.
+- name: --query
+  summary: JMESPath-Abfragezeichenfolge. Weitere Informationen und Beispiele finden Sie unter <a href="http://jmespath.org/">http://jmespath.org/</a>.
+- name: --verbose
+  summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
+metadata:
+  doc_source_url_repo: https://github.com/Azure/azure-cli/blob/dev/
+  ms.date: 02/23/2021
+  description: 'Weitere Informationen zur automatischen Skalierung finden Sie unter: <a href="https://docs.microsoft.com/azure/monitoring-and-diagnostics/monitoring-understanding-autoscale-settings">https://docs.microsoft.com/azure/monitoring-and-diagnostics/monitoring-understanding-autoscale-settings</a> .'
+  ms.openlocfilehash: e9db96fa7826c0816f7f1f97d26c99c43ded3bb8
+  ms.sourcegitcommit: f9e23f29c59c6957d3df4d5ca2f4425093e6fd80
+  ms.translationtype: MT
+  ms.contentlocale: de-DE
+  ms.lasthandoff: 03/16/2021
+  ms.locfileid: "103540797"

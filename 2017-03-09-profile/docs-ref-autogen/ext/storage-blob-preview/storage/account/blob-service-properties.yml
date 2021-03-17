@@ -4,7 +4,7 @@ name: az storage account blob-service-properties
 extensionInformation: >-
   > [!Note]
 
-  > Diese Referenz ist Teil der **Storage-BLOB-Preview-** Erweiterung für Azure CLI und erfordert Version 2.14.0 oder höher.  Die Erweiterung wird automatisch installiert, wenn Sie den Befehl **AZ Storage Account BLOB-Service-Properties** zum ersten Mal ausführen.  [Weitere Informationen zu Erweiterungen](https://docs.microsoft.com/en-us/cli/azure/azure-cli-extensions-overview)
+  > Diese Referenz ist Teil der **Storage-BLOB-Preview-** Erweiterung für Azure CLI und erfordert Version 2.16.0 oder höher.  Die Erweiterung wird automatisch installiert, wenn Sie den Befehl **AZ Storage Account BLOB-Service-Properties** zum ersten Mal ausführen.  [Weitere Informationen zu Erweiterungen](https://docs.microsoft.com/en-us/cli/azure/azure-cli-extensions-overview)
 summary: Verwalten Sie die Eigenschaften des BLOB-Dienstanbieter eines Speicher Kontos.
 description: ''
 directCommands:
@@ -34,8 +34,10 @@ directCommands:
   syntax: >-
     az storage account blob-service-properties update --account-name
                                                       [--add]
+                                                      [--change-feed-days]
                                                       [--container-days]
                                                       [--container-retention {false, true}]
+                                                      [--default-service-version]
                                                       [--delete-retention-days]
                                                       [--enable-change-feed {false, true}]
                                                       [--enable-delete-retention {false, true}]
@@ -48,14 +50,18 @@ directCommands:
                                                       [--restore-days]
                                                       [--set]
   examples:
-  - summary: Aktivieren Sie den Änderungs Feed für das Speicherkonto "mystorageaccount" in der Ressourcengruppe "myresourcegroup".
-    syntax: az storage account blob-service-properties update --enable-change-feed true -n mystorageaccount -g MyResourceGroup
+  - summary: Aktivieren Sie den Änderungs Feed, und legen Sie für das Speicherkonto "mystorageaccount" in der Ressourcengruppe "myresourcegroup" die Beibehaltungs Dauer für den Änderungs Feed auf unendlich fest.
+    syntax: az storage account blob-service-properties update --enable-change-feed true -n mystorageaccount -g myresourcegroup
+  - summary: Aktivieren Sie den Änderungs Feed, und legen 100 Sie für das Speicherkonto "mystorageaccount" in der Ressourcengruppe "myresourcegroup" Tage für die Beibehaltungs Dauer des Änderungs Feeds fest.
+    syntax: az storage account blob-service-properties update --enable-change-feed --change-feed-days 100 -n mystorageaccount -g myresourcegroup
+  - summary: Deaktivieren Sie den Änderungs Feed für das Speicherkonto "mystorageaccount" in der Ressourcengruppe "myresourcegroup".
+    syntax: az storage account blob-service-properties update --enable-change-feed false -n mystorageaccount -g myresourcegroup
   - summary: Aktivieren Sie die Beibehaltungs Richtlinie für den Löschvorgang, und legen Sie für das Speicherkonto "mystorageaccount" in der Ressourcengruppe "myresourcegroup" Tage für die Lösch Beibehaltung auf 100
-    syntax: az storage account blob-service-properties update --enable-delete-retention true --delete-retention-days 100 -n mystorageaccount -g MyResourceGroup
+    syntax: az storage account blob-service-properties update --enable-delete-retention true --delete-retention-days 100 -n mystorageaccount -g myresourcegroup
   - summary: Aktivieren Sie die Versionsverwaltung für das Speicherkonto "mystorageaccount" in der Ressourcengruppe "myresourcegroup".
-    syntax: az storage account blob-service-properties update --enable-versioning -n mystorageaccount -g MyResourceGroup
+    syntax: az storage account blob-service-properties update --enable-versioning -n mystorageaccount -g myresourcegroup
   - summary: Legen Sie die Standardversion für die eingehende Anforderung für das Speicherkonto "mystorageaccount" fest.
-    syntax: az storage account blob-service-properties update --default-service-version 2020-04-08 -n mystorageaccount -g MyResourceGroup
+    syntax: az storage account blob-service-properties update --default-service-version 2020-04-08 -n mystorageaccount -g myresourcegroup
   requiredParameters:
   - isRequired: true
     name: --account-name -n
@@ -65,12 +71,18 @@ directCommands:
   - name: --add
     summary: Fügen Sie einer Liste von-Objekten ein Objekt hinzu, indem Sie ein Pfad-und Schlüssel-Wert-Paar angeben.  Beispiel:--Add Property. ListProperty <Key = Value, String oder JSON String>.
     description: ''
+  - name: --change-feed-days --change-feed-retention-days
+    summary: Geben Sie die Dauer der changefeed-Aufbewahrung in Tagen an. Der Mindestwert ist 1 Tag, der Höchstwert 146000 Tage (400 Jahre). Ein NULL-Wert gibt eine unbegrenzte Aufbewahrung des Änderungs Feeds an. (Verwenden `--enable-change-feed` `--change-feed-days` Sie ohne, um NULL anzugeben).
+    description: ''
   - name: --container-days --container-delete-retention-days
     summary: Geben Sie die Anzahl von Tagen an, die der gelöschte Container aufbewahrt werden soll. Der mindestens angegebene Wert kann 1 sein, und der Höchstwert kann 365 sein.
     description: ''
   - name: --container-retention --enable-container-delete-retention
     parameterValueGroup: false, true
     summary: Aktivieren Sie die Beibehaltungs Richtlinie für Container Löschung für das vorläufige Löschen von Containern, wenn diese Einstellung auf Deaktivieren Sie die Aufbewahrungs Richtlinie für den Container Löschvorgang, wenn Sie auf false
+    description: ''
+  - name: --default-service-version -d
+    summary: Geben Sie die Standardversion an, die für Anforderungen an den BLOB-Dienst verwendet werden soll, wenn die Version einer eingehenden Anforderung nicht angegeben ist.
     description: ''
   - name: --delete-retention-days
     summary: Geben Sie die Anzahl von Tagen an, die das gelöschte BLOB aufbewahrt werden soll. Der Wert muss im Bereich [1.365] liegen. Es muss angegeben werden, wenn den Wert `--enable-delete-retention` true hat.
@@ -130,9 +142,9 @@ globalParameters:
   summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
 metadata:
   description: Verwalten Sie die Eigenschaften des BLOB-Dienstanbieter eines Speicher Kontos.
-  ms.openlocfilehash: 79547db9ed1c58eed053bf445b800514a48162c0
-  ms.sourcegitcommit: df9d6597535ef9103775afbaee5a8282e0e218ee
+  ms.openlocfilehash: 29d6ebb57301b9ab548d7e8667f7117452926d40
+  ms.sourcegitcommit: f9e23f29c59c6957d3df4d5ca2f4425093e6fd80
   ms.translationtype: MT
   ms.contentlocale: de-DE
-  ms.lasthandoff: 02/09/2021
-  ms.locfileid: "102965585"
+  ms.lasthandoff: 03/16/2021
+  ms.locfileid: "103518187"

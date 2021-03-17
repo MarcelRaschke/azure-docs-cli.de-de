@@ -1,0 +1,277 @@
+### YamlMime:AzureCLIGroup
+uid: az_policy_state
+name: az policy state
+summary: Verwalten von Konformitäts Zuständen für Richtlinien.
+description: ''
+directCommands:
+- uid: az_policy_state_list
+  name: az policy state list
+  summary: Richtlinien Kompatibilitäts Zustände auflisten.
+  description: ''
+  syntax: >-
+    az policy state list [--all]
+                         [--apply]
+                         [--expand]
+                         [--filter]
+                         [--from]
+                         [--management-group]
+                         [--namespace]
+                         [--order-by]
+                         [--parent]
+                         [--policy-assignment]
+                         [--policy-definition]
+                         [--policy-set-definition]
+                         [--query-examples]
+                         [--resource]
+                         [--resource-group]
+                         [--resource-type]
+                         [--select]
+                         [--subscription]
+                         [--to]
+                         [--top]
+  examples:
+  - summary: Aktuelle Richtlinien Zustände im aktuellen Abonnement Bereich erhalten.
+    syntax: az policy state list
+  - summary: Alle Richtlinien Zustände im aktuellen Abonnement Bereich erhalten.
+    syntax: az policy state list --all
+  - summary: Aktuellen Richtlinien Status im Verwaltungs Gruppenbereich erhalten.
+    syntax: az policy state list -m "myMg"
+  - summary: Aktuellen Richtlinien Status im Ressourcengruppen Bereich des aktuellen Abonnements erhalten.
+    syntax: az policy state list -g "myRg"
+  - summary: Aktuellste Richtlinien Zustände für eine Ressource mit der Ressourcen-ID erhalten.
+    syntax: az policy state list --resource "/subscriptions/fff10b27-fff3-fff5-fff8-fffbe01e86a5/resourceGroups/myResourceGroup /providers/Microsoft.EventHub/namespaces/myns1/eventhubs/eh1/consumergroups/cg1"
+  - summary: Verwenden Sie den aktuellen Richtlinien Status für eine Ressource mit dem Ressourcennamen.
+    syntax: az policy state list --resource "myKeyVault" --namespace "Microsoft.KeyVault" --resource-type "vaults" -g "myresourcegroup"
+  - summary: Mit dem Ressourcennamen werden die aktuellen Richtlinien Zustände für eine in einer Tabelle verwendete Ressource angezeigt.
+    syntax: az policy state list --resource "myRule1" --namespace "Microsoft.Network" --resource-type "securityRules" --parent "networkSecurityGroups/mysecuritygroup1" -g "myresourcegroup"
+  - summary: Aktuellste Richtlinien Zustände für eine Richtlinien Satz Definition im aktuellen Abonnement erhalten.
+    syntax: az policy state list -s "fff58873-fff8-fff5-fffc-fffbe7c9d697"
+  - summary: Aktuellste Richtlinien Zustände für eine Richtlinien Definition im aktuellen Abonnement erhalten.
+    syntax: az policy state list -d "fff69973-fff8-fff5-fffc-fffbe7c9d698"
+  - summary: Aktuellen Richtlinien Status für eine Richtlinien Zuweisung im aktuellen Abonnement erhalten.
+    syntax: az policy state list -a "ddd8ef92e3714a5ea3d208c1"
+  - summary: Aktuelle Richtlinien Zustände für eine Richtlinien Zuweisung in der angegebenen Ressourcengruppe im aktuellen Abonnement erhalten.
+    syntax: az policy state list -g "myRg" -a "ddd8ef92e3714a5ea3d208c1"
+  - summary: Holen Sie sich die 5 wichtigsten Richtlinien Zustände im aktuellen Abonnement, wählen Sie eine Teilmenge von Eigenschaften aus, und passen Sie die Reihenfolge an.
+    syntax: az policy state list --top 5 --order-by "timestamp desc, policyAssignmentName asc" --select "timestamp, resourceId, policyAssignmentId, policySetDefinitionId, policyDefinitionId"
+  - summary: Aktuellste Richtlinien Zustände im aktuellen Abonnement während eines benutzerdefinierten Zeitintervalls erhalten.
+    syntax: az policy state list --from "2018-03-08T00:00:00Z" --to "2018-03-15T00:00:00Z"
+  - summary: Aktuellste Richtlinien Zustände in aktuellen Abonnement Filter Ergebnissen basierend auf einigen Eigenschafts Werten erhalten.
+    syntax: az policy state list --filter "(policyDefinitionAction eq 'deny' or policyDefinitionAction eq 'audit') and resourceLocation ne 'eastus'"
+  - summary: Gibt die Anzahl der aktuellen Richtlinien Zustände im aktuellen Abonnement an.
+    syntax: az policy state list --apply "aggregate($count as numberOfRecords)"
+  - summary: Aktuelle Richtlinien Zustände in aktuellen Abonnements aggregierten Ergebnissen basierend auf einigen Eigenschaften.
+    syntax: az policy state list --apply "groupby((policyAssignmentId, policySetDefinitionId, policyDefinitionReferenceId, policyDefinitionId), aggregate($count as numStates))"
+  - summary: Aktuellste Richtlinien Zustände in aktuellen Abonnements Gruppierungs Ergebnissen basierend auf einigen Eigenschaften erhalten.
+    syntax: az policy state list --apply "groupby((policyAssignmentName, resourceId))"
+  - summary: Aktuellste Richtlinien Zustände in aktuellen Abonnements aggregierten Ergebnissen basierend auf einigen Eigenschaften, die mehrere Gruppierungen angeben, erhalten.
+    syntax: az policy state list --apply "groupby((policyAssignmentId, policySetDefinitionId, policyDefinitionReferenceId, policyDefinitionId, resourceId))/groupby((policyAssignmentId, policySetDefinitionId, policyDefinitionReferenceId, policyDefinitionId), aggregate($count as numNonCompliantResources))"
+  - summary: Aktuellste Richtlinien Zustände für eine Ressource, einschließlich Richtlinien Bewertungs Details.
+    syntax: az policy state list --resource "myKeyVault" --namespace "Microsoft.KeyVault" --resource-type "vaults" -g "myresourcegroup" --expand PolicyEvaluationDetails
+  optionalParameters:
+  - name: --all
+    summary: Innerhalb des angegebenen Zeitintervalls können Sie alle Richtlinien Zustände anstelle der neuesten Version erhalten.
+    description: ''
+  - name: --apply
+    summary: Anwenden eines Ausdrucks für Aggregationen mithilfe der odata-Notation.
+    description: ''
+  - name: --expand
+    summary: Erweitern Sie Ausdruck mithilfe der odata-Notation.
+    description: ''
+  - name: --filter
+    summary: Filter Ausdruck mithilfe der odata-Notation.
+    description: ''
+  - name: --from
+    summary: ISO 8601 formatierter Zeitstempel, der die Startzeit des abzufragenden Intervalls angibt.
+    description: ''
+  - name: --management-group -m
+    summary: Name der Verwaltungsgruppe.
+    description: ''
+  - name: --namespace
+    summary: 'Anbieter Namespace (z.: Microsoft. Provider).'
+    description: ''
+  - name: --order-by
+    summary: Der Anordnungs Ausdruck mithilfe der odata-Notation.
+    description: ''
+  - name: --parent
+    summary: Der übergeordnete Pfad (z. b. resourcetypea/Namea/resourcetypeb/Nameb).
+    description: ''
+  - name: --policy-assignment -a
+    summary: Der Name der Richtlinien Zuweisung.
+    description: ''
+  - name: --policy-definition -d
+    summary: Der Name der Richtlinien Definition.
+    description: ''
+  - name: --policy-set-definition -s
+    summary: Name der Richtlinien Satz Definition.
+    description: ''
+  - name: --query-examples
+    summary: Empfehlen Sie die jmespath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und Sie nach dem Abfrage Parameter in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positions Schlüsselwörter hinzufügen, um Vorschläge auf der Grundlage dieser Schlüsselwörter zu geben.
+    description: ''
+  - name: --resource
+    summary: Ressourcen-ID oder Ressourcen Name. Wenn ein Name angegeben wird, geben Sie die Ressourcengruppe und andere relevante Ressourcen-ID-Argumente an.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --resource-type
+    summary: 'Ressourcentyp (z.: resourcetypec).'
+    description: ''
+  - name: --select
+    summary: Wählen Sie mithilfe der odata-Notation einen Ausdruck aus.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  - name: --to
+    summary: ISO 8601 formatierter Zeitstempel, der die Endzeit des abzufragenden Intervalls angibt.
+    description: ''
+  - name: --top
+    summary: Maximale Anzahl zurück zugebender Datensätze.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/resource/_help.py
+- uid: az_policy_state_summarize
+  name: az policy state summarize
+  summary: Fassen Sie Richtlinien Konformitäts Zustände zusammen.
+  description: ''
+  syntax: >-
+    az policy state summarize [--filter]
+                              [--from]
+                              [--management-group]
+                              [--namespace]
+                              [--parent]
+                              [--policy-assignment]
+                              [--policy-definition]
+                              [--policy-set-definition]
+                              [--resource]
+                              [--resource-group]
+                              [--resource-type]
+                              [--subscription]
+                              [--to]
+                              [--top]
+  examples:
+  - summary: Die neueste Zusammenfassung der nicht kompatiblen Richtlinien Zustände finden Sie im aktuellen Abonnement Bereich.
+    syntax: az policy state summarize
+  - summary: Aktuelle Zusammenfassung der nicht kompatiblen Richtlinien Zustände finden Sie im Verwaltungs Gruppenbereich.
+    syntax: az policy state summarize -m "myMg"
+  - summary: Aktuelle Zusammenfassung der nicht kompatiblen Richtlinien Zustände finden Sie unter Ressourcengruppen Bereich im aktuellen Abonnement.
+    syntax: az policy state summarize -g "myRg"
+  - summary: Mit der Ressourcen-ID erhalten Sie eine Zusammenfassung der aktuellen nicht kompatiblen Richtlinien Zustände für eine Ressource.
+    syntax: az policy state summarize --resource "/subscriptions/fff10b27-fff3-fff5-fff8-fffbe01e86a5/resourceGroups/myResourceGroup /providers/Microsoft.EventHub/namespaces/myns1/eventhubs/eh1/consumergroups/cg1"
+  - summary: Die neueste Zusammenfassung der nicht kompatiblen Richtlinien Zustände für eine Ressource mit dem Ressourcennamen wird angezeigt.
+    syntax: az policy state summarize --resource "myKeyVault" --namespace "Microsoft.KeyVault" --resource-type "vaults" -g "myresourcegroup"
+  - summary: Verwenden Sie den Ressourcennamen, um die neueste nicht kompatible Richtlinien Status Zusammenfassung für eine gefasste Ressource zu erhalten.
+    syntax: az policy state summarize --resource "myRule1" --namespace "Microsoft.Network" --resource-type "securityRules" --parent "networkSecurityGroups/mysecuritygroup1" -g "myresourcegroup"
+  - summary: Aktuelle Zusammenfassung der nicht kompatiblen Richtlinien Zustände für eine Richtlinien Satz Definition im aktuellen Abonnement.
+    syntax: az policy state summarize -s "fff58873-fff8-fff5-fffc-fffbe7c9d697"
+  - summary: Aktuelle Zusammenfassung der nicht kompatiblen Richtlinien Zustände für eine Richtlinien Definition im aktuellen Abonnement.
+    syntax: az policy state summarize -d "fff69973-fff8-fff5-fffc-fffbe7c9d698"
+  - summary: Aktuelle Zusammenfassung der nicht kompatiblen Richtlinien Zustände für eine Richtlinien Zuweisung im aktuellen Abonnement.
+    syntax: az policy state summarize -a "ddd8ef92e3714a5ea3d208c1"
+  - summary: Aktuelle Zusammenfassung der nicht kompatiblen Richtlinien Zustände für eine Richtlinien Zuweisung in der angegebenen Ressourcengruppe im aktuellen Abonnement erhalten.
+    syntax: az policy state summarize -g "myRg" -a "ddd8ef92e3714a5ea3d208c1"
+  - summary: Die neueste Zusammenfassung der nicht kompatiblen Richtlinien Zustände im aktuellen Abonnement wird angezeigt, wobei die Zuweisungs Zusammenfassung auf die ersten 5 beschränkt wird.
+    syntax: az policy state summarize --top 5
+  - summary: Aktuelle Zusammenfassung der nicht kompatiblen Richtlinien Zustände im aktuellen Abonnement für ein benutzerdefiniertes Zeitintervall erhalten.
+    syntax: az policy state summarize --from "2018-03-08T00:00:00Z" --to "2018-03-15T00:00:00Z"
+  - summary: Die neueste Zusammenfassung der nicht kompatiblen Richtlinien Zustände finden Sie unter aktuelle Abonnement Filter Ergebnisse basierend auf einigen Eigenschafts Werten.
+    syntax: az policy state summarize --filter "(policyDefinitionAction eq 'deny' or policyDefinitionAction eq 'audit') and resourceLocation ne 'eastus'"
+  optionalParameters:
+  - name: --filter
+    summary: Filter Ausdruck mithilfe der odata-Notation.
+    description: ''
+  - name: --from
+    summary: ISO 8601 formatierter Zeitstempel, der die Startzeit des abzufragenden Intervalls angibt.
+    description: ''
+  - name: --management-group -m
+    summary: Name der Verwaltungsgruppe.
+    description: ''
+  - name: --namespace
+    summary: 'Anbieter Namespace (z.: Microsoft. Provider).'
+    description: ''
+  - name: --parent
+    summary: Der übergeordnete Pfad (z. b. resourcetypea/Namea/resourcetypeb/Nameb).
+    description: ''
+  - name: --policy-assignment -a
+    summary: Der Name der Richtlinien Zuweisung.
+    description: ''
+  - name: --policy-definition -d
+    summary: Der Name der Richtlinien Definition.
+    description: ''
+  - name: --policy-set-definition -s
+    summary: Name der Richtlinien Satz Definition.
+    description: ''
+  - name: --resource
+    summary: Ressourcen-ID oder Ressourcen Name. Wenn ein Name angegeben wird, geben Sie die Ressourcengruppe und andere relevante Ressourcen-ID-Argumente an.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --resource-type
+    summary: 'Ressourcentyp (z.: resourcetypec).'
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  - name: --to
+    summary: ISO 8601 formatierter Zeitstempel, der die Endzeit des abzufragenden Intervalls angibt.
+    description: ''
+  - name: --top
+    summary: Maximale Anzahl zurück zugebender Datensätze.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/resource/_help.py
+- uid: az_policy_state_trigger_scan
+  name: az policy state trigger-scan
+  summary: Löst eine Richtlinien Kompatibilitäts Auswertung für einen Bereich aus.
+  description: ''
+  syntax: >-
+    az policy state trigger-scan [--no-wait]
+                                 [--resource-group]
+                                 [--subscription]
+  examples:
+  - summary: Löst eine Bewertung der Richtlinien Konformität im aktuellen Abonnement Bereich aus.
+    syntax: az policy state trigger-scan
+  - summary: Löst eine Richtlinien Kompatibilitäts Auswertung für eine Ressourcengruppe aus.
+    syntax: az policy state trigger-scan -g "myRg"
+  - summary: Löst eine Richtlinien Kompatibilitäts Auswertung für eine Ressourcengruppe aus und wartet nicht auf den Abschluss des Vorgangs.
+    syntax: az policy state trigger-scan -g "myRg" --no-wait
+  optionalParameters:
+  - name: --no-wait
+    summary: Nicht auf den Abschluss lang andauernder Vorgänge warten
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/resource/_help.py
+commands:
+- az_policy_state_list
+- az_policy_state_summarize
+- az_policy_state_trigger_scan
+globalParameters:
+- name: --debug
+  summary: Ausführlichkeit der Protokollierung erhöhen, um alle Debugprotokolle anzuzeigen.
+- name: --help -h
+  summary: Zeigen Sie diese Hilfemeldung an, und schließen Sie sie.
+- name: --only-show-errors
+  summary: Nur Fehler anzeigen und Warnungen unterdrücken.
+- name: --output -o
+  defaultValue: json
+  parameterValueGroup: json, jsonc, table, tsv
+  summary: Ausgabeformat.
+- name: --query
+  summary: JMESPath-Abfragezeichenfolge. Weitere Informationen und Beispiele finden Sie unter <a href="http://jmespath.org/">http://jmespath.org/</a>.
+- name: --verbose
+  summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
+metadata:
+  doc_source_url_repo: https://github.com/Azure/azure-cli/blob/dev/
+  ms.date: 02/02/2021
+  description: Verwalten von Konformitäts Zuständen für Richtlinien.
+  ms.openlocfilehash: 76b9bc633ff734c4364f60c377d42733f678b519
+  ms.sourcegitcommit: df9d6597535ef9103775afbaee5a8282e0e218ee
+  ms.translationtype: MT
+  ms.contentlocale: de-DE
+  ms.lasthandoff: 02/09/2021
+  ms.locfileid: "102969159"
