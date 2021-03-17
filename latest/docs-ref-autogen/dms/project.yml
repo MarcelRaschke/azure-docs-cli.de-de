@@ -1,0 +1,230 @@
+### YamlMime:AzureCLIGroup
+uid: az_dms_project
+name: az dms project
+summary: Verwalten von Projekten für eine Instanz des Daten Migrations Dienstanbieter.
+description: ''
+directCommands:
+- uid: az_dms_project_check_name
+  name: az dms project check-name
+  summary: Überprüfen Sie, ob ein angegebener Projektname innerhalb einer bestimmten Instanz von DMS sowie die Gültigkeit des Namens verfügbar ist.
+  description: ''
+  syntax: >-
+    az dms project check-name --name
+                              --resource-group
+                              --service-name
+                              [--subscription]
+  requiredParameters:
+  - isRequired: true
+    name: --name -n
+    summary: Der Projektname, der überprüft werden soll.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - isRequired: true
+    name: --service-name
+    summary: Der Name des Dienstanbieter.
+    description: ''
+  optionalParameters:
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/dms/_help.py
+- uid: az_dms_project_create
+  name: az dms project create
+  summary: Erstellen Sie ein Migrationsprojekt, das mehrere Aufgaben enthalten kann.
+  description: >-
+    Die folgenden Projekt Konfigurationen werden unterstützt:-) Quelle-> Ziel
+      1) SQL-> Sqldb
+      2) MySQL-> azuredbformysql
+      3) PostgreSQL-> azuredbforpostgresql.
+  syntax: >-
+    az dms project create --location
+                          --name
+                          --resource-group
+                          --service-name
+                          --source-platform
+                          --target-platform
+                          [--subscription]
+                          [--tags]
+  examples:
+  - summary: Erstellen Sie ein SQL-zu-Sqldb-Projekt für eine DMS-Instanz.
+    syntax: az dms project create -l westus -n sqlproject -g myresourcegroup --service-name mydms --source-platform SQL --target-platform SQLDB --tags tagName1=tagValue1 tagWithNoValue
+  - summary: Erstellen Sie ein MySQL-zu-azuredbformysql-Projekt für eine DMS-Instanz.
+    syntax: az dms project create -l westus -n mysqlproject -g myresourcegroup --service-name mydms --source-platform MySQL --target-platform AzureDbForMySQL --tags tagName1=tagValue1 tagWithNoValue
+  - summary: Erstellen Sie ein PostgreSQL-zu-azuredbforpostgresql-Projekt für eine DMS-Instanz.
+    syntax: az dms project create -l westus -n pgproject -g myresourcegroup --service-name mydms --source-platform PostgreSQL --target-platform AzureDbForPostgreSQL --tags tagName1=tagValue1 tagWithNoValue
+  requiredParameters:
+  - isRequired: true
+    name: --location -l
+    summary: 'Der Standort. Werte aus: `az account list-locations`. Sie können den standardmäßig verwendeten Standort mit `az configure --defaults location=<location>` konfigurieren.'
+    description: ''
+  - isRequired: true
+    name: --name -n
+    summary: Der Name des Projekts.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - isRequired: true
+    name: --service-name
+    summary: Der Name des Dienstanbieter.
+    description: ''
+  - isRequired: true
+    name: --source-platform
+    summary: 'Der Typ des Servers für die Quelldatenbank. Folgende Typen werden unterstützt: SQL, MySQL und PostgreSQL.'
+    description: ''
+  - isRequired: true
+    name: --target-platform
+    summary: 'Der Diensttyp für die Zieldatenbank. Folgende Typen werden unterstützt: Sqldb, azuredbformysql und azuredbforpostgresql.'
+    description: ''
+  optionalParameters:
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  - name: --tags
+    summary: Eine durch Leerzeichen getrennte Liste von Tags im Format "Tag1 [= value1]".
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/dms/_help.py
+- uid: az_dms_project_delete
+  name: az dms project delete
+  summary: Löschen Sie ein Projekt.
+  description: ''
+  syntax: >-
+    az dms project delete --name
+                          --resource-group
+                          --service-name
+                          [--delete-running-tasks]
+                          [--subscription]
+                          [--yes]
+  examples:
+  - summary: Löschen Sie ein Projekt. automatisch generierten
+    syntax: az dms project delete --name MyProject --resource-group MyResourceGroup --service-name MyService
+  requiredParameters:
+  - isRequired: true
+    name: --name -n
+    summary: Der Name des Projekts.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - isRequired: true
+    name: --service-name
+    summary: Der Name des Dienstanbieter.
+    description: ''
+  optionalParameters:
+  - name: --delete-running-tasks
+    summary: Brechen Sie alle laufenden Tasks ab, bevor Sie das Projekt löschen.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  - name: --yes -y
+    summary: Nicht zur Bestätigung auffordern
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/dms/_help.py
+- uid: az_dms_project_list
+  name: az dms project list
+  summary: Listet die Projekte in einer Instanz von DMS auf.
+  description: ''
+  syntax: >-
+    az dms project list --resource-group
+                        --service-name
+                        [--query-examples]
+                        [--subscription]
+  examples:
+  - summary: Listet die Projekte in einer Instanz von DMS auf. automatisch generierten
+    syntax: az dms project list --resource-group MyResourceGroup --service-name MyService
+  requiredParameters:
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - isRequired: true
+    name: --service-name
+    summary: Der Name des Dienstanbieter.
+    description: ''
+  optionalParameters:
+  - name: --query-examples
+    summary: Empfehlen Sie die jmespath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und Sie nach dem Abfrage Parameter in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positions Schlüsselwörter hinzufügen, um Vorschläge auf der Grundlage dieser Schlüsselwörter zu geben.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/dms/_help.py
+- uid: az_dms_project_show
+  name: az dms project show
+  summary: Hiermit werden die Details eines Migrationsprojekts angezeigt.
+  description: ''
+  syntax: >-
+    az dms project show --name
+                        --resource-group
+                        --service-name
+                        [--query-examples]
+                        [--subscription]
+  examples:
+  - summary: Hiermit werden die Details eines Migrationsprojekts angezeigt. automatisch generierten
+    syntax: az dms project show --name MyProject --resource-group MyResourceGroup --service-name MyService
+  requiredParameters:
+  - isRequired: true
+    name: --name -n
+    summary: Der Name des Projekts.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - isRequired: true
+    name: --service-name
+    summary: Der Name des Dienstanbieter.
+    description: ''
+  optionalParameters:
+  - name: --query-examples
+    summary: Empfehlen Sie die jmespath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und Sie nach dem Abfrage Parameter in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positions Schlüsselwörter hinzufügen, um Vorschläge auf der Grundlage dieser Schlüsselwörter zu geben.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/dms/_help.py
+commands:
+- az_dms_project_check_name
+- az_dms_project_create
+- az_dms_project_delete
+- az_dms_project_list
+- az_dms_project_show
+- az_dms_project_task
+- az_dms_project_task_cancel
+- az_dms_project_task_check_name
+- az_dms_project_task_create
+- az_dms_project_task_cutover
+- az_dms_project_task_delete
+- az_dms_project_task_list
+- az_dms_project_task_show
+globalParameters:
+- name: --debug
+  summary: Ausführlichkeit der Protokollierung erhöhen, um alle Debugprotokolle anzuzeigen.
+- name: --help -h
+  summary: Zeigen Sie diese Hilfemeldung an, und schließen Sie sie.
+- name: --only-show-errors
+  summary: Nur Fehler anzeigen und Warnungen unterdrücken.
+- name: --output -o
+  defaultValue: json
+  parameterValueGroup: json, jsonc, table, tsv
+  summary: Ausgabeformat.
+- name: --query
+  summary: JMESPath-Abfragezeichenfolge. Weitere Informationen und Beispiele finden Sie unter <a href="http://jmespath.org/">http://jmespath.org/</a>.
+- name: --verbose
+  summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
+metadata:
+  doc_source_url_repo: https://github.com/Azure/azure-cli/blob/dev/
+  ms.date: 01/15/2021
+  description: Verwalten von Projekten für eine Instanz des Daten Migrations Dienstanbieter.
+  ms.openlocfilehash: 76d5c213470f0f49e94ab1e45561b23ab5754249
+  ms.sourcegitcommit: 59f08c5a7a967fa68adb9eefbf5beb92acda9e08
+  ms.translationtype: MT
+  ms.contentlocale: de-DE
+  ms.lasthandoff: 01/19/2021
+  ms.locfileid: "102901089"
