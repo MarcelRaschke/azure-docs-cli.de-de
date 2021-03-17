@@ -1,0 +1,377 @@
+### YamlMime:AzureCLIGroup
+uid: az_monitor_metrics_alert
+name: az monitor metrics alert
+summary: Verwalten Sie metrikwarnungs Regeln nahezu in Echtzeit.
+description: ''
+directCommands:
+- uid: az_monitor_metrics_alert_create
+  name: az monitor metrics alert create
+  summary: Erstellen Sie eine metrikbasierte Warnungs Regel.
+  description: ''
+  syntax: >-
+    az monitor metrics alert create --condition
+                                    --name
+                                    --resource-group
+                                    --scopes
+                                    [--action]
+                                    [--auto-mitigate {false, true}]
+                                    [--description]
+                                    [--disabled {false, true}]
+                                    [--evaluation-frequency]
+                                    [--region]
+                                    [--severity]
+                                    [--subscription]
+                                    [--tags]
+                                    [--target-resource-type]
+                                    [--window-size]
+  examples:
+  - summary: Erstellen Sie eine Warnung zu hoher CPU-Auslastung auf einem virtuellen Computer ohne Aktion.
+    syntax: az monitor metrics alert create -n alert1 -g {ResourceGroup} --scopes {VirtualMachineID} --condition "avg Percentage CPU > 90" --description "High CPU"
+  - summary: Erstellen Sie eine Warnung zu hoher CPU-Auslastung auf einem virtuellen Computer mit e-Mail-und webhook-Aktionen.
+    syntax: >-
+      az monitor metrics alert create -n alert1 -g {ResourceGroup} --scopes {VirtualMachineID} \
+          --condition "avg Percentage CPU > 90" --window-size 5m --evaluation-frequency 1m \
+          --action "/subscriptions/<subscriptionId>/resourceGroups/<resourceGroupName>/providers/Microsoft.Insights/actionGroups/<actionGroupName>" apiKey={APIKey} type=HighCPU \
+          --description "High CPU"
+  - summary: Erstellen Sie eine Warnung, wenn ein Speicherkonto unter Verwendung mehrdimensionaler Filter eine große Anzahl langsamer Transaktionen anzeigt.
+    syntax: >-
+      az monitor metrics alert create -g {ResourceGroup} -n alert1 --scopes {StorageAccountId} \
+          --description "Storage Slow Transactions" \
+          --condition "total transactions > 5 where ResponseType includes Success" \
+          --condition "avg SuccessE2ELatency > 250 where ApiName includes GetBlob"
+  - summary: Erstellen Sie eine metrikbasierte Warnungs Regel, die eine benutzerdefinierte Metrik überwacht.
+    syntax: >-
+      az monitor metrics alert create -n "metric alert rule on a custom metric" -g "Demos" --scopes {VirtualMachineID} \
+          --condition "max Azure.VM.Windows.GuestMetrics.Memory\Available Bytes > 90" \
+          --window-size 5m --evaluation-frequency 1m
+  - summary: Erstellen Sie eine Warnung zu hoher CPU-Auslastung auf mehreren virtuellen Computern ohne Aktionen.
+    syntax: >-
+      az monitor metrics alert create -n alert1 -g {ResourceGroup} --scopes {VirtualMachineID1} {VirtualMachineID2} {VirtualMachineID3} \
+          --condition "avg Percentage CPU > 90" --description "High CPU" --region westus
+  - summary: Erstellen Sie eine Warnung zur dynamischen CPU-Auslastung auf mehreren virtuellen Computern ohne Aktionen.
+    syntax: >-
+      az monitor metrics alert create -n alert1 -g {ResourceGroup} --scopes {VirtualMachineID1} {VirtualMachineID2} {VirtualMachineID3} \
+          --condition "avg Percentage CPU > dynamic medium 2 of 4 since 2020-10-01T10:23:00.000Z"
+          --description "Dynamic CPU"
+          --window-size 5m
+          --region westus
+  requiredParameters:
+  - isRequired: true
+    name: --condition
+    summary: Die Bedingung, die die Regel auslöst. Sie kann mit dem Befehl "AZ Monitor Metrics Alert Condition Create" erstellt werden.
+    description: >-
+      Syntax:--Condition {AVG, min, Max, Total, count} [Namespace] Metrik [{=,! =, >, >=, <, <=} Schwellenwert] [{<, >, ><} dynamische Vertraulichkeits Verletzungen von Auswertungen [seit DateTime]] [WHERE Dimension {includes, ausgenommen} Wert [oder value...] [und Dimension {includes, schließt} Wert [oder Wert...]...]] ein.
+
+
+      Sensitivität kann "Low", "Medium", "High" lauten.
+
+
+      Verstöße können die Anzahl von Verstößen sein, um eine Warnung auslöst. Er sollte kleiner oder gleich der Auswertung sein.
+
+
+      Auswertungen können die Anzahl der Bewertungs Zeiträume für den dynamischen Schwellenwert sein.
+
+
+      DateTime kann das Datum sein, an dem mit dem Erlernen der metriververlaufs Daten begonnen und die dynamischen Schwellenwerte (im ISO8601-Format) berechnet werden.
+
+
+      Dimensionen können abgefragt werden, indem das Schlüsselwort ' WHERE ' hinzugefügt wird, und mehrere Dimensionen können abgefragt werden, indem Sie mit dem Schlüsselwort ' and ' kombiniert werden.
+
+
+      Werte für Metriken, Dimensionen und geeignete Schwellenwerte können vom Befehl abgerufen werden `az monitor metrics list-definitions` .
+
+
+      Wenn eine Warnungs Regel mehrere Kriterien enthält, ist die Verwendung von Dimensionen aufgrund der Server Einschränkung auf einen Wert pro Dimension innerhalb der einzelnen Kriterien beschränkt.
+
+
+      Mehrere Bedingungen können mit mehr als einem Argument angegeben werden `--condition` .
+  - isRequired: true
+    name: --name -n
+    summary: Der Name der Warnungsregel.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - isRequired: true
+    name: --scopes
+    summary: Durch Leerzeichen getrennte Liste der Bereiche, für die die Regel gilt. Die in diesem Parameter angegebenen Ressourcen müssen denselben Typ aufweisen und am gleichen Speicherort vorhanden sein.
+    description: ''
+  optionalParameters:
+  - name: --action -a
+    summary: Fügen Sie eine Aktionsgruppe und optionale webhook-Eigenschaften hinzu, die ausgelöst werden, wenn die Warnung ausgelöst wird.
+    description: >-
+      Syntax:--Action ACTION_GROUP_NAME_OR_ID [key = Val [key = Val...]]
+
+
+      Mehrere Aktionsgruppen können mit mehr als einem Argument angegeben werden `--action` .
+  - name: --auto-mitigate
+    parameterValueGroup: false, true
+    summary: Die Warnung automatisch auflösen.
+    description: ''
+  - name: --description
+    summary: Frei Textbeschreibung der Regel.
+    description: ''
+  - name: --disabled
+    parameterValueGroup: false, true
+    summary: Erstellen Sie die Regel in einem deaktivierten Zustand.
+    description: ''
+  - name: --evaluation-frequency
+    defaultValue: 1m
+    summary: 'Häufigkeit, mit der die Regel im Format "# #h # #m # #s" ausgewertet wird.'
+    description: ''
+  - name: --region --target-resource-region
+    summary: Der Bereich der Ziel Ressource (n) in Bereichen. Diese Angabe muss angegeben werden, wenn Bereiche eine Ressourcengruppe oder ein Abonnement sind.
+    description: ''
+  - name: --severity
+    defaultValue: "2"
+    summary: Schweregrad der Warnung von 0 (kritisch) bis 4 (ausführlich).
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  - name: --tags
+    summary: 'Durch Leerzeichen getrennte Tags: Key [= value] [key [= value]...]. Verwenden Sie "", um vorhandene Tags zu löschen.'
+    description: ''
+  - name: --target-resource-type --type
+    summary: Der Ressourcentyp der Ziel Ressource (n) in Bereichen. Diese Angabe muss angegeben werden, wenn Bereiche eine Ressourcengruppe oder ein Abonnement sind.
+    description: ''
+  - name: --window-size
+    defaultValue: 5m
+    summary: 'Zeitpunkt, zu dem Metriken im "# #h # #m # #s"-Format aggregiert werden.'
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/monitor/_help.py
+- uid: az_monitor_metrics_alert_delete
+  name: az monitor metrics alert delete
+  summary: Löschen Sie eine metrikbasierte Warnungs Regel.
+  description: ''
+  syntax: >-
+    az monitor metrics alert delete [--ids]
+                                    [--name]
+                                    [--resource-group]
+                                    [--subscription]
+  examples:
+  - summary: Löschen Sie eine metrikbasierte Warnungs Regel. automatisch generierten
+    syntax: az monitor metrics alert delete --name MyAlertRule --resource-group MyResourceGroup
+  optionalParameters:
+  - name: --ids
+    summary: Mindestens eine Ressourcen-ID (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID handeln, die alle Informationen von Ressourcen-ID-Argumenten enthält. Sie sollten entweder--IDs oder andere Ressourcen-ID-Argumente angeben.
+    description: ''
+  - name: --name -n
+    summary: Der Name der Warnungsregel.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/monitor/_help.py
+- uid: az_monitor_metrics_alert_list
+  name: az monitor metrics alert list
+  summary: Auflisten von metrikbasierten Warnungs Regeln.
+  description: ''
+  syntax: >-
+    az monitor metrics alert list [--query-examples]
+                                  [--resource-group]
+                                  [--subscription]
+  examples:
+  - summary: Auflisten von metrikbasierten Warnungs Regeln. automatisch generierten
+    syntax: az monitor metrics alert list --resource-group MyResourceGroup
+  optionalParameters:
+  - name: --query-examples
+    summary: Empfehlen Sie die jmespath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und Sie nach dem Abfrage Parameter in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positions Schlüsselwörter hinzufügen, um Vorschläge auf der Grundlage dieser Schlüsselwörter zu geben.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/monitor/_help.py
+- uid: az_monitor_metrics_alert_show
+  name: az monitor metrics alert show
+  summary: Hiermit wird eine metrikbasierte Warnungs Regel angezeigt.
+  description: ''
+  syntax: >-
+    az monitor metrics alert show [--ids]
+                                  [--name]
+                                  [--query-examples]
+                                  [--resource-group]
+                                  [--subscription]
+  examples:
+  - summary: Hiermit wird eine metrikbasierte Warnungs Regel angezeigt. automatisch generierten
+    syntax: az monitor metrics alert show --name MyAlertRule --resource-group MyResourceGroup
+  optionalParameters:
+  - name: --ids
+    summary: Mindestens eine Ressourcen-ID (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID handeln, die alle Informationen von Ressourcen-ID-Argumenten enthält. Sie sollten entweder--IDs oder andere Ressourcen-ID-Argumente angeben.
+    description: ''
+  - name: --name -n
+    summary: Der Name der Warnungsregel.
+    description: ''
+  - name: --query-examples
+    summary: Empfehlen Sie die jmespath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und Sie nach dem Abfrage Parameter in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positions Schlüsselwörter hinzufügen, um Vorschläge auf der Grundlage dieser Schlüsselwörter zu geben.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/monitor/_help.py
+- uid: az_monitor_metrics_alert_update
+  name: az monitor metrics alert update
+  summary: Aktualisieren einer metrikbasierten Warnungs Regel.
+  description: ''
+  syntax: >-
+    az monitor metrics alert update [--add]
+                                    [--add-action]
+                                    [--add-condition]
+                                    [--auto-mitigate {false, true}]
+                                    [--description]
+                                    [--enabled {false, true}]
+                                    [--evaluation-frequency]
+                                    [--force-string]
+                                    [--ids]
+                                    [--name]
+                                    [--remove]
+                                    [--remove-actions]
+                                    [--remove-conditions]
+                                    [--resource-group]
+                                    [--scopes]
+                                    [--set]
+                                    [--severity]
+                                    [--subscription]
+                                    [--tags]
+                                    [--window-size]
+  examples:
+  - summary: Deaktivieren/Aktivieren einer metrikbasierten Warnungs Regel.
+    syntax: az monitor metrics alert update --enabled false --name MyAlertRule --resource-group MyResourceGroup
+  optionalParameters:
+  - name: --add
+    summary: Fügen Sie einer Liste von-Objekten ein Objekt hinzu, indem Sie ein Pfad-und Schlüssel-Wert-Paar angeben.  Beispiel:--Add Property. ListProperty <Key = Value, String oder JSON String>.
+    description: ''
+  - name: --add-action
+    summary: Fügen Sie eine Aktionsgruppe und optionale webhook-Eigenschaften hinzu, die ausgelöst werden, wenn die Warnung ausgelöst wird.
+    description: >-
+      Syntax:--Add-Action ACTION_GROUP_NAME_OR_ID [key = Val [key = Val...]]
+
+
+      Mehrere Aktionsgruppen können mit mehr als einem Argument angegeben werden `--action` .
+  - name: --add-condition
+    summary: Fügen Sie eine Bedingung hinzu, die die Regel auslöst.
+    description: >-
+      Syntax:--Add-Condition {AVG, min, Max, Total, count} [Namespace] Metrik [{=,! =, >, >=, <, <=} Schwellenwert] [{<, >, ><} dynamische Vertraulichkeits Verletzungen von Auswertungen [seit DateTime]] [WHERE Dimension {includes, ausgenommen} Wert [oder value...] [und Dimension {includes, schließt} Wert [oder Wert...]...]] ein.
+
+
+      Sensitivität kann "Low", "Medium", "High" lauten.
+
+
+      Verstöße können die Anzahl von Verstößen sein, um eine Warnung auslöst. Er sollte kleiner oder gleich der Auswertung sein.
+
+
+      Auswertungen können die Anzahl der Bewertungs Zeiträume für den dynamischen Schwellenwert sein.
+
+
+      DateTime kann das Datum sein, an dem mit dem Erlernen der metriververlaufs Daten begonnen und die dynamischen Schwellenwerte (im ISO8601-Format) berechnet werden.
+
+
+      Dimensionen können abgefragt werden, indem das Schlüsselwort ' WHERE ' hinzugefügt wird, und mehrere Dimensionen können abgefragt werden, indem Sie mit dem Schlüsselwort ' and ' kombiniert werden.
+
+
+      Werte für Metriken, Dimensionen und geeignete Schwellenwerte können vom Befehl abgerufen werden `az monitor metrics list-definitions` .
+
+
+      Wenn eine Warnungs Regel mehrere Kriterien enthält, ist die Verwendung von Dimensionen aufgrund der Server Einschränkung auf einen Wert pro Dimension innerhalb der einzelnen Kriterien beschränkt.
+
+
+      Mehrere Bedingungen können mit mehr als einem Argument angegeben werden `--condition` .
+  - name: --auto-mitigate
+    parameterValueGroup: false, true
+    summary: Die Warnung automatisch auflösen.
+    description: ''
+  - name: --description
+    summary: Frei Textbeschreibung der Regel.
+    description: ''
+  - name: --enabled
+    parameterValueGroup: false, true
+    summary: Gibt an, ob die metrikwarnregel aktiviert ist.
+    description: ''
+  - name: --evaluation-frequency
+    summary: 'Häufigkeit, mit der die Regel im Format "# #h # #m # #s" ausgewertet wird.'
+    description: ''
+  - name: --force-string
+    summary: Wenn Sie "Set" oder "Add" verwenden, erhalten Sie Zeichen folgen Literale, anstatt zu versuchen, in JSON zu konvertieren.
+    description: ''
+  - name: --ids
+    summary: Mindestens eine Ressourcen-ID (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID handeln, die alle Informationen von Ressourcen-ID-Argumenten enthält. Sie sollten entweder--IDs oder andere Ressourcen-ID-Argumente angeben.
+    description: ''
+  - name: --name -n
+    summary: Der Name der Warnungsregel.
+    description: ''
+  - name: --remove
+    summary: Entfernt eine Eigenschaft oder ein Element aus einer Liste.  Beispiel:--Remove Property. List <indexToRemove> oder--Remove propertytoremove.
+    description: ''
+  - name: --remove-actions
+    summary: Durch Leerzeichen getrennte Liste der zu entfernenden Aktionsgruppen Namen.
+    description: ''
+  - name: --remove-conditions
+    summary: Durch Leerzeichen getrennte Liste von Bedingungs Namen, die entfernt werden sollen.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --scopes
+    summary: Durch Leerzeichen getrennte Liste der Bereiche, für die die Regel gilt. Die in diesem Parameter angegebenen Ressourcen müssen denselben Typ aufweisen und am gleichen Speicherort vorhanden sein.
+    description: ''
+  - name: --set
+    summary: Aktualisieren Sie ein Objekt, indem Sie einen Eigenschafts Pfad und einen festzulegenden Wert angeben.  Beispiel:--Set Eigenschaft1. Eigenschaft2 =<value>.
+    description: ''
+  - name: --severity
+    summary: Schweregrad der Warnung von 0 (kritisch) bis 4 (ausführlich).
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  - name: --tags
+    summary: 'Durch Leerzeichen getrennte Tags: Key [= value] [key [= value]...]. Verwenden Sie "", um vorhandene Tags zu löschen.'
+    description: ''
+  - name: --window-size
+    summary: 'Zeitpunkt, zu dem Metriken im "# #h # #m # #s"-Format aggregiert werden.'
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/monitor/_help.py
+commands:
+- az_monitor_metrics_alert_condition
+- az_monitor_metrics_alert_condition_create
+- az_monitor_metrics_alert_create
+- az_monitor_metrics_alert_delete
+- az_monitor_metrics_alert_dimension
+- az_monitor_metrics_alert_dimension_create
+- az_monitor_metrics_alert_list
+- az_monitor_metrics_alert_show
+- az_monitor_metrics_alert_update
+globalParameters:
+- name: --debug
+  summary: Ausführlichkeit der Protokollierung erhöhen, um alle Debugprotokolle anzuzeigen.
+- name: --help -h
+  summary: Zeigen Sie diese Hilfemeldung an, und schließen Sie sie.
+- name: --only-show-errors
+  summary: Nur Fehler anzeigen und Warnungen unterdrücken.
+- name: --output -o
+  defaultValue: json
+  parameterValueGroup: json, jsonc, table, tsv
+  summary: Ausgabeformat.
+- name: --query
+  summary: JMESPath-Abfragezeichenfolge. Weitere Informationen und Beispiele finden Sie unter <a href="http://jmespath.org/">http://jmespath.org/</a>.
+- name: --verbose
+  summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
+metadata:
+  doc_source_url_repo: https://github.com/Azure/azure-cli/blob/dev/
+  ms.date: 02/03/2021
+  description: Verwalten Sie metrikwarnungs Regeln nahezu in Echtzeit.
+  ms.openlocfilehash: 47e5cb9679621678c681e008df33236f5cb9d03c
+  ms.sourcegitcommit: df9d6597535ef9103775afbaee5a8282e0e218ee
+  ms.translationtype: MT
+  ms.contentlocale: de-DE
+  ms.lasthandoff: 02/09/2021
+  ms.locfileid: "102907726"
