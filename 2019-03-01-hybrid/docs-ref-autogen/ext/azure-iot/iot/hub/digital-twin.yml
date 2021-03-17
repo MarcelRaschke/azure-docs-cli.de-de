@@ -1,0 +1,159 @@
+### YamlMime:AzureCLIGroup
+uid: ext_azure-iot_az_iot_hub_digital_twin
+name: az iot hub digital-twin
+extensionInformation: >-
+  > [!Note]
+
+  > Diese Referenz ist Teil der **Azure-IOT-** Erweiterung für Azure CLI und erfordert Version 2.0.70 oder höher.  Die Erweiterung wird automatisch installiert, wenn Sie den Befehl **AZ IOT Hub Digital-Twin** zum ersten Mal ausführen.  [Weitere Informationen zu Erweiterungen](https://docs.microsoft.com/en-us/cli/azure/azure-cli-extensions-overview)
+summary: Bearbeiten und interagieren Sie mit dem digitalen Zwilling eines IOT Hub Geräts.
+description: ''
+directCommands:
+- uid: ext_azure-iot_az_iot_hub_digital_twin_invoke_command
+  name: az iot hub digital-twin invoke-command
+  summary: Aufrufen eines Befehls auf Stamm-oder Komponentenebene eines Digital Zwillings Geräts.
+  description: ''
+  syntax: >-
+    az iot hub digital-twin invoke-command --cn
+                                           --device-id
+                                           [--component-path]
+                                           [--connect-timeout]
+                                           [--hub-name]
+                                           [--login]
+                                           [--payload]
+                                           [--resource-group]
+                                           [--response-timeout]
+  examples:
+  - summary: Rufen Sie den Befehl "Neustart" auf der Stamm Ebene auf, der eine Nutzlast mit der Eigenschaft "Delay" annimmt.
+    syntax: az iot hub digital-twin invoke-command --command-name reboot -n {iothub_name} -d {device_id} --payload '{"delay":5}'
+  - summary: Rufen Sie den Befehl "getmaxminreport" in der Komponente "thermostat1" auf, der keine Eingabe annimmt.
+    syntax: az iot hub digital-twin invoke-command --cn getMaxMinReport -n {iothub_name} -d {device_id} --component-path thermostat1
+  requiredParameters:
+  - isRequired: true
+    name: --cn --command-name
+    summary: Der Name des digitalen Zwillings Befehls.
+    description: ''
+  - isRequired: true
+    name: --device-id -d
+    summary: Zielgerät
+    description: ''
+  optionalParameters:
+  - name: --component-path
+    summary: 'Komponentenpfad für digitale Zwillinge. Beispiel: thermostat1.'
+    description: ''
+  - name: --connect-timeout --cto
+    summary: Maximales Zeitintervall (in Sekunden), das IOT Hub versucht, eine Verbindung mit dem Gerät herzustellen.
+    description: ''
+  - name: --hub-name -n
+    summary: IOT Hub Name.
+    description: ''
+  - name: --login -l
+    summary: Dieser Befehl unterstützt eine Entitäts Verbindungs Zeichenfolge mit rechten zum Ausführen von Aktionen. Verwenden Sie, um die Sitzungs Anmeldung über "AZ Login" zu vermeiden. Wenn sowohl eine Entitäts Verbindungs Zeichenfolge als auch ein Name angegeben wird, hat die Verbindungs Zeichenfolge Priorität
+    description: ''
+  - name: --payload
+    defaultValue: '{}'
+    summary: JSON-Nutz Last Eingabe für den Befehl. Geben Sie einen Dateipfad oder eine Inline-JSON
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --response-timeout --rto
+    summary: Maximales Zeitintervall (in Sekunden), in dem der Befehl für den digitalen Zwilling auf das Ergebnis wartet.
+    description: ''
+- uid: ext_azure-iot_az_iot_hub_digital_twin_show
+  name: az iot hub digital-twin show
+  summary: Zeigen Sie den digitalen Zwilling eines IOT Hub Geräts an.
+  description: ''
+  syntax: >-
+    az iot hub digital-twin show --device-id
+                                 [--hub-name]
+                                 [--login]
+                                 [--resource-group]
+  examples:
+  - summary: Zeigen Sie den digitalen Zwilling für das Zielgerät an.
+    syntax: az iot hub digital-twin show -n {iothub_name} -d {device_id}
+  requiredParameters:
+  - isRequired: true
+    name: --device-id -d
+    summary: Zielgerät
+    description: ''
+  optionalParameters:
+  - name: --hub-name -n
+    summary: IOT Hub Name.
+    description: ''
+  - name: --login -l
+    summary: Dieser Befehl unterstützt eine Entitäts Verbindungs Zeichenfolge mit rechten zum Ausführen von Aktionen. Verwenden Sie, um die Sitzungs Anmeldung über "AZ Login" zu vermeiden. Wenn sowohl eine Entitäts Verbindungs Zeichenfolge als auch ein Name angegeben wird, hat die Verbindungs Zeichenfolge Priorität
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+- uid: ext_azure-iot_az_iot_hub_digital_twin_update
+  name: az iot hub digital-twin update
+  summary: Aktualisieren Sie die Lese-/Schreibeigenschaften eines digital Twin-Geräts über die JSON-patchspezifikation.
+  description: Zurzeit sind Vorgänge beschränkt auf Hinzufügen, ersetzen und entfernen.
+  syntax: >-
+    az iot hub digital-twin update --device-id
+                                   --json-patch
+                                   [--etag]
+                                   [--hub-name]
+                                   [--login]
+                                   [--resource-group]
+  examples:
+  - summary: Aktualisieren Sie einen Digital Zwilling über JSON Patch Specification.
+    syntax: "az iot hub digital-twin update --hub-name {iothub_name} --device-id {device_id} --json-patch '{\"op\":\"add\", \"path\":\"/thermostat1/targetTemperature\", \"value\": 54}'"
+  - summary: Aktualisieren Sie einen Digital Zwilling über JSON Patch Specification.
+    syntax: >-
+      az iot hub digital-twin update -n {iothub_name} -d {device_id} --json-patch '[
+        {"op":"remove", "path":"/thermostat1/targetTemperature"},
+        {"op":"add", "path":"/thermostat2/targetTemperature", "value": 22}
+      ]'
+  - summary: Aktualisieren Sie eine Eigenschaft für einen digitalen Zwilling mithilfe der in einer Datei definierten JSON-patchspezifikation.
+    syntax: az iot hub digital-twin update -n {iothub_name} -d {device_id} --json-patch ./my/patch/document.json
+  requiredParameters:
+  - isRequired: true
+    name: --device-id -d
+    summary: Zielgerät
+    description: ''
+  - isRequired: true
+    name: --json-patch --patch
+    summary: Eine Update Spezifikation, die von JSON-Patch beschrieben wird. Vorgänge können nur hinzugefügt, ersetzt und entfernt werden. Geben Sie einen Dateipfad oder eine Inline-JSON
+    description: ''
+  optionalParameters:
+  - name: --etag -e
+    summary: ETag oder Entitätstag, das dem letzten Zustand der Ressource entspricht. Wenn kein ETag angegeben wird, wird der Wert " \* " verwendet.
+    description: ''
+  - name: --hub-name -n
+    summary: IOT Hub Name.
+    description: ''
+  - name: --login -l
+    summary: Dieser Befehl unterstützt eine Entitäts Verbindungs Zeichenfolge mit rechten zum Ausführen von Aktionen. Verwenden Sie, um die Sitzungs Anmeldung über "AZ Login" zu vermeiden. Wenn sowohl eine Entitäts Verbindungs Zeichenfolge als auch ein Name angegeben wird, hat die Verbindungs Zeichenfolge Priorität
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+commands:
+- ext_azure-iot_az_iot_hub_digital_twin_invoke_command
+- ext_azure-iot_az_iot_hub_digital_twin_show
+- ext_azure-iot_az_iot_hub_digital_twin_update
+globalParameters:
+- name: --debug
+  summary: Ausführlichkeit der Protokollierung erhöhen, um alle Debugprotokolle anzuzeigen.
+- name: --help -h
+  summary: Zeigen Sie diese Hilfemeldung an, und schließen Sie sie.
+- name: --only-show-errors
+  summary: Nur Fehler anzeigen und Warnungen unterdrücken.
+- name: --output -o
+  defaultValue: json
+  parameterValueGroup: json, jsonc, table, tsv
+  summary: Ausgabeformat.
+- name: --query
+  summary: JMESPath-Abfragezeichenfolge. Weitere Informationen und Beispiele finden Sie unter <a href="http://jmespath.org/">http://jmespath.org/</a>.
+- name: --verbose
+  summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
+metadata:
+  description: Bearbeiten und interagieren Sie mit dem digitalen Zwilling eines IOT Hub Geräts.
+  ms.openlocfilehash: 271ac7be6d4027eb663671e9c55a598d5b638a99
+  ms.sourcegitcommit: 206495efe9707e52f6a3dc121133f26651f23f59
+  ms.translationtype: MT
+  ms.contentlocale: de-DE
+  ms.lasthandoff: 12/30/2020
+  ms.locfileid: "102895293"
