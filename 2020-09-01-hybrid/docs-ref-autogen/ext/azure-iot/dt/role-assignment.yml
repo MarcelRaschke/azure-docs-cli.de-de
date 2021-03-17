@@ -1,0 +1,137 @@
+### YamlMime:AzureCLIGroup
+uid: ext_azure-iot_az_dt_role_assignment
+name: az dt role-assignment
+extensionInformation: >-
+  > [!Note]
+
+  > Diese Referenz ist Teil der **Azure-IOT-** Erweiterung für Azure CLI und erfordert Version 2.0.70 oder höher.  Die Erweiterung wird automatisch installiert, wenn Sie den Befehl **AZ dt Role-Zuweisungs** zum ersten Mal ausführen.  [Weitere Informationen zu Erweiterungen](https://docs.microsoft.com/en-us/cli/azure/azure-cli-extensions-overview)
+summary: Verwalten von RBAC-Rollenzuweisungen für eine Instanz von digitalen Zwillingen.
+description: >-
+  Beachten Sie, dass der angemeldete Prinzipal zum Ausführen von Rollenzuweisungen Berechtigungen wie Besitzer oder Benutzer Zugriffs Administrator im zugewiesenen Bereich benötigt.
+
+
+  Diese Befehlsgruppe wird zur einfacheren Bereitstellung bereitgestellt. Verwenden Sie für komplexere Rollen Zuweisungs Szenarios die Befehlsgruppe "AZ Role Zuweisung".
+directCommands:
+- uid: ext_azure-iot_az_dt_role_assignment_create
+  name: az dt role-assignment create
+  summary: Zuweisen eines Benutzers, einer Gruppe oder eines Dienst Prinzipals zu einer Rolle für eine Instanz eines digitalen Zwillingen.
+  description: Beachten Sie, dass der angemeldete Prinzipal zum Ausführen von Rollenzuweisungen Berechtigungen wie Besitzer oder Benutzer Zugriffs Administrator im zugewiesenen Bereich benötigt.
+  syntax: >-
+    az dt role-assignment create --assignee
+                                 --dt-name
+                                 --role
+                                 [--resource-group]
+  examples:
+  - summary: Weisen Sie einen Benutzer (per e-Mail) der integrierten Rolle "digitaler Zwillinge-Besitzer" für eine Ziel Instanz zu.
+    syntax: az dt role-assignment create -n {instance_name} --assignee "owneruser@microsoft.com" --role "Azure Digital Twins Data Owner"
+  - summary: Weisen Sie einen Benutzer (anhand der Objekt-ID) der integrierten Rolle "digitaler Zwillinge-Leser" für eine Ziel Instanz zu.
+    syntax: az dt role-assignment create -n {instance_name} --assignee "97a89267-0966-4054-a156-b7d86ef8e216" --role "Azure Digital Twins Data Reader"
+  - summary: Zuweisen eines Dienst Prinzipals zu einer benutzerdefinierten Rolle für eine Ziel Instanz
+    syntax: az dt role-assignment create -n {instance_name} --assignee {service_principal_name_or_id} --role {role_name_or_id}
+  requiredParameters:
+  - isRequired: true
+    name: --assignee
+    summary: 'Stellt einen Benutzer, eine Gruppe oder einen Dienst Prinzipal dar. unterstütztes Format: Objekt-ID, Benutzer Anmelde Name oder Dienst Prinzipal Name.'
+    description: ''
+  - isRequired: true
+    name: --dt-name --dtn -n
+    summary: Der Instanzname der digitalen Zwillinge.
+    description: ''
+  - isRequired: true
+    name: --role
+    summary: Rollenname oder ID.
+    description: ''
+  optionalParameters:
+  - name: --resource-group -g
+    summary: Instanzen Ressourcengruppe für digitale Zwillinge. Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+- uid: ext_azure-iot_az_dt_role_assignment_delete
+  name: az dt role-assignment delete
+  summary: Entfernen Sie eine Benutzer-, Gruppen-oder Dienst Prinzipal Rollenzuweisung aus einer Instanz einer digitalen Zwillinge.
+  description: Beachten Sie, dass der angemeldete Prinzipal zum Ausführen von Rollenzuweisungen Berechtigungen wie Besitzer oder Benutzer Zugriffs Administrator im zugewiesenen Bereich benötigt.
+  syntax: >-
+    az dt role-assignment delete --dt-name
+                                 [--assignee]
+                                 [--resource-group]
+                                 [--role]
+  examples:
+  - summary: Entfernt einen Benutzer aus einer bestimmten Rollenzuweisung einer digitalen Zwillinge-Instanz.
+    syntax: az dt role-assignment delete -n {instance_name} --assignee "removeuser@microsoft.com" --role "Azure Digital Twins Data Reader"
+  - summary: Entfernt einen Benutzer aus allen zugewiesenen Rollen einer digitalen Zwillinge-Instanz.
+    syntax: az dt role-assignment delete -n {instance_name} --assignee "removeuser@microsoft.com"
+  requiredParameters:
+  - isRequired: true
+    name: --dt-name --dtn -n
+    summary: Der Instanzname der digitalen Zwillinge.
+    description: ''
+  optionalParameters:
+  - name: --assignee
+    summary: 'Stellt einen Benutzer, eine Gruppe oder einen Dienst Prinzipal dar. unterstütztes Format: Objekt-ID, Benutzer Anmelde Name oder Dienst Prinzipal Name.'
+    description: ''
+  - name: --resource-group -g
+    summary: Instanzen Ressourcengruppe für digitale Zwillinge. Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --role
+    summary: Rollenname oder ID.
+    description: ''
+- uid: ext_azure-iot_az_dt_role_assignment_list
+  name: az dt role-assignment list
+  summary: Listet die vorhandenen Rollenzuweisungen einer digitalen Zwillinge-Instanz auf.
+  description: ''
+  syntax: >-
+    az dt role-assignment list --dt-name
+                               [--include-inherited {false, true}]
+                               [--resource-group]
+                               [--role]
+  examples:
+  - summary: Auflisten der Rollenzuweisungen auf einer Ziel Instanz.
+    syntax: az dt role-assignment list -n {instance_name}
+  - summary: Auflisten der Rollenzuweisungen für eine Ziel Instanz und Filtern nach Rolle.
+    syntax: az dt role-assignment list -n {instance_name} --role {role_name_or_id}
+  requiredParameters:
+  - isRequired: true
+    name: --dt-name --dtn -n
+    summary: Der Instanzname der digitalen Zwillinge.
+    description: ''
+  optionalParameters:
+  - name: --include-inherited
+    parameterValueGroup: false, true
+    summary: Einschließen von Zuweisungen, die auf übergeordnete Bereiche angewendet werden.
+    description: ''
+  - name: --resource-group -g
+    summary: Instanzen Ressourcengruppe für digitale Zwillinge. Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --role
+    summary: Rollenname oder ID.
+    description: ''
+commands:
+- ext_azure-iot_az_dt_role_assignment_create
+- ext_azure-iot_az_dt_role_assignment_delete
+- ext_azure-iot_az_dt_role_assignment_list
+globalParameters:
+- name: --debug
+  summary: Ausführlichkeit der Protokollierung erhöhen, um alle Debugprotokolle anzuzeigen.
+- name: --help -h
+  summary: Zeigen Sie diese Hilfemeldung an, und schließen Sie sie.
+- name: --only-show-errors
+  summary: Nur Fehler anzeigen und Warnungen unterdrücken.
+- name: --output -o
+  defaultValue: json
+  parameterValueGroup: json, jsonc, table, tsv
+  summary: Ausgabeformat.
+- name: --query
+  summary: JMESPath-Abfragezeichenfolge. Weitere Informationen und Beispiele finden Sie unter <a href="http://jmespath.org/">http://jmespath.org/</a>.
+- name: --verbose
+  summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
+metadata:
+  description: >-
+    Beachten Sie, dass der angemeldete Prinzipal zum Ausführen von Rollenzuweisungen Berechtigungen wie Besitzer oder Benutzer Zugriffs Administrator im zugewiesenen Bereich benötigt.
+
+
+    Diese Befehlsgruppe wird zur einfacheren Bereitstellung bereitgestellt. Verwenden Sie für komplexere Rollen Zuweisungs Szenarios die Befehlsgruppe "AZ Role Zuweisung".
+  ms.openlocfilehash: 1bc97bf327ce3cfce1424fe46348abca090970ea
+  ms.sourcegitcommit: e1faf297ba2cdf2ba7e821fbeedff9c9a724c975
+  ms.translationtype: MT
+  ms.contentlocale: de-DE
+  ms.lasthandoff: 12/16/2020
+  ms.locfileid: "102822147"

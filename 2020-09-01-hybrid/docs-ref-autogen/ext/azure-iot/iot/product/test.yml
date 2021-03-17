@@ -1,0 +1,222 @@
+### YamlMime:AzureCLIGroup
+uid: ext_azure-iot_az_iot_product_test
+name: az iot product test
+extensionInformation: >-
+  > [!Note]
+
+  > Diese Referenz ist Teil der **Azure-IOT-** Erweiterung für Azure CLI und erfordert Version 2.0.70 oder höher.  Die Erweiterung wird automatisch installiert, wenn Sie den Befehl **AZ IOT Product Test** zum ersten Mal ausführen.  [Weitere Informationen zu Erweiterungen](https://docs.microsoft.com/en-us/cli/azure/azure-cli-extensions-overview)
+summary: Verwalten von Gerätetests für die Produktzertifizierung.
+description: ''
+directCommands:
+- uid: ext_azure-iot_az_iot_product_test_create
+  name: az iot product test create
+  summary: Erstellen Sie einen neuen Produkttest für die Produktzertifizierung.
+  description: ''
+  syntax: >-
+    az iot product test create [--at {ConnectionString, SymmetricKey, TPM, X509}]
+                               [--badge-type {IotDevice, IotEdgeCompatible, Pnp}]
+                               [--base-url]
+                               [--certificate-path]
+                               [--cf]
+                               [--connection-string]
+                               [--device-type {DevKit, FinishedProduct}]
+                               [--ek]
+                               [--models]
+                               [--product-id]
+                               [--skip-provisioning]
+                               [--validation-type {Certification, Test}]
+  examples:
+  - summary: Grundlegende Verwendung
+    syntax: az iot product test create --configuration-file {configuration_file}
+  - summary: Keine Dienst Bereitstellungs Konfiguration erstellen
+    syntax: az iot product test create --configuration-file {configuration_file} --skip-provisioning
+  - summary: Erstellen eines Tests mit symmetrischen Schlüssel Nachweis
+    syntax: az iot product test create --attestation-type SymmetricKey --device-type {device_type}
+  - summary: Erstellen eines Tests mit TPM-Nachweis
+    syntax: az iot product test create --attestation-type TPM --device-type {device_type} --endorsement-key {endorsement_key}
+  - summary: Erstellen eines Tests mit x509-Nachweis
+    syntax: az iot product test create --attestation-type x509 --device-type {device_type} --certificate-path {certificate_path}
+  - summary: Erstellen eines Tests für das Edge-Modul
+    syntax: az iot product test create --attestation-type ConnectionString --device-type {device_type} --badge-type IotEdgeCompatible --connection-string {connection_string}
+  - summary: Erstellen eines Tests mit einem symmetrischen Schlüssel Nachweis und einem angegebenen Validierungstyp
+    syntax: az iot product test create --attestation-type SymmetricKey --device-type {device_type} --validation-type Certification --product-id {product_id}
+  optionalParameters:
+  - name: --at --attestation-type
+    parameterValueGroup: ConnectionString, SymmetricKey, TPM, X509
+    summary: Gibt an, wie sich das Gerät beim Testen des Device Provisioning-Dienstanbieter authentifiziert.
+    description: ''
+  - name: --badge-type --bt
+    defaultValue: IotDevice
+    parameterValueGroup: IotDevice, IotEdgeCompatible, Pnp
+    summary: Der Typ des Zertifizierungs Badge.
+    description: ''
+  - name: --base-url
+    summary: Überschreiben Sie die Zertifizierungsdienst-URL, um Tests in nicht produktiven Umgebungen zu ermöglichen.
+    description: ''
+  - name: --certificate-path --cp
+    summary: Der Pfad zu der Datei, die das primäre Zertifikat enthält. Wenn Sie x509 als Nachweis-Typ auswählen, ist ein Zertifikat Pfad erforderlich.
+    description: ''
+  - name: --cf --configuration-file
+    summary: Pfad zur JSON-Datei des Gerätetests. Wenn nicht angegeben, müssen Nachweis-und Geräte Definitions Parameter angegeben werden.
+    description: ''
+  - name: --connection-string --cs
+    summary: Rahmen Zeichenfolge für das Edge-Modul bei der Auswahl des iotedgekompatiblen Badge Typs, der Verbindungs Zeichenfolge und dem attestaion-Typ der Verbindungs Zeichenfolge
+    description: ''
+  - name: --device-type --dt
+    parameterValueGroup: DevKit, FinishedProduct
+    summary: Definiert den Typ des zu testenden Geräts.
+    description: ''
+  - name: --ek --endorsement-key
+    summary: TPM Endorsement Key für ein TPM-Gerät. Bei der Auswahl von TPM als Nachweis ist Endorsement Key erforderlich.
+    description: ''
+  - name: --models -m
+    summary: Der Pfad mit den Azure IOT-Plug & Play Schnittstellen, die von dem getesteten Gerät implementiert werden. Wenn der Badge-Typ PNP ist, sind Modelle erforderlich.
+    description: ''
+  - name: --product-id -p
+    summary: Die übermittelte Produkt-ID. Erforderlich, wenn der Validierungstyp "Certification" ist.
+    description: ''
+  - name: --skip-provisioning --sp
+    summary: Bestimmt, ob der Dienst die Erstellung der Bereitstellungs Konfiguration überspringt. Gilt nur für die Bereitstellungs Typen "SymmetricKey" und "ConnectionString".
+    description: ''
+  - name: --validation-type --vt
+    defaultValue: Test
+    parameterValueGroup: Certification, Test
+    summary: Der Typ der auszuführenden Validierungs Überprüfungen.
+    description: ''
+- uid: ext_azure-iot_az_iot_product_test_search
+  name: az iot product test search
+  summary: Suchen Sie das produktrepository nach Testdaten.
+  description: ''
+  syntax: >-
+    az iot product test search [--base-url]
+                               [--certificate-name]
+                               [--product-id]
+                               [--registration-id]
+  examples:
+  - summary: Nach Produkt-ID suchen
+    syntax: az iot product test search --product-id {product_id}
+  - summary: Suche nach DPS-Registrierung
+    syntax: az iot product test search --registration-id {registration_id}
+  - summary: Nach x509 Zertifikats Common Name (CN) suchen
+    syntax: az iot product test search --certificate-name {certificate_name}
+  - summary: Nach mehreren Werten suchen
+    syntax: az iot product test search --product-id {product_id} --certificate-name {certificate_name}
+  optionalParameters:
+  - name: --base-url
+    summary: Überschreiben Sie die Zertifizierungsdienst-URL, um Tests in nicht produktiven Umgebungen zu ermöglichen.
+    description: ''
+  - name: --certificate-name --cn
+    summary: Der allgemeine Name (CN) des x509-Zertifikats für den Nachweis des Device Provisioning-dienstanweises.
+    description: ''
+  - name: --product-id -p
+    summary: Die übermittelte Produkt-ID.
+    description: ''
+  - name: --registration-id -r
+    summary: Die Registrierungs-ID für den Device Provisioning-Dienst.
+    description: ''
+- uid: ext_azure-iot_az_iot_product_test_show
+  name: az iot product test show
+  summary: Anzeigen von Produkt Testdaten.
+  description: ''
+  syntax: >-
+    az iot product test show --test-id
+                             [--base-url]
+  examples:
+  - summary: Grundlegende Verwendung
+    syntax: az iot product test show --test-id {test_id}
+  requiredParameters:
+  - isRequired: true
+    name: --test-id -t
+    summary: Die generierte ID für den Geräte Zertifizierungstest.
+    description: ''
+  optionalParameters:
+  - name: --base-url
+    summary: Überschreiben Sie die Zertifizierungsdienst-URL, um Tests in nicht produktiven Umgebungen zu ermöglichen.
+    description: ''
+- uid: ext_azure-iot_az_iot_product_test_update
+  name: az iot product test update
+  summary: Aktualisieren Sie die Test Daten für die Produktzertifizierung.
+  description: ''
+  syntax: >-
+    az iot product test update --test-id
+                               [--at {ConnectionString, SymmetricKey, TPM, X509}]
+                               [--badge-type {IotDevice, IotEdgeCompatible, Pnp}]
+                               [--base-url]
+                               [--certificate-path]
+                               [--cf]
+                               [--connection-string]
+                               [--ek]
+                               [--models]
+  examples:
+  - summary: Grundlegende Verwendung
+    syntax: az iot product test update --test-id {test_id} --configuration-file {configuration_file}
+  requiredParameters:
+  - isRequired: true
+    name: --test-id -t
+    summary: Die generierte ID für den Geräte Zertifizierungstest.
+    description: ''
+  optionalParameters:
+  - name: --at --attestation-type
+    parameterValueGroup: ConnectionString, SymmetricKey, TPM, X509
+    summary: Gibt an, wie sich das Gerät beim Testen des Device Provisioning-Dienstanbieter authentifiziert.
+    description: ''
+  - name: --badge-type --bt
+    parameterValueGroup: IotDevice, IotEdgeCompatible, Pnp
+    summary: Der Typ des Zertifizierungs Badge.
+    description: ''
+  - name: --base-url
+    summary: Überschreiben Sie die Zertifizierungsdienst-URL, um Tests in nicht produktiven Umgebungen zu ermöglichen.
+    description: ''
+  - name: --certificate-path --cp
+    summary: Der Pfad zu der Datei, die das primäre Zertifikat enthält. Wenn Sie x509 als Nachweis-Typ auswählen, ist ein Zertifikat Pfad erforderlich.
+    description: ''
+  - name: --cf --configuration-file
+    summary: Pfad zur JSON-Datei des Gerätetests. Wenn nicht angegeben, müssen Nachweis-und Geräte Definitions Parameter angegeben werden.
+    description: ''
+  - name: --connection-string --cs
+    summary: Rahmen Zeichenfolge für das Edge-Modul bei der Auswahl des iotedgekompatiblen Badge Typs, der Verbindungs Zeichenfolge und dem attestaion-Typ der Verbindungs Zeichenfolge
+    description: ''
+  - name: --ek --endorsement-key
+    summary: TPM Endorsement Key für ein TPM-Gerät. Bei der Auswahl von TPM als Nachweis ist Endorsement Key erforderlich.
+    description: ''
+  - name: --models -m
+    summary: Der Pfad mit den Azure IOT-Plug & Play Schnittstellen, die von dem getesteten Gerät implementiert werden. Wenn der Badge-Typ PNP ist, sind Modelle erforderlich.
+    description: ''
+commands:
+- ext_azure-iot_az_iot_product_test_case
+- ext_azure-iot_az_iot_product_test_case_list
+- ext_azure-iot_az_iot_product_test_case_update
+- ext_azure-iot_az_iot_product_test_create
+- ext_azure-iot_az_iot_product_test_run
+- ext_azure-iot_az_iot_product_test_run_show
+- ext_azure-iot_az_iot_product_test_run_submit
+- ext_azure-iot_az_iot_product_test_search
+- ext_azure-iot_az_iot_product_test_show
+- ext_azure-iot_az_iot_product_test_task
+- ext_azure-iot_az_iot_product_test_task_create
+- ext_azure-iot_az_iot_product_test_task_delete
+- ext_azure-iot_az_iot_product_test_task_show
+- ext_azure-iot_az_iot_product_test_update
+globalParameters:
+- name: --debug
+  summary: Ausführlichkeit der Protokollierung erhöhen, um alle Debugprotokolle anzuzeigen.
+- name: --help -h
+  summary: Zeigen Sie diese Hilfemeldung an, und schließen Sie sie.
+- name: --only-show-errors
+  summary: Nur Fehler anzeigen und Warnungen unterdrücken.
+- name: --output -o
+  defaultValue: json
+  parameterValueGroup: json, jsonc, table, tsv
+  summary: Ausgabeformat.
+- name: --query
+  summary: JMESPath-Abfragezeichenfolge. Weitere Informationen und Beispiele finden Sie unter <a href="http://jmespath.org/">http://jmespath.org/</a>.
+- name: --verbose
+  summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
+metadata:
+  description: Verwalten von Gerätetests für die Produktzertifizierung.
+  ms.openlocfilehash: 7acaab0cfcdcb860817a2a1a95cdc2e6d8a98c08
+  ms.sourcegitcommit: e1faf297ba2cdf2ba7e821fbeedff9c9a724c975
+  ms.translationtype: MT
+  ms.contentlocale: de-DE
+  ms.lasthandoff: 12/16/2020
+  ms.locfileid: "102822136"
