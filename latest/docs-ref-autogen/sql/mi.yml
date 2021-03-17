@@ -1,0 +1,413 @@
+### YamlMime:AzureCLIGroup
+uid: az_sql_mi
+name: az sql mi
+summary: Verwalten von verwalteten SQL-Instanzen.
+description: ''
+directCommands:
+- uid: az_sql_mi_create
+  name: az sql mi create
+  summary: Erstellen Sie eine verwaltete Instanz.
+  description: ''
+  syntax: >-
+    az sql mi create --admin-password
+                     --admin-user
+                     --name
+                     --resource-group
+                     --subnet
+                     [--assign-identity]
+                     [--backup-storage-redundancy]
+                     [--capacity]
+                     [--collation]
+                     [--edition]
+                     [--family]
+                     [--license-type {BasePrice, LicenseIncluded}]
+                     [--location]
+                     [--maint-config-id]
+                     [--minimal-tls-version {1.0, 1.1, 1.2, None}]
+                     [--no-wait]
+                     [--proxy-override {Default, Proxy, Redirect}]
+                     [--public-data-endpoint-enabled {false, true}]
+                     [--storage]
+                     [--subscription]
+                     [--tags]
+                     [--timezone-id]
+                     [--vnet-name]
+                     [--yes]
+  examples:
+  - summary: Erstellen einer verwalteten Instanz mit minimalem Satz von Parametern
+    syntax: az sql mi create -g mygroup -n myinstance -l mylocation -i -u myusername -p mypassword --subnet /subscriptions/{SubID}/resourceGroups/{ResourceGroup}/providers/Microsoft.Network/virtualNetworks/{VNETName}/subnets/{SubnetName}
+  - summary: Erstellen einer verwalteten Instanz mit angegebenen Parametern und Identität
+    syntax: az sql mi create -g mygroup -n myinstance -l mylocation -i -u myusername -p mypassword --license-type LicenseIncluded --subnet /subscriptions/{SubID}/resourceGroups/{ResourceGroup}/providers/Microsoft.Network/virtualNetworks/{VNETName}/subnets/{SubnetName} --capacity 8 --storage 32GB --edition GeneralPurpose --family Gen5
+  - summary: Verwaltete Instanz mit angegebenen Parametern und Tags erstellen
+    syntax: az sql mi create -g mygroup -n myinstance -l mylocation -i -u myusername -p mypassword --license-type LicenseIncluded --subnet /subscriptions/{SubID}/resourceGroups/{ResourceGroup}/providers/Microsoft.Network/virtualNetworks/{VNETName}/subnets/{SubnetName} --capacity 8 --storage 32GB --edition GeneralPurpose --family Gen5 --tags tagName1=tagValue1 tagName2=tagValue2
+  - summary: Verwaltete Instanz mit angegebenen Parametern und Sicherungs Speicher Redundanz erstellen
+    syntax: az sql mi create -g mygroup -n myinstance -l mylocation -i -u myusername -p mypassword --license-type LicenseIncluded --subnet /subscriptions/{SubID}/resourceGroups/{ResourceGroup}/providers/Microsoft.Network/virtualNetworks/{VNETName}/subnets/{SubnetName} --capacity 8 --storage 32GB --edition GeneralPurpose --family Gen5 --backup-storage-redundancy Local
+  requiredParameters:
+  - isRequired: true
+    name: --admin-password -p
+    summary: Das Administrator Anmelde Kennwort (erforderlich für die Erstellung der verwalteten Instanz).
+    description: ''
+  - isRequired: true
+    name: --admin-user -u
+    summary: Administrator Benutzername für die verwaltete Instanz. Kann nur angegeben werden, wenn die verwaltete Instanz erstellt wird (und für die Erstellung erforderlich ist).
+    description: ''
+  - isRequired: true
+    name: --name -n
+    summary: Der Name der verwalteten Instanz.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - isRequired: true
+    name: --subnet
+    summary: Der Name oder die ID des Subnetzes, das den Zugriff auf eine Azure SQL-verwaltete Instanz ermöglicht. Wenn subnetzname angegeben ist, muss--vnet-Name angegeben werden.
+    description: ''
+  optionalParameters:
+  - name: --assign-identity -i
+    summary: Generieren und Zuweisen einer Azure Active Directory-Identität für diese verwaltete Instanz zur Verwendung mit Schlüssel Verwaltungsdiensten wie Azure keyvault.
+    description: ''
+  - name: --backup-storage-redundancy --bsr
+    summary: Redundanz des Sicherungs Speichers zum Speichern von Sicherungen. Zulässige Werte sind "local", "Zone", "local".
+    description: ''
+  - name: --capacity -c
+    summary: Die Kapazität der verwalteten Instanz in der ganzzahligen Anzahl von virtuellen Kernen.
+    description: ''
+  - name: --collation
+    summary: Die Sortierung der verwalteten Instanz.
+    description: ''
+  - name: --edition --tier -e
+    summary: 'Die Editions Komponente der SKU. Zulässige Werte sind: General Purpose, BusinessCritical.'
+    description: ''
+  - name: --family -f
+    summary: 'Die COMPUTE-Generierungs Komponente der SKU. Zulässige Werte sind: Gen4, Gen5.'
+    description: ''
+  - name: --license-type
+    parameterValueGroup: BasePrice, LicenseIncluded
+    summary: Der Lizenztyp, der für diese verwaltete Instanz angewendet werden soll.
+    description: ''
+  - name: --location -l
+    summary: 'Der Standort. Werte aus: `az account list-locations`. Sie können den standardmäßig verwendeten Standort mit `az configure --defaults location=<location>` konfigurieren.'
+    description: ''
+  - name: --maint-config-id -m
+    summary: Weisen Sie dieser verwalteten Instanz eine Wartungs Konfiguration zu.
+    description: ''
+  - name: --minimal-tls-version
+    parameterValueGroup: 1.0, 1.1, 1.2, None
+    summary: Die minimale TLS-Version, die von der verwalteten Instanz für eingehende Verbindungen erzwungen wird.
+    description: ''
+  - name: --no-wait
+    summary: Nicht auf den Abschluss lang andauernder Vorgänge warten
+    description: ''
+  - name: --proxy-override
+    parameterValueGroup: Default, Proxy, Redirect
+    summary: Der zum Herstellen einer Verbindung mit der-Instanz verwendete Verbindungstyp.
+    description: ''
+  - name: --public-data-endpoint-enabled
+    parameterValueGroup: false, true
+    summary: Gibt an, ob der öffentliche Daten Endpunkt für die Instanz aktiviert ist.
+    description: ''
+  - name: --storage
+    summary: Die Speichergröße der verwalteten Instanz. Die Speichergröße muss in Schritten von 32 GB angegeben werden.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  - name: --tags
+    summary: 'Durch Leerzeichen getrennte Tags: Key [= value] [key [= value]...]. Verwenden Sie "", um vorhandene Tags zu löschen.'
+    description: ''
+  - name: --timezone-id
+    summary: Die Zeit Zonen-ID für die festzulegende-Instanz. Eine Liste der Zeit Zonen-IDs wird durch die sys.time_zone_info Ansicht (Transact-SQL) verfügbar gemacht.
+    description: ''
+  - name: --vnet-name
+    summary: Der Name des virtuellen Netzwerks.
+    description: ''
+  - name: --yes -y
+    summary: Nicht zur Bestätigung auffordern
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/sql/_help.py
+- uid: az_sql_mi_delete
+  name: az sql mi delete
+  summary: Löschen Sie eine verwaltete Instanz.
+  description: ''
+  syntax: >-
+    az sql mi delete [--ids]
+                     [--name]
+                     [--no-wait]
+                     [--resource-group]
+                     [--subscription]
+                     [--yes]
+  examples:
+  - summary: Löschen einer verwalteten Instanz
+    syntax: az sql mi delete -g mygroup -n myinstance --yes
+  optionalParameters:
+  - name: --ids
+    summary: Mindestens eine Ressourcen-ID (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID handeln, die alle Informationen von Ressourcen-ID-Argumenten enthält. Sie sollten entweder--IDs oder andere Ressourcen-ID-Argumente angeben.
+    description: ''
+  - name: --name -n
+    summary: Der Name der verwalteten Instanz.
+    description: ''
+  - name: --no-wait
+    summary: Nicht auf den Abschluss lang andauernder Vorgänge warten
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  - name: --yes -y
+    summary: Nicht zur Bestätigung auffordern
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/sql/_help.py
+- uid: az_sql_mi_failover
+  name: az sql mi failover
+  summary: Failover für eine verwaltete Instanz.
+  description: ''
+  syntax: >-
+    az sql mi failover [--ids]
+                       [--name]
+                       [--no-wait]
+                       [--replica-type]
+                       [--resource-group]
+                       [--subscription]
+  examples:
+  - summary: Failover für ein primäres Replikat einer verwalteten Instanz
+    syntax: az sql mi failover -g mygroup -n myinstance
+  - summary: Failover für eine verwaltete Instanz lesbares, für das Replikat
+    syntax: az sql mi failover -g mygroup -n myinstance --replica-type ReadableSecondary
+  optionalParameters:
+  - name: --ids
+    summary: Mindestens eine Ressourcen-ID (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID handeln, die alle Informationen von Ressourcen-ID-Argumenten enthält. Sie sollten entweder--IDs oder andere Ressourcen-ID-Argumente angeben.
+    description: ''
+  - name: --name -n
+    summary: Der Name der verwalteten Instanz.
+    description: ''
+  - name: --no-wait
+    summary: Nicht auf den Abschluss lang andauernder Vorgänge warten
+    description: ''
+  - name: --replica-type
+    summary: Der Typ des Replikats für das Failover.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/sql/_help.py
+- uid: az_sql_mi_list
+  name: az sql mi list
+  summary: Auflisten der verfügbaren verwalteten Instanzen.
+  description: ''
+  syntax: >-
+    az sql mi list [--query-examples]
+                   [--resource-group]
+                   [--subscription]
+  examples:
+  - summary: Listet alle verwalteten Instanzen im aktuellen Abonnement auf.
+    syntax: az sql mi list
+  - summary: Listet alle verwalteten Instanzen in einer Ressourcengruppe auf.
+    syntax: az sql mi list -g mygroup
+  optionalParameters:
+  - name: --query-examples
+    summary: Empfehlen Sie die jmespath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und Sie nach dem Abfrage Parameter in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positions Schlüsselwörter hinzufügen, um Vorschläge auf der Grundlage dieser Schlüsselwörter zu geben.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/sql/_help.py
+- uid: az_sql_mi_show
+  name: az sql mi show
+  summary: Sie erhalten die Details für eine verwaltete Instanz.
+  description: ''
+  syntax: >-
+    az sql mi show [--ids]
+                   [--name]
+                   [--query-examples]
+                   [--resource-group]
+                   [--subscription]
+  examples:
+  - summary: Details für eine verwaltete Instanz
+    syntax: az sql mi show -g mygroup -n myinstance
+  optionalParameters:
+  - name: --ids
+    summary: Mindestens eine Ressourcen-ID (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID handeln, die alle Informationen von Ressourcen-ID-Argumenten enthält. Sie sollten entweder--IDs oder andere Ressourcen-ID-Argumente angeben.
+    description: ''
+  - name: --name -n
+    summary: Der Name der verwalteten Instanz.
+    description: ''
+  - name: --query-examples
+    summary: Empfehlen Sie die jmespath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und Sie nach dem Abfrage Parameter in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positions Schlüsselwörter hinzufügen, um Vorschläge auf der Grundlage dieser Schlüsselwörter zu geben.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/sql/_help.py
+- uid: az_sql_mi_update
+  name: az sql mi update
+  summary: Aktualisieren einer verwalteten Instanz.
+  description: ''
+  syntax: >-
+    az sql mi update [--add]
+                     [--admin-password]
+                     [--assign-identity]
+                     [--capacity]
+                     [--edition]
+                     [--family]
+                     [--force-string]
+                     [--ids]
+                     [--license-type {BasePrice, LicenseIncluded}]
+                     [--maint-config-id]
+                     [--minimal-tls-version {1.0, 1.1, 1.2, None}]
+                     [--name]
+                     [--no-wait]
+                     [--proxy-override {Default, Proxy, Redirect}]
+                     [--public-data-endpoint-enabled {false, true}]
+                     [--remove]
+                     [--resource-group]
+                     [--set]
+                     [--storage]
+                     [--subscription]
+                     [--tags]
+  examples:
+  - summary: Aktualisiert ein mi mit den angegebenen Parametern und mit der Identität
+    syntax: az sql mi update -g mygroup -n myinstance -i -p mypassword --license-type mylicensetype --capacity vcorecapacity --storage storagesize
+  - summary: Aktualisieren der Mi-Edition und der Hardware Familie
+    syntax: az sql mi update -g mygroup -n myinstance --tier GeneralPurpose --family Gen5
+  - summary: Fügen Sie ein Tag hinzu oder aktualisieren Sie es.
+    syntax: az sql mi update -g mygroup -n myinstance --set tags.tagName=tagValue
+  - summary: Entfernen Sie ein Tag.
+    syntax: az sql mi update -g mygroup -n myinstance --remove tags.tagName
+  - summary: Aktualisieren einer verwalteten Instanz. automatisch generierten
+    syntax: az sql mi update --name myinstance --proxy-override Default --resource-group mygroup --subscription MySubscription
+  - summary: Aktualisieren einer verwalteten Instanz. automatisch generierten
+    syntax: az sql mi update --name myinstance --public-data-endpoint-enabled true --resource-group mygroup --subscription MySubscription
+  optionalParameters:
+  - name: --add
+    summary: Fügen Sie einer Liste von-Objekten ein Objekt hinzu, indem Sie ein Pfad-und Schlüssel-Wert-Paar angeben.  Beispiel:--Add Property. ListProperty <Key = Value, String oder JSON String>.
+    description: ''
+  - name: --admin-password -p
+    summary: Das Administrator Anmelde Kennwort (erforderlich für die Erstellung der verwalteten Instanz).
+    description: ''
+  - name: --assign-identity -i
+    summary: Generieren und Zuweisen einer Azure Active Directory-Identität für diese verwaltete Instanz zur Verwendung mit Schlüssel Verwaltungsdiensten wie Azure keyvault. Wenn Identity bereits zugewiesen ist, führen Sie keine Aktion aus.
+    description: ''
+  - name: --capacity -c
+    summary: Die Kapazität der verwalteten Instanz in der ganzzahligen Anzahl von virtuellen Kernen.
+    description: ''
+  - name: --edition --tier -e
+    summary: 'Die Editions Komponente der SKU. Zulässige Werte sind: General Purpose, BusinessCritical.'
+    description: ''
+  - name: --family -f
+    summary: 'Die COMPUTE-Generierungs Komponente der SKU. Zulässige Werte sind: Gen4, Gen5.'
+    description: ''
+  - name: --force-string
+    summary: Wenn Sie "Set" oder "Add" verwenden, erhalten Sie Zeichen folgen Literale, anstatt zu versuchen, in JSON zu konvertieren.
+    description: ''
+  - name: --ids
+    summary: Mindestens eine Ressourcen-ID (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID handeln, die alle Informationen von Ressourcen-ID-Argumenten enthält. Sie sollten entweder--IDs oder andere Ressourcen-ID-Argumente angeben.
+    description: ''
+  - name: --license-type
+    parameterValueGroup: BasePrice, LicenseIncluded
+    summary: Der Lizenztyp, der für diese verwaltete Instanz angewendet werden soll.
+    description: ''
+  - name: --maint-config-id -m
+    summary: Ändern Sie die Wartungs Konfiguration für diese verwaltete Instanz.
+    description: ''
+  - name: --minimal-tls-version
+    parameterValueGroup: 1.0, 1.1, 1.2, None
+    summary: Die minimale TLS-Version, die von der verwalteten Instanz für eingehende Verbindungen erzwungen wird.
+    description: ''
+  - name: --name -n
+    summary: Der Name der verwalteten Instanz.
+    description: ''
+  - name: --no-wait
+    summary: Nicht auf den Abschluss lang andauernder Vorgänge warten
+    description: ''
+  - name: --proxy-override
+    parameterValueGroup: Default, Proxy, Redirect
+    summary: Der zum Herstellen einer Verbindung mit der-Instanz verwendete Verbindungstyp.
+    description: ''
+  - name: --public-data-endpoint-enabled
+    parameterValueGroup: false, true
+    summary: Gibt an, ob der öffentliche Daten Endpunkt für die Instanz aktiviert ist.
+    description: ''
+  - name: --remove
+    summary: Entfernt eine Eigenschaft oder ein Element aus einer Liste.  Beispiel:--Remove Property. List <indexToRemove> oder--Remove propertytoremove.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --set
+    summary: Aktualisieren Sie ein Objekt, indem Sie einen Eigenschafts Pfad und einen festzulegenden Wert angeben.  Beispiel:--Set Eigenschaft1. Eigenschaft2 =<value>.
+    description: ''
+  - name: --storage
+    summary: Die Speichergröße der verwalteten Instanz. Die Speichergröße muss in Schritten von 32 GB angegeben werden.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  - name: --tags
+    summary: 'Durch Leerzeichen getrennte Tags: Key [= value] [key [= value]...]. Verwenden Sie "", um vorhandene Tags zu löschen.'
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/sql/_help.py
+commands:
+- az_sql_mi_ad_admin
+- az_sql_mi_ad_admin_create
+- az_sql_mi_ad_admin_delete
+- az_sql_mi_ad_admin_list
+- az_sql_mi_ad_admin_update
+- az_sql_mi_ad_only_auth
+- az_sql_mi_ad_only_auth_disable
+- az_sql_mi_ad_only_auth_enable
+- az_sql_mi_ad_only_auth_get
+- az_sql_mi_create
+- az_sql_mi_delete
+- az_sql_mi_failover
+- az_sql_mi_key
+- az_sql_mi_key_create
+- az_sql_mi_key_delete
+- az_sql_mi_key_list
+- az_sql_mi_key_show
+- az_sql_mi_list
+- az_sql_mi_op
+- az_sql_mi_op_cancel
+- az_sql_mi_op_list
+- az_sql_mi_op_show
+- az_sql_mi_show
+- az_sql_mi_tde_key
+- az_sql_mi_tde_key_set
+- az_sql_mi_tde_key_show
+- az_sql_mi_update
+globalParameters:
+- name: --debug
+  summary: Ausführlichkeit der Protokollierung erhöhen, um alle Debugprotokolle anzuzeigen.
+- name: --help -h
+  summary: Zeigen Sie diese Hilfemeldung an, und schließen Sie sie.
+- name: --only-show-errors
+  summary: Nur Fehler anzeigen und Warnungen unterdrücken.
+- name: --output -o
+  defaultValue: json
+  parameterValueGroup: json, jsonc, table, tsv
+  summary: Ausgabeformat.
+- name: --query
+  summary: JMESPath-Abfragezeichenfolge. Weitere Informationen und Beispiele finden Sie unter <a href="http://jmespath.org/">http://jmespath.org/</a>.
+- name: --verbose
+  summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
+metadata:
+  doc_source_url_repo: https://github.com/Azure/azure-cli/blob/dev/
+  ms.date: 01/28/2021
+  description: Verwalten von verwalteten SQL-Instanzen.
+  ms.openlocfilehash: cc45675182d69431b6cca80f7fdbf79e409504ab
+  ms.sourcegitcommit: df9d6597535ef9103775afbaee5a8282e0e218ee
+  ms.translationtype: MT
+  ms.contentlocale: de-DE
+  ms.lasthandoff: 02/09/2021
+  ms.locfileid: "102965446"

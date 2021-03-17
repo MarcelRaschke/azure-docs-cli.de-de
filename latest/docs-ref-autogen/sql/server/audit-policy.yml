@@ -1,0 +1,254 @@
+### YamlMime:AzureCLIGroup
+uid: az_sql_server_audit_policy
+name: az sql server audit-policy
+summary: Verwalten der Überwachungsrichtlinie eines Servers
+description: ''
+directCommands:
+- uid: az_sql_server_audit_policy_show
+  name: az sql server audit-policy show
+  summary: Server Überwachungsrichtlinie anzeigen.
+  description: ''
+  syntax: >-
+    az sql server audit-policy show [--ids]
+                                    [--name]
+                                    [--query-examples]
+                                    [--resource-group]
+                                    [--subscription]
+  optionalParameters:
+  - name: --ids
+    summary: Mindestens eine Ressourcen-ID (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID handeln, die alle Informationen von Ressourcen-ID-Argumenten enthält. Sie sollten entweder--IDs oder andere Ressourcen-ID-Argumente angeben.
+    description: ''
+  - name: --name -n
+    summary: Der Name des Azure SQL-Servers. Sie können den Standard mit konfigurieren `az configure --defaults sql-server=<name>` .
+    description: ''
+  - name: --query-examples
+    summary: Empfehlen Sie die jmespath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und Sie nach dem Abfrage Parameter in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positions Schlüsselwörter hinzufügen, um Vorschläge auf der Grundlage dieser Schlüsselwörter zu geben.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/sql/_help.py
+- uid: az_sql_server_audit_policy_update
+  name: az sql server audit-policy update
+  summary: Aktualisieren Sie die Überwachungsrichtlinie eines Servers.
+  description: Wenn die Richtlinie aktiviert wird `--storage-account` oder sowohl `--storage-endpoint` als auch `--storage-key` angegeben werden müssen.
+  syntax: >-
+    az sql server audit-policy update [--actions]
+                                      [--add]
+                                      [--blob-storage-target-state {Disabled, Enabled}]
+                                      [--eh]
+                                      [--ehari]
+                                      [--ehts {Disabled, Enabled}]
+                                      [--force-string]
+                                      [--ids]
+                                      [--lats {Disabled, Enabled}]
+                                      [--lawri]
+                                      [--name]
+                                      [--no-wait]
+                                      [--remove]
+                                      [--resource-group]
+                                      [--retention-days]
+                                      [--set]
+                                      [--state {Disabled, Enabled}]
+                                      [--storage-account]
+                                      [--storage-endpoint]
+                                      [--storage-key]
+                                      [--subscription]
+  examples:
+  - summary: Aktivieren Sie nach Speicherkonto Name.
+    syntax: >-
+      az sql server audit-policy update -g mygroup -n myserver --state Enabled \
+          --bsts Enabled --storage-account mystorage
+  - summary: Aktivieren Sie dies durch den Speicher Endpunkt und den Schlüssel.
+    syntax: >-
+      az sql server audit-policy update -g mygroup -n myserver --state Enabled \
+          --bsts Enabled --storage-endpoint https://mystorage.blob.core.windows.net \
+          --storage-key MYKEY==
+  - summary: Legen Sie die Liste der Überwachungsaktionen fest.
+    syntax: >-
+      az sql server audit-policy update -g mygroup -n myserver \
+          --actions FAILED_DATABASE_AUTHENTICATION_GROUP 'UPDATE on server::myserver by public'
+  - summary: Deaktivieren Sie eine Überwachungsrichtlinie.
+    syntax: az sql server audit-policy update -g mygroup -n myserver --state Disabled
+  - summary: Deaktivieren Sie eine BLOB-Speicher Überwachungsrichtlinie.
+    syntax: az sql server audit-policy update -g mygroup -n myserver --bsts Disabled
+  - summary: Aktivieren Sie eine Log Analytics-Überwachungsrichtlinie.
+    syntax: >-
+      az sql server audit-policy update -g mygroup -n myserver --state Enabled \
+          --lats Enabled --lawri myworkspaceresourceid
+  - summary: Deaktivieren Sie eine Log Analytics-Überwachungsrichtlinie.
+    syntax: >-
+      az sql server audit-policy update -g mygroup -n myserver
+          --lats Disabled
+  - summary: Aktivieren Sie eine Richtlinie für die Event Hub Überwachung.
+    syntax: >-
+      az sql server audit-policy update -g mygroup -n myserver --state Enabled \
+          --event-hub-target-state Enabled \
+          --event-hub-authorization-rule-id eventhubauthorizationruleid \
+          --event-hub eventhubname
+  - summary: Aktivieren Sie eine Event Hub Überwachungsrichtlinie für Standard Event Hub.
+    syntax: >-
+      az sql server audit-policy update -g mygroup -n myserver --state Enabled \
+          --event-hub-target-state Enabled \
+          --event-hub-authorization-rule-id eventhubauthorizationruleid
+  - summary: Deaktivieren Sie eine Richtlinie für die Event Hub Überwachung.
+    syntax: >-
+      az sql server audit-policy update -g mygroup -n myserver
+          --event-hub-target-state Disabled
+  optionalParameters:
+  - name: --actions
+    summary: Liste der Aktionen und Aktionsgruppen, die überwacht werden sollen.
+    description: ''
+  - name: --add
+    summary: Fügen Sie einer Liste von-Objekten ein Objekt hinzu, indem Sie ein Pfad-und Schlüssel-Wert-Paar angeben.  Beispiel:--Add Property. ListProperty <Key = Value, String oder JSON String>.
+    description: ''
+  - name: --blob-storage-target-state --bsts
+    parameterValueGroup: Disabled, Enabled
+    summary: Geben Sie an, ob der BLOB-Speicher ein Ziel für Überwachungsdaten Sätze ist.
+    description: ''
+  - name: --eh --event-hub
+    summary: Der Name des Event Hubs. Wenn beim Bereitstellen von event_hub_authorization_rule_id kein Wert angegeben wird, wird die Standard Event Hub ausgewählt.
+    description: ''
+  - name: --ehari --event-hub-authorization-rule-id
+    summary: Die Ressourcen-ID für die Event Hub Autorisierungs Regel.
+    description: ''
+  - name: --ehts --event-hub-target-state
+    parameterValueGroup: Disabled, Enabled
+    summary: Geben Sie an, ob Event Hub ein Ziel für Überwachungsdaten Sätze ist.
+    description: ''
+  - name: --force-string
+    summary: Wenn Sie "Set" oder "Add" verwenden, erhalten Sie Zeichen folgen Literale, anstatt zu versuchen, in JSON zu konvertieren.
+    description: ''
+  - name: --ids
+    summary: Mindestens eine Ressourcen-ID (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID handeln, die alle Informationen von Ressourcen-ID-Argumenten enthält. Sie sollten entweder--IDs oder andere Ressourcen-ID-Argumente angeben.
+    description: ''
+  - name: --lats --log-analytics-target-state
+    parameterValueGroup: Disabled, Enabled
+    summary: Geben Sie an, ob Log Analytics ein Ziel für Überwachungsdaten Sätze ist.
+    description: ''
+  - name: --lawri --log-analytics-workspace-resource-id
+    summary: Die Arbeitsbereichs-ID (Ressourcen-ID eines Log Analytics Arbeitsbereichs) für einen Log Analytics Arbeitsbereich, an den Sie Überwachungs Protokolle senden möchten.
+    description: ''
+  - name: --name -n
+    summary: Der Name des Azure SQL-Servers. Sie können den Standard mit konfigurieren `az configure --defaults sql-server=<name>` .
+    description: ''
+  - name: --no-wait
+    summary: Nicht auf den Abschluss lang andauernder Vorgänge warten
+    description: ''
+  - name: --remove
+    summary: Entfernt eine Eigenschaft oder ein Element aus einer Liste.  Beispiel:--Remove Property. List <indexToRemove> oder--Remove propertytoremove.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --retention-days
+    summary: Die Anzahl der Tage, für die Überwachungs Protokolle aufbewahrt werden sollen.
+    description: ''
+  - name: --set
+    summary: Aktualisieren Sie ein Objekt, indem Sie einen Eigenschafts Pfad und einen festzulegenden Wert angeben.  Beispiel:--Set Eigenschaft1. Eigenschaft2 =<value>.
+    description: ''
+  - name: --state
+    parameterValueGroup: Disabled, Enabled
+    summary: Status der Überprüfungs Richtlinie.
+    description: ''
+  - name: --storage-account
+    summary: Name des Speicherkontos.
+    description: ''
+  - name: --storage-endpoint
+    summary: Der Speicherkonto Endpunkt.
+    description: ''
+  - name: --storage-key
+    summary: Zugriffsschlüssel für das Speicherkonto.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/sql/_help.py
+- uid: az_sql_server_audit_policy_wait
+  name: az sql server audit-policy wait
+  summary: Platzieren Sie die CLI in einem Wartezustand, bis eine Bedingung für die Überwachungsrichtlinie des Servers erfüllt ist.
+  description: ''
+  syntax: >-
+    az sql server audit-policy wait [--created]
+                                    [--custom]
+                                    [--deleted]
+                                    [--exists]
+                                    [--ids]
+                                    [--interval]
+                                    [--name]
+                                    [--resource-group]
+                                    [--subscription]
+                                    [--timeout]
+                                    [--updated]
+  examples:
+  - summary: Platzieren Sie die CLI in einem Wartezustand, bis die Überwachungsrichtlinie des Servers vorhanden ist.
+    syntax: az sql server audit-policy wait -g mygroup -n myserver --exists
+  optionalParameters:
+  - name: --created
+    summary: Warten Sie, bis "provisioningstate" bei "erfolgreich" erstellt wurde.
+    description: ''
+  - name: --custom
+    summary: "Warten Sie, bis die Bedingung eine benutzerdefinierte jmespath-Abfrage erfüllt. Beispiel: provisioningstate! = ' InProgress ', instanceview. statuses [? Code = = ' PowerState/Running ']."
+    description: ''
+  - name: --deleted
+    summary: Warten Sie bis zum Löschen.
+    description: ''
+  - name: --exists
+    summary: Warten Sie, bis die Ressource vorhanden ist.
+    description: ''
+  - name: --ids
+    summary: Mindestens eine Ressourcen-ID (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID handeln, die alle Informationen von Ressourcen-ID-Argumenten enthält. Sie sollten entweder--IDs oder andere Ressourcen-ID-Argumente angeben.
+    description: ''
+  - name: --interval
+    defaultValue: "30"
+    summary: Abruf Intervall in Sekunden.
+    description: ''
+  - name: --name -n
+    summary: Der Name des Azure SQL-Servers. Sie können den Standard mit konfigurieren `az configure --defaults sql-server=<name>` .
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  - name: --timeout
+    defaultValue: "3600"
+    summary: Maximale Wartezeit in Sekunden.
+    description: ''
+  - name: --updated
+    summary: Warten Sie, bis das Update mit provisioningstate bei "erfolgreich" abgeschlossen ist.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/sql/_help.py
+commands:
+- az_sql_server_audit_policy_show
+- az_sql_server_audit_policy_update
+- az_sql_server_audit_policy_wait
+globalParameters:
+- name: --debug
+  summary: Ausführlichkeit der Protokollierung erhöhen, um alle Debugprotokolle anzuzeigen.
+- name: --help -h
+  summary: Zeigen Sie diese Hilfemeldung an, und schließen Sie sie.
+- name: --only-show-errors
+  summary: Nur Fehler anzeigen und Warnungen unterdrücken.
+- name: --output -o
+  defaultValue: json
+  parameterValueGroup: json, jsonc, table, tsv
+  summary: Ausgabeformat.
+- name: --query
+  summary: JMESPath-Abfragezeichenfolge. Weitere Informationen und Beispiele finden Sie unter <a href="http://jmespath.org/">http://jmespath.org/</a>.
+- name: --verbose
+  summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
+metadata:
+  doc_source_url_repo: https://github.com/Azure/azure-cli/blob/dev/
+  ms.date: 01/28/2021
+  description: Verwalten der Überwachungsrichtlinie eines Servers
+  ms.openlocfilehash: f8fb134338d350a2062d42e8f1bf60286f9d6e6d
+  ms.sourcegitcommit: df9d6597535ef9103775afbaee5a8282e0e218ee
+  ms.translationtype: MT
+  ms.contentlocale: de-DE
+  ms.lasthandoff: 02/09/2021
+  ms.locfileid: "102965416"
