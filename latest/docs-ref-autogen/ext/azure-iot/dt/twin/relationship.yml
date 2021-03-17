@@ -18,11 +18,14 @@ directCommands:
                                    --relationship-id
                                    --source
                                    --target
+                                   [--if-none-match]
                                    [--properties]
                                    [--resource-group]
   examples:
   - summary: Erstellen Sie eine Beziehung zwischen zwei digitalen Zwillingen.
     syntax: az dt twin relationship create -n {instance_or_hostname} --relationship-id {relationship_id} --relationship contains --twin-id {source_twin_id} --target {target_twin_id}
+  - summary: Beziehung zwischen zwei digitalen Zwillingen mit dem Tag "If-None-Match" erstellen
+    syntax: az dt twin relationship create -n {instance_or_hostname} --relationship-id {relationship_id} --relationship contains --twin-id {source_twin_id} --target {target_twin_id} --if-none-match
   - summary: Erstellen Sie eine Beziehung mit initialisierten Eigenschaften zwischen zwei digitalen Zwillingen.
     syntax: "az dt twin relationship create -n {instance_or_hostname} --relationship-id {relationship_id} --relationship contains --twin-id {source_twin_id} --target {target_twin_id} --properties '{\"ownershipUser\": \"me\", \"ownershipDepartment\": \"Computer Science\"}'"
   requiredParameters:
@@ -47,6 +50,9 @@ directCommands:
     summary: Die zielzwillings-ID für eine Beziehung.
     description: ''
   optionalParameters:
+  - name: --if-none-match
+    summary: Gibt an, dass der Erstellungs Vorgang fehlschlägt, wenn ein vorhandener Zwilling mit derselben ID vorhanden ist.
+    description: ''
   - name: --properties -p
     summary: Anfängliche Eigenschaftswerte zum Instanziieren einer digitalen Zwillings Beziehung. Geben Sie einen Dateipfad oder eine Inline-JSON
     description: ''
@@ -61,10 +67,13 @@ directCommands:
     az dt twin relationship delete --dt-name
                                    --relationship-id
                                    --source
+                                   [--etag]
                                    [--resource-group]
   examples:
   - summary: Löschen Sie eine Beziehung zwischen einem digitalen Zwilling.
     syntax: az dt twin relationship delete -n {instance_or_hostname} --twin-id {twin_id} --relationship-id {relationship_id}
+  - summary: Löschen Sie mit dem ETag eine Beziehung zwischen einem digitalen Zwilling.
+    syntax: az dt twin relationship delete -n {instance_or_hostname} --twin-id {twin_id} --relationship-id {relationship_id} --etag {etag}
   requiredParameters:
   - isRequired: true
     name: --dt-name --dtn -n
@@ -79,6 +88,9 @@ directCommands:
     summary: Die Quell Zwillings-ID für eine Beziehung.
     description: ''
   optionalParameters:
+  - name: --etag -e
+    summary: Der Entitätstag Wert. Der Befehl wird erfolgreich ausgeführt, wenn das ETag mit dem aktuellen ETag für die Ressource übereinstimmt.
+    description: ''
   - name: --resource-group -g
     summary: Instanzen Ressourcengruppe für digitale Zwillinge. Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
     description: ''
@@ -159,10 +171,13 @@ directCommands:
                                    --json-patch
                                    --relationship-id
                                    --source
+                                   [--etag]
                                    [--resource-group]
   examples:
   - summary: Aktualisieren Sie eine digitale Zwillings Beziehung über die JSON-patchspezifikation.
     syntax: "az dt twin relationship update -n {instance_or_hostname} --twin-id {twin_id} --relationship-id {relationship_id} --relationship contains --json-patch '{\"op\":\"replace\", \"path\":\"/Temperature\", \"value\": 20.5}'"
+  - summary: Aktualisieren Sie eine digitale Zwillings Beziehung über die JSON-patchspezifikation und mithilfe von ETag.
+    syntax: "az dt twin relationship update -n {instance_or_hostname} --twin-id {twin_id} --relationship-id {relationship_id} --relationship contains --json-patch '{\"op\":\"replace\", \"path\":\"/Temperature\", \"value\": 20.5}' --etag {etag}"
   - summary: Aktualisieren Sie eine digitale Zwillings Beziehung über die JSON-patchspezifikation.
     syntax: >-
       az dt twin relationship update -n {instance_or_hostname} --twin-id {twin_id} --relationship-id {relationship_id} --relationship contains --json-patch '[
@@ -189,6 +204,9 @@ directCommands:
     summary: Die Quell Zwillings-ID für eine Beziehung.
     description: ''
   optionalParameters:
+  - name: --etag -e
+    summary: Der Entitätstag Wert. Der Befehl wird erfolgreich ausgeführt, wenn das ETag mit dem aktuellen ETag für die Ressource übereinstimmt.
+    description: ''
   - name: --resource-group -g
     summary: Instanzen Ressourcengruppe für digitale Zwillinge. Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
     description: ''
@@ -215,9 +233,9 @@ globalParameters:
   summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
 metadata:
   description: Verwalten und konfigurieren Sie die Beziehungen zwischen den Digital Zwillingen einer digitalen Zwillinge-Instanz.
-  ms.openlocfilehash: 5ae18cc15c75c27c73db87db784f0c8b20657557
-  ms.sourcegitcommit: e1faf297ba2cdf2ba7e821fbeedff9c9a724c975
+  ms.openlocfilehash: d1f1df98417015b12f34989c8cef1bcca5f4e2b0
+  ms.sourcegitcommit: f9e23f29c59c6957d3df4d5ca2f4425093e6fd80
   ms.translationtype: MT
   ms.contentlocale: de-DE
-  ms.lasthandoff: 12/16/2020
-  ms.locfileid: "102829773"
+  ms.lasthandoff: 03/16/2021
+  ms.locfileid: "103527146"

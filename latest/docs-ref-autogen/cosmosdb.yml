@@ -33,6 +33,8 @@ directCommands:
   syntax: >-
     az cosmosdb create --name
                        --resource-group
+                       [--backup-interval]
+                       [--backup-retention]
                        [--capabilities]
                        [--default-consistency-level {BoundedStaleness, ConsistentPrefix, Eventual, Session, Strong}]
                        [--disable-key-based-metadata-write-access {false, true}]
@@ -48,7 +50,9 @@ directCommands:
                        [--locations]
                        [--max-interval]
                        [--max-staleness-prefix]
-                       [--server-version {3.2, 3.6}]
+                       [--network-acl-bypass {AzureServices, None}]
+                       [--network-acl-bypass-resource-ids]
+                       [--server-version {3.2, 3.6, 4.0}]
                        [--subscription]
                        [--tags]
                        [--virtual-network-rules]
@@ -56,7 +60,7 @@ directCommands:
   - summary: Erstellt ein neues Azure Cosmos DB-Daten Bankkonto. automatisch generierten
     syntax: az cosmosdb create --name MyCosmosDBDatabaseAccount --resource-group MyResourceGroup --subscription MySubscription
   - summary: Erstellt ein neues Azure Cosmos DB-Daten Bankkonto mit zwei Regionen. Vereinigtes Königreich, Süden ist Zonen redundant.
-    syntax: az cosmosdb create -n myaccount -g mygroup --locations regionName=eastus failoverPriority=0 isZoneRedundant=False --locations regionName=uksouth failoverPriority=1 isZoneRedundant=True --enable-multiple-write-locations
+    syntax: az cosmosdb create -n myaccount -g mygroup --locations regionName=eastus failoverPriority=0 isZoneRedundant=False --locations regionName=uksouth failoverPriority=1 isZoneRedundant=True --enable-multiple-write-locations --network-acl-bypass AzureServices --network-acl-bypass-resource-ids /subscriptions/subId/resourceGroups/rgName/providers/Microsoft.Synapse/workspaces/wsName
   requiredParameters:
   - isRequired: true
     name: --name -n
@@ -67,6 +71,12 @@ directCommands:
     summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
     description: ''
   optionalParameters:
+  - name: --backup-interval
+    summary: Die Häufigkeit (in Minuten), mit der Sicherungen durchgeführt werden (nur für Konten mit Sicherungen im periodischen Modus).
+    description: ''
+  - name: --backup-retention
+    summary: Die Zeit (in Stunden), für die jede Sicherung beibehalten wird (nur für Konten mit Sicherungen im periodischen Modus).
+    description: ''
   - name: --capabilities
     summary: Legen Sie benutzerdefinierte Funktionen für das Cosmos DB-Daten Bankkonto fest.
     description: ''
@@ -129,8 +139,15 @@ directCommands:
     defaultValue: "100"
     summary: Bei Verwendung mit der Konsistenzebene „Begrenzte Veraltung“ stellt dieser Wert die tolerierte Anzahl von Veraltungsanforderungen dar. Der akzeptierte Bereich für diesen Wert ist 1-2.147.483.647.
     description: ''
+  - name: --network-acl-bypass
+    parameterValueGroup: AzureServices, None
+    summary: Flag zum Aktivieren oder Deaktivieren der Netzwerk-ACL-Umgehung.
+    description: ''
+  - name: --network-acl-bypass-resource-ids -i
+    summary: Liste der Ressourcen-IDs, um die Netzwerk-ACL-Umgehung zuzulassen.
+    description: ''
   - name: --server-version
-    parameterValueGroup: 3.2, 3.6
+    parameterValueGroup: 3.2, 3.6, 4.0
     summary: Gilt nur für MongoDB-Konten.
     description: ''
   - name: --subscription
@@ -370,7 +387,9 @@ directCommands:
   summary: Aktualisieren Sie ein Azure Cosmos DB-Daten Bankkonto.
   description: ''
   syntax: >-
-    az cosmosdb update [--capabilities]
+    az cosmosdb update [--backup-interval]
+                       [--backup-retention]
+                       [--capabilities]
                        [--default-consistency-level {BoundedStaleness, ConsistentPrefix, Eventual, Session, Strong}]
                        [--disable-key-based-metadata-write-access {false, true}]
                        [--enable-analytical-storage {false, true}]
@@ -384,7 +403,10 @@ directCommands:
                        [--max-interval]
                        [--max-staleness-prefix]
                        [--name]
+                       [--network-acl-bypass {AzureServices, None}]
+                       [--network-acl-bypass-resource-ids]
                        [--resource-group]
+                       [--server-version {3.2, 3.6, 4.0}]
                        [--subscription]
                        [--tags]
                        [--virtual-network-rules]
@@ -392,8 +414,14 @@ directCommands:
   - summary: Aktualisieren Sie ein Azure Cosmos DB-Daten Bankkonto. automatisch generierten
     syntax: az cosmosdb update --capabilities EnableGremlin --name MyCosmosDBDatabaseAccount --resource-group MyResourceGroup
   - summary: Erstellt ein neues Azure Cosmos DB-Daten Bankkonto mit zwei Regionen. Vereinigtes Königreich, Süden ist Zonen redundant.
-    syntax: az cosmosdb update -n myaccount -g mygroup --locations regionName=eastus failoverPriority=0 isZoneRedundant=False --locations regionName=uksouth failoverPriority=1 isZoneRedundant=True --enable-multiple-write-locations
+    syntax: az cosmosdb update -n myaccount -g mygroup --locations regionName=eastus failoverPriority=0 isZoneRedundant=False --locations regionName=uksouth failoverPriority=1 isZoneRedundant=True --enable-multiple-write-locations --network-acl-bypass AzureServices --network-acl-bypass-resource-ids /subscriptions/subId/resourceGroups/rgName/providers/Microsoft.Synapse/workspaces/wsName
   optionalParameters:
+  - name: --backup-interval
+    summary: Die Häufigkeit (in Minuten), mit der Sicherungen durchgeführt werden (nur für Konten mit Sicherungen im periodischen Modus).
+    description: ''
+  - name: --backup-retention
+    summary: Die Zeit (in Stunden), für die jede Sicherung beibehalten wird (nur für Konten mit Sicherungen im periodischen Modus).
+    description: ''
   - name: --capabilities
     summary: Legen Sie benutzerdefinierte Funktionen für das Cosmos DB-Daten Bankkonto fest.
     description: ''
@@ -448,8 +476,19 @@ directCommands:
   - name: --name -n
     summary: Der Name des Cosmos DB-Daten Bankkontos.
     description: ''
+  - name: --network-acl-bypass
+    parameterValueGroup: AzureServices, None
+    summary: Flag zum Aktivieren oder Deaktivieren der Netzwerk-ACL-Umgehung.
+    description: ''
+  - name: --network-acl-bypass-resource-ids -i
+    summary: Liste der Ressourcen-IDs, um die Netzwerk-ACL-Umgehung zuzulassen.
+    description: ''
   - name: --resource-group -g
     summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --server-version
+    parameterValueGroup: 3.2, 3.6, 4.0
+    summary: Gilt nur für MongoDB-Konten.
     description: ''
   - name: --subscription
     summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
@@ -633,11 +672,11 @@ globalParameters:
   summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
 metadata:
   doc_source_url_repo: https://github.com/Azure/azure-cli/blob/dev/
-  ms.date: 10/23/2020
+  ms.date: 02/24/2021
   description: Verwalten Sie Azure Cosmos DB Daten Bankkonten.
-  ms.openlocfilehash: ba009f1423500e49772759ee10ffb0c7fba88824
-  ms.sourcegitcommit: 1187fb75b68426c46e84b3f294c509ee7b7da9be
+  ms.openlocfilehash: 4ee04545dc4e3085c672a010b59520fde16bcc69
+  ms.sourcegitcommit: f9e23f29c59c6957d3df4d5ca2f4425093e6fd80
   ms.translationtype: MT
   ms.contentlocale: de-DE
-  ms.lasthandoff: 10/27/2020
-  ms.locfileid: "102821133"
+  ms.lasthandoff: 03/16/2021
+  ms.locfileid: "103527180"
