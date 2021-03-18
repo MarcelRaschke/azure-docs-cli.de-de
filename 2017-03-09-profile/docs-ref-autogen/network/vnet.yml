@@ -4,38 +4,6 @@ name: az network vnet
 summary: Verwalten virtueller Azure-Netzwerke
 description: Weitere Informationen zu virtuellen Netzwerken finden Sie unter <a href="https://docs.microsoft.com/azure/virtual-network/virtual-network-manage-network">https://docs.microsoft.com/azure/virtual-network/virtual-network-manage-network</a> .
 directCommands:
-- uid: az_network_vnet_check_ip_address
-  name: az network vnet check-ip-address
-  summary: Überprüfen Sie, ob eine private IP-Adresse für die Verwendung in einem virtuellen Netzwerk verfügbar ist.
-  description: ''
-  syntax: >-
-    az network vnet check-ip-address --ip-address
-                                     [--ids]
-                                     [--name]
-                                     [--resource-group]
-                                     [--subscription]
-  examples:
-  - summary: Überprüfen Sie, ob 10.0.0.4 innerhalb von myvnet verfügbar ist.
-    syntax: az network vnet check-ip-address -g MyResourceGroup -n MyVnet --ip-address 10.0.0.4
-  requiredParameters:
-  - isRequired: true
-    name: --ip-address
-    summary: Die private IP-Adresse, die überprüft werden soll.
-    description: ''
-  optionalParameters:
-  - name: --ids
-    summary: Mindestens eine Ressourcen-ID (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID handeln, die alle Informationen von Ressourcen-ID-Argumenten enthält. Sie sollten entweder--IDs oder andere Ressourcen-ID-Argumente angeben.
-    description: ''
-  - name: --name -n
-    summary: Der Name des virtuellen Netzwerks (vnet).
-    description: ''
-  - name: --resource-group -g
-    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
-    description: ''
-  - name: --subscription
-    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
-    description: ''
-  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/network/_help.py
 - uid: az_network_vnet_create
   name: az network vnet create
   summary: Erstellen Sie ein virtuelles Netzwerk.
@@ -44,17 +12,14 @@ directCommands:
     az network vnet create --name
                            --resource-group
                            [--address-prefixes]
-                           [--ddos-protection {false, true}]
-                           [--ddos-protection-plan]
                            [--defer]
                            [--dns-servers]
                            [--location]
                            [--network-security-group]
                            [--subnet-name]
-                           [--subnet-prefixes]
+                           [--subnet-prefix]
                            [--subscription]
                            [--tags]
-                           [--vm-protection {false, true}]
   examples:
   - summary: Erstellen Sie ein virtuelles Netzwerk.
     syntax: az network vnet create -g MyResourceGroup -n MyVnet
@@ -78,13 +43,6 @@ directCommands:
     defaultValue: 10.0.0.0/16
     summary: Durch Leerzeichen getrennte Liste der IP-Adress Präfixe für das vnet.
     description: ''
-  - name: --ddos-protection
-    parameterValueGroup: false, true
-    summary: Steuern Sie, ob DDoS Protection aktiviert ist.
-    description: ''
-  - name: --ddos-protection-plan
-    summary: Der Name oder die ID eines DDoS Protection-Plans, der dem vnet zugeordnet werden soll.
-    description: ''
   - name: --defer
     summary: Speichert das Objekt temporär im lokalen Cache, anstatt es an Azure zu senden. Verwenden `az cache` Sie Befehle zum Anzeigen/löschen.
     description: ''
@@ -100,18 +58,14 @@ directCommands:
   - name: --subnet-name
     summary: Name eines neuen Subnetzes, das innerhalb des vnets erstellt werden soll.
     description: ''
-  - name: --subnet-prefixes
-    summary: Durch Leerzeichen getrennte Liste der Adress Präfixe im CIDR-Format für das neue Subnetz. Wenn der Wert nicht vorhanden ist, wird von automatisch ein/24-Block (oder ein großer verfügbarer Block) innerhalb des vnet-Adressraums reserviert.
+  - name: --subnet-prefix
+    summary: IP-Adress Präfix für das neue Subnetz. Wenn der Wert nicht vorhanden ist, wird von automatisch ein/24-Block (oder ein großer verfügbarer Block) innerhalb des vnet-Adressraums reserviert.
     description: ''
   - name: --subscription
     summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
     description: ''
   - name: --tags
     summary: 'Durch Leerzeichen getrennte Tags: Key [= value] [key [= value]...]. Verwenden Sie "", um vorhandene Tags zu löschen.'
-    description: ''
-  - name: --vm-protection
-    parameterValueGroup: false, true
-    summary: Aktivieren Sie den VM-Schutz für alle Subnetze im vnet.
     description: ''
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/network/_help.py
 - uid: az_network_vnet_delete
@@ -166,52 +120,6 @@ directCommands:
     summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
     description: ''
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/network/_help.py
-- uid: az_network_vnet_list_available_ips
-  name: az network vnet list-available-ips
-  summary: Auflisten einiger verfügbarer IP-Adressen im vnet.
-  description: ''
-  syntax: >-
-    az network vnet list-available-ips [--ids]
-                                       [--name]
-                                       [--resource-group]
-                                       [--subscription]
-  examples:
-  - summary: Auflisten einiger verfügbarer IP-Adressen im vnet.
-    syntax: az network vnet list-available-ips -g MyResourceGroup -n MyVNet
-  optionalParameters:
-  - name: --ids
-    summary: Mindestens eine Ressourcen-ID (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID handeln, die alle Informationen von Ressourcen-ID-Argumenten enthält. Sie sollten entweder--IDs oder andere Ressourcen-ID-Argumente angeben.
-    description: ''
-  - name: --name -n
-    summary: Der Name des virtuellen Netzwerks (vnet).
-    description: ''
-  - name: --resource-group -g
-    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
-    description: ''
-  - name: --subscription
-    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
-    description: ''
-  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/network/_help.py
-- uid: az_network_vnet_list_endpoint_services
-  name: az network vnet list-endpoint-services
-  summary: Listet die Dienste auf, die vnet-Dienst Tunnelung in einer bestimmten Region unterstützen.
-  description: Weitere Informationen zu Dienst Endpunkten finden Sie unter <a href="https://docs.microsoft.com/azure/virtual-network/virtual-network-service-endpoints-configure#azure-cli">https://docs.microsoft.com/azure/virtual-network/virtual-network-service-endpoints-configure#azure-cli</a> .
-  syntax: >-
-    az network vnet list-endpoint-services --location
-                                           [--subscription]
-  examples:
-  - summary: Auflisten der verfügbaren Endpunkt Dienste für die Verwendung in der Region "USA, Westen".
-    syntax: az network vnet list-endpoint-services -l westus -o table
-  requiredParameters:
-  - isRequired: true
-    name: --location -l
-    summary: 'Der Standort. Werte aus: `az account list-locations`. Sie können den standardmäßig verwendeten Standort mit `az configure --defaults location=<location>` konfigurieren.'
-    description: ''
-  optionalParameters:
-  - name: --subscription
-    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
-    description: ''
-  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/network/_help.py
 - uid: az_network_vnet_show
   name: az network vnet show
   summary: Informieren Sie sich über die Details eines virtuellen Netzwerks.
@@ -253,8 +161,6 @@ directCommands:
   syntax: >-
     az network vnet update [--add]
                            [--address-prefixes]
-                           [--ddos-protection {false, true}]
-                           [--ddos-protection-plan]
                            [--defer]
                            [--dns-servers]
                            [--force-string]
@@ -264,7 +170,6 @@ directCommands:
                            [--resource-group]
                            [--set]
                            [--subscription]
-                           [--vm-protection {false, true}]
   examples:
   - summary: Aktualisieren Sie ein virtuelles Netzwerk mit der IP-Adresse eines DNS-Servers.
     syntax: az network vnet update -g MyResourceGroup -n MyVNet --dns-servers 10.2.0.8
@@ -276,13 +181,6 @@ directCommands:
     description: ''
   - name: --address-prefixes
     summary: Durch Leerzeichen getrennte Liste der IP-Adress Präfixe für das vnet.
-    description: ''
-  - name: --ddos-protection
-    parameterValueGroup: false, true
-    summary: Steuern Sie, ob DDoS Protection aktiviert ist.
-    description: ''
-  - name: --ddos-protection-plan
-    summary: Der Name oder die ID eines DDoS Protection-Plans, der dem vnet zugeordnet werden soll.
     description: ''
   - name: --defer
     summary: Speichert das Objekt temporär im lokalen Cache, anstatt es an Azure zu senden. Verwenden `az cache` Sie Befehle zum Anzeigen/löschen.
@@ -311,30 +209,16 @@ directCommands:
   - name: --subscription
     summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
     description: ''
-  - name: --vm-protection
-    parameterValueGroup: false, true
-    summary: Aktivieren Sie den VM-Schutz für alle Subnetze im vnet.
-    description: ''
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/network/_help.py
 commands:
-- az_network_vnet_check_ip_address
 - az_network_vnet_create
 - az_network_vnet_delete
 - az_network_vnet_list
-- az_network_vnet_list_available_ips
-- az_network_vnet_list_endpoint_services
-- az_network_vnet_peering
-- az_network_vnet_peering_create
-- az_network_vnet_peering_delete
-- az_network_vnet_peering_list
-- az_network_vnet_peering_show
-- az_network_vnet_peering_update
 - az_network_vnet_show
 - az_network_vnet_subnet
 - az_network_vnet_subnet_create
 - az_network_vnet_subnet_delete
 - az_network_vnet_subnet_list
-- az_network_vnet_subnet_list_available_delegations
 - az_network_vnet_subnet_show
 - az_network_vnet_subnet_update
 - az_network_vnet_update
@@ -357,9 +241,9 @@ metadata:
   doc_source_url_repo: https://github.com/Azure/azure-cli/blob/dev/
   ms.date: 02/25/2021
   description: Weitere Informationen zu virtuellen Netzwerken finden Sie unter <a href="https://docs.microsoft.com/azure/virtual-network/virtual-network-manage-network">https://docs.microsoft.com/azure/virtual-network/virtual-network-manage-network</a> .
-  ms.openlocfilehash: 1ac4a7823a59fecef9015c1608a3898bf19d2840
+  ms.openlocfilehash: 68d4a16c4f6aa83692a04f3c685542bd69133410
   ms.sourcegitcommit: f9e23f29c59c6957d3df4d5ca2f4425093e6fd80
   ms.translationtype: MT
   ms.contentlocale: de-DE
   ms.lasthandoff: 03/16/2021
-  ms.locfileid: "103540440"
+  ms.locfileid: "103512951"
