@@ -66,7 +66,7 @@ directCommands:
                   [--appgw-watch-namespace]
                   [--assign-identity]
                   [--attach-acr]
-                  [--auto-upgrade-channel {none, patch, rapid, stable}]
+                  [--auto-upgrade-channel {node-image, none, patch, rapid, stable}]
                   [--client-secret]
                   [--cluster-autoscaler-profile]
                   [--disable-rbac]
@@ -82,11 +82,14 @@ directCommands:
                   [--enable-managed-identity]
                   [--enable-node-public-ip]
                   [--enable-pod-identity]
+                  [--enable-pod-identity-with-kubenet]
                   [--enable-pod-security-policy]
                   [--enable-private-cluster]
                   [--enable-rbac]
+                  [--enable-secret-rotation]
                   [--enable-sgxquotehelper]
                   [--enable-vmss]
+                  [--fqdn-subdomain]
                   [--generate-ssh-keys]
                   [--kubelet-config]
                   [--kubernetes-version]
@@ -109,6 +112,7 @@ directCommands:
                   [--node-osdisk-diskencryptionset-id]
                   [--node-osdisk-size]
                   [--node-osdisk-type]
+                  [--node-public-ip-prefix-id]
                   [--node-resource-group]
                   [--node-vm-size]
                   [--node-zones {1, 2, 3}]
@@ -234,8 +238,8 @@ directCommands:
     summary: Erteilen Sie der acrpull-Rollenzuweisung den durch den Namen oder die Ressourcen-ID angegebenen ACR.
     description: ''
   - name: --auto-upgrade-channel
-    parameterValueGroup: none, patch, rapid, stable
-    summary: Geben Sie den upgradeschannel für "AutoUpgrade" an. Der Wert kann "Rapid", "stable", "Patch" oder "keine" lauten
+    parameterValueGroup: node-image, none, patch, rapid, stable
+    summary: Geben Sie den upgradeschannel für "AutoUpgrade" an. Dies könnte "Rapid", "stable", "Patch", "Node-Image" oder "None" lauten
     description: ''
   - name: --client-secret
     summary: Dem Dienstprinzipal zugeordnetes Geheimnis Dieses Argument ist erforderlich, wenn `--service-principal` angegeben wird.
@@ -280,6 +284,8 @@ directCommands:
       Open-Service-Mesh-enable Open Service Mesh-Addon (Vorschau).
 
       gitops: gitops aktivieren (Vorschau).
+
+      Azure-keyvault-Geheimnisse-Provider: Aktivieren Sie das Addon von Azure Key Vault-Geheimnissen Anbieter (Vorschau).
   - name: --enable-ahub
     summary: Aktivieren Sie Azure-Hybrid Benutzer Vorteile (ahub) für virtuelle Windows-Computer.
     description: ''
@@ -303,6 +309,9 @@ directCommands:
   - name: --enable-pod-identity
     summary: Schau Aktivieren Sie Pod-Identitäts-Addon.
     description: ''
+  - name: --enable-pod-identity-with-kubenet
+    summary: Schau Aktivieren Sie Pod Identity Addon für Cluster mithilfe des kubnet-Netzwerk-Plug-ins.
+    description: ''
   - name: --enable-pod-security-policy
     summary: Schau Aktivieren Sie Pod-Sicherheitsrichtlinie.
     description: ''
@@ -312,11 +321,17 @@ directCommands:
   - name: --enable-rbac -r
     summary: 'Aktivieren der rollenbasierten Zugriffssteuerung für Kubernetes Standard: aktiviert.'
     description: ''
+  - name: --enable-secret-rotation
+    summary: Aktivieren der geheimen Rotation. Verwenden Sie dies mit Azure-keyvault-Secrets-Provider-Addon.
+    description: ''
   - name: --enable-sgxquotehelper
     summary: Aktivieren Sie das Hilfsprogramm für die SGX-Quote für confcom
     description: ''
   - name: --enable-vmss
     summary: Als veraltet markiert. Verwenden Sie stattdessen vm_set_type.
+    description: ''
+  - name: --fqdn-subdomain
+    summary: Schau Ein Präfix für den voll qualifizierten Namen, der für den privaten Cluster mit einem benutzerdefinierten privaten DNS-Zonen Szenario erstellt wird
     description: ''
   - name: --generate-ssh-keys
     summary: Erstellen der Dateien für öffentliche und private SSH-Schlüssel, sofern diese fehlen.
@@ -391,6 +406,9 @@ directCommands:
     description: ''
   - name: --node-osdisk-type
     summary: Der Betriebssystem Datenträger, der für Computer in einem bestimmten agentpool verwendet werden soll. Der Standardwert ist "verwaltet". Kann für diesen Pool nach der Erstellung nicht geändert werden.
+    description: ''
+  - name: --node-public-ip-prefix-id
+    summary: Öffentliche IP-Präfix-ID, mit der öffentliche IPS VMSS-Knoten zugewiesen werden.
     description: ''
   - name: --node-resource-group
     summary: Bei der Knoten Ressourcengruppe handelt es sich um die Ressourcengruppe, in der alle Ressourcen des Kunden erstellt werden, z. b. virtuelle Computer.
@@ -529,6 +547,8 @@ directCommands:
     Open-Service-Mesh-enable Open Service Mesh-Addon (Vorschau).
 
     gitops: gitops aktivieren (Vorschau).
+
+    Azure-keyvault-Geheimnisse-Provider: Aktivieren Sie das Addon von Azure Key Vault-Geheimnissen Anbieter (Vorschau).
   syntax: >-
     az aks enable-addons --addons
                          --name
@@ -539,6 +559,7 @@ directCommands:
                          [--appgw-subnet-id]
                          [--appgw-subnet-prefix]
                          [--appgw-watch-namespace]
+                         [--enable-secret-rotation]
                          [--enable-sgxquotehelper]
                          [--no-wait]
                          [--subnet-name]
@@ -581,6 +602,9 @@ directCommands:
     description: ''
   - name: --appgw-watch-namespace
     summary: 'Geben Sie den Namespace an, der von Agic überwacht werden soll. Dabei kann es sich um eine einzelne Zeichenfolge oder eine durch Trennzeichen getrennte Namespaceliste handeln. Verwendung mit Ingress: Azure-Addon.'
+    description: ''
+  - name: --enable-secret-rotation
+    summary: Aktivieren der geheimen Rotation. Verwenden Sie dies mit Azure-keyvault-Secrets-Provider-Addon.
     description: ''
   - name: --enable-sgxquotehelper
     summary: Aktivieren Sie das Hilfsprogramm für die SGX-Quote für confcom
@@ -870,19 +894,22 @@ directCommands:
                   [--api-server-authorized-ip-ranges]
                   [--assign-identity]
                   [--attach-acr]
-                  [--auto-upgrade-channel {none, patch, rapid, stable}]
+                  [--auto-upgrade-channel {node-image, none, patch, rapid, stable}]
                   [--cluster-autoscaler-profile]
                   [--detach-acr]
                   [--disable-ahub]
                   [--disable-cluster-autoscaler]
                   [--disable-pod-identity]
                   [--disable-pod-security-policy]
+                  [--disable-secret-rotation]
                   [--enable-aad]
                   [--enable-ahub]
                   [--enable-cluster-autoscaler]
                   [--enable-managed-identity]
                   [--enable-pod-identity]
+                  [--enable-pod-identity-with-kubenet]
                   [--enable-pod-security-policy]
+                  [--enable-secret-rotation]
                   [--load-balancer-idle-timeout]
                   [--load-balancer-managed-outbound-ip-count]
                   [--load-balancer-outbound-ip-prefixes]
@@ -968,8 +995,8 @@ directCommands:
     summary: Erteilen Sie der acrpull-Rollenzuweisung den durch den Namen oder die Ressourcen-ID angegebenen ACR.
     description: ''
   - name: --auto-upgrade-channel
-    parameterValueGroup: none, patch, rapid, stable
-    summary: Geben Sie den upgradeschannel für "AutoUpgrade" an. Der Wert kann "Rapid", "stable", "Patch" oder "keine" lauten
+    parameterValueGroup: node-image, none, patch, rapid, stable
+    summary: Geben Sie den upgradeschannel für "AutoUpgrade" an. Dies könnte "Rapid", "stable", "Patch", "Node-Image" oder "None" lauten
     description: ''
   - name: --cluster-autoscaler-profile
     summary: Durch Leerzeichen getrennte Liste der Schlüssel = Wert-Paare für die Konfiguration der automatischen Cluster Konfiguration. Übergeben Sie eine leere Zeichenfolge, um das Profil zu löschen.
@@ -989,6 +1016,9 @@ directCommands:
   - name: --disable-pod-security-policy
     summary: Schau Deaktivieren Sie die Pod-Sicherheitsrichtlinie.
     description: ''
+  - name: --disable-secret-rotation
+    summary: Deaktivieren Sie die geheime Rotation. Verwenden Sie dies mit Azure-keyvault-Secrets-Provider-Addon.
+    description: ''
   - name: --enable-aad
     summary: Aktivieren Sie das verwaltete Aad-Feature für Cluster.
     description: ''
@@ -1004,8 +1034,14 @@ directCommands:
   - name: --enable-pod-identity
     summary: Schau Aktivieren Sie Pod-Identitäts-Addon für Cluster.
     description: ''
+  - name: --enable-pod-identity-with-kubenet
+    summary: Schau Aktivieren Sie Pod Identity Addon für Cluster mithilfe des kubnet-Netzwerk-Plug-ins.
+    description: ''
   - name: --enable-pod-security-policy
     summary: Schau Aktivieren Sie Pod-Sicherheitsrichtlinie.
+    description: ''
+  - name: --enable-secret-rotation
+    summary: Aktivieren der geheimen Rotation. Verwenden Sie dies mit Azure-keyvault-Secrets-Provider-Addon.
     description: ''
   - name: --load-balancer-idle-timeout
     summary: Leerlauf Timeout für Load Balancer (in Minuten).
@@ -1146,6 +1182,12 @@ commands:
 - ext_aks-preview_az_aks_get_versions
 - ext_aks-preview_az_aks_kanalyze
 - ext_aks-preview_az_aks_kollect
+- ext_aks-preview_az_aks_maintenanceconfiguration
+- ext_aks-preview_az_aks_maintenanceconfiguration_add
+- ext_aks-preview_az_aks_maintenanceconfiguration_delete
+- ext_aks-preview_az_aks_maintenanceconfiguration_list
+- ext_aks-preview_az_aks_maintenanceconfiguration_show
+- ext_aks-preview_az_aks_maintenanceconfiguration_update
 - ext_aks-preview_az_aks_nodepool
 - ext_aks-preview_az_aks_nodepool_add
 - ext_aks-preview_az_aks_nodepool_delete
@@ -1189,9 +1231,9 @@ globalParameters:
   summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
 metadata:
   description: Verwalten Sie Azure Kubernetes Services.
-  ms.openlocfilehash: b6fd2c93c19266a935112fc4110309c6ec1bfc3f
-  ms.sourcegitcommit: df9d6597535ef9103775afbaee5a8282e0e218ee
+  ms.openlocfilehash: e3e4c307fd5df53ee647848cff44c463852304f3
+  ms.sourcegitcommit: f9e23f29c59c6957d3df4d5ca2f4425093e6fd80
   ms.translationtype: MT
   ms.contentlocale: de-DE
-  ms.lasthandoff: 02/09/2021
-  ms.locfileid: "102968852"
+  ms.lasthandoff: 03/16/2021
+  ms.locfileid: "103503431"
