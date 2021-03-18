@@ -21,6 +21,8 @@ directCommands:
                              [--cross-domain-policy]
                              [--description]
                              [--encoding-type]
+                             [--hostname-prefix]
+                             [--key-frame-interval]
                              [--key-frame-interval-duration]
                              [--no-wait]
                              [--preset-name]
@@ -28,9 +30,11 @@ directCommands:
                              [--preview-locator]
                              [--stream-options {Default, LowLatency}]
                              [--streaming-policy-name]
+                             [--stretch-mode]
                              [--subscription]
                              [--tags]
-                             [--vanity-url {false, true}]
+                             [--transcription-lang]
+                             [--use-static-hostname]
   requiredParameters:
   - isRequired: true
     name: --account-name -a
@@ -73,7 +77,13 @@ directCommands:
     summary: Die Beschreibung des Live Ereignisses.
     description: ''
   - name: --encoding-type
-    summary: 'Der Codierungstyp für das Live Ereignis. Dieser Wert wird zum Zeitpunkt der Erstellung angegeben und kann nicht aktualisiert werden. Zulässige Werte: Basic, None, Standard.'
+    summary: 'Der Codierungstyp für das Live Ereignis. Dieser Wert wird zum Zeitpunkt der Erstellung angegeben und kann nicht aktualisiert werden. Zulässige Werte: Premium1080p, None, Standard.'
+    description: ''
+  - name: --hostname-prefix
+    summary: Wenn usestatichostname auf true festgelegt ist, gibt hostname_prefix den ersten Teil des Hostnamens an, der der Live-Ereignis Vorschau und den Erfassungs Endpunkten zugewiesen ist. Der endgültige Hostname ist dann eine Kombination aus diesem Präfix, dem Media Services-Kontonamen und einem kurzen Code für das Azure Media Services-Rechenzentrum.
+    description: ''
+  - name: --key-frame-interval
+    summary: Verwenden Sie einen ISO 8601-Zeitwert zwischen 0,5 und 20 Sekunden, um die Länge des Ausgabe Fragments für das Video und Audiotracks eines Codierungs-Live Ereignisses anzugeben. Verwenden Sie z. b. PT2S, um 2 Sekunden anzugeben. Für die Videospur definiert Sie auch das Keyframe-Intervall oder die Länge eines GOP (Gruppe von Bildern). Wenn dieser Wert nicht für das ancodierungs-Live Ereignis festgelegt ist, wird für die fragmentdauer standardmäßig 2 Sekunden verwendet. Der Wert kann für Passthrough-Live Ereignisse nicht festgelegt werden.
     description: ''
   - name: --key-frame-interval-duration
     summary: ISO 8601 TimeSpan-Dauer der Dauer des Keyframe-Intervalls in Sekunden. Der Wert muss ein gerundete im Bereich von 1 (PT1S oder 00:00:01) bis 30 (PT30S oder 00:00:30) Sekunden sein.
@@ -97,15 +107,20 @@ directCommands:
   - name: --streaming-policy-name
     summary: Der Name der Streaming-Richtlinie, die für die Live-Ereignis Vorschau verwendet wird. Dies kann zum Zeitpunkt der Erstellung angegeben werden, kann jedoch nicht aktualisiert werden.
     description: ''
+  - name: --stretch-mode
+    summary: 'Gibt an, wie die Größe des Eingabe Videos an die gewünschte Ausgabeauflösung (n) angepasst wird. Der Standardwert ist None.  Zulässige Werte: None, AutoSize, AutoFit.'
+    description: ''
   - name: --subscription
     summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
     description: ''
   - name: --tags
     summary: 'Durch Leerzeichen getrennte Tags: Key [= value] [key [= value]...]. Verwenden Sie "", um vorhandene Tags zu löschen.'
     description: ''
-  - name: --vanity-url
-    parameterValueGroup: false, true
-    summary: Gibt an, ob eine Vanity-URL mit dem Live Ereignis verwendet werden soll. Dieser Wert wird zum Zeitpunkt der Erstellung angegeben und kann nicht aktualisiert werden.
+  - name: --transcription-lang
+    summary: 'Live Transkriptions Sprache für das Live Ereignis. Zulässige Werte: ca-es, da-DK, de-de, en-au, en-ca, en-GB, en-in, en-NZ, en-US, es-es, es-MX, fi-fi, fr-ca, fr-FR, IT-IT, nl-nl, pt-br, pt-pt, SV-SE finden Sie <a href="https://go.microsoft.com/fwlink/?linkid=2133742">https://go.microsoft.com/fwlink/?linkid=2133742</a> unter.'
+    description: ''
+  - name: --use-static-hostname
+    summary: Gibt an, ob der Live-Ereignis Vorschau und der Erfassungs Endpunkte ein statischer Hostname zugewiesen wird. Dieser Wert kann nur aktualisiert werden, wenn sich das Live Ereignis im Standbyzustand befindet. Wenn hostname_prefix nicht angegeben ist, wird der Live Ereignis Name als Hostname-Präfix verwendet.
     description: ''
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/ams/_help.py
 - uid: az_ams_live_event_delete
@@ -218,6 +233,37 @@ directCommands:
     description: ''
   - name: --query-examples
     summary: Empfehlen Sie die jmespath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und Sie nach dem Abfrage Parameter in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positions Schlüsselwörter hinzufügen, um Vorschläge auf der Grundlage dieser Schlüsselwörter zu geben.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/ams/_help.py
+- uid: az_ams_live_event_standby
+  name: az ams live-event standby
+  summary: Zuordnen eines Live Ereignisses, das zu einem späteren Zeitpunkt gestartet werden soll.
+  description: ''
+  syntax: >-
+    az ams live-event standby [--account-name]
+                              [--ids]
+                              [--name]
+                              [--no-wait]
+                              [--resource-group]
+                              [--subscription]
+  optionalParameters:
+  - name: --account-name -a
+    summary: Der Name des Azure Media Services Kontos.
+    description: ''
+  - name: --ids
+    summary: Mindestens eine Ressourcen-ID (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID handeln, die alle Informationen von Ressourcen-ID-Argumenten enthält. Sie sollten entweder--IDs oder andere Ressourcen-ID-Argumente angeben.
+    description: ''
+  - name: --name -n
+    summary: Der Name des Live Ereignisses.
+    description: ''
+  - name: --no-wait
+    summary: Nicht auf den Abschluss lang andauernder Vorgänge warten
     description: ''
   - name: --resource-group -g
     summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
@@ -434,6 +480,7 @@ commands:
 - az_ams_live_event_list
 - az_ams_live_event_reset
 - az_ams_live_event_show
+- az_ams_live_event_standby
 - az_ams_live_event_start
 - az_ams_live_event_stop
 - az_ams_live_event_update
@@ -455,11 +502,11 @@ globalParameters:
   summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
 metadata:
   doc_source_url_repo: https://github.com/Azure/azure-cli/blob/dev/
-  ms.date: 07/28/2020
+  ms.date: 02/24/2021
   description: Verwalten Sie Live Veranstaltungen für ein Azure Media Services-Konto.
-  ms.openlocfilehash: a452a854e7a8bb9b2b0b56f04777c811f84d61a4
-  ms.sourcegitcommit: dd42eae9469c48f3cce66347e8e1cac317887a3a
+  ms.openlocfilehash: 3e2330aadc3d5688ad55ebcab8cde9a5061feb17
+  ms.sourcegitcommit: f9e23f29c59c6957d3df4d5ca2f4425093e6fd80
   ms.translationtype: MT
   ms.contentlocale: de-DE
-  ms.lasthandoff: 09/29/2020
-  ms.locfileid: "102820431"
+  ms.lasthandoff: 03/16/2021
+  ms.locfileid: "103523372"
