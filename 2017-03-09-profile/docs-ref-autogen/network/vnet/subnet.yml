@@ -9,19 +9,13 @@ directCommands:
   summary: Erstellen Sie ein Subnetz, und ordnen Sie eine vorhandene NSG und Routing Tabelle zu.
   description: ''
   syntax: >-
-    az network vnet subnet create --address-prefixes
+    az network vnet subnet create --address-prefix
                                   --name
                                   --resource-group
                                   --vnet-name
                                   [--defer]
-                                  [--delegations]
-                                  [--disable-private-endpoint-network-policies {false, true}]
-                                  [--disable-private-link-service-network-policies {false, true}]
-                                  [--nat-gateway]
                                   [--network-security-group]
                                   [--route-table]
-                                  [--service-endpoint-policy]
-                                  [--service-endpoints]
                                   [--subscription]
   examples:
   - summary: Erstellen Sie ein neues Subnetz, das einer NSG mit einer benutzerdefinierten Routing Tabelle zugeordnet ist.
@@ -32,8 +26,8 @@ directCommands:
     syntax: az network vnet subnet create -n MySubnet --vnet-name MyVnet -g MyResourceGroup --nat-gateway MyNatGateway --address-prefixes "10.0.0.0/21"
   requiredParameters:
   - isRequired: true
-    name: --address-prefixes
-    summary: Durch Leerzeichen getrennte Liste der Adress Präfixe im CIDR-Format.
+    name: --address-prefix
+    summary: Adress Präfix im CIDR-Format.
     description: ''
   - isRequired: true
     name: --name -n
@@ -51,33 +45,12 @@ directCommands:
   - name: --defer
     summary: Speichert das Objekt temporär im lokalen Cache, anstatt es an Azure zu senden. Verwenden `az cache` Sie Befehle zum Anzeigen/löschen.
     description: ''
-  - name: --delegations
-    summary: Durch Leerzeichen getrennte Liste von Diensten, an die das Subnetz delegiert werden soll. (z. b. Microsoft. SQL/Servers).
-    description: ''
-  - name: --disable-private-endpoint-network-policies
-    parameterValueGroup: false, true
-    summary: Deaktivieren Sie die Netzwerk Richtlinien für private Endpunkte im Subnetz.
-    description: ''
-  - name: --disable-private-link-service-network-policies
-    parameterValueGroup: false, true
-    summary: Deaktivieren Sie die Netzwerk Richtlinien für private Verknüpfungs Dienste im Subnetz.
-    description: ''
-  - name: --nat-gateway
-    summary: Fügen Sie das NAT-Gateway an das Subnetz an.
-    description: ''
   - name: --network-security-group --nsg
     summary: Der Name oder die ID einer Netzwerk Sicherheitsgruppe (NSG).
     description: ''
   - name: --route-table
     summary: Der Name oder die ID einer Routing Tabelle, die dem Subnetz zugeordnet werden soll.
     description: ''
-  - name: --service-endpoint-policy
-    summary: Eine durch Leerzeichen getrennte Liste von Namen oder IDs der anzuwendenden dienstend Punkt Richtlinien.
-    description: ''
-  - name: --service-endpoints
-    summary: Durch Leerzeichen getrennte Liste mit Diensten, die den privaten Zugriff auf dieses Subnetz erlauben.
-    description: ''
-    valueFrom: az network vnet list-endpoint-services
   - name: --subscription
     summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
     description: ''
@@ -143,30 +116,6 @@ directCommands:
     summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
     description: ''
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/network/_help.py
-- uid: az_network_vnet_subnet_list_available_delegations
-  name: az network vnet subnet list-available-delegations
-  summary: Listet die für die subnetzdelegierung verfügbaren Dienste auf.
-  description: ''
-  syntax: >-
-    az network vnet subnet list-available-delegations [--location]
-                                                      [--resource-group]
-                                                      [--subscription]
-  examples:
-  - summary: Abrufen der Dienstnamen für verfügbare Delegierungen in der Region "USA, Westen".
-    syntax: az network vnet subnet list-available-delegations -l westus --query [].serviceName
-  - summary: Listet die für die subnetzdelegierung verfügbaren Dienste auf. automatisch generierten
-    syntax: az network vnet subnet list-available-delegations --resource-group MyResourceGroup
-  optionalParameters:
-  - name: --location -l
-    summary: 'Der Standort. Werte aus: `az account list-locations`. Sie können den standardmäßig verwendeten Standort mit `az configure --defaults location=<location>` konfigurieren.'
-    description: ''
-  - name: --resource-group -g
-    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
-    description: ''
-  - name: --subscription
-    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
-    description: ''
-  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/network/_help.py
 - uid: az_network_vnet_subnet_show
   name: az network vnet subnet show
   summary: Anzeigen der Details eines Subnetzes.
@@ -211,20 +160,14 @@ directCommands:
   description: ''
   syntax: >-
     az network vnet subnet update [--add]
-                                  [--address-prefixes]
-                                  [--delegations]
-                                  [--disable-private-endpoint-network-policies {false, true}]
-                                  [--disable-private-link-service-network-policies {false, true}]
+                                  [--address-prefix]
                                   [--force-string]
                                   [--ids]
                                   [--name]
-                                  [--nat-gateway]
                                   [--network-security-group]
                                   [--remove]
                                   [--resource-group]
                                   [--route-table]
-                                  [--service-endpoint-policy]
-                                  [--service-endpoints]
                                   [--set]
                                   [--subscription]
                                   [--vnet-name]
@@ -239,19 +182,8 @@ directCommands:
   - name: --add
     summary: Fügen Sie einer Liste von-Objekten ein Objekt hinzu, indem Sie ein Pfad-und Schlüssel-Wert-Paar angeben.  Beispiel:--Add Property. ListProperty <Key = Value, String oder JSON String>.
     description: ''
-  - name: --address-prefixes
-    summary: Durch Leerzeichen getrennte Liste der Adress Präfixe im CIDR-Format.
-    description: ''
-  - name: --delegations
-    summary: Durch Leerzeichen getrennte Liste von Diensten, an die das Subnetz delegiert werden soll. (z. b. Microsoft. SQL/Servers).
-    description: ''
-  - name: --disable-private-endpoint-network-policies
-    parameterValueGroup: false, true
-    summary: Deaktivieren Sie die Netzwerk Richtlinien für private Endpunkte im Subnetz.
-    description: ''
-  - name: --disable-private-link-service-network-policies
-    parameterValueGroup: false, true
-    summary: Deaktivieren Sie die Netzwerk Richtlinien für private Verknüpfungs Dienste im Subnetz.
+  - name: --address-prefix
+    summary: Adress Präfix im CIDR-Format.
     description: ''
   - name: --force-string
     summary: Wenn Sie "Set" oder "Add" verwenden, erhalten Sie Zeichen folgen Literale, anstatt zu versuchen, in JSON zu konvertieren.
@@ -261,9 +193,6 @@ directCommands:
     description: ''
   - name: --name -n
     summary: Den Subnetznamen.
-    description: ''
-  - name: --nat-gateway
-    summary: Fügen Sie das NAT-Gateway an das Subnetz an.
     description: ''
   - name: --network-security-group --nsg
     summary: Der Name oder die ID einer Netzwerk Sicherheitsgruppe (NSG). Verwenden Sie die leere Zeichenfolge "" ("" "" "in PowerShell), um Sie zu trennen.
@@ -277,13 +206,6 @@ directCommands:
   - name: --route-table
     summary: Der Name oder die ID einer Routing Tabelle, die dem Subnetz zugeordnet werden soll. Verwenden Sie die leere Zeichenfolge "" ("" "" "in PowerShell), um Sie zu trennen. Sie können "--Remove RouteTable" auch in "AZ Network vnet Subnetz Update" anfügen, um es zu trennen.
     description: ''
-  - name: --service-endpoint-policy
-    summary: Eine durch Leerzeichen getrennte Liste von Namen oder IDs der anzuwendenden dienstend Punkt Richtlinien.
-    description: ''
-  - name: --service-endpoints
-    summary: Durch Leerzeichen getrennte Liste mit Diensten, die den privaten Zugriff auf dieses Subnetz erlauben.
-    description: ''
-    valueFrom: az network vnet list-endpoint-services
   - name: --set
     summary: Aktualisieren Sie ein Objekt, indem Sie einen Eigenschafts Pfad und einen festzulegenden Wert angeben.  Beispiel:--Set Eigenschaft1. Eigenschaft2 =<value>.
     description: ''
@@ -298,7 +220,6 @@ commands:
 - az_network_vnet_subnet_create
 - az_network_vnet_subnet_delete
 - az_network_vnet_subnet_list
-- az_network_vnet_subnet_list_available_delegations
 - az_network_vnet_subnet_show
 - az_network_vnet_subnet_update
 globalParameters:
@@ -320,9 +241,9 @@ metadata:
   doc_source_url_repo: https://github.com/Azure/azure-cli/blob/dev/
   ms.date: 02/25/2021
   description: Weitere Informationen zu Subnetzen finden Sie unter <a href="https://docs.microsoft.com/azure/virtual-network/virtual-network-manage-subnet">https://docs.microsoft.com/azure/virtual-network/virtual-network-manage-subnet</a> .
-  ms.openlocfilehash: e387608cce9fc0baf1ee6535470a19d0f596733a
+  ms.openlocfilehash: b7ee6bb9afd666531dfe33c5b577d0e5c98c14b6
   ms.sourcegitcommit: f9e23f29c59c6957d3df4d5ca2f4425093e6fd80
   ms.translationtype: MT
   ms.contentlocale: de-DE
   ms.lasthandoff: 03/16/2021
-  ms.locfileid: "103540304"
+  ms.locfileid: "103512900"
