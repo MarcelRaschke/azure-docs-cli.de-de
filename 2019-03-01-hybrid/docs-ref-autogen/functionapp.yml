@@ -27,7 +27,7 @@ directCommands:
                           [--os-type {Linux, Windows}]
                           [--plan]
                           [--role]
-                          [--runtime {custom, dotnet, java, node, powershell, python}]
+                          [--runtime {custom, dotnet, dotnet-isolated, java, node, powershell, python}]
                           [--runtime-version]
                           [--scope]
                           [--subscription]
@@ -104,11 +104,11 @@ directCommands:
     summary: Rollenname oder ID, die die vom System zugewiesene Identität hat.
     description: ''
   - name: --runtime
-    parameterValueGroup: custom, dotnet, java, node, powershell, python
+    parameterValueGroup: custom, dotnet, dotnet-isolated, java, node, powershell, python
     summary: Der Functions-Lauf Zeit Stapel.
     description: ''
   - name: --runtime-version
-    summary: 'Die Version des Functions-Lauf Zeit Stapels. Zulässige Werte für jede-Laufzeit sind: node-> [8, 10, 12, 14 (Vorschau)], Java-> [8, 11], PowerShell-> [7,0], python-> [3,6, 3,7, 3,8, 3,9 (Vorschau)].'
+    summary: 'Die Version des Functions-Lauf Zeit Stapels. Zulässige Werte für jede-Laufzeit: dotnet-isoliert-> [5,0 (Vorschau)], Node-> [8, 10, 12, 14], Java-> [8, 11], PowerShell-> [7,0], python-> [3,6, 3,7, 3,8, 3,9 (Vorschau)].'
     description: ''
   - name: --scope
     summary: Bereich, auf den die vom System zugewiesene Identität zugreifen kann.
@@ -148,6 +148,78 @@ directCommands:
     description: ''
   - name: --subscription
     summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/appservice/_help.py
+- uid: az_functionapp_deploy
+  name: az functionapp deploy
+  summary: Stellt ein bereitgestelltes Element in Azure functionapp bereit.
+  description: ''
+  syntax: >-
+    az functionapp deploy [--async {false, true}]
+                          [--clean {false, true}]
+                          [--ids]
+                          [--ignore-stack {false, true}]
+                          [--name]
+                          [--resource-group]
+                          [--restart {false, true}]
+                          [--slot]
+                          [--src-path]
+                          [--src-url]
+                          [--subscription]
+                          [--target-path]
+                          [--timeout]
+                          [--type]
+  examples:
+  - summary: Stellen Sie eine war-Datei asynchron bereit.
+    syntax: az functionapp deploy --resource-group ResouceGroup --name AppName --src-path SourcePath --type war --async true
+  - summary: Statische Textdatei in wwwroot/staticfiles/test.txt bereitstellen
+    syntax: az functionapp deploy --resource-group ResouceGroup --name AppName --src-path SourcePath --type static --target-path staticfiles/test.txt
+  optionalParameters:
+  - name: --async
+    parameterValueGroup: false, true
+    summary: Asynchrone Bereitstellung.
+    description: ''
+  - name: --clean
+    parameterValueGroup: false, true
+    summary: Bereinigen. der Standardwert ist Target-Type-spezifisch.
+    description: ''
+  - name: --ids
+    summary: Mindestens eine Ressourcen-ID (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID handeln, die alle Informationen von Ressourcen-ID-Argumenten enthält. Sie sollten entweder--IDs oder andere Ressourcen-ID-Argumente angeben.
+    description: ''
+  - name: --ignore-stack
+    parameterValueGroup: false, true
+    summary: Sollte die standardmäßige Stapel Überprüfung überschreiben.
+    description: ''
+  - name: --name -n
+    summary: Der Name der functionapp, mit der eine Verbindung hergestellt werden soll.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --restart
+    parameterValueGroup: false, true
+    summary: Neustart oder nicht. das Standardverhalten ist die Neustarts.
+    description: ''
+  - name: --slot -s
+    summary: Der Name des zu verwendenden Bereitstellungs Slots.
+    description: ''
+  - name: --src-path
+    summary: Der Pfad der Datei, die bereitgestellt werden soll. Beispiel:/mnt/apps/MyApp.war.
+    description: ''
+  - name: --src-url
+    summary: 'Die URL, aus der das Paket heruntergeladen werden soll. Beispiel: <a href="http://mysite.com/files/myapp.war?key=123">http://mysite.com/files/myapp.war?key=123</a> .'
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  - name: --target-path
+    summary: Der Zielpfad relativ zu "wwwroot", in dem die Datei bereitgestellt wird.
+    description: ''
+  - name: --timeout
+    summary: Timeout für den Vorgang in Millisekunden.
+    description: ''
+  - name: --type
+    summary: Der Typ der angeforderten Bereitstellung.
     description: ''
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/appservice/_help.py
 - uid: az_functionapp_list
@@ -395,6 +467,7 @@ commands:
 - az_functionapp_cors_show
 - az_functionapp_create
 - az_functionapp_delete
+- az_functionapp_deploy
 - az_functionapp_deployment
 - az_functionapp_deployment_container
 - az_functionapp_deployment_container_config
@@ -477,11 +550,11 @@ globalParameters:
   summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
 metadata:
   doc_source_url_repo: https://github.com/Azure/azure-cli/blob/dev/
-  ms.date: 01/19/2021
+  ms.date: 02/26/2021
   description: Verwalten von Funktionen-apps. Informationen zum Installieren der Azure Functions Core-Tools finden Sie unter <a href="https://github.com/Azure/azure-functions-core-tools">https://github.com/Azure/azure-functions-core-tools</a> .
-  ms.openlocfilehash: 0c01c2e209e147fc3b27148b5a2499b954950f88
-  ms.sourcegitcommit: df9d6597535ef9103775afbaee5a8282e0e218ee
+  ms.openlocfilehash: ac55e1df2dc6887566268e2aa676dde0b7d65cae
+  ms.sourcegitcommit: f9e23f29c59c6957d3df4d5ca2f4425093e6fd80
   ms.translationtype: MT
   ms.contentlocale: de-DE
-  ms.lasthandoff: 02/09/2021
-  ms.locfileid: "102987277"
+  ms.lasthandoff: 03/16/2021
+  ms.locfileid: "103544928"
