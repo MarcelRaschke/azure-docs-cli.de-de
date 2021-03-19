@@ -1,0 +1,565 @@
+### YamlMime:AzureCLIGroup
+uid: az_keyvault_certificate
+name: az keyvault certificate
+summary: Verwalten Sie Zertifikate.
+description: ''
+directCommands:
+- uid: az_keyvault_certificate_backup
+  name: az keyvault certificate backup
+  summary: Sichert das angegebene Zertifikat.
+  description: Fordert an, dass eine Sicherung des angegebenen Zertifikats auf den Client heruntergeladen wird. Alle Versionen des Zertifikats werden heruntergeladen. Dieser Vorgang erfordert die Berechtigung "Zertifikate/Sicherung".
+  syntax: >-
+    az keyvault certificate backup --file
+                                   [--id]
+                                   [--name]
+                                   [--subscription]
+                                   [--vault-name]
+  requiredParameters:
+  - isRequired: true
+    name: --file -f
+    summary: Lokaler Dateipfad, in dem die Zertifikat Sicherung gespeichert werden soll.
+    description: ''
+  optionalParameters:
+  - name: --id
+    summary: ID des Zertifikats. Wenn angegeben, sollten alle anderen "ID"-Argumente ausgelassen werden.
+    description: ''
+  - name: --name -n
+    summary: Name des Zertifikats. Erforderlich, wenn--ID nicht angegeben ist.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  - name: --vault-name
+    summary: Der Name der Key Vault. Erforderlich, wenn--ID nicht angegeben ist.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/keyvault/_help.py
+- uid: az_keyvault_certificate_create
+  name: az keyvault certificate create
+  summary: Erstellen Sie ein Key Vault Zertifikat.
+  description: Zertifikate können als Geheimnisse für bereitgestellte virtuelle Maschinen verwendet werden.
+  syntax: >-
+    az keyvault certificate create --name
+                                   --policy
+                                   --vault-name
+                                   [--disabled {false, true}]
+                                   [--subscription]
+                                   [--tags]
+                                   [--validity]
+  examples:
+  - summary: Erstellen Sie ein selbst signiertes Zertifikat mit der Standard Richtlinie, und fügen Sie es einem virtuellen Computer hinzu.
+    syntax: >-
+      az keyvault certificate create --vault-name vaultname -n cert1 \
+        -p "$(az keyvault certificate get-default-policy)"
+
+      secrets=$(az keyvault secret list-versions --vault-name vaultname \
+        -n cert1 --query "[?attributes.enabled].id" -o tsv)
+
+      vm_secrets=$(az vm secret format -s "$secrets")
+
+
+      az vm create -g group-name -n vm-name --admin-username deploy  \
+        --image debian --secrets "$vm_secrets"
+  requiredParameters:
+  - isRequired: true
+    name: --name -n
+    summary: Name des Zertifikats.
+    description: ''
+  - isRequired: true
+    name: --policy -p
+    summary: Definition der JSON-codierten Richtlinie. Verwenden Sie @ {File} zum Laden aus einer Datei (z. b. @my_policy.json ).
+    description: ''
+  - isRequired: true
+    name: --vault-name
+    summary: Der Name des Tresors.
+    description: ''
+  optionalParameters:
+  - name: --disabled
+    parameterValueGroup: false, true
+    summary: Erstellen Sie ein Zertifikat im deaktivierten Zustand.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  - name: --tags
+    summary: 'Durch Leerzeichen getrennte Tags: Key [= value] [key [= value]...]. Verwenden Sie "", um vorhandene Tags zu löschen.'
+    description: ''
+  - name: --validity
+    summary: Die Anzahl der Monate, für die das Zertifikat gültig ist. Überschreibt den mit--Policy/-p angegebenen Wert.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/keyvault/_help.py
+- uid: az_keyvault_certificate_delete
+  name: az keyvault certificate delete
+  summary: Löscht ein Zertifikat aus einem angegebenen Schlüssel Tresor.
+  description: Löscht alle Versionen eines Zertifikat Objekts zusammen mit der zugehörigen Richtlinie. Das Löschen eines Zertifikats kann nicht zum Entfernen einzelner Versionen eines Zertifikat Objekts verwendet werden. Dieser Vorgang erfordert die Berechtigung "Zertifikate/löschen".
+  syntax: >-
+    az keyvault certificate delete [--id]
+                                   [--name]
+                                   [--subscription]
+                                   [--vault-name]
+  optionalParameters:
+  - name: --id
+    summary: ID des Zertifikats. Wenn angegeben, sollten alle anderen "ID"-Argumente ausgelassen werden.
+    description: ''
+  - name: --name -n
+    summary: Name des Zertifikats. Erforderlich, wenn--ID nicht angegeben ist.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  - name: --vault-name
+    summary: Der Name der Key Vault. Erforderlich, wenn--ID nicht angegeben ist.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/keyvault/_help.py
+- uid: az_keyvault_certificate_download
+  name: az keyvault certificate download
+  summary: Laden Sie den öffentlichen Teil eines Key Vault Zertifikats herunter.
+  description: Das Zertifikat, das entweder als PEM oder der formatiert ist. PEM ist die Standardeinstellung.
+  syntax: >-
+    az keyvault certificate download --file
+                                     [--encoding {DER, PEM}]
+                                     [--id]
+                                     [--name]
+                                     [--subscription]
+                                     [--vault-name]
+                                     [--version]
+  examples:
+  - summary: Laden Sie ein Zertifikat als PEM herunter, und überprüfen Sie seinen Fingerabdruck in OpenSSL.
+    syntax: >-
+      az keyvault certificate download --vault-name vault -n cert-name -f cert.pem && \
+
+      openssl x509 -in cert.pem -inform PEM  -noout -sha1 -fingerprint
+  - summary: Laden Sie ein Zertifikat als der herunter, und überprüfen Sie seinen Fingerabdruck in OpenSSL.
+    syntax: >-
+      az keyvault certificate download --vault-name vault -n cert-name -f cert.crt -e DER && \
+
+      openssl x509 -in cert.crt -inform DER  -noout -sha1 -fingerprint
+  requiredParameters:
+  - isRequired: true
+    name: --file -f
+    summary: Die Datei, die den Inhalt des binären Zertifikats empfängt.
+    description: ''
+  optionalParameters:
+  - name: --encoding -e
+    defaultValue: PEM
+    parameterValueGroup: DER, PEM
+    summary: Codierung des Zertifikats. Der erstellt ein binäres x x509-Zertifikat, und PEM erstellt ein Base64-PEM-x509-Zertifikat.
+    description: ''
+  - name: --id
+    summary: ID des Zertifikats. Wenn angegeben, sollten alle anderen "ID"-Argumente ausgelassen werden.
+    description: ''
+  - name: --name -n
+    summary: Name des Zertifikats. Erforderlich, wenn--ID nicht angegeben ist.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  - name: --vault-name
+    summary: Der Name der Key Vault. Erforderlich, wenn--ID nicht angegeben ist.
+    description: ''
+  - name: --version -v
+    summary: Die Zertifikat Version. Wenn dieser nicht ausgelassen wird, verwendet die neueste Version.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/keyvault/_help.py
+- uid: az_keyvault_certificate_get_default_policy
+  name: az keyvault certificate get-default-policy
+  summary: Standard Richtlinie für selbst signierte Zertifikate erhalten.
+  description: >-
+    Diese Standard Richtlinie kann in Verbindung mit verwendet werden `az keyvault create` , um ein selbst signiertes Zertifikat zu erstellen.
+
+    Die Standard Richtlinie kann auch als Ausgangspunkt zum Erstellen von abgeleiteten Richtlinien verwendet werden.
+
+
+    Weitere Informationen finden Sie unter: <a href="https://docs.microsoft.com/azure/key-vault/certificates/about-certificates#certificate-policy">https://docs.microsoft.com/azure/key-vault/certificates/about-certificates#certificate-policy</a> .
+  syntax: >-
+    az keyvault certificate get-default-policy [--scaffold]
+                                               [--subscription]
+  examples:
+  - summary: Erstellen eines selbst signierten Zertifikats mit der Standard Richtlinie
+    syntax: >-
+      az keyvault certificate create --vault-name vaultname -n cert1 \
+        -p "$(az keyvault certificate get-default-policy)"
+  optionalParameters:
+  - name: --scaffold
+    summary: Erstellen Sie eine vollständig geformte Richtlinien Struktur mit Standardwerten.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/keyvault/_help.py
+- uid: az_keyvault_certificate_import
+  name: az keyvault certificate import
+  summary: Importieren Sie ein Zertifikat in Key Vault.
+  description: Zertifikate können auch als Geheimnisse in bereitgestellten virtuellen Computern verwendet werden.
+  syntax: >-
+    az keyvault certificate import --file
+                                   --name
+                                   --vault-name
+                                   [--disabled {false, true}]
+                                   [--password]
+                                   [--policy]
+                                   [--subscription]
+                                   [--tags]
+  examples:
+  - summary: Erstellen eines Dienst Prinzipals mit einem Zertifikat, Hinzufügen des Zertifikats zu Key Vault und Bereitstellen eines virtuellen Computers mit diesem Zertifikat.
+    syntax: >-
+      service_principal=$(az ad sp create-for-rbac --create-cert)
+
+
+      cert_file=$(echo $service_principal | jq .fileWithCertAndPrivateKey -r)
+
+
+      az keyvault create -g my-group -n vaultname
+
+
+      az keyvault certificate import --vault-name vaultname -n cert_name -f cert_file
+
+
+      secrets=$(az keyvault secret list-versions --vault-name vaultname \
+        -n cert1 --query "[?attributes.enabled].id" -o tsv)
+
+      vm_secrets=$(az vm secret format -s "$secrets")
+
+
+      az vm create -g group-name -n vm-name --admin-username deploy  \
+        --image debian --secrets "$vm_secrets"
+  requiredParameters:
+  - isRequired: true
+    name: --file -f
+    summary: PKCS12-Datei oder PEM-Datei, die das Zertifikat und den privaten Schlüssel enthält.
+    description: ''
+  - isRequired: true
+    name: --name -n
+    summary: Name des Zertifikats.
+    description: ''
+  - isRequired: true
+    name: --vault-name
+    summary: Der Name des Tresors.
+    description: ''
+  optionalParameters:
+  - name: --disabled
+    parameterValueGroup: false, true
+    summary: Importieren Sie das Zertifikat im deaktivierten Zustand.
+    description: ''
+  - name: --password
+    summary: Wenn der private Schlüssel im Zertifikat verschlüsselt ist, wird das für die Verschlüsselung verwendete Kennwort verwendet.
+    description: ''
+  - name: --policy -p
+    summary: Definition der JSON-codierten Richtlinie. Verwenden Sie @ {File} zum Laden aus einer Datei (z. b. @my_policy.json ).
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  - name: --tags
+    summary: 'Durch Leerzeichen getrennte Tags: Key [= value] [key [= value]...]. Verwenden Sie "", um vorhandene Tags zu löschen.'
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/keyvault/_help.py
+- uid: az_keyvault_certificate_list
+  name: az keyvault certificate list
+  summary: Listet die Zertifikate in einem angegebenen Schlüssel Tresor auf.
+  description: Der getzertifikats-Vorgang gibt den Satz der Zertifikat Ressourcen im angegebenen Schlüssel Tresor zurück. Dieser Vorgang erfordert die Berechtigung "Zertifikate/Liste".
+  syntax: >-
+    az keyvault certificate list [--id]
+                                 [--include-pending {false, true}]
+                                 [--maxresults]
+                                 [--query-examples]
+                                 [--subscription]
+                                 [--vault-name]
+  optionalParameters:
+  - name: --id
+    summary: Die ID des Tresors oder des HSM. Wenn angegeben, sollten alle anderen "ID"-Argumente ausgelassen werden.
+    description: ''
+  - name: --include-pending
+    parameterValueGroup: false, true
+    summary: Gibt an, ob Zertifikate eingeschlossen werden sollen, die nicht vollständig bereitgestellt sind.
+    description: ''
+  - name: --maxresults
+    summary: Maximale Anzahl von Ergebnissen, die auf einer Seite zurückgegeben werden sollen. Wenn keine Angabe erfolgt, gibt der Dienst bis zu 25 Ergebnisse zurück.
+    description: ''
+  - name: --query-examples
+    summary: Empfehlen Sie die jmespath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und Sie nach dem Abfrage Parameter in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positions Schlüsselwörter hinzufügen, um Vorschläge auf der Grundlage dieser Schlüsselwörter zu geben.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  - name: --vault-name
+    summary: Der Name der Key Vault. Erforderlich, wenn--ID nicht angegeben ist.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/keyvault/_help.py
+- uid: az_keyvault_certificate_list_deleted
+  name: az keyvault certificate list-deleted
+  summary: Listet die gelöschten Zertifikate im angegebenen Tresor auf, die derzeit für die Wiederherstellung verfügbar sind.
+  description: Mit dem Vorgang "getdeletedzertifikats" werden die Zertifikate im aktuellen Tresor abgerufen, die sich im gelöschten Zustand befinden und wieder hergestellt oder gelöscht werden können. Dieser Vorgang umfasst Lösch spezifische Informationen. Dieser Vorgang erfordert die Berechtigung "Zertifikate/Get/List". Dieser Vorgang kann nur für Tresore aktiviert werden, die vorläufig gelöscht werden.
+  syntax: >-
+    az keyvault certificate list-deleted --vault-name
+                                         [--id]
+                                         [--include-pending {false, true}]
+                                         [--maxresults]
+                                         [--subscription]
+  requiredParameters:
+  - isRequired: true
+    name: --vault-name
+    summary: Der Name des Tresors.
+    description: ''
+  optionalParameters:
+  - name: --id
+    summary: Die ID des Tresors. Wenn angegeben, sollten alle anderen "ID"-Argumente ausgelassen werden.
+    description: ''
+  - name: --include-pending
+    parameterValueGroup: false, true
+    summary: Gibt an, ob Zertifikate eingeschlossen werden sollen, die nicht vollständig bereitgestellt sind.
+    description: ''
+  - name: --maxresults
+    summary: Maximale Anzahl von Ergebnissen, die auf einer Seite zurückgegeben werden sollen. Wenn keine Angabe erfolgt, gibt der Dienst bis zu 25 Ergebnisse zurück.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/keyvault/_help.py
+- uid: az_keyvault_certificate_list_versions
+  name: az keyvault certificate list-versions
+  summary: Listet die Versionen eines Zertifikats auf.
+  description: Der getcertificateversions-Vorgang gibt die Versionen eines Zertifikats im angegebenen Schlüssel Tresor zurück. Dieser Vorgang erfordert die Berechtigung "Zertifikate/Liste".
+  syntax: >-
+    az keyvault certificate list-versions [--id]
+                                          [--maxresults]
+                                          [--name]
+                                          [--subscription]
+                                          [--vault-name]
+  optionalParameters:
+  - name: --id
+    summary: ID des Zertifikats. Wenn angegeben, sollten alle anderen "ID"-Argumente ausgelassen werden.
+    description: ''
+  - name: --maxresults
+    summary: Maximale Anzahl von Ergebnissen, die auf einer Seite zurückgegeben werden sollen. Wenn keine Angabe erfolgt, gibt der Dienst bis zu 25 Ergebnisse zurück.
+    description: ''
+  - name: --name -n
+    summary: Name des Zertifikats. Erforderlich, wenn--ID nicht angegeben ist.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  - name: --vault-name
+    summary: Der Name der Key Vault. Erforderlich, wenn--ID nicht angegeben ist.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/keyvault/_help.py
+- uid: az_keyvault_certificate_purge
+  name: az keyvault certificate purge
+  summary: Löscht das angegebene gelöschte Zertifikat dauerhaft.
+  description: Der Vorgang "purgedeletedcertificate" führt ein unherstellbares Löschen des angegebenen Zertifikats aus, ohne dass eine Wiederherstellung möglich ist. Der Vorgang ist nicht verfügbar, wenn für die Wiederherstellungs Ebene "nicht ersetzbar" nicht angegeben ist. Für diesen Vorgang ist die Certificate/Purge-Berechtigung erforderlich.
+  syntax: >-
+    az keyvault certificate purge [--id]
+                                  [--name]
+                                  [--subscription]
+                                  [--vault-name]
+  optionalParameters:
+  - name: --id
+    summary: Die Wiederherstellungs-ID des Zertifikats. Wenn angegeben, sollten alle anderen "ID"-Argumente ausgelassen werden.
+    description: ''
+  - name: --name -n
+    summary: Name des Zertifikats. Erforderlich, wenn--ID nicht angegeben ist.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  - name: --vault-name
+    summary: Der Name des Tresors. Erforderlich, wenn--ID nicht angegeben ist.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/keyvault/_help.py
+- uid: az_keyvault_certificate_recover
+  name: az keyvault certificate recover
+  summary: Hiermit wird das gelöschte Zertifikat wieder in der aktuellen Version unter/certificates. wieder hergestellt.
+  description: Der Vorgang "wiederherstellungszertifikatzertifikat" führt die Umkehrung des Löschvorgangs aus. Der Vorgang ist in Tresoren anwendbar, die für vorläufiges löschen aktiviert sind, und muss während des Beibehaltungs Intervalls (verfügbar in den Attributen des gelöschten Zertifikats) ausgegeben werden. Dieser Vorgang erfordert die Berechtigung "Zertifikate/Wiederherstellung".
+  syntax: >-
+    az keyvault certificate recover [--id]
+                                    [--name]
+                                    [--subscription]
+                                    [--vault-name]
+  optionalParameters:
+  - name: --id
+    summary: Die Wiederherstellungs-ID des Zertifikats. Wenn angegeben, sollten alle anderen "ID"-Argumente ausgelassen werden.
+    description: ''
+  - name: --name -n
+    summary: Name des Zertifikats. Erforderlich, wenn--ID nicht angegeben ist.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  - name: --vault-name
+    summary: Der Name des Tresors. Erforderlich, wenn--ID nicht angegeben ist.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/keyvault/_help.py
+- uid: az_keyvault_certificate_restore
+  name: az keyvault certificate restore
+  summary: Stellt ein gesichertes Zertifikat in einem Tresor wieder her.
+  description: Stellt ein gesichertes Zertifikat und alle zugehörigen Versionen in einem Tresor wieder her. Für diesen Vorgang ist die Berechtigung Zertifikate/Wiederherstellung erforderlich.
+  syntax: >-
+    az keyvault certificate restore --file
+                                    --vault-name
+                                    [--subscription]
+  requiredParameters:
+  - isRequired: true
+    name: --file -f
+    summary: Lokale Zertifikat Sicherung, aus der das Zertifikat wieder hergestellt werden soll.
+    description: ''
+  - isRequired: true
+    name: --vault-name
+    summary: Der Name des Tresors.
+    description: ''
+  optionalParameters:
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/keyvault/_help.py
+- uid: az_keyvault_certificate_set_attributes
+  name: az keyvault certificate set-attributes
+  summary: Aktualisiert die angegebenen Attribute, die dem jeweiligen Zertifikat zugeordnet sind.
+  description: Der updatecertificate-Vorgang wendet das angegebene Update auf das angegebene Zertifikat an. die einzigen aktualisierten Elemente sind die Attribute des Zertifikats. Dieser Vorgang erfordert die Berechtigung "Zertifikate/aktualisieren".
+  syntax: >-
+    az keyvault certificate set-attributes [--enabled {false, true}]
+                                           [--id]
+                                           [--name]
+                                           [--policy]
+                                           [--subscription]
+                                           [--tags]
+                                           [--vault-name]
+                                           [--version]
+  optionalParameters:
+  - name: --enabled
+    parameterValueGroup: false, true
+    summary: Aktivieren Sie das Zertifikat.
+    description: ''
+  - name: --id
+    summary: ID des Zertifikats. Wenn angegeben, sollten alle anderen "ID"-Argumente ausgelassen werden.
+    description: ''
+  - name: --name -n
+    summary: Name des Zertifikats. Erforderlich, wenn--ID nicht angegeben ist.
+    description: ''
+  - name: --policy -p
+    summary: Definition der JSON-codierten Richtlinie. Verwenden Sie @ {File} zum Laden aus einer Datei (z. b. @my_policy.json ).
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  - name: --tags
+    summary: 'Durch Leerzeichen getrennte Tags: Key [= value] [key [= value]...]. Verwenden Sie "", um vorhandene Tags zu löschen.'
+    description: ''
+  - name: --vault-name
+    summary: Der Name der Key Vault. Erforderlich, wenn--ID nicht angegeben ist.
+    description: ''
+  - name: --version -v
+    summary: Die Zertifikat Version. Wenn dieser nicht ausgelassen wird, verwendet die neueste Version.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/keyvault/_help.py
+- uid: az_keyvault_certificate_show
+  name: az keyvault certificate show
+  summary: Ruft Informationen zu einem Zertifikat ab.
+  description: Ruft Informationen zu einem bestimmten Zertifikat ab. Für diesen Vorgang ist die Zertifikate/Get-Berechtigung erforderlich.
+  syntax: >-
+    az keyvault certificate show [--id]
+                                 [--name]
+                                 [--query-examples]
+                                 [--subscription]
+                                 [--vault-name]
+                                 [--version]
+  optionalParameters:
+  - name: --id
+    summary: ID des Zertifikats. Wenn angegeben, sollten alle anderen "ID"-Argumente ausgelassen werden.
+    description: ''
+  - name: --name -n
+    summary: Name des Zertifikats. Erforderlich, wenn--ID nicht angegeben ist.
+    description: ''
+  - name: --query-examples
+    summary: Empfehlen Sie die jmespath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und Sie nach dem Abfrage Parameter in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positions Schlüsselwörter hinzufügen, um Vorschläge auf der Grundlage dieser Schlüsselwörter zu geben.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  - name: --vault-name
+    summary: Der Name der Key Vault. Erforderlich, wenn--ID nicht angegeben ist.
+    description: ''
+  - name: --version -v
+    summary: Die Zertifikat Version. Wenn dieser nicht ausgelassen wird, verwendet die neueste Version.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/keyvault/_help.py
+- uid: az_keyvault_certificate_show_deleted
+  name: az keyvault certificate show-deleted
+  summary: Ruft Informationen über das angegebene gelöschte Zertifikat ab.
+  description: Der getdeletedcertificate-Vorgang ruft die gelöschten Zertifikatsinformationen sowie die zugehörigen Attribute ab, wie z. b. Beibehaltungs Dauer, dauerhaftes dauerhaftes Löschen und die aktuelle Lösch Wiederherstellungs Ebene. Für diesen Vorgang ist die Zertifikate/Get-Berechtigung erforderlich.
+  syntax: >-
+    az keyvault certificate show-deleted [--id]
+                                         [--name]
+                                         [--subscription]
+                                         [--vault-name]
+  optionalParameters:
+  - name: --id
+    summary: Die Wiederherstellungs-ID des Zertifikats. Wenn angegeben, sollten alle anderen "ID"-Argumente ausgelassen werden.
+    description: ''
+  - name: --name -n
+    summary: Name des Zertifikats. Erforderlich, wenn--ID nicht angegeben ist.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  - name: --vault-name
+    summary: Der Name des Tresors. Erforderlich, wenn--ID nicht angegeben ist.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/keyvault/_help.py
+commands:
+- az_keyvault_certificate_backup
+- az_keyvault_certificate_contact
+- az_keyvault_certificate_contact_add
+- az_keyvault_certificate_contact_delete
+- az_keyvault_certificate_contact_list
+- az_keyvault_certificate_create
+- az_keyvault_certificate_delete
+- az_keyvault_certificate_download
+- az_keyvault_certificate_get_default_policy
+- az_keyvault_certificate_import
+- az_keyvault_certificate_issuer
+- az_keyvault_certificate_issuer_admin
+- az_keyvault_certificate_issuer_admin_add
+- az_keyvault_certificate_issuer_admin_delete
+- az_keyvault_certificate_issuer_admin_list
+- az_keyvault_certificate_issuer_create
+- az_keyvault_certificate_issuer_delete
+- az_keyvault_certificate_issuer_list
+- az_keyvault_certificate_issuer_show
+- az_keyvault_certificate_issuer_update
+- az_keyvault_certificate_list
+- az_keyvault_certificate_list_deleted
+- az_keyvault_certificate_list_versions
+- az_keyvault_certificate_pending
+- az_keyvault_certificate_pending_delete
+- az_keyvault_certificate_pending_merge
+- az_keyvault_certificate_pending_show
+- az_keyvault_certificate_purge
+- az_keyvault_certificate_recover
+- az_keyvault_certificate_restore
+- az_keyvault_certificate_set_attributes
+- az_keyvault_certificate_show
+- az_keyvault_certificate_show_deleted
+globalParameters:
+- name: --debug
+  summary: Ausführlichkeit der Protokollierung erhöhen, um alle Debugprotokolle anzuzeigen.
+- name: --help -h
+  summary: Zeigen Sie diese Hilfemeldung an, und schließen Sie sie.
+- name: --only-show-errors
+  summary: Nur Fehler anzeigen und Warnungen unterdrücken.
+- name: --output -o
+  defaultValue: json
+  parameterValueGroup: json, jsonc, table, tsv
+  summary: Ausgabeformat.
+- name: --query
+  summary: JMESPath-Abfragezeichenfolge. Weitere Informationen und Beispiele finden Sie unter <a href="http://jmespath.org/">http://jmespath.org/</a>.
+- name: --verbose
+  summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
+metadata:
+  doc_source_url_repo: https://github.com/Azure/azure-cli/blob/dev/
+  ms.date: 12/14/2020
+  description: Verwalten Sie Zertifikate.
+  ms.openlocfilehash: 1ce2e27b3dc6bfed5bcccc54cce02e9ada58433c
+  ms.sourcegitcommit: 206495efe9707e52f6a3dc121133f26651f23f59
+  ms.translationtype: MT
+  ms.contentlocale: de-DE
+  ms.lasthandoff: 12/30/2020
+  ms.locfileid: "102897464"
