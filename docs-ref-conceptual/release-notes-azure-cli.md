@@ -4,21 +4,131 @@ description: Enthält Informationen zu den aktuellen Updates der Azure CLI.
 author: dbradish-microsoft
 ms.author: dbradish
 manager: barbkess
-ms.date: 02/10/2021
+ms.date: 03/02/2021
 ms.topic: article
 ms.service: azure-cli
 ms.devlang: azurecli
 ms.custom: devx-track-azurecli
-ms.openlocfilehash: 6f60c62974be947de8b1a2efbc7d0be9e9724e98
-ms.sourcegitcommit: a75bc3963fb815e8f19b7b3d575d3bd065b5b0cc
+ms.openlocfilehash: 632ad5195cd07d779d71314af3f9b4db2503a647
+ms.sourcegitcommit: f9e23f29c59c6957d3df4d5ca2f4425093e6fd80
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 02/10/2021
-ms.locfileid: "100090240"
+ms.lasthandoff: 03/16/2021
+ms.locfileid: "103498994"
 ---
 # <a name="azure-cli-release-notes"></a>Versionshinweise für die Azure CLI
 
 # <a name="current-release-notes"></a>[Aktuelle Versionshinweise](#tab/azure-cli)
+
+## <a name="march-02-2021"></a>02. März 2021
+
+Version 2.20.0
+
+### <a name="aks"></a>AKS
+
+* Unterstützung für SGX-Add-On „confcom“ hinzugefügt
+
+### <a name="ams"></a>AMS
+
+* Modul zur Verwendung der Azure Media Services-API 2020 aktualisiert.
+* `az ams account encryption`: Neue Untergruppe zum Anzeigen oder Festlegen der Verschlüsselung für das Mediendienstkonto
+* `az ams account storage set-authentication`: Neuer Befehl zum Festlegen der Authentifizierung für das Speicherkonto, das dem Mediendienstkonto zugeordnet ist
+* `az ams account create (mi-system-assigned)`: Neuer Parameter „--mi-system-assigned“ für den Befehl „account create“, um die verwaltete Identität des Medienkontos festzulegen
+* `az ams account mru set`: Dieser Befehl funktioniert nicht mehr für Azure Media Services-Konten, die mit der API-Version 2020-05-01 oder höher erstellt werden.
+* `az ams live-event create (stretch-mode, key-frame-interval, transcrip-lang, use-static-hostname, custom hostname)`: Neue Parameteroptionen zum Befehl „live-event create“ hinzugefügt
+* `az ams live-event standby`: Neuer Befehl, um das Liveereignis in den Standbymodus zu schalten
+* `az ams transform create (videoanalysismode, audioanalysis mode)`: Neue Parameteroptionen für den Befehl „transform create“
+
+### <a name="app-service"></a>App Service
+
+* `az webapp config ssl bind`: Handle, wenn sich „webapp“ und „appservice“-Plan in unterschiedlichen Regionen befinden. Siehe auch Aktualisierungen im Text
+* Korrektur #8743: Bereitstellung von „az webapp“
+* Fehlerbehebung: „generateRandomAppNames.json“ zum Setup hinzugefügt
+* `az functionapp create`: Unterstützung der Vorschauversion zum Erstellen von .NET-isolierten Apps hinzugefügt.
+* Korrektur #12150: Unterstützung für Subnetz-ID in VNET-Integration hinzugefügt
+* `az functionapp create`: Entfernen des Vorschauflags aus Node.js 14.
+
+### <a name="arm"></a>ARM
+
+* `az deployment group/sub/mg/tenant validate/create/what-if`: Unterstützung für Bicep-Dateien hinzugefügt
+* `az bicep install`: Neuer Befehl zum Installieren der Bicep-CLI
+* `az bicep upgrade`: Neuer Befehl zum Aktualisieren der Bicep-CLI
+* `az bicep build`: Neuer Befehl zum Erstellen von Bicep-Dateien
+* `az bicep version`: Neuer Befehl zum Anzeigen der aktuell installierten Bicep-CLI-Version
+* `az bicep list-versions`: Neuer Befehl zum Anzeigen der verfügbaren Bicep-CLI-Versionen
+* `az managedapp definition update`: Neuer Befehl zum Aktualisieren von „managedapp definition“ hinzugefügt
+
+### <a name="backup"></a>Backup
+
+* `az backup recoverypoint show-log-chain`: Start-/Endzeit in der Ausgabe der Tabelle „show-log-chain“ hinzugefügt
+* Fehlerbehebung: Wiederherstellung an einem alternativen Speicherort für geschützte SQL/SAPHANA-Elemente aktiviert
+
+### <a name="cdn"></a>CDN
+
+* CLI-Unterstützung für AFD-SKU hinzugefügt
+
+### <a name="compute"></a>Compute
+
+* `az vm (extension) image list`: Robuster gemacht
+* `az vmss create`: Lizenztyp-Problem behoben
+* API-Version auf 2020-12-01 aktualisiert
+* `az vm create`: `--enable-hotpatching` hinzugefügt
+
+### <a name="cosmos-db"></a>Cosmos DB
+
+* Upgrade auf Version 3.0.0 und Unterstützung für NetworkAclBypass hinzugefügt sowie Mongo-Serverversion und Sicherungsrichtlinie aktualisiert
+
+### <a name="extension"></a>Erweiterung
+
+* Unterstützung für Konfiguration der Erweiterungsindex-URL
+
+### <a name="iot-central"></a>IoT Central
+
+* `az iot central app`: Verschiedene S360-Korrekturen vorgenommen
+* `az iot central app update`: Notwendigkeit zum Überprüfen von „etag“ beim Aktualisieren der vorhandenen IoT Central-App entfernt.
+* „resourceType“ (IoT-Apps) in die CamelCase-Schreibweise geändert.
+
+### <a name="key-vault"></a>Key Vault
+
+* [WICHTIGE ÄNDERUNG]  `az keyvault role assignment/definition list`: `roleDefinitionName` sollte in der Befehlsausgabe `roleName` sein
+* [WICHTIGE ÄNDERUNG]  `id` wird zu `jobId`, `azureStorageBlobContainerUri` wird zu `folderUrl` in der Befehlsausgabe von `az keyvault backup/restore``az keyvault key restore`
+
+### <a name="network"></a>Netzwerk
+
+* Version von 2020-07-01 auf 2020-08-01 aktualisiert
+* `az network public-ip create`: Unterstützung von „--zone 1 2 3“ nach „2020-08-01“
+* `az network routeserver peering`: `--vrouter-name` in `--routeserver` umbenannt
+* `az network express-route peering create`: Unterstützung von IPv6-Adressen
+* `az network public-ip create`: Neues Argument `--tier` verfügbar gemacht
+
+### <a name="openshift"></a>OpenShift
+
+* Veraltungswarnung „az openshift“ aktualisiert
+
+### <a name="search"></a>Suche
+
+* `az search`: Korrektur der Hilfsanweisung `--identity-type`.
+
+### <a name="sql"></a>SQL
+
+* „az sql mi“-Beispiele aktualisiert
+* `az sql db/elastic-pool create/update`: Argument „maintenance-configuration“ hinzugefügt
+* `az sql db replica create`: Argument „--secondary-type“ hinzugefügt
+
+### <a name="storage"></a>Storage
+
+* [WICHTIGE ÄNDERUNG]  `az storage account file-service-properties`: Aktivieren der Aufbewahrungsrichtlinie für Löschvorgänge mit serverseitig sieben (7) Aufbewahrungstagen als Standard eingestellt
+* Korrektur #16872: „az storage blob now“ (2.19) erfordert auch dann eine Anmeldung, wenn die Verbindungszeichenfolge angegeben wird
+* Korrektur #16959: Absturz von „az storage copy“: ValidationError: Auf die lokale Variable „service“ wird vor der Zuweisung verwiesen
+* Korrektur #14054: Dem Objekt „NoneType“ fehlt das Attribut „__name__“
+* Korrektur #16679: `az storage blob download` schlägt mit der Meldung „Berechtigung verweigert“ fehl, wenn die Zieldatei ein Verzeichnis ist
+* Storage-API-Version auf 2021-01-01 aktualisiert
+* Unterstützung von Versionen in Lebenszyklusverwaltungsrichtlinien
+* Unterstützung von Speicherkonten in der Zugriffsverwaltung mit gemeinsam verwendetem Schlüssel
+* `az storage account network-rule`: Ressourcenzugriffsregeln allgemein verfügbar
+* Unterstützung der doppelten Verschlüsselung für Verschlüsselungsbereich
+* `az storage account blob-service-properties update`: Unterstützung von „--change-feed-retention-days“
+* Unterstützung des erneuten Schreibens vorhandener BLOBs
 
 ## <a name="february-10-2021"></a>10. Februar 2021
 
@@ -48,7 +158,7 @@ Version 2.19.0
 
 ### <a name="app-config"></a>App-Konfiguration
 
-* [BREAKING CHANGE] `az appconfig feature filter add`: Unterstützung für das Hinzufügen von JSON-Objekten als Parameterwerte für Funktionsfilter. Ausführlichere Informationen finden Sie [hier](https://github.com/Azure/azure-cli/pull/16536).
+* [WICHTIGE ÄNDERUNG] `az appconfig feature filter add`: Unterstützung für das Hinzufügen von JSON-Objekten als Parameterwerte für Funktionsfilter
 
 ### <a name="app-service"></a>App Service
 
@@ -6995,18 +7105,27 @@ Sie können für die abendlichen Vorschaubuilds wie folgt Probleme melden:
 
 # <a name="beta-release-notes"></a>[Versionshinweise zur Betaversion](#tab/azure-cli-beta)
 
-Die Azure CLI-Betaversion ist eine Migration der Authentifizierungsmethode der AAD-Plattform (v1.0) zu [Microsoft Identity Platform (v2.0)](/azure/active-directory/develop/v2-overview).
+## <a name="february-8-2021"></a>8\. Februar 2021
 
-## <a name="june-23-2020"></a>23. Juni 2020
+> [!NOTE]
+>
+>  In dieser Version werden WICHTIGE ÄNDERUNGEN eingeführt.  Lesen Sie vor der Installation sorgfältig alle Anmerkungen zur Version.
+>
+> Die Betaversion garantiert keine Qualität auf Produktebene, daher sollte sie nicht in der Produktionsumgebung verwendet werden.
 
-### <a name="things-to-know-about-the-new-azure-cli-beta-release"></a>Wissenswertes über die neue Azure CLI-Betaversion
+* Bei der Azure CLI-Betaversion wird [ADAL](https://github.com/AzureAD/azure-activedirectory-library-for-python) intern durch [Azure Identity](https://github.com/Azure/azure-sdk-for-python/tree/master/sdk/identity/azure-identity) und [MSAL](https://github.com/AzureAD/microsoft-authentication-library-for-python) ersetzt. Vorhandener ADAL-Tokencache (`~/.azure/accessToken.json`) wird automatisch zu MSAL-verschlüsseltem Tokencache migriert, wenn ein Befehl ausgeführt wird, der Anmeldeinformationen erfordert.
 
--   Die Betaversion der Azure CLI unterstützt alle CLI-Befehle, die in der aktuellen veröffentlichten Version verfügbar sind.
--   Nach der Installation der Betaversion ist eine erneute Anmeldung erforderlich.
--   Die Betaversion unterstützt nur die Windows-Plattform.
--   Azure Stack wird nicht unterstützt.
--   Parameter `--use-cert-sn-issuer` wird nicht unterstützt, wenn für die Authentifizierung ein Dienstprinzipalschlüssel verwendet wird.
--   Das Überspringen der SSL-Überprüfung über die Umgebung `ADAL_PYTHON_SSL_NO_VERIFY` wird nicht unterstützt.
+* Bei `az login` gibt es mehrere Änderungen.  (Führen Sie `az login --help` aus, um weitere Einzelheiten zu erfahren.)
+  * [WICHTIGE ÄNDERUNG] `~/.azure/accessToken.json` wird nach einer erfolgreichen Anmeldung nicht mehr erstellt. Verwenden Sie stattdessen[`az account get-access-token`](https://docs.microsoft.com/cli/azure/account#az_account_get_access_token), um ein Zugriffstoken abzurufen.
+  * [WICHTIGE ÄNDERUNG] Das Argument `--use-cert-sn-issuer` wird nicht unterstützt.
+  * Nach der Anmeldung mit einer verwalteten Identität werden alle `clientId`-, `objectId`- und `resourceId`-Werte angezeigt.
+  * Korrektur #13188: `az login` mit verwalteter Identität, wobei die Identität als systemseitig zugewiesen angegeben wird, obwohl sie vom Benutzer zugewiesen wurde.
+
+* [WICHTIGE ÄNDERUNG] Das Überspringen der SSL-Überprüfung über die Umgebung `ADAL_PYTHON_SSL_NO_VERIFY` wurde entfernt. Informationen zur Vertrauensstellung eines selbstsignierten Stammzertifikats finden Sie unter [Verwendung hinter einem Proxy](https://docs.microsoft.com/cli/azure/use-cli-effectively#work-behind-a-proxy).
+
+Die Betaversion der Azure CLI unterstützt alle Befehl und wird jeweils mit der aktuell veröffentlichen Version synchronisiert.  
+
+Anweisungen zur Installation finden Sie unter [Installieren der Azure CLI-Betaversion](install-azure-cli-beta.md). 
 
 Sollten Probleme in der Betaversion auftreten, können Sie auf [GitHub](https://github.com/Azure/azure-cli/issues/new/choose) gerne Kommentare für das Azure CLI-Entwicklungsteam hinterlassen.
 
