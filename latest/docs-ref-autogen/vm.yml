@@ -180,6 +180,7 @@ directCommands:
                  [--availability-set]
                  [--boot-diagnostics-storage]
                  [--computer-name]
+                 [--count]
                  [--custom-data]
                  [--data-disk-caching]
                  [--data-disk-encryption-sets]
@@ -187,6 +188,8 @@ directCommands:
                  [--enable-agent {false, true}]
                  [--enable-auto-update {false, true}]
                  [--enable-hotpatching {false, true}]
+                 [--enable-secure-boot {false, true}]
+                 [--enable-vtpm {false, true}]
                  [--encryption-at-host {false, true}]
                  [--ephemeral-os-disk {false, true}]
                  [--eviction-policy {Deallocate, Delete}]
@@ -206,11 +209,12 @@ directCommands:
                  [--os-disk-name]
                  [--os-disk-size-gb]
                  [--os-type {linux, windows}]
-                 [--patch-mode]
+                 [--patch-mode {AutomaticByOS, AutomaticByPlatform, ImageDefault, Manual}]
                  [--plan-name]
                  [--plan-product]
                  [--plan-promotion-code]
                  [--plan-publisher]
+                 [--platform-fault-domain]
                  [--ppg]
                  [--priority {Low, Regular, Spot}]
                  [--private-ip-address]
@@ -221,6 +225,7 @@ directCommands:
                  [--role]
                  [--scope]
                  [--secrets]
+                 [--security-type {TrustedLaunch}]
                  [--size]
                  [--specialized {false, true}]
                  [--ssh-dest-key-path]
@@ -287,6 +292,8 @@ directCommands:
     syntax: az vm create -n MyVm -g rg1 --image debian --assign-identity [system] /subscriptions/99999999-1bf0-4dda-aec3-cb9272f09590/resourcegroups/myRG/providers/Microsoft.ManagedIdentity/userAssignedIdentities/myID
   - summary: Erstellen Sie einen virtuellen Computer in einer Verfügbarkeits Zone in der Region der aktuellen Ressourcengruppe.
     syntax: az vm create -n MyVm -g MyResourceGroup --image Centos --zone 1
+  - summary: Erstellen Sie mehrere VMS. In diesem Beispiel werden drei virtuelle Computer erstellt. Es handelt sich um MyVm0, MyVm1, MyVm2.
+    syntax: az vm create -n MyVm -g MyResourceGroup --image centos --count 3
   requiredParameters:
   - isRequired: true
     name: --name -n
@@ -332,6 +339,9 @@ directCommands:
   - name: --computer-name
     summary: Der Name des Host Betriebssystems der virtuellen Maschine. Der Standardwert ist der Name der VM.
     description: ''
+  - name: --count
+    summary: Anzahl der zu erstellenden virtuellen Maschinen. Der Wertebereich ist [2, 250], inklusiv. Geben Sie diesen Parameter nicht an, wenn Sie eine normale einzelne VM erstellen möchten. Die VMs werden parallel erstellt. Bei der Ausgabe dieses Befehls handelt es sich um ein Array von virtuellen Computern anstelle eines einzelnen virtuellen Computers. Jeder virtuelle Computer verfügt über eine eigene öffentliche IP-Adresse, NIC. Vnet und NSG werden freigegeben. Es wird empfohlen, dass sich keine vorhandene öffentliche IP-Adresse, NIC, vnet und NSG in der Ressourcengruppe befinden. Wenn--count angegeben ist,--Attach-Data-Disks,--Attach-OS-Disk,--Boot-Diagnostics-Storage,--Computer-Name,--Host,--Host-Group,--NICs,--OS-Disk-Name,--private-IP-Address,--Public-IP-Address,--Public-IP-address-DNS-Name,--Storage-Account,--Storage-Container-Name,--Subnet,--use-unmanaged-Disk,--vnet-Name sind nicht zulässig.
+    description: ''
   - name: --custom-data
     summary: Benutzerdefinierte init-Skriptdatei oder Text (Cloud-init, Cloud-config usw.).
     description: ''
@@ -355,6 +365,14 @@ directCommands:
   - name: --enable-hotpatching
     parameterValueGroup: false, true
     summary: Patchen von VMS, ohne dass ein Neustart erforderlich ist. --Enable-Agent muss festgelegt werden, und--Patch-Mode muss auf automaticbyplatform festgelegt sein.
+    description: ''
+  - name: --enable-secure-boot
+    parameterValueGroup: false, true
+    summary: Aktivieren Sie den sicheren Start. Sie ist Teil des vertrauenswürdigen Starts.
+    description: ''
+  - name: --enable-vtpm
+    parameterValueGroup: false, true
+    summary: Aktivieren Sie vtpm. Sie ist Teil des vertrauenswürdigen Starts.
     description: ''
   - name: --encryption-at-host
     parameterValueGroup: false, true
@@ -422,7 +440,8 @@ directCommands:
     summary: Typ des Betriebssystems, das auf einer benutzerdefinierten VHD installiert ist. Verwenden Sie nicht, wenn Sie einen urn oder einen urn-Alias angeben.
     description: ''
   - name: --patch-mode
-    summary: 'Der Modus für das in-Guest-Patchen auf den virtuellen IaaS-Computer. Mögliche Werte: manuell-Sie steuern die Anwendung von Patches auf einen virtuellen Computer. Hierzu wenden Sie Patches manuell in den virtuellen Computer an. In diesem Modus werden automatische Updates deaktiviert. der Parameter--enable-Auto-Update muss den Wert false aufweisen. Automaticbyos: der virtuelle Computer wird automatisch vom Betriebssystem aktualisiert. Der Parameter "--Enable-Auto-Update" muss den Wert "true" aufweisen. Automaticbyplatform: der virtuelle Computer wird automatisch vom Betriebssystem aktualisiert. Der Parameter "--Enable-Agent" und "--Enable-Auto-Update" müssen "true" sein.'
+    parameterValueGroup: AutomaticByOS, AutomaticByPlatform, ImageDefault, Manual
+    summary: 'Der Modus für das in-Guest-Patchen auf den virtuellen IaaS-Computer. Zulässige Werte für Windows-VM: automaticbyos, automaticbyplatform, Manual. Zulässige Werte für Linux-VM: automaticbyplatform, imagedefault. Manuell: Sie steuern die Anwendung von Patches auf einen virtuellen Computer. Hierzu wenden Sie Patches manuell in den virtuellen Computer an. In diesem Modus werden automatische Updates deaktiviert. der Parameter--enable-Auto-Update muss den Wert false aufweisen. Automaticbyos: der virtuelle Computer wird automatisch vom Betriebssystem aktualisiert. Der Parameter "--Enable-Auto-Update" muss den Wert "true" aufweisen. Automaticbyplatform: der virtuelle Computer wird automatisch vom Betriebssystem aktualisiert. Imagedefault: die Standardkonfiguration für das Patchen der virtuellen Maschine wird verwendet. Der Parameter "--Enable-Agent" und "--Enable-Auto-Update" müssen "true" sein.'
     description: ''
   - name: --plan-name
     summary: PlanName.
@@ -435,6 +454,9 @@ directCommands:
     description: ''
   - name: --plan-publisher
     summary: Plan Herausgeber.
+    description: ''
+  - name: --platform-fault-domain
+    summary: Geben Sie die logische Fehler Domäne der Skalierungs Gruppe an, in der der virtuelle Computer erstellt wird. Standardmäßig wird der virtuelle Computer automatisch einer Fehler Domäne zugewiesen, die einen optimalen Saldo zwischen verfügbaren Fehler Domänen gewährleistet. Dies gilt nur, wenn die virtualmachinescaleset-Eigenschaft dieses virtuellen Computers festgelegt ist. Die VM-Skalierungs Gruppe, auf die verwiesen wird, muss die Anzahl der Platt Formfehler Domänen aufweisen. Diese Eigenschaft kann nicht aktualisiert werden, nachdem der virtuelle Computer erstellt wurde. Die Zuweisung von Fehler Domänen kann in der Ansicht der virtuellen Computer Instanz angezeigt werden.
     description: ''
   - name: --ppg
     summary: Der Name oder die ID der Near-Platzierungs Gruppe, der die VM zugeordnet werden soll.
@@ -469,6 +491,10 @@ directCommands:
     description: ''
   - name: --secrets
     summary: 'Mindestens ein Key Vault geheimen Schlüssel als JSON-Zeichen folgen oder-Dateien durch `@{path}` enthaltende `[{ "sourceVault": { "id": "value" }, "vaultCertificates": [{ "certificateUrl": "value", "certificateStore": "cert store name (only on windows)"}] }]` .'
+    description: ''
+  - name: --security-type
+    parameterValueGroup: TrustedLaunch
+    summary: Geben Sie an, ob der virtuelle Computer vertrauenswürdiger Start aktiviert ist. Siehe <a href="https://docs.microsoft.com/azure/virtual-machines/trusted-launch">https://docs.microsoft.com/azure/virtual-machines/trusted-launch</a>.
     description: ''
   - name: --size
     defaultValue: Standard_DS1_v2
@@ -646,11 +672,11 @@ directCommands:
     syntax: >-
       vms_ids=$(az vm list -g MyResourceGroup --query "[].id" -o tsv)
 
-      az vm deallocate --ids {vms_ids}
+      az vm deallocate --ids ${vms_ids}
 
-      az vm generalize --ids {vms_ids}
+      az vm generalize --ids ${vms_ids}
 
-      az vm capture --ids {vms_ids} --vhd-name-prefix MyPrefix
+      az vm capture --ids ${vms_ids} --vhd-name-prefix MyPrefix
   optionalParameters:
   - name: --ids
     summary: Mindestens eine Ressourcen-ID (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID handeln, die alle Informationen von Ressourcen-ID-Argumenten enthält. Sie sollten entweder--IDs oder andere Ressourcen-ID-Argumente angeben.
@@ -882,12 +908,14 @@ directCommands:
     syntax: az vm open-port -g MyResourceGroup -n MyVm --port '*'
   - summary: Öffnen Sie einen Bereich von Ports auf einem virtuellen Computer für eingehenden Datenverkehr mit der höchsten Priorität.
     syntax: az vm open-port -g MyResourceGroup -n MyVm --port 80-100 --priority 100
+  - summary: Öffnen Sie die Ports 555, 557, 558 und 559 für eingehenden Datenverkehr mit der höchsten Priorität.
+    syntax: az vm open-port -g MyResourceGroup -n MyVm --port 555,557-559 --priority 100
   - summary: Öffnen Sie alle Ports für alle VMs in einer Ressourcengruppe.
     syntax: az vm open-port --ids $(az vm list -g MyResourceGroup --query "[].id" -o tsv) --port '*'
   requiredParameters:
   - isRequired: true
     name: --port
-    summary: Der Port oder Port Bereich (z.b. 80-100), für den eingehender Datenverkehr geöffnet werden soll. Verwenden \* Sie "", um Datenverkehr an alle Ports zuzulassen.
+    summary: Der Port oder Port Bereich (z.b. 80-100), für den eingehender Datenverkehr geöffnet werden soll. Verwenden \* Sie "", um Datenverkehr an alle Ports zuzulassen. Verwenden Sie durch Trennzeichen getrennte Werte, um mehr als einen Port oder einen Port Bereich anzugeben.
     description: ''
   optionalParameters:
   - name: --apply-to-subnet
@@ -1216,6 +1244,8 @@ directCommands:
   syntax: >-
     az vm update [--add]
                  [--disk-caching]
+                 [--enable-secure-boot {false, true}]
+                 [--enable-vtpm {false, true}]
                  [--force-string]
                  [--ids]
                  [--license-type {None, RHEL_BYOS, RHEL_ELS_6, SLES_BYOS, Windows_Client, Windows_Server}]
@@ -1249,6 +1279,14 @@ directCommands:
     description: ''
   - name: --disk-caching
     summary: Verwenden Sie einen Singular Wert, um die Anwendung zu übernehmen, oder geben Sie einzelne Datenträger an, z. b. "OS = Lese schreiben 0 = keine 1 = schreibgeschützt", um die Aktualisierung des Betriebssystem Datenträgers
+    description: ''
+  - name: --enable-secure-boot
+    parameterValueGroup: false, true
+    summary: Aktivieren Sie den sicheren Start.
+    description: ''
+  - name: --enable-vtpm
+    parameterValueGroup: false, true
+    summary: Aktivieren Sie vtpm.
     description: ''
   - name: --force-string
     summary: Wenn Sie "Set" oder "Add" verwenden, erhalten Sie Zeichen folgen Literale, anstatt zu versuchen, in JSON zu konvertieren.
@@ -1497,11 +1535,11 @@ globalParameters:
   summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
 metadata:
   doc_source_url_repo: https://github.com/Azure/azure-cli/blob/dev/
-  ms.date: 02/24/2021
+  ms.date: 03/18/2021
   description: Verwalten Sie virtuelle Linux-oder Windows-Computer.
-  ms.openlocfilehash: 6a1ff75f6c942e1600afaf274189147d47e9a51c
-  ms.sourcegitcommit: f9e23f29c59c6957d3df4d5ca2f4425093e6fd80
+  ms.openlocfilehash: 4276391d2887706f1f846390412d626f7d3be572
+  ms.sourcegitcommit: 936ec07eb1c56e24d8000cc24a2a0e05102e0cf4
   ms.translationtype: MT
   ms.contentlocale: de-DE
-  ms.lasthandoff: 03/16/2021
-  ms.locfileid: "103526041"
+  ms.lasthandoff: 03/23/2021
+  ms.locfileid: "104916393"
