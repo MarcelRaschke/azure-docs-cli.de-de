@@ -180,6 +180,7 @@ directCommands:
                  [--availability-set]
                  [--boot-diagnostics-storage]
                  [--computer-name]
+                 [--count]
                  [--custom-data]
                  [--data-disk-caching]
                  [--data-disk-encryption-sets]
@@ -205,11 +206,11 @@ directCommands:
                  [--os-disk-name]
                  [--os-disk-size-gb]
                  [--os-type {linux, windows}]
-                 [--patch-mode {AutomaticByOS, AutomaticByPlatform, Manual}]
                  [--plan-name]
                  [--plan-product]
                  [--plan-promotion-code]
                  [--plan-publisher]
+                 [--platform-fault-domain]
                  [--ppg]
                  [--priority {Low, Regular, Spot}]
                  [--private-ip-address]
@@ -284,6 +285,8 @@ directCommands:
     syntax: az vm create -n MyVm -g rg1 --image debian --assign-identity /subscriptions/99999999-1bf0-4dda-aec3-cb9272f09590/resourcegroups/myRG/providers/Microsoft.ManagedIdentity/userAssignedIdentities/myID
   - summary: Erstellen Sie eine Debian-VM mit der vom System und vom Benutzer zugewiesenen Identität.
     syntax: az vm create -n MyVm -g rg1 --image debian --assign-identity [system] /subscriptions/99999999-1bf0-4dda-aec3-cb9272f09590/resourcegroups/myRG/providers/Microsoft.ManagedIdentity/userAssignedIdentities/myID
+  - summary: Erstellen Sie mehrere VMS. In diesem Beispiel werden drei virtuelle Computer erstellt. Es handelt sich um MyVm0, MyVm1, MyVm2.
+    syntax: az vm create -n MyVm -g MyResourceGroup --image centos --count 3
   requiredParameters:
   - isRequired: true
     name: --name -n
@@ -328,6 +331,9 @@ directCommands:
     description: ''
   - name: --computer-name
     summary: Der Name des Host Betriebssystems der virtuellen Maschine. Der Standardwert ist der Name der VM.
+    description: ''
+  - name: --count
+    summary: Anzahl der zu erstellenden virtuellen Maschinen. Der Wertebereich ist [2, 250], inklusiv. Geben Sie diesen Parameter nicht an, wenn Sie eine normale einzelne VM erstellen möchten. Die VMs werden parallel erstellt. Bei der Ausgabe dieses Befehls handelt es sich um ein Array von virtuellen Computern anstelle eines einzelnen virtuellen Computers. Jeder virtuelle Computer verfügt über eine eigene öffentliche IP-Adresse, NIC. Vnet und NSG werden freigegeben. Es wird empfohlen, dass sich keine vorhandene öffentliche IP-Adresse, NIC, vnet und NSG in der Ressourcengruppe befinden. Wenn--count angegeben ist,--Attach-Data-Disks,--Attach-OS-Disk,--Boot-Diagnostics-Storage,--Computer-Name,--Host,--Host-Group,--NICs,--OS-Disk-Name,--private-IP-Address,--Public-IP-Address,--Public-IP-address-DNS-Name,--Storage-Account,--Storage-Container-Name,--Subnet,--use-unmanaged-Disk,--vnet-Name sind nicht zulässig.
     description: ''
   - name: --custom-data
     summary: Benutzerdefinierte init-Skriptdatei oder Text (Cloud-init, Cloud-config usw.).
@@ -414,10 +420,6 @@ directCommands:
     parameterValueGroup: linux, windows
     summary: Typ des Betriebssystems, das auf einer benutzerdefinierten VHD installiert ist. Verwenden Sie nicht, wenn Sie einen urn oder einen urn-Alias angeben.
     description: ''
-  - name: --patch-mode
-    parameterValueGroup: AutomaticByOS, AutomaticByPlatform, Manual
-    summary: 'Der Modus für das in-Guest-Patchen auf den virtuellen IaaS-Computer. Mögliche Werte: manuell-Sie steuern die Anwendung von Patches auf einen virtuellen Computer. Hierzu wenden Sie Patches manuell in den virtuellen Computer an. In diesem Modus werden automatische Updates deaktiviert. der Parameter--enable-Auto-Update muss den Wert false aufweisen. Automaticbyos: der virtuelle Computer wird automatisch vom Betriebssystem aktualisiert. Der Parameter "--Enable-Auto-Update" muss den Wert "true" aufweisen. Automaticbyplatform: der virtuelle Computer wird automatisch vom Betriebssystem aktualisiert. Der Parameter "--Enable-Agent" und "--Enable-Auto-Update" müssen "true" sein.'
-    description: ''
   - name: --plan-name
     summary: PlanName.
     description: ''
@@ -429,6 +431,9 @@ directCommands:
     description: ''
   - name: --plan-publisher
     summary: Plan Herausgeber.
+    description: ''
+  - name: --platform-fault-domain
+    summary: Geben Sie die logische Fehler Domäne der Skalierungs Gruppe an, in der der virtuelle Computer erstellt wird. Standardmäßig wird der virtuelle Computer automatisch einer Fehler Domäne zugewiesen, die einen optimalen Saldo zwischen verfügbaren Fehler Domänen gewährleistet. Dies gilt nur, wenn die virtualmachinescaleset-Eigenschaft dieses virtuellen Computers festgelegt ist. Die VM-Skalierungs Gruppe, auf die verwiesen wird, muss die Anzahl der Platt Formfehler Domänen aufweisen. Diese Eigenschaft kann nicht aktualisiert werden, nachdem der virtuelle Computer erstellt wurde. Die Zuweisung von Fehler Domänen kann in der Ansicht der virtuellen Computer Instanz angezeigt werden.
     description: ''
   - name: --ppg
     summary: Der Name oder die ID der Near-Platzierungs Gruppe, der die VM zugeordnet werden soll.
@@ -640,11 +645,11 @@ directCommands:
     syntax: >-
       vms_ids=$(az vm list -g MyResourceGroup --query "[].id" -o tsv)
 
-      az vm deallocate --ids {vms_ids}
+      az vm deallocate --ids ${vms_ids}
 
-      az vm generalize --ids {vms_ids}
+      az vm generalize --ids ${vms_ids}
 
-      az vm capture --ids {vms_ids} --vhd-name-prefix MyPrefix
+      az vm capture --ids ${vms_ids} --vhd-name-prefix MyPrefix
   optionalParameters:
   - name: --ids
     summary: Mindestens eine Ressourcen-ID (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID handeln, die alle Informationen von Ressourcen-ID-Argumenten enthält. Sie sollten entweder--IDs oder andere Ressourcen-ID-Argumente angeben.
@@ -876,12 +881,14 @@ directCommands:
     syntax: az vm open-port -g MyResourceGroup -n MyVm --port '*'
   - summary: Öffnen Sie einen Bereich von Ports auf einem virtuellen Computer für eingehenden Datenverkehr mit der höchsten Priorität.
     syntax: az vm open-port -g MyResourceGroup -n MyVm --port 80-100 --priority 100
+  - summary: Öffnen Sie die Ports 555, 557, 558 und 559 für eingehenden Datenverkehr mit der höchsten Priorität.
+    syntax: az vm open-port -g MyResourceGroup -n MyVm --port 555,557-559 --priority 100
   - summary: Öffnen Sie alle Ports für alle VMs in einer Ressourcengruppe.
     syntax: az vm open-port --ids $(az vm list -g MyResourceGroup --query "[].id" -o tsv) --port '*'
   requiredParameters:
   - isRequired: true
     name: --port
-    summary: Der Port oder Port Bereich (z.b. 80-100), für den eingehender Datenverkehr geöffnet werden soll. Verwenden \* Sie "", um Datenverkehr an alle Ports zuzulassen.
+    summary: Der Port oder Port Bereich (z.b. 80-100), für den eingehender Datenverkehr geöffnet werden soll. Verwenden \* Sie "", um Datenverkehr an alle Ports zuzulassen. Verwenden Sie durch Trennzeichen getrennte Werte, um mehr als einen Port oder einen Port Bereich anzugeben.
     description: ''
   optionalParameters:
   - name: --apply-to-subnet
@@ -1488,11 +1495,11 @@ globalParameters:
   summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
 metadata:
   doc_source_url_repo: https://github.com/Azure/azure-cli/blob/dev/
-  ms.date: 02/24/2021
+  ms.date: 03/18/2021
   description: Verwalten Sie virtuelle Linux-oder Windows-Computer.
-  ms.openlocfilehash: 4ffb78c4765a5db66e769e85a3238429d612e018
-  ms.sourcegitcommit: f9e23f29c59c6957d3df4d5ca2f4425093e6fd80
+  ms.openlocfilehash: c26d035519df1de1fc06feb6f7f6e75bcb3cee09
+  ms.sourcegitcommit: 936ec07eb1c56e24d8000cc24a2a0e05102e0cf4
   ms.translationtype: MT
   ms.contentlocale: de-DE
-  ms.lasthandoff: 03/16/2021
-  ms.locfileid: "103533555"
+  ms.lasthandoff: 03/23/2021
+  ms.locfileid: "104910953"
