@@ -36,13 +36,26 @@ directCommands:
     syntax: az postgres flexible-server create --public-access all
   - summary: Erstellen Sie einen flexiblen PostgreSQL-Server mit Standard Parametern (Ressourcengruppe, Speicherort, Servername, Benutzername, Kennwort) mit öffentlichem Zugriff ohne Firewallregeln.
     syntax: az postgres flexible-server create --public-access none
+  - summary: Erstellen eines flexiblen PostgreSQL-Servers mit öffentlichem Zugriff und Hinzufügen der Client-IP-Adresse für den Zugriff auf den Server
+    syntax: az postgres flexible-server create --public-access <my_client_ip>
+  - summary: Erstellen Sie einen flexiblen PostgreSQL-Server mit öffentlichem Zugriff, und fügen Sie den IP-Adressbereich hinzu, um auf diesen Server zugreifen zu können.
+    syntax: az postgres flexible-server create --public-access <start_ip_address-end_ip_address>
+  - summary: Erstellen eines flexiblen PostgreSQL-Servers mit öffentlichem Zugriff und zulassen, dass Anwendungen von Azure-IP-Adressen eine Verbindung mit Ihrem flexiblen Server herstellen
+    syntax: az postgres flexible-server create --public-access 0.0.0.0
   - summary: Erstellen eines flexiblen PostgreSQL-Servers mit der angegebenen SKU und dem Speicher mithilfe der Standardwerte aus lokalem Kontext.
     syntax: az postgres flexible-server create --name testServer --admin-password password
+  - summary: Erstellen Sie einen flexiblen PostgreSQL-Server mit bereits vorhandenem virtuellem Netzwerk und Subnetz. Wenn das angegebene virtuelle Netzwerk und das Subnetz nicht vorhanden sind, werden beide mit dem Standardadresspräfix erstellt.
+    syntax: az postgres flexible-server create --vnet myVnet --subnet mySubnet
+  - summary: Erstellen Sie einen flexiblen PostgreSQL-Server, indem Sie bereits vorhandenes virtuelles Netzwerk, Subnetz und die Subnetz-ID verwenden. Das bereitgestellte Subnetz sollte keine anderen Ressourcen enthalten, und dieses Subnetz wird an Microsoft.DBforMySQL/flexibleServers delegiert, falls nicht bereits delegiert.
+    syntax: az postgres flexible-server create --subnet /subscriptions/{SubID}/resourceGroups/{ResourceGroup}/providers/Microsoft.Network/virtualNetworks/{VNetName}/subnets/{SubnetName}
+  - summary: Erstellen Sie einen flexiblen PostgreSQL-Server, indem Sie ein neues virtuelles Netzwerk, ein Subnetz mit nicht standardmäßigen Adress Präfix verwenden.
+    syntax: az postgres flexible-server create --vnet myVnet --address-prefixes 10.0.0.0/24 --subnet mySubnet --subnet-prefixes 10.0.0.0/24
   - summary: Erstellen Sie einen flexiblen PostgreSQL-Server mit festgelegter Parameter.
     syntax: >-
-      az postgres flexible-server create --location northeurope --resource-group testGroup --name testServer --admin-user username \
-          --admin-password password --sku-name Standard_D4s_v3 --tier GeneralPurpose --public-access 0.0.0.0 \
-          --storage-size 512 --tags "key=value" --version 12
+      az postgres flexible-server create --location northeurope --resource-group testGroup \
+        --name testServer --admin-user username --admin-password password \
+        --sku-name Standard_D4s_v3 --tier GeneralPurpose --public-access 0.0.0.0 \
+        --storage-size 512 --tags "key=value" --version 12
   optionalParameters:
   - name: --address-prefixes
     summary: Das IP-Adress Präfix, das beim Erstellen eines neuen virtuellen Netzwerks im CIDR-Format verwendet werden soll. Der Standardwert ist 10.0.0.0/16.
@@ -51,7 +64,7 @@ directCommands:
     summary: 'Das Kennwort des Administrators. Mindestens 8 Zeichen und maximal 128 Zeichen. Das Kennwort muss Zeichen aus drei der folgenden Kategorien enthalten: Englische Großbuchstaben, englische Kleinbuchstaben, Zahlen und nicht alphanumerische Zeichen.'
     description: ''
   - name: --admin-user, -u
-    defaultValue: admiredSparrow7
+    defaultValue: merryDonkey7
     summary: Administrator Benutzername für den Server. Nach der Festlegung kann Sie nicht mehr geändert werden.
     description: ''
   - name: --assign-identity
@@ -72,7 +85,7 @@ directCommands:
     summary: Name des Servers. Der Name darf nur Kleinbuchstaben, Ziffern und Bindestriche (-) enthalten. Mindestens 3 Zeichen und maximal 63 Zeichen.
     description: ''
   - name: --public-access
-    summary: Bestimmt den öffentlichen Zugriff. Geben Sie einen einzelnen oder einen Bereich von IP-Adressen ein, der in die Liste der zulässigen IPS eingeschlossen werden soll. IP-Adressbereiche müssen durch Strich getrennt sein und dürfen keine Leerzeichen enthalten. Die Angabe von 0.0.0.0 ermöglicht den öffentlichen Zugriff von allen in Azure bereitgestellten Ressourcen für den Zugriff auf Ihren Server. Wenn Sie keine IP-Adresse angeben, wird der Server im öffentlichen Zugriffsmodus festgelegt, es wird jedoch keine Firewallregel erstellt.
+    summary: Bestimmt den öffentlichen Zugriff. Geben Sie einen einzelnen oder einen Bereich von IP-Adressen ein, der in die Liste der zulässigen IPS eingeschlossen werden soll. IP-Adressbereiche müssen durch Strich getrennt sein und dürfen keine Leerzeichen enthalten. Die Angabe von 0.0.0.0 ermöglicht den öffentlichen Zugriff von allen in Azure bereitgestellten Ressourcen für den Zugriff auf Ihren Server. Wenn Sie die Einstellung auf "None" festlegen, wird der Server im öffentlichen Zugriffsmodus festgelegt, aber es wird keine Firewallregel erstellt.
     description: ''
   - name: --resource-group -g
     summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
@@ -226,8 +239,8 @@ directCommands:
   - summary: Stellen Sie "testServer2" in "testservernew" wieder her, wobei "testservernew" sich in einer anderen Ressourcengruppe als "testServer2" befindet.
     syntax: >-
       az postgres flexible-server restore --resource-group testGroup --name testServerNew \
-          --source-server "/subscriptions/${SubID}/resourceGroups/${ResourceGroup}/providers/Microsoft.DBforPostgreSQL/servers/testServer2" \
-          --restore-time "2017-06-15T13:10:00Z"
+        --source-server "/subscriptions/${SubID}/resourceGroups/${ResourceGroup}/providers/Microsoft.DBforPostgreSQL/servers/testServer2" \
+        --restore-time "2017-06-15T13:10:00Z"
   requiredParameters:
   - isRequired: true
     name: --source-server
@@ -250,7 +263,7 @@ directCommands:
     summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
     description: ''
   - name: --restore-time
-    defaultValue: 2021-03-11T09:15:26+00:00
+    defaultValue: 2021-03-23T15:19:48+00:00
     summary: Der Zeitpunkt, ab dem die UTC wieder hergestellt werden soll (ISO8601-Format), z. b. 2017-04-26t02:10:00 + 08:00.
     description: ''
   - name: --subscription
@@ -313,7 +326,7 @@ directCommands:
     description: ''
   - name: --database-name -d
     defaultValue: '{database}'
-    summary: Der Name einer Datenbank.
+    summary: Der Name der Datenbank.
     description: ''
   - name: --ids
     summary: Mindestens eine Ressourcen-ID (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID handeln, die alle Informationen von Ressourcen-ID-Argumenten enthält. Sie sollten entweder--IDs oder andere Ressourcen-ID-Argumente angeben.
@@ -507,6 +520,11 @@ directCommands:
     description: ''
 commands:
 - az_postgres_flexible_server_create
+- az_postgres_flexible_server_db
+- az_postgres_flexible_server_db_create
+- az_postgres_flexible_server_db_delete
+- az_postgres_flexible_server_db_list
+- az_postgres_flexible_server_db_show
 - az_postgres_flexible_server_delete
 - az_postgres_flexible_server_firewall_rule
 - az_postgres_flexible_server_firewall_rule_create
@@ -545,9 +563,9 @@ globalParameters:
   summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
 metadata:
   description: Azure Database for PostgreSQL flexiblen Server verwalten.
-  ms.openlocfilehash: 1a92985516c6b711c6dce948c3af859ace8bc589
-  ms.sourcegitcommit: f9e23f29c59c6957d3df4d5ca2f4425093e6fd80
+  ms.openlocfilehash: c5b4cde2f2306d18779b378aef8c2bd6456abb95
+  ms.sourcegitcommit: 936ec07eb1c56e24d8000cc24a2a0e05102e0cf4
   ms.translationtype: MT
   ms.contentlocale: de-DE
-  ms.lasthandoff: 03/16/2021
-  ms.locfileid: "103526466"
+  ms.lasthandoff: 03/23/2021
+  ms.locfileid: "104914013"
