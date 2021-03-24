@@ -9,11 +9,11 @@ directCommands:
   summary: Erstellen Sie eine neue Firewallregel für einen flexiblen Server.
   description: ''
   syntax: >-
-    az mysql flexible-server firewall-rule create --end-ip-address
-                                                  --name
+    az mysql flexible-server firewall-rule create --name
                                                   --resource-group
-                                                  --rule-name
-                                                  --start-ip-address
+                                                  [--end-ip-address]
+                                                  [--rule-name]
+                                                  [--start-ip-address]
                                                   [--subscription]
   examples:
   - summary: Erstellen Sie eine Firewallregel, die Verbindungen von einer bestimmten IP-Adresse zulässt.
@@ -22,10 +22,6 @@ directCommands:
     syntax: az mysql flexible-server firewall-rule create --resource-group testGroup --name testServer --rule-name allowiprange --start-ip-address 107.46.14.0 --end-ip-address 107.46.14.221
   requiredParameters:
   - isRequired: true
-    name: --end-ip-address
-    summary: Die End-IP-Adresse der Firewallregel. Muss das IPv4-Format aufweisen. Verwenden Sie den Wert "0.0.0.0", um alle Azure-internen IP-Adressen darzustellen.
-    description: ''
-  - isRequired: true
     name: --name -n
     summary: Name des Servers. Der Name darf nur Kleinbuchstaben, Ziffern und Bindestriche (-) enthalten. Mindestens 3 Zeichen und maximal 63 Zeichen.
     description: ''
@@ -33,15 +29,16 @@ directCommands:
     name: --resource-group -g
     summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
     description: ''
-  - isRequired: true
-    name: --rule-name -r
+  optionalParameters:
+  - name: --end-ip-address
+    summary: Die End-IP-Adresse der Firewallregel. Muss das IPv4-Format aufweisen. Verwenden Sie den Wert "0.0.0.0", um alle Azure-internen IP-Adressen darzustellen.
+    description: ''
+  - name: --rule-name -r
     summary: Der Name der Firewallregel. Wenn Name weggelassen wird, wird der Standardname für den firewallnamen ausgewählt. Der Name der Firewallregel darf nur 0-9, a-z, a-z, "-" und "_" enthalten. Der Name der Firewallregel darf nicht länger als 128 Zeichen sein.
     description: ''
-  - isRequired: true
-    name: --start-ip-address
+  - name: --start-ip-address
     summary: Die Start-IP-Adresse der Firewallregel. Muss das IPv4-Format aufweisen. Verwenden Sie den Wert "0.0.0.0", um alle Azure-internen IP-Adressen darzustellen.
     description: ''
-  optionalParameters:
   - name: --subscription
     summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
     description: ''
@@ -154,9 +151,9 @@ directCommands:
                                                   [--subscription]
   examples:
   - summary: Aktualisieren Sie die Start-IP-Adresse einer Firewallregel.
-    syntax: az mysql flexible-server firewall-rule update --resource-group testGroup --name testServer --rule-name allowiprange --start-ip-address 107.46.14.1
+    syntax: az mysql flexible-server firewall-rule update --resource-group testGroup --name testServer \ --rule-name allowiprange --start-ip-address 107.46.14.1
   - summary: Aktualisieren Sie die Start-und End-IP-Adresse einer Firewallregel.
-    syntax: az mysql flexible-server firewall-rule update --resource-group testGroup --name testServer --rule-name allowiprange --start-ip-address 107.46.14.2 --end-ip-address 107.46.14.218
+    syntax: az mysql flexible-server firewall-rule update --resource-group testGroup --name testServer \ --rule-name allowiprange --start-ip-address 107.46.14.2 --end-ip-address 107.46.14.218
   optionalParameters:
   - name: --add
     summary: Fügen Sie einer Liste von-Objekten ein Objekt hinzu, indem Sie ein Pfad-und Schlüssel-Wert-Paar angeben.  Beispiel:--Add Property. ListProperty <Key = Value, String oder JSON String>.
@@ -214,9 +211,9 @@ globalParameters:
   summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
 metadata:
   description: Verwalten von Firewallregeln für einen Server.
-  ms.openlocfilehash: c8c918b6a9a61669119c4e8065ce9a1b024fc31f
-  ms.sourcegitcommit: 1187fb75b68426c46e84b3f294c509ee7b7da9be
+  ms.openlocfilehash: aec6b85dd7e64c61d46d4d1f63ca10cbb1060d2a
+  ms.sourcegitcommit: 936ec07eb1c56e24d8000cc24a2a0e05102e0cf4
   ms.translationtype: MT
   ms.contentlocale: de-DE
-  ms.lasthandoff: 10/27/2020
-  ms.locfileid: "102821013"
+  ms.lasthandoff: 03/23/2021
+  ms.locfileid: "104914727"
