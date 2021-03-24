@@ -5,78 +5,117 @@ extensionInformation: >-
   > [!Note]
 
   > Diese Referenz ist Teil der **SSH** -Erweiterung für Azure CLI und erfordert Version 2.4.0 oder höher.  Die Erweiterung wird automatisch installiert, wenn Sie den Befehl **AZ SSH** zum ersten Mal ausführen.  [Weitere Informationen zu Erweiterungen](https://docs.microsoft.com/en-us/cli/azure/azure-cli-extensions-overview)
-summary: SSH in Azure-VMS.
+summary: SSH in Ressourcen (Azure-VMS usw.) unter Verwendung von Aad-ausgestellten OpenSSH-Zertifikaten.
 description: ''
 directCommands:
+- uid: ext_ssh_az_ssh_cert
+  name: az ssh cert
+  summary: Erstellen Sie ein von Aad signiertes SSH-RSA-Zertifikat.
+  description: ''
+  syntax: >-
+    az ssh cert [--file]
+                [--public-key-file]
+  examples:
+  - summary: Erstellen eines kurzlebigen SSH-Zertifikats, das von Aad signiert wurde
+    syntax: az ssh cert --public-key-file ./id_rsa.pub --file ./id_rsa-aadcert.pub
+  optionalParameters:
+  - name: --file -f
+    summary: Der Dateipfad, in den das SSH-Zertifikat geschrieben werden soll. Standardmäßig wird der Pfad des öffentlichen Schlüssels mit der angehaltenen Datei "-aadcert
+    description: ''
+  - name: --public-key-file -p
+    summary: Der Dateipfad des öffentlichen RSA-Schlüssels.
+    description: ''
 - uid: ext_ssh_az_ssh_config
   name: az ssh config
-  summary: Erstellen Sie eine SSH-Konfiguration für Azure-VMS, die anschließend in SSH-Clients von Drittanbietern importiert werden kann.
+  summary: Erstellen Sie eine SSH-Konfiguration für Ressourcen (Azure-VMS usw.), die dann in SSH-Clients von Drittanbietern importiert werden können.
   description: ''
   syntax: >-
     az ssh config --file
                   [--ip]
+                  [--name]
+                  [--overwrite]
+                  [--prefer-private-ip]
                   [--private-key-file]
                   [--public-key-file]
                   [--resource-group]
-                  [--vm-name]
   examples:
   - summary: Angeben einer Ressourcengruppe und eines virtuellen Computers, für den eine Konfiguration erstellt und in einer lokalen Datei gespeichert werden soll
     syntax: az ssh config --resource-group myResourceGroup --vm-name myVm --file ./sshconfig
-  - summary: Angeben der öffentlichen IP-Adresse einer VM, für die eine Konfiguration erstellt werden soll
+  - summary: Hiermit wird die öffentliche IP-Adresse (oder der Hostname) einer VM zugewiesen, für die eine Konfiguration erstellt werden soll.
     syntax: az ssh config --ip 1.2.3.4 --file ./sshconfig
+  - summary: Erstellen einer generischen Konfiguration für die Verwendung mit einem beliebigen Host
+    syntax: >-
+      #Bash
+
+      az ssh config --ip \* --file ./sshconfig
+
+      #PowerShell
+
+      az ssh config --ip * --file ./sshconfig
   requiredParameters:
   - isRequired: true
-    name: --file
+    name: --file -f
     summary: Der Dateipfad, in den die SSH-Konfiguration geschrieben werden soll.
     description: ''
   optionalParameters:
   - name: --ip
-    summary: Die öffentliche IP-Adresse der VM.
+    summary: Die öffentliche IP-Adresse (oder der Hostname) des virtuellen Computers.
     description: ''
-  - name: --private-key-file
+  - name: --name --vm-name -n
+    summary: Der Name der VM.
+    description: ''
+  - name: --overwrite
+    summary: Überschreibt die Konfigurationsdatei, wenn dieses Flag festgelegt ist.
+    description: ''
+  - name: --prefer-private-ip
+    summary: Wenn verfügbar, wird eine private IP-Adresse verwendet. Standardmäßig werden nur öffentliche IP-Adressen verwendet.
+    description: ''
+  - name: --private-key-file -i
     summary: Der Dateipfad für den privaten RSA-Schlüssel.
     description: ''
-  - name: --public-key-file
+  - name: --public-key-file -p
     summary: Der Dateipfad des öffentlichen RSA-Schlüssels.
     description: ''
   - name: --resource-group -g
     summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
-    description: ''
-  - name: --vm-name
-    summary: Der Name der VM.
     description: ''
 - uid: ext_ssh_az_ssh_vm
   name: az ssh vm
-  summary: SSH in Azure-VMS.
+  summary: Verwenden Sie ein SSH-Zertifikat, um per SSH auf Azure-VMS
   description: ''
   syntax: >-
     az ssh vm [--ip]
+              [--name]
+              [--prefer-private-ip]
               [--private-key-file]
               [--public-key-file]
               [--resource-group]
-              [--vm-name]
   examples:
   - summary: Eine Ressourcengruppe und einen virtuellen Computer für die SSH-übermitteln
     syntax: az ssh vm --resource-group myResourceGroup --vm-name myVm
-  - summary: Angeben der öffentlichen IP-Adresse eines virtuellen Computers für SSH an
+  - summary: Benennen Sie die öffentliche IP-Adresse (oder den Hostnamen) eines virtuellen Computers für SSH an
     syntax: az ssh vm --ip 1.2.3.4
   optionalParameters:
   - name: --ip
-    summary: Die öffentliche IP-Adresse der VM.
+    summary: Die öffentliche IP-Adresse (oder der Hostname) des virtuellen Computers.
     description: ''
-  - name: --private-key-file
+  - name: --name --vm-name -n
+    summary: Der Name der VM.
+    description: ''
+  - name: --prefer-private-ip
+    summary: Wenn verfügbar, wird eine private IP-Adresse verwendet. Standardmäßig werden nur öffentliche IP-Adressen verwendet.
+    description: ''
+  - name: --private-key-file -i
     summary: Der Dateipfad für den privaten RSA-Schlüssel.
     description: ''
-  - name: --public-key-file
+  - name: --public-key-file -p
     summary: Der Dateipfad des öffentlichen RSA-Schlüssels.
     description: ''
   - name: --resource-group -g
     summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
     description: ''
-  - name: --vm-name
-    summary: Der Name der VM.
-    description: ''
 commands:
+- ext_ssh_az_ssh_cert
 - ext_ssh_az_ssh_config
 - ext_ssh_az_ssh_vm
 globalParameters:
@@ -95,10 +134,10 @@ globalParameters:
 - name: --verbose
   summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
 metadata:
-  description: SSH in Azure-VMS.
-  ms.openlocfilehash: bcf2fc49f660bf1c0fea5169f14d18175513ebbe
-  ms.sourcegitcommit: e1faf297ba2cdf2ba7e821fbeedff9c9a724c975
+  description: SSH in Ressourcen (Azure-VMS usw.) unter Verwendung von Aad-ausgestellten OpenSSH-Zertifikaten.
+  ms.openlocfilehash: bf8402a1af4f36305287eb42f1f937441f8b5cb8
+  ms.sourcegitcommit: 936ec07eb1c56e24d8000cc24a2a0e05102e0cf4
   ms.translationtype: MT
   ms.contentlocale: de-DE
-  ms.lasthandoff: 12/16/2020
-  ms.locfileid: "102828888"
+  ms.lasthandoff: 03/23/2021
+  ms.locfileid: "104930871"
