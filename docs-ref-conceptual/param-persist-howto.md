@@ -10,16 +10,16 @@ ms.topic: conceptual
 ms.devlang: azurecli
 ms.technology: azure-cli
 ms.custom: devex-track-azurecli
-ms.openlocfilehash: bfaf414ab03482fb1bae7da98ddb517435f331ee
-ms.sourcegitcommit: 4c41593455b473c796735c73590403d9b6be87a2
+ms.openlocfilehash: 128847cb14b48fef326859eb77aab9e66e88b6fd
+ms.sourcegitcommit: 936ec07eb1c56e24d8000cc24a2a0e05102e0cf4
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 02/05/2021
-ms.locfileid: "99572764"
+ms.lasthandoff: 03/23/2021
+ms.locfileid: "104928797"
 ---
 # <a name="azure-cli-persisted-parameter"></a>Permanente Azure CLI-Parameter
 
-Mit dem Azure CLI-Referenzbefehl [az config param-persist](/cli/azure/param-persist) können lokale permanente Parameterwerte für Azure CLI-Befehle festgelegt werden.  Es ist dann nicht mehr erforderlich, häufig verwendete Parameter ständig neu einzugeben. Beispielsweise sind die Parameter für den Speicherort (location) und die Ressourcengruppe (resource-group) in vielen CLI-Befehlen erforderlich, aber sie tragen nicht zur _Absicht_ des Befehls bei.  Wenn Sie Parameterwerte mit permanenten Parametern speichern, verringern Sie die Redundanz und können die CLI-Befehlssyntax deutlich verkürzen.
+Mit dem Azure CLI-Referenzbefehl [az config param-persist](/cli/azure/config/param-persist) können lokale permanente Parameterwerte für Azure CLI-Befehle festgelegt werden.  Es ist dann nicht mehr erforderlich, häufig verwendete Parameter ständig neu einzugeben. Beispielsweise sind die Parameter für den Speicherort (location) und die Ressourcengruppe (resource-group) in vielen CLI-Befehlen erforderlich, aber sie tragen nicht zur _Absicht_ des Befehls bei.  Wenn Sie Parameterwerte mit permanenten Parametern speichern, verringern Sie die Redundanz und können die CLI-Befehlssyntax deutlich verkürzen.
 
 Von der CLI verwendete Konfigurationswerte werden in der folgenden Reihenfolge ausgewertet. Die Liste ist nach absteigender Priorität sortiert.
 
@@ -32,7 +32,7 @@ Von der CLI verwendete Konfigurationswerte werden in der folgenden Reihenfolge a
 
 ## <a name="persisted-parameter-data-file"></a>Datendatei für permanente Parameter
 
-Permanente Parameterwerte sind in einer Datei mit dem Namen `.param_persist` enthalten, die in Ihrem Arbeitsverzeichnis gespeichert ist.  Bei Verwendung von [Azure Cloud Shell](https://shell.azure.com) zum Ausführen von Azure CLI-Befehlen befindet sich Ihr Arbeitsverzeichnis unter dem Speicherkonto, das von der Azure CLI verwendet wird.  Wenn Sie eine [lokale Installation](/install-azure-cli) der Azure CLI verwenden, befindet sich Ihr Arbeitsverzeichnis auf Ihrem lokalen Computer.  An beiden Speicherorten ist die Datei `.param_persist` ausgeblendet und sollte nicht manuell aktualisiert werden.
+Permanente Parameterwerte sind in einer Datei mit dem Namen `.param_persist` enthalten, die in Ihrem Arbeitsverzeichnis gespeichert ist.  Bei Verwendung von [Azure Cloud Shell](https://shell.azure.com) zum Ausführen von Azure CLI-Befehlen befindet sich Ihr Arbeitsverzeichnis unter dem Speicherkonto, das von der Azure CLI verwendet wird.  Wenn Sie eine [lokale Installation](install-azure-cli.md) der Azure CLI verwenden, befindet sich Ihr Arbeitsverzeichnis auf Ihrem lokalen Computer.  An beiden Speicherorten ist die Datei `.param_persist` ausgeblendet und sollte nicht manuell aktualisiert werden.
 
 ## <a name="persisted-parameter-storage-and-support"></a>Speicherung und Unterstützung von permanenten Parametern
 
