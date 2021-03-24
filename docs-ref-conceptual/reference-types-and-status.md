@@ -9,12 +9,12 @@ ms.topic: conceptual
 ms.service: azure-cli
 ms.devlang: azurecli
 ms.custom: devx-track-azurecli
-ms.openlocfilehash: ff77011db5a64e7c541dc67f2b2564301bfeebfb
-ms.sourcegitcommit: 6996f3d05d73f528a95b61fdce1422eee3c7a580
+ms.openlocfilehash: 982e2c5efc4ee0426de81025a558888c2e29790e
+ms.sourcegitcommit: 936ec07eb1c56e24d8000cc24a2a0e05102e0cf4
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 11/25/2020
-ms.locfileid: "95870150"
+ms.lasthandoff: 03/23/2021
+ms.locfileid: "104909967"
 ---
 # <a name="overview-azure-cli-reference-types-and-status"></a>Übersicht: Azure CLI-Verweistypen und -status
 
@@ -61,7 +61,7 @@ Erweiterungen werden nicht zusammen mit der CLI bereitgestellt, können aber als
 > [!IMPORTANT]
 > Vor der Verwendung muss durch Ausführen des Befehls [az extension add](/cli/azure/extension#az-extension-add) eine Erweiterung installiert werden.
 
-Weitere Informationen zu Erweiterungsverweisen (einschließlich Installation und Aktualisierung) finden Sie unter [Verwenden von Erweiterungen mit der Azure CLI](azure-cli-extensions-overview.md).  Sehen Sie sich die Erweiterung [wiki tips](https://github.com/Azure/azure-network-cli-extension/wiki/Tips) an, um die Nutzung zu maximieren.  Unter [Verfügbare Erweiterungen für die Azure CLI](azure-cli-extensions-list.md) finden Sie eine vollständige Liste der Erweiterungsverweisbefehle.
+Weitere Informationen zu Erweiterungsverweisen (einschließlich Installation und Aktualisierung) finden Sie unter [Verwenden von Erweiterungen mit der Azure CLI](azure-cli-extensions-overview.md).  Unter [Verfügbare Erweiterungen für die Azure CLI](azure-cli-extensions-list.md) finden Sie eine vollständige Liste der Erweiterungsverweisbefehle.
 
 ## <a name="reference-status"></a>Verweisstatus
 
