@@ -10,12 +10,12 @@ ms.topic: conceptual
 ms.devlang: azurecli
 ms.technology: azure-cli
 ms.custom: devex-track-azurecli
-ms.openlocfilehash: 75833b18da0aea04dfc2aa33d9d7d18910525e98
-ms.sourcegitcommit: 4c41593455b473c796735c73590403d9b6be87a2
+ms.openlocfilehash: c4dea58ba62632eeb46d137bf6d4fa4485da4599
+ms.sourcegitcommit: 936ec07eb1c56e24d8000cc24a2a0e05102e0cf4
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 02/05/2021
-ms.locfileid: "99572781"
+ms.lasthandoff: 03/23/2021
+ms.locfileid: "104947525"
 ---
 # <a name="tutorial-use-persisted-parameters-to-simplify-sequential-azure-cli-commands"></a>Tutorial: Verwenden von permanenten Parametern zum Vereinfachen von sequenziellen Azure CLI-Befehlen
 
@@ -77,7 +77,7 @@ cd azCLI
 
 ## <a name="2-turn-on-persisted-parameters"></a>2. Aktivieren von permanenten Parametern
 
-[Permanente Parameter](/cli/azure/param-persist) müssen aktiviert werden, bevor Parameterwerte gespeichert werden können.  Sie erhalten eine Warnung, solange sich `az config param-persist` noch in der Experimentierphase befindet.  Unter [Übersicht: Azure CLI-Referenztypen und -Status](/cli/azure/reference-types-and-status) finden Sie Informationen zu den Referenztypen, dem Status und den Supportebenen der Azure CLI.
+[Permanente Parameter](/cli/azure/config/param-persist) müssen aktiviert werden, bevor Parameterwerte gespeichert werden können.  Sie erhalten eine Warnung, solange sich `az config param-persist` noch in der Experimentierphase befindet.  Unter [Übersicht: Azure CLI-Referenztypen und -Status](/cli/azure/reference-types-and-status) finden Sie Informationen zu den Referenztypen, dem Status und den Supportebenen der Azure CLI.
 
 ```azurecli
 az config param-persist on
