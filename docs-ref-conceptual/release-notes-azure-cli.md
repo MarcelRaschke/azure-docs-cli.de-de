@@ -4,21 +4,141 @@ description: Enthält Informationen zu den aktuellen Updates der Azure CLI.
 author: dbradish-microsoft
 ms.author: dbradish
 manager: barbkess
-ms.date: 03/02/2021
+ms.date: 03/23/2021
 ms.topic: article
 ms.service: azure-cli
 ms.devlang: azurecli
 ms.custom: devx-track-azurecli
-ms.openlocfilehash: 632ad5195cd07d779d71314af3f9b4db2503a647
-ms.sourcegitcommit: f9e23f29c59c6957d3df4d5ca2f4425093e6fd80
+ms.openlocfilehash: 2a5dd1e49962a6ab3ed5a1f24761bf4c851a7333
+ms.sourcegitcommit: 936ec07eb1c56e24d8000cc24a2a0e05102e0cf4
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 03/16/2021
-ms.locfileid: "103498994"
+ms.lasthandoff: 03/23/2021
+ms.locfileid: "104928780"
 ---
 # <a name="azure-cli-release-notes"></a>Versionshinweise für die Azure CLI
 
 # <a name="current-release-notes"></a>[Aktuelle Versionshinweise](#tab/azure-cli)
+
+## <a name="march-23-2021"></a>23. März 2021
+
+Version 2.21.0
+
+### <a name="acr"></a>ACR
+
+* Ausgabe einer Ablaufverfolgung in `az acr login` für die Selbstdiagnose möglicher Wartezeiten beim Docker-Befehl
+* Fehlerbehebung Nr. 17172: Beim Ausführen von „check-health“ hinter einem Unternehmensproxy
+* `acr update`: Unterstützung eines anonymen Pullvorgangs
+* Fehlerbehebung Nr. 16700: Überprüfen des Vorhandenseins von Speicherblobs mithilfe der API „exists“
+
+### <a name="aks"></a>AKS
+
+* `aks update`: `--no-uptime-sla` hinzugefügt
+* Fehler beim abonnementübergreifenden Hinzufügen von Identitäten und beim Anfügen von ACR behoben
+* Unterstützung für Präfix-ID für öffentliche IP-Adressen von Knoten hinzugefügt
+
+### <a name="apim"></a>APIM
+
+* [BREAKING CHANGE] `apim backup`: `--storage-account-container` unterstützt nicht mehrere Werte.
+* [BREAKING CHANGE] `apim restore`: `--storage-account-container` unterstützt nicht mehrere Werte.
+
+### <a name="app-service"></a>App Service
+
+* [BREAKING CHANGE] Fehlerbehebung Nr. 16087: `az webapp config ssl create`: Parameter `--name` wie erforderlich festgelegt
+* Fehlerbehebung Nr. 17053: `az webapp show` gibt NULL-Werte für SiteConfig-Eigenschaften zurück.
+* Fehlerbehebung Nr. 17207: `az webapp log config`: Für „level“ wird standardmäßig immer „verbose“ festgelegt.
+
+### <a name="arm"></a>ARM
+
+* `az bicep build`: Problem behoben, aufgrund dessen Buildwarnungen nicht angezeigt wurden
+
+### <a name="backup"></a>Backup
+
+* `id_part` für Namen von Unterressourcen zur Korrektur von `--ids` hinzugefügt
+* Fehlerbehebung Nr. 17094: Separate Testsammlung für CRR-Tests erstellt
+* `az backup protection check-vm`: `--vm` und `--resource-group` als optionale Parameter hinzugefügt
+
+### <a name="cache"></a>Cache
+
+* Allgemeine Verfügbarkeit von `az cache`
+
+### <a name="cdn"></a>CDN
+
+* `az afd rule create`: Nachricht `--help` korrigiert
+
+### <a name="compute"></a>Compute
+
+* Windows-Fehler vom Typ „vm user update“ behoben
+* Fehlerbehebung Nr. 16585: `az vmss deallocate`: Fehler bei `--instance-ids`
+* `az vm create`: Neuer Parameter `--platform-fault-domain` im FLEX VMSS-Modus
+* `az vm create`: `--patch-mode` für Linux-VM
+* `az ssh vm`: Automatisches Starten des Browsers, wenn beim Abrufen des Zertifikats ein Fehler auftritt
+* `az vm create`: Neuer Parameter `--count`
+* `az vm create`: Vertrauenswürdiger Start
+* Fehlerbehebung Nr. 16037: „az vm open-port“ akzeptiert eine Liste mit Ports.
+
+### <a name="extension"></a>Durchwahl
+
+* Umsetzbare Meldung hinzugefügt, wenn eine Erweiterung nicht mit CLI Core kompatibel ist
+
+### <a name="key-vault"></a>Key Vault
+
+* `az keyvault role definition list`: Unterstützung für `--custom-role-only`, um nur benutzerdefinierte Rollendefinitionen aufzulisten
+* Unterstützung der benutzerdefinierten keyvault-Rollendefinition
+* `--no-wait` für Befehl `az keyvault security-domain download` und `--target-operation` für Befehl `az keyvault security-domain wait` hinzugefügt
+
+### <a name="netappfiles"></a>NetAppFiles
+
+* `az netappfiles account backup show`: Vorgang hinzugefügt
+* `az netappfiles account backup delete`: Vorgang hinzugefügt
+* `az netappfiles account ad add`: Parameter `--ldap-over-tls` hinzugefügt
+* `az netappfiles account create`: Parameter `--encryption` hinzugefügt
+* `az netappfiles account update`: Parameter `--encryption` hinzugefügt
+* `az netappfiles volume create`: Parameter `--encryption-key-source` hinzugefügt
+* `az netappfiles volume create`: Standardexportrichtlinie für nfsv4.1 entfernt und optionale Parameter für das Einrichten einer Exportrichtlinie für nfsv4.1 hinzugefügt: rule_index, unix_read_only, unix_read_write, cifs, allowed_clients
+
+### <a name="network"></a>Netzwerk
+
+* `az network public-ip prefix create`: Unterstützung für `--zone 1 2 3`
+* `az network lb frontend-ip create`: Unterstützung für `--zone 1 2 3`
+* Version von 2020-08-01 auf 2020-11-01 aktualisiert
+* `az network lb address-pool`: Unterstützung eines Subnetzes beim Erstellen oder Aktualisieren eines IP-basierten Back-End-Pools eines Lastenausgleichs
+
+### <a name="rdbms"></a>RDBMS
+
+* Tests für die Teampipeline flexibler Server hinzugefügt
+* Python SDK-Migration
+* Funktion zum Erstellen, Anzeigen und Löschen von PostgreSQL-Datenbanken hinzugefügt
+* Python SDK auf 8.1.0b2 aktualisiert
+
+### <a name="role"></a>Rolle
+
+* `az ad app permission list/grant`: Fehlermeldung optimiert, die angezeigt wurde, wenn kein zugeordneter Dienstprinzipal für die App vorhanden ist
+
+### <a name="search"></a>Suche
+
+* `az search`: Allgemeine Verfügbarkeit
+
+### <a name="service-fabric"></a>Service Fabric
+
+* `az sf certificate`: Befehle für Clusterzertifikate als veraltet gekennzeichnet
+
+### <a name="sql"></a>SQL
+
+* Befehle für Serververtrauensgruppen hinzugefügt
+
+### <a name="storage"></a>Storage
+
+* Fehlerbehebung Nr. 16917: Fehler bei `az storage account generate-sas`, falls eine Verbindungszeichenfolge angegeben wird
+* Fehlerbehebung Nr. 16979: Fehler bei `az storage container create`, wenn Speichercontainermetadaten angegeben werden
+
+### <a name="upgrade"></a>Aktualisieren
+
+* Fehlerbehebung Nr. 16952: ImportError nach dem Upgrade behoben
+
+### <a name="misc"></a>Verschiedenes:
+
+* Konfigurieren des Designs zugelassen
 
 ## <a name="march-02-2021"></a>02. März 2021
 
