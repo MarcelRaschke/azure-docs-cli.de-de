@@ -9,12 +9,12 @@ ms.topic: conceptual
 ms.service: azure-cli
 ms.devlang: azurecli
 ms.custom: devx-track-azurecli
-ms.openlocfilehash: 6b64a8f781907977d6123561d91fb8266a0ebe08
-ms.sourcegitcommit: 594e9c620a6f74f5eaedf91a7f6a791e03a64c74
+ms.openlocfilehash: 5bcabef8d4223ced6585ec4a6151fb475b13e6e7
+ms.sourcegitcommit: 8bff8b2ce4492ab99ad39390e4c802fb4f4425c8
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 02/17/2021
-ms.locfileid: "100631066"
+ms.lasthandoff: 03/26/2021
+ms.locfileid: "105581171"
 ---
 # <a name="create-an-azure-service-principal-with-the-azure-cli"></a>Erstellen eines Azure-Dienstprinzipals mit der Azure-Befehlszeilenschnittstelle
 
@@ -26,7 +26,7 @@ In diesem Artikel wird Schritt für Schritt erläutert, wie Sie mit der Azure C
 
 ## <a name="create-a-service-principal"></a>Erstellen eines Dienstprinzipals
 
-Erstellen Sie mit dem Befehl [az ad sp create-for-rbac](/cli/azure/ad/sp#az-ad-sp-create-for-rbac) einen Dienstprinzipal. Beim Erstellen eines Dienstprinzipals wählen Sie den Typ der von ihm verwendeten Anmeldeauthentifizierung aus.
+Erstellen Sie mit dem Befehl [az ad sp create-for-rbac](/cli/azure/ad/sp#az_ad_sp_create_for_rbac) einen Dienstprinzipal. Beim Erstellen eines Dienstprinzipals wählen Sie den Typ der von ihm verwendeten Anmeldeauthentifizierung aus.
 
 Für Dienstprinzipale stehen zwei Authentifizierungstypen zur Verfügung: Kennwortbasierte Authentifizierung und zertifikatbasierte Authentifizierung.
 
@@ -55,7 +55,7 @@ Ohne jegliche Authentifizierungsparameter wird die kennwortbasierte Authentifizi
 Die Ausgabe für einen Dienstprinzipal mit Kennwortauthentifizierung enthält den Schlüssel `password`. Kopieren Sie diesen Wert __unbedingt__, da er nicht abgerufen werden kann. Wenn Sie das Kennwort vergessen haben, [setzen Sie die Anmeldeinformationen des Dienstprinzipals zurück](#reset-credentials).
 
 Die Schlüssel `appId` und `tenant` werden in der Ausgabe von `az ad sp create-for-rbac` angezeigt und bei der Dienstprinzipalauthentifizierung verwendet.
-Notieren Sie die Werte. Sie können jedoch auch jederzeit mit [az ad sp list](/cli/azure/ad/sp#az-ad-sp-list) abgerufen werden.
+Notieren Sie die Werte. Sie können jedoch auch jederzeit mit [az ad sp list](/cli/azure/ad/sp#az_ad_sp_list) abgerufen werden.
 
 ### <a name="certificate-based-authentication"></a>Zertifikatbasierte Authentifizierung
 
@@ -124,14 +124,14 @@ az ad sp create-for-rbac --name ServicePrincipalName --create-cert --cert CertNa
 Die Ausgabe enthält den Schlüssel `fileWithCertAndPrivateKey`, es sei denn, Sie speichern das Zertifikat in Key Vault. Am Wert dieses Schlüssels können Sie erkennen, wo das generierte Zertifikat gespeichert ist.
 Kopieren Sie das Zertifikat __unbedingt__ an einen sicheren Speicherort. Andernfalls können Sie sich nicht mit diesem Dienstprinzipal anmelden.
 
-Rufen Sie für in Key Vault gespeicherte Zertifikate den privaten Schlüssel des Zertifikats mit [az keyvault secret show](/cli/azure/keyvault/secret#az-keyvault-secret-show) ab. In Key Vault ist der Name des Zertifikatgeheimnisses mit dem Zertifikatnamen identisch. Wenn Sie keinen Zugriff mehr auf den privaten Schlüssel des Zertifikats haben, [setzen Sie die Anmeldeinformationen des Dienstprinzipals zurück](#reset-credentials).
+Rufen Sie für in Key Vault gespeicherte Zertifikate den privaten Schlüssel des Zertifikats mit [az keyvault secret show](/cli/azure/keyvault/secret#az_keyvault_secret_show) ab. In Key Vault ist der Name des Zertifikatgeheimnisses mit dem Zertifikatnamen identisch. Wenn Sie keinen Zugriff mehr auf den privaten Schlüssel des Zertifikats haben, [setzen Sie die Anmeldeinformationen des Dienstprinzipals zurück](#reset-credentials).
 
 Die Schlüssel `appId` und `tenant` werden in der Ausgabe von `az ad sp create-for-rbac` angezeigt und bei der Dienstprinzipalauthentifizierung verwendet.
-Notieren Sie die Werte. Sie können jedoch auch jederzeit mit [az ad sp list](/cli/azure/ad/sp#az-ad-sp-list) abgerufen werden.
+Notieren Sie die Werte. Sie können jedoch auch jederzeit mit [az ad sp list](/cli/azure/ad/sp#az_ad_sp_list) abgerufen werden.
 
 ## <a name="get-an-existing-service-principal"></a>Abrufen eines vorhandenen Dienstprinzipals
 
-Mit [az ad sp list](/cli/azure/ad/sp#az-ad-sp-list) kann eine Liste der Dienstprinzipale in einem Mandanten abgerufen werden. Dieser Befehl gibt standardmäßig die ersten 100 Dienstprinzipale für Ihren Mandanten zurück. Verwenden Sie zum Abrufen aller Dienstprinzipale eines Mandanten das Argument `--all`. Da das Abrufen dieser Liste sehr lange dauern kann, wird empfohlen, die Liste mit einem der folgenden Argumente zu filtern:
+Mit [az ad sp list](/cli/azure/ad/sp#az_ad_sp_list) kann eine Liste der Dienstprinzipale in einem Mandanten abgerufen werden. Dieser Befehl gibt standardmäßig die ersten 100 Dienstprinzipale für Ihren Mandanten zurück. Verwenden Sie zum Abrufen aller Dienstprinzipale eines Mandanten das Argument `--all`. Da das Abrufen dieser Liste sehr lange dauern kann, wird empfohlen, die Liste mit einem der folgenden Argumente zu filtern:
 
 * `--display-name` fordert Dienstprinzipale mit einem _Präfix_ an, das dem angegebenen Namen entspricht. Der Anzeigename eines Dienstprinzipals ist der Wert, der während der Erstellung mit dem Parameter `--name` festgelegt wird. Haben Sie `--name` während der Erstellung des Dienstprinzipals nicht festgelegt, lautet das Namenspräfix `azure-cli-`.
 * `--spn` filtert nach genauen Übereinstimmungen des Dienstprinzipalnamens. Der Dienstprinzipalname beginnt immer mit `https://`.
@@ -147,17 +147,17 @@ az ad sp list --show-mine --query "[].{id:appId, tenant:appOwnerTenantId}"
 
 > [!IMPORTANT]
 >
-> Mit `az ad sp list` und [az ad sp show](/cli/azure/ad/sp#az-ad-sp-show) rufen Sie den Benutzer und den Mandanten ab, allerdings nicht die Authentifizierungsgeheimnisse _oder_ die Authentifizierungsmethode.
-> Geheimnisse für Zertifikate in Key Vault können mit [az keyvault secret show](/cli/azure/keyvault/secret#az-keyvault-secret-show) abgerufen werden. Andere Geheimnisse werden jedoch nicht standardmäßig gespeichert.
+> Mit `az ad sp list` und [az ad sp show](/cli/azure/ad/sp#az_ad_sp_show) rufen Sie den Benutzer und den Mandanten ab, allerdings nicht die Authentifizierungsgeheimnisse _oder_ die Authentifizierungsmethode.
+> Geheimnisse für Zertifikate in Key Vault können mit [az keyvault secret show](/cli/azure/keyvault/secret#az_keyvault_secret_show) abgerufen werden. Andere Geheimnisse werden jedoch nicht standardmäßig gespeichert.
 > Wenn Sie eine Authentifizierungsmethode oder ein Geheimnis vergessen haben, [setzen Sie die Anmeldeinformationen des Dienstprinzipals zurück](#reset-credentials).
 
 ## <a name="manage-service-principal-roles"></a>Verwalten von Dienstprinzipalrollen
 
 Die Azure CLI enthält die folgenden Befehle zum Verwalten von Rollenzuweisungen:
 
-* [az role assignment list](/cli/azure/role/assignment#az-role-assignment-list)
-* [az role assignment create](/cli/azure/role/assignment#az-role-assignment-create)
-* [az role assignment delete](/cli/azure/role/assignment#az-role-assignment-delete)
+* [az role assignment list](/cli/azure/role/assignment#az_role_assignment_list)
+* [az role assignment create](/cli/azure/role/assignment#az_role_assignment_create)
+* [az role assignment delete](/cli/azure/role/assignment#az_role_assignment_delete)
 
 Standardmäßig hat ein Dienstprinzipal die Rolle **Mitwirkender**. Diese Rolle besitzt uneingeschränkte Berechtigungen für Lese- und Schreibvorgänge in einem Azure-Konto. Die Rolle **Leser** ist stärker eingeschränkt und bietet schreibgeschützten Zugriff.  Weitere Informationen zur rollenbasierten Zugriffssteuerung (Role-Based Access Control, RBAC) finden Sie unter [Rollenbasierte Zugriffssteuerung: Integrierte Rollen](/azure/active-directory/role-based-access-built-in-roles).
 
@@ -242,7 +242,7 @@ Für die Anmeldung mit einem Dienstprinzipal benötigen Sie die Werte für `appI
 
 ## <a name="reset-credentials"></a>Zurücksetzen von Anmeldeinformation
 
-Wenn Sie die Anmeldeinformationen für einen Dienstprinzipal vergessen haben, verwenden Sie [az ad sp credential reset](/cli/azure/ad/sp/credential#az-ad-sp-credential-reset). Der Befehl zum Zurücksetzen akzeptiert die gleichen Argumente wie `az ad sp create-for-rbac`.
+Wenn Sie die Anmeldeinformationen für einen Dienstprinzipal vergessen haben, verwenden Sie [az ad sp credential reset](/cli/azure/ad/sp/credential#az_ad_sp_credential_reset). Der Befehl zum Zurücksetzen akzeptiert die gleichen Argumente wie `az ad sp create-for-rbac`.
 
 ```azurecli-interactive
 az ad sp credential reset --name APP_ID

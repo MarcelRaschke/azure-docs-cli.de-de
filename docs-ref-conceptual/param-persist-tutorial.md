@@ -10,12 +10,12 @@ ms.topic: conceptual
 ms.devlang: azurecli
 ms.technology: azure-cli
 ms.custom: devex-track-azurecli
-ms.openlocfilehash: c4dea58ba62632eeb46d137bf6d4fa4485da4599
-ms.sourcegitcommit: 936ec07eb1c56e24d8000cc24a2a0e05102e0cf4
+ms.openlocfilehash: a5c46dcc428cc491e7153633c269faacfa2cebfc
+ms.sourcegitcommit: 8bff8b2ce4492ab99ad39390e4c802fb4f4425c8
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 03/23/2021
-ms.locfileid: "104947525"
+ms.lasthandoff: 03/26/2021
+ms.locfileid: "105581562"
 ---
 # <a name="tutorial-use-persisted-parameters-to-simplify-sequential-azure-cli-commands"></a>Tutorial: Verwenden von permanenten Parametern zum Vereinfachen von sequenziellen Azure CLI-Befehlen
 
@@ -51,7 +51,7 @@ Wenn Sie kein Azure-Abonnement besitzen, können Sie ein [kostenloses Konto](htt
    - Wählen Sie im [Azure-Portal](https://portal.azure.com) rechts oben im Menü die Schaltfläche **Cloud Shell** aus.
 
 1. Gehen Sie wie folgt vor, falls Sie eine lokale Installation der Azure CLI verwenden:
-   - Melden Sie sich mit dem Befehl [az login](/cli/azure/reference-index#az-login) an, und führen Sie anschließend die in Ihrem Terminal angezeigten Schritte für den Authentifizierungsprozess aus.
+   - Melden Sie sich mit dem Befehl [az login](/cli/azure/reference-index#az_login) an, und führen Sie anschließend die in Ihrem Terminal angezeigten Schritte für den Authentifizierungsprozess aus.
 
      ```azurecli
      az login
@@ -127,7 +127,7 @@ Führen Sie zum Speichern von Werten für permanente Parameter einen Azure CLI-B
 
 1. Erstellen Sie einen permanenten Parameter, ohne eine neue Ressource zu erstellen.
 
-   Falls Sie keine neue Azure-Ressource erstellen möchten, können Sie die Parameter `resource_group_name` und `location` speichern, indem Sie andere Befehle wie `show` oder `list` verwenden.   Eine vollständige Liste mit unterstützten Parametern und der Aktion, die zum Beibehalten von Werten durchgeführt werden muss, finden Sie unter [Permanente Azure CLI-Parameter](/cli/azure/param-persist-howto#compare-parameter-persistence-and-global-variables).  In diesem Beispiel werden mit dem Befehl [az config param-persist delete](/cli/azure/config/param-persist#az-param-persist-delete) auch alle Parameterwerte entfernt.
+   Falls Sie keine neue Azure-Ressource erstellen möchten, können Sie die Parameter `resource_group_name` und `location` speichern, indem Sie andere Befehle wie `show` oder `list` verwenden.   Eine vollständige Liste mit unterstützten Parametern und der Aktion, die zum Beibehalten von Werten durchgeführt werden muss, finden Sie unter [Permanente Azure CLI-Parameter](/cli/azure/param-persist-howto#compare-parameter-persistence-and-global-variables).  In diesem Beispiel werden mit dem Befehl [az config param-persist delete](/cli/azure/config/param-persist#az_param_persist_delete) auch alle Parameterwerte entfernt.
 
    ```azurecli
    # Clear all persisted parameters for demonstration.
@@ -259,7 +259,7 @@ az functionapp create \
 
 ## <a name="6-delete-persisted-parameters"></a>6. Löschen von permanenten Parametern
 
-Verwenden Sie den Befehl [az config param-persist delete](/cli/azure/param-persist#az-param-persist-delete), um Einträge zu entfernen.
+Verwenden Sie den Befehl [az config param-persist delete](/cli/azure/param-persist#az_param_persist_delete), um Einträge zu entfernen.
 
 ```azurecli
 # Remove a single persisted parameters entry by specifying the name, not the value
@@ -286,7 +286,7 @@ az config param-persist delete --all --yes
 
 ## <a name="7-turn-persisted-parameters-off"></a>7. Deaktivieren von permanenten Parametern
 
-Sie können permanente Parameter deaktivieren, indem Sie den Befehl [az config param-persist off](/cli/azure/param-persist#az-param-persist-off) verwenden. Ihre gespeicherten Daten für permanente Parameter werden hierbei nicht gelöscht.
+Sie können permanente Parameter deaktivieren, indem Sie den Befehl [az config param-persist off](/cli/azure/param-persist#az_param_persist_off) verwenden. Ihre gespeicherten Daten für permanente Parameter werden hierbei nicht gelöscht.
 
 ```azurecli
 # Turn persisted parameters off

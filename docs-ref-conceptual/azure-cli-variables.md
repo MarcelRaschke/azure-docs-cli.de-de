@@ -7,12 +7,12 @@ ms.service: azure-cli
 ms.topic: how-to
 ms.date: 03/01/2021
 ms.custom: template-how-to
-ms.openlocfilehash: 18bd938403d18a14278a7b8a97ca93bc0e0d0f1c
-ms.sourcegitcommit: f9e23f29c59c6957d3df4d5ca2f4425093e6fd80
+ms.openlocfilehash: 6b43bb426ae0ad3e9d7b5c46fbf59ff1552d1560
+ms.sourcegitcommit: 8bff8b2ce4492ab99ad39390e4c802fb4f4425c8
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 03/16/2021
-ms.locfileid: "103554913"
+ms.lasthandoff: 03/26/2021
+ms.locfileid: "105581647"
 ---
 # <a name="specifying-values-in-azure-cli-commands"></a>Angeben von Werten in Azure CLI-Befehlen
 
@@ -62,7 +62,7 @@ Für viele Befehle ist ein bestimmtes Abonnement erforderlich. Azure-Ressourcen 
 az account show --output table
 ```
 
-Wahrscheinlich haben Sie nur Zugriff auf ein Abonnement. Weitere Informationen finden Sie unter [Verwenden von Azure-Abonnements mit Azure CLI](/cli/azure/manage-azure-subscriptions-azure-cli). Mit dem Befehl [az account set](/cli/azure/account#az-account-set) können Sie Ihr aktuelles Abonnement festlegen:
+Wahrscheinlich haben Sie nur Zugriff auf ein Abonnement. Weitere Informationen finden Sie unter [Verwenden von Azure-Abonnements mit Azure CLI](/cli/azure/manage-azure-subscriptions-azure-cli). Mit dem Befehl [az account set](/cli/azure/account#az_account_set) können Sie Ihr aktuelles Abonnement festlegen:
 
 ```azurecli
 az account set --subscription "My Demos"

@@ -9,12 +9,12 @@ ms.topic: conceptual
 ms.service: azure-cli
 ms.devlang: azurecli
 ms.custom: devx-track-azurecli
-ms.openlocfilehash: 6a980c45627c79c9e3f8c6c920944cc3dc62281f
-ms.sourcegitcommit: 3e79897e0aeca4d74bc8ff0410121b011b5884ec
+ms.openlocfilehash: a2a4467bc25fb8da8ced0c7b8cb6c4db9eb35e64
+ms.sourcegitcommit: 8bff8b2ce4492ab99ad39390e4c802fb4f4425c8
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 02/03/2021
-ms.locfileid: "99495226"
+ms.lasthandoff: 03/26/2021
+ms.locfileid: "105581834"
 ---
 # <a name="use-azure-subscriptions-with-azure-cli"></a>Verwenden von Azure-Abonnements mit der Azure CLI
 
@@ -63,9 +63,9 @@ az storage account create --resource-group StorageGroups --subscription "My Demo
 
 ## <a name="change-the-active-subscription"></a>Ändern des aktiven Abonnements
 
-Sie können das aktive Abonnement mithilfe des Befehls [az account set](/cli/azure/account#az-account-set) ändern.
+Sie können das aktive Abonnement mithilfe des Befehls [az account set](/cli/azure/account#az_account_set) ändern.
 
-Rufen Sie eine Liste Ihrer Abonnements mithilfe des Befehls [az account list](/cli/azure/account#az-account-list) ab.
+Rufen Sie eine Liste Ihrer Abonnements mithilfe des Befehls [az account list](/cli/azure/account#az_account_list) ab.
 
 ```azurecli
 az account list --output table
@@ -73,7 +73,7 @@ az account list --output table
 
 Mit diesem Befehl werden alle Abonnements aufgelistet, auf die Sie zugreifen können. Ihr aktives Abonnement ist in der Spalte `IsDefault` durch `True` gekennzeichnet. Wenn ein erwartetes Abonnement nicht angezeigt wird, fügen Sie den Parameter `--refresh` hinzu, um die aktuelle Liste der Abonnements zu erhalten.
 
-Um zu einem anderen Abonnement zu wechseln, verwenden Sie [az account set](/cli/azure/account#az-account-set) mit der ID oder dem Namen des gewünschten Abonnements.
+Um zu einem anderen Abonnement zu wechseln, verwenden Sie [az account set](/cli/azure/account#az_account_set) mit der ID oder dem Namen des gewünschten Abonnements.
 
 ```azurecli
 az account set --subscription "My Demos"
@@ -81,7 +81,7 @@ az account set --subscription "My Demos"
 
 Ihre Abonnements verfügen sowohl über einen Namen als auch über eine ID (GUID). Beides kann für diese Befehle verwendet werden. Verwenden Sie Anführungszeichen für einen Namen mit Leerzeichen.
 
-Wenn Sie den Befehl [az account list](/cli/azure/account#az-account-list) erneut ausführen, wird in der Spalte `IsDefault` ihr aktuelles aktives Abonnement angezeigt.
+Wenn Sie den Befehl [az account list](/cli/azure/account#az_account_list) erneut ausführen, wird in der Spalte `IsDefault` ihr aktuelles aktives Abonnement angezeigt.
 
 ## <a name="create-management-groups"></a>Erstellen von Verwaltungsgruppen
 

@@ -10,12 +10,12 @@ ms.topic: conceptual
 ms.devlang: azurecli
 ms.technology: azure-cli
 ms.custom: devx-track-azurecli
-ms.openlocfilehash: e9df4821ad4b161bd129c3326e2ee24fc0cdfea7
-ms.sourcegitcommit: f9e23f29c59c6957d3df4d5ca2f4425093e6fd80
+ms.openlocfilehash: e592f4e0787a8e4391e47dc45d1841ff415f24bb
+ms.sourcegitcommit: 8bff8b2ce4492ab99ad39390e4c802fb4f4425c8
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 03/16/2021
-ms.locfileid: "103532110"
+ms.lasthandoff: 03/26/2021
+ms.locfileid: "105581851"
 ---
 # <a name="install-azure-cli-on-windows"></a>Installieren der Azure CLI unter Windows
 
@@ -62,7 +62,7 @@ Dadurch wird die aktuelle Version der Azure-Befehlszeilenschnittstelle für Wind
 
 ## <a name="run-the-azure-cli"></a>Ausführen der Azure CLI
 
-Sie können nun mit dem Befehl `az` über die Windows-Eingabeaufforderung oder PowerShell die Azure CLI ausführen. In PowerShell stehen einige Features zur Vervollständigung mit der TAB-TASTE zur Verfügung, die an der Windows-Eingabeaufforderung nicht verfügbar sind. Führen Sie den Befehl [az login](/cli/azure/reference-index#az-login) aus, um sich anzumelden.
+Sie können nun mit dem Befehl `az` über die Windows-Eingabeaufforderung oder PowerShell die Azure CLI ausführen. In PowerShell stehen einige Features zur Vervollständigung mit der TAB-TASTE zur Verfügung, die an der Windows-Eingabeaufforderung nicht verfügbar sind. Führen Sie den Befehl [az login](/cli/azure/reference-index#az_login) aus, um sich anzumelden.
 
 [!INCLUDE [interactive-login](includes/interactive-login.md)]
 

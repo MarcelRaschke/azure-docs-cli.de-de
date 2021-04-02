@@ -3,19 +3,19 @@ title: Azure CLI-Referenzen für das Azure-Netzwerk
 description: Landing Page der Azure CLI-Referenzen für das Azure-Netzwerk
 author: dbradish-microsoft
 manager: barbkess
-ms.devlang: azurecli
 ms.topic: reference
 ms.date: 06/30/2020
 ms.author: dbradish
 ms.service: azure-cli
+ms.devlang: azurecli
 ms.reviewer: mohnader
 ms.custom: devx-track-azurecli
-ms.openlocfilehash: 2155be0bca6b6aa297e4be07a685a379892523c6
-ms.sourcegitcommit: 5d29362589078b66d15f5cd494fe903a5195658d
+ms.openlocfilehash: 171d35be6bd43cd4de8436f49f4b766e9ae90626
+ms.sourcegitcommit: 8bff8b2ce4492ab99ad39390e4c802fb4f4425c8
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 09/25/2020
-ms.locfileid: "91225914"
+ms.lasthandoff: 03/26/2021
+ms.locfileid: "105581307"
 ---
 # <a name="azure-cli-for-azure-network"></a>Azure CLI für das Azure-Netzwerk
 
@@ -95,9 +95,9 @@ Unter [az network](/cli/azure/network) finden Sie eine vollständige Liste der A
 
 | Untergruppe | Verweis | Zweck | Ist Erweiterung
 |-|-|-|-|
-| Dienst | [az network list-service-aliases](/cli/azure/network#az-network-list-service-aliases) | Auflisten verfügbarer Dienstaliase in der Region, die für Dienstendpunkt-Richtlinien verwendet werden können |
-| Dienst | [az network list-service-tags](/cli/azure/network#az-network-list-service-tags) | Auflisten aller Diensttags, die zu unterschiedlichen Ressourcen gehören |
-| Verwendung | [az network list-usages](/cli/azure/network#az-network-list-usages) | Auflisten der Anzahl von Netzwerkressourcen in einer Region, die im Rahmen eines Abonnementkontingents verwendet werden |
+| Dienst | [az network list-service-aliases](/cli/azure/network#az_network_list_service_aliases) | Auflisten verfügbarer Dienstaliase in der Region, die für Dienstendpunkt-Richtlinien verwendet werden können |
+| Dienst | [az network list-service-tags](/cli/azure/network#az_network_list_service_tags) | Auflisten aller Diensttags, die zu unterschiedlichen Ressourcen gehören |
+| Verwendung | [az network list-usages](/cli/azure/network#az_network_list_usages) | Auflisten der Anzahl von Netzwerkressourcen in einer Region, die im Rahmen eines Abonnementkontingents verwendet werden |
 
 ## <a name="installing-extension-references"></a>Installieren von Erweiterungspaketen
 

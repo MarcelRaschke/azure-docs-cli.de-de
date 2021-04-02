@@ -9,12 +9,12 @@ ms.topic: conceptual
 ms.service: azure-cli
 ms.devlang: azurecli
 ms.custom: devx-track-azurecli
-ms.openlocfilehash: a37faefc7e2d317daa7c37f967b461cd99a76f96
-ms.sourcegitcommit: aa44ec97af5c0e7558d254b3159f95921e22ff1c
+ms.openlocfilehash: 665d6e5536282ad55eae6132c3925462f69fedf3
+ms.sourcegitcommit: 8bff8b2ce4492ab99ad39390e4c802fb4f4425c8
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 10/01/2020
-ms.locfileid: "91625396"
+ms.lasthandoff: 03/26/2021
+ms.locfileid: "105582089"
 ---
 # <a name="install-azure-cli-on-macos"></a>Installieren der Azure CLI unter macOS
 
@@ -38,7 +38,7 @@ brew update && brew install azure-cli
 > Die Azure CLI weist eine Abhängigkeit vom Homebrew-Paket `python3` auf und installiert es.
 > Die Azure CLI ist garantiert kompatibel mit der aktuellen Version von `python3`, die auf Homebrew veröffentlicht wurde.
 
-Sie können dann die Azure CLI mit dem Befehl `az` ausführen. Verwenden Sie den Befehl [az login](/cli/azure/reference-index#az-login), um sich anzumelden.
+Sie können dann die Azure CLI mit dem Befehl `az` ausführen. Verwenden Sie den Befehl [az login](/cli/azure/reference-index#az_login), um sich anzumelden.
 
 [!INCLUDE [interactive-login](includes/interactive-login.md)]
 

@@ -9,12 +9,12 @@ ms.topic: conceptual
 ms.service: azure-cli
 ms.devlang: azurecli
 ms.custom: devx-track-azurecli
-ms.openlocfilehash: 845438664917698169f36021fb776780cad86542
-ms.sourcegitcommit: 4c41593455b473c796735c73590403d9b6be87a2
+ms.openlocfilehash: 2c3d59c5da81827ab962edb61a1c364448fb52be
+ms.sourcegitcommit: 8bff8b2ce4492ab99ad39390e4c802fb4f4425c8
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 02/05/2021
-ms.locfileid: "99572747"
+ms.lasthandoff: 03/26/2021
+ms.locfileid: "105581511"
 ---
 # <a name="azure-cli-configuration"></a>Azure CLI-Konfiguration
 
@@ -30,7 +30,7 @@ Von der CLI verwendete Konfigurationswerte werden in der folgenden Reihenfolge a
 
 ## <a name="cli-configuration-with-az-configure"></a>CLI-Konfiguration mit „az configure“
 
-Standardwerte für die CLI werden mit dem Befehl [az configure](/cli/azure/reference-index#az-configure) festgelegt.
+Standardwerte für die CLI werden mit dem Befehl [az configure](/cli/azure/reference-index#az_configure) festgelegt.
 Dieser Befehl akzeptiert ein einzelnes Argument: `--defaults` (eine durch Leerzeichen getrennte Liste mit `key=value`-Paaren). Die angegebenen Werte werden von der CLI anstelle von erforderlichen Argumenten verwendet.
 
 Die folgende Tabelle enthält eine Liste der verfügbaren Konfigurationsschlüssel.
@@ -84,7 +84,7 @@ Die folgende Tabelle enthält sämtliche Abschnitte und Optionsnamen, die in ein
 
 Wenn Sie einen Standardwert angeben, wird dieses Argument von keinem Befehl mehr benötigt. Stattdessen wird der Standardwert verwendet.
 
-| `Section` | Name      | type | BESCHREIBUNG|
+| `Section` | Name      | Typ | BESCHREIBUNG|
 |---------|-----------|------|------------|
 | __core__ | output | Zeichenfolge | Das Standardausgabeformat. Mögliche Optionen: `json`, `jsonc`, `tsv` oder `table`. |
 | | disable\_confirm\_prompt | boolean | Dient zum Aktivieren/Deaktivieren von Bestätigungsaufforderungen. |
