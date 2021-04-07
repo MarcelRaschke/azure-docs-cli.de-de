@@ -7,12 +7,12 @@ ms.topic: include
 ms.service: azure-cli
 ms.devlang: azurecli
 ms.custom: devx-track-azurecli
-ms.openlocfilehash: d80970432a116656a33a3dc6c0d4909b4b92f312
-ms.sourcegitcommit: d5f026468ea20bbd7ef35bdbf9852bcb2b812d83
+ms.openlocfilehash: bb447f0c64bbe1574c93c8ea3ea978db0cd364d3
+ms.sourcegitcommit: 8bff8b2ce4492ab99ad39390e4c802fb4f4425c8
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 12/23/2020
-ms.locfileid: "97744636"
+ms.lasthandoff: 03/26/2021
+ms.locfileid: "105582283"
 ---
 ## <a name="overview"></a>Übersicht
 
@@ -50,7 +50,7 @@ Für Linux-Distributionen mit `zypper` wie openSUSE oder SLES ist ein Paket für
 
    2 eingeben, um die Installation fortzusetzen, indem einige Abhängigkeiten ignoriert werden.
 
-Sie können dann die Azure CLI mit dem Befehl `az` ausführen. Verwenden Sie den Befehl [az login](/cli/azure/reference-index#az-login), um sich anzumelden.
+Sie können dann die Azure CLI mit dem Befehl `az` ausführen. Verwenden Sie den Befehl [az login](/cli/azure/reference-index#az_login), um sich anzumelden.
 
 [!INCLUDE [interactive-login](interactive-login.md)]
 
