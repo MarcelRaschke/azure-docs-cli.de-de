@@ -9,14 +9,14 @@ directCommands:
   summary: Erstellen Sie eine Domäne.
   description: ''
   syntax: >-
-    az eventgrid domain create --location
-                               --name
+    az eventgrid domain create --name
                                --resource-group
                                [--identity {noidentity, systemassigned}]
                                [--inbound-ip-rules]
                                [--input-mapping-default-values]
                                [--input-mapping-fields]
                                [--input-schema {cloudeventschemav1_0, customeventschema, eventgridschema}]
+                               [--location]
                                [--public-network-access {disabled, enabled}]
                                [--sku {basic, premium}]
                                [--subscription]
@@ -32,10 +32,6 @@ directCommands:
     syntax: az eventgrid domain create -g rg1 --name domain1 -l westus2 --public-network-access enabled --inbound-ip-rules 10.0.0.0/8 Allow --inbound-ip-rules 10.2.0.0/8 Allow --sku basic
   requiredParameters:
   - isRequired: true
-    name: --location -l
-    summary: 'Der Standort. Werte aus: `az account list-locations`. Sie können den standardmäßig verwendeten Standort mit `az configure --defaults location=<location>` konfigurieren.'
-    description: ''
-  - isRequired: true
     name: --name -n
     summary: Der Name der Domäne.
     description: ''
@@ -46,7 +42,7 @@ directCommands:
   optionalParameters:
   - name: --identity
     parameterValueGroup: noidentity, systemassigned
-    summary: Der Identitätstyp der Ressource (z. b. Thema oder Domäne).
+    summary: Der verwaltete Identitätstyp für die Ressource.
     description: ''
   - name: --inbound-ip-rules
     summary: Liste der eingehenden IP-Regeln.
@@ -61,6 +57,9 @@ directCommands:
     defaultValue: eventgridschema
     parameterValueGroup: cloudeventschemav1_0, customeventschema, eventgridschema
     summary: Schema, in dem eingehende Ereignisse in diesem Thema/dieser Domäne veröffentlicht werden. Wenn Sie customeventschema als Wert für diesen Parameter angeben, müssen Sie auch Werte für mindestens eine von--input_mapping_default_values/--input_mapping_fields angeben.
+    description: ''
+  - name: --location -l
+    summary: 'Der Standort. Werte aus: `az account list-locations`. Sie können den standardmäßig verwendeten Standort mit `az configure --defaults location=<location>` konfigurieren.'
     description: ''
   - name: --public-network-access
     parameterValueGroup: disabled, enabled
@@ -190,7 +189,7 @@ directCommands:
   optionalParameters:
   - name: --identity
     parameterValueGroup: noidentity, systemassigned
-    summary: Der Identitätstyp der Ressource (z. b. Thema oder Domäne).
+    summary: Der verwaltete Identitätstyp für die Ressource.
     description: ''
   - name: --ids
     summary: Mindestens eine Ressourcen-ID (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID handeln, die alle Informationen von Ressourcen-ID-Argumenten enthält. Sie sollten entweder--IDs oder andere Ressourcen-ID-Argumente angeben.
@@ -233,6 +232,15 @@ commands:
 - az_eventgrid_domain_topic_list
 - az_eventgrid_domain_topic_show
 - az_eventgrid_domain_update
+- az_eventgrid_domain_private-endpoint-connection
+- az_eventgrid_domain_private-endpoint-connection_approve
+- az_eventgrid_domain_private-endpoint-connection_delete
+- az_eventgrid_domain_private-endpoint-connection_list
+- az_eventgrid_domain_private-endpoint-connection_reject
+- az_eventgrid_domain_private-endpoint-connection_show
+- az_eventgrid_domain_private-link-resource
+- az_eventgrid_domain_private-link-resource_list
+- az_eventgrid_domain_private-link-resource_show
 globalParameters:
 - name: --debug
   summary: Ausführlichkeit der Protokollierung erhöhen, um alle Debugprotokolle anzuzeigen.
@@ -250,11 +258,11 @@ globalParameters:
   summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
 metadata:
   doc_source_url_repo: https://github.com/Azure/azure-cli/blob/dev/
-  ms.date: 07/06/2020
+  ms.date: 04/01/2021
   description: Verwalten von Ereignis Domänen.
-  ms.openlocfilehash: 856eccb227a282836ce49de36f740ecf4ea16560
-  ms.sourcegitcommit: dd42eae9469c48f3cce66347e8e1cac317887a3a
+  ms.openlocfilehash: 8fc02db639c7e171bf459e1cab01f1ce74ad9a04
+  ms.sourcegitcommit: 612554c029ba1f28d3a43fd22e743104a1a30ea0
   ms.translationtype: MT
   ms.contentlocale: de-DE
-  ms.lasthandoff: 09/29/2020
-  ms.locfileid: "102820504"
+  ms.lasthandoff: 04/07/2021
+  ms.locfileid: "106869947"
