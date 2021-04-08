@@ -1,10 +1,10 @@
 ### YamlMime:AzureCLIGroup
-uid: az_eventgrid_partner_topic_event_subscription
+uid: az_eventgrid_partner_topic_event-subscription
 name: az eventgrid partner topic event-subscription
 summary: Verwalten von Ereignis Abonnements eines Partner Themas.
 description: ''
 directCommands:
-- uid: az_eventgrid_partner_topic_event_subscription_create
+- uid: az_eventgrid_partner_topic_event-subscription_create
   name: az eventgrid partner topic event-subscription create
   summary: Erstellen Sie ein neues Ereignis Abonnement für ein Partner Thema.
   description: ''
@@ -16,6 +16,8 @@ directCommands:
                                                          [--azure-active-directory-application-id-or-uri]
                                                          [--azure-active-directory-tenant-id]
                                                          [--deadletter-endpoint]
+                                                         [--delivery-attribute-mapping]
+                                                         [--enable-advanced-filtering-on-arrays {false, true}]
                                                          [--endpoint]
                                                          [--endpoint-type {azurefunction, eventhub, hybridconnection, servicebusqueue, servicebustopic, storagequeue, webhook}]
                                                          [--event-delivery-schema {cloudeventschemav1_0, custominputschema, eventgridschema}]
@@ -26,6 +28,7 @@ directCommands:
                                                          [--max-delivery-attempts]
                                                          [--max-events-per-batch]
                                                          [--preferred-batch-size-in-kilobytes]
+                                                         [--qttl]
                                                          [--subject-begins-with]
                                                          [--subject-case-sensitive {false, true}]
                                                          [--subject-ends-with]
@@ -67,6 +70,20 @@ directCommands:
       az eventgrid partner topic event-subscription create -n es1 \
           -g rg1 --partner-topic-name partnertopic1 \
           --endpoint /subscriptions/{SubID}/resourceGroups/{RG}/providers/Microsoft.Web/sites/{functionappname}/functions/{functionname} --endpoint-type azurefunction
+  - summary: Erstellen eines neuen Ereignis Abonnements für ein Event Grid Partner Thema Verwenden der Speicher Warteschlange als Ziel mit der Nachrichten Gültigkeitsdauer in 5 Minuten
+    syntax: >-
+      az eventgrid partner topic event-subscription create -n es1 \
+          -g rg1 --partner-topic-name partnertopic1 \
+          --endpoint-type storagequeue \
+          --endpoint /subscriptions/{SubID}/resourceGroups/TestRG/providers/Microsoft.Storage/storageAccounts/sa1/queueservices/default/queues/q1 \
+          --storage-queue-msg-ttl 300
+  - summary: Erstellen eines neuen Ereignis Abonnements für ein Event Grid Partner Thema mit erweiterter Filterung für aktivierte Arrays
+    syntax: >-
+      az eventgrid partner topic event-subscription create -n es1 \
+          -g rg1 --partner-topic-name partnertopic1 \
+          --endpoint-type storagequeue \
+          --endpoint /subscriptions/{SubID}/resourceGroups/TestRG/providers/Microsoft.Storage/storageAccounts/sa1/queueservices/default/queues/q1 \
+          --enable-advanced-filtering-on-arrays true
   requiredParameters:
   - isRequired: true
     name: --name -n
@@ -83,7 +100,7 @@ directCommands:
   optionalParameters:
   - name: --advanced-filter
     summary: Ein erweiterter Filter ermöglicht das Filtern von Ereignissen basierend auf einer bestimmten Ereignis Eigenschaft.
-    description: Syntax:--Advanced-Filter Key [. innerKey] Filteroperator-Wert [value...] StringIn:--Advanced-Filter Data. Farbe stringIn Blue Red Orange Yellow stringnotin:--Advanced-Filter Data. Color stringnotin Blue Red Orange Yellow stringenthält:--Advanced-Filter Subject stringenthält Blue Red stringbeginswith:--Advanced-Filter Subject stringbeginswith Blue Red stringendswith:--Advanced-Filter Subject stringendswith IMG PNG JPG nummeriin:--Advanced-Filter Data. Eigenschaft1 zahlin 5 10 20 numnotin:--Advanced-Filter Data. Eigenschaft2 numnotin 100 200 300 numlessthan:--Advanced-Filter Data. property3 numlessthan 100 numlessthanorist:--Advanced-Filter Data. Eigenschaft2 zahllessthanorgleich 100 numgreaterthan:--Advanced-Filter Data. property3 nummerigreaterthan 100 numgreaterthanorgleich:--Advanced-Filter Data. Eigenschaft2 zahlgreaterthanorgleich 100 boolgleich:--Advanced-Filter Data. property3 boolgleich true mehrere erweiterte Filter können mit mehr als einem Argument angegeben werden `--advanced-filter` .
+    description: Syntax:--Advanced-Filter Key [. innerKey] Filteroperator-Wert [value...] StringIn:--Advanced-Filter Data. Farbe stringIn Blue Red Orange Yellow stringnotin:--Advanced-Filter Data. Color stringnotin Blue Red Orange Yellow stringenthält:--Advanced-Filter Subject stringenthält Blue Red stringnotenthält:--Advanced-Filter Subject stringnotenthält Blue Red stringbeginswith:--Advanced-Filter Subject stringbeginswith Blue Red stringnotbeginswith:--Advanced-Filter Subject stringnotbeginswith Blue Red stringendswith:--Advanced-Filter Subject stringendswith IMG PNG JPG stringnotendswith:--Advanced-Filter Subject stringnotendswith IMG PNG JPG nummeriin:--Advanced-Filter Data. Eigenschaft1 zahlin 5 10 20 numinrange--Advanced-Filter Data. Eigenschaft1 numinrange 5, 10 20, 30 40, 50 nummerinotin:--Advanced-Filter Data. Eigenschaft2 nummerinotin 100 200 300 numnotinrange:--Advanced-Filter Data. Eigenschaft2 numnotinrange 100.110 200.210 300.310 nummerilessthan:--Advanced-Filter Data. property3 nummerilessthan 100 numlessthanorgleich:--Advanced-Filter Data. Eigenschaft2 numlessthanorgleich 100 numgreaterthan:--Advanced-Filter Data. property3 numgreaterthan 100 numgreaterthanorgleich:--Advanced-Filter Data. Eigenschaft2 zahlgreaterthanorgleich 100 boolgleich:--Advanced-Filter Data. property3 boolgleich true isnullorunundefiniert:--Advanced-Filter Data. property3 isnullorundefinierter IsNotNull:--Advanced-Filter Data. property3 IsNotNull mehrere erweiterte Filter können mit mehr als einem `--advanced-filter` Argument angegeben werden.
   - name: --azure-active-directory-application-id-or-uri
     summary: Die Azure Active Directory Anwendungs-ID oder der URI, um das Zugriffs Token zu erhalten, das in Übermittlungs Anforderungen als bearertoken eingeschlossen wird. Gilt nur für den webhook als Ziel.
     description: ''
@@ -93,6 +110,13 @@ directCommands:
   - name: --deadletter-endpoint
     summary: Die Azure-Ressourcen-ID eines Azure Storage blobcontainerziels, in dem eventgrid unzustellbare Ereignisse für dieses Ereignis Abonnement in unzustellbaren Ereignissen schreiben soll.
     description: Beispiel:--DeadLetter-Endpoint/Subscriptions/{subid}/resourceGroups/RG1/Providers/Microsoft.Storage/storageAccounts/SA1/blobServices/default/Containers/Containername.
+  - name: --delivery-attribute-mapping
+    summary: Fügen Sie die Zuordnung von Übermittlungs Attributen hinzu, um zusätzliche Informationen über HTTP-Header zu senden, wenn Ereignisse Dieses Attribut ist für alle Zieltypen außer storagequeue gültig. Mehrere Attribute können mit mehr als einem Argument angegeben werden `--delivery-attribute-mapping` .
+    description: Usage:--Delivery-Attribute-Mapping Attribute-Name Attribute-Type Attribut-value [Attribute-is-Secret] statische Attribut Zuordnung:--Delivery-Attribute-Mapping einname static someValue static Attribute Mapping:--Delivery-Attribute-Mapping einname static someValue false statische Attribut Zuordnung:--Delivery-Attribute-Mapping einname static someValue true Dynamic Attribute Mapping:--Delivery-Attribute-Mapping einname Dynamic someValue both static and Dynamic:--Delivery-Attribute-Mapping einname Dynamic someValue--Delivery-Attribute-Mapping somename2 static someValue.
+  - name: --enable-advanced-filtering-on-arrays --enable-af-arr
+    parameterValueGroup: false, true
+    summary: Ermöglicht, dass erweiterte Filter anhand eines Arrays von Werten ausgewertet werden, anstatt einen Singular Wert zu erwarten.
+    description: ''
   - name: --endpoint
     summary: Endpunkt, an dem eventgrid Ereignisse bereitstellt, die mit diesem Ereignis Abonnement übereinstimmen. Für den webhook-Endpunkttyp sollte dies die entsprechende webhook-URL sein. Bei anderen Endpunkt Typen sollte dies der Azure-Ressourcen Bezeichner des Endpunkts sein. Es wird erwartet, dass der Ziel Endpunkt bereits erstellt wurde und für die Verwendung verfügbar ist, bevor Event Grid Befehl ausgeführt wird.
     description: ''
@@ -128,6 +152,9 @@ directCommands:
   - name: --preferred-batch-size-in-kilobytes
     summary: Bevorzugte Batch Größe in Kilobyte. Muss eine Zahl im Bereich 1 bis 1.024 sein.
     description: ''
+  - name: --qttl --storage-queue-msg-ttl
+    summary: Gültigkeitsdauer der Speicher-Warteschlangen Nachricht in Sekunden.
+    description: ''
   - name: --subject-begins-with
     summary: Eine optionale Zeichenfolge zum Filtern von Ereignissen für ein Ereignis Abonnement basierend auf einem Präfix. Platzhalterzeichen werden nicht unterstützt.
     description: ''
@@ -142,7 +169,7 @@ directCommands:
     summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
     description: ''
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/eventgrid/_help.py
-- uid: az_eventgrid_partner_topic_event_subscription_delete
+- uid: az_eventgrid_partner_topic_event-subscription_delete
   name: az eventgrid partner topic event-subscription delete
   summary: Löschen eines Ereignis Abonnements eines Partner Themas.
   description: ''
@@ -178,7 +205,7 @@ directCommands:
     summary: Nicht zur Bestätigung auffordern
     description: ''
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/eventgrid/_help.py
-- uid: az_eventgrid_partner_topic_event_subscription_list
+- uid: az_eventgrid_partner_topic_event-subscription_list
   name: az eventgrid partner topic event-subscription list
   summary: Auflisten von Ereignis Abonnements eines bestimmten Partner Themas.
   description: ''
@@ -211,7 +238,7 @@ directCommands:
     summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
     description: ''
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/eventgrid/_help.py
-- uid: az_eventgrid_partner_topic_event_subscription_show
+- uid: az_eventgrid_partner_topic_event-subscription_show
   name: az eventgrid partner topic event-subscription show
   summary: Informieren Sie sich über die Details eines Ereignis Abonnements eines Partner Themas.
   description: ''
@@ -219,6 +246,7 @@ directCommands:
     az eventgrid partner topic event-subscription show --name
                                                        --partner-topic-name
                                                        --resource-group
+                                                       [--include-attrib-secret {false, true}]
                                                        [--include-full-endpoint-url {false, true}]
                                                        [--query-examples]
                                                        [--subscription]
@@ -227,6 +255,10 @@ directCommands:
     syntax: >-
       az eventgrid partner topic event-subscription show --name es1 \
            -g rg1 --partner-topic-name partnertopic1
+  - summary: Anzeigen der Details eines Ereignis Abonnements für ein Event Grid Partner Thema und einschließen von Geheimnissen für statische Übermittlungs Attribute
+    syntax: >-
+      az eventgrid partner topic event-subscription show --name es1 \
+           -g rg1 --partner-topic-name partnertopic1 --include-static-delivery-attribute-secret
   requiredParameters:
   - isRequired: true
     name: --name -n
@@ -241,6 +273,10 @@ directCommands:
     summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
     description: ''
   optionalParameters:
+  - name: --include-attrib-secret --include-static-delivery-attribute-secret
+    parameterValueGroup: false, true
+    summary: Geben Sie an, ob die geheimen Schlüssel für das Attribut für den statischen Übermittlungs True, wenn das Flag vorhanden ist.
+    description: ''
   - name: --include-full-endpoint-url
     parameterValueGroup: false, true
     summary: Geben Sie an, um anzugeben, ob die vollständige Endpunkt-URL zurückgegeben wird. True, wenn das Flag vorhanden ist.
@@ -252,7 +288,7 @@ directCommands:
     summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
     description: ''
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/eventgrid/_help.py
-- uid: az_eventgrid_partner_topic_event_subscription_update
+- uid: az_eventgrid_partner_topic_event-subscription_update
   name: az eventgrid partner topic event-subscription update
   summary: Aktualisieren eines Ereignis Abonnements eines Partner Themas.
   description: ''
@@ -262,10 +298,13 @@ directCommands:
                                                          --resource-group
                                                          [--advanced-filter]
                                                          [--deadletter-endpoint]
+                                                         [--delivery-attribute-mapping]
+                                                         [--enable-advanced-filtering-on-arrays {false, true}]
                                                          [--endpoint]
                                                          [--endpoint-type {azurefunction, eventhub, hybridconnection, servicebusqueue, servicebustopic, storagequeue, webhook}]
                                                          [--included-event-types]
                                                          [--labels]
+                                                         [--qttl]
                                                          [--subject-begins-with]
                                                          [--subject-ends-with]
                                                          [--subscription]
@@ -298,6 +337,20 @@ directCommands:
           --endpoint https://contoso.azurewebsites.net/api/f1?code=code
           --advanced-filter data.blobType StringIn BlockBlob
           --advanced-filter data.url StringBeginsWith https://myaccount.blob.core.windows.net
+  - summary: Aktualisieren eines Ereignis Abonnements für ein Event Grid Partner Thema Verwenden der Speicher Warteschlange als Ziel mit der Nachrichten Gültigkeitsdauer in 5 Minuten
+    syntax: >-
+      az eventgrid partner topic event-subscription update -n es1 \
+          -g rg1 --partner-topic-name partnertopic1 \
+          --endpoint-type storagequeue \
+          --endpoint /subscriptions/{SubID}/resourceGroups/TestRG/providers/Microsoft.Storage/storageAccounts/sa1/queueservices/default/queues/q1 \
+          --storage-queue-msg-ttl 300
+  - summary: Aktualisieren eines Ereignis Abonnements für ein Event Grid Partner Thema mit erweiterter Filterung für aktivierte Arrays
+    syntax: >-
+      az eventgrid partner topic event-subscription update -n es1 \
+          -g rg1 --partner-topic-name partnertopic1 \
+          --endpoint-type storagequeue \
+          --endpoint /subscriptions/{SubID}/resourceGroups/TestRG/providers/Microsoft.Storage/storageAccounts/sa1/queueservices/default/queues/q1 \
+          --enable-advanced-filtering-on-arrays true
   requiredParameters:
   - isRequired: true
     name: --name -n
@@ -314,9 +367,16 @@ directCommands:
   optionalParameters:
   - name: --advanced-filter
     summary: Ein erweiterter Filter ermöglicht das Filtern von Ereignissen basierend auf einer bestimmten Ereignis Eigenschaft.
-    description: Syntax:--Advanced-Filter Key [. innerKey] Filteroperator-Wert [value...] StringIn:--Advanced-Filter Data. Farbe stringIn Blue Red Orange Yellow stringnotin:--Advanced-Filter Data. Color stringnotin Blue Red Orange Yellow stringenthält:--Advanced-Filter Subject stringenthält Blue Red stringbeginswith:--Advanced-Filter Subject stringbeginswith Blue Red stringendswith:--Advanced-Filter Subject stringendswith IMG PNG JPG nummeriin:--Advanced-Filter Data. Eigenschaft1 zahlin 5 10 20 numnotin:--Advanced-Filter Data. Eigenschaft2 numnotin 100 200 300 numlessthan:--Advanced-Filter Data. property3 numlessthan 100 numlessthanorist:--Advanced-Filter Data. Eigenschaft2 zahllessthanorgleich 100 numgreaterthan:--Advanced-Filter Data. property3 nummerigreaterthan 100 numgreaterthanorgleich:--Advanced-Filter Data. Eigenschaft2 zahlgreaterthanorgleich 100 boolgleich:--Advanced-Filter Data. property3 boolgleich true mehrere erweiterte Filter können mit mehr als einem Argument angegeben werden `--advanced-filter` .
+    description: Syntax:--Advanced-Filter Key [. innerKey] Filteroperator-Wert [value...] StringIn:--Advanced-Filter Data. Farbe stringIn Blue Red Orange Yellow stringnotin:--Advanced-Filter Data. Color stringnotin Blue Red Orange Yellow stringenthält:--Advanced-Filter Subject stringenthält Blue Red stringnotenthält:--Advanced-Filter Subject stringnotenthält Blue Red stringbeginswith:--Advanced-Filter Subject stringbeginswith Blue Red stringnotbeginswith:--Advanced-Filter Subject stringnotbeginswith Blue Red stringendswith:--Advanced-Filter Subject stringendswith IMG PNG JPG stringnotendswith:--Advanced-Filter Subject stringnotendswith IMG PNG JPG nummeriin:--Advanced-Filter Data. Eigenschaft1 zahlin 5 10 20 numinrange--Advanced-Filter Data. Eigenschaft1 numinrange 5, 10 20, 30 40, 50 nummerinotin:--Advanced-Filter Data. Eigenschaft2 nummerinotin 100 200 300 numnotinrange:--Advanced-Filter Data. Eigenschaft2 numnotinrange 100.110 200.210 300.310 nummerilessthan:--Advanced-Filter Data. property3 nummerilessthan 100 numlessthanorgleich:--Advanced-Filter Data. Eigenschaft2 numlessthanorgleich 100 numgreaterthan:--Advanced-Filter Data. property3 numgreaterthan 100 numgreaterthanorgleich:--Advanced-Filter Data. Eigenschaft2 zahlgreaterthanorgleich 100 boolgleich:--Advanced-Filter Data. property3 boolgleich true isnullorunundefiniert:--Advanced-Filter Data. property3 isnullorundefinierter IsNotNull:--Advanced-Filter Data. property3 IsNotNull mehrere erweiterte Filter können mit mehr als einem `--advanced-filter` Argument angegeben werden.
   - name: --deadletter-endpoint
     summary: Die Azure-Ressourcen-ID eines Azure Storage blobcontainerziels, in dem eventgrid unzustellbare Ereignisse für dieses Ereignis Abonnement in unzustellbaren Ereignissen schreiben soll.
+    description: ''
+  - name: --delivery-attribute-mapping
+    summary: Fügen Sie die Zuordnung von Übermittlungs Attributen hinzu, um zusätzliche Informationen über HTTP-Header zu senden, wenn Ereignisse Dieses Attribut ist für alle Zieltypen außer storagequeue gültig. Mehrere Attribute können mit mehr als einem Argument angegeben werden `--delivery-attribute-mapping` .
+    description: Usage:--Delivery-Attribute-Mapping Attribute-Name Attribute-Type Attribut-value [Attribute-is-Secret] statische Attribut Zuordnung:--Delivery-Attribute-Mapping einname static someValue static Attribute Mapping:--Delivery-Attribute-Mapping einname static someValue false statische Attribut Zuordnung:--Delivery-Attribute-Mapping einname static someValue true Dynamic Attribute Mapping:--Delivery-Attribute-Mapping einname Dynamic someValue both static and Dynamic:--Delivery-Attribute-Mapping einname Dynamic someValue--Delivery-Attribute-Mapping somename2 static someValue.
+  - name: --enable-advanced-filtering-on-arrays --enable-af-arr
+    parameterValueGroup: false, true
+    summary: Ermöglicht, dass erweiterte Filter anhand eines Arrays von Werten ausgewertet werden, anstatt einen Singular Wert zu erwarten.
     description: ''
   - name: --endpoint
     summary: Endpunkt, an dem eventgrid Ereignisse bereitstellt, die mit diesem Ereignis Abonnement übereinstimmen. Für den webhook-Endpunkttyp sollte dies die entsprechende webhook-URL sein. Bei anderen Endpunkt Typen sollte dies der Azure-Ressourcen Bezeichner des Endpunkts sein. Es wird erwartet, dass der Ziel Endpunkt bereits erstellt wurde und für die Verwendung verfügbar ist, bevor Event Grid Befehl ausgeführt wird.
@@ -332,6 +392,9 @@ directCommands:
   - name: --labels
     summary: Eine durch Leerzeichen getrennte Liste von Bezeichnungen, die diesem Ereignis Abonnement zugeordnet werden sollen.
     description: ''
+  - name: --qttl --storage-queue-msg-ttl
+    summary: Gültigkeitsdauer der Speicher-Warteschlangen Nachricht in Sekunden.
+    description: ''
   - name: --subject-begins-with
     summary: Eine optionale Zeichenfolge zum Filtern von Ereignissen für ein Ereignis Abonnement basierend auf einem Präfix. Platzhalterzeichen werden nicht unterstützt.
     description: ''
@@ -343,11 +406,11 @@ directCommands:
     description: ''
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/eventgrid/_help.py
 commands:
-- az_eventgrid_partner_topic_event_subscription_create
-- az_eventgrid_partner_topic_event_subscription_delete
-- az_eventgrid_partner_topic_event_subscription_list
-- az_eventgrid_partner_topic_event_subscription_show
-- az_eventgrid_partner_topic_event_subscription_update
+- az_eventgrid_partner_topic_event-subscription_create
+- az_eventgrid_partner_topic_event-subscription_delete
+- az_eventgrid_partner_topic_event-subscription_list
+- az_eventgrid_partner_topic_event-subscription_show
+- az_eventgrid_partner_topic_event-subscription_update
 globalParameters:
 - name: --debug
   summary: Ausführlichkeit der Protokollierung erhöhen, um alle Debugprotokolle anzuzeigen.
@@ -365,11 +428,11 @@ globalParameters:
   summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
 metadata:
   doc_source_url_repo: https://github.com/Azure/azure-cli/blob/dev/
-  ms.date: 07/06/2020
+  ms.date: 04/01/2021
   description: Verwalten von Ereignis Abonnements eines Partner Themas.
-  ms.openlocfilehash: 38d3edf49c44e735733e8cceec467964b957c7db
-  ms.sourcegitcommit: dd42eae9469c48f3cce66347e8e1cac317887a3a
+  ms.openlocfilehash: 9861f3a653f60e9b9265b718a3ac0b580be00741
+  ms.sourcegitcommit: 612554c029ba1f28d3a43fd22e743104a1a30ea0
   ms.translationtype: MT
   ms.contentlocale: de-DE
-  ms.lasthandoff: 09/29/2020
-  ms.locfileid: "102820647"
+  ms.lasthandoff: 04/07/2021
+  ms.locfileid: "106801931"
