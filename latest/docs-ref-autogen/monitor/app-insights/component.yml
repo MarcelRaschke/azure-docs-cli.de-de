@@ -1,0 +1,249 @@
+### YamlMime:AzureCLIGroup
+uid: az_monitor_app-insights_component
+name: az monitor app-insights component
+extensionInformation: >-
+  > [!Note]
+
+  > Diese Referenz ist Teil der **Application Insights-** Erweiterung für Azure CLI und erfordert Version 2.0.79 oder höher.  Die Erweiterung wird automatisch installiert, wenn Sie den Befehl **AZ Monitor App-Insights Component** zum ersten Mal ausführen.  [Weitere Informationen zu Erweiterungen](https://docs.microsoft.com/en-us/cli/azure/azure-cli-extensions-overview)
+summary: Verwalten Sie eine Application Insights Komponente oder deren unter Komponenten.
+description: ''
+directCommands:
+- uid: az_monitor_app-insights_component_connect-webapp
+  name: az monitor app-insights component connect-webapp
+  summary: Verbinden Sie Ki mit einer Web-App.
+  description: ''
+  syntax: >-
+    az monitor app-insights component connect-webapp --name
+                                                     --resource-group
+                                                     [--enable-debugger {false, true}]
+                                                     [--enable-profiler {false, true}]
+  examples:
+  - summary: Verbinden Sie Ki mit einer Web-App, und aktivieren Sie sowohl Profiler als auch Momentaufnahme Debugger für die Web-App.
+    syntax: az monitor app-insights component connect-webapp -g myRG -n myApp --enable-profiler --enable-snapshot-debugger
+  - summary: Verbinden Sie AI mit einer Web-App mithilfe der Ressourcen-ID, aktivieren Sie Profiler, und deaktivieren Sie den Momentaufnahme Debugger für die Web-App
+    syntax: az monitor app-insights component connect-webapp --ids /subscriptions/mySub/resourceGroups/myRG/providers/Microsoft.Web/sites/myApp --enable-profiler --enable-snapshot-debugger false
+  requiredParameters:
+  - isRequired: true
+    name: --name -n
+    summary: Der Name der Web-App.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  optionalParameters:
+  - name: --enable-debugger --enable-snapshot-debugger
+    parameterValueGroup: false, true
+    summary: Aktivieren Sie den Momentaufnahme Debugger, wenn eine Ausnahme ausgelöst wird. Dies wird derzeit nur für .net-/.net Core-Web-Apps unterstützt.
+    description: ''
+  - name: --enable-profiler
+    parameterValueGroup: false, true
+    summary: Aktivieren Sie die Erfassung von Profilen für die Profilerstellung, um zu sehen, wo die Zeit im Code aufgewendet wird Dies wird derzeit nur für .net-/.net Core-Web-Apps unterstützt.
+    description: ''
+- uid: az_monitor_app-insights_component_create
+  name: az monitor app-insights component create
+  summary: Erstellen Sie eine neue Application Insights-Ressource.
+  description: ''
+  syntax: >-
+    az monitor app-insights component create --app
+                                             --location
+                                             --resource-group
+                                             [--application-type]
+                                             [--ingestion-access {Disabled, Enabled}]
+                                             [--kind]
+                                             [--query-access {Disabled, Enabled}]
+                                             [--retention-time]
+                                             [--tags]
+                                             [--workspace]
+  examples:
+  - summary: Erstellen Sie eine Komponente mit der Art Web und Standort.
+    syntax: az monitor app-insights component create --app demoApp --location westus2 --kind web -g demoRg --application-type web --retention-time 120
+  requiredParameters:
+  - isRequired: true
+    name: --app -a
+    summary: GUID, App-Name oder voll qualifizierter Azure-Ressourcen Name Application Insights Komponente. Die Anwendungs-GUID kann über das Menü Element "API-Zugriff" auf einer beliebigen Application Insights Ressource in der Azure-Portal abgerufen werden. Wenn Sie einen Anwendungsnamen verwenden, geben Sie die Ressourcengruppe an.
+    description: ''
+  - isRequired: true
+    name: --location -l
+    summary: 'Der Standort. Werte aus: `az account list-locations`. Sie können den standardmäßig verwendeten Standort mit `az configure --defaults location=<location>` konfigurieren.'
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  optionalParameters:
+  - name: --application-type
+    defaultValue: web
+    summary: Der Typ der zu überwachenden Anwendung.
+    description: ''
+  - name: --ingestion-access
+    parameterValueGroup: Disabled, Enabled
+    summary: Der öffentliche Netzwerk Zugriffstyp für den Zugriff auf Application Insights Erfassung.
+    description: ''
+  - name: --kind -k
+    defaultValue: web
+    summary: 'Die Art der Anwendung, auf die sich diese Komponente bezieht und die zum Anpassen der Benutzeroberfläche verwendet wird. Dieser Wert ist eine frei Form Zeichenfolge, Werte sollten in der Regel einer der folgenden Werte sein: Web, Ios, Other, Store, Java, Phone.'
+    description: ''
+  - name: --query-access
+    parameterValueGroup: Disabled, Enabled
+    summary: Der öffentliche Netzwerk Zugriffstyp für den Zugriff auf Application Insights Abfrage.
+    description: ''
+  - name: --retention-time
+    summary: 'Aufbewahrung in Tagen für Application Insights. Der Wert kann einer der folgenden Werte sein: 30, 60, 90120180270365550730. Sie kann nur festgelegt werden, wenn Application Insights nicht mit einem Log Analytics Arbeitsbereich verbunden ist.'
+    description: ''
+  - name: --tags
+    summary: 'Durch Leerzeichen getrennte Tags: Key [= value] [key [= value]...]. Verwenden Sie "", um vorhandene Tags zu löschen.'
+    description: ''
+  - name: --workspace
+    summary: Der Name oder die Ressourcen-ID eines Log Analytics-Arbeitsbereichs.
+    description: ''
+- uid: az_monitor_app-insights_component_delete
+  name: az monitor app-insights component delete
+  summary: Löschen Sie eine neue Application Insights Ressource.
+  description: ''
+  syntax: >-
+    az monitor app-insights component delete --app
+                                             --resource-group
+  examples:
+  - summary: Löschen Sie eine Komponente mit der Art Web und Speicherort.
+    syntax: az monitor app-insights component delete --app demoApp -g demoRg
+  requiredParameters:
+  - isRequired: true
+    name: --app -a
+    summary: GUID, App-Name oder voll qualifizierter Azure-Ressourcen Name Application Insights Komponente. Die Anwendungs-GUID kann über das Menü Element "API-Zugriff" auf einer beliebigen Application Insights Ressource in der Azure-Portal abgerufen werden. Wenn Sie einen Anwendungsnamen verwenden, geben Sie die Ressourcengruppe an.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+- uid: az_monitor_app-insights_component_show
+  name: az monitor app-insights component show
+  summary: Application Insights Ressource erhalten.
+  description: ''
+  syntax: >-
+    az monitor app-insights component show [--app]
+                                           [--resource-group]
+  examples:
+  - summary: Eine Komponente nach Namen erhalten.
+    syntax: az monitor app-insights component show --app demoApp -g demoRg
+  - summary: Listet Komponenten in einer Ressourcengruppe auf.
+    syntax: az monitor app-insights component show -g demoRg
+  - summary: Listet die Komponenten im aktuell ausgewählten Abonnement auf.
+    syntax: az monitor app-insights component show
+  optionalParameters:
+  - name: --app -a
+    summary: GUID, App-Name oder voll qualifizierter Azure-Ressourcen Name Application Insights Komponente. Die Anwendungs-GUID kann über das Menü Element "API-Zugriff" auf einer beliebigen Application Insights Ressource in der Azure-Portal abgerufen werden. Wenn Sie einen Anwendungsnamen verwenden, geben Sie die Ressourcengruppe an.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+- uid: az_monitor_app-insights_component_update
+  name: az monitor app-insights component update
+  summary: Aktualisieren von Eigenschaften für eine vorhandene Application Insights Ressource. Der primäre Wert, der aktualisiert werden kann, ist "Art", mit dem die Benutzeroberfläche angepasst wird.
+  description: ''
+  syntax: >-
+    az monitor app-insights component update --app
+                                             --resource-group
+                                             [--ingestion-access {Disabled, Enabled}]
+                                             [--kind]
+                                             [--query-access {Disabled, Enabled}]
+                                             [--retention-time]
+                                             [--workspace]
+  examples:
+  - summary: Aktualisieren einer Komponente mit Kind Web.
+    syntax: az monitor app-insights component update --app demoApp -k web -g demoRg --retention-time 120
+  requiredParameters:
+  - isRequired: true
+    name: --app -a
+    summary: GUID, App-Name oder voll qualifizierter Azure-Ressourcen Name Application Insights Komponente. Die Anwendungs-GUID kann über das Menü Element "API-Zugriff" auf einer beliebigen Application Insights Ressource in der Azure-Portal abgerufen werden. Wenn Sie einen Anwendungsnamen verwenden, geben Sie die Ressourcengruppe an.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  optionalParameters:
+  - name: --ingestion-access
+    parameterValueGroup: Disabled, Enabled
+    summary: Der öffentliche Netzwerk Zugriffstyp für den Zugriff auf Application Insights Erfassung.
+    description: ''
+  - name: --kind -k
+    summary: 'Die Art der Anwendung, auf die sich diese Komponente bezieht und die zum Anpassen der Benutzeroberfläche verwendet wird. Dieser Wert ist eine frei Form Zeichenfolge, Werte sollten in der Regel einer der folgenden Werte sein: Web, Ios, Other, Store, Java, Phone.'
+    description: ''
+  - name: --query-access
+    parameterValueGroup: Disabled, Enabled
+    summary: Der öffentliche Netzwerk Zugriffstyp für den Zugriff auf Application Insights Abfrage.
+    description: ''
+  - name: --retention-time
+    summary: 'Aufbewahrung in Tagen für Application Insights. Der Wert kann einer der folgenden Werte sein: 30, 60, 90120180270365550730. Sie kann nur festgelegt werden, wenn Application Insights nicht mit einem Log Analytics Arbeitsbereich verbunden ist.'
+    description: ''
+  - name: --workspace
+    summary: Der Name oder die Ressourcen-ID eines Log Analytics-Arbeitsbereichs.
+    description: ''
+- uid: az_monitor_app-insights_component_update-tags
+  name: az monitor app-insights component update-tags
+  summary: Aktualisieren Sie Tags für eine vorhandene Application Insights Ressource.
+  description: ''
+  syntax: >-
+    az monitor app-insights component update-tags --app
+                                                  --resource-group
+                                                  --tags
+  examples:
+  - summary: Aktualisieren Sie das Tag "Name" auf den Wert "Value".
+    syntax: az monitor app-insights component update-tags --app demoApp --tags name=value -g demoRg
+  requiredParameters:
+  - isRequired: true
+    name: --app -a
+    summary: GUID, App-Name oder voll qualifizierter Azure-Ressourcen Name Application Insights Komponente. Die Anwendungs-GUID kann über das Menü Element "API-Zugriff" auf einer beliebigen Application Insights Ressource in der Azure-Portal abgerufen werden. Wenn Sie einen Anwendungsnamen verwenden, geben Sie die Ressourcengruppe an.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - isRequired: true
+    name: --tags
+    summary: 'Durch Leerzeichen getrennte Tags: Key [= value] [key [= value]...]. Verwenden Sie "", um vorhandene Tags zu löschen.'
+    description: ''
+commands:
+- az_monitor_app-insights_component_billing
+- az_monitor_app-insights_component_billing_show
+- az_monitor_app-insights_component_billing_update
+- az_monitor_app-insights_component_connect-webapp
+- az_monitor_app-insights_component_continues-export
+- az_monitor_app-insights_component_continues-export_create
+- az_monitor_app-insights_component_continues-export_delete
+- az_monitor_app-insights_component_continues-export_list
+- az_monitor_app-insights_component_continues-export_show
+- az_monitor_app-insights_component_continues-export_update
+- az_monitor_app-insights_component_create
+- az_monitor_app-insights_component_delete
+- az_monitor_app-insights_component_linked-storage
+- az_monitor_app-insights_component_linked-storage_link
+- az_monitor_app-insights_component_linked-storage_show
+- az_monitor_app-insights_component_linked-storage_unlink
+- az_monitor_app-insights_component_linked-storage_update
+- az_monitor_app-insights_component_show
+- az_monitor_app-insights_component_update
+- az_monitor_app-insights_component_update-tags
+globalParameters:
+- name: --debug
+  summary: Ausführlichkeit der Protokollierung erhöhen, um alle Debugprotokolle anzuzeigen.
+- name: --help -h
+  summary: Zeigen Sie diese Hilfemeldung an, und schließen Sie sie.
+- name: --only-show-errors
+  summary: Nur Fehler anzeigen und Warnungen unterdrücken.
+- name: --output -o
+  defaultValue: json
+  parameterValueGroup: json, jsonc, table, tsv
+  summary: Ausgabeformat.
+- name: --query
+  summary: JMESPath-Abfragezeichenfolge. Weitere Informationen und Beispiele finden Sie unter <a href="http://jmespath.org/">http://jmespath.org/</a>.
+- name: --verbose
+  summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
+metadata:
+  description: Verwalten Sie eine Application Insights Komponente oder deren unter Komponenten.
+  ms.openlocfilehash: fdc90a1b59ab631f401db897c2185fa80172b126
+  ms.sourcegitcommit: 612554c029ba1f28d3a43fd22e743104a1a30ea0
+  ms.translationtype: MT
+  ms.contentlocale: de-DE
+  ms.lasthandoff: 04/07/2021
+  ms.locfileid: "106895377"
