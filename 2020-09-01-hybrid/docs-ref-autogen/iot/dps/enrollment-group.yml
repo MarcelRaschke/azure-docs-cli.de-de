@@ -1,0 +1,332 @@
+### YamlMime:AzureCLIGroup
+uid: az_iot_dps_enrollment-group
+name: az iot dps enrollment-group
+extensionInformation: >-
+  > [!Note]
+
+  > Diese Referenz ist Teil der **Azure-IOT-** Erweiterung für Azure CLI und erfordert Version 2.0.70 oder höher.  Die Erweiterung wird automatisch installiert, wenn Sie den Befehl **AZ IOT DPS-Registrierungs Gruppe** zum ersten Mal ausführen.  [Weitere Informationen zu Erweiterungen](https://docs.microsoft.com/en-us/cli/azure/azure-cli-extensions-overview)
+summary: Verwalten von Device Provisioning Service in Azure IoT Hub
+description: ''
+directCommands:
+- uid: az_iot_dps_enrollment-group_create
+  name: az iot dps enrollment-group create
+  summary: Erstellen Sie eine Registrierungs Gruppe in einem Azure IOT Hub Device Provisioning-Dienst.
+  description: ''
+  syntax: >-
+    az iot dps enrollment-group create --dps-name
+                                       --enrollment-id
+                                       --resource-group
+                                       [--allocation-policy {custom, geolatency, hashed, static}]
+                                       [--api-version]
+                                       [--ca-name]
+                                       [--certificate-path]
+                                       [--edge-enabled {false, true}]
+                                       [--hn]
+                                       [--ih]
+                                       [--initial-twin-properties]
+                                       [--initial-twin-tags]
+                                       [--pk]
+                                       [--provisioning-status {disabled, enabled}]
+                                       [--reprovision-policy {never, reprovisionandmigratedata, reprovisionandresetdata}]
+                                       [--scn]
+                                       [--scp]
+                                       [--secondary-key]
+                                       [--webhook-url]
+  examples:
+  - summary: Erstellen Sie im Azure IOT Bereitstellung-Dienst "{dps_name}" in der Ressourcengruppe "{resource_group_name}" eine Registrierungs Gruppe "{enrollment_id}", die ein zwischen Zertifikat als primäres Zertifikat verwendet.
+    syntax: az iot dps enrollment-group create -g {resource_group_name} --dps-name {dps_name} --enrollment-id {enrollment_id} --certificate-path /certificates/Certificate.pem
+  - summary: Erstellen Sie eine Registrierungs Gruppe "{enrollment_id}" im Azure IOT Bereitstellung-Dienst "{dps_name}" in der Ressourcengruppe "{resource_group_name}" unter Verwendung eines Zertifizierungsstellen Zertifikats {certificate_name} als sekundäres Zertifikat.
+    syntax: az iot dps enrollment-group create -g {resource_group_name} --dps-name {dps_name} --enrollment-id {enrollment_id} --secondary-ca-name {certificate_name}
+  - summary: 'Erstellen Sie eine Registrierungs Gruppe "{enrollment_id}" im Azure IOT Bereitstellung-Dienst "mydps" in der Ressourcengruppe "{resource_group_name}" mit dem Bereitstellungs Status "aktiviert". Ziel IOT Hub "{iothub_host_name}", anfängliche Zwillings Eigenschaften "{" Location ": {" Region ":" US "}}" und die ersten Zwillings Tags "{" version_dps ":" 1 "}", die ein zwischen Zertifikat als primäres Zertifikat verwenden.'
+    syntax: az iot dps enrollment-group create -g {resource_group_name} --dps-name {dps_name} --enrollment-id {enrollment_id} --certificate-path /certificates/Certificate.pem --provisioning-status enabled --iot-hub-host-name {iothub_host_name} --initial-twin-properties "{'location':{'region':'US'}}" --initial-twin-tags "{'version_dps':'1'}"
+  - summary: Erstellen Sie eine Registrierungs Gruppe "{enrollment_id}" im Azure IOT Bereitstellung-Dienst "{dps_name}" in der Ressourcengruppe "{resource_group_name}" mit dem Nachrichtentyp "SymmetricKey".
+    syntax: az iot dps enrollment-group create -g {resource_group_name} --dps-name {dps_name} --enrollment-id {enrollment_id} --primary-key {primary_key} --secondary-key {secondary_key}
+  - summary: Erstellen Sie eine Registrierungs Gruppe "{enrollment_id}" mit benutzerdefinierter Zuordnungs Richtlinie.
+    syntax: az iot dps enrollment-group create -g {resource_group_name} --dps-name {dps_name} --enrollment-id {enrollment_id} --allocation-policy custom --webhook-url {webhook_url} --api-version {api_version}
+  requiredParameters:
+  - isRequired: true
+    name: --dps-name
+    summary: Der Name des Azure IOT Hub Device Bereitstellung-Dienstanbieter.
+    description: ''
+  - isRequired: true
+    name: --enrollment-id
+    summary: ID der Registrierungs Gruppe.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  optionalParameters:
+  - name: --allocation-policy --ap
+    parameterValueGroup: custom, geolatency, hashed, static
+    summary: Der Zuordnungstyp für das dem Hub zugewiesene Gerät.
+    description: ''
+  - name: --api-version --av
+    summary: 'Die API-Version der Bereitstellungs Dienst Typen, die in der benutzerdefinierten Zuordnungs Anforderung gesendet werden. Unterstützte Mindestversion: 2018-09-01-Preview.'
+    description: ''
+  - name: --ca-name --cn --root-ca-name
+    summary: Der Name des primären Zertifikats der Stamm Zertifizierungsstelle. Wenn ein Nachweis mit einem Zertifikat der Stamm Zertifizierungsstelle gewünscht ist, muss ein Name der Stamm Zertifizierungsstelle angegeben werden.
+    description: ''
+  - name: --certificate-path --cp
+    summary: Der Pfad zu der Datei, die das primäre Zertifikat enthält. Wenn ein Nachweis mit einem zwischen Zertifikat gewünscht ist, muss ein Zertifikat Pfad angegeben werden.
+    description: ''
+  - name: --edge-enabled --ee
+    parameterValueGroup: false, true
+    summary: Flag zum Angeben der Kanten Aktivierung.
+    description: ''
+  - name: --hn --iot-hub-host-name
+    summary: Der Hostname des Ziel IOT Hub.
+    description: ''
+  - name: --ih --iot-hubs
+    summary: Der Hostname des Ziel IOT Hub. Verwenden Sie eine durch Leerzeichen getrennte Liste für mehrere IOT Hubs.
+    description: ''
+  - name: --initial-twin-properties --props
+    summary: Anfängliche Zwillings Eigenschaften.
+    description: ''
+  - name: --initial-twin-tags --tags
+    summary: Anfängliche Zwillings Tags.
+    description: ''
+  - name: --pk --primary-key
+    summary: Der primäre symmetrische Schlüssel für den gemeinsamen Zugriff im Base64-Format.
+    description: ''
+  - name: --provisioning-status --ps
+    parameterValueGroup: disabled, enabled
+    summary: Aktivieren oder Deaktivieren des Registrierungs Eintrags.
+    description: ''
+  - name: --reprovision-policy --rp
+    parameterValueGroup: never, reprovisionandmigratedata, reprovisionandresetdata
+    summary: Gerätedaten, die bei der erneuten Bereitstellung auf einem anderen IOT Hub verarbeitet werden sollen.
+    description: ''
+  - name: --scn --secondary-ca-name --secondary-root-ca-name
+    summary: Der Name des sekundären Zertifikats der Stamm Zertifizierungsstelle. Wenn ein Nachweis mit einem Zertifikat der Stamm Zertifizierungsstelle gewünscht ist, muss ein Name der Stamm Zertifizierungsstelle angegeben werden.
+    description: ''
+  - name: --scp --secondary-certificate-path
+    summary: Der Pfad zu der Datei, die das sekundäre Zertifikat enthält. Wenn ein Nachweis mit einem zwischen Zertifikat gewünscht ist, muss ein Zertifikat Pfad angegeben werden.
+    description: ''
+  - name: --secondary-key --sk
+    summary: Der sekundäre symmetrische Schlüssel für den gemeinsamen Zugriff im Base64-Format.
+    description: ''
+  - name: --webhook-url --wh
+    summary: Die für benutzerdefinierte Zuordnungs Anforderungen verwendete webhook-URL.
+    description: ''
+- uid: az_iot_dps_enrollment-group_delete
+  name: az iot dps enrollment-group delete
+  summary: Löschen Sie eine Registrierungs Gruppe in einem Azure IOT Hub Device Provisioning-Dienst.
+  description: ''
+  syntax: >-
+    az iot dps enrollment-group delete --dps-name
+                                       --enrollment-id
+                                       --resource-group
+                                       [--etag]
+  requiredParameters:
+  - isRequired: true
+    name: --dps-name
+    summary: Der Name des Azure IOT Hub Device Bereitstellung-Dienstanbieter.
+    description: ''
+  - isRequired: true
+    name: --enrollment-id
+    summary: ID der Registrierungs Gruppe.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  optionalParameters:
+  - name: --etag -e
+    summary: ETag oder Entitätstag, das dem letzten Zustand der Ressource entspricht. Wenn kein ETag angegeben wird, wird der Wert " \* " verwendet.
+    description: ''
+- uid: az_iot_dps_enrollment-group_list
+  name: az iot dps enrollment-group list
+  summary: Auflisten von Registrierungs Gruppen in einem Azure IOT Hub Device Provisioning-Dienst.
+  description: ''
+  syntax: >-
+    az iot dps enrollment-group list --dps-name
+                                     --resource-group
+                                     [--top]
+  requiredParameters:
+  - isRequired: true
+    name: --dps-name
+    summary: Der Name des Azure IOT Hub Device Bereitstellung-Dienstanbieter.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  optionalParameters:
+  - name: --top
+    summary: Maximale Anzahl zurück zugebender Elemente. Verwenden Sie-1 für unbegrenzt.
+    description: ''
+- uid: az_iot_dps_enrollment-group_show
+  name: az iot dps enrollment-group show
+  summary: Hier erhalten Sie Informationen zu einer Registrierungs Gruppe in einem Azure IOT Hub Device Provisioning-Dienstanbieter.
+  description: ''
+  syntax: >-
+    az iot dps enrollment-group show --dps-name
+                                     --enrollment-id
+                                     --resource-group
+                                     [--keys {false, true}]
+  examples:
+  - summary: Grundlegende Verwendung
+    syntax: az iot dps enrollment-group show --dps-name {dps_name} -g {resource_group} --enrollment-id {enrollment_id}
+  - summary: Vollständige Nachweis Informationen in Ergebnisse für eine Gruppe von symmetrischen Schlüsseln einschließen
+    syntax: az iot dps enrollment-group show --dps-name {dps_name} -g {resource_group} --enrollment-id {symmetric_key_enrollment_id} --show-keys
+  requiredParameters:
+  - isRequired: true
+    name: --dps-name
+    summary: Der Name des Azure IOT Hub Device Bereitstellung-Dienstanbieter.
+    description: ''
+  - isRequired: true
+    name: --enrollment-id
+    summary: ID der Registrierungs Gruppe.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  optionalParameters:
+  - name: --keys --show-keys
+    parameterValueGroup: false, true
+    summary: Fügen Sie Nachweis Schlüssel und-Informationen in die Ergebnisse der Registrierungs Gruppe ein.
+    description: ''
+- uid: az_iot_dps_enrollment-group_update
+  name: az iot dps enrollment-group update
+  summary: Aktualisieren einer Registrierungs Gruppe in einem Azure IOT Hub Device Provisioning-Dienst.
+  description: ''
+  syntax: >-
+    az iot dps enrollment-group update --dps-name
+                                       --enrollment-id
+                                       --resource-group
+                                       [--allocation-policy {custom, geolatency, hashed, static}]
+                                       [--api-version]
+                                       [--ca-name]
+                                       [--certificate-path]
+                                       [--edge-enabled {false, true}]
+                                       [--etag]
+                                       [--hn]
+                                       [--ih]
+                                       [--initial-twin-properties]
+                                       [--initial-twin-tags]
+                                       [--pk]
+                                       [--provisioning-status {disabled, enabled}]
+                                       [--rc {false, true}]
+                                       [--remove-secondary-certificate {false, true}]
+                                       [--reprovision-policy {never, reprovisionandmigratedata, reprovisionandresetdata}]
+                                       [--scn]
+                                       [--scp]
+                                       [--secondary-key]
+                                       [--webhook-url]
+  examples:
+  - summary: Aktualisieren Sie die Registrierungs Gruppe "{enrollment_id}" im Azure IOT Bereitstellung-Dienst "{dps_name}" in der Ressourcengruppe "{resource_group_name}" mit den anfänglichen Zwillings Eigenschaften und den ersten Zwillings Tags.
+    syntax: az iot dps enrollment-group update -g {resource_group_name} --dps-name {dps_name} --enrollment-id {enrollment_id} --initial-twin-properties "{'location':{'region':'USA'}}" --initial-twin-tags "{'version_dps':'2'}" --etag AAAAAAAAAAA=
+  - summary: Aktualisieren Sie die Registrierungs Gruppe "{enrollment_id}" im Azure IOT Bereitstellung-Dienst "{dps_name}" in der Ressourcengruppe "{resource_group_name}" mit dem neuen primären zwischen Zertifikat, und entfernen Sie das vorhandene sekundäre zwischen Zertifikat.
+    syntax: az iot dps enrollment-group update -g {resource_group_name} --dps-name {dps_name} --enrollment-id {enrollment_id} --certificate-path /certificates/NewCertificate.pem --remove-secondary-certificate --etag AAAAAAAAAAA=
+  - summary: Aktualisieren Sie die Registrierungs Gruppe "{enrollment_id}" im Azure IOT Bereitstellung-Dienst "{dps_name}" in der Ressourcengruppe "{resource_group_name}" mit dem neuen sekundären Zertifizierungsstellen Zertifikat "{certificate_name}", und entfernen Sie das vorhandene primäre Zertifizierungsstellen Zertifikat.
+    syntax: az iot dps enrollment-group update -g {resource_group_name} --dps-name {dps_name} --enrollment-id {enrollment_id} --secondary-ca-name {certificate_name} --remove-certificate --etag AAAAAAAAAAA=
+  - summary: Aktualisieren Sie die Registrierungs Gruppe "{enrollment_id}" im Azure IOT Bereitstellung-Dienst "{dps_name}" in der Ressourcengruppe "{resource_group_name}" mit dem neuen Primärschlüssel.
+    syntax: az iot dps enrollment-group update -g {resource_group_name} --dps-name {dps_name} --enrollment-id {enrollment_id} --primary-key {new_primary_key} --etag AAAAAAAAAAA=
+  requiredParameters:
+  - isRequired: true
+    name: --dps-name
+    summary: Der Name des Azure IOT Hub Device Bereitstellung-Dienstanbieter.
+    description: ''
+  - isRequired: true
+    name: --enrollment-id
+    summary: ID der Registrierungs Gruppe.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  optionalParameters:
+  - name: --allocation-policy --ap
+    parameterValueGroup: custom, geolatency, hashed, static
+    summary: Der Zuordnungstyp für das dem Hub zugewiesene Gerät.
+    description: ''
+  - name: --api-version --av
+    summary: 'Die API-Version der Bereitstellungs Dienst Typen, die in der benutzerdefinierten Zuordnungs Anforderung gesendet werden. Unterstützte Mindestversion: 2018-09-01-Preview.'
+    description: ''
+  - name: --ca-name --cn --root-ca-name
+    summary: Der Name des primären Zertifikats der Stamm Zertifizierungsstelle. Wenn ein Nachweis mit einem Zertifikat der Stamm Zertifizierungsstelle gewünscht ist, muss ein Name der Stamm Zertifizierungsstelle angegeben werden.
+    description: ''
+  - name: --certificate-path --cp
+    summary: Der Pfad zu der Datei, die das primäre Zertifikat enthält. Wenn ein Nachweis mit einem zwischen Zertifikat gewünscht ist, muss ein Zertifikat Pfad angegeben werden.
+    description: ''
+  - name: --edge-enabled --ee
+    parameterValueGroup: false, true
+    summary: Flag zum Angeben der Kanten Aktivierung.
+    description: ''
+  - name: --etag -e
+    summary: ETag oder Entitätstag, das dem letzten Zustand der Ressource entspricht. Wenn kein ETag angegeben wird, wird der Wert " \* " verwendet.
+    description: ''
+  - name: --hn --iot-hub-host-name
+    summary: Der Hostname des Ziel IOT Hub.
+    description: ''
+  - name: --ih --iot-hubs
+    summary: Der Hostname des Ziel IOT Hub. Verwenden Sie eine durch Leerzeichen getrennte Liste für mehrere IOT Hubs.
+    description: ''
+  - name: --initial-twin-properties --props
+    summary: Anfängliche Zwillings Eigenschaften.
+    description: ''
+  - name: --initial-twin-tags --tags
+    summary: Anfängliche Zwillings Tags.
+    description: ''
+  - name: --pk --primary-key
+    summary: Der primäre symmetrische Schlüssel für den gemeinsamen Zugriff im Base64-Format.
+    description: ''
+  - name: --provisioning-status --ps
+    parameterValueGroup: disabled, enabled
+    summary: Aktivieren oder Deaktivieren des Registrierungs Eintrags.
+    description: ''
+  - name: --rc --remove-certificate
+    parameterValueGroup: false, true
+    summary: Entfernen Sie das aktuelle primäre Zertifikat.
+    description: ''
+  - name: --remove-secondary-certificate --rsc
+    parameterValueGroup: false, true
+    summary: Entfernen Sie das aktuelle sekundäre Zertifikat.
+    description: ''
+  - name: --reprovision-policy --rp
+    parameterValueGroup: never, reprovisionandmigratedata, reprovisionandresetdata
+    summary: Gerätedaten, die bei der erneuten Bereitstellung auf einem anderen IOT Hub verarbeitet werden sollen.
+    description: ''
+  - name: --scn --secondary-ca-name --secondary-root-ca-name
+    summary: Der Name des sekundären Zertifikats der Stamm Zertifizierungsstelle. Wenn ein Nachweis mit einem Zertifikat der Stamm Zertifizierungsstelle gewünscht ist, muss ein Name der Stamm Zertifizierungsstelle angegeben werden.
+    description: ''
+  - name: --scp --secondary-certificate-path
+    summary: Der Pfad zu der Datei, die das sekundäre Zertifikat enthält. Wenn ein Nachweis mit einem zwischen Zertifikat gewünscht ist, muss ein Zertifikat Pfad angegeben werden.
+    description: ''
+  - name: --secondary-key --sk
+    summary: Der sekundäre symmetrische Schlüssel für den gemeinsamen Zugriff im Base64-Format.
+    description: ''
+  - name: --webhook-url --wh
+    summary: Die für benutzerdefinierte Zuordnungs Anforderungen verwendete webhook-URL.
+    description: ''
+commands:
+- az_iot_dps_enrollment-group_create
+- az_iot_dps_enrollment-group_delete
+- az_iot_dps_enrollment-group_list
+- az_iot_dps_enrollment-group_show
+- az_iot_dps_enrollment-group_update
+globalParameters:
+- name: --debug
+  summary: Ausführlichkeit der Protokollierung erhöhen, um alle Debugprotokolle anzuzeigen.
+- name: --help -h
+  summary: Zeigen Sie diese Hilfemeldung an, und schließen Sie sie.
+- name: --only-show-errors
+  summary: Nur Fehler anzeigen und Warnungen unterdrücken.
+- name: --output -o
+  defaultValue: json
+  parameterValueGroup: json, jsonc, table, tsv
+  summary: Ausgabeformat.
+- name: --query
+  summary: JMESPath-Abfragezeichenfolge. Weitere Informationen und Beispiele finden Sie unter <a href="http://jmespath.org/">http://jmespath.org/</a>.
+- name: --verbose
+  summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
+metadata:
+  description: Verwalten von Device Provisioning Service in Azure IoT Hub
+  ms.openlocfilehash: af90d27c9d28edf03d6d5637f2ec9a779710932b
+  ms.sourcegitcommit: 612554c029ba1f28d3a43fd22e743104a1a30ea0
+  ms.translationtype: MT
+  ms.contentlocale: de-DE
+  ms.lasthandoff: 04/07/2021
+  ms.locfileid: "106938761"
