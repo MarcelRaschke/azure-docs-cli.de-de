@@ -1,0 +1,229 @@
+### YamlMime:AzureCLIGroup
+uid: az_iot_hub_job
+name: az iot hub job
+extensionInformation: >-
+  > [!Note]
+
+  > Diese Referenz ist Teil der **Azure-IOT-** Erweiterung für Azure CLI und erfordert Version 2.0.70 oder höher.  Die Erweiterung wird automatisch installiert, wenn Sie den Befehl **AZ IOT Hub Job** zum ersten Mal ausführen.  [Weitere Informationen zu Erweiterungen](https://docs.microsoft.com/en-us/cli/azure/azure-cli-extensions-overview)
+summary: Verwalten Sie IOT Hub Aufträge (v2).
+description: ''
+directCommands:
+- uid: az_iot_hub_job_cancel
+  name: az iot hub job cancel
+  summary: Abbrechen eines IOT Hub Auftrags
+  description: ''
+  syntax: >-
+    az iot hub job cancel --job-id
+                          [--hub-name]
+                          [--login]
+                          [--resource-group]
+  examples:
+  - summary: Abbrechen eines IOT Hub Auftrags
+    syntax: az iot hub job cancel --hub-name {iothub_name} --job-id {job_id}
+  requiredParameters:
+  - isRequired: true
+    name: --job-id
+    summary: IOT Hub Auftrags-ID.
+    description: ''
+  optionalParameters:
+  - name: --hub-name -n
+    summary: IOT Hub Name.
+    description: ''
+  - name: --login -l
+    summary: Dieser Befehl unterstützt eine Entitäts Verbindungs Zeichenfolge mit rechten zum Ausführen von Aktionen. Verwenden Sie, um die Sitzungs Anmeldung über "AZ Login" zu vermeiden. Wenn sowohl eine Entitäts Verbindungs Zeichenfolge als auch ein Name angegeben wird, hat die Verbindungs Zeichenfolge Priorität
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+- uid: az_iot_hub_job_create
+  name: az iot hub job create
+  summary: Erstellen und planen Sie einen IOT Hub Auftrag für die Ausführung.
+  description: >-
+    Beim Planen eines Zwillings Aktualisierungs Auftrags ist das Zwillings Patch ein erforderliches Argument.
+
+    Beim Planen eines Geräte Methoden Auftrags sind der Methodenname und die Nutzlast erforderliche Argumente.
+  syntax: >-
+    az iot hub job create --job-id
+                          --job-type {scheduleDeviceMethod, scheduleUpdateTwin}
+                          [--duration]
+                          [--hub-name]
+                          [--interval]
+                          [--login]
+                          [--mct]
+                          [--method-name]
+                          [--method-payload]
+                          [--method-response-timeout]
+                          [--patch]
+                          [--query-condition]
+                          [--resource-group]
+                          [--start]
+                          [--ttl]
+                          [--wait {false, true}]
+  examples:
+  - summary: Erstellen und planen Sie einen Auftrag, um die Zwillings Tags aller Geräte zu aktualisieren.
+    syntax: "az iot hub job create --job-id {job_id} --job-type scheduleUpdateTwin -n {iothub_name} -q \"*\" --twin-patch '{\"tags\": {\"deviceType\": \"Type1, Type2, Type3\"}}'"
+  - summary: Planen Sie den Auftrag, und blockieren Sie das Ergebnis von "abgeschlossen", "Fehler" oder "abgebrochen". Geben Sie das Abruf Intervall in Sekunden an.
+    syntax: "az iot hub job create --job-id {job_id} --job-type scheduleUpdateTwin -n {iothub_name} -q \"*\" --twin-patch '{\"tags\": {\"deviceType\": \"Type1, Type2, Type3\"}}' --wait --poll-interval 30"
+  - summary: Erstellen Sie einen Auftrag zum Aktualisieren einer gewünschten Zwillings Eigenschaft für eine Teilmenge von Geräten, die für die Ausführung zu einem beliebigen späteren Zeitpunkt geplant ist.
+    syntax: "az iot hub job create --job-id {job_name} --job-type scheduleUpdateTwin -n {iothub_name} --twin-patch '{\"properties\":{\"desired\": {\"temperatureF\": 65}}}' --start-time \"2020-01-08T12:19:56.868Z\" --query-condition \"deviceId IN ['MyDevice1', 'MyDevice2', 'MyDevice3']\""
+  - summary: Erstellen und Planen eines Auftrags zum Aufrufen einer Geräte Methode für eine Gruppe von Geräten, die eine Abfrage Bedingung erfüllen.
+    syntax: az iot hub job create --job-id {job_name} --job-type scheduleDeviceMethod -n {iothub_name} --method-name setSyncIntervalSec --method-payload 30 --query-condition "properties.reported.settings.syncIntervalSec != 30"
+  - summary: Erstellen und planen Sie einen Auftrag, um eine Geräte Methode für alle Geräte aufzurufen.
+    syntax: az iot hub job create --job-id {job_name} --job-type scheduleDeviceMethod -q "*" -n {iothub_name} --method-name setSyncIntervalSec --method-payload '{"version":"1.0"}'
+  requiredParameters:
+  - isRequired: true
+    name: --job-id
+    summary: IOT Hub Auftrags-ID.
+    description: ''
+  - isRequired: true
+    name: --job-type --jt
+    parameterValueGroup: scheduleDeviceMethod, scheduleUpdateTwin
+    summary: Der Typ des geplanten Auftrags.
+    description: ''
+  optionalParameters:
+  - name: --duration --poll-duration
+    defaultValue: "600"
+    summary: Gesamtdauer in Sekunden, in der der Auftragsstatus geprüft wird, wenn das Flag "--wait" übermittelt wird.
+    description: ''
+  - name: --hub-name -n
+    summary: IOT Hub Name.
+    description: ''
+  - name: --interval --poll-interval
+    defaultValue: "10"
+    summary: Intervall in Sekunden, in dem der Auftragsstatus geprüft wird, wenn das Flag "--wait" übergangen wird.
+    description: ''
+  - name: --login -l
+    summary: Dieser Befehl unterstützt eine Entitäts Verbindungs Zeichenfolge mit rechten zum Ausführen von Aktionen. Verwenden Sie, um die Sitzungs Anmeldung über "AZ Login" zu vermeiden. Wenn sowohl eine Entitäts Verbindungs Zeichenfolge als auch ein Name angegeben wird, hat die Verbindungs Zeichenfolge Priorität
+    description: ''
+  - name: --mct --method-connect-timeout
+    defaultValue: "30"
+    summary: Maximale Anzahl von Sekunden, die auf die Geräte Verbindung gewartet werden soll.
+    description: ''
+  - name: --method-name --mn
+    summary: Die Ziel Methode für den Aufruf.
+    description: ''
+  - name: --method-payload --mp
+    summary: Die an die Methode zu über gebenden JSON-Nutzlast. Muss Dateipfad oder unformatierte JSON-Daten sein.
+    description: ''
+  - name: --method-response-timeout --mrt
+    defaultValue: "30"
+    summary: Maximale Anzahl von Sekunden, die auf das Ergebnis der Geräte Methode gewartet werden soll.
+    description: ''
+  - name: --patch --twin-patch
+    summary: Der gewünschte Zwillings Patch. Geben Sie Dateipfad oder unformatierte JSON-
+    description: ''
+  - name: --query-condition -q
+    summary: 'Bedingung für die Geräte Abfrage zum Ausführen des Auftrags durch Geräte. Erforderlich, wenn der Auftragstyp scheduledevicemethod oder scheduleupdatetwin ist. Hinweis: der Dienst führt das Präfix "Select \* from Devices where" für die Eingabe aus.'
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --start --start-time
+    summary: Der geplante Start des Auftrags im ISO 8601-Datums-/Uhrzeitformat. Wenn keine Startzeit angegeben wird, wird der Auftrag für die ASaP-Ausführung in die Warteschlange eingereiht.
+    description: ''
+  - name: --ttl
+    defaultValue: "3600"
+    summary: Maximale Ausführungszeit in Sekunden, bevor der Auftrag beendet wird.
+    description: ''
+  - name: --wait -w
+    parameterValueGroup: false, true
+    summary: Blockieren, bis der erstellte Auftrag den Status "abgeschlossen", "Fehler" oder "abgebrochen" aufweist. Ruft regelmäßig das von--Abruf-Interval angegebene Intervall ab.
+    description: ''
+- uid: az_iot_hub_job_list
+  name: az iot hub job list
+  summary: Listet die Verlaufs Aufträge einer IOT Hub auf.
+  description: ''
+  syntax: >-
+    az iot hub job list [--hub-name]
+                        [--job-status {cancelled, completed, enqueued, failed, queued, running, scheduled, unknown}]
+                        [--job-type {export, import, scheduleDeviceMethod, scheduleUpdateTwin}]
+                        [--login]
+                        [--resource-group]
+                        [--top]
+  examples:
+  - summary: Listet alle archivierten Aufträge innerhalb der Beibehaltungs Dauer auf (maximal 30 Tage).
+    syntax: az iot hub job list --hub-name {iothub_name}
+  - summary: Auflisten aller archivierten Aufträge, die bestimmte Eigenschaften projizieren
+    syntax: az iot hub job list --hub-name {iothub_name} --query "[*].[jobId,type,status,startTime,endTime]"
+  - summary: Nur Aufträge zum Aktualisieren von Zwillings Typen auflisten
+    syntax: az iot hub job list --hub-name {iothub_name} --job-type scheduleDeviceMethod
+  - summary: Geräte Methoden Aufträge auflisten, die den Status "geplant" aufweisen
+    syntax: az iot hub job list --hub-name {iothub_name} --job-type scheduleDeviceMethod --job-status scheduled
+  - summary: Geräte Exportaufträge mit dem Status "abgeschlossen" auflisten
+    syntax: az iot hub job list --hub-name {iothub_name} --job-type export --job-status completed
+  optionalParameters:
+  - name: --hub-name -n
+    summary: IOT Hub Name.
+    description: ''
+  - name: --job-status --js
+    parameterValueGroup: cancelled, completed, enqueued, failed, queued, running, scheduled, unknown
+    summary: Der Status eines geplanten Auftrags.
+    description: ''
+  - name: --job-type --jt
+    parameterValueGroup: export, import, scheduleDeviceMethod, scheduleUpdateTwin
+    summary: Der Typ des geplanten Auftrags.
+    description: ''
+  - name: --login -l
+    summary: Dieser Befehl unterstützt eine Entitäts Verbindungs Zeichenfolge mit rechten zum Ausführen von Aktionen. Verwenden Sie, um die Sitzungs Anmeldung über "AZ Login" zu vermeiden. Wenn sowohl eine Entitäts Verbindungs Zeichenfolge als auch ein Name angegeben wird, hat die Verbindungs Zeichenfolge Priorität
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --top
+    summary: Maximale Anzahl zurück zugebender Elemente. Verwenden Sie-1 für unbegrenzt.
+    description: ''
+- uid: az_iot_hub_job_show
+  name: az iot hub job show
+  summary: Zeigt die Details eines vorhandenen IOT Hub Auftrags an.
+  description: ''
+  syntax: >-
+    az iot hub job show --job-id
+                        [--hub-name]
+                        [--login]
+                        [--resource-group]
+  examples:
+  - summary: Zeigt die Details eines erstellten Auftrags an.
+    syntax: az iot hub job show --hub-name {iothub_name} --job-id {job_id}
+  requiredParameters:
+  - isRequired: true
+    name: --job-id
+    summary: IOT Hub Auftrags-ID.
+    description: ''
+  optionalParameters:
+  - name: --hub-name -n
+    summary: IOT Hub Name.
+    description: ''
+  - name: --login -l
+    summary: Dieser Befehl unterstützt eine Entitäts Verbindungs Zeichenfolge mit rechten zum Ausführen von Aktionen. Verwenden Sie, um die Sitzungs Anmeldung über "AZ Login" zu vermeiden. Wenn sowohl eine Entitäts Verbindungs Zeichenfolge als auch ein Name angegeben wird, hat die Verbindungs Zeichenfolge Priorität
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+commands:
+- az_iot_hub_job_cancel
+- az_iot_hub_job_create
+- az_iot_hub_job_list
+- az_iot_hub_job_show
+globalParameters:
+- name: --debug
+  summary: Ausführlichkeit der Protokollierung erhöhen, um alle Debugprotokolle anzuzeigen.
+- name: --help -h
+  summary: Zeigen Sie diese Hilfemeldung an, und schließen Sie sie.
+- name: --only-show-errors
+  summary: Nur Fehler anzeigen und Warnungen unterdrücken.
+- name: --output -o
+  defaultValue: json
+  parameterValueGroup: json, jsonc, table, tsv
+  summary: Ausgabeformat.
+- name: --query
+  summary: JMESPath-Abfragezeichenfolge. Weitere Informationen und Beispiele finden Sie unter <a href="http://jmespath.org/">http://jmespath.org/</a>.
+- name: --verbose
+  summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
+metadata:
+  description: Verwalten Sie IOT Hub Aufträge (v2).
+  ms.openlocfilehash: e6bfeee05146cf255fe6678f1fbc2a97edd35086
+  ms.sourcegitcommit: 612554c029ba1f28d3a43fd22e743104a1a30ea0
+  ms.translationtype: MT
+  ms.contentlocale: de-DE
+  ms.lasthandoff: 04/07/2021
+  ms.locfileid: "106894477"
