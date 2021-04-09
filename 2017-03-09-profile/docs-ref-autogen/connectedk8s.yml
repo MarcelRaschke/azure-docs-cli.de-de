@@ -1,0 +1,421 @@
+### YamlMime:AzureCLIGroup
+uid: az_connectedk8s
+name: az connectedk8s
+extensionInformation: >-
+  > [!Note]
+
+  > Dieser Verweis ist Teil der **connectedk8s** -Erweiterung für Azure CLI und erfordert Version 2.16.0 oder höher.  Die Erweiterung wird automatisch installiert, wenn Sie den Befehl **AZ connectedk8s** zum ersten Mal ausführen.  [Weitere Informationen zu Erweiterungen](https://docs.microsoft.com/en-us/cli/azure/azure-cli-extensions-overview)
+summary: Befehle zum Verwalten verbundener kubernetes-Cluster.
+description: ''
+directCommands:
+- uid: az_connectedk8s_connect
+  name: az connectedk8s connect
+  summary: Integrieren eines verbundenen kubernetes-Clusters in Azure.
+  description: ''
+  syntax: >-
+    az connectedk8s connect --name
+                            --resource-group
+                            [--disable-auto-upgrade]
+                            [--distribution {aks, aks_engine, aks_management, aks_workload, auto, capz, eks, generic, gke, k3s, kind, minikube, openshift, rancher_rke, tkg}]
+                            [--infrastructure {auto, aws, azure, azure_stack_edge, azure_stack_hci, azure_stack_hub, gcp, generic, vsphere, windows_server}]
+                            [--kube-config]
+                            [--kube-context]
+                            [--location]
+                            [--no-wait]
+                            [--proxy-cert]
+                            [--proxy-http]
+                            [--proxy-https]
+                            [--proxy-skip-range]
+                            [--tags]
+  examples:
+  - summary: Integrieren eines verbundenen kubernetes-Clusters mit der standardmäßigen Kube-Konfiguration und dem Kube-Kontext.
+    syntax: az connectedk8s connect -g resourceGroupName -n connectedClusterName
+  - summary: Integrieren eines verbundenen kubernetes-Clusters mit der standardmäßigen Kube-Konfiguration und dem Kube-Kontext und Deaktivieren des automatischen Upgrades von Bogen-Agents.
+    syntax: az connectedk8s connect -g resourceGroupName -n connectedClusterName --disable-auto-upgrade
+  - summary: Integrieren eines verbundenen kubernetes-Clusters durch Angabe von kubeconfig und kubecontext.
+    syntax: az connectedk8s connect -g resourceGroupName -n connectedClusterName --kube-config /path/to/kubeconfig --kube-context kubeContextName
+  - summary: Integrieren eines verbundenen kubernetes-Clusters durch Angabe des HTTPS-Proxys HTTP-Proxys, ohne Proxy Einstellungen.
+    syntax: az connectedk8s connect -g resourceGroupName -n connectedClusterName --proxy-https https://proxy-url --proxy-http http://proxy-url --proxy-skip-range excludedIP,excludedCIDR,exampleCIDRfollowed,10.0.0.0/24
+  - summary: Integrieren eines verbundenen kubernetes-Clusters durch Angabe des HTTPS-Proxys HTTP-Proxys, ohne Proxy mit Zertifikat Einstellungen
+    syntax: az connectedk8s connect -g resourceGroupName -n connectedClusterName --proxy-cert /path/to/crt --proxy-https https://proxy-url --proxy-http http://proxy-url --proxy-skip-range excludedIP,excludedCIDR,exampleCIDRfollowed,10.0.0.0/24
+  requiredParameters:
+  - isRequired: true
+    name: --name -n
+    summary: Der Name des verbundenen Clusters.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  optionalParameters:
+  - name: --disable-auto-upgrade
+    summary: Flag zum Deaktivieren des automatischen Upgrades von Bogen-Agents.
+    description: ''
+  - name: --distribution
+    defaultValue: auto
+    parameterValueGroup: aks, aks_engine, aks_management, aks_workload, auto, capz, eks, generic, gke, k3s, kind, minikube, openshift, rancher_rke, tkg
+    summary: Die Kubernetes-Verteilung, die auf diesem verbundenen Cluster ausgeführt wird.
+    description: ''
+  - name: --infrastructure
+    defaultValue: auto
+    parameterValueGroup: auto, aws, azure, azure_stack_edge, azure_stack_hci, azure_stack_hub, gcp, generic, vsphere, windows_server
+    summary: Die Infrastruktur, in der der von diesem verbundenen Cluster dargestellte Kubernetes-Cluster unter ausgeführt wird.
+    description: ''
+  - name: --kube-config
+    summary: Pfad zur Kube-Konfigurationsdatei.
+    description: ''
+  - name: --kube-context
+    summary: Kubconfig-Kontext vom aktuellen Computer.
+    description: ''
+  - name: --location -l
+    summary: 'Der Standort. Werte aus: `az account list-locations`. Sie können den standardmäßig verwendeten Standort mit `az configure --defaults location=<location>` konfigurieren.'
+    description: ''
+  - name: --no-wait
+    summary: Nicht auf den Abschluss lang andauernder Vorgänge warten
+    description: ''
+  - name: --proxy-cert
+    summary: Pfad zur Zertifikat Datei für den Proxy.
+    description: ''
+  - name: --proxy-http
+    summary: Die HTTP-Proxy-URL, die verwendet werden soll.
+    description: ''
+  - name: --proxy-https
+    summary: Zu verwendende HTTPS-Proxy-URL.
+    description: ''
+  - name: --proxy-skip-range
+    summary: Liste der URLs/cidrs, für die der Proxy nicht verwendet werden soll.
+    description: ''
+  - name: --tags
+    summary: 'Durch Leerzeichen getrennte Tags: Key [= value] [key [= value]...]. Verwenden Sie "", um vorhandene Tags zu löschen.'
+    description: ''
+- uid: az_connectedk8s_delete
+  name: az connectedk8s delete
+  summary: Löschen Sie einen verbundenen kubernetes-Cluster zusammen mit verbundenen Cluster-Agents.
+  description: ''
+  syntax: >-
+    az connectedk8s delete --name
+                           --resource-group
+                           [--kube-config]
+                           [--kube-context]
+                           [--no-wait]
+                           [--yes]
+  examples:
+  - summary: Löschen Sie einen verbundenen kubernetes-Cluster und verbundene Cluster-Agents mit der standardmäßigen kubeconfig-und kubecontext-Instanz.
+    syntax: az connectedk8s delete -g resourceGroupName -n connectedClusterName
+  - summary: Löschen eines verbundenen kubernetes-Clusters durch Angeben von kubeconfig und kubecontext für das Löschen von verbundenen Cluster-Agents.
+    syntax: az connectedk8s delete -g resourceGroupName -n connectedClusterName --kube-config /path/to/kubeconfig --kube-context kubeContextName
+  requiredParameters:
+  - isRequired: true
+    name: --name -n
+    summary: Der Name des verbundenen Clusters.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  optionalParameters:
+  - name: --kube-config
+    summary: Pfad zur Kube-Konfigurationsdatei.
+    description: ''
+  - name: --kube-context
+    summary: Kubconfig-Kontext vom aktuellen Computer.
+    description: ''
+  - name: --no-wait
+    summary: Nicht auf den Abschluss lang andauernder Vorgänge warten
+    description: ''
+  - name: --yes -y
+    summary: Nicht zur Bestätigung auffordern
+    description: ''
+- uid: az_connectedk8s_disable-features
+  name: az connectedk8s disable-features
+  summary: Deaktiviert die selektiven Features im verbundenen Cluster.
+  description: ''
+  syntax: >-
+    az connectedk8s disable-features --features {azure-rbac, cluster-connect, custom-locations}
+                                     --name
+                                     --resource-group
+                                     [--kube-config]
+                                     [--kube-context]
+                                     [--yes]
+  examples:
+  - summary: Deaktiviert das Azure-RBAC-Feature.
+    syntax: az connectedk8s disable-features -n clusterName -g resourceGroupName --features azure-rbac
+  - summary: Deaktivieren Sie mehrere Funktionen.
+    syntax: az connectedk8s disable-features -n clusterName -g resourceGroupName --features custom-locations azure-rbac
+  requiredParameters:
+  - isRequired: true
+    name: --features
+    parameterValueGroup: azure-rbac, cluster-connect, custom-locations
+    summary: Durch Leerzeichen getrennte Liste der Funktionen, die Sie deaktivieren möchten.
+    description: ''
+  - isRequired: true
+    name: --name -n
+    summary: Der Name des verbundenen Clusters.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  optionalParameters:
+  - name: --kube-config
+    summary: Pfad zur Kube-Konfigurationsdatei.
+    description: ''
+  - name: --kube-context
+    summary: Kubconfig-Kontext vom aktuellen Computer.
+    description: ''
+  - name: --yes -y
+    summary: Nicht zur Bestätigung auffordern
+    description: ''
+- uid: az_connectedk8s_enable-features
+  name: az connectedk8s enable-features
+  summary: Aktiviert die selektiven Features im verbundenen Cluster.
+  description: ''
+  syntax: >-
+    az connectedk8s enable-features --features {azure-rbac, cluster-connect, custom-locations}
+                                    --name
+                                    --resource-group
+                                    [--app-id]
+                                    [--app-secret]
+                                    [--kube-config]
+                                    [--kube-context]
+                                    [--skip-azure-rbac-list]
+  examples:
+  - summary: Aktiviert das Cluster-Connect Feature.
+    syntax: az connectedk8s enable-features -n clusterName -g resourceGroupName --features cluster-connect
+  - summary: Aktivieren Sie das Azure-RBAC-Feature.
+    syntax: az connectedk8s enable-features -n clusterName -g resourceGroupName --features azure-rbac --app-id appID --app-secret="appSecret" --skip-azure-rbac-list "user1@domain.com,spn_oid"
+  - summary: Aktivieren mehrerer Features.
+    syntax: az connectedk8s enable-features -n clusterName -g resourceGroupName --features cluster-connect custom-locations
+  requiredParameters:
+  - isRequired: true
+    name: --features
+    parameterValueGroup: azure-rbac, cluster-connect, custom-locations
+    summary: Durch Leerzeichen getrennte Liste der Features, die Sie aktivieren möchten.
+    description: ''
+  - isRequired: true
+    name: --name -n
+    summary: Der Name des verbundenen Clusters.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  optionalParameters:
+  - name: --app-id
+    summary: Anwendungs-ID zum Aktivieren von Azure RBAC. Geben Sie an, wenn Sie Azure-RBAC aktivieren.
+    description: ''
+  - name: --app-secret
+    summary: Geheimer Anwendungs Schlüssel zum Aktivieren von Azure RBAC. Geben Sie an, wenn Sie Azure-RBAC aktivieren.
+    description: ''
+  - name: --kube-config
+    summary: Pfad zur Kube-Konfigurationsdatei.
+    description: ''
+  - name: --kube-context
+    summary: Kubconfig-Kontext vom aktuellen Computer.
+    description: ''
+  - name: --skip-azure-rbac-list
+    summary: Durch Trennzeichen getrennte Liste mit Namen von Benutzernamen/e-Mail/OID. Azure RBAC wird für diese Benutzer übersprungen. Geben Sie an, wenn Sie Azure-RBAC aktivieren.
+    description: ''
+- uid: az_connectedk8s_list
+  name: az connectedk8s list
+  summary: Auflisten verbundener kubernetes-Cluster.
+  description: ''
+  syntax: az connectedk8s list [--resource-group]
+  examples:
+  - summary: Listet alle verbundenen kubernetes-Cluster in einer Ressourcengruppe auf.
+    syntax: az connectedk8s list -g resourceGroupName --subscription subscriptionName
+  - summary: Listet alle verbundenen kubernetes-Cluster in einem Abonnement auf.
+    syntax: az connectedk8s list --subscription subscriptionName
+  optionalParameters:
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+- uid: az_connectedk8s_proxy
+  name: az connectedk8s proxy
+  summary: Erhalten Sie Zugriff auf einen verbundenen kubernetes-Cluster.
+  description: ''
+  syntax: >-
+    az connectedk8s proxy --name
+                          --resource-group
+                          [--file]
+                          [--kube-context]
+                          [--port]
+                          [--token]
+  examples:
+  - summary: Erhalten Sie Zugriff auf einen verbundenen kubernetes-Cluster.
+    syntax: az connectedk8s proxy -n clusterName -g resourceGroupName
+  - summary: Zugriff auf einen verbundenen kubernetes-Cluster mit benutzerdefiniertem Port
+    syntax: az connectedk8s proxy -n clusterName -g resourceGroupName --port portValue
+  - summary: Zugriff auf einen verbundenen kubernetes-Cluster mit Dienst Konto Token erhalten
+    syntax: az connectedk8s proxy -n clusterName -g resourceGroupName --token tokenValue
+  - summary: Zugreifen auf einen verbundenen kubernetes-Cluster durch Angeben eines benutzerdefinierten kubeconfig-Speicher Orts
+    syntax: az connectedk8s proxy -n clusterName -g resourceGroupName -f path/to/kubeconfig
+  - summary: Zugreifen auf einen verbundenen kubernetes-Cluster durch Angeben von benutzerdefiniertem Kontext
+    syntax: az connectedk8s proxy -n clusterName -g resourceGroupName --kube-context contextName
+  requiredParameters:
+  - isRequired: true
+    name: --name -n
+    summary: Der Name des verbundenen Clusters.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  optionalParameters:
+  - name: --file -f
+    defaultValue: ~/.kube/config
+    summary: Kubernetes-Konfigurationsdatei, die aktualisiert werden soll. Wenn keine Angabe erfolgt, wird die Datei "~/.Kube/config" "aktualisiert. Verwenden Sie stattdessen "-", um yaml in stdout zu drucken.
+    description: ''
+  - name: --kube-context
+    summary: Wenn angegeben, wird der Standardkontext Name überschrieben.
+    description: ''
+  - name: --port
+    defaultValue: "47011"
+    summary: Port für den Zugriff auf den verbundenen Cluster.
+    description: ''
+  - name: --token
+    summary: Dienst Konto Token, das für die Authentifizierung beim kubernetes-Cluster verwendet werden soll.
+    description: ''
+- uid: az_connectedk8s_show
+  name: az connectedk8s show
+  summary: Anzeigen der Details eines verbundenen kubernetes-Clusters.
+  description: ''
+  syntax: >-
+    az connectedk8s show --name
+                         --resource-group
+  examples:
+  - summary: Anzeigen der Details für einen verbundenen kubernetes-Cluster
+    syntax: az connectedk8s show -g resourceGroupName -n connectedClusterName
+  requiredParameters:
+  - isRequired: true
+    name: --name -n
+    summary: Der Name des verbundenen Clusters.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+- uid: az_connectedk8s_update
+  name: az connectedk8s update
+  summary: Aktualisieren Sie die Eigenschaften der integrierten Agents.
+  description: ''
+  syntax: >-
+    az connectedk8s update --name
+                           --resource-group
+                           [--auto-upgrade {false, true}]
+                           [--disable-proxy]
+                           [--kube-config]
+                           [--kube-context]
+                           [--proxy-cert]
+                           [--proxy-http]
+                           [--proxy-https]
+                           [--proxy-skip-range]
+  examples:
+  - summary: Aktualisieren von Proxy Werten für die Agents
+    syntax: az connectedk8s update -g resourceGroupName -n connectedClusterName  --proxy-cert /path/to/crt --proxy-https https://proxy-url --proxy-http http://proxy-url --proxy-skip-range excludedIP,excludedCIDR,exampleCIDRfollowed,10.0.0.0/24
+  - summary: Proxy Einstellungen für Agents deaktivieren
+    syntax: az connectedk8s update -g resourceGroupName -n connectedClusterName --disable-proxy
+  - summary: Automatisches Upgrade von Agents deaktivieren
+    syntax: az connectedk8s update -g resourceGroupName -n connectedClusterName --auto-upgrade false
+  requiredParameters:
+  - isRequired: true
+    name: --name -n
+    summary: Der Name des verbundenen Clusters.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  optionalParameters:
+  - name: --auto-upgrade
+    parameterValueGroup: false, true
+    summary: Flag zum Aktivieren bzw. Deaktivieren des automatischen Upgrades von Bogen-Agents. Standardmäßig ist das automatische Upgrade von Agents aktiviert.
+    description: ''
+  - name: --disable-proxy
+    summary: Deaktiviert die Proxy Einstellungen für Agents.
+    description: ''
+  - name: --kube-config
+    summary: Pfad zur Kube-Konfigurationsdatei.
+    description: ''
+  - name: --kube-context
+    summary: Kubconfig-Kontext vom aktuellen Computer.
+    description: ''
+  - name: --proxy-cert
+    summary: Pfad zur Zertifikat Datei für den Proxy.
+    description: ''
+  - name: --proxy-http
+    summary: Die HTTP-Proxy-URL, die verwendet werden soll.
+    description: ''
+  - name: --proxy-https
+    summary: Zu verwendende HTTPS-Proxy-URL.
+    description: ''
+  - name: --proxy-skip-range
+    summary: Liste der URLs/cidrs, für die der Proxy nicht verwendet werden soll.
+    description: ''
+- uid: az_connectedk8s_upgrade
+  name: az connectedk8s upgrade
+  summary: Führen Sie ein atomisch Upgrade von integrierten Agents auf die jeweilige Version durch, oder führen Sie standardmäßig die neueste Version aus.
+  description: ''
+  syntax: >-
+    az connectedk8s upgrade --name
+                            --resource-group
+                            [--agent-version]
+                            [--kube-config]
+                            [--kube-context]
+  examples:
+  - summary: Aktualisieren Sie die Agents auf die neueste Version.
+    syntax: az connectedk8s upgrade -g resourceGroupName -n connectedClusterName
+  - summary: Aktualisieren der Agents auf eine bestimmte Version
+    syntax: az connectedk8s upgrade -g resourceGroupName -n connectedClusterName --agent-version 0.2.62
+  requiredParameters:
+  - isRequired: true
+    name: --name -n
+    summary: Der Name des verbundenen Clusters.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  optionalParameters:
+  - name: --agent-version
+    summary: Version des Agents zum Aktualisieren der Helm-Diagramme.
+    description: ''
+  - name: --kube-config
+    summary: Pfad zur Kube-Konfigurationsdatei.
+    description: ''
+  - name: --kube-context
+    summary: Kubconfig-Kontext vom aktuellen Computer.
+    description: ''
+commands:
+- az_connectedk8s_connect
+- az_connectedk8s_delete
+- az_connectedk8s_disable-features
+- az_connectedk8s_enable-features
+- az_connectedk8s_list
+- az_connectedk8s_proxy
+- az_connectedk8s_show
+- az_connectedk8s_update
+- az_connectedk8s_upgrade
+globalParameters:
+- name: --debug
+  summary: Ausführlichkeit der Protokollierung erhöhen, um alle Debugprotokolle anzuzeigen.
+- name: --help -h
+  summary: Zeigen Sie diese Hilfemeldung an, und schließen Sie sie.
+- name: --only-show-errors
+  summary: Nur Fehler anzeigen und Warnungen unterdrücken.
+- name: --output -o
+  defaultValue: json
+  parameterValueGroup: json, jsonc, table, tsv
+  summary: Ausgabeformat.
+- name: --query
+  summary: JMESPath-Abfragezeichenfolge. Weitere Informationen und Beispiele finden Sie unter <a href="http://jmespath.org/">http://jmespath.org/</a>.
+- name: --verbose
+  summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
+metadata:
+  description: Befehle zum Verwalten verbundener kubernetes-Cluster.
+  ms.openlocfilehash: de8d66f0ceb3e4eea723e66f6a9988bed420b531
+  ms.sourcegitcommit: 612554c029ba1f28d3a43fd22e743104a1a30ea0
+  ms.translationtype: MT
+  ms.contentlocale: de-DE
+  ms.lasthandoff: 04/07/2021
+  ms.locfileid: "106893811"
