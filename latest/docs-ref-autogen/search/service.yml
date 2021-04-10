@@ -15,6 +15,7 @@ directCommands:
                              [--identity-type]
                              [--ip-rules]
                              [--location]
+                             [--no-wait]
                              [--partition-count]
                              [--public-access]
                              [--replica-count]
@@ -38,10 +39,13 @@ directCommands:
     summary: 'Der Identitätstyp. folgende Werte sind möglich: "None", "systemassigned".'
     description: ''
   - name: --ip-rules
-    summary: Öffentliche IP-Adressen oder CIDR-Bereiche für den Search-Dienst, getrennt durch Kommas oder Semikolon. Diese IP-Regeln sind nur anwendbar, wenn public_network_access aktiviert ist.
+    summary: Öffentliche IP-Adressen oder CIDR-Bereiche für den Search-Dienst, getrennt durch Kommas oder Semikolon. Diese IP-Regeln sind nur anwendbar, wenn--Public-Network-Access auf "aktiviert" ist.
     description: ''
   - name: --location -l
     summary: 'Der Standort. Werte aus: `az account list-locations`. Sie können den standardmäßig verwendeten Standort mit `az configure --defaults location=<location>` konfigurieren.'
+    description: ''
+  - name: --no-wait
+    summary: Nicht auf den Abschluss lang andauernder Vorgänge warten
     description: ''
   - name: --partition-count
     summary: Anzahl der Partitionen im Suchdienst.
@@ -141,6 +145,7 @@ directCommands:
                              [--force-string]
                              [--identity-type]
                              [--ip-rules]
+                             [--no-wait]
                              [--partition-count]
                              [--public-access]
                              [--remove]
@@ -167,7 +172,10 @@ directCommands:
     summary: 'Der Identitätstyp. folgende Werte sind möglich: "None", "systemassigned".'
     description: ''
   - name: --ip-rules
-    summary: "Öffentliche IP-Adressen oder CIDR-Bereiche für den Suchdienst, getrennt durch Kommas (\",\") oder Semikolon (\";\"); Wenn Leerzeichen (z. & #-), ', ' oder '; ' angegeben werden, wird jede vorhandene IP-Regel als NULL festgelegt, und es wird keine öffentliche IP-Regel angewendet. Diese IP-Regeln sind nur anwendbar, wenn public_network_access aktiviert ist."
+    summary: Öffentliche IP-Adressen oder CIDR-Bereiche für den Suchdienst, getrennt durch Kommas (",") oder Semikolon (";"); Wenn Leerzeichen (' '), ', ' oder '; ' angegeben werden, wird jede vorhandene IP-Regel als NULL festgelegt, und es wird keine öffentliche IP-Regel angewendet. Diese IP-Regeln sind nur anwendbar, wenn public_network_access aktiviert ist.
+    description: ''
+  - name: --no-wait
+    summary: Nicht auf den Abschluss lang andauernder Vorgänge warten
     description: ''
   - name: --partition-count
     summary: Anzahl der Partitionen im Suchdienst.
@@ -188,12 +196,65 @@ directCommands:
     summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
     description: ''
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/search/_help.py
+- uid: az_search_service_wait
+  name: az search service wait
+  summary: Warten Sie auf Async-Dienst Vorgänge.
+  description: ''
+  syntax: >-
+    az search service wait --name
+                           --resource-group
+                           [--created]
+                           [--custom]
+                           [--deleted]
+                           [--exists]
+                           [--interval]
+                           [--subscription]
+                           [--timeout]
+                           [--updated]
+  requiredParameters:
+  - isRequired: true
+    name: --name -n
+    summary: Der Name des Such Dienstanbieter.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  optionalParameters:
+  - name: --created
+    summary: Warten Sie, bis "provisioningstate" bei "erfolgreich" erstellt wurde.
+    description: ''
+  - name: --custom
+    summary: "Warten Sie, bis die Bedingung eine benutzerdefinierte jmespath-Abfrage erfüllt. Beispiel: provisioningstate! = ' InProgress ', instanceview. statuses [? Code = = ' PowerState/Running ']."
+    description: ''
+  - name: --deleted
+    summary: Warten Sie bis zum Löschen.
+    description: ''
+  - name: --exists
+    summary: Warten Sie, bis die Ressource vorhanden ist.
+    description: ''
+  - name: --interval
+    defaultValue: "30"
+    summary: Abruf Intervall in Sekunden.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  - name: --timeout
+    defaultValue: "3600"
+    summary: Maximale Wartezeit in Sekunden.
+    description: ''
+  - name: --updated
+    summary: Warten Sie, bis das Update mit provisioningstate bei "erfolgreich" abgeschlossen ist.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/search/_help.py
 commands:
 - az_search_service_create
 - az_search_service_delete
 - az_search_service_list
 - az_search_service_show
 - az_search_service_update
+- az_search_service_wait
 globalParameters:
 - name: --debug
   summary: Ausführlichkeit der Protokollierung erhöhen, um alle Debugprotokolle anzuzeigen.
@@ -211,11 +272,11 @@ globalParameters:
   summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
 metadata:
   doc_source_url_repo: https://github.com/Azure/azure-cli/blob/dev/
-  ms.date: 02/02/2021
+  ms.date: 04/01/2021
   description: Verwalten Sie Azure Search Dienste.
-  ms.openlocfilehash: 3c9f77709ba2ec424ffe32411082d2a3ba5d9eae
-  ms.sourcegitcommit: f9e23f29c59c6957d3df4d5ca2f4425093e6fd80
+  ms.openlocfilehash: 8e3308994052b7a8182ee3c37af2ab93fc1c8606
+  ms.sourcegitcommit: 612554c029ba1f28d3a43fd22e743104a1a30ea0
   ms.translationtype: MT
   ms.contentlocale: de-DE
-  ms.lasthandoff: 03/16/2021
-  ms.locfileid: "103540202"
+  ms.lasthandoff: 04/07/2021
+  ms.locfileid: "106843189"
