@@ -1,0 +1,352 @@
+### YamlMime:AzureCLIGroup
+uid: az_sentinel_alert-rule
+name: az sentinel alert-rule
+extensionInformation: >-
+  > [!Note]
+
+  > Dieser Verweis ist Teil der **Sentinel** -Erweiterung für Azure CLI und erfordert Version 2.11.0 oder höher.  Die Erweiterung wird automatisch installiert, wenn Sie den Befehl **AZ Sentinel Alert-Rule** zum ersten Mal ausführen.  [Weitere Informationen zu Erweiterungen](https://docs.microsoft.com/en-us/cli/azure/azure-cli-extensions-overview)
+summary: Sentinel-Warnungs Regel.
+description: ''
+directCommands:
+- uid: az_sentinel_alert-rule_create
+  name: az sentinel alert-rule create
+  summary: Erstellt oder aktualisiert die Aktion der Warnungs Regel. Und erstellen Sie die Warnungs Regel.
+  description: ''
+  syntax: >-
+    az sentinel alert-rule create --resource-group
+                                  --rule-id
+                                  --workspace-name
+                                  [--action-id]
+                                  [--etag]
+                                  [--fusion-alert-rule]
+                                  [--logic-app-resource-id]
+                                  [--microsoft-security-incident-creation-alert-rule]
+                                  [--scheduled-alert-rule]
+                                  [--trigger-uri]
+  examples:
+  - summary: Erstellt oder aktualisiert eine Aktion der Warnungs Regel.
+    syntax: az sentinel alert-rule create --etag "{etag}" --logic-app-resource-id "/subscriptions/{subs}/resourceGroups/myRg/providers/Microsoft.Logic/workflows/MyAlerts" --trigger-uri "https://xxx.northcentralus.logic.azure.com:443/workflows/xxx/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=signature" --action-id "{action-id}" --resource-group "myRg" --rule-id "{rule-id}" --workspace-name "myWorkspace"
+  - summary: Erstellt oder aktualisiert eine Fusion-Warnungs Regel.
+    syntax: az sentinel alert-rule create --fusion-alert-rule etag="{etag}" alert-rule-template-name="{name}" enabled=true --resource-group "myRg" --rule-id "myFirstFusionRule" --workspace-name "myWorkspace"
+  - summary: Erstellt oder aktualisiert eine microsoftsecurityincidentcreation-Regel.
+    syntax: az sentinel alert-rule create --microsoft-security-incident-creation-alert-rule etag="{etag}" product-filter="Microsoft Cloud App Security" display-name="testing displayname" enabled=true --resource-group "myRg" --rule-id "microsoftSecurityIncidentCreationRuleExample" --workspace-name "myWorkspace"
+  - summary: Erstellt oder aktualisiert eine geplante Warnungs Regel.
+    syntax: az sentinel alert-rule create --scheduled-alert-rule etag="{etag}" query="ProtectionStatus | extend HostCustomEntity = Computer | extend IPCustomEntity = ComputerIP_Hidden" query-frequency="PT1H" query-period="P2DT1H30M" severity="High" trigger-operator="GreaterThan" trigger-threshold=0 description="" display-name="Rule2" enabled=true suppression-duration="PT1H" suppression-enabled=false tactics="Persistence" tactics="LateralMovement" --resource-group "myRg" --rule-id "{rule-id}" --workspace-name "myWorkspace"
+  requiredParameters:
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - isRequired: true
+    name: --rule-id
+    summary: Benachrichtigungs Regel-ID.
+    description: ''
+  - isRequired: true
+    name: --workspace-name
+    summary: Den Namen des Arbeitsbereichs
+    description: ''
+  optionalParameters:
+  - name: --action-id
+    summary: Aktions-ID.
+    description: ''
+  - name: --etag
+    summary: ETag der Azure-Ressource.
+    description: ''
+  - name: --fusion-alert-rule
+    summary: Stellt eine Fusions Benachrichtigungs Regel dar.
+    description: >-
+      Syntax:--Fusion-Alert-Rule Alert-Rule-Template-Name = XX aktiviert = XX Kind = XX ETag = XX
+
+
+      Alert-Rule-Template-Name: der Name der Warnungs Regel Vorlage, die verwendet wird, um diese Regel zu erstellen.
+
+      aktiviert: bestimmt, ob diese Warnungs Regel aktiviert oder deaktiviert ist.
+
+      Kind: erforderlich. Der Warnungs Regeltyp ETag: ETag der Azure-Ressource.
+  - name: --logic-app-resource-id
+    summary: Logik-App-Ressourcen-ID,/Subscriptions/{My-Subscription}/resourceGroups/{My-Resource-Group}/Providers/Microsoft.Logic/Workflows/{My-Workflow-ID}.
+    description: ''
+  - name: --microsoft-security-incident-creation-alert-rule
+    summary: Stellt die microsoftsecurityincidentcreation-Regel dar.
+    description: >-
+      Verwendung:--Microsoft-Security-Incident-Creation-Alert-Rule Display-Names-Filter = XX Display-Names-Exclude-Filter = XX Product-Filter = XX Schweregrade-Filter = XX Alert-Rule-Template-Name = XX Description = XX Display-Name = XX aktivierte = XX Kind = XX ETag = XX
+
+
+      Anzeige-Names-Filter: die anzeigen amen der Warnungen, auf denen die Fälle generiert werden anzeigen-Names-Exclude-Filter: die Anzeige Namen der Warnungen, auf denen die Fälle nicht generiert werden, sind Product-Filter: die Warnungen "ProductName", für die die Fälle generiert werden, Schweregrade: Filter: die Schweregrade der Warnungen, für die die Fälle generiert werden: Alert-Rule-Template-Name: der Name der Warnungs Regel Vorlage, die zum Erstellen dieser Regel verwendet wird.
+
+      Beschreibung: die Beschreibung der Warnungs Regel.
+
+      Display-Name: der Anzeige Name für Warnungen, die von dieser Warnungs Regel erstellt werden.
+
+      aktiviert: bestimmt, ob diese Warnungs Regel aktiviert oder deaktiviert ist.
+
+      Kind: erforderlich. Der Warnungs Regeltyp ETag: ETag der Azure-Ressource.
+  - name: --scheduled-alert-rule
+    summary: Stellt die geplante Warnungs Regel dar.
+    description: >-
+      Syntax:--scheduled-Alert-Rule Query = XX Query-Frequency = XX Query-period = XX Schweregrad = XX-Operator = XX,-Schwellenwert = XX Alert-Rule-Template-Name = XX Description = XX Display-Name = XX aktivierte = XX Unterdrückungs Dauer = XX Unterdrückungs fähig = XX Taktiken = XX Kind = XX ETag = XX
+
+
+      Abfrage: die Abfrage, mit der Warnungen für diese Regel erstellt werden.
+
+      Abfrage Häufigkeit: die Häufigkeit (im Format ISO 8601 Duration), mit der diese Warnungs Regel ausgeführt wird.
+
+      Query-period: der Zeitraum (im Format der ISO 8601-Dauer), der von dieser Warnungs Regel untersucht wird.
+
+      Schweregrad: der Schweregrad für Warnungen, die von dieser Warnungs Regel erstellt werden.
+
+      Trigger-Operator: der Vorgang für den Schwellenwert, der die Warnungs Regel auslöst.
+
+      Trigger-Schwellenwert: der Schwellenwert löst diese Warnungs Regel aus.
+
+      Alert-Rule-Template-Name: der Name der Warnungs Regel Vorlage, die verwendet wird, um diese Regel zu erstellen.
+
+      Beschreibung: die Beschreibung der Warnungs Regel.
+
+      Display-Name: der Anzeige Name für Warnungen, die von dieser Warnungs Regel erstellt werden.
+
+      aktiviert: bestimmt, ob diese Warnungs Regel aktiviert oder deaktiviert ist.
+
+      Unterdrückungs Dauer: die Unterdrückung (im Format ISO 8601 Duration), die seit der letzten Auslösung der Warnungs Regel gewartet werden soll.
+
+      Unterdrückungs fähig: legt fest, ob die Unterdrückung für diese Warnungs Regel aktiviert oder deaktiviert ist.
+
+      Taktiken: die Taktiken der Art der Warnungs Regel: erforderlich. Der Warnungs Regeltyp ETag: ETag der Azure-Ressource.
+  - name: --trigger-uri
+    summary: Rückruf-URL der Logik-App für diesen bestimmten Workflow.
+    description: ''
+- uid: az_sentinel_alert-rule_delete
+  name: az sentinel alert-rule delete
+  summary: Löschen Sie die Aktion der Warnungs Regel. Und löschen Sie die Warnungs Regel.
+  description: ''
+  syntax: >-
+    az sentinel alert-rule delete --resource-group
+                                  --rule-id
+                                  --workspace-name
+                                  [--action-id]
+                                  [--yes]
+  examples:
+  - summary: Löscht eine Aktion der Warnungs Regel.
+    syntax: az sentinel alert-rule delete --action-id "{action-id}" --resource-group "myRg" --rule-id "{rule-id}" --workspace-name "myWorkspace"
+  - summary: Löschen Sie eine Warnungs Regel.
+    syntax: az sentinel alert-rule delete --resource-group "myRg" --rule-id "{rule-id}" --workspace-name "myWorkspace"
+  requiredParameters:
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - isRequired: true
+    name: --rule-id
+    summary: Benachrichtigungs Regel-ID.
+    description: ''
+  - isRequired: true
+    name: --workspace-name
+    summary: Den Namen des Arbeitsbereichs
+    description: ''
+  optionalParameters:
+  - name: --action-id
+    summary: Aktions-ID.
+    description: ''
+  - name: --yes -y
+    summary: Nicht zur Bestätigung auffordern
+    description: ''
+- uid: az_sentinel_alert-rule_get-action
+  name: az sentinel alert-rule get-action
+  summary: Ruft die Aktion der Warnungs Regel ab.
+  description: ''
+  syntax: >-
+    az sentinel alert-rule get-action --action-id
+                                      --resource-group
+                                      --rule-id
+                                      --workspace-name
+  examples:
+  - summary: Hier erhalten Sie eine Aktion der Warnungs Regel.
+    syntax: az sentinel alert-rule get-action --action-id "{action-id}" --resource-group "myRg" --rule-id "{rule-id}" --workspace-name "myWorkspace"
+  requiredParameters:
+  - isRequired: true
+    name: --action-id
+    summary: Aktions-ID.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - isRequired: true
+    name: --rule-id
+    summary: Benachrichtigungs Regel-ID.
+    description: ''
+  - isRequired: true
+    name: --workspace-name
+    summary: Den Namen des Arbeitsbereichs
+    description: ''
+- uid: az_sentinel_alert-rule_list
+  name: az sentinel alert-rule list
+  summary: Ruft alle Warnungs Regeln ab.
+  description: ''
+  syntax: >-
+    az sentinel alert-rule list --resource-group
+                                --workspace-name
+  examples:
+  - summary: Ruft alle Warnungsregeln ab.
+    syntax: az sentinel alert-rule list --resource-group "myRg" --workspace-name "myWorkspace"
+  requiredParameters:
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - isRequired: true
+    name: --workspace-name
+    summary: Den Namen des Arbeitsbereichs
+    description: ''
+- uid: az_sentinel_alert-rule_show
+  name: az sentinel alert-rule show
+  summary: Ruft die Warnungs Regel ab.
+  description: ''
+  syntax: >-
+    az sentinel alert-rule show --resource-group
+                                --rule-id
+                                --workspace-name
+  examples:
+  - summary: Eine Warnungs Regel erhalten.
+    syntax: az sentinel alert-rule show --resource-group "myRg" --rule-id "myFirstFusionRule" --workspace-name "myWorkspace"
+  requiredParameters:
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - isRequired: true
+    name: --rule-id
+    summary: Benachrichtigungs Regel-ID.
+    description: ''
+  - isRequired: true
+    name: --workspace-name
+    summary: Den Namen des Arbeitsbereichs
+    description: ''
+- uid: az_sentinel_alert-rule_update
+  name: az sentinel alert-rule update
+  summary: Aktualisieren Sie die Warnungs Regel.
+  description: ''
+  syntax: >-
+    az sentinel alert-rule update --resource-group
+                                  --rule-id
+                                  --workspace-name
+                                  [--add]
+                                  [--force-string]
+                                  [--fusion-alert-rule]
+                                  [--microsoft-security-incident-creation-alert-rule]
+                                  [--remove]
+                                  [--scheduled-alert-rule]
+                                  [--set]
+  requiredParameters:
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - isRequired: true
+    name: --rule-id
+    summary: Benachrichtigungs Regel-ID.
+    description: ''
+  - isRequired: true
+    name: --workspace-name
+    summary: Den Namen des Arbeitsbereichs
+    description: ''
+  optionalParameters:
+  - name: --add
+    summary: Fügen Sie einer Liste von-Objekten ein Objekt hinzu, indem Sie ein Pfad-und Schlüssel-Wert-Paar angeben.  Beispiel:--Add Property. ListProperty <Key = Value, String oder JSON String>.
+    description: ''
+  - name: --force-string
+    summary: Wenn Sie "Set" oder "Add" verwenden, erhalten Sie Zeichen folgen Literale, anstatt zu versuchen, in JSON zu konvertieren.
+    description: ''
+  - name: --fusion-alert-rule
+    summary: Stellt eine Fusions Benachrichtigungs Regel dar.
+    description: >-
+      Syntax:--Fusion-Alert-Rule Alert-Rule-Template-Name = XX aktiviert = XX Kind = XX ETag = XX
+
+
+      Alert-Rule-Template-Name: der Name der Warnungs Regel Vorlage, die verwendet wird, um diese Regel zu erstellen.
+
+      aktiviert: bestimmt, ob diese Warnungs Regel aktiviert oder deaktiviert ist.
+
+      Kind: erforderlich. Der Warnungs Regeltyp ETag: ETag der Azure-Ressource.
+  - name: --microsoft-security-incident-creation-alert-rule
+    summary: Stellt die microsoftsecurityincidentcreation-Regel dar.
+    description: >-
+      Verwendung:--Microsoft-Security-Incident-Creation-Alert-Rule Display-Names-Filter = XX Display-Names-Exclude-Filter = XX Product-Filter = XX Schweregrade-Filter = XX Alert-Rule-Template-Name = XX Description = XX Display-Name = XX aktivierte = XX Kind = XX ETag = XX
+
+
+      Anzeige-Names-Filter: die anzeigen amen der Warnungen, auf denen die Fälle generiert werden anzeigen-Names-Exclude-Filter: die Anzeige Namen der Warnungen, auf denen die Fälle nicht generiert werden, sind Product-Filter: die Warnungen "ProductName", für die die Fälle generiert werden, Schweregrade: Filter: die Schweregrade der Warnungen, für die die Fälle generiert werden: Alert-Rule-Template-Name: der Name der Warnungs Regel Vorlage, die zum Erstellen dieser Regel verwendet wird.
+
+      Beschreibung: die Beschreibung der Warnungs Regel.
+
+      Display-Name: der Anzeige Name für Warnungen, die von dieser Warnungs Regel erstellt werden.
+
+      aktiviert: bestimmt, ob diese Warnungs Regel aktiviert oder deaktiviert ist.
+
+      Kind: erforderlich. Der Warnungs Regeltyp ETag: ETag der Azure-Ressource.
+  - name: --remove
+    summary: Entfernt eine Eigenschaft oder ein Element aus einer Liste.  Beispiel:--Remove Property. List <indexToRemove> oder--Remove propertytoremove.
+    description: ''
+  - name: --scheduled-alert-rule
+    summary: Stellt die geplante Warnungs Regel dar.
+    description: >-
+      Syntax:--scheduled-Alert-Rule Query = XX Query-Frequency = XX Query-period = XX Schweregrad = XX-Operator = XX,-Schwellenwert = XX Alert-Rule-Template-Name = XX Description = XX Display-Name = XX aktivierte = XX Unterdrückungs Dauer = XX Unterdrückungs fähig = XX Taktiken = XX Kind = XX ETag = XX
+
+
+      Abfrage: die Abfrage, mit der Warnungen für diese Regel erstellt werden.
+
+      Abfrage Häufigkeit: die Häufigkeit (im Format ISO 8601 Duration), mit der diese Warnungs Regel ausgeführt wird.
+
+      Query-period: der Zeitraum (im Format der ISO 8601-Dauer), der von dieser Warnungs Regel untersucht wird.
+
+      Schweregrad: der Schweregrad für Warnungen, die von dieser Warnungs Regel erstellt werden.
+
+      Trigger-Operator: der Vorgang für den Schwellenwert, der die Warnungs Regel auslöst.
+
+      Trigger-Schwellenwert: der Schwellenwert löst diese Warnungs Regel aus.
+
+      Alert-Rule-Template-Name: der Name der Warnungs Regel Vorlage, die verwendet wird, um diese Regel zu erstellen.
+
+      Beschreibung: die Beschreibung der Warnungs Regel.
+
+      Display-Name: der Anzeige Name für Warnungen, die von dieser Warnungs Regel erstellt werden.
+
+      aktiviert: bestimmt, ob diese Warnungs Regel aktiviert oder deaktiviert ist.
+
+      Unterdrückungs Dauer: die Unterdrückung (im Format ISO 8601 Duration), die seit der letzten Auslösung der Warnungs Regel gewartet werden soll.
+
+      Unterdrückungs fähig: legt fest, ob die Unterdrückung für diese Warnungs Regel aktiviert oder deaktiviert ist.
+
+      Taktiken: die Taktiken der Art der Warnungs Regel: erforderlich. Der Warnungs Regeltyp ETag: ETag der Azure-Ressource.
+  - name: --set
+    summary: Aktualisieren Sie ein Objekt, indem Sie einen Eigenschafts Pfad und einen festzulegenden Wert angeben.  Beispiel:--Set Eigenschaft1. Eigenschaft2 =<value>.
+    description: ''
+commands:
+- az_sentinel_alert-rule_create
+- az_sentinel_alert-rule_delete
+- az_sentinel_alert-rule_get-action
+- az_sentinel_alert-rule_list
+- az_sentinel_alert-rule_show
+- az_sentinel_alert-rule_update
+globalParameters:
+- name: --debug
+  summary: Ausführlichkeit der Protokollierung erhöhen, um alle Debugprotokolle anzuzeigen.
+- name: --help -h
+  summary: Zeigen Sie diese Hilfemeldung an, und schließen Sie sie.
+- name: --only-show-errors
+  summary: Nur Fehler anzeigen und Warnungen unterdrücken.
+- name: --output -o
+  defaultValue: json
+  parameterValueGroup: json, jsonc, table, tsv
+  summary: Ausgabeformat.
+- name: --query
+  summary: JMESPath-Abfragezeichenfolge. Weitere Informationen und Beispiele finden Sie unter <a href="http://jmespath.org/">http://jmespath.org/</a>.
+- name: --verbose
+  summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
+metadata:
+  description: Sentinel-Warnungs Regel.
+  ms.openlocfilehash: 405a1f1f111b962d4201a7f0440ce3638c8d4eea
+  ms.sourcegitcommit: 612554c029ba1f28d3a43fd22e743104a1a30ea0
+  ms.translationtype: MT
+  ms.contentlocale: de-DE
+  ms.lasthandoff: 04/07/2021
+  ms.locfileid: "106939589"
