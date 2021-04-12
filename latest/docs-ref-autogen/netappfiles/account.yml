@@ -172,6 +172,41 @@ directCommands:
     summary: Durch Leerzeichen getrennte Tags im- `key[=value]` Format.
     description: ''
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/netappfiles/_help.py
+- uid: az_netappfiles_account_set
+  name: az netappfiles account set
+  summary: Legt die Tags oder die Active Directory-Details für ein angegebenes ANF-Konto fest. Legt die Active Directory-Eigenschaft auf genau den bereitgestellten Wert fest. Wenn keine Angabe erfolgt, wird das Active Directory entfernt, d. h., es wird ein leeres [] bereitgestellt.
+  description: ''
+  syntax: >-
+    az netappfiles account set --account-name
+                               --location
+                               --resource-group
+                               [--active-directories]
+                               [--tags]
+  examples:
+  - summary: Aktualisieren der Tags und des Active Directory-Kontos eines ANF-Kontos
+    syntax: "az netappfiles account set -g group --account-name name --tags 'key[=value] key[=value]' --active-directories '[{\"username\": \"aduser\", \"password\": \"aduser\", \"smbservername\": \"SMBSERVER\", \"dns\": \"1.2.3.4\", \"domain\": \"westcentralus\"}]' -l westus2"
+  - summary: Entfernen von Active Directory aus dem ANF-Konto
+    syntax: az netappfiles account set -g group --account-name name --active-directories '[]' -l westus2
+  requiredParameters:
+  - isRequired: true
+    name: --account-name -a -n
+    summary: Der Name des ANF-Kontos.
+    description: ''
+  - isRequired: true
+    name: --location -l
+    summary: 'Der Standort. Werte aus: `az account list-locations`. Sie können den standardmäßig verwendeten Standort mit `az configure --defaults location=<location>` konfigurieren.'
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  optionalParameters:
+  - name: --active-directories
+    summary: Ein Array von Active Directory-Einstellungen (AD) im JSON-Format. Beschränkung für ein Ad/Abonnement. Besteht aus den Feldern username (username of Active Directory Domain Administrator), Password (Plain Text Password of Active Directory Domain Administrator), Domäne (Name der Active Directory Domäne), DNS (durch Trennzeichen getrennte Liste der IP-Adressen des DNS-Servers für die Active Directory Domäne) smb_server_name (NetBIOS-Name des SMB-Servers). Dieser Name wird als Computer Konto in der AD-Registrierung registriert und zum Einbinden von Volumes verwendet. Muss höchstens 10 Zeichen umfassen), organizational_unit (Organisationseinheit (OE) innerhalb des Windows Active Directory).
+    description: ''
+  - name: --tags
+    summary: Eine Liste von durch Leerzeichen getrennten Tags, die auf das Konto angewendet werden sollen.
+    description: ''
 commands:
 - az_netappfiles_account_ad
 - az_netappfiles_account_ad_add
@@ -181,17 +216,18 @@ commands:
 - az_netappfiles_account_backup_delete
 - az_netappfiles_account_backup_list
 - az_netappfiles_account_backup_show
-- az_netappfiles_account_backup_policy
-- az_netappfiles_account_backup_policy_create
-- az_netappfiles_account_backup_policy_delete
-- az_netappfiles_account_backup_policy_list
-- az_netappfiles_account_backup_policy_show
-- az_netappfiles_account_backup_policy_update
+- az_netappfiles_account_backup-policy
+- az_netappfiles_account_backup-policy_create
+- az_netappfiles_account_backup-policy_delete
+- az_netappfiles_account_backup-policy_list
+- az_netappfiles_account_backup-policy_show
+- az_netappfiles_account_backup-policy_update
 - az_netappfiles_account_create
 - az_netappfiles_account_delete
 - az_netappfiles_account_list
 - az_netappfiles_account_show
 - az_netappfiles_account_update
+- az_netappfiles_account_set
 globalParameters:
 - name: --debug
   summary: Ausführlichkeit der Protokollierung erhöhen, um alle Debugprotokolle anzuzeigen.
@@ -209,11 +245,11 @@ globalParameters:
   summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
 metadata:
   doc_source_url_repo: https://github.com/Azure/azure-cli/blob/dev/
-  ms.date: 03/10/2021
+  ms.date: 03/26/2021
   description: Verwalten Sie Azure NetApp Files (ANF)-Konto Ressourcen.
-  ms.openlocfilehash: 52ff9b686e20f5bf1d37f7922d06f8de3f7609ad
-  ms.sourcegitcommit: 936ec07eb1c56e24d8000cc24a2a0e05102e0cf4
+  ms.openlocfilehash: 53f43171d6f398fb408732fa2d2b834d38cb9b1a
+  ms.sourcegitcommit: 612554c029ba1f28d3a43fd22e743104a1a30ea0
   ms.translationtype: MT
   ms.contentlocale: de-DE
-  ms.lasthandoff: 03/23/2021
-  ms.locfileid: "104931908"
+  ms.lasthandoff: 04/07/2021
+  ms.locfileid: "106809580"
