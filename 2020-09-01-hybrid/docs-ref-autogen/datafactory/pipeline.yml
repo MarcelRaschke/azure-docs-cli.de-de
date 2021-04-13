@@ -1,0 +1,279 @@
+### YamlMime:AzureCLIGroup
+uid: az_datafactory_pipeline
+name: az datafactory pipeline
+extensionInformation: >-
+  > [!Note]
+
+  > Dieser Verweis ist Teil der **DataFactory** -Erweiterung für Azure CLI und erfordert Version 2.11.0 oder höher.  Die Erweiterung wird automatisch installiert, wenn Sie den Befehl **AZ DataFactory Pipeline** zum ersten Mal ausführen.  [Weitere Informationen zu Erweiterungen](https://docs.microsoft.com/en-us/cli/azure/azure-cli-extensions-overview)
+summary: DataFactory-Pipeline.
+description: ''
+directCommands:
+- uid: az_datafactory_pipeline_create
+  name: az datafactory pipeline create
+  summary: Erstellt oder aktualisiert eine Pipeline.
+  description: ''
+  syntax: >-
+    az datafactory pipeline create --factory-name
+                                   --name
+                                   --pipeline
+                                   --resource-group
+                                   [--if-match]
+  examples:
+  - summary: Pipelines_Create
+    syntax: az datafactory pipeline create --factory-name "exampleFactoryName" --pipeline "{\"activities\":[{\"name\":\"ExampleForeachActivity\",\"type\":\"ForEach\",\"typeProperties\":{\"activities\":[{\"name\":\"ExampleCopyActivity\",\"type\":\"Copy\",\"inputs\":[{\"type\":\"DatasetReference\",\"parameters\":{\"MyFileName\":\"examplecontainer.csv\",\"MyFolderPath\":\"examplecontainer\"},\"referenceName\":\"exampleDataset\"}],\"outputs\":[{\"type\":\"DatasetReference\",\"parameters\":{\"MyFileName\":{\"type\":\"Expression\",\"value\":\"@item()\"},\"MyFolderPath\":\"examplecontainer\"},\"referenceName\":\"exampleDataset\"}],\"typeProperties\":{\"dataIntegrationUnits\":32,\"sink\":{\"type\":\"BlobSink\"},\"source\":{\"type\":\"BlobSource\"}}}],\"isSequential\":true,\"items\":{\"type\":\"Expression\",\"value\":\"@pipeline().parameters.OutputBlobNameList\"}}}],\"parameters\":{\"JobId\":{\"type\":\"String\"},\"OutputBlobNameList\":{\"type\":\"Array\"}},\"variables\":{\"TestVariableArray\":{\"type\":\"Array\"}},\"runDimensions\":{\"JobId\":{\"type\":\"Expression\",\"value\":\"@pipeline().parameters.JobId\"}}}" --name "examplePipeline" --resource-group "exampleResourceGroup"
+  requiredParameters:
+  - isRequired: true
+    name: --factory-name
+    summary: Der Name der Factory.
+    description: ''
+  - isRequired: true
+    name: --name --pipeline-name -n
+    summary: Der Name der Pipeline.
+    description: ''
+  - isRequired: true
+    name: --pipeline
+    summary: 'Pipeline Ressourcendefinition. Erwarteter Wert: json-string/@json-file .'
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  optionalParameters:
+  - name: --if-match
+    summary: ETag der Pipeline Entität.  Sollte nur für das Update angegeben werden, für das eine Entsprechung für eine vorhandene Entität vorhanden sein muss, oder \* für eine bedingungslose Aktualisierung.
+    description: ''
+- uid: az_datafactory_pipeline_create-run
+  name: az datafactory pipeline create-run
+  summary: Erstellt eine Pipeline ausführen.
+  description: ''
+  syntax: >-
+    az datafactory pipeline create-run --factory-name
+                                       --name
+                                       --resource-group
+                                       [--is-recovery {false, true}]
+                                       [--parameters]
+                                       [--reference-pipeline-run-id]
+                                       [--start-activity-name]
+                                       [--start-from-failure {false, true}]
+  examples:
+  - summary: Pipelines_CreateRun
+    syntax: az datafactory pipeline create-run --factory-name "exampleFactoryName" --parameters "{\"OutputBlobNameList\":[\"exampleoutput.csv\"]}" --name "examplePipeline" --resource-group "exampleResourceGroup"
+  requiredParameters:
+  - isRequired: true
+    name: --factory-name
+    summary: Der Name der Factory.
+    description: ''
+  - isRequired: true
+    name: --name --pipeline-name -n
+    summary: Der Name der Pipeline.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  optionalParameters:
+  - name: --is-recovery
+    parameterValueGroup: false, true
+    summary: Wiederherstellungmodusflag. Wenn der Wiederherstellungs Modus auf true festgelegt ist, wird die angegebene Pipeline, auf die verwiesen wird, und der neue Testlauf unter derselben GroupID gruppiert.
+    description: ''
+  - name: --parameters
+    summary: 'Parameter der Pipeline ausgeführt. Diese Parameter werden nur verwendet, wenn RunId nicht angegeben ist. Erwarteter Wert: json-string/@json-file .'
+    description: ''
+  - name: --reference-pipeline-run-id
+    summary: Der Bezeichner der Pipeline Führung. Wenn Run ID angegeben wird, werden die Parameter der angegebenen Testlauf verwendet, um einen neuen Testlauf zu erstellen.
+    description: ''
+  - name: --start-activity-name
+    summary: Im Wiederherstellungs Modus wird die erneute Ausführung von dieser Aktivität gestartet. Wenn nicht angegeben, werden alle Aktivitäten ausgeführt.
+    description: ''
+  - name: --start-from-failure
+    parameterValueGroup: false, true
+    summary: Im Wiederherstellungs Modus wird die erneute Ausführung bei fehlgeschlagenen Aktivitäten gestartet, wenn Sie auf "true" festgelegt ist. Die-Eigenschaft wird nur verwendet, wenn startactivityname nicht angegeben ist.
+    description: ''
+- uid: az_datafactory_pipeline_delete
+  name: az datafactory pipeline delete
+  summary: Löscht eine Pipeline.
+  description: ''
+  syntax: >-
+    az datafactory pipeline delete --factory-name
+                                   --name
+                                   --resource-group
+                                   [--yes]
+  examples:
+  - summary: Pipelines_Delete
+    syntax: az datafactory pipeline delete --factory-name "exampleFactoryName" --name "examplePipeline" --resource-group "exampleResourceGroup"
+  requiredParameters:
+  - isRequired: true
+    name: --factory-name
+    summary: Der Name der Factory.
+    description: ''
+  - isRequired: true
+    name: --name --pipeline-name -n
+    summary: Der Name der Pipeline.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  optionalParameters:
+  - name: --yes -y
+    summary: Nicht zur Bestätigung auffordern
+    description: ''
+- uid: az_datafactory_pipeline_list
+  name: az datafactory pipeline list
+  summary: Listet Pipelines auf.
+  description: ''
+  syntax: >-
+    az datafactory pipeline list --factory-name
+                                 --resource-group
+  examples:
+  - summary: Pipelines_ListByFactory
+    syntax: az datafactory pipeline list --factory-name "exampleFactoryName" --resource-group "exampleResourceGroup"
+  requiredParameters:
+  - isRequired: true
+    name: --factory-name
+    summary: Der Name der Factory.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+- uid: az_datafactory_pipeline_show
+  name: az datafactory pipeline show
+  summary: Ruft eine Pipeline ab.
+  description: ''
+  syntax: >-
+    az datafactory pipeline show --factory-name
+                                 --name
+                                 --resource-group
+                                 [--if-none-match]
+  examples:
+  - summary: Pipelines_Get
+    syntax: az datafactory pipeline show --factory-name "exampleFactoryName" --name "examplePipeline" --resource-group "exampleResourceGroup"
+  requiredParameters:
+  - isRequired: true
+    name: --factory-name
+    summary: Der Name der Factory.
+    description: ''
+  - isRequired: true
+    name: --name --pipeline-name -n
+    summary: Der Name der Pipeline.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  optionalParameters:
+  - name: --if-none-match
+    summary: ETag der Pipeline Entität. Sollte nur für Get angegeben werden. Wenn das ETag mit dem vorhandenen Entitätstag übereinstimmt oder wenn \* angegeben wurde, wird kein Inhalt zurückgegeben.
+    description: ''
+- uid: az_datafactory_pipeline_update
+  name: az datafactory pipeline update
+  summary: Erstellt oder aktualisiert eine Pipeline.
+  description: ''
+  syntax: >-
+    az datafactory pipeline update --factory-name
+                                   --name
+                                   --resource-group
+                                   [--activities]
+                                   [--add]
+                                   [--annotations]
+                                   [--concurrency]
+                                   [--description]
+                                   [--folder-name]
+                                   [--force-string]
+                                   [--if-match]
+                                   [--if-none-match]
+                                   [--parameters]
+                                   [--remove]
+                                   [--run-dimensions]
+                                   [--set]
+                                   [--variables]
+  examples:
+  - summary: Pipelines_Update
+    syntax: az datafactory pipeline update --factory-name "exampleFactoryName" --description "Example description" --activities "[{\"name\":\"ExampleForeachActivity\",\"type\":\"ForEach\",\"typeProperties\":{\"activities\":[{\"name\":\"ExampleCopyActivity\",\"type\":\"Copy\",\"inputs\":[{\"type\":\"DatasetReference\",\"parameters\":{\"MyFileName\":\"examplecontainer.csv\",\"MyFolderPath\":\"examplecontainer\"},\"referenceName\":\"exampleDataset\"}],\"outputs\":[{\"type\":\"DatasetReference\",\"parameters\":{\"MyFileName\":{\"type\":\"Expression\",\"value\":\"@item()\"},\"MyFolderPath\":\"examplecontainer\"},\"referenceName\":\"exampleDataset\"}],\"typeProperties\":{\"dataIntegrationUnits\":32,\"sink\":{\"type\":\"BlobSink\"},\"source\":{\"type\":\"BlobSource\"}}}],\"isSequential\":true,\"items\":{\"type\":\"Expression\",\"value\":\"@pipeline().parameters.OutputBlobNameList\"}}}]" --parameters "{\"OutputBlobNameList\":{\"type\":\"Array\"}}" --name "examplePipeline" --resource-group "exampleResourceGroup"
+  requiredParameters:
+  - isRequired: true
+    name: --factory-name
+    summary: Der Name der Factory.
+    description: ''
+  - isRequired: true
+    name: --name --pipeline-name -n
+    summary: Der Name der Pipeline.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  optionalParameters:
+  - name: --activities
+    summary: 'Liste der Aktivitäten in der Pipeline. Erwarteter Wert: json-string/@json-file .'
+    description: ''
+  - name: --add
+    summary: Fügen Sie einer Liste von-Objekten ein Objekt hinzu, indem Sie ein Pfad-und Schlüssel-Wert-Paar angeben.  Beispiel:--Add Property. ListProperty <Key = Value, String oder JSON String>.
+    description: ''
+  - name: --annotations
+    summary: 'Liste der Tags, die zum Beschreiben der Pipeline verwendet werden können. Erwarteter Wert: json-string/@json-file .'
+    description: ''
+  - name: --concurrency
+    summary: Die maximale Anzahl gleichzeitiger Ausführungen für die Pipeline.
+    description: ''
+  - name: --description
+    summary: Die Beschreibung der Pipeline.
+    description: ''
+  - name: --folder-name
+    summary: Der Name des Ordners, in dem sich diese Pipeline befindet.
+    description: ''
+  - name: --force-string
+    summary: Wenn Sie "Set" oder "Add" verwenden, erhalten Sie Zeichen folgen Literale, anstatt zu versuchen, in JSON zu konvertieren.
+    description: ''
+  - name: --if-match
+    summary: ETag der Pipeline Entität.  Sollte nur für das Update angegeben werden, für das eine Entsprechung für eine vorhandene Entität vorhanden sein muss, oder \* für eine bedingungslose Aktualisierung.
+    description: ''
+  - name: --if-none-match
+    summary: ETag der Pipeline Entität. Sollte nur für Get angegeben werden. Wenn das ETag mit dem vorhandenen Entitätstag übereinstimmt oder wenn \* angegeben wurde, wird kein Inhalt zurückgegeben.
+    description: ''
+  - name: --parameters
+    summary: 'Liste der Parameter für die Pipeline. Erwarteter Wert: json-string/@json-file .'
+    description: ''
+  - name: --remove
+    summary: Entfernt eine Eigenschaft oder ein Element aus einer Liste.  Beispiel:--Remove Property. List <indexToRemove> oder--Remove propertytoremove.
+    description: ''
+  - name: --run-dimensions
+    summary: 'Von der Pipeline ausgegebene Dimensionen. Erwarteter Wert: json-string/@json-file .'
+    description: ''
+  - name: --set
+    summary: Aktualisieren Sie ein Objekt, indem Sie einen Eigenschafts Pfad und einen festzulegenden Wert angeben.  Beispiel:--Set Eigenschaft1. Eigenschaft2 =<value>.
+    description: ''
+  - name: --variables
+    summary: 'Die Liste der Variablen für die Pipeline. Erwarteter Wert: json-string/@json-file .'
+    description: ''
+commands:
+- az_datafactory_pipeline_create
+- az_datafactory_pipeline_create-run
+- az_datafactory_pipeline_delete
+- az_datafactory_pipeline_list
+- az_datafactory_pipeline_show
+- az_datafactory_pipeline_update
+globalParameters:
+- name: --debug
+  summary: Ausführlichkeit der Protokollierung erhöhen, um alle Debugprotokolle anzuzeigen.
+- name: --help -h
+  summary: Zeigen Sie diese Hilfemeldung an, und schließen Sie sie.
+- name: --only-show-errors
+  summary: Nur Fehler anzeigen und Warnungen unterdrücken.
+- name: --output -o
+  defaultValue: json
+  parameterValueGroup: json, jsonc, table, tsv
+  summary: Ausgabeformat.
+- name: --query
+  summary: JMESPath-Abfragezeichenfolge. Weitere Informationen und Beispiele finden Sie unter <a href="http://jmespath.org/">http://jmespath.org/</a>.
+- name: --verbose
+  summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
+metadata:
+  description: DataFactory-Pipeline.
+  ms.openlocfilehash: 3132f752f48b6285ec063fdc6a3d573172174448
+  ms.sourcegitcommit: 612554c029ba1f28d3a43fd22e743104a1a30ea0
+  ms.translationtype: MT
+  ms.contentlocale: de-DE
+  ms.lasthandoff: 04/07/2021
+  ms.locfileid: "106930439"
