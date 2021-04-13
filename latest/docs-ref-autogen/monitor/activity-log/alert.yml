@@ -1,13 +1,13 @@
 ### YamlMime:AzureCLIGroup
-uid: az_monitor_activity_log_alert
+uid: az_monitor_activity-log_alert
 name: az monitor activity-log alert
-summary: Verwalten von Aktivitätsprotokoll Warnungen.
+summary: Verwalten von Aktivitätsprotokollwarnungen.
 description: ''
 directCommands:
-- uid: az_monitor_activity_log_alert_create
+- uid: az_monitor_activity-log_alert_create
   name: az monitor activity-log alert create
-  summary: Erstellen Sie eine standardmäßige Aktivitätsprotokoll Warnung.
-  description: Mit diesem Befehl wird ein Standard Aktivitätsprotokoll mit einer Bedingung erstellt, die vergleicht, ob das Feld "Category" der Aktivitäts Protokolle "ServiceHealth" entspricht. Der neu erstellten Aktivitätsprotokoll Warnung sind keine Aktionsgruppen angefügt.
+  summary: Erstellen Sie eine Standardwarnung für das Aktivitätsprotokoll.
+  description: Dieser Befehl erstellt ein Standardaktivitätsprotokoll mit einer Bedingung, die vergleicht, ob das Feld "category" der Aktivitätsprotokolle "ServiceHealth" entspricht. An die neu erstellte Aktivitätsprotokollwarnung sind keine Aktionsgruppen angefügt.
   syntax: >-
     az monitor activity-log alert create --name
                                          --resource-group
@@ -22,11 +22,11 @@ directCommands:
   examples:
   - summary: Erstellen Sie eine Warnung mit Standardeinstellungen.
     syntax: az monitor activity-log alert create -n {AlertName} -g {ResourceGroup}
-  - summary: Erstellen Sie eine Warnung mit einer Bedingung bezüglich des Dienst Integritäts Protokolls auf Fehler Ebene.
+  - summary: Erstellen Sie eine Warnung mit einer Bedingung zum Integritätsprotokoll des Diensts auf Fehlerebene.
     syntax: >-
       az monitor activity-log alert create -n {AlertName} -g {ResourceGroup} \
         --condition category=ServiceHealth and level=Error
-  - summary: Erstellen Sie eine Warnung mit einer Aktionsgruppe, und geben Sie die webhook-Eigenschaften an.
+  - summary: Erstellen Sie eine Warnung mit einer Aktionsgruppe, und geben Sie Webhookeigenschaften an.
     syntax: >-
       az monitor activity-log alert create -n {AlertName} -g {ResourceGroup} \
         -a /subscriptions/{SubID}/resourceGroups/{ResourceGroup}/providers/microsoft.insights/actionGroups/{ActionGroup} \
@@ -36,7 +36,7 @@ directCommands:
   requiredParameters:
   - isRequired: true
     name: --name -n
-    summary: Der Name der Aktivitätsprotokoll Warnungen.
+    summary: Name der Aktivitätsprotokollwarnungen.
     description: ''
   - isRequired: true
     name: --resource-group -g
@@ -44,33 +44,33 @@ directCommands:
     description: ''
   optionalParameters:
   - name: --action-group -a
-    summary: Fügen Sie eine Aktionsgruppe hinzu. Akzeptiert durch Leerzeichen getrennte Aktionsgruppen Bezeichner. Der Bezeichner kann der Name der Aktionsgruppe oder die zugehörige Ressourcen-ID sein.
+    summary: Fügen Sie eine Aktionsgruppe hinzu. Akzeptiert durch Leerzeichen getrennte Aktionsgruppenbezeichner. Der Bezeichner kann der Name der Aktionsgruppe oder ihre Ressourcen-ID sein.
     description: ''
   - name: --condition -c
-    summary: Die Bedingung, die bewirkt, dass die Warnung aktiviert wird. Das Format ist Field = Value [und Field = Value...].
-    description: Mögliche Werte für das Feld sind "ResourceId", "Category", "Caller", "Level", "OperationName", "ResourceGroup", "resourceprovider", "Status", "substatus", "ResourceType" oder alles, was mit "Properties." beginnt.
+    summary: Die Bedingung, die bewirkt, dass die Warnung aktiviert wird. Das Format ist FIELD=VALUE[ und FIELD=VALUE...].
+    description: Die möglichen Werte für das Feld sind "resourceId", "category", "caller", "level", "operationName", "resourceGroup", "resourceProvider", "status", "subStatus", "resourceType" oder etwas, das mit "properties" beginnt.
   - name: --description
-    summary: Eine Beschreibung dieser Aktivitätsprotokoll Warnung.
+    summary: Eine Beschreibung dieser Aktivitätsprotokollwarnung.
     description: ''
   - name: --disable
-    summary: Deaktivieren Sie die Aktivitätsprotokoll Warnung, nachdem Sie erstellt wurde.
+    summary: Deaktivieren Sie die Aktivitätsprotokollwarnung, nachdem sie erstellt wurde.
     description: ''
   - name: --scope -s
-    summary: Eine Liste von Zeichen folgen, die als Präfixe verwendet werden.
-    description: Die Warnung gilt nur für Aktivitäts Protokolle mit resourceids, die unter einem dieser Präfixe liegen. Wenn nicht angegeben, wird der Pfad zur Ressourcengruppe verwendet.
+    summary: Eine Liste von Zeichenfolgen, die als Präfixe verwendet werden.
+    description: Die Warnung gilt nur für Aktivitätsprotokolle mit ResourceIDs, die unter eines dieser Präfixe fallen. Wenn kein Pfad angegeben wird, wird der Pfad zur Ressourcengruppe verwendet.
   - name: --subscription
-    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
     description: ''
   - name: --tags
-    summary: 'Durch Leerzeichen getrennte Tags: Key [= value] [key [= value]...]. Verwenden Sie "", um vorhandene Tags zu löschen.'
+    summary: 'Durch Leerzeichen getrennte Tags: key[=value] [key[=value] ...]. Verwenden Sie "", um vorhandene Tags zu löschen.'
     description: ''
   - name: --webhook-properties -w
-    summary: Durch Leerzeichen getrennte webhook-Eigenschaften im Format "Key [= value]". Diese Eigenschaften sind den in diesem Befehl hinzugefügten Aktionsgruppen zugeordnet.
-    description: Für jeden webhook-Empfänger in dieser Aktionsgruppe werden diese Daten an die webhook-Nutzlast angefügt. Fügen Sie die Aktionsgruppen in separaten Update-Action-Befehlen hinzu, um verschiedene webhook-Eigenschaften an verschiedene Aktionsgruppen anzufügen.
+    summary: Durch Leerzeichen getrennte Webhookeigenschaften im Format "key[=value]". Diese Eigenschaften sind den Aktionsgruppen zugeordnet, die in diesem Befehl hinzugefügt wurden.
+    description: Für jeden Webhookempfänger in dieser Aktionsgruppe werden diese Daten an die Webhooknutzlast angefügt. Um verschiedene Webhookeigenschaften an verschiedene Aktionsgruppen anfügen zu können, fügen Sie die Aktionsgruppen in separaten Updateaktionsbefehlen hinzu.
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/monitor/_help.py
-- uid: az_monitor_activity_log_alert_delete
+- uid: az_monitor_activity-log_alert_delete
   name: az monitor activity-log alert delete
-  summary: Hiermit wird eine Aktivitätsprotokoll Warnung gelöscht.
+  summary: Löscht eine Aktivitätsprotokollwarnung.
   description: ''
   syntax: >-
     az monitor activity-log alert delete [--ids]
@@ -79,21 +79,21 @@ directCommands:
                                          [--subscription]
   optionalParameters:
   - name: --ids
-    summary: Mindestens eine Ressourcen-ID (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID handeln, die alle Informationen von Ressourcen-ID-Argumenten enthält. Sie sollten entweder--IDs oder andere Ressourcen-ID-Argumente angeben.
+    summary: Eine oder mehrere Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu Ressourcen-ID-Argumenten geben. Sie sollten entweder --ids oder andere Ressourcen-ID-Argumente bereitstellen.
     description: ''
   - name: --name -n
-    summary: Der Name der Aktivitätsprotokoll Warnung.
+    summary: Der Name der Aktivitätsprotokollwarnung.
     description: ''
   - name: --resource-group -g
     summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
     description: ''
   - name: --subscription
-    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
     description: ''
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/monitor/_help.py
-- uid: az_monitor_activity_log_alert_list
+- uid: az_monitor_activity-log_alert_list
   name: az monitor activity-log alert list
-  summary: Listet Aktivitätsprotokoll Warnungen unter einer Ressourcengruppe oder dem aktuellen Abonnement auf.
+  summary: Listen Sie Aktivitätsprotokollwarnungen unter einer Ressourcengruppe oder dem aktuellen Abonnement auf.
   description: ''
   syntax: >-
     az monitor activity-log alert list [--query-examples]
@@ -101,18 +101,18 @@ directCommands:
                                        [--subscription]
   optionalParameters:
   - name: --query-examples
-    summary: Empfehlen Sie die jmespath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und Sie nach dem Abfrage Parameter in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positions Schlüsselwörter hinzufügen, um Vorschläge auf der Grundlage dieser Schlüsselwörter zu geben.
+    summary: Empfehlen Sie die JMESPath-Zeichenfolge. Sie können eine der Abfragen kopieren und nach dem Parameter --query in doppelte Anführungszeichen einfügen, um die Ergebnisse zu sehen. Sie können ein oder mehrere Positionsschlüsselwörter hinzufügen, damit wir basierend auf diesen Schlüsselwörtern Vorschläge machen können.
     description: ''
   - name: --resource-group -g
-    summary: Der Name der Ressourcengruppe, in der die Aktivitätsprotokoll Warnungen aufgeführt werden. Wenn Sie weggelassen wird, werden alle Aktivitätsprotokoll Warnungen unter dem aktuellen Abonnement aufgelistet.
+    summary: Name der Ressourcengruppe, unter der die Aktivitätsprotokollwarnungen aufgelistet werden. Wenn sie weggelassen wird, werden alle Aktivitätsprotokollwarnungen unter dem aktuellen Abonnement aufgeführt.
     description: ''
   - name: --subscription
-    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
     description: ''
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/monitor/_help.py
-- uid: az_monitor_activity_log_alert_show
+- uid: az_monitor_activity-log_alert_show
   name: az monitor activity-log alert show
-  summary: Eine Aktivitätsprotokoll Warnung erhalten.
+  summary: Hier erhalten Sie eine Aktivitätsprotokollwarnung.
   description: ''
   syntax: >-
     az monitor activity-log alert show [--ids]
@@ -122,24 +122,24 @@ directCommands:
                                        [--subscription]
   optionalParameters:
   - name: --ids
-    summary: Mindestens eine Ressourcen-ID (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID handeln, die alle Informationen von Ressourcen-ID-Argumenten enthält. Sie sollten entweder--IDs oder andere Ressourcen-ID-Argumente angeben.
+    summary: Eine oder mehrere Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu Ressourcen-ID-Argumenten geben. Sie sollten entweder --ids oder andere Ressourcen-ID-Argumente bereitstellen.
     description: ''
   - name: --name -n
-    summary: Der Name der Aktivitätsprotokoll Warnung.
+    summary: Der Name der Aktivitätsprotokollwarnung.
     description: ''
   - name: --query-examples
-    summary: Empfehlen Sie die jmespath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und Sie nach dem Abfrage Parameter in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positions Schlüsselwörter hinzufügen, um Vorschläge auf der Grundlage dieser Schlüsselwörter zu geben.
+    summary: Empfehlen Sie die JMESPath-Zeichenfolge. Sie können eine der Abfragen kopieren und nach dem Parameter --query in doppelte Anführungszeichen einfügen, um die Ergebnisse zu sehen. Sie können ein oder mehrere Positionsschlüsselwörter hinzufügen, damit wir basierend auf diesen Schlüsselwörtern Vorschläge machen können.
     description: ''
   - name: --resource-group -g
     summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
     description: ''
   - name: --subscription
-    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
     description: ''
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/monitor/_help.py
-- uid: az_monitor_activity_log_alert_update
+- uid: az_monitor_activity-log_alert_update
   name: az monitor activity-log alert update
-  summary: Aktualisieren Sie die Details dieser Aktivitätsprotokoll Warnung.
+  summary: Aktualisieren Sie die Details dieser Aktivitätsprotokollwarnung.
   description: ''
   syntax: >-
     az monitor activity-log alert update [--add]
@@ -161,61 +161,61 @@ directCommands:
         --condition category=ServiceHealth and level=Error
   - summary: Deaktivieren einer Warnung
     syntax: az monitor activity-log alert update -n {AlertName} -g {ResourceGroup} --enable false
-  - summary: Details dieser Aktivitätsprotokoll Warnung aktualisieren (automatisch generiert)
+  - summary: Aktualisieren der Details dieser Aktivitätsprotokollwarnung (automatisch generiert)
     syntax: az monitor activity-log alert update --enabled true --name MyActivityLogAlerts --resource-group MyResourceGroup --subscription MySubscription
-  - summary: Aktualisieren Sie die Details dieser Aktivitätsprotokoll Warnung. automatisch generierten
+  - summary: Aktualisieren Sie die Details dieser Aktivitätsprotokollwarnung. (automatisch generiert)
     syntax: az monitor activity-log alert update --name MyActivityLogAlerts --resource-group MyResourceGroup --tags key=value
   optionalParameters:
   - name: --add
-    summary: Fügen Sie einer Liste von-Objekten ein Objekt hinzu, indem Sie ein Pfad-und Schlüssel-Wert-Paar angeben.  Beispiel:--Add Property. ListProperty <Key = Value, String oder JSON String>.
+    summary: 'Fügen Sie einer Liste von -Objekten ein -Objekt hinzu, indem Sie ein Pfad- und Schlüsselwertpaar angeben.  Beispiel: --add property.listProperty <key=value, string oder JSON string>.'
     description: ''
   - name: --condition -c
-    summary: Der bedingte Ausdruck, der bewirkt, dass die Warnung aktiviert wird. Das Format ist Field = Value [und Field = Value...].
-    description: Mögliche Werte für das Feld sind "ResourceId", "Category", "Caller", "Level", "OperationName", "ResourceGroup", "resourceprovider", "Status", "substatus", "ResourceType" oder alles, was mit "Properties." beginnt.
+    summary: Der bedingte Ausdruck, der die Aktivierung der Warnung verursacht. Das Format ist FIELD=VALUE[ und FIELD=VALUE...].
+    description: Die möglichen Werte für das Feld sind "resourceId", "category", "caller", "level", "operationName", "resourceGroup", "resourceProvider", "status", "subStatus", "resourceType" oder alles, was mit "properties." beginnt.
   - name: --description
-    summary: Eine Beschreibung dieser Aktivitätsprotokoll Warnung.
+    summary: Eine Beschreibung dieser Aktivitätsprotokollwarnung.
     description: ''
   - name: --enabled
     parameterValueGroup: false, true
     summary: ''
     description: ''
   - name: --force-string
-    summary: Wenn Sie "Set" oder "Add" verwenden, erhalten Sie Zeichen folgen Literale, anstatt zu versuchen, in JSON zu konvertieren.
+    summary: Wenn Sie "set" oder "add" verwenden, behalten Sie Zeichenfolgenliterale bei, anstatt zu versuchen, in JSON zu konvertieren.
     description: ''
   - name: --ids
-    summary: Mindestens eine Ressourcen-ID (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID handeln, die alle Informationen von Ressourcen-ID-Argumenten enthält. Sie sollten entweder--IDs oder andere Ressourcen-ID-Argumente angeben.
+    summary: Eine oder mehrere Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu Ressourcen-ID-Argumenten geben. Sie sollten entweder --ids oder andere Ressourcen-ID-Argumente bereitstellen.
     description: ''
   - name: --name -n
-    summary: Der Name der Aktivitätsprotokoll Warnung.
+    summary: Der Name der Aktivitätsprotokollwarnung.
     description: ''
   - name: --remove
-    summary: Entfernt eine Eigenschaft oder ein Element aus einer Liste.  Beispiel:--Remove Property. List <indexToRemove> oder--Remove propertytoremove.
+    summary: 'Entfernen Sie eine Eigenschaft oder ein Element aus einer Liste.  Beispiel: --remove property.list <indexToRemove> OR --remove propertyToRemove.'
     description: ''
   - name: --resource-group -g
     summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
     description: ''
   - name: --set
-    summary: Aktualisieren Sie ein Objekt, indem Sie einen Eigenschafts Pfad und einen festzulegenden Wert angeben.  Beispiel:--Set Eigenschaft1. Eigenschaft2 =<value>.
+    summary: 'Aktualisieren Sie ein -Objekt, indem Sie einen festzulegenden Eigenschaftenpfad und -wert angeben.  Beispiel: --set property1.property2=<value>.'
     description: ''
   - name: --subscription
-    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
     description: ''
   - name: --tags
-    summary: 'Durch Leerzeichen getrennte Tags: Key [= value] [key [= value]...]. Verwenden Sie "", um vorhandene Tags zu löschen.'
+    summary: 'Durch Leerzeichen getrennte Tags: key[=value] [key[=value] ...]. Verwenden Sie "", um vorhandene Tags zu löschen.'
     description: ''
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/monitor/_help.py
 commands:
-- az_monitor_activity_log_alert_action_group
-- az_monitor_activity_log_alert_action_group_add
-- az_monitor_activity_log_alert_action_group_remove
-- az_monitor_activity_log_alert_create
-- az_monitor_activity_log_alert_delete
-- az_monitor_activity_log_alert_list
-- az_monitor_activity_log_alert_scope
-- az_monitor_activity_log_alert_scope_add
-- az_monitor_activity_log_alert_scope_remove
-- az_monitor_activity_log_alert_show
-- az_monitor_activity_log_alert_update
+- az_monitor_activity-log_alert_action-group
+- az_monitor_activity-log_alert_action-group_add
+- az_monitor_activity-log_alert_action-group_remove
+- az_monitor_activity-log_alert_create
+- az_monitor_activity-log_alert_delete
+- az_monitor_activity-log_alert_list
+- az_monitor_activity-log_alert_scope
+- az_monitor_activity-log_alert_scope_add
+- az_monitor_activity-log_alert_scope_remove
+- az_monitor_activity-log_alert_show
+- az_monitor_activity-log_alert_update
 globalParameters:
 - name: --debug
   summary: Ausführlichkeit der Protokollierung erhöhen, um alle Debugprotokolle anzuzeigen.
@@ -233,11 +233,11 @@ globalParameters:
   summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
 metadata:
   doc_source_url_repo: https://github.com/Azure/azure-cli/blob/dev/
-  ms.date: 02/23/2021
-  description: Verwalten von Aktivitätsprotokoll Warnungen.
-  ms.openlocfilehash: 26c474fa75f8fcbe2a87b4e3ee58252689ddfe66
-  ms.sourcegitcommit: f9e23f29c59c6957d3df4d5ca2f4425093e6fd80
+  ms.date: 04/13/2021
+  description: Verwalten von Aktivitätsprotokollwarnungen.
+  ms.openlocfilehash: e1f39acf23946325f186d413610a9360fc0d6acb
+  ms.sourcegitcommit: d01260d847ea835a8bbab0e0db73d1b39f5c18ef
   ms.translationtype: MT
   ms.contentlocale: de-DE
-  ms.lasthandoff: 03/16/2021
-  ms.locfileid: "103501187"
+  ms.lasthandoff: 04/13/2021
+  ms.locfileid: "107347378"
