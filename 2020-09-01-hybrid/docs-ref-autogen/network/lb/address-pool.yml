@@ -1,10 +1,10 @@
 ### YamlMime:AzureCLIGroup
-uid: az_network_lb_address_pool
+uid: az_network_lb_address-pool
 name: az network lb address-pool
-summary: Verwalten von Adress Pools eines Load Balancers.
+summary: Verwalten von Adresspools eines Lastenausgleichs
 description: ''
 directCommands:
-- uid: az_network_lb_address_pool_create
+- uid: az_network_lb_address-pool_create
   name: az network lb address-pool create
   summary: Erstellen Sie einen Adresspool.
   description: ''
@@ -19,18 +19,18 @@ directCommands:
   examples:
   - summary: Erstellen Sie einen Adresspool.
     syntax: az network lb address-pool create -g MyResourceGroup --lb-name MyLb -n MyAddressPool
-  - summary: Erstellen Sie einen Adresspool mit mehreren Back-End-Adressen mithilfe von Schlüssel-Wert-Argumenten.
+  - summary: Erstellen Sie mithilfe von Schlüssel-Wert-Argumenten einen Adresspool mit mehreren Back-End-Adressen.
     syntax: az network lb address-pool create -g MyResourceGroup --lb-name MyLb -n MyAddressPool --vnet {VnetResourceId} --backend-address name=addr1 ip-address=10.0.0.1 --backend-address name=addr2 ip-address=10.0.0.3
-  - summary: Erstellen eines Adress Pools mit mehreren Back-End-Adressen mithilfe der Konfigurationsdatei
+  - summary: Erstellen eines Adresspools mit mehreren Back-End-Adressen mithilfe der Konfigurationsdatei
     syntax: az network lb address-pool create -g MyResourceGroup --lb-name MyLb -n MyAddressPool --backend-addresses-config-file @config_file.json
   requiredParameters:
   - isRequired: true
     name: --lb-name
-    summary: Der Name des Load Balancers.
+    summary: Der Name des Lastenausgleichs.
     description: ''
   - isRequired: true
     name: --name -n
-    summary: Der Name des Back-End-Adress Pools. Wenn nur eine vorhanden ist, lassen Sie aus, um als Standard zu verwenden.
+    summary: Der Name des Back-End-Adresspools. Wenn nur eine vorhanden ist, sollten Sie die Standardeinstellung weglassen.
     description: ''
   - isRequired: true
     name: --resource-group -g
@@ -38,36 +38,36 @@ directCommands:
     description: ''
   optionalParameters:
   - name: --backend-address
-    summary: Informationen zum Back-End-Adresspool Wenn Sie verwendet wird, ist--vnet erforderlich, oder es ist ein Subnetz erforderlich.
+    summary: Back-End-Adresseninformationen für den Back-End-Adresspool. Wenn sie verwendet wird, ist --vnet erforderlich, oder das Subnetz ist erforderlich.
     description: >-
-      Usage1:--Backend-Address Name = addr1 IP-Address = 10.0.0.1--vnet myvnet Usage2:--Backend-Address Name = addr1 IP-Address = 10.0.0.1 Subnet =/Subscriptions/000/resourceGroups/MyRg/Providers/Microsoft.Network/virtualNetworks/vnet/Subnets/subnet1 Usage3:--Backend-Address Name = addr1 IP-Address = 10.0.0.1 Subnet = subnet1--vnet myvnet
+      Usage1: --backend-address name=addr1 ip-address=10.0.0.1 --vnet MyVnet Usage2: --backend-address name=addr1 ip-address=10.0.0.1 subnet=/subscriptions/000/resourceGroups/MyRg/providers/Microsoft.Network/virtualNetworks/vnet/subnets/subnet1 Usage3: --backend-address name=addr1 ip-address=10.0.0.1 subnet=subnet1 --vnet MyVnet
 
 
-      Name: erforderlich. Der Name der Back-End-Adresse.
+      name: Erforderlich. Der Name der Back-End-Adresse.
 
-      IP-Adresse: erforderlich. IP-Adresse innerhalb der Virtual Network.
+      ip-address: Erforderlich. Ip-Adresse innerhalb Virtual Network.
 
-      Subnetz: der Name oder die ID des Subnetzes.
+      subnet: Name oder ID des Subnetzes.
 
 
-      Mehrere Back-End-Adressen können mit mehr als einem `--backend-address` Argument angegeben werden.
+      Mehrere Back-End-Adressen können mit mehreren Argumenten angegeben `--backend-address` werden.
   - name: --backend-addresses-config-file
-    summary: Eine Konfigurationsdatei zum Festlegen von Back-End-Adressen. Dieses Argument ist für erfahrene Benutzer vorgesehen. Wenn die JSON-Datei ungültig ist, treten möglicherweise Analysefehler auf.
+    summary: Eine Konfigurationsdatei, die zum Festlegen von Back-End-Adressen verwendet wird. Dieses Argument ist für erfahrene Benutzer. Wenn die JSON-Datei ungültig ist, können Analysefehler auftreten.
     description: >-
-      Syntax:--Backend-Adressen-config-file @ "{config_file.json}"
+      Verwendung: --backend-addresses-config-file @"{config_file.json}"
 
 
-      Eine Beispielkonfigurationsdatei ist [{"Name": "Address1", "VirtualNetwork": "clitestvnet", "IPAddress": "10.0.0.4"}, {"Name": "Address2", "VirtualNetwork": "/Subscriptions/00000000-0000-0000-0000-000000000000/ResourceGroups/cli_test_lb_address_pool_addresses000001/Providers/Microsoft.Network/virtualnetworks/clitestvnet", "IPAddress": "10.0.0.5"}, {"Name": "address3", "Subnet": "Subnet3", "IPAddress": "10.0.0.6"}, {"Name": "address4", "Subnet": "/Subscriptions/000/resourceGroups/MyRg/Providers/Microsoft.Network/virtualNetworks/vnet/Subnets/subnet4", "IPAddress": "10.0.0.7"}].
+      Eine Beispielkonfigurationsdatei ist [ { "name": "address1", "virtualNetwork": "clitestvnet", "ipAddress": "10.0.0.4" }, { "name": "address2", "virtualNetwork": "/subscriptions/000000000-0000-0000-0000-00000000000/resourceGroups/cli_test_lb_address_pool_addresses000001/providers/Microsoft.Network/virtualNetworks/clitestvnet", "ipAddress": "10.0.0.5" }, { "name": "address3", "subnet": "subnet3", "ipAddress": "10.0.0.6" }, { "name": "address4", "subnet": "/subscriptions/000/resourceGroups/MyRg/providers/Microsoft.Network/virtualNetworks/vnet/subnets/subnet4", "ipAddress": "10.0.0.7" } ].
   - name: --subscription
-    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
     description: ''
   - name: --vnet
     summary: Name oder ID des virtuellen Netzwerks, das auf alle Back-End-Adressen angewendet wird.
     description: ''
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/network/_help.py
-- uid: az_network_lb_address_pool_delete
+- uid: az_network_lb_address-pool_delete
   name: az network lb address-pool delete
-  summary: Löschen Sie einen Adresspool.
+  summary: Löscht einen Adresspool.
   description: ''
   syntax: >-
     az network lb address-pool delete --lb-name
@@ -75,7 +75,7 @@ directCommands:
                                       --resource-group
                                       [--subscription]
   examples:
-  - summary: Löschen Sie einen Adresspool.
+  - summary: Löscht einen Adresspool.
     syntax: az network lb address-pool delete -g MyResourceGroup --lb-name MyLb -n MyAddressPool
   requiredParameters:
   - isRequired: true
@@ -84,7 +84,7 @@ directCommands:
     description: ''
   - isRequired: true
     name: --name -n
-    summary: Der Name des Back-End-Adress Pools.
+    summary: Der Name des Back-End-Adresspools.
     description: ''
   - isRequired: true
     name: --resource-group -g
@@ -92,12 +92,12 @@ directCommands:
     description: ''
   optionalParameters:
   - name: --subscription
-    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
     description: ''
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/network/_help.py
-- uid: az_network_lb_address_pool_list
+- uid: az_network_lb_address-pool_list
   name: az network lb address-pool list
-  summary: Auflisten von Adress Pools.
+  summary: Auflisten von Adresspools.
   description: ''
   syntax: >-
     az network lb address-pool list --lb-name
@@ -105,7 +105,7 @@ directCommands:
                                     [--query-examples]
                                     [--subscription]
   examples:
-  - summary: Auflisten von Adress Pools.
+  - summary: Auflisten von Adresspools.
     syntax: az network lb address-pool list -g MyResourceGroup --lb-name MyLb -o table
   requiredParameters:
   - isRequired: true
@@ -118,15 +118,15 @@ directCommands:
     description: ''
   optionalParameters:
   - name: --query-examples
-    summary: Empfehlen Sie die jmespath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und Sie nach dem Abfrage Parameter in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positions Schlüsselwörter hinzufügen, um Vorschläge auf der Grundlage dieser Schlüsselwörter zu geben.
+    summary: Empfehlen Sie die JMESPath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und sie nach dem Parameter --query in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positionsschlüsselwörter hinzufügen, damit wir basierend auf diesen Schlüsselwörtern Vorschläge geben können.
     description: ''
   - name: --subscription
-    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
     description: ''
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/network/_help.py
-- uid: az_network_lb_address_pool_show
+- uid: az_network_lb_address-pool_show
   name: az network lb address-pool show
-  summary: Sie erhalten die Details eines Adress Pools.
+  summary: Abrufen der Details eines Adresspools.
   description: ''
   syntax: >-
     az network lb address-pool show --lb-name
@@ -135,7 +135,7 @@ directCommands:
                                     [--query-examples]
                                     [--subscription]
   examples:
-  - summary: Sie erhalten die Details eines Adress Pools.
+  - summary: Abrufen der Details eines Adresspools.
     syntax: az network lb address-pool show -g MyResourceGroup --lb-name MyLb -n MyAddressPool
   requiredParameters:
   - isRequired: true
@@ -144,7 +144,7 @@ directCommands:
     description: ''
   - isRequired: true
     name: --name -n
-    summary: Der Name des Back-End-Adress Pools.
+    summary: Der Name des Back-End-Adresspools.
     description: ''
   - isRequired: true
     name: --resource-group -g
@@ -152,21 +152,21 @@ directCommands:
     description: ''
   optionalParameters:
   - name: --query-examples
-    summary: Empfehlen Sie die jmespath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und Sie nach dem Abfrage Parameter in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positions Schlüsselwörter hinzufügen, um Vorschläge auf der Grundlage dieser Schlüsselwörter zu geben.
+    summary: Empfehlen Sie die JMESPath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und sie nach dem Parameter --query in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positionsschlüsselwörter hinzufügen, damit wir basierend auf diesen Schlüsselwörtern Vorschläge geben können.
     description: ''
   - name: --subscription
-    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
     description: ''
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/network/_help.py
 commands:
-- az_network_lb_address_pool_address
-- az_network_lb_address_pool_address_add
-- az_network_lb_address_pool_address_list
-- az_network_lb_address_pool_address_remove
-- az_network_lb_address_pool_create
-- az_network_lb_address_pool_delete
-- az_network_lb_address_pool_list
-- az_network_lb_address_pool_show
+- az_network_lb_address-pool_address
+- az_network_lb_address-pool_address_add
+- az_network_lb_address-pool_address_list
+- az_network_lb_address-pool_address_remove
+- az_network_lb_address-pool_create
+- az_network_lb_address-pool_delete
+- az_network_lb_address-pool_list
+- az_network_lb_address-pool_show
 globalParameters:
 - name: --debug
   summary: Ausführlichkeit der Protokollierung erhöhen, um alle Debugprotokolle anzuzeigen.
@@ -184,11 +184,11 @@ globalParameters:
   summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
 metadata:
   doc_source_url_repo: https://github.com/Azure/azure-cli/blob/dev/
-  ms.date: 03/18/2021
-  description: Verwalten von Adress Pools eines Load Balancers.
-  ms.openlocfilehash: 959d41a5c52042af75579b2a3e70082fe38bdfb6
-  ms.sourcegitcommit: 936ec07eb1c56e24d8000cc24a2a0e05102e0cf4
+  ms.date: 04/12/2021
+  description: Verwalten von Adresspools eines Lastenausgleichs.
+  ms.openlocfilehash: 504922ef161e670bf2a8cba46dbb54517358c8d5
+  ms.sourcegitcommit: d01260d847ea835a8bbab0e0db73d1b39f5c18ef
   ms.translationtype: MT
   ms.contentlocale: de-DE
-  ms.lasthandoff: 03/23/2021
-  ms.locfileid: "104929052"
+  ms.lasthandoff: 04/13/2021
+  ms.locfileid: "107338011"
