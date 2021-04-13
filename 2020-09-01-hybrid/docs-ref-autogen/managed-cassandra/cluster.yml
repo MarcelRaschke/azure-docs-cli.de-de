@@ -26,16 +26,24 @@ directCommands:
                                         [--hours-between-backups]
                                         [--identity]
                                         [--initial-cassandra-admin-password]
+                                        [--no-wait]
                                         [--repair-enabled]
                                         [--restore-from-backup-id]
                                         [--tags]
   examples:
   - summary: Erstellen Sie einen verwalteten Cassandra-Cluster in einem bestimmten Abonnement und einer ResourceGroup. Entweder ist ein Cassandra-Administrator Kennwort oder externe Ausgangswert Anforderungen erforderlich.
     syntax: >-
-      az managed-cassandra cluster create --cluster-name MyCluster --resource-group MyResourceGroup \
-        --location westus2 \
-        --delegated-management-subnet-id /subscriptions/94d9b402-77b4-4049-b4c1-947bc6b7729b/resourceGroups/My-vnet/providers/Microsoft.Network/virtualNetworks/test-vnet/subnets/test-subnet \
-        --initial-cassandra-admin-password password
+      az managed-cassandra cluster create \
+
+      --resource-group MyResourceGroup \
+
+      --cluster-name MyCluster \
+
+      --location MyLocation \
+
+      --initial-cassandra-admin-password password \
+
+      --delegated-management-subnet-id /subscriptions/94d9b402-77b4-4049-b4c1-947bc6b7729b/resourceGroups/My-vnet/providers/Microsoft.Network/virtualNetworks/test-vnet/subnets/test-subnet
   requiredParameters:
   - isRequired: true
     name: --cluster-name -c
@@ -61,7 +69,7 @@ directCommands:
     summary: Die ausgewählte Version von Cassandra.
     description: ''
   - name: --client-certificates
-    summary: Bei Angabe dieser Option wird die Authentifizierung des Client Zertifikats für den Cassandra-API aktiviert.
+    summary: Bei Angabe dieser Option wird die Client Zertifikat Authentifizierung für den Cassandra-API aktiviert.
     description: ''
   - name: --cluster-name-override
     summary: Wenn ein Cluster einen Namen aufweisen muss, bei dem es sich nicht um einen gültigen Azure-Ressourcennamen handelt, kann dieses Feld angegeben werden, um den Namen des Cassandra-Clusters auszuwählen. Andernfalls wird der Ressourcen Name als Cluster Name verwendet.
@@ -73,16 +81,19 @@ directCommands:
     summary: Eine Liste der IP-Adressen der Seed-Knoten von lokalen Rechenzentren.
     description: ''
   - name: --hours-between-backups
-    summary: Aktiviert die automatische Reparatur.
+    summary: Die Anzahl der Stunden zwischen den Sicherungs versuchen.
     description: ''
   - name: --identity
     summary: Identität, die für die Authentifizierung verwendet wird.
     description: ''
   - name: --initial-cassandra-admin-password -i
-    summary: Das Kennwort, das beim Erstellen eines Clusters für authentication_method Cassandra konfiguriert werden soll. Wenn keine Angabe erfolgt, lautet das Kennwort Cassandra.
+    summary: Das Kennwort, das beim Erstellen eines Clusters für authentication_method Cassandra konfiguriert werden soll.
+    description: ''
+  - name: --no-wait
+    summary: Nicht auf den Abschluss lang andauernder Vorgänge warten
     description: ''
   - name: --repair-enabled
-    summary: Die Anzahl der Stunden zwischen den Sicherungs versuchen.
+    summary: Aktiviert die automatische Reparatur.
     description: ''
   - name: --restore-from-backup-id
     summary: Die Ressourcen-ID einer Sicherung. Wenn bei CREATE angegeben, wird die Sicherung verwendet, um den Cluster vorab aufzufüllen. Die Anzahl der Cluster Rechenzentren und die Knoten Anzahl müssen mit der Sicherung identisch sein.
@@ -97,10 +108,11 @@ directCommands:
   syntax: >-
     az managed-cassandra cluster delete --cluster-name
                                         --resource-group
+                                        [--no-wait]
                                         [--yes]
   examples:
   - summary: Löscht einen verwalteten Cassandra-Cluster im angegebenen Abonnement und in der ResourceGroup.
-    syntax: az managed-cassandra cluster delete --cluster-name MyCluster --resource-group MyResourceGroup \
+    syntax: az managed-cassandra cluster delete --resource-group MyResourceGroup --cluster-name MyCluster
   requiredParameters:
   - isRequired: true
     name: --cluster-name -c
@@ -111,33 +123,39 @@ directCommands:
     summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
     description: ''
   optionalParameters:
+  - name: --no-wait
+    summary: Nicht auf den Abschluss lang andauernder Vorgänge warten
+    description: ''
   - name: --yes -y
     summary: Nicht zur Bestätigung auffordern
     description: ''
 - uid: az_managed-cassandra_cluster_list
   name: az managed-cassandra cluster list
-  summary: Wird zum Auflisten der verwalteten Cassandra-Cluster in einer ResourceGroup und einem Abonnement verwendet. Wenn "ResourceGroup" nicht angegeben ist, werden alle Cluster in diesem Abonnement zurückgegeben.
+  summary: Listet die verwalteten Cassandra-Cluster in einer "ResourceGroup" und einem Abonnement auf. Wenn "ResourceGroup" nicht angegeben ist, werden alle Cluster in diesem Abonnement zurückgegeben.
   description: ''
   syntax: az managed-cassandra cluster list [--resource-group]
   examples:
   - summary: Listet alle verwalteten Cassandra-Cluster in einem bestimmten Abonnement und einer ResourceGroup auf.
-    syntax: az managed-cassandra cluster list --resource-group MyResourceGroup \
+    syntax: az managed-cassandra cluster list --resource-group MyResourceGroup
   - summary: Listet alle verwalteten Cassandra-Cluster in einem bestimmten Abonnement auf.
-    syntax: az managed-cassandra cluster list \
+    syntax: az managed-cassandra cluster list
   optionalParameters:
   - name: --resource-group -g
     summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
     description: ''
 - uid: az_managed-cassandra_cluster_node-status
   name: az managed-cassandra cluster node-status
-  summary: Ruft den Status des Cassandra-Cluster Knotens ab.
+  summary: Ruft den Status aller Knoten in allen Rechenzentren eines bestimmten Clusters ab.
   description: ''
   syntax: >-
     az managed-cassandra cluster node-status --cluster-name
                                              --resource-group
+                                             [--no-wait]
   examples:
-  - summary: Der Cassandra-Cluster enthält Daten Center, in denen INTURN Knoten enthält. Mit diesem Befehl wird der Status dieser Knoten abgerufen.
-    syntax: az managed-cassandra cluster node-status --cluster-name MyCluster --resource-group MyResourceGroup \
+  - summary: Mit diesem Befehl wird der Status aller Knoten in diesem Cluster abgerufen. Standardmäßig wird ein JSON-Code zurückgegeben.
+    syntax: az managed-cassandra cluster node-status --resource-group MyResourceGroup --cluster-name MyCluster
+  - summary: Mit diesem Befehl wird der Status aller Knoten in diesem Cluster abgerufen. Wenn eine Tabellenausgabe angegeben ist, wird nur ein Token angezeigt. Verwenden Sie die JSON-Ausgabe, um alle Token zu erhalten.
+    syntax: az managed-cassandra cluster node-status --resource-group MyResourceGroup --cluster-name MyCluster --output table
   requiredParameters:
   - isRequired: true
     name: --cluster-name -c
@@ -146,6 +164,10 @@ directCommands:
   - isRequired: true
     name: --resource-group -g
     summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  optionalParameters:
+  - name: --no-wait
+    summary: Nicht auf den Abschluss lang andauernder Vorgänge warten
     description: ''
 - uid: az_managed-cassandra_cluster_show
   name: az managed-cassandra cluster show
@@ -156,7 +178,7 @@ directCommands:
                                       --resource-group
   examples:
   - summary: Ruft eine verwaltete Cassandra-Cluster Ressource ab. Provisioningstate gibt den Status dieses Clusters an. Wenn der Cluster nicht vorhanden ist, wird eine Antwort vom Typ "NotFound" zurückgegeben.
-    syntax: az managed-cassandra cluster show --cluster-name MyCluster --resource-group MyResourceGroup \
+    syntax: az managed-cassandra cluster show --resource-group MyResourceGroup --cluster-name MyCluster
   requiredParameters:
   - isRequired: true
     name: --cluster-name -c
@@ -168,7 +190,7 @@ directCommands:
     description: ''
 - uid: az_managed-cassandra_cluster_update
   name: az managed-cassandra cluster update
-  summary: Aktualisiert einen verwalteten Azure-Cassandra-Cluster.
+  summary: Aktualisieren Sie einen verwalteten Cassandra-Cluster.
   description: ''
   syntax: >-
     az managed-cassandra cluster update --cluster-name
@@ -176,16 +198,18 @@ directCommands:
                                         [--authentication-method]
                                         [--cassandra-version]
                                         [--client-certificates]
-                                        [--cluster-name-override]
-                                        [--delegated-management-subnet-id]
                                         [--external-gossip-certificates]
                                         [--external-seed-nodes]
                                         [--hours-between-backups]
                                         [--identity]
-                                        [--initial-cassandra-admin-password]
+                                        [--no-wait]
                                         [--repair-enabled]
-                                        [--restore-from-backup-id]
                                         [--tags]
+  examples:
+  - summary: Aktualisiert externe Seed-Knoten eines bestimmten Clusters.
+    syntax: az managed-cassandra cluster update --resource-group MyResourceGroup --cluster-name MyCluster --external-seed-nodes 127.0.0.1 127.0.0.2
+  - summary: Aktualisieren externer Klatsch Zertifikate eines bestimmten Clusters. Zertifikate können als Zeichen folgen oder als Dateispeicher Orte an den Speicherort übermittelt werden.
+    syntax: az managed-cassandra cluster update --resource-group MyResourceGroup --cluster-name MyCluster --external-gossip-certificates C:/MyFolder/test.pem BeginCert-MLXCF-EndCert
   requiredParameters:
   - isRequired: true
     name: --cluster-name -c
@@ -203,13 +227,7 @@ directCommands:
     summary: Die ausgewählte Version von Cassandra.
     description: ''
   - name: --client-certificates
-    summary: Bei Angabe dieser Option wird die Authentifizierung des Client Zertifikats für den Cassandra-API aktiviert.
-    description: ''
-  - name: --cluster-name-override
-    summary: Wenn ein Cluster einen Namen aufweisen muss, bei dem es sich nicht um einen gültigen Azure-Ressourcennamen handelt, kann dieses Feld angegeben werden, um den Namen des Cassandra-Clusters auszuwählen. Andernfalls wird der Ressourcen Name als Cluster Name verwendet.
-    description: ''
-  - name: --delegated-management-subnet-id -s
-    summary: Die Ressourcen-ID eines Subnetzes, in dem die IP-Adresse der Cassandra-Management Server zugeordnet wird. Dieses Subnetz muss über eine Verbindung mit dem delegated_subnet_id Subnetz jedes Rechenzentrums verfügen.
+    summary: Bei Angabe dieser Option wird die Client Zertifikat Authentifizierung für den Cassandra-API aktiviert.
     description: ''
   - name: --external-gossip-certificates -e
     summary: Eine Liste der Zertifikate, die das verwaltete Cassandra-Rechenzentrum akzeptieren soll.
@@ -218,19 +236,16 @@ directCommands:
     summary: Eine Liste der IP-Adressen der Seed-Knoten von lokalen Rechenzentren.
     description: ''
   - name: --hours-between-backups
-    summary: Aktiviert die automatische Reparatur.
+    summary: Die Anzahl der Stunden zwischen den Sicherungs versuchen.
     description: ''
   - name: --identity
     summary: Identität, die für die Authentifizierung verwendet wird.
     description: ''
-  - name: --initial-cassandra-admin-password -i
-    summary: Das Kennwort, das beim Erstellen eines Clusters für authentication_method Cassandra konfiguriert werden soll. Wenn keine Angabe erfolgt, lautet das Kennwort Cassandra.
+  - name: --no-wait
+    summary: Nicht auf den Abschluss lang andauernder Vorgänge warten
     description: ''
   - name: --repair-enabled
-    summary: Die Anzahl der Stunden zwischen den Sicherungs versuchen.
-    description: ''
-  - name: --restore-from-backup-id
-    summary: Die Ressourcen-ID einer Sicherung. Wenn bei CREATE angegeben, wird die Sicherung verwendet, um den Cluster vorab aufzufüllen. Die Anzahl der Cluster Rechenzentren und die Knoten Anzahl müssen mit der Sicherung identisch sein.
+    summary: Aktiviert die automatische Reparatur.
     description: ''
   - name: --tags
     summary: 'Durch Leerzeichen getrennte Tags: Key [= value] [key [= value]...]. Verwenden Sie "", um vorhandene Tags zu löschen.'
@@ -259,9 +274,9 @@ globalParameters:
   summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
 metadata:
   description: Azure Managed Cassandra-Cluster.
-  ms.openlocfilehash: 3d64f1d21fff8fd9bb6520ff529b43eb6f4935ed
-  ms.sourcegitcommit: 612554c029ba1f28d3a43fd22e743104a1a30ea0
+  ms.openlocfilehash: 51abf78b9902ada6d6bf2bab1acffa21ba03ee8d
+  ms.sourcegitcommit: b7481a4363417987865106c343ef8e60c69c9170
   ms.translationtype: MT
   ms.contentlocale: de-DE
-  ms.lasthandoff: 04/07/2021
-  ms.locfileid: "106922656"
+  ms.lasthandoff: 04/09/2021
+  ms.locfileid: "107236594"
