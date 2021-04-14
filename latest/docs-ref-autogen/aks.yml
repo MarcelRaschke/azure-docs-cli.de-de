@@ -43,9 +43,9 @@ directCommands:
     summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
     description: ''
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/acs/_help.py
-- uid: az_aks_check_acr
+- uid: az_aks_check-acr
   name: az aks check-acr
-  summary: Überprüfen Sie, ob ein ACR von einem AKS-Cluster aus zugänglich ist.
+  summary: Überprüfen Sie, ob ein ACR über einen AKS-Cluster zugänglich ist.
   description: ''
   syntax: >-
     az aks check-acr --acr
@@ -110,6 +110,7 @@ directCommands:
                   [--enable-private-cluster]
                   [--enable-rbac]
                   [--enable-sgxquotehelper]
+                  [--fqdn-subdomain]
                   [--generate-ssh-keys]
                   [--kubernetes-version]
                   [--load-balancer-idle-timeout]
@@ -138,6 +139,7 @@ directCommands:
                   [--outbound-type {loadBalancer, userDefinedRouting}]
                   [--pod-cidr]
                   [--ppg]
+                  [--private-dns-zone]
                   [--service-cidr]
                   [--service-principal]
                   [--skip-subnet-role-assignment]
@@ -308,6 +310,9 @@ directCommands:
   - name: --enable-sgxquotehelper
     summary: Aktivieren Sie das Hilfsprogramm für die SGX-Quote für confcom
     description: ''
+  - name: --fqdn-subdomain
+    summary: Ein Präfix für den voll qualifizierten Namen, der für den privaten Cluster mit einem benutzerdefinierten privaten DNS-Zonen Szenario erstellt wird
+    description: ''
   - name: --generate-ssh-keys
     summary: Erstellen der Dateien für öffentliche und private SSH-Schlüssel, sofern diese fehlen. Die Schlüssel werden im ~/.ssh "-Verzeichnis gespeichert.
     description: ''
@@ -384,7 +389,7 @@ directCommands:
     summary: Größe der Virtual Machines, die als Kubernetes-Knoten erstellt werden sollen.
     description: ''
   - name: --nodepool-labels
-    summary: 'Durch Leerzeichen getrennte Bezeichnungen: Key [= value] [key [= value]...]. Die Knoten Bezeichnungen können nach der Erstellung nicht mehr über die CLI geändert werden. Informationen <a href="https://aka.ms/node-labels">https://aka.ms/node-labels</a> zur Syntax von Bezeichnungen finden Sie unter.'
+    summary: 'Durch Leerzeichen getrennte Bezeichnungen: Key [= value] [key [= value]...]. Die Knoten Bezeichnungen können nach der Erstellung nicht mehr über die CLI geändert werden. Informationen https://aka.ms/node-labels zur Syntax von Bezeichnungen finden Sie unter.'
     description: ''
   - name: --nodepool-name
     defaultValue: nodepool1
@@ -403,6 +408,9 @@ directCommands:
   - name: --ppg
     summary: Die ID eines PPG.
     description: ''
+  - name: --private-dns-zone
+    summary: Privater DNS-Zonen Modus für privaten Cluster.
+    description: Zulässige Werte sind "System" oder eine benutzerdefinierte private DNS-Zonen Ressourcen-ID. Wenn nicht festgelegt, wird standardmäßig das Typsystem verwendet. Erfordert, dass "--Enable-private-Cluster" verwendet wird.
   - name: --service-cidr
     summary: IP-Bereich in CIDR-Notation, über den Dienstcluster-IPs zugewiesen werden
     description: 'Dieser Bereich darf sich nicht mit einem Subnetz-IP-Adressbereich überschneiden. Beispiel: 10.0.0.0/16.'
@@ -481,7 +489,7 @@ directCommands:
     summary: Nicht zur Bestätigung auffordern
     description: ''
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/acs/_help.py
-- uid: az_aks_disable_addons
+- uid: az_aks_disable-addons
   name: az aks disable-addons
   summary: Kubernetes-Addons deaktivieren.
   description: ''
@@ -515,7 +523,7 @@ directCommands:
     summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
     description: ''
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/acs/_help.py
-- uid: az_aks_enable_addons
+- uid: az_aks_enable-addons
   name: az aks enable-addons
   summary: Kubernetes-Addons aktivieren.
   description: >-
@@ -594,7 +602,7 @@ directCommands:
     summary: Ressourcen-ID eines vorhandenen Log Analytics-Arbeitsbereichs zum Speichern von Überwachungsdaten
     description: ''
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/acs/_help.py
-- uid: az_aks_get_credentials
+- uid: az_aks_get-credentials
   name: az aks get-credentials
   summary: Abrufen von Zugriffs Anmelde Informationen für einen verwalteten Kubernetes-Cluster.
   description: Standardmäßig werden die Anmelde Informationen in der Datei ". Kube/config" zusammengeführt, damit Sie von kubectl verwendet werden kann.  Weitere Informationen finden Sie unter dem Parameter "-f".
@@ -636,7 +644,7 @@ directCommands:
     summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
     description: ''
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/acs/_help.py
-- uid: az_aks_get_upgrades
+- uid: az_aks_get-upgrades
   name: az aks get-upgrades
   summary: Holen Sie sich die für einen verwalteten Kubernetes-Cluster verfügbaren upgradeversionen.
   description: ''
@@ -661,7 +669,7 @@ directCommands:
     summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
     description: ''
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/acs/_help.py
-- uid: az_aks_get_versions
+- uid: az_aks_get-versions
   name: az aks get-versions
   summary: Hier finden Sie die verfügbaren Versionen zum Erstellen eines verwalteten Kubernetes-Clusters.
   description: ''
@@ -681,7 +689,7 @@ directCommands:
     summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
     description: ''
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/acs/_help.py
-- uid: az_aks_install_cli
+- uid: az_aks_install-cli
   name: az aks install-cli
   summary: Herunterladen und Installieren von kubectl, dem Befehlszeilentool von Kubernetes. Laden Sie kubelogin herunter, und installieren Sie es. dabei handelt es sich um ein Client-go Anmelde Informationen-Plug-in
   description: ''
@@ -739,7 +747,7 @@ directCommands:
     summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
     description: ''
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/acs/_help.py
-- uid: az_aks_remove_dev_spaces
+- uid: az_aks_remove-dev-spaces
   name: az aks remove-dev-spaces
   summary: Entfernen Sie Azure dev Spaces aus einem verwalteten Kubernetes-Cluster.
   description: ''
@@ -770,7 +778,7 @@ directCommands:
     summary: Nicht zur Bestätigung auffordern
     description: ''
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/acs/_help.py
-- uid: az_aks_rotate_certs
+- uid: az_aks_rotate-certs
   name: az aks rotate-certs
   summary: Rotieren von Zertifikaten und Schlüsseln in einem verwalteten Kubernetes-Cluster.
   description: Kubernetes ist während der Cluster Zertifikat Rotation nicht verfügbar.
@@ -1054,7 +1062,7 @@ directCommands:
     summary: Aktivieren Sie einen kostenpflichtigen verwalteten Cluster Dienst mit einer finanziell gesicherten SLA.
     description: ''
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/acs/_help.py
-- uid: az_aks_update_credentials
+- uid: az_aks_update-credentials
   name: az aks update-credentials
   summary: Aktualisieren Sie die Anmelde Informationen für einen verwalteten Kubernetes-Cluster wie den Dienst Prinzipal.
   description: ''
@@ -1163,7 +1171,7 @@ directCommands:
     summary: Nicht zur Bestätigung auffordern
     description: ''
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/acs/_help.py
-- uid: az_aks_use_dev_spaces
+- uid: az_aks_use-dev-spaces
   name: az aks use-dev-spaces
   summary: Verwenden Sie Azure dev Spaces mit einem verwalteten Kubernetes-Cluster.
   description: ''
@@ -1197,7 +1205,7 @@ directCommands:
   - name: --endpoint -e
     defaultValue: Public
     parameterValueGroup: None, Private, Public
-    summary: Der für einen Azure dev Spaces Controller zu verwendende Endpunkttyp. Weitere Informationen finden Sie unter <a href="https://aka.ms/azds-networking">https://aka.ms/azds-networking</a> .
+    summary: Der für einen Azure dev Spaces Controller zu verwendende Endpunkttyp. Weitere Informationen finden Sie unter https://aka.ms/azds-networking.
     description: ''
   - name: --space -s
     summary: Der Name des neuen oder vorhandenen Entwicklungs Raums, der ausgewählt werden soll. Standardmäßig wird eine interaktive Auswahl verwendet.
@@ -1269,38 +1277,133 @@ directCommands:
     summary: Warten Sie, bis das Update mit provisioningstate bei "erfolgreich" abgeschlossen ist.
     description: ''
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/acs/_help.py
+- uid: az_aks_kanalyze
+  name: az aks kanalyze
+  summary: Anzeigen der Diagnoseergebnisse für den Kubernetes-Cluster nach Abschluss der Erstellung
+  description: ''
+  syntax: >-
+    az aks kanalyze --name
+                    --resource-group
+  requiredParameters:
+  - isRequired: true
+    name: --name -n
+    summary: Name des verwalteten Clusters
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+- uid: az_aks_kollect
+  name: az aks kollect
+  summary: Sammeln von Diagnoseinformationen für den Kubernetes-Cluster.
+  description: >-
+    Sammeln Sie Diagnoseinformationen für den Kubernetes-Cluster, und speichern Sie Sie im angegebenen Speicherkonto.
+
+    Sie können das Speicherkonto auf drei Arten bereitstellen: Speicherkonto Name und Shared Access Signature mit Schreib Berechtigung.
+
+    Ressourcen-ID für ein Speicherkonto, das Sie besitzen.
+
+    Das Kapazität-Konto in den Diagnose Einstellungen für Ihren verwalteten Cluster.
+  syntax: >-
+    az aks kollect --name
+                   --resource-group
+                   [--container-logs]
+                   [--kube-objects]
+                   [--node-logs]
+                   [--sas-token]
+                   [--storage-account]
+  examples:
+  - summary: Verwenden des Speicherkonto namens und eines Shared Access Signature-Tokens mit Schreib Berechtigung
+    syntax: az aks kollect -g MyResourceGroup -n MyManagedCluster --storage-account MyStorageAccount --sas-token "MySasToken"
+  - summary: Verwenden der Ressourcen-ID einer Kapazität-Konto Ressource, die Sie besitzen.
+    syntax: az aks kollect -g MyResourceGroup -n MyManagedCluster --storage-account "MyStoreageAccountResourceId"
+  - summary: Verwenden des Kapazität-Kontos in den Diagnose Einstellungen für Ihren verwalteten Cluster.
+    syntax: az aks kollect -g MyResourceGroup -n MyManagedCluster
+  - summary: passen Sie die zu sammelnden Container Protokolle an.
+    syntax: az aks kollect -g MyResourceGroup -n MyManagedCluster --container-logs "mynamespace1/mypod1 myns2"
+  - summary: passen Sie die zu sammelnden kubernetes-Objekte an.
+    syntax: az aks kollect -g MyResourceGroup -n MyManagedCluster --kube-objects "mynamespace1/service myns2/deployment/deployment1"
+  - summary: passen Sie die zu sammelnden Knoten Protokolldateien an.
+    syntax: az aks kollect -g MyResourceGroup -n MyManagedCluster --node-logs "/var/log/azure-vnet.log /var/log/azure-vnet-ipam.log"
+  requiredParameters:
+  - isRequired: true
+    name: --name -n
+    summary: Name des verwalteten Clusters
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  optionalParameters:
+  - name: --container-logs
+    summary: Die Liste der zu sammelnden Container Protokolle.
+    description: Die Liste der zu sammelnden Container Protokolle. Der Wert kann entweder alle Container in einem Namespace sein, z. b. Kube-System, oder ein bestimmter Container in einem Namespace, z. b. Kube-System/tunnelfront.
+  - name: --kube-objects
+    summary: Die Liste der zu beschreibenden kubernetes-Objekte.
+    description: Die Liste der zu beschreibenden kubernetes-Objekte. Der Wert kann entweder alle Objekte eines Typs in einem Namespace sein, z. b. Kube-System/Pod, oder ein bestimmtes Objekt eines Typs in einem Namespace, z. b. Kube-System/Deployment/tunnelfront.
+  - name: --node-logs
+    summary: Die Liste der zu sammelnden Knoten Protokolle. Beispiel:/var/log/Cloud-init.log.
+    description: ''
+  - name: --sas-token
+    summary: Das SAS-Token mit Beschreib barer Berechtigung für das Speicherkonto.
+    description: ''
+  - name: --storage-account
+    summary: Der Name oder die ID des Speicher Kontos, in dem die Diagnoseinformationen gespeichert werden sollen.
+    description: ''
 commands:
 - az_aks_browse
-- az_aks_check_acr
+- az_aks_check-acr
 - az_aks_create
 - az_aks_delete
-- az_aks_disable_addons
-- az_aks_enable_addons
-- az_aks_get_credentials
-- az_aks_get_upgrades
-- az_aks_get_versions
-- az_aks_install_cli
+- az_aks_disable-addons
+- az_aks_enable-addons
+- az_aks_get-credentials
+- az_aks_get-upgrades
+- az_aks_get-versions
+- az_aks_install-cli
 - az_aks_list
 - az_aks_nodepool
 - az_aks_nodepool_add
 - az_aks_nodepool_delete
-- az_aks_nodepool_get_upgrades
+- az_aks_nodepool_get-upgrades
 - az_aks_nodepool_list
 - az_aks_nodepool_scale
 - az_aks_nodepool_show
 - az_aks_nodepool_update
 - az_aks_nodepool_upgrade
-- az_aks_remove_dev_spaces
-- az_aks_rotate_certs
+- az_aks_remove-dev-spaces
+- az_aks_rotate-certs
 - az_aks_scale
 - az_aks_show
 - az_aks_start
 - az_aks_stop
 - az_aks_update
-- az_aks_update_credentials
+- az_aks_update-credentials
 - az_aks_upgrade
-- az_aks_use_dev_spaces
+- az_aks_use-dev-spaces
 - az_aks_wait
+- az_aks_command
+- az_aks_command_invoke
+- az_aks_command_result
+- az_aks_kanalyze
+- az_aks_kollect
+- az_aks_maintenanceconfiguration
+- az_aks_maintenanceconfiguration_add
+- az_aks_maintenanceconfiguration_delete
+- az_aks_maintenanceconfiguration_list
+- az_aks_maintenanceconfiguration_show
+- az_aks_maintenanceconfiguration_update
+- az_aks_pod-identity
+- az_aks_pod-identity_add
+- az_aks_pod-identity_delete
+- az_aks_pod-identity_exception
+- az_aks_pod-identity_exception_add
+- az_aks_pod-identity_exception_delete
+- az_aks_pod-identity_exception_list
+- az_aks_pod-identity_exception_update
+- az_aks_pod-identity_list
+- az_aks_app
+- az_aks_app_up
 globalParameters:
 - name: --debug
   summary: Ausführlichkeit der Protokollierung erhöhen, um alle Debugprotokolle anzuzeigen.
@@ -1318,11 +1421,11 @@ globalParameters:
   summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
 metadata:
   doc_source_url_repo: https://github.com/Azure/azure-cli/blob/dev/
-  ms.date: 03/17/2021
+  ms.date: 04/07/2021
   description: Verwalten Sie Azure Kubernetes Services.
-  ms.openlocfilehash: fc672241c4036c5dc558a0d4529e52f7930d375c
-  ms.sourcegitcommit: 936ec07eb1c56e24d8000cc24a2a0e05102e0cf4
+  ms.openlocfilehash: a64e94a42abfc64f45b91f58caa7540390e0e986
+  ms.sourcegitcommit: b7481a4363417987865106c343ef8e60c69c9170
   ms.translationtype: MT
   ms.contentlocale: de-DE
-  ms.lasthandoff: 03/23/2021
-  ms.locfileid: "104932248"
+  ms.lasthandoff: 04/09/2021
+  ms.locfileid: "107249573"
