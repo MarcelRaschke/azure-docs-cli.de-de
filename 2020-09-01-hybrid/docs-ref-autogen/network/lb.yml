@@ -3,9 +3,9 @@ uid: az_network_lb
 name: az network lb
 summary: Verwalten und Konfigurieren von Lastenausgleichsmodulen
 description: >-
-  [Breaking Change] In der nächsten Version wird das Standardverhalten geändert. Wenn SKU Standard und in Zonen redundanten Regionen ist, werden die Standard Zonen von ' frontendipkonfigurationen ' als ' Zonen: [1, 2, 3] ' anstelle von ' Zones: NULL ' angezeigt.
+  [Anbrechende Breaking Change] In der kommenden Version wird das Standardverhalten geändert. Wenn SKU standard und in zonenredundanten Regionen ist, werden die Standardzonen von "frontendIPConfigurations" als "zones:[1,2,3]" anstelle von "zones:null" angezeigt.
 
-  Weitere Informationen zu Azure Load Balancer besuchen https://docs.microsoft.com/azure/load-balancer/load-balancer-get-started-internet-arm-cli .
+  Weitere Informationen zu Azure Load Balancer Sie https://docs.microsoft.com/azure/load-balancer/load-balancer-get-started-internet-arm-cli unter .
 directCommands:
 - uid: az_network_lb_create
   name: az network lb create
@@ -33,20 +33,20 @@ directCommands:
                          [--vnet-address-prefix]
                          [--vnet-name]
   examples:
-  - summary: Erstellen Sie einen Load Balancer (Basic).
+  - summary: Erstellen Sie einen Load Balancer im Basic-System.
     syntax: az network lb create -g MyResourceGroup -n MyLb --sku Basic
-  - summary: Erstellen Sie ein einfaches Load Balancer in einem bestimmten virtuellen Netzwerk und Subnetz. Wenn ein virtuelles Netzwerk mit demselben Namen in derselben Ressourcengruppe vorhanden ist, verwendet der Load Balancer dieses virtuelle Netzwerk.  Wenn eine neue nicht gefunden wird, wird eine neue erstellt.
+  - summary: Erstellen Sie einen load balancer basic in einem bestimmten virtuellen Netzwerk und Subnetz. Wenn ein virtuelles Netzwerk mit dem gleichen Namen in derselben Ressourcengruppe gefunden wird, verwendet der Lastenausgleich dieses virtuelle Netzwerk.  Wenn keine gefunden wird, wird eine neue erstellt.
     syntax: az network lb create -g MyResourceGroup -n MyLb --sku Basic --vnet-name MyVnet --subnet MySubnet
-  - summary: Erstellen Sie ein einfaches Load Balancer in einem Subnetz eines bereits vorhandenen virtuellen Netzwerks. Das Subnetz kann sich in einer beliebiges-Ressourcengruppe oder einem Abonnement befinden, indem die ID des Subnetzes bereitgestellt wird.
+  - summary: Erstellen Sie einen load balancer basic in einem Subnetz eines bereits vorhandenen virtuellen Netzwerks. Das Subnetz kann sich in einer anderen Ressourcengruppe oder einem Abonnement befinden, indem die ID des Subnetzes zur Verfügung stellt.
     syntax: az network lb create -g MyResourceGroup -n MyLb --sku Basic --subnet {subnetID}
-  - summary: Erstellen Sie durch Bereitstellen einer zonalen öffentlichen IP-Adresse einen grundlegenden internen Load Balancer für die Zone.
+  - summary: Erstellen Sie einen internen Load Balancer mit basislicher Zonenart durch Bereitstellung einer zonalen öffentlichen IP-Adresse.
     syntax: az network lb create -g MyResourceGroup -n MyLb --sku Basic --public-ip-zone 2
-  - summary: Erstellen Sie mithilfe einer Zonen basierten Front-End-IP-Konfiguration und eines vnets einen standardmäßigen öffentlichen Load Balancer, der mit der Zone ausgestattet ist.
+  - summary: Erstellen Sie einen öffentlichen Load Balancer mit Standardzonenkonfiguration, und stellen Sie dabei eine zonale Front-End-IP-Konfiguration und ein VNET zur Verfügung.
     syntax: az network lb create -g MyResourceGroup -n MyLb --sku Standard --frontend-ip-zone 1 --vnet-name MyVnet --subnet MySubnet
   requiredParameters:
   - isRequired: true
     name: --name -n
-    summary: Der Name des Load Balancers.
+    summary: Der Name des Lastenausgleichs.
     description: ''
   - isRequired: true
     name: --resource-group -g
@@ -54,7 +54,7 @@ directCommands:
     description: ''
   optionalParameters:
   - name: --backend-pool-name
-    summary: Der Name des Back-End-Adress Pools.
+    summary: Der Name des Back-End-Adresspools.
     description: ''
   - name: --frontend-ip-name
     defaultValue: LoadBalancerFrontEnd
@@ -62,7 +62,7 @@ directCommands:
     description: ''
   - name: --frontend-ip-zone
     parameterValueGroup: 1, 2, 3
-    summary: Wird zum Erstellen eines internen Load Balancers verwendet.
+    summary: Wird zum Erstellen eines internen Lastenausgleichs verwendet.
     description: ''
   - name: --location -l
     summary: 'Der Standort. Werte aus: `az account list-locations`. Sie können den standardmäßig verwendeten Standort mit `az configure --defaults location=<location>` konfigurieren.'
@@ -71,21 +71,21 @@ directCommands:
     summary: Nicht auf den Abschluss lang andauernder Vorgänge warten
     description: ''
   - name: --private-ip-address
-    summary: Statische private IP-Adresse, die verwendet werden soll.
+    summary: Zu verwendende statische private IP-Adresse.
     description: ''
   - name: --public-ip-address
-    summary: Der Name oder die ID der öffentlichen IP-Adresse oder "" für "None". Verwendet vorhandene Ressource, falls verfügbar, oder erstellt eine neue Ressource mit Standardwerten, wenn Sie nicht ausgelassen wird.
+    summary: Name oder ID der öffentlichen IP-Adresse oder "" für "None". Verwendet eine vorhandene Ressource, falls verfügbar, oder erstellt eine neue Ressource mit Standardwerten, wenn diese nicht angegeben wird.
     description: ''
   - name: --public-ip-address-allocation
     parameterValueGroup: Dynamic, Static
-    summary: IP-Zuordnungs Methode.
+    summary: IP-Zuordnungsmethode.
     description: ''
   - name: --public-ip-dns-name
     summary: Global eindeutiger DNS-Name für eine neue öffentliche IP-Adresse.
     description: ''
   - name: --public-ip-zone
     parameterValueGroup: 1, 2, 3
-    summary: Wird verwendet, um eine neue öffentliche IP-Adresse für den Load Balancer zu erstellen, a. k. einen öffentlichen Load Balancer.
+    summary: Wird verwendet, um eine neue öffentliche IP-Adresse für den Lastenausgleich zu erstellen, d.h. einen öffentlichen Lastenausgleich.
     description: ''
   - name: --sku
     defaultValue: Basic
@@ -93,32 +93,32 @@ directCommands:
     summary: Load Balancer-SKU.
     description: ''
   - name: --subnet
-    summary: Der Name oder die ID eines Subnetzes. Verwendet die vorhandene Ressource oder erstellt bei Angabe von New oder None, wenn keine Angabe erfolgt. Wenn der Name angegeben ist, geben Sie auch--vnet-Name an. Wenn Sie ein vorhandenes Subnetz in einer anderen Ressourcengruppe oder einem anderen Abonnement verwenden möchten, geben Sie die ID anstelle des Namens des Subnetzes an.
+    summary: Name oder ID eines Subnetzes. Verwendet eine vorhandene Ressource oder erstellt neue , falls angegeben, oder keine, wenn sie ausgelassen wird. Geben Sie bei Angabe des Namens auch --vnet-name an. Wenn Sie ein vorhandenes Subnetz in einer anderen Ressourcengruppe oder einem anderen Abonnement verwenden möchten, geben Sie die ID anstelle des Namens des Subnetzes an.
     description: ''
   - name: --subnet-address-prefix
     defaultValue: 10.0.0.0/24
-    summary: Das CIDR-Adress Präfix, das beim Erstellen eines neuen Subnetzes verwendet werden soll.
+    summary: Das CIDR-Adresspräfix, das beim Erstellen eines neuen Subnetzes verwendet werden soll.
     description: ''
   - name: --subscription
-    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
     description: ''
   - name: --tags
-    summary: 'Durch Leerzeichen getrennte Tags: Key [= value] [key [= value]...]. Verwenden Sie "", um vorhandene Tags zu löschen.'
+    summary: 'Durch Leerzeichen getrennte Tags: key[=value] [key[=value] ...]. Verwenden Sie "", um vorhandene Tags zu löschen.'
     description: ''
   - name: --validate
-    summary: Generieren und Validieren der Arm-Vorlage, ohne Ressourcen zu erstellen.
+    summary: Generieren und überprüfen Sie die ARM-Vorlage, ohne Ressourcen zu erstellen.
     description: ''
   - name: --vnet-address-prefix
     defaultValue: 10.0.0.0/16
-    summary: Das CIDR-Adress Präfix, das beim Erstellen eines neuen vnets verwendet werden soll.
+    summary: Das CIDR-Adresspräfix, das beim Erstellen eines neuen VNET verwendet werden soll.
     description: ''
   - name: --vnet-name
-    summary: Der Name des virtuellen Netzwerks (vnet).
+    summary: Der Name des virtuellen Netzwerks (VNET).
     description: ''
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/network/_help.py
 - uid: az_network_lb_delete
   name: az network lb delete
-  summary: Löschen eines Load Balancers.
+  summary: Löschen sie einen Lastenausgleich.
   description: ''
   syntax: >-
     az network lb delete [--ids]
@@ -126,47 +126,47 @@ directCommands:
                          [--resource-group]
                          [--subscription]
   examples:
-  - summary: Löschen eines Load Balancers.
+  - summary: Löschen sie einen Lastenausgleich.
     syntax: az network lb delete -g MyResourceGroup -n MyLb
   optionalParameters:
   - name: --ids
-    summary: Mindestens eine Ressourcen-ID (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID handeln, die alle Informationen von Ressourcen-ID-Argumenten enthält. Sie sollten entweder--IDs oder andere Ressourcen-ID-Argumente angeben.
+    summary: Mindestens eine Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen von "Resource Id"-Argumenten sein. Sie sollten entweder --ids oder andere "Resource Id"-Argumente angeben.
     description: ''
   - name: --name -n
-    summary: Der Name des Load Balancers.
+    summary: Der Name des Lastenausgleichs.
     description: ''
   - name: --resource-group -g
     summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
     description: ''
   - name: --subscription
-    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
     description: ''
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/network/_help.py
 - uid: az_network_lb_list
   name: az network lb list
-  summary: Auflisten von Lasten Ausgleichs Modulen.
+  summary: Auflisten von Load Balancern.
   description: ''
   syntax: >-
     az network lb list [--query-examples]
                        [--resource-group]
                        [--subscription]
   examples:
-  - summary: Auflisten von Lasten Ausgleichs Modulen.
+  - summary: Auflisten von Load Balancern.
     syntax: az network lb list -g MyResourceGroup
   optionalParameters:
   - name: --query-examples
-    summary: Empfehlen Sie die jmespath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und Sie nach dem Abfrage Parameter in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positions Schlüsselwörter hinzufügen, um Vorschläge auf der Grundlage dieser Schlüsselwörter zu geben.
+    summary: Empfehlen Sie die JMESPath-Zeichenfolge. Sie können eine der Abfragen kopieren und nach dem Parameter --query in doppelte Anführungszeichen einfügen, um die Ergebnisse zu sehen. Sie können ein oder mehrere Positionsschlüsselwörter hinzufügen, damit wir basierend auf diesen Schlüsselwörtern Vorschläge machen können.
     description: ''
   - name: --resource-group -g
     summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
     description: ''
   - name: --subscription
-    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
     description: ''
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/network/_help.py
 - uid: az_network_lb_show
   name: az network lb show
-  summary: Hier finden Sie die Details eines Load Balancers.
+  summary: Hier erfahren Sie, wie Sie die Details eines Lastenausgleichs erhalten.
   description: ''
   syntax: >-
     az network lb show [--expand]
@@ -176,32 +176,32 @@ directCommands:
                        [--resource-group]
                        [--subscription]
   examples:
-  - summary: Hier finden Sie die Details eines Load Balancers.
+  - summary: Hier erfahren Sie, wie Sie die Details eines Lastenausgleichs erhalten.
     syntax: az network lb show -g MyResourceGroup -n MyLb
   optionalParameters:
   - name: --expand
     summary: Erweitert referenzierte Ressourcen.
     description: ''
   - name: --ids
-    summary: Mindestens eine Ressourcen-ID (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID handeln, die alle Informationen von Ressourcen-ID-Argumenten enthält. Sie sollten entweder--IDs oder andere Ressourcen-ID-Argumente angeben.
+    summary: Eine oder mehrere Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu Ressourcen-ID-Argumenten geben. Sie sollten entweder --ids oder andere Ressourcen-ID-Argumente bereitstellen.
     description: ''
   - name: --name -n
-    summary: Der Name des Load Balancers.
+    summary: Der Name des Lastenausgleichs.
     description: ''
   - name: --query-examples
-    summary: Empfehlen Sie die jmespath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und Sie nach dem Abfrage Parameter in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positions Schlüsselwörter hinzufügen, um Vorschläge auf der Grundlage dieser Schlüsselwörter zu geben.
+    summary: Empfehlen Sie die JMESPath-Zeichenfolge. Sie können eine der Abfragen kopieren und nach dem Parameter --query in doppelte Anführungszeichen einfügen, um die Ergebnisse zu sehen. Sie können ein oder mehrere Positionsschlüsselwörter hinzufügen, damit wir basierend auf diesen Schlüsselwörtern Vorschläge machen können.
     description: ''
   - name: --resource-group -g
     summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
     description: ''
   - name: --subscription
-    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
     description: ''
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/network/_help.py
 - uid: az_network_lb_update
   name: az network lb update
-  summary: Aktualisieren Sie einen Load Balancer.
-  description: Dieser Befehl kann nur zum Aktualisieren der Tags für einen Load Balancer verwendet werden. Name und Ressourcengruppe sind unveränderlich und können nicht aktualisiert werden.
+  summary: Aktualisieren eines Lastenausgleichs
+  description: Dieser Befehl kann nur verwendet werden, um die Tags für einen Lastenausgleich zu aktualisieren. Name und Ressourcengruppe sind unveränderlich und können nicht aktualisiert werden.
   syntax: >-
     az network lb update [--add]
                          [--force-string]
@@ -212,37 +212,37 @@ directCommands:
                          [--set]
                          [--subscription]
   examples:
-  - summary: Aktualisieren Sie die Tags eines Load Balancers.
+  - summary: Aktualisieren Sie die Tags eines Lastenausgleichs.
     syntax: az network lb update -g MyResourceGroup -n MyLb --set tags.CostCenter=MyBusinessGroup
   optionalParameters:
   - name: --add
-    summary: Fügen Sie einer Liste von-Objekten ein Objekt hinzu, indem Sie ein Pfad-und Schlüssel-Wert-Paar angeben.  Beispiel:--Add Property. ListProperty <Key = Value, String oder JSON String>.
+    summary: 'Fügen Sie einer Liste von -Objekten ein -Objekt hinzu, indem Sie ein Pfad- und Schlüsselwertpaar angeben.  Beispiel: --add property.listProperty <key=value, string oder JSON string>.'
     description: ''
   - name: --force-string
-    summary: Wenn Sie "Set" oder "Add" verwenden, erhalten Sie Zeichen folgen Literale, anstatt zu versuchen, in JSON zu konvertieren.
+    summary: Wenn Sie "set" oder "add" verwenden, behalten Sie Zeichenfolgenliterale bei, anstatt zu versuchen, in JSON zu konvertieren.
     description: ''
   - name: --ids
-    summary: Mindestens eine Ressourcen-ID (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID handeln, die alle Informationen von Ressourcen-ID-Argumenten enthält. Sie sollten entweder--IDs oder andere Ressourcen-ID-Argumente angeben.
+    summary: Mindestens eine Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen von "Resource Id"-Argumenten sein. Sie sollten entweder --ids oder andere "Resource Id"-Argumente angeben.
     description: ''
   - name: --name -n
-    summary: Der Name des Load Balancers.
+    summary: Der Name des Lastenausgleichs.
     description: ''
   - name: --remove
-    summary: Entfernt eine Eigenschaft oder ein Element aus einer Liste.  Beispiel:--Remove Property. List <indexToRemove> oder--Remove propertytoremove.
+    summary: 'Entfernen sie eine Eigenschaft oder ein Element aus einer Liste.  Beispiel: --remove property.list <indexToRemove> OR --remove propertyToRemove.'
     description: ''
   - name: --resource-group -g
     summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
     description: ''
   - name: --set
-    summary: Aktualisieren Sie ein Objekt, indem Sie einen Eigenschafts Pfad und einen festzulegenden Wert angeben.  Beispiel:--Set Eigenschaft1. Eigenschaft2 =<value>.
+    summary: 'Aktualisieren Sie ein -Objekt, indem Sie einen festzulegenden Eigenschaftenpfad und -wert angeben.  Beispiel: --set property1.property2=<value>.'
     description: ''
   - name: --subscription
-    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
     description: ''
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/network/_help.py
 - uid: az_network_lb_wait
   name: az network lb wait
-  summary: Platzieren Sie die CLI in einem Wartezustand, bis eine Bedingung des Load Balancers erfüllt ist.
+  summary: Versetzen Sie die CLI in einen Wartezustand, bis eine Bedingung des Lastenausgleichs erfüllt ist.
   description: ''
   syntax: >-
     az network lb wait [--created]
@@ -258,17 +258,17 @@ directCommands:
                        [--timeout]
                        [--updated]
   examples:
-  - summary: Warten Sie, bis der Load Balancer als erstellt zurückgegeben wurde.
+  - summary: Warten Sie, bis der Lastenausgleich als erstellt zurückgegeben wird.
     syntax: az network lb wait -g MyResourceGroup -n MyLB --created
   optionalParameters:
   - name: --created
-    summary: Warten Sie, bis "provisioningstate" bei "erfolgreich" erstellt wurde.
+    summary: Warten Sie, bis die Erstellung mit "provisioningState" bei "Succeeded" (Erfolgreich) ausgeführt wurde.
     description: ''
   - name: --custom
-    summary: "Warten Sie, bis die Bedingung eine benutzerdefinierte jmespath-Abfrage erfüllt. Beispiel: provisioningstate! = ' InProgress ', instanceview. statuses [? Code = = ' PowerState/Running ']."
+    summary: "Warten Sie, bis die Bedingung eine benutzerdefinierte JMESPath-Abfrage erfüllt. Beispiel: provisioningState!='InProgress', instanceView.statuses[?code=='PowerState/running']."
     description: ''
   - name: --deleted
-    summary: Warten Sie bis zum Löschen.
+    summary: Warten Sie, bis gelöscht wurde.
     description: ''
   - name: --exists
     summary: Warten Sie, bis die Ressource vorhanden ist.
@@ -277,27 +277,27 @@ directCommands:
     summary: Erweitert referenzierte Ressourcen.
     description: ''
   - name: --ids
-    summary: Mindestens eine Ressourcen-ID (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID handeln, die alle Informationen von Ressourcen-ID-Argumenten enthält. Sie sollten entweder--IDs oder andere Ressourcen-ID-Argumente angeben.
+    summary: Eine oder mehrere Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu Ressourcen-ID-Argumenten geben. Sie sollten entweder --ids oder andere Ressourcen-ID-Argumente bereitstellen.
     description: ''
   - name: --interval
     defaultValue: "30"
-    summary: Abruf Intervall in Sekunden.
+    summary: Abrufintervall in Sekunden.
     description: ''
   - name: --name -n
-    summary: Der Name des Load Balancers.
+    summary: Der Name des Lastenausgleichs.
     description: ''
   - name: --resource-group -g
     summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
     description: ''
   - name: --subscription
-    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
     description: ''
   - name: --timeout
     defaultValue: "3600"
     summary: Maximale Wartezeit in Sekunden.
     description: ''
   - name: --updated
-    summary: Warten Sie, bis das Update mit provisioningstate bei "erfolgreich" abgeschlossen ist.
+    summary: Warten Sie, bis provisioningState auf "Succeeded" aktualisiert wurde.
     description: ''
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/network/_help.py
 commands:
@@ -369,14 +369,14 @@ globalParameters:
   summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
 metadata:
   doc_source_url_repo: https://github.com/Azure/azure-cli/blob/dev/
-  ms.date: 04/07/2021
+  ms.date: 04/12/2021
   description: >-
-    [Breaking Change] In der nächsten Version wird das Standardverhalten geändert. Wenn SKU Standard und in Zonen redundanten Regionen ist, werden die Standard Zonen von ' frontendipkonfigurationen ' als ' Zonen: [1, 2, 3] ' anstelle von ' Zones: NULL ' angezeigt.
+    [Anbrechende Breaking Change] In der kommenden Version wird das Standardverhalten geändert. Wenn SKU standard und in zonenredundanten Regionen ist, werden die Standardzonen von "frontendIPConfigurations" als "zones:[1,2,3]" anstelle von "zones:null" angezeigt.
 
-    Weitere Informationen zu Azure Load Balancer besuchen https://docs.microsoft.com/azure/load-balancer/load-balancer-get-started-internet-arm-cli .
-  ms.openlocfilehash: b18cf750fe803308236d6809fc3aa1154eaf3f1e
-  ms.sourcegitcommit: 612554c029ba1f28d3a43fd22e743104a1a30ea0
+    Weitere Informationen zu Azure Load Balancer Sie https://docs.microsoft.com/azure/load-balancer/load-balancer-get-started-internet-arm-cli unter .
+  ms.openlocfilehash: fd2c0aeee3aab81de8460d80f803d4540ce6570a
+  ms.sourcegitcommit: d01260d847ea835a8bbab0e0db73d1b39f5c18ef
   ms.translationtype: MT
   ms.contentlocale: de-DE
-  ms.lasthandoff: 04/07/2021
-  ms.locfileid: "106836338"
+  ms.lasthandoff: 04/13/2021
+  ms.locfileid: "107338028"
