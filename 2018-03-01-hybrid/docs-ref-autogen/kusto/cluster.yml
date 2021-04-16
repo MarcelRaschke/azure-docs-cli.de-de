@@ -1,0 +1,649 @@
+### YamlMime:AzureCLIGroup
+uid: az_kusto_cluster
+name: az kusto cluster
+extensionInformation: >-
+  > [!Note]
+
+  > Dieser Verweis ist Teil der **Kusto** -Erweiterung für Azure CLI und erfordert Version 2.11.0 oder höher.  Die Erweiterung wird automatisch installiert, wenn Sie den Befehl **AZ Kusto Cluster** zum ersten Mal ausführen.  [Weitere Informationen zu Erweiterungen](https://docs.microsoft.com/en-us/cli/azure/azure-cli-extensions-overview)
+summary: Kusto-Cluster.
+description: ''
+directCommands:
+- uid: az_kusto_cluster_add-language-extension
+  name: az kusto cluster add-language-extension
+  summary: Fügen Sie eine Liste von Spracherweiterungen hinzu, die in kql-Abfragen ausgeführt werden können.
+  description: ''
+  syntax: >-
+    az kusto cluster add-language-extension --cluster-name
+                                            --resource-group
+                                            [--no-wait]
+                                            [--value]
+  examples:
+  - summary: Kustoclusteraddlanguageextensions
+    syntax: az kusto cluster add-language-extension --name "kustoclusterrptest4" --value language-extension-name="PYTHON" --value language-extension-name="R" --resource-group "kustorptest"
+  requiredParameters:
+  - isRequired: true
+    name: --cluster-name --name -n
+    summary: Der Name des Kusto-Clusters.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  optionalParameters:
+  - name: --no-wait
+    summary: Nicht auf den Abschluss lang andauernder Vorgänge warten
+    description: ''
+  - name: --value
+    summary: Die Liste der Spracherweiterungen.
+    description: >-
+      Syntax:--Value Language-Extension-Name = XX
+
+
+      Language-Extension-Name: der Name der Spracherweiterung.
+
+
+      Mehrere Aktionen können mit mehr als einem Wert Argument angegeben werden.
+- uid: az_kusto_cluster_create
+  name: az kusto cluster create
+  summary: Erstellen oder aktualisieren Sie einen Kusto-Cluster.
+  description: ''
+  syntax: >-
+    az kusto cluster create --cluster-name
+                            --location
+                            --resource-group
+                            --sku
+                            [--enable-disk-encryption {false, true}]
+                            [--enable-double-encryption {false, true}]
+                            [--enable-purge {false, true}]
+                            [--enable-streaming-ingest {false, true}]
+                            [--engine-type {V2, V3}]
+                            [--identity-type {None, SystemAssigned, SystemAssigned, UserAssigned, UserAssigned}]
+                            [--identity-user-assigned-identities]
+                            [--key-vault-properties]
+                            [--no-wait]
+                            [--optimized-autoscale]
+                            [--tags]
+                            [--trusted-external-tenants]
+                            [--virtual-network-configuration]
+                            [--zones]
+  examples:
+  - summary: Kustoclusterscreateorupdate
+    syntax: az kusto cluster create --name "kustoclusterrptest4" --identity-type "SystemAssigned" --location "westus" --enable-double-encryption false --enable-purge true --enable-streaming-ingest true --sku name="Standard_L8s" capacity=2 tier="Standard" --resource-group "kustorptest"
+  requiredParameters:
+  - isRequired: true
+    name: --cluster-name --name -n
+    summary: Der Name des Kusto-Clusters.
+    description: ''
+  - isRequired: true
+    name: --location -l
+    summary: 'Der Standort. Werte aus: `az account list-locations`. Sie können den standardmäßig verwendeten Standort mit `az configure --defaults location=<location>` konfigurieren.'
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - isRequired: true
+    name: --sku
+    summary: Die SKU des Clusters.
+    description: >-
+      Syntax:--SKU Name = XX Capacity = XX Tier = XX
+
+
+      Name: erforderlich. SKU-Name.
+
+      Capacity: die Anzahl der Instanzen des Clusters.
+
+      Tier: erforderlich. SKU-Ebene.
+  optionalParameters:
+  - name: --enable-disk-encryption
+    parameterValueGroup: false, true
+    summary: Ein boolescher Wert, der angibt, ob die Datenträger des Clusters verschlüsselt sind.
+    description: ''
+  - name: --enable-double-encryption
+    parameterValueGroup: false, true
+    summary: Ein boolescher Wert, der angibt, ob die doppelte Verschlüsselung aktiviert ist.
+    description: ''
+  - name: --enable-purge
+    parameterValueGroup: false, true
+    summary: Ein boolescher Wert, der angibt, ob die Löschvorgänge aktiviert sind.
+    description: ''
+  - name: --enable-streaming-ingest
+    parameterValueGroup: false, true
+    summary: Ein boolescher Wert, der angibt, ob die streamingerfassung aktiviert ist.
+    description: ''
+  - name: --engine-type
+    parameterValueGroup: V2, V3
+    summary: Der Engine-Typ.
+    description: ''
+  - name: --identity-type
+    parameterValueGroup: None, SystemAssigned, SystemAssigned, UserAssigned, UserAssigned
+    summary: Der Typ der verwendeten verwalteten Identität. Der Typ "systemassigned, userassigned" enthält sowohl eine implizit erstellte Identität als auch einen Satz von Benutzern zugewiesenen Identitäten. Der Typ "None" entfernt alle Identitäten.
+    description: ''
+  - name: --identity-user-assigned-identities
+    summary: 'Die Liste der Benutzer Identitäten, die dem Kusto-Cluster zugeordnet sind. Die Schlüssel Verweise des Benutzer Identitäts Wörterbuchs sind arm-Ressourcen-IDs in der Form: "/Subscriptions/{SubscriptionId}/resourceGroups/{resourceGroupName}/Providers/Microsoft.ManagedIdentity/userAssignedIdentities/{identityName}". Erwarteter Wert: json-string/@json-file .'
+    description: ''
+  - name: --key-vault-properties
+    summary: Keyvault-Eigenschaften für die Cluster Verschlüsselung.
+    description: >-
+      Syntax:--Key-Vault-Properties Key-Name = XX Key-Version = XX Key-Vault-URI = XX User-Identity = XX
+
+
+      Key-Name: erforderlich. Der Name des Key Vault-Schlüssels.
+
+      Key-Version: die Version des Key Vault-Schlüssels.
+
+      Key-Vault-URI: erforderlich. Der URI des Schlüssel Tresors.
+
+      Benutzeridentität: die vom Benutzer zugewiesene Identität (Arm-Ressourcen-ID), die Zugriff auf den Schlüssel hat.
+  - name: --no-wait
+    summary: Nicht auf den Abschluss lang andauernder Vorgänge warten
+    description: ''
+  - name: --optimized-autoscale
+    summary: Optimierte Definition der automatischen Skalierung.
+    description: >-
+      Syntax:--optimiert-automatische Skalierung Version = XX ist-aktiviert = XX Minimum = XX Maximum = XX
+
+
+      Version: erforderlich. Die Version der definierten Vorlage (z. 1.1).
+
+      ist-aktiviert: erforderlich. Ein boolescher Wert, der angibt, ob die optimierte Funktion für die automatische Skalierung aktiviert ist.
+
+      minimal: erforderlich. Zulässige Mindestanzahl von Instanzen.
+
+      Maximum: erforderlich. Maximal zulässige Anzahl von Instanzen.
+  - name: --tags
+    summary: 'Durch Leerzeichen getrennte Tags: Key [= value] [key [= value]...]. Verwenden Sie "", um vorhandene Tags zu löschen.'
+    description: ''
+  - name: --trusted-external-tenants
+    summary: Die externen Mandanten des Clusters.
+    description: >-
+      Verwendung:--Trusted-extern-Mandanten Wert = XX
+
+
+      Wert: GUID, die einen externen Mandanten darstellt.
+
+
+      Mehrere Aktionen können mithilfe von mehr als einem--Trusted-extern-Mandanten-Argument angegeben werden.
+  - name: --virtual-network-configuration
+    summary: Definition des virtuellen Netzwerks.
+    description: >-
+      Verwendung:--Virtual-Network-Configuration Subnet-ID = XX-Engine-Public-IP-ID = XX Data-Management-Public-IP-ID = XX
+
+
+      Subnetz-ID: erforderlich. Subnetzressourcen-ID. Engine-Public-IP-ID: erforderlich. Ressourcen-ID für die öffentliche IP-Adresse des Engine-Dienstanbieter. Data-Management-Public-IP-ID: erforderlich. Ressourcen-ID der öffentlichen IP-Adresse der Datenverwaltung.
+  - name: --zones
+    summary: Die Verfügbarkeits Zonen des Clusters.
+    description: ''
+- uid: az_kusto_cluster_delete
+  name: az kusto cluster delete
+  summary: Löscht einen Kusto-Cluster.
+  description: ''
+  syntax: >-
+    az kusto cluster delete --cluster-name
+                            --resource-group
+                            [--no-wait]
+                            [--yes]
+  examples:
+  - summary: Kustoclustersdelete
+    syntax: az kusto cluster delete --name "kustoclusterrptest4" --resource-group "kustorptest"
+  requiredParameters:
+  - isRequired: true
+    name: --cluster-name --name -n
+    summary: Der Name des Kusto-Clusters.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  optionalParameters:
+  - name: --no-wait
+    summary: Nicht auf den Abschluss lang andauernder Vorgänge warten
+    description: ''
+  - name: --yes -y
+    summary: Nicht zur Bestätigung auffordern
+    description: ''
+- uid: az_kusto_cluster_detach-follower-database
+  name: az kusto cluster detach-follower-database
+  summary: Trennt alle Follower einer Datenbank, die sich im Besitz dieses Clusters befinden.
+  description: ''
+  syntax: >-
+    az kusto cluster detach-follower-database --attached-database-configuration-name
+                                              --cluster-name
+                                              --cluster-resource-id
+                                              --resource-group
+                                              [--no-wait]
+  examples:
+  - summary: Kustoclusterdetachfollowerdatenbanken
+    syntax: az kusto cluster detach-follower-database --name "kustoclusterrptest4" --attached-database-configuration-name "myAttachedDatabaseConfiguration" --cluster-resource-id "/subscriptions/12345678-1234-1234-1234-123456789098/resourceGroups/kustorptest/providers/Microsoft.Kusto/clusters/leader4" --resource-group "kustorptest"
+  requiredParameters:
+  - isRequired: true
+    name: --attached-database-configuration-name
+    summary: Der Ressourcen Name der angefügten Daten Bank Konfiguration im Follower-Cluster.
+    description: ''
+  - isRequired: true
+    name: --cluster-name --name -n
+    summary: Der Name des Kusto-Clusters.
+    description: ''
+  - isRequired: true
+    name: --cluster-resource-id
+    summary: Die Ressourcen-ID des Clusters, der auf eine Datenbank folgt, die im Besitz dieses Clusters ist.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  optionalParameters:
+  - name: --no-wait
+    summary: Nicht auf den Abschluss lang andauernder Vorgänge warten
+    description: ''
+- uid: az_kusto_cluster_diagnose-virtual-network
+  name: az kusto cluster diagnose-virtual-network
+  summary: Diagnostiziert den Status der Netzwerkkonnektivität für externe Ressourcen, von denen der Dienst abhängig ist.
+  description: ''
+  syntax: >-
+    az kusto cluster diagnose-virtual-network --cluster-name
+                                              --resource-group
+                                              [--no-wait]
+  examples:
+  - summary: Kustoclusterdiagnositzungsvirtualnetwork
+    syntax: az kusto cluster diagnose-virtual-network --name "kustoclusterrptest4" --resource-group "kustorptest"
+  requiredParameters:
+  - isRequired: true
+    name: --cluster-name --name -n
+    summary: Der Name des Kusto-Clusters.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  optionalParameters:
+  - name: --no-wait
+    summary: Nicht auf den Abschluss lang andauernder Vorgänge warten
+    description: ''
+- uid: az_kusto_cluster_list
+  name: az kusto cluster list
+  summary: Listet alle Kusto-Cluster in einem Abonnement auf.
+  description: ''
+  syntax: az kusto cluster list [--resource-group]
+  examples:
+  - summary: Kustoclusterslistbyresourcegroup
+    syntax: az kusto cluster list --resource-group "kustorptest"
+  optionalParameters:
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+- uid: az_kusto_cluster_list-follower-database
+  name: az kusto cluster list-follower-database
+  summary: Gibt eine Liste mit Datenbanken zurück, die sich im Besitz dieses Clusters befinden und von einem anderen Cluster gefolgt wurden.
+  description: ''
+  syntax: >-
+    az kusto cluster list-follower-database --cluster-name
+                                            --resource-group
+  examples:
+  - summary: Kustoclusterlistfollowerdatenbanken
+    syntax: az kusto cluster list-follower-database --name "kustoclusterrptest4" --resource-group "kustorptest"
+  requiredParameters:
+  - isRequired: true
+    name: --cluster-name --name -n
+    summary: Der Name des Kusto-Clusters.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+- uid: az_kusto_cluster_list-language-extension
+  name: az kusto cluster list-language-extension
+  summary: Gibt eine Liste von Spracherweiterungen zurück, die innerhalb von kql-Abfragen ausgeführt werden können.
+  description: ''
+  syntax: >-
+    az kusto cluster list-language-extension --cluster-name
+                                             --resource-group
+  examples:
+  - summary: Kustoclusterlistlanguageextensions
+    syntax: az kusto cluster list-language-extension --name "kustoclusterrptest4" --resource-group "kustorptest"
+  requiredParameters:
+  - isRequired: true
+    name: --cluster-name --name -n
+    summary: Der Name des Kusto-Clusters.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+- uid: az_kusto_cluster_list-sku
+  name: az kusto cluster list-sku
+  summary: Listet berechtigte SKUs für den Kusto-Ressourcenanbieter auf.
+  description: ''
+  syntax: >-
+    az kusto cluster list-sku [--cluster-name]
+                              [--resource-group]
+  examples:
+  - summary: Kustoclusterslistresourceskus
+    syntax: az kusto cluster list-sku --name "kustoclusterrptest4" --resource-group "kustorptest"
+  optionalParameters:
+  - name: --cluster-name --name -n
+    summary: Der Name des Kusto-Clusters.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+- uid: az_kusto_cluster_remove-language-extension
+  name: az kusto cluster remove-language-extension
+  summary: Entfernen Sie eine Liste von Spracherweiterungen, die innerhalb von kql-Abfragen ausgeführt werden können.
+  description: ''
+  syntax: >-
+    az kusto cluster remove-language-extension --cluster-name
+                                               --resource-group
+                                               [--no-wait]
+                                               [--value]
+  examples:
+  - summary: Kustoclusterremovelanguageextensions
+    syntax: az kusto cluster remove-language-extension --name "kustoclusterrptest4" --value language-extension-name="PYTHON" --value language-extension-name="R" --resource-group "kustorptest"
+  requiredParameters:
+  - isRequired: true
+    name: --cluster-name --name -n
+    summary: Der Name des Kusto-Clusters.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  optionalParameters:
+  - name: --no-wait
+    summary: Nicht auf den Abschluss lang andauernder Vorgänge warten
+    description: ''
+  - name: --value
+    summary: Die Liste der Spracherweiterungen.
+    description: >-
+      Syntax:--Value Language-Extension-Name = XX
+
+
+      Language-Extension-Name: der Name der Spracherweiterung.
+
+
+      Mehrere Aktionen können mit mehr als einem Wert Argument angegeben werden.
+- uid: az_kusto_cluster_show
+  name: az kusto cluster show
+  summary: Ruft einen Kusto-Cluster ab.
+  description: ''
+  syntax: >-
+    az kusto cluster show --cluster-name
+                          --resource-group
+  examples:
+  - summary: Kustoclustersget
+    syntax: az kusto cluster show --name "kustoclusterrptest4" --resource-group "kustorptest"
+  requiredParameters:
+  - isRequired: true
+    name: --cluster-name --name -n
+    summary: Der Name des Kusto-Clusters.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+- uid: az_kusto_cluster_start
+  name: az kusto cluster start
+  summary: Startet einen Kusto-Cluster.
+  description: ''
+  syntax: >-
+    az kusto cluster start --cluster-name
+                           --resource-group
+                           [--no-wait]
+  examples:
+  - summary: Kustoclustersstart
+    syntax: az kusto cluster start --name "kustoclusterrptest4" --resource-group "kustorptest"
+  requiredParameters:
+  - isRequired: true
+    name: --cluster-name --name -n
+    summary: Der Name des Kusto-Clusters.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  optionalParameters:
+  - name: --no-wait
+    summary: Nicht auf den Abschluss lang andauernder Vorgänge warten
+    description: ''
+- uid: az_kusto_cluster_stop
+  name: az kusto cluster stop
+  summary: Beendet einen Kusto-Cluster.
+  description: ''
+  syntax: >-
+    az kusto cluster stop --cluster-name
+                          --resource-group
+                          [--no-wait]
+  examples:
+  - summary: Kustoclustersstoppt
+    syntax: az kusto cluster stop --name "kustoclusterrptest4" --resource-group "kustorptest"
+  requiredParameters:
+  - isRequired: true
+    name: --cluster-name --name -n
+    summary: Der Name des Kusto-Clusters.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  optionalParameters:
+  - name: --no-wait
+    summary: Nicht auf den Abschluss lang andauernder Vorgänge warten
+    description: ''
+- uid: az_kusto_cluster_update
+  name: az kusto cluster update
+  summary: Aktualisieren eines Kusto-Clusters.
+  description: ''
+  syntax: >-
+    az kusto cluster update --cluster-name
+                            --resource-group
+                            [--enable-disk-encryption {false, true}]
+                            [--enable-double-encryption {false, true}]
+                            [--enable-purge {false, true}]
+                            [--enable-streaming-ingest {false, true}]
+                            [--engine-type {V2, V3}]
+                            [--identity-type {None, SystemAssigned, SystemAssigned, UserAssigned, UserAssigned}]
+                            [--identity-user-assigned-identities]
+                            [--key-vault-properties]
+                            [--location]
+                            [--no-wait]
+                            [--optimized-autoscale]
+                            [--sku]
+                            [--tags]
+                            [--trusted-external-tenants]
+                            [--virtual-network-configuration]
+  examples:
+  - summary: Kustoclustersupdate
+    syntax: az kusto cluster update --name "kustoclusterrptest4" --identity-type "SystemAssigned" --location "westus" --enable-purge true --enable-streaming-ingest true --engine-type "V2" --key-vault-properties key-name="keyName" key-vault-uri="https://dummy.keyvault.com" key-version="keyVersion" --resource-group "kustorptest"
+  requiredParameters:
+  - isRequired: true
+    name: --cluster-name --name -n
+    summary: Der Name des Kusto-Clusters.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  optionalParameters:
+  - name: --enable-disk-encryption
+    parameterValueGroup: false, true
+    summary: Ein boolescher Wert, der angibt, ob die Datenträger des Clusters verschlüsselt sind.
+    description: ''
+  - name: --enable-double-encryption
+    parameterValueGroup: false, true
+    summary: Ein boolescher Wert, der angibt, ob die doppelte Verschlüsselung aktiviert ist.
+    description: ''
+  - name: --enable-purge
+    parameterValueGroup: false, true
+    summary: Ein boolescher Wert, der angibt, ob die Löschvorgänge aktiviert sind.
+    description: ''
+  - name: --enable-streaming-ingest
+    parameterValueGroup: false, true
+    summary: Ein boolescher Wert, der angibt, ob die streamingerfassung aktiviert ist.
+    description: ''
+  - name: --engine-type
+    parameterValueGroup: V2, V3
+    summary: Der Engine-Typ.
+    description: ''
+  - name: --identity-type
+    parameterValueGroup: None, SystemAssigned, SystemAssigned, UserAssigned, UserAssigned
+    summary: Der Typ der verwendeten verwalteten Identität. Der Typ "systemassigned, userassigned" enthält sowohl eine implizit erstellte Identität als auch einen Satz von Benutzern zugewiesenen Identitäten. Der Typ "None" entfernt alle Identitäten.
+    description: ''
+  - name: --identity-user-assigned-identities
+    summary: 'Die Liste der Benutzer Identitäten, die dem Kusto-Cluster zugeordnet sind. Die Schlüssel Verweise des Benutzer Identitäts Wörterbuchs sind arm-Ressourcen-IDs in der Form: "/Subscriptions/{SubscriptionId}/resourceGroups/{resourceGroupName}/Providers/Microsoft.ManagedIdentity/userAssignedIdentities/{identityName}". Erwarteter Wert: json-string/@json-file .'
+    description: ''
+  - name: --key-vault-properties
+    summary: Keyvault-Eigenschaften für die Cluster Verschlüsselung.
+    description: >-
+      Syntax:--Key-Vault-Properties Key-Name = XX Key-Version = XX Key-Vault-URI = XX User-Identity = XX
+
+
+      Key-Name: erforderlich. Der Name des Key Vault-Schlüssels.
+
+      Key-Version: die Version des Key Vault-Schlüssels.
+
+      Key-Vault-URI: erforderlich. Der URI des Schlüssel Tresors.
+
+      Benutzeridentität: die vom Benutzer zugewiesene Identität (Arm-Ressourcen-ID), die Zugriff auf den Schlüssel hat.
+  - name: --location -l
+    summary: 'Der Standort. Werte aus: `az account list-locations`. Sie können den standardmäßig verwendeten Standort mit `az configure --defaults location=<location>` konfigurieren.'
+    description: ''
+  - name: --no-wait
+    summary: Nicht auf den Abschluss lang andauernder Vorgänge warten
+    description: ''
+  - name: --optimized-autoscale
+    summary: Optimierte Definition der automatischen Skalierung.
+    description: >-
+      Syntax:--optimiert-automatische Skalierung Version = XX ist-aktiviert = XX Minimum = XX Maximum = XX
+
+
+      Version: erforderlich. Die Version der definierten Vorlage (z. 1.1).
+
+      ist-aktiviert: erforderlich. Ein boolescher Wert, der angibt, ob die optimierte Funktion für die automatische Skalierung aktiviert ist.
+
+      minimal: erforderlich. Zulässige Mindestanzahl von Instanzen.
+
+      Maximum: erforderlich. Maximal zulässige Anzahl von Instanzen.
+  - name: --sku
+    summary: Die SKU des Clusters.
+    description: >-
+      Syntax:--SKU Name = XX Capacity = XX Tier = XX
+
+
+      Name: erforderlich. SKU-Name.
+
+      Capacity: die Anzahl der Instanzen des Clusters.
+
+      Tier: erforderlich. SKU-Ebene.
+  - name: --tags
+    summary: 'Durch Leerzeichen getrennte Tags: Key [= value] [key [= value]...]. Verwenden Sie "", um vorhandene Tags zu löschen.'
+    description: ''
+  - name: --trusted-external-tenants
+    summary: Die externen Mandanten des Clusters.
+    description: >-
+      Verwendung:--Trusted-extern-Mandanten Wert = XX
+
+
+      Wert: GUID, die einen externen Mandanten darstellt.
+
+
+      Mehrere Aktionen können mithilfe von mehr als einem--Trusted-extern-Mandanten-Argument angegeben werden.
+  - name: --virtual-network-configuration
+    summary: Definition des virtuellen Netzwerks.
+    description: >-
+      Verwendung:--Virtual-Network-Configuration Subnet-ID = XX-Engine-Public-IP-ID = XX Data-Management-Public-IP-ID = XX
+
+
+      Subnetz-ID: erforderlich. Subnetzressourcen-ID. Engine-Public-IP-ID: erforderlich. Ressourcen-ID für die öffentliche IP-Adresse des Engine-Dienstanbieter. Data-Management-Public-IP-ID: erforderlich. Ressourcen-ID der öffentlichen IP-Adresse der Datenverwaltung.
+- uid: az_kusto_cluster_wait
+  name: az kusto cluster wait
+  summary: Platzieren Sie die CLI in einem Wartezustand, bis eine Bedingung des Kusto-Clusters erfüllt ist.
+  description: ''
+  syntax: >-
+    az kusto cluster wait --cluster-name
+                          --resource-group
+                          [--created]
+                          [--custom]
+                          [--deleted]
+                          [--exists]
+                          [--interval]
+                          [--timeout]
+                          [--updated]
+  examples:
+  - summary: Ausführung der nächsten Zeile des CLI-Skripts anhalten, bis der Kusto-Cluster erfolgreich erstellt wurde.
+    syntax: az kusto cluster wait --name "kustoclusterrptest4" --resource-group "kustorptest" --created
+  - summary: Ausführung der nächsten Zeile des CLI-Skripts anhalten, bis der Kusto-Cluster erfolgreich aktualisiert wurde.
+    syntax: az kusto cluster wait --name "kustoclusterrptest4" --resource-group "kustorptest" --updated
+  - summary: Ausführung der nächsten Zeile des CLI-Skripts anhalten, bis der Kusto-Cluster erfolgreich gelöscht wurde.
+    syntax: az kusto cluster wait --name "kustoclusterrptest4" --resource-group "kustorptest" --deleted
+  requiredParameters:
+  - isRequired: true
+    name: --cluster-name --name -n
+    summary: Der Name des Kusto-Clusters.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  optionalParameters:
+  - name: --created
+    summary: Warten Sie, bis "provisioningstate" bei "erfolgreich" erstellt wurde.
+    description: ''
+  - name: --custom
+    summary: "Warten Sie, bis die Bedingung eine benutzerdefinierte jmespath-Abfrage erfüllt. Beispiel: provisioningstate! = ' InProgress ', instanceview. statuses [? Code = = ' PowerState/Running ']."
+    description: ''
+  - name: --deleted
+    summary: Warten Sie bis zum Löschen.
+    description: ''
+  - name: --exists
+    summary: Warten Sie, bis die Ressource vorhanden ist.
+    description: ''
+  - name: --interval
+    defaultValue: "30"
+    summary: Abruf Intervall in Sekunden.
+    description: ''
+  - name: --timeout
+    defaultValue: "3600"
+    summary: Maximale Wartezeit in Sekunden.
+    description: ''
+  - name: --updated
+    summary: Warten Sie, bis das Update mit provisioningstate bei "erfolgreich" abgeschlossen ist.
+    description: ''
+commands:
+- az_kusto_cluster_add-language-extension
+- az_kusto_cluster_create
+- az_kusto_cluster_delete
+- az_kusto_cluster_detach-follower-database
+- az_kusto_cluster_diagnose-virtual-network
+- az_kusto_cluster_list
+- az_kusto_cluster_list-follower-database
+- az_kusto_cluster_list-language-extension
+- az_kusto_cluster_list-sku
+- az_kusto_cluster_remove-language-extension
+- az_kusto_cluster_show
+- az_kusto_cluster_start
+- az_kusto_cluster_stop
+- az_kusto_cluster_update
+- az_kusto_cluster_wait
+globalParameters:
+- name: --debug
+  summary: Ausführlichkeit der Protokollierung erhöhen, um alle Debugprotokolle anzuzeigen.
+- name: --help -h
+  summary: Zeigen Sie diese Hilfemeldung an, und schließen Sie sie.
+- name: --only-show-errors
+  summary: Nur Fehler anzeigen und Warnungen unterdrücken.
+- name: --output -o
+  defaultValue: json
+  parameterValueGroup: json, jsonc, table, tsv
+  summary: Ausgabeformat.
+- name: --query
+  summary: JMESPath-Abfragezeichenfolge. Weitere Informationen und Beispiele finden Sie unter <a href="http://jmespath.org/">http://jmespath.org/</a>.
+- name: --verbose
+  summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
+metadata:
+  description: Kusto-Cluster.
+  ms.openlocfilehash: 0d286ccdadf099cf4bb89c638614766503c0a0a7
+  ms.sourcegitcommit: 612554c029ba1f28d3a43fd22e743104a1a30ea0
+  ms.translationtype: MT
+  ms.contentlocale: de-DE
+  ms.lasthandoff: 04/07/2021
+  ms.locfileid: "106928494"
