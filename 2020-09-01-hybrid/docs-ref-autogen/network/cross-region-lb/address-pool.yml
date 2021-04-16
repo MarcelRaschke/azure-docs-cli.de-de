@@ -1,7 +1,7 @@
 ### YamlMime:AzureCLIGroup
 uid: az_network_cross-region-lb_address-pool
 name: az network cross-region-lb address-pool
-summary: Verwalten von Adress Pools eines Regions übergreifenden Load Balancers.
+summary: Verwalten von Adresspools eines regionsübergreifenden Lastenausgleichs.
 description: ''
 directCommands:
 - uid: az_network_cross-region-lb_address-pool_create
@@ -18,18 +18,18 @@ directCommands:
   examples:
   - summary: Erstellen Sie einen Adresspool.
     syntax: az network cross-region-lb address-pool create -g MyResourceGroup --lb-name MyLb -n MyAddressPool
-  - summary: Erstellen Sie einen Adresspool mit mehreren Back-End-Adressen mithilfe von Schlüssel-Wert-Argumenten.
+  - summary: Erstellen Sie mithilfe von Schlüssel-Wert-Argumenten einen Adresspool mit mehreren Back-End-Adressen.
     syntax: az network cross-region-lb address-pool create -g MyResourceGroup --lb-name MyLb -n MyAddressPool --backend-address name=addr1 frontend-ip-address=/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/cli_test_lb_address_pool_addresses000001/providers/Microsoft.Network/loadBalancers/regional-lb/frontendIPConfigurations/fe-rlb1 --backend-address name=addr2 frontend-ip-address=/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/cli_test_lb_address_pool_addresses000001/providers/Microsoft.Network/loadBalancers/regional-lb/frontendIPConfigurations/fe-rlb2
-  - summary: Erstellen eines Adress Pools mit mehreren Back-End-Adressen mithilfe der Konfigurationsdatei
+  - summary: Erstellen eines Adresspools mit mehreren Back-End-Adressen mithilfe der Konfigurationsdatei
     syntax: az network cross-region-lb address-pool create -g MyResourceGroup --lb-name MyLb -n MyAddressPool --backend-addresses-config-file @config_file.json
   requiredParameters:
   - isRequired: true
     name: --lb-name
-    summary: Der Name des Load Balancers.
+    summary: Der Name des Lastenausgleichs.
     description: ''
   - isRequired: true
     name: --name -n
-    summary: Der Name des Back-End-Adress Pools. Wenn nur eine vorhanden ist, lassen Sie aus, um als Standard zu verwenden.
+    summary: Der Name des Back-End-Adresspools. Wenn nur eins vorhanden ist, lassen Sie die Verwendung als Standard aus.
     description: ''
   - isRequired: true
     name: --resource-group -g
@@ -37,31 +37,31 @@ directCommands:
     description: ''
   optionalParameters:
   - name: --backend-address
-    summary: Informationen zum Back-End-Adresspool
+    summary: Informationen zu Back-End-Adressen für den Back-End-Adresspool.
     description: >-
-      Syntax:--Backend-Address Name = addr1 Frontend-IP-Address = regional_lb_resource_id
+      Verwendung: --backend-address name=addr1 frontend-ip-address=regional_lb_resource_id
 
 
-      Name: erforderlich. Der Name der Back-End-Adresse.
+      name: Erforderlich. Der Name der Back-End-Adresse.
 
-      Frontend-IP-Adresse: erforderlich. Ressourcen-ID eines regionalen Load Balancers.
+      frontend-ip-address: Erforderlich. Ressourcen-ID eines regionalen Lastenausgleichs.
 
 
-      Mehrere Back-End-Adressen können mit mehr als einem `--backend-address` Argument angegeben werden.
+      Mehrere Back-End-Adressen können mit mehreren Argumenten angegeben `--backend-address` werden.
   - name: --backend-addresses-config-file --config-file
-    summary: Eine Konfigurationsdatei zum Festlegen von Back-End-Adressen. Dieses Argument ist für erfahrene Benutzer vorgesehen. Wenn die JSON-Datei ungültig ist, treten möglicherweise Analysefehler auf.
+    summary: Eine Konfigurationsdatei zum Festlegen von Back-End-Adressen. Dieses Argument ist für erfahrene Benutzer vorgesehen. Möglicherweise treten Analysefehler auf, wenn die JSON-Datei ungültig ist.
     description: >-
-      Syntax:--Backend-Adressen-config-file @ "{config_file.json}"
+      Verwendung: --backend-addresses-config-file @"{config_file.json}"
 
 
-      Eine Beispielkonfigurationsdatei ist [{"Name": "Address1", "frontendipaddress": "/Subscriptions/00000000-0000-0000-0000-000000000000/ResourceGroups/cli_test_lb_address_pool_addresses000001/Providers/Microsoft.Network/Loadbalancers/Regional-lb/frontendipconfigurations/FE-rlb1"}, {"Name": "Address2", "frontendipaddress": "/Subscriptions/00000000-0000-0000-0000-000000000000/ResourceGroups/cli_test_lb_address_pool_addresses000001/Providers/Microsoft.Network/Loadbalancers/Regional-lb/frontendipconfigurations/FE-rlb2"}].
+      Eine Beispielkonfigurationsdatei ist [ { "name": "address1", "frontendIpAddress": "/subscriptions/000000000-0000-0000-0000-0000000000/resourceGroups/cli_test_lb_address_pool_addresses000001/providers/Microsoft.Network/loadBalancers/regional-lb/frontendIPConfigurations/fe-rlb1" }, { "name": "address2", "frontendIpAddress": "/subscriptions/000000000-0000-0000-0000-0000000000/resourceGroups/cli_test_lb_address_pool_addresses000001/providers/Microsoft.Network/loadBalancers/regional-lb/frontendIPConfigurations/fe-rlb2" } ].
   - name: --subscription
-    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
     description: ''
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/network/_help.py
 - uid: az_network_cross-region-lb_address-pool_delete
   name: az network cross-region-lb address-pool delete
-  summary: Löschen Sie einen Adresspool.
+  summary: Löscht einen Adresspool.
   description: ''
   syntax: >-
     az network cross-region-lb address-pool delete --lb-name
@@ -69,16 +69,16 @@ directCommands:
                                                    --resource-group
                                                    [--subscription]
   examples:
-  - summary: Löschen Sie einen Adresspool.
+  - summary: Löscht einen Adresspool.
     syntax: az network cross-region-lb address-pool delete -g MyResourceGroup --lb-name MyLb -n MyAddressPool
   requiredParameters:
   - isRequired: true
     name: --lb-name
-    summary: Der Name des Load Balancers.
+    summary: Der Name des Lastenausgleichs.
     description: ''
   - isRequired: true
     name: --name -n
-    summary: Der Name des Back-End-Adress Pools. Wenn nur eine vorhanden ist, lassen Sie aus, um als Standard zu verwenden.
+    summary: Der Name des Back-End-Adresspools. Wenn nur eins vorhanden ist, sollten Sie die Standardeinstellung weglassen.
     description: ''
   - isRequired: true
     name: --resource-group -g
@@ -86,7 +86,7 @@ directCommands:
     description: ''
   optionalParameters:
   - name: --subscription
-    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
     description: ''
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/network/_help.py
 commands:
@@ -113,11 +113,11 @@ globalParameters:
   summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
 metadata:
   doc_source_url_repo: https://github.com/Azure/azure-cli/blob/dev/
-  ms.date: 04/07/2021
-  description: Verwalten von Adress Pools eines Regions übergreifenden Load Balancers.
-  ms.openlocfilehash: 37322df3966413a990fe1345f7d13fd4e94c2ad9
-  ms.sourcegitcommit: 612554c029ba1f28d3a43fd22e743104a1a30ea0
+  ms.date: 04/12/2021
+  description: Verwalten von Adresspools eines bereichsübergreifenden Lastenausgleichs
+  ms.openlocfilehash: 3f05f873e7cf0c17debf463cf4908a03b76a228b
+  ms.sourcegitcommit: d01260d847ea835a8bbab0e0db73d1b39f5c18ef
   ms.translationtype: MT
   ms.contentlocale: de-DE
-  ms.lasthandoff: 04/07/2021
-  ms.locfileid: "106837852"
+  ms.lasthandoff: 04/13/2021
+  ms.locfileid: "107345559"
