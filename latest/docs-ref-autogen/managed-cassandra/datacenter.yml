@@ -20,14 +20,23 @@ directCommands:
                                            --node-count
                                            --resource-group
                                            [--base64-encoded-cassandra-yaml-fragment]
+                                           [--no-wait]
   examples:
   - summary: Erstellen Sie ein verwaltetes Cassandra-Daten Center in einem Cassandra-Cluster. Jedes Rechenzentrum sollte mindestens über drei Knoten verfügen.
     syntax: >-
-      az managed-cassandra datacenter create --cluster-name MyCluster --data-center-name MyDataCenter \
-        --resource-group MyResourceGroup \
-        --data-center-location westus2 \
-        --delegated-subnet-id /subscriptions/94d9b402-77b4-4049-b4c1-947bc6b7729b/resourceGroups/My-vnet/providers/Microsoft.Network/virtualNetworks/test-vnet/subnets/test-subnet \
-        --node-count 3
+      az managed-cassandra datacenter create \
+
+      --resource-group MyResourceGroup \
+
+      --cluster-name MyCluster \
+
+      --data-center-name MyDataCenter \
+
+      --data-center-location westus2 \
+
+      --node-count 3 \
+
+      --delegated-subnet-id /subscriptions/94d9b402-77b4-4049-b4c1-947bc6b7729b/resourceGroups/My-vnet/providers/Microsoft.Network/virtualNetworks/test-vnet/subnets/test-subnet
   requiredParameters:
   - isRequired: true
     name: --cluster-name -c
@@ -47,7 +56,7 @@ directCommands:
     description: ''
   - isRequired: true
     name: --node-count -n
-    summary: Die Anzahl der virtuellen Cassandra-Computer in diesem Rechenzentrum.
+    summary: Die Anzahl der virtuellen Cassandra-Computer in diesem Rechenzentrum. Der Mindestwert ist „3“.
     description: ''
   - isRequired: true
     name: --resource-group -g
@@ -57,6 +66,9 @@ directCommands:
   - name: --base64-encoded-cassandra-yaml-fragment -b
     summary: Dies ist eine Base64-codierte YAML-Datei, die eine Teilmenge von Cassandra. YAML ist.  Unterstützte Felder werden berücksichtigt, und andere werden ignoriert.
     description: ''
+  - name: --no-wait
+    summary: Nicht auf den Abschluss lang andauernder Vorgänge warten
+    description: ''
 - uid: az_managed-cassandra_datacenter_delete
   name: az managed-cassandra datacenter delete
   summary: Löscht ein verwaltetes Cassandra-Daten Center.
@@ -65,10 +77,13 @@ directCommands:
     az managed-cassandra datacenter delete --cluster-name
                                            --data-center-name
                                            --resource-group
+                                           [--no-wait]
                                            [--yes]
   examples:
   - summary: Löscht ein verwaltetes Cassandra-Daten Center im angegebenen Cluster.
-    syntax: az managed-cassandra datacenter delete --data-center-name MyDataCenter --cluster-name MyCluster --resource-group MyResourceGroup \
+    syntax: az managed-cassandra datacenter delete --resource-group MyResourceGroup --cluster-name MyCluster --data-center-name MyDataCenter
+  - summary: Löscht ein verwaltetes Cassandra-Daten Center im angegebenen Cluster, ohne darauf zu warten, dass der Vorgang mit langer Laufzeit abgeschlossen ist.
+    syntax: az managed-cassandra datacenter delete --resource-group MyResourceGroup --cluster-name MyCluster --data-center-name MyDataCenter --no-wait
   requiredParameters:
   - isRequired: true
     name: --cluster-name -c
@@ -83,19 +98,22 @@ directCommands:
     summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
     description: ''
   optionalParameters:
+  - name: --no-wait
+    summary: Nicht auf den Abschluss lang andauernder Vorgänge warten
+    description: ''
   - name: --yes -y
     summary: Nicht zur Bestätigung auffordern
     description: ''
 - uid: az_managed-cassandra_datacenter_list
   name: az managed-cassandra datacenter list
-  summary: Wird verwendet, um die verwalteten Cassandra-Daten Center in einem bestimmten Cluster aufzulisten.
+  summary: Auflisten der verwalteten Cassandra-Daten Center in einem bestimmten Cluster.
   description: ''
   syntax: >-
     az managed-cassandra datacenter list --cluster-name
                                          --resource-group
   examples:
   - summary: Listet alle verwalteten Cassandra-Daten Center in einem bestimmten Cluster auf.
-    syntax: az managed-cassandra datacenter list --cluster-name MyCluster --resource-group MyResourceGroup \
+    syntax: az managed-cassandra datacenter list --resource-group MyResourceGroup --cluster-name MyCluster
   requiredParameters:
   - isRequired: true
     name: --cluster-name -c
@@ -114,8 +132,8 @@ directCommands:
                                          --data-center-name
                                          --resource-group
   examples:
-  - summary: Ruft eine verwaltete Cassandra Datacenter-Ressource ab. Provisioningstate gibt den Status dieses Rechenzentrums an. Wenn das Daten Center nicht vorhanden ist, wird eine Antwort mit dem Wert "NotFound" zurückgegeben.
-    syntax: az managed-cassandra datacenter show --data-center-name MyDataCenter --cluster-name MyCluster --resource-group MyResourceGroup \
+  - summary: Ruft eine verwaltete Cassandra Datacenter-Ressource ab. Provisioningstate gibt den Status dieses Rechenzentrums an. Wenn das Datacenter nicht vorhanden ist, wird eine Antwort mit dem Wert "NotFound" zurückgegeben.
+    syntax: az managed-cassandra datacenter show --resource-group MyResourceGroup --cluster-name MyCluster --data-center-name MyDataCenter
   requiredParameters:
   - isRequired: true
     name: --cluster-name -c
@@ -138,18 +156,13 @@ directCommands:
                                            --data-center-name
                                            --resource-group
                                            [--base64-encoded-cassandra-yaml-fragment]
+                                           [--no-wait]
                                            [--node-count]
   examples:
   - summary: Skalieren Sie die Anzahl der Knoten in einem Rechenzentrum. Hierbei handelt es sich um einen Skalierungs Vorgang, der voraussetzt, dass das CREATE Datacenter mit drei Knoten erstellt wurde. Jedes Rechenzentrum sollte mindestens über drei Knoten verfügen.
-    syntax: >-
-      az managed-cassandra datacenter update --cluster-name MyCluster --data-center-name MyDataCenter \
-        --resource-group MyResourceGroup \
-        --node-count 6
-  - summary: Skalieren Sie die Anzahl der Knoten in einem Rechenzentrum. Hierbei handelt es sich um einen Vorgang mit horizontaler Skalierung, bei dem vorausgesetzt wird, dass das CREATE Datacenter mit 3 Knoten, gefolgt von einer horizontalen Skalierung bis zu 6 Jedes Rechenzentrum sollte mindestens über drei Knoten verfügen.
-    syntax: >-
-      az managed-cassandra datacenter update --cluster-name MyCluster --data-center-name MyDataCenter \
-        --resource-group MyResourceGroup \
-        --node-count 4
+    syntax: az managed-cassandra datacenter update --resource-group MyResourceGroup --cluster-name MyCluster --data-center-name MyDataCenter --node-count 6
+  - summary: Skalieren Sie die Anzahl der Knoten in einem Rechenzentrum. Hierbei handelt es sich um einen Vorgang mit horizontaler Skalierung, der voraussetzt, dass das CREATE Datacenter mit drei Knoten, gefolgt von einem zentral hochskalieren auf 6 Knoten Jedes Rechenzentrum sollte mindestens über drei Knoten verfügen.
+    syntax: az managed-cassandra datacenter update --resource-group MyResourceGroup --cluster-name MyCluster --data-center-name MyDataCenter --node-count 4
   requiredParameters:
   - isRequired: true
     name: --cluster-name -c
@@ -167,8 +180,11 @@ directCommands:
   - name: --base64-encoded-cassandra-yaml-fragment -b
     summary: Dies ist eine Base64-codierte YAML-Datei, die eine Teilmenge von Cassandra. YAML ist.  Unterstützte Felder werden berücksichtigt, und andere werden ignoriert.
     description: ''
+  - name: --no-wait
+    summary: Nicht auf den Abschluss lang andauernder Vorgänge warten
+    description: ''
   - name: --node-count -n
-    summary: Die Anzahl der virtuellen Cassandra-Computer in diesem Rechenzentrum.
+    summary: Die Anzahl der virtuellen Cassandra-Computer in diesem Rechenzentrum. Der Mindestwert ist „3“.
     description: ''
 commands:
 - az_managed-cassandra_datacenter_create
@@ -193,9 +209,9 @@ globalParameters:
   summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
 metadata:
   description: Azure Managed Cassandra Datacenter.
-  ms.openlocfilehash: be75cd5665fc1911b3da557ba079e5ad5a38afc3
-  ms.sourcegitcommit: 612554c029ba1f28d3a43fd22e743104a1a30ea0
+  ms.openlocfilehash: c2301e901c4705ae667f737800c9927b591fd069
+  ms.sourcegitcommit: b7481a4363417987865106c343ef8e60c69c9170
   ms.translationtype: MT
   ms.contentlocale: de-DE
-  ms.lasthandoff: 04/07/2021
-  ms.locfileid: "106895966"
+  ms.lasthandoff: 04/09/2021
+  ms.locfileid: "107242518"
