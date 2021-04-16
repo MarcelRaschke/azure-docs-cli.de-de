@@ -4,13 +4,13 @@ name: az storage blob directory access
 extensionInformation: >-
   > [!Note]
 
-  > Diese Referenz ist Teil der **Storage-Preview-** Erweiterung für Azure CLI und erfordert Version 2.13.0 oder höher.  Die Erweiterung wird automatisch installiert, wenn Sie den Befehl **AZ Storage BLOB Directory Access** zum ersten Mal ausführen.  [Weitere Informationen zu Erweiterungen](https://docs.microsoft.com/en-us/cli/azure/azure-cli-extensions-overview)
-summary: Dient zum Verwalten der Zugriffs Steuerungseigenschaften eines Verzeichnisses, wenn der hierarchische Namespace aktiviert ist.
+  > Dieser Verweis ist Teil der **Speichervorschauerweiterung** für Azure CLI und erfordert Version 2.21.0 oder höher.  Die Erweiterung wird automatisch installiert, wenn Sie den Befehl **az storage blob directory access** zum ersten Mal ausführen.  [Weitere Informationen zu Erweiterungen](https://docs.microsoft.com/en-us/cli/azure/azure-cli-extensions-overview)
+summary: Verwalten sie die Zugriffssteuerungseigenschaften eines Verzeichnisses, wenn hierarchischer Namespace aktiviert ist.
 description: ''
 directCommands:
 - uid: az_storage_blob_directory_access_set
   name: az storage blob directory access set
-  summary: Legen Sie die Zugriffs Steuerungseigenschaften eines Verzeichnisses fest.
+  summary: Legen Sie die Zugriffssteuerungseigenschaften eines Verzeichnisses fest.
   description: ''
   syntax: >-
     az storage blob directory access set --acl-spec
@@ -28,12 +28,12 @@ directCommands:
                                          [--sas-token]
                                          [--timeout]
   examples:
-  - summary: Legen Sie die Zugriffs Steuerungseigenschaften eines Verzeichnisses fest.
+  - summary: Legen Sie die Zugriffssteuerungseigenschaften eines Verzeichnisses fest.
     syntax: az storage blob directory access set -a "user::rwx,group::r--,other::---" -d MyDirectoryPath -c MyContainer --account-name MyStorageAccount
   requiredParameters:
   - isRequired: true
     name: --acl-spec -a
-    summary: 'Die ACL-Spezifikation, die für den Pfad im Format "[Default:] User | Group | other | Mask: [Entity ID oder UPN]: r |-w |-x |-, [Default:] User | Group | other | Mask: [Entitäts-ID oder UPN]: r |-w |-x |-,..." festgelegt wird. Beispiel: "User:: rwx, user:john.doe@contoso:rwx , Group:: r--, Other::---, Mask:: rwx".'
+    summary: 'Die ACL-Spezifikation, die für den Pfad im Format "[default:]user|group|other|mask:[entity id or UPN]:r|-w|-x festgelegt werden soll|-,[default:]user|group|other|mask:[Entitäts-ID oder UPN]:r|-w|-x|-,...". Beispiel: "user::rwx, user:john.doe@contoso:rwx ,group::r--,other::---,mask::rwx".'
     description: ''
   - isRequired: true
     name: --container-name -c
@@ -41,46 +41,46 @@ directCommands:
     description: ''
   - isRequired: true
     name: --directory-path -d
-    summary: Der Name des Verzeichnis Pfads.
+    summary: Der Verzeichnispfadname.
     description: ''
   optionalParameters:
   - name: --account-key
-    summary: 'Speicherkontoschlüssel Muss in Verbindung mit dem Speicherkonto Namen verwendet werden. Umgebungsvariable: AZURE_STORAGE_KEY.'
+    summary: 'Speicherkontoschlüssel Muss in Verbindung mit dem Speicherkontonamen verwendet werden. Umgebungsvariable: AZURE_STORAGE_KEY.'
     description: ''
   - name: --account-name
-    summary: 'Name des Speicherkontos Verwandte Umgebungsvariable: AZURE_STORAGE_ACCOUNT. Muss in Verbindung mit dem Speicherkonto Schlüssel oder einem SAS-Token verwendet werden. Wenn keines der beiden vorhanden ist, versucht der Befehl, den Speicherkonto Schlüssel mithilfe des authentifizierten Azure-Kontos abzufragen. Wenn eine große Anzahl von Speicher Befehlen ausgeführt wird, kann das API-Kontingent erreichen.'
+    summary: 'Name des Speicherkontos Zugehörige Umgebungsvariable: AZURE_STORAGE_ACCOUNT. Muss in Verbindung mit einem Speicherkontoschlüssel oder einem SAS-Token verwendet werden. Wenn keines von beiden vorhanden ist, versucht der Befehl, den Speicherkontoschlüssel mithilfe des authentifizierten Azure-Kontos abzufragen. Wenn eine große Anzahl von Speicherbefehlen ausgeführt wird, kann das API-Kontingent erreicht werden.'
     description: ''
   - name: --auth-mode
     parameterValueGroup: key, login
-    summary: 'Der Modus, in dem der Befehl ausgeführt werden soll. der Modus "Anmeldung" verwendet direkt Ihre Anmelde Informationen für die Authentifizierung. Der Legacy Modus "Schlüssel" versucht, einen Kontoschlüssel abzufragen, wenn keine Authentifizierungs Parameter für das Konto bereitgestellt werden. Umgebungsvariable: AZURE_STORAGE_AUTH_MODE.'
+    summary: 'Der Modus, in dem der Befehl ausgeführt werden soll. Der Modus "login" verwendet direkt Ihre Anmeldeinformationen für die Authentifizierung. Im Legacymodus "Schlüssel" wird versucht, einen Kontoschlüssel abzufragen, wenn keine Authentifizierungsparameter für das Konto angegeben werden. Umgebungsvariable: AZURE_STORAGE_AUTH_MODE.'
     description: ''
   - name: --connection-string
-    summary: 'Verbindungs Zeichenfolge des Speicher Kontos. Umgebungsvariable: AZURE_STORAGE_CONNECTION_STRING.'
+    summary: 'Verbindungszeichenfolge des Speicherkontos. Umgebungsvariable: AZURE_STORAGE_CONNECTION_STRING.'
     description: ''
   - name: --if-match
     summary: Ein ETag-Wert. Mit diesem Header legen Sie fest, dass der Vorgang nur ausgeführt wird, wenn das ETag der Ressource mit dem angegebenen Wert übereinstimmt. Das ETag muss in Anführungszeichen angegeben werden.
     description: ''
   - name: --if-modified-since
-    summary: Nur ändern, wenn seit dem angegebenen UTC-DateTime-Wert (Y-m-d't ' h:m ' Z ') geändert wurde.
+    summary: Nur bei Änderung seit angegebener UTC-Datum/Uhrzeit (Y-m-d'T'H:M'Z') geändert.
     description: ''
   - name: --if-none-match
-    summary: Ein ETag-Wert oder der spezielle Platzhalter \* Wert (""). Mit diesem Header legen Sie fest, dass der Vorgang nur ausgeführt wird, wenn das ETag der Ressource nicht mit dem angegebenen Wert übereinstimmt. Das ETag muss in Anführungszeichen angegeben werden.
+    summary: Ein ETag-Wert oder der spezielle Platzhalterwert (" \* ") . Mit diesem Header legen Sie fest, dass der Vorgang nur ausgeführt wird, wenn das ETag der Ressource nicht mit dem angegebenen Wert übereinstimmt. Das ETag muss in Anführungszeichen angegeben werden.
     description: ''
   - name: --if-unmodified-since
-    summary: Nur ändern, wenn seit dem bereitgestellten UTC-DateTime-Wert (Y-m-d't ' h:m ' Z ') unverändert geändert wurde.
+    summary: Ändern Sie nur, wenn sie seit der angegebenen UTC datetime (Y-m-d'T'H:M'Z' unverändert ist).
     description: ''
   - name: --lease-id
     summary: Erforderlich, wenn der Pfad über eine aktive Lease verfügt.
     description: ''
   - name: --sas-token
-    summary: 'Eine Shared Access Signature (SAS). Muss in Verbindung mit dem Speicherkonto Namen verwendet werden. Umgebungsvariable: AZURE_STORAGE_SAS_TOKEN.'
+    summary: 'Ein Shared Access Signature (SAS). Muss in Verbindung mit dem Speicherkontonamen verwendet werden. Umgebungsvariable: AZURE_STORAGE_SAS_TOKEN.'
     description: ''
   - name: --timeout
-    summary: Anforderungs Timeout in Sekunden. Gilt für jeden Dienst aufzurufen.
+    summary: Anforderungs-Timeout in Sekunden. Gilt für jeden Aufruf des Diensts.
     description: ''
 - uid: az_storage_blob_directory_access_show
   name: az storage blob directory access show
-  summary: Zeigt die Zugriffs Steuerungseigenschaften eines Verzeichnisses an.
+  summary: Zeigt die Zugriffssteuerungseigenschaften eines Verzeichnisses an.
   description: ''
   syntax: >-
     az storage blob directory access show --container-name
@@ -98,7 +98,7 @@ directCommands:
                                           [--timeout]
                                           [--user-principle-names]
   examples:
-  - summary: Zeigt die Zugriffs Steuerungseigenschaften eines Verzeichnisses an.
+  - summary: Zeigt die Zugriffssteuerungseigenschaften eines Verzeichnisses an.
     syntax: az storage blob directory access show -d MyDirectoryPath -c MyContainer --account-name MyStorageAccount
   requiredParameters:
   - isRequired: true
@@ -107,49 +107,49 @@ directCommands:
     description: ''
   - isRequired: true
     name: --directory-path -d
-    summary: Der Name des Verzeichnis Pfads.
+    summary: Der Verzeichnispfadname.
     description: ''
   optionalParameters:
   - name: --account-key
-    summary: 'Speicherkontoschlüssel Muss in Verbindung mit dem Speicherkonto Namen verwendet werden. Umgebungsvariable: AZURE_STORAGE_KEY.'
+    summary: 'Speicherkontoschlüssel Muss in Verbindung mit dem Speicherkontonamen verwendet werden. Umgebungsvariable: AZURE_STORAGE_KEY.'
     description: ''
   - name: --account-name
-    summary: 'Name des Speicherkontos Verwandte Umgebungsvariable: AZURE_STORAGE_ACCOUNT. Muss in Verbindung mit dem Speicherkonto Schlüssel oder einem SAS-Token verwendet werden. Wenn keines der beiden vorhanden ist, versucht der Befehl, den Speicherkonto Schlüssel mithilfe des authentifizierten Azure-Kontos abzufragen. Wenn eine große Anzahl von Speicher Befehlen ausgeführt wird, kann das API-Kontingent erreichen.'
+    summary: 'Name des Speicherkontos Zugehörige Umgebungsvariable: AZURE_STORAGE_ACCOUNT. Muss in Verbindung mit einem Speicherkontoschlüssel oder einem SAS-Token verwendet werden. Wenn keines von beiden vorhanden ist, versucht der Befehl, den Speicherkontoschlüssel mithilfe des authentifizierten Azure-Kontos abfragt. Wenn eine große Anzahl von Speicherbefehlen ausgeführt wird, kann das API-Kontingent erreicht werden.'
     description: ''
   - name: --auth-mode
     parameterValueGroup: key, login
-    summary: 'Der Modus, in dem der Befehl ausgeführt werden soll. der Modus "Anmeldung" verwendet direkt Ihre Anmelde Informationen für die Authentifizierung. Der Legacy Modus "Schlüssel" versucht, einen Kontoschlüssel abzufragen, wenn keine Authentifizierungs Parameter für das Konto bereitgestellt werden. Umgebungsvariable: AZURE_STORAGE_AUTH_MODE.'
+    summary: 'Der Modus, in dem der Befehl ausgeführt werden soll. Der Modus "login" verwendet direkt Ihre Anmeldeinformationen für die Authentifizierung. Im Legacymodus "Schlüssel" wird versucht, einen Kontoschlüssel abzufragen, wenn keine Authentifizierungsparameter für das Konto angegeben werden. Umgebungsvariable: AZURE_STORAGE_AUTH_MODE.'
     description: ''
   - name: --connection-string
-    summary: 'Verbindungs Zeichenfolge des Speicher Kontos. Umgebungsvariable: AZURE_STORAGE_CONNECTION_STRING.'
+    summary: 'Verbindungszeichenfolge des Speicherkontos. Umgebungsvariable: AZURE_STORAGE_CONNECTION_STRING.'
     description: ''
   - name: --if-match
     summary: Ein ETag-Wert. Mit diesem Header legen Sie fest, dass der Vorgang nur ausgeführt wird, wenn das ETag der Ressource mit dem angegebenen Wert übereinstimmt. Das ETag muss in Anführungszeichen angegeben werden.
     description: ''
   - name: --if-modified-since
-    summary: Nur ändern, wenn seit dem angegebenen UTC-DateTime-Wert (Y-m-d't ' h:m ' Z ') geändert wurde.
+    summary: Nur ändern, wenn seit der angegebenen UTC-Datums-/Uhrzeit (Y-m-d'T'H:M'Z') geändert wurde.
     description: ''
   - name: --if-none-match
-    summary: Ein ETag-Wert oder der spezielle Platzhalter \* Wert (""). Mit diesem Header legen Sie fest, dass der Vorgang nur ausgeführt wird, wenn das ETag der Ressource nicht mit dem angegebenen Wert übereinstimmt. Das ETag muss in Anführungszeichen angegeben werden.
+    summary: Ein ETag-Wert oder der spezielle \* Platzhalterwert (""). Mit diesem Header legen Sie fest, dass der Vorgang nur ausgeführt wird, wenn das ETag der Ressource nicht mit dem angegebenen Wert übereinstimmt. Das ETag muss in Anführungszeichen angegeben werden.
     description: ''
   - name: --if-unmodified-since
-    summary: Nur ändern, wenn seit dem bereitgestellten UTC-DateTime-Wert (Y-m-d't ' h:m ' Z ') unverändert geändert wurde.
+    summary: Nur ändern, wenn seit der angegebenen UTC-Datums-/Uhrzeit (Y-m-d'T'H:M'Z') nicht geändert wurde.
     description: ''
   - name: --lease-id
     summary: Erforderlich, wenn der Pfad über eine aktive Lease verfügt.
     description: ''
   - name: --sas-token
-    summary: 'Eine Shared Access Signature (SAS). Muss in Verbindung mit dem Speicherkonto Namen verwendet werden. Umgebungsvariable: AZURE_STORAGE_SAS_TOKEN.'
+    summary: 'Eine Shared Access Signature (SAS). Muss in Verbindung mit dem Speicherkontonamen verwendet werden. Umgebungsvariable: AZURE_STORAGE_SAS_TOKEN.'
     description: ''
   - name: --timeout
-    summary: Anforderungs Timeout in Sekunden. Gilt für jeden Dienst aufzurufen.
+    summary: Anforderungstimeout in Sekunden. Gilt für jeden Aufruf des Diensts.
     description: ''
   - name: --user-principle-names
-    summary: Nur gültig, wenn der hierarchische Namespace für das Konto aktiviert ist. Wenn "true", werden die für "Owner", "Group" und "ACL" zurückgegebenen Benutzer Identitäts Werte von Azure Active Directory Objekt-IDs in Benutzer Prinzipal Namen transformiert. Bei "false" werden die Werte als Azure Active Directory Objekt-IDs zurückgegeben. Der Standardwert ist „FALSE“. Beachten Sie, dass die Gruppen-und Anwendungs Objekt-IDs nicht übersetzt werden, da Sie keine eindeutigen anzeigen Amen aufweisen.
+    summary: Nur gültig, wenn hierarchischer Namespace für das Konto aktiviert ist. Bei "true" werden die Für Besitzer, Gruppe und ACL zurückgegebenen Benutzeridentitätswerte von Azure Active Directory Objekt-IDs in Benutzerprinzipalnamen transformiert. Bei "false" werden die Werte als Azure Active Directory Objekt-IDs zurückgegeben. Der Standardwert ist „FALSE“. Beachten Sie, dass Gruppen- und Anwendungsobjekt-IDs nicht übersetzt werden, da sie keine eindeutigen Benutzernamen haben.
     description: ''
 - uid: az_storage_blob_directory_access_update
   name: az storage blob directory access update
-  summary: Aktualisieren Sie die Zugriffs Steuerungseigenschaften eines Verzeichnisses.
+  summary: Aktualisieren Sie die Zugriffssteuerungseigenschaften eines Verzeichnisses.
   description: ''
   syntax: >-
     az storage blob directory access update --container-name
@@ -170,11 +170,11 @@ directCommands:
                                             [--sas-token]
                                             [--timeout]
   examples:
-  - summary: Aktualisieren Sie die Zugriffsberechtigungen für ein Verzeichnis.
+  - summary: Aktualisieren Sie die Zugriffsberechtigungen eines Verzeichnisses.
     syntax: az storage blob directory access update --permissions "rwxrwxrwx" -d MyDirectoryPath -c MyContainer --account-name MyStorageAccount
   - summary: Aktualisieren Sie den besitzenden Benutzer eines Verzeichnisses.
     syntax: az storage blob directory access update --owner [entityId/UPN] -d MyDirectoryPath -c MyContainer --account-name MyStorageAccount
-  - summary: Aktualisieren der besitzenden Gruppe eines Verzeichnisses.
+  - summary: Aktualisieren Sie die besitzende Gruppe eines Verzeichnisses.
     syntax: az storage blob directory access update --group [entityId/UPN] -d MyDirectoryPath -c MyContainer --account-name MyStorageAccount
   requiredParameters:
   - isRequired: true
@@ -183,24 +183,24 @@ directCommands:
     description: ''
   - isRequired: true
     name: --directory-path -d
-    summary: Der Name des Verzeichnis Pfads.
+    summary: Der Verzeichnispfadname.
     description: ''
   optionalParameters:
   - name: --account-key
-    summary: 'Speicherkontoschlüssel Muss in Verbindung mit dem Speicherkonto Namen verwendet werden. Umgebungsvariable: AZURE_STORAGE_KEY.'
+    summary: 'Speicherkontoschlüssel Muss in Verbindung mit dem Speicherkontonamen verwendet werden. Umgebungsvariable: AZURE_STORAGE_KEY.'
     description: ''
   - name: --account-name
-    summary: 'Name des Speicherkontos Verwandte Umgebungsvariable: AZURE_STORAGE_ACCOUNT. Muss in Verbindung mit dem Speicherkonto Schlüssel oder einem SAS-Token verwendet werden. Wenn keines der beiden vorhanden ist, versucht der Befehl, den Speicherkonto Schlüssel mithilfe des authentifizierten Azure-Kontos abzufragen. Wenn eine große Anzahl von Speicher Befehlen ausgeführt wird, kann das API-Kontingent erreichen.'
+    summary: 'Name des Speicherkontos Zugehörige Umgebungsvariable: AZURE_STORAGE_ACCOUNT. Muss in Verbindung mit einem Speicherkontoschlüssel oder einem SAS-Token verwendet werden. Wenn keines von beiden vorhanden ist, versucht der Befehl, den Speicherkontoschlüssel mithilfe des authentifizierten Azure-Kontos abfragt. Wenn eine große Anzahl von Speicherbefehlen ausgeführt wird, kann das API-Kontingent erreicht werden.'
     description: ''
   - name: --acl-spec -a
-    summary: 'Die ACL-Spezifikation, die für den Pfad im Format "[Default:] User | Group | other | Mask: [Entity ID oder UPN]: r |-w |-x |-, [Default:] User | Group | other | Mask: [Entitäts-ID oder UPN]: r |-w |-x |-,..." festgelegt wird. Beispiel: "User:: rwx, user:john.doe@contoso:rwx , Group:: r--, Other::---, Mask:: rwx".'
+    summary: 'Die ACL-Spezifikation, die für den Pfad im Format "[default:]user|group|other|mask:[entity id oder UPN]:r|-w|-x festgelegt werden soll|-,[default:]user|group|other|mask:[entity id or UPN]:r|-w|-x|-,...". Beispiel: "user::rwx, user:john.doe@contoso:rwx ,group::r--,other::---,mask::rwx".'
     description: ''
   - name: --auth-mode
     parameterValueGroup: key, login
-    summary: 'Der Modus, in dem der Befehl ausgeführt werden soll. der Modus "Anmeldung" verwendet direkt Ihre Anmelde Informationen für die Authentifizierung. Der Legacy Modus "Schlüssel" versucht, einen Kontoschlüssel abzufragen, wenn keine Authentifizierungs Parameter für das Konto bereitgestellt werden. Umgebungsvariable: AZURE_STORAGE_AUTH_MODE.'
+    summary: 'Der Modus, in dem der Befehl ausgeführt werden soll. Im Anmeldemodus werden Ihre Anmeldeinformationen direkt für die Authentifizierung verwendet. Der Legacymodus "Schlüssel" versucht, einen Kontoschlüssel abfragt, wenn keine Authentifizierungsparameter für das Konto angegeben werden. Umgebungsvariable: AZURE_STORAGE_AUTH_MODE.'
     description: ''
   - name: --connection-string
-    summary: 'Verbindungs Zeichenfolge des Speicher Kontos. Umgebungsvariable: AZURE_STORAGE_CONNECTION_STRING.'
+    summary: 'Verbindungszeichenfolge des Speicherkontos. Umgebungsvariable: AZURE_STORAGE_CONNECTION_STRING.'
     description: ''
   - name: --group
     summary: Die besitzende Gruppe für das Verzeichnis.
@@ -209,13 +209,13 @@ directCommands:
     summary: Ein ETag-Wert. Mit diesem Header legen Sie fest, dass der Vorgang nur ausgeführt wird, wenn das ETag der Ressource mit dem angegebenen Wert übereinstimmt. Das ETag muss in Anführungszeichen angegeben werden.
     description: ''
   - name: --if-modified-since
-    summary: Nur ändern, wenn seit dem angegebenen UTC-DateTime-Wert (Y-m-d't ' h:m ' Z ') geändert wurde.
+    summary: Nur ändern, wenn seit der angegebenen UTC-Datums-/Uhrzeit (Y-m-d'T'H:M'Z') geändert wurde.
     description: ''
   - name: --if-none-match
-    summary: Ein ETag-Wert oder der spezielle Platzhalter \* Wert (""). Mit diesem Header legen Sie fest, dass der Vorgang nur ausgeführt wird, wenn das ETag der Ressource nicht mit dem angegebenen Wert übereinstimmt. Das ETag muss in Anführungszeichen angegeben werden.
+    summary: Ein ETag-Wert oder der spezielle \* Platzhalterwert (""). Mit diesem Header legen Sie fest, dass der Vorgang nur ausgeführt wird, wenn das ETag der Ressource nicht mit dem angegebenen Wert übereinstimmt. Das ETag muss in Anführungszeichen angegeben werden.
     description: ''
   - name: --if-unmodified-since
-    summary: Nur ändern, wenn seit dem bereitgestellten UTC-DateTime-Wert (Y-m-d't ' h:m ' Z ') unverändert geändert wurde.
+    summary: Nur ändern, wenn seit der angegebenen UTC-Datums-/Uhrzeit (Y-m-d'T'H:M'Z') nicht geändert wurde.
     description: ''
   - name: --lease-id
     summary: Erforderlich, wenn der Pfad über eine aktive Lease verfügt.
@@ -224,13 +224,13 @@ directCommands:
     summary: Der besitzende Benutzer für das Verzeichnis.
     description: ''
   - name: --permissions
-    summary: Die POSIX-Zugriffsberechtigungen für den Dateibesitzer, die Datei, die die Gruppe besitzt, und andere. Beide symbolischen (rwxrw-RW-) und 4-stellige oktale Schreibweise (z. b. 0766) werden unterstützt.
+    summary: Die POSIX-Zugriffsberechtigungen für den Dateibesitzer, die Dateibesitzergruppe und andere. Sowohl symbolische (rwxrw-rw-) als auch vierstellige Oktalschreibe (z.B. 0766) werden unterstützt.
     description: ''
   - name: --sas-token
-    summary: 'Eine Shared Access Signature (SAS). Muss in Verbindung mit dem Speicherkonto Namen verwendet werden. Umgebungsvariable: AZURE_STORAGE_SAS_TOKEN.'
+    summary: 'Eine Shared Access Signature (SAS). Muss in Verbindung mit dem Speicherkontonamen verwendet werden. Umgebungsvariable: AZURE_STORAGE_SAS_TOKEN.'
     description: ''
   - name: --timeout
-    summary: Anforderungs Timeout in Sekunden. Gilt für jeden Dienst aufzurufen.
+    summary: Anforderungstimeout in Sekunden. Gilt für jeden Aufruf des Diensts.
     description: ''
 commands:
 - az_storage_blob_directory_access_set
@@ -252,10 +252,10 @@ globalParameters:
 - name: --verbose
   summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
 metadata:
-  description: Dient zum Verwalten der Zugriffs Steuerungseigenschaften eines Verzeichnisses, wenn der hierarchische Namespace aktiviert ist.
-  ms.openlocfilehash: 5efc6efa6080cda777dbd304a2d3b28b0f4f9a45
-  ms.sourcegitcommit: 612554c029ba1f28d3a43fd22e743104a1a30ea0
+  description: Verwalten sie die Zugriffssteuerungseigenschaften eines Verzeichnisses, wenn hierarchischer Namespace aktiviert ist.
+  ms.openlocfilehash: a409fd9dd3739ed739a64909bb7b09e53ebd339f
+  ms.sourcegitcommit: d01260d847ea835a8bbab0e0db73d1b39f5c18ef
   ms.translationtype: MT
   ms.contentlocale: de-DE
-  ms.lasthandoff: 04/07/2021
-  ms.locfileid: "106896055"
+  ms.lasthandoff: 04/13/2021
+  ms.locfileid: "107346171"
