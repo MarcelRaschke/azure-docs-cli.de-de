@@ -1,0 +1,123 @@
+### YamlMime:AzureCLIGroup
+uid: az_alias
+name: az alias
+extensionInformation: >-
+  > [!Note]
+
+  > Dieser Verweis ist Teil der **Alias** Erweiterung für Azure CLI und erfordert Version 2.0.31. dev0 oder höher.  Die Erweiterung wird automatisch installiert, wenn Sie den Befehl **AZ Alias** zum ersten Mal ausführen.  [Weitere Informationen zu Erweiterungen](https://docs.microsoft.com/en-us/cli/azure/azure-cli-extensions-overview)
+summary: Verwalten Sie Azure CLI Aliase.
+description: ''
+directCommands:
+- uid: az_alias_create
+  name: az alias create
+  summary: Erstellen Sie einen Alias.
+  description: ''
+  syntax: >-
+    az alias create --command
+                    --name
+  examples:
+  - summary: Erstellen Sie einfache Alias Befehle.
+    syntax: >-
+      az alias create --name rg --command group
+
+
+      az alias create --name ls --command list
+  - summary: Erstellen Sie einen komplexen Alias.
+    syntax: az alias create --name list-vm --command 'vm list --resource-group myResourceGroup'
+  - summary: Erstellen Sie einen Alias Befehl mit Argumenten.
+    syntax: >-
+      az alias create --name 'list-vm {{ resource_group }}' \
+        --command 'vm list --resource-group {{ resource_group }}'
+  - summary: Verarbeiten Sie Argumente mithilfe von Jinja2-Vorlagen.
+    syntax: >-
+      az alias create --name 'storage-ls {{ url }}' \
+        --command 'storage blob list
+          --account-name {{ url.replace("https://", "").split(".")[0] }}
+          --container-name {{ url.replace("https://", "").split("/")[1] }}'
+  requiredParameters:
+  - isRequired: true
+    name: --command -c
+    summary: Der Befehl, auf den der Alias verweist.
+    description: ''
+  - isRequired: true
+    name: --name -n
+    summary: Der Name des Alias.
+    description: ''
+- uid: az_alias_export
+  name: az alias export
+  summary: Exportieren Sie alle registrierten Aliase als INI-Konfigurationsdatei in einen angegebenen Pfad. Wenn kein Export Pfad angegeben ist, wird die Alias Konfigurationsdatei in das aktuelle Arbeitsverzeichnis exportiert.
+  description: ''
+  syntax: >-
+    az alias export [--exclude]
+                    [--path]
+  optionalParameters:
+  - name: --exclude -e
+    summary: Durch Leerzeichen getrennte Aliase, die vom Export ausgeschlossen sind.
+    description: ''
+  - name: --path -p
+    summary: Der Pfad der Alias Konfigurationsdatei, in die exportiert werden soll.
+    description: ''
+- uid: az_alias_import
+  name: az alias import
+  summary: Importieren Sie Aliase aus einer INI-Konfigurationsdatei oder einer URL.
+  description: ''
+  syntax: az alias import --source
+  requiredParameters:
+  - isRequired: true
+    name: --source -s
+    summary: Die Quelle der Aliase, aus denen importiert werden soll.
+    description: ''
+- uid: az_alias_list
+  name: az alias list
+  summary: Listet die registrierten Aliase auf.
+  description: ''
+  syntax: az alias list
+- uid: az_alias_remove
+  name: az alias remove
+  summary: Entfernen Sie einen oder mehrere Aliase. Zu entfernende Aliase werden durch Leerzeichen getrennt.
+  description: ''
+  syntax: az alias remove --name
+  requiredParameters:
+  - isRequired: true
+    name: --name -n
+    summary: Durch Leerzeichen getrennte Aliase.
+    description: ''
+- uid: az_alias_remove-all
+  name: az alias remove-all
+  summary: Entfernen Sie alle registrierten Aliase.
+  description: ''
+  syntax: az alias remove-all [--yes]
+  optionalParameters:
+  - name: --yes -y
+    summary: Nicht zur Bestätigung auffordern
+    description: ''
+commands:
+- az_alias_create
+- az_alias_export
+- az_alias_import
+- az_alias_list
+- az_alias_remove
+- az_alias_remove-all
+globalParameters:
+- name: --debug
+  summary: Ausführlichkeit der Protokollierung erhöhen, um alle Debugprotokolle anzuzeigen.
+- name: --help -h
+  summary: Zeigen Sie diese Hilfemeldung an, und schließen Sie sie.
+- name: --only-show-errors
+  summary: Nur Fehler anzeigen und Warnungen unterdrücken.
+- name: --output -o
+  defaultValue: json
+  parameterValueGroup: json, jsonc, table, tsv
+  summary: Ausgabeformat.
+- name: --query
+  summary: JMESPath-Abfragezeichenfolge. Weitere Informationen und Beispiele finden Sie unter <a href="http://jmespath.org/">http://jmespath.org/</a>.
+- name: --verbose
+  summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
+metadata:
+  description: Verwalten Sie Azure CLI Aliase.
+  ms.openlocfilehash: 83d8447861f1b342a5e1fd8df2a5a5239cdfc149
+  ms.sourcegitcommit: 612554c029ba1f28d3a43fd22e743104a1a30ea0
+  ms.translationtype: MT
+  ms.contentlocale: de-DE
+  ms.lasthandoff: 04/07/2021
+  ms.locfileid: "106894411"
