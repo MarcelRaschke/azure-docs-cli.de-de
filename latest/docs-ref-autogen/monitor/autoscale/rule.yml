@@ -1,8 +1,8 @@
 ### YamlMime:AzureCLIGroup
 uid: az_monitor_autoscale_rule
 name: az monitor autoscale rule
-summary: Verwalten Sie Regeln für die automatische Skalierung.
-description: 'Weitere Informationen zur automatischen Skalierung finden Sie unter: https://docs.microsoft.com/azure/monitoring-and-diagnostics/monitoring-understanding-autoscale-settings .'
+summary: Verwalten von Skalierungsregeln für die automatische Skalierung.
+description: Weitere Informationen zur automatischen Skalierung finden Sie unter https://docs.microsoft.com/azure/monitoring-and-diagnostics/monitoring-understanding-autoscale-settings .
 directCommands:
 - uid: az_monitor_autoscale_rule_copy
   name: az monitor autoscale rule copy
@@ -22,11 +22,11 @@ directCommands:
     description: ''
   - isRequired: true
     name: --dest-schedule
-    summary: Der Name des Profils, in das Regeln kopiert werden sollen.
+    summary: Name des Profils, in das Regeln kopiert werden sollen.
     description: ''
   - isRequired: true
     name: --index
-    summary: Durch Leerzeichen getrennte Liste der zu kopierenden Regel Indizes oder " \* ", um alle Regeln zu kopieren.
+    summary: Durch Leerzeichen getrennte Liste der zu kopierenden Regelindizes oder " \* "", um alle Regeln zu kopieren.
     description: ''
   - isRequired: true
     name: --resource-group -g
@@ -35,16 +35,16 @@ directCommands:
   optionalParameters:
   - name: --source-schedule
     defaultValue: default
-    summary: Der Name des Profils, aus dem Regeln kopiert werden sollen.
+    summary: Name des Profils, aus dem Regeln kopiert werden sollen.
     description: ''
   - name: --subscription
-    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
     description: ''
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/monitor/_help.py
 - uid: az_monitor_autoscale_rule_create
   name: az monitor autoscale rule create
   summary: Fügen Sie eine neue Regel für die automatische Skalierung hinzu.
-  description: 'Weitere Informationen zur automatischen Skalierung finden Sie unter: https://docs.microsoft.com/azure/monitoring-and-diagnostics/monitoring-understanding-autoscale-settings .'
+  description: Weitere Informationen zur automatischen Skalierung finden Sie unter https://docs.microsoft.com/azure/monitoring-and-diagnostics/monitoring-understanding-autoscale-settings .
   syntax: >-
     az monitor autoscale rule create --autoscale-name
                                      --condition
@@ -59,19 +59,19 @@ directCommands:
                                      [--subscription]
                                      [--timegrain]
   examples:
-  - summary: Skalieren Sie auf fünf Instanzen, wenn der CPU-Prozentsatz über mehrere 75 Instanzen über 10 Minuten überschreitet.
+  - summary: Skalieren Sie auf 5 Instanzen, wenn der CPU-Prozentsatz über Instanzen hinweg größer als 75 ist, gemittelt über 10 Minuten.
     syntax: >-
       az monitor autoscale rule create -g {myrg} --autoscale-name {myvmss} \
         --scale to 5 --condition "Percentage CPU > 75 avg 10m"
-  - summary: Skalieren Sie zwei Instanzen zentral hoch, wenn der CPU-Prozentsatz über mehrere 75 Instanzen über 5 Minuten überschreitet.
+  - summary: Skalieren Sie 2 Instanzen hoch, wenn der CPU-Prozentsatz über Instanzen hinweg größer als 75 ist, gemittelt über 5 Minuten.
     syntax: >-
       az monitor autoscale rule create -g {myrg} --autoscale-name {myvmss} \
         --scale out 2 --condition "Percentage CPU > 75 avg 5m"
-  - summary: Skalieren Sie 50% herunter, wenn der CPU-Prozentsatz über mehrere Instanzen hinweg weniger als 25 Minuten überschreitet.
+  - summary: Skalieren Sie 50 % herunter, wenn der CPU-Prozentsatz über Instanzen hinweg kleiner als 25 ist, gemittelt über 15 Minuten.
     syntax: >-
       az monitor autoscale rule create -g {myrg} --autoscale-name {myvmss} \
         --scale in 50% --condition "Percentage CPU < 25 avg 15m"
-  - summary: Erstellen Sie Einstellungen für die automatische Skalierung über eine von Diagnose Erweiterungen aktivierte VM-Metrik. Sie können das counterspecifier-Feld verwenden, das Sie in "AZ VMSS Diagnostics get-default-config" abgerufen haben `--condition` .
+  - summary: Erstellen Sie Einstellungen für die automatische Skalierung über eine Gast-VM-Metrik, die über Diagnoseerweiterungen aktiviert ist. Sie können das CounterSpecifier-Feld verwenden, das aus "az vmss diagnostics get-default-config" in abgerufen `--condition` wurde.
     syntax: az monitor autoscale rule create -g {myrg} --autoscale-name test --scale out 1 --condition "/builtin/memory/percentavailablememory > 80 total 5m"
   requiredParameters:
   - isRequired: true
@@ -80,51 +80,51 @@ directCommands:
     description: ''
   - isRequired: true
     name: --condition
-    summary: Die Bedingung, die die Skalierungs Aktion auslöst.
+    summary: Die Bedingung, die die Skalierungsaktion auslöst.
     description: >-
-      Syntax:--Condition ["Namespace"] Metrik {= =,! =, >, >=, <, <=} Schwellenwert {AVG, min, Max, Total, count} Zeitraum [WHERE Dimension {= =,! =} Wert [oder value...] [und Dimension {= =,! =} Wert [oder Wert...]...]]
+      Verwendung: --condition ["NAMESPACE"] METRIC {==,!=,>,>=,<,<=} THRESHOLD {avg,min,max,total,count} PERIOD [where DIMENSION {==,!=} VALUE [or VALUE ...] [and DIMENSION {==,!=} VALUE [or VALUE ...] ...]]
 
 
-      Dimensionen können abgefragt werden, indem das Schlüsselwort ' WHERE ' hinzugefügt wird, und mehrere Dimensionen können abgefragt werden, indem Sie mit dem Schlüsselwort ' and ' kombiniert werden. Werte für Metriken und geeignete Schwellenwerte können mit dem Befehl abgerufen werden `az monitor metric` . Das Format des Zeitraums ist "# #h # #m # #s".
+      Dimensionen können abgefragt werden, indem das Where-Schlüsselwort hinzugefügt wird, und mehrere Dimensionen können abgefragt werden, indem sie mit dem Schlüsselwort "and" kombiniert werden. Werte für METRIC und entsprechende SCHWELLENWERTe können über den Befehl abgerufen `az monitor metric` werden. Das Period-Format ist "##h##m##s".
   - isRequired: true
     name: --scale
-    summary: Die Richtung und die Größe, die skaliert werden soll.
-    description: Verwendung:--Skalieren von {to, in, out} Val [%] behobene Anzahl:--Skalieren auf 5 nach Anzahl:--Skalieren in 2 nach Prozent:---horizontal skalieren von 10%.
+    summary: Die Richtung und der Zu skalierende Betrag.
+    description: 'Verwendung: --scale {to,in,out} VAL[%] Feste Anzahl: --scale to 5 In by Count: --scale in 2 Out by Percent: --scale out 10%.'
   optionalParameters:
   - name: --cooldown
     defaultValue: "5"
-    summary: Die Anzahl der Minuten, die ververgehen müssen, bevor ein anderes Skalierungs Ereignis auftreten kann.
+    summary: Die Anzahl der Minuten, die verstreichen müssen, bevor ein weiteres Skalierungsereignis auftreten kann.
     description: ''
   - name: --profile-name
     defaultValue: default
-    summary: Der Name des Profils für die automatische Skalierung.
+    summary: Name des Profils für die automatische Skalierung.
     description: ''
   - name: --resource
-    summary: Der Name oder die ID der Ziel Ressource.
+    summary: Name oder ID der Zielressource.
     description: ''
   - name: --resource-group -g
     summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
     description: ''
   - name: --resource-namespace
-    summary: Der Ziel Ressourcenanbieter-Namespace.
+    summary: Zielressourcenanbieternamespace.
     description: ''
   - name: --resource-parent
-    summary: Der übergeordnete Pfad der Ziel Ressource, falls zutreffend.
+    summary: Übergeordneter Pfad der Zielressource, falls zutreffend.
     description: ''
   - name: --resource-type
-    summary: "Der Ziel Ressourcentyp. Kann auch das Namespace-/Typformat akzeptieren (Beispiel: ' Microsoft. Compute/VirtualMachines ')."
+    summary: Zielressourcentyp. Kann auch das Namespace-/Typformat akzeptieren (z.B. "Microsoft.Compute/virtualMachines").
     description: ''
   - name: --subscription
-    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
     description: ''
   - name: --timegrain
     defaultValue: avg 1m
-    summary: Die Art und Weise, wie Metriken zwischen Instanzen abgerufen werden.
-    description: 'Die Form des timegrain-Werts ist {AVG, min, Max, Sum}. Werte können mit dem Befehl abgerufen werden `az monitor metric` . Das Format des Werts ist "# #h # #m # #s".'
+    summary: Die Art und Weise, wie Metriken über Instanzen hinweg abruft werden.
+    description: Die Form des Timegrains ist {avg,min,max,sum} VALUE. Werte können über den Befehl ermittelt `az monitor metric` werden. Das Value-Format ist "##h##m##s".
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/monitor/_help.py
 - uid: az_monitor_autoscale_rule_delete
   name: az monitor autoscale rule delete
-  summary: Entfernen Sie Regeln für die automatische Skalierung aus einem Profil.
+  summary: Entfernen sie Regeln für die automatische Skalierung aus einem Profil.
   description: ''
   syntax: >-
     az monitor autoscale rule delete --autoscale-name
@@ -139,7 +139,7 @@ directCommands:
     description: ''
   - isRequired: true
     name: --index
-    summary: Durch Leerzeichen getrennte Liste der zu entfernenden Regel Indizes oder " \* ", um alle Regeln zu löschen.
+    summary: Eine durch Leerzeichen getrennte Liste der zu entfernenden Regelindizes oder " \* "", um alle Regeln zu löschen.
     description: ''
   - isRequired: true
     name: --resource-group -g
@@ -148,15 +148,15 @@ directCommands:
   optionalParameters:
   - name: --profile-name
     defaultValue: default
-    summary: Der Name des Profils für die automatische Skalierung.
+    summary: Name des Profils für die automatische Skalierung.
     description: ''
   - name: --subscription
-    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
     description: ''
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/monitor/_help.py
 - uid: az_monitor_autoscale_rule_list
   name: az monitor autoscale rule list
-  summary: Auflisten der Regeln für die automatische Skalierung für ein Profil.
+  summary: Auflisten von Regeln für die automatische Skalierung für ein Profil.
   description: ''
   syntax: >-
     az monitor autoscale rule list --autoscale-name
@@ -165,7 +165,7 @@ directCommands:
                                    [--query-examples]
                                    [--subscription]
   examples:
-  - summary: Auflisten der Regeln für die automatische Skalierung für ein Profil. automatisch generierten
+  - summary: Auflisten von Regeln für die automatische Skalierung für ein Profil. (automatisch generiert)
     syntax: az monitor autoscale rule list --autoscale-name MyAutoscale --profile-name MyProfile --resource-group MyResourceGroup
   requiredParameters:
   - isRequired: true
@@ -179,13 +179,13 @@ directCommands:
   optionalParameters:
   - name: --profile-name
     defaultValue: default
-    summary: Der Name des Profils für die automatische Skalierung.
+    summary: Name des Profils für die automatische Skalierung.
     description: ''
   - name: --query-examples
-    summary: Empfehlen Sie die jmespath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und Sie nach dem Abfrage Parameter in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positions Schlüsselwörter hinzufügen, um Vorschläge auf der Grundlage dieser Schlüsselwörter zu geben.
+    summary: Empfehlen Sie die JMESPath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und sie nach dem Parameter --query in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positionsschlüsselwörter hinzufügen, damit wir basierend auf diesen Schlüsselwörtern Vorschläge geben können.
     description: ''
   - name: --subscription
-    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
     description: ''
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/monitor/_help.py
 commands:
@@ -210,11 +210,11 @@ globalParameters:
   summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
 metadata:
   doc_source_url_repo: https://github.com/Azure/azure-cli/blob/dev/
-  ms.date: 02/23/2021
-  description: 'Weitere Informationen zur automatischen Skalierung finden Sie unter: https://docs.microsoft.com/azure/monitoring-and-diagnostics/monitoring-understanding-autoscale-settings .'
-  ms.openlocfilehash: 2c4197fda074dab350b32b024d176b15629ef576
-  ms.sourcegitcommit: 612554c029ba1f28d3a43fd22e743104a1a30ea0
+  ms.date: 04/13/2021
+  description: Weitere Informationen zur automatischen Skalierung finden Sie unter https://docs.microsoft.com/azure/monitoring-and-diagnostics/monitoring-understanding-autoscale-settings .
+  ms.openlocfilehash: 3bb95183022b0c7d8f34c8da09cd57495bb8e272
+  ms.sourcegitcommit: d01260d847ea835a8bbab0e0db73d1b39f5c18ef
   ms.translationtype: MT
   ms.contentlocale: de-DE
-  ms.lasthandoff: 04/07/2021
-  ms.locfileid: "106874639"
+  ms.lasthandoff: 04/13/2021
+  ms.locfileid: "107355096"
