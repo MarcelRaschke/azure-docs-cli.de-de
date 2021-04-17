@@ -29,27 +29,27 @@ directCommands:
                                    [--tags]
                                    [--vpn-type {PolicyBased, RouteBased}]
   examples:
-  - summary: Erstellen Sie ein einfaches virtuelles Netzwerk Gateway für Site-to-Site-Konnektivität.
+  - summary: Erstellen Sie ein einfaches Virtuelles Netzwerkgateway für Site-to-Site-Konnektivität.
     syntax: >-
       az network vnet-gateway create -g MyResourceGroup -n MyVnetGateway --public-ip-address MyGatewayIp \
           --vnet MyVnet --gateway-type Vpn --sku VpnGw1 --vpn-type RouteBased --no-wait
-  - summary: Erstellen Sie ein einfaches virtuelles Netzwerk Gateway, das Punkt-zu-Standort-Konnektivität mit einem RADIUS-Geheimnis bereitstellt, das mit dem auf einem RADIUS-Server konfigurierten RADIUS übereinstimmt.
+  - summary: Erstellen Sie ein einfaches Virtuelles Netzwerkgateway, das Point-to-Site-Konnektivität mit einem RADIUS-Geheimnis bietet, das mit dem auf einem RADIUS-Server konfigurierten Geheimnis entspricht.
     syntax: >-
       az network vnet-gateway create -g MyResourceGroup -n MyVnetGateway --public-ip-address MyGatewayIp \
           --vnet MyVnet --gateway-type Vpn --sku VpnGw1 --vpn-type RouteBased --address-prefixes 40.1.0.0/24 \
           --client-protocol IkeV2 SSTP --radius-secret 111_aaa --radius-server 30.1.1.15 --vpn-gateway-generation Generation1
-  - summary: Erstellen eines einfachen Gateways für ein virtuelles Netzwerk mit Multi-Authentifizierung
+  - summary: Erstellen eines einfachen Gateways für virtuelle Netzwerke mit Mehrfachauthentifizierung
     syntax: az network vnet-gateway create -g MyResourceGroup -n MyVnetGateway --public-ip-address MyGatewayIp --vnet MyVnet --gateway-type Vpn --sku VpnGw1 --vpn-type RouteBased --address-prefixes 40.1.0.0/24 --client-protocol OpenVPN --radius-secret 111_aaa --radius-server 30.1.1.15 --aad-issuer https://sts.windows.net/00000-000000-00000-0000-000/ --aad-tenant https://login.microsoftonline.com/000 --aad-audience 0000-000 --root-cert-name root-cert --root-cert-data "root-cert.cer" --vpn-auth-type AAD Certificate Radius
-  - summary: Erstellen Sie ein Gateway für das virtuelle Netzwerk. automatisch generierten
+  - summary: Erstellen Sie ein Gateway für das virtuelle Netzwerk. (automatisch generiert)
     syntax: az network vnet-gateway create --gateway-type Vpn --location westus2 --name MyVnetGateway --no-wait --public-ip-addresses myVGPublicIPAddress --resource-group MyResourceGroup --sku Basic --vnet MyVnet --vpn-type PolicyBased
   requiredParameters:
   - isRequired: true
     name: --name -n
-    summary: Der Name des vnet-Gateways.
+    summary: Name des VNET-Gateways.
     description: ''
   - isRequired: true
     name: --public-ip-addresses
-    summary: Geben Sie eine einzelne öffentliche IP-Adresse (Name oder ID) für ein aktiv/Standby-Gateway an. Geben Sie zwei durch Leerzeichen getrennte öffentliche IP-Adressen für ein aktiv/aktiv-Gateway an.
+    summary: Geben Sie eine einzelne öffentliche IP-Adresse (Name oder ID) für ein Aktiv-Standby-Gateway an. Geben Sie zwei durch Leerzeichen getrennte öffentliche IP-Namen für ein Aktiv/Aktiv-Gateway an.
     description: ''
   - isRequired: true
     name: --resource-group -g
@@ -57,24 +57,24 @@ directCommands:
     description: ''
   - isRequired: true
     name: --vnet
-    summary: Der Name oder die ID eines vorhandenen virtuellen Netzwerks, das über ein Subnetz mit dem Namen "gatewaysubnet" verfügt.
+    summary: Name oder ID eines vorhandenen virtuellen Netzwerks mit einem Subnetz namens "GatewaySubnet".
     description: ''
   optionalParameters:
   - name: --address-prefixes
-    summary: Durch Leerzeichen getrennte Liste der CIDR-Präfixe, die den Adressraum für den P2S vpnclient darstellen.
+    summary: Durch Leerzeichen getrennte Liste von CIDR-Präfixen, die den Adressraum für den P2S-Vpnclient darstellen.
     description: ''
   - name: --asn
-    summary: Autonome System Nummer, die für die BGP-Einstellungen verwendet werden soll.
+    summary: Autonome Systemnummer, die für die BGP-Einstellungen verwendet werden soll.
     description: ''
   - name: --bgp-peering-address
-    summary: Die für BGP-Peering zu verwendende IP-Adresse.
+    summary: IP-Adresse, die für BGP-Peering verwendet werden soll.
     description: ''
   - name: --client-protocol
     parameterValueGroup: IkeV2, OpenVPN, SSTP
-    summary: Protokolle, die für die Verbindung verwendet werden sollen.
+    summary: Protokolle, die zum Herstellen einer Verbindung verwendet werden.
     description: ''
   - name: --gateway-default-site
-    summary: Der Name oder die ID eines lokalen Netzwerk Gateways, das einen lokalen Netzwerkstandort mit Standardrouten darstellt.
+    summary: Name oder ID eines lokalen Netzwerkgateways, das einen lokalen Netzwerkstandort mit Standardrouten darstellt.
     description: ''
   - name: --gateway-type
     defaultValue: Vpn
@@ -88,36 +88,36 @@ directCommands:
     summary: Nicht auf den Abschluss lang andauernder Vorgänge warten
     description: ''
   - name: --peer-weight
-    summary: Der durch BGP-Peering erlernten Routen wurde eine Gewichtung (0-100) hinzugefügt.
+    summary: Gewichtung (0-100) zu Routen hinzugefügt, die über BGP-Peering erlernt wurden.
     description: ''
   - name: --radius-secret
-    summary: RADIUS-Geheimnis, das für die Authentifizierung verwendet werden soll.
+    summary: Radiusgeheimnis, das für die Authentifizierung verwendet werden soll.
     description: ''
   - name: --radius-server
-    summary: RADIUS-Server Adresse, mit der eine Verbindung hergestellt wird.
+    summary: Radius-Serveradresse, mit der eine Verbindung hergestellt werden soll.
     description: ''
   - name: --sku
     defaultValue: Basic
     parameterValueGroup: Basic, ErGw1AZ, ErGw2AZ, ErGw3AZ, HighPerformance, Standard, UltraPerformance, VpnGw1, VpnGw1AZ, VpnGw2, VpnGw2AZ, VpnGw3, VpnGw3AZ
-    summary: Vnet-Gateway-SKU.
+    summary: VNET-Gateway-SKU.
     description: ''
   - name: --subscription
-    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
     description: ''
   - name: --tags
-    summary: 'Durch Leerzeichen getrennte Tags: Key [= value] [key [= value]...]. Verwenden Sie "", um vorhandene Tags zu löschen.'
+    summary: 'Durch Leerzeichen getrennte Tags: key[=value] [key[=value] ...]. Verwenden Sie "", um vorhandene Tags zu löschen.'
     description: ''
   - name: --vpn-type
     defaultValue: RouteBased
     parameterValueGroup: PolicyBased, RouteBased
-    summary: VPN-Routentyp.
+    summary: VPN-Routingtyp.
     description: ''
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/network/_help.py
 - uid: az_network_vnet-gateway_delete
   name: az network vnet-gateway delete
-  summary: Löschen Sie ein Gateway für virtuelle Netzwerke.
+  summary: Löschen sie ein Gateway für virtuelle Netzwerke.
   description: >-
-    Um ein Virtual Network Gateway zu löschen, müssen Sie zunächst alle Verbindungs Objekte in Azure löschen, die mit dem Gateway verbunden sind. Nachdem Sie das Gateway gelöscht haben, fahren Sie mit dem Löschen anderer Ressourcen fort, die jetzt nicht verwendet werden.
+    Um ein Virtual Network Gateway zu löschen, müssen Sie zunächst ALLE Verbindungsobjekte in Azure löschen, die mit dem Gateway verbunden sind. Fahren Sie nach dem Löschen des Gateways mit dem Löschen anderer Ressourcen fort, die jetzt nicht verwendet werden.
 
     Weitere Informationen finden Sie in der Reihenfolge der Anweisungen auf dieser Seite: https://docs.microsoft.com/azure/vpn-gateway/vpn-gateway-delete-vnet-gateway-portal .
   syntax: >-
@@ -127,14 +127,14 @@ directCommands:
                                    [--resource-group]
                                    [--subscription]
   examples:
-  - summary: Löschen Sie ein Gateway für virtuelle Netzwerke.
+  - summary: Löschen sie ein Gateway für virtuelle Netzwerke.
     syntax: az network vnet-gateway delete -g MyResourceGroup -n MyVnetGateway
   optionalParameters:
   - name: --ids
-    summary: Mindestens eine Ressourcen-ID (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID handeln, die alle Informationen von Ressourcen-ID-Argumenten enthält. Sie sollten entweder--IDs oder andere Ressourcen-ID-Argumente angeben.
+    summary: Mindestens eine Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen von "Resource Id"-Argumenten sein. Sie sollten entweder --ids oder andere "Resource Id"-Argumente angeben.
     description: ''
   - name: --name -n
-    summary: Der Name des vnet-Gateways.
+    summary: Name des VNET-Gateways.
     description: ''
   - name: --no-wait
     summary: Nicht auf den Abschluss lang andauernder Vorgänge warten
@@ -143,7 +143,7 @@ directCommands:
     summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
     description: ''
   - name: --subscription
-    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
     description: ''
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/network/_help.py
 - uid: az_network_vnet-gateway_list
@@ -155,7 +155,7 @@ directCommands:
                                  [--query-examples]
                                  [--subscription]
   examples:
-  - summary: Listet die Gateways des virtuellen Netzwerks in einer Ressourcengruppe auf.
+  - summary: Auflisten virtueller Netzwerkgateways in einer Ressourcengruppe.
     syntax: az network vnet-gateway list -g MyResourceGroup
   requiredParameters:
   - isRequired: true
@@ -164,15 +164,15 @@ directCommands:
     description: ''
   optionalParameters:
   - name: --query-examples
-    summary: Empfehlen Sie die jmespath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und Sie nach dem Abfrage Parameter in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positions Schlüsselwörter hinzufügen, um Vorschläge auf der Grundlage dieser Schlüsselwörter zu geben.
+    summary: Empfehlen Sie die JMESPath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und sie nach dem Parameter --query in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positionsschlüsselwörter hinzufügen, damit wir basierend auf diesen Schlüsselwörtern Vorschläge geben können.
     description: ''
   - name: --subscription
-    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
     description: ''
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/network/_help.py
 - uid: az_network_vnet-gateway_list-advertised-routes
   name: az network vnet-gateway list-advertised-routes
-  summary: Listet die Routen eines virtuellen Netzwerk Gateways auf, das dem angegebenen Peer angekündigt wurde.
+  summary: Listet die Routen eines Gateways für virtuelle Netzwerke auf, die dem angegebenen Peer angekündigt werden.
   description: ''
   syntax: >-
     az network vnet-gateway list-advertised-routes --peer
@@ -181,7 +181,7 @@ directCommands:
                                                    [--resource-group]
                                                    [--subscription]
   examples:
-  - summary: Listet die Routen eines virtuellen Netzwerk Gateways auf, das dem angegebenen Peer angekündigt wurde.
+  - summary: Listet die Routen eines Gateways für virtuelle Netzwerke auf, die dem angegebenen Peer angekündigt werden.
     syntax: az network vnet-gateway list-advertised-routes -g MyResourceGroup -n MyVnetGateway --peer 23.10.10.9
   requiredParameters:
   - isRequired: true
@@ -190,21 +190,21 @@ directCommands:
     description: ''
   optionalParameters:
   - name: --ids
-    summary: Mindestens eine Ressourcen-ID (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID handeln, die alle Informationen von Ressourcen-ID-Argumenten enthält. Sie sollten entweder--IDs oder andere Ressourcen-ID-Argumente angeben.
+    summary: Eine oder mehrere Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu Ressourcen-ID-Argumenten geben. Sie sollten entweder --ids oder andere Ressourcen-ID-Argumente bereitstellen.
     description: ''
   - name: --name -n
-    summary: Der Name des vnet-Gateways.
+    summary: Name des VNET-Gateways.
     description: ''
   - name: --resource-group -g
     summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
     description: ''
   - name: --subscription
-    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
     description: ''
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/network/_help.py
 - uid: az_network_vnet-gateway_list-bgp-peer-status
   name: az network vnet-gateway list-bgp-peer-status
-  summary: Abrufen des Status von BGP-Peers.
+  summary: Rufen Sie den Status von BGP-Peers ab.
   description: ''
   syntax: >-
     az network vnet-gateway list-bgp-peer-status [--ids]
@@ -213,14 +213,14 @@ directCommands:
                                                  [--resource-group]
                                                  [--subscription]
   examples:
-  - summary: Abrufen des Status eines BGP-Peers.
+  - summary: Ruft den Status eines BGP-Peers ab.
     syntax: az network vnet-gateway list-bgp-peer-status -g MyResourceGroup -n MyVnetGateway --peer 23.10.10.9
   optionalParameters:
   - name: --ids
-    summary: Mindestens eine Ressourcen-ID (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID handeln, die alle Informationen von Ressourcen-ID-Argumenten enthält. Sie sollten entweder--IDs oder andere Ressourcen-ID-Argumente angeben.
+    summary: Eine oder mehrere Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu Ressourcen-ID-Argumenten geben. Sie sollten entweder --ids oder andere Ressourcen-ID-Argumente bereitstellen.
     description: ''
   - name: --name -n
-    summary: Der Name des vnet-Gateways.
+    summary: Name des VNET-Gateways.
     description: ''
   - name: --peer
     summary: Die IP-Adresse des Peers, von dem der Status abgerufen werden soll.
@@ -229,12 +229,12 @@ directCommands:
     summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
     description: ''
   - name: --subscription
-    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
     description: ''
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/network/_help.py
 - uid: az_network_vnet-gateway_list-learned-routes
   name: az network vnet-gateway list-learned-routes
-  summary: Mit diesem Vorgang wird eine Liste der Routen abgerufen, die das Gateway des virtuellen Netzwerks kennengelernt hat, einschließlich der von BGP-Peers erlernten Routen.
+  summary: Dieser Vorgang ruft eine Liste der Routen ab, die das Gateway für virtuelle Netzwerke gelernt hat, einschließlich der Routen, die von BGP-Peers gelernt wurden.
   description: ''
   syntax: >-
     az network vnet-gateway list-learned-routes [--ids]
@@ -242,20 +242,20 @@ directCommands:
                                                 [--resource-group]
                                                 [--subscription]
   examples:
-  - summary: Ruft eine Liste der gelernten Routen ab.
+  - summary: Rufen Sie eine Liste der gelernten Routen ab.
     syntax: az network vnet-gateway list-learned-routes -g MyResourceGroup -n MyVnetGateway
   optionalParameters:
   - name: --ids
-    summary: Mindestens eine Ressourcen-ID (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID handeln, die alle Informationen von Ressourcen-ID-Argumenten enthält. Sie sollten entweder--IDs oder andere Ressourcen-ID-Argumente angeben.
+    summary: Eine oder mehrere Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu Ressourcen-ID-Argumenten geben. Sie sollten entweder --ids oder andere Ressourcen-ID-Argumente bereitstellen.
     description: ''
   - name: --name -n
-    summary: Der Name des vnet-Gateways.
+    summary: Name des VNET-Gateways.
     description: ''
   - name: --resource-group -g
     summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
     description: ''
   - name: --subscription
-    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
     description: ''
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/network/_help.py
 - uid: az_network_vnet-gateway_reset
@@ -271,28 +271,28 @@ directCommands:
   examples:
   - summary: Zurücksetzen eines Gateways für virtuelle Netzwerke.
     syntax: az network vnet-gateway reset -g MyResourceGroup -n MyVnetGateway
-  - summary: Setzen Sie ein Gateway für virtuelle Netzwerke mit aktiviertem Active-Active Feature zurück.
+  - summary: Zurücksetzen eines Gateways für virtuelle Netzwerke mit aktivierter Active-Active-Funktion.
     syntax: az network vnet-gateway reset -g MyResourceGroup -n MyVnetGateway --gateway-vip MyGatewayIP
   optionalParameters:
   - name: --gateway-vip
-    summary: VIP-Adresse des virtuellen Netzwerk Gateways, die für das Zurücksetzen des aktiv/aktiv-aktivierten Gateways bereitgestellt wird.
+    summary: Vip-Adresse des Gateways des virtuellen Netzwerks, die beim Zurücksetzen des Aktiv/Aktiv-Features aktivierten Gateways angegeben wird.
     description: ''
   - name: --ids
-    summary: Mindestens eine Ressourcen-ID (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID handeln, die alle Informationen von Ressourcen-ID-Argumenten enthält. Sie sollten entweder--IDs oder andere Ressourcen-ID-Argumente angeben.
+    summary: Mindestens eine Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen von "Resource Id"-Argumenten sein. Sie sollten entweder --ids oder andere "Resource Id"-Argumente angeben.
     description: ''
   - name: --name -n
-    summary: Der Name des vnet-Gateways.
+    summary: Name des VNET-Gateways.
     description: ''
   - name: --resource-group -g
     summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
     description: ''
   - name: --subscription
-    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
     description: ''
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/network/_help.py
 - uid: az_network_vnet-gateway_show
   name: az network vnet-gateway show
-  summary: Informieren Sie sich über die Details eines Gateways für virtuelle Netzwerke.
+  summary: Abrufen der Details eines Gateways für virtuelle Netzwerke.
   description: ''
   syntax: >-
     az network vnet-gateway show [--ids]
@@ -301,23 +301,23 @@ directCommands:
                                  [--resource-group]
                                  [--subscription]
   examples:
-  - summary: Informieren Sie sich über die Details eines Gateways für virtuelle Netzwerke.
+  - summary: Abrufen der Details eines Gateways für virtuelle Netzwerke.
     syntax: az network vnet-gateway show -g MyResourceGroup -n MyVnetGateway
   optionalParameters:
   - name: --ids
-    summary: Mindestens eine Ressourcen-ID (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID handeln, die alle Informationen von Ressourcen-ID-Argumenten enthält. Sie sollten entweder--IDs oder andere Ressourcen-ID-Argumente angeben.
+    summary: Mindestens eine Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen von "Resource Id"-Argumenten sein. Sie sollten entweder --ids oder andere "Resource Id"-Argumente angeben.
     description: ''
   - name: --name -n
-    summary: Der Name des vnet-Gateways.
+    summary: Name des VNET-Gateways.
     description: ''
   - name: --query-examples
-    summary: Empfehlen Sie die jmespath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und Sie nach dem Abfrage Parameter in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positions Schlüsselwörter hinzufügen, um Vorschläge auf der Grundlage dieser Schlüsselwörter zu geben.
+    summary: Empfehlen Sie die JMESPath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und sie nach dem Parameter --query in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positionsschlüsselwörter hinzufügen, damit wir basierend auf diesen Schlüsselwörtern Vorschläge geben können.
     description: ''
   - name: --resource-group -g
     summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
     description: ''
   - name: --subscription
-    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
     description: ''
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/network/_help.py
 - uid: az_network_vnet-gateway_update
@@ -350,92 +350,92 @@ directCommands:
                                    [--vnet]
                                    [--vpn-type {PolicyBased, RouteBased}]
   examples:
-  - summary: Ändern Sie die SKU eines Gateways für virtuelle Netzwerke.
+  - summary: Ändern sie die SKU eines Gateways für virtuelle Netzwerke.
     syntax: az network vnet-gateway update -g MyResourceGroup -n MyVnetGateway --sku VpnGw2
-  - summary: Aktualisieren eines Gateways für virtuelle Netzwerke. automatisch generierten
+  - summary: Aktualisieren eines Gateways für virtuelle Netzwerke. (automatisch generiert)
     syntax: az network vnet-gateway update --address-prefixes 40.1.0.0/24 --client-protocol IkeV2 --name MyVnetGateway --resource-group MyResourceGroup
   optionalParameters:
   - name: --add
-    summary: Fügen Sie einer Liste von-Objekten ein Objekt hinzu, indem Sie ein Pfad-und Schlüssel-Wert-Paar angeben.  Beispiel:--Add Property. ListProperty <Key = Value, String oder JSON String>.
+    summary: 'Fügen Sie einer Liste von -Objekten ein -Objekt hinzu, indem Sie ein Pfad- und Schlüsselwertpaar angeben.  Beispiel: --add property.listProperty <key=value, string oder JSON string>.'
     description: ''
   - name: --address-prefixes
-    summary: Durch Leerzeichen getrennte Liste der CIDR-Präfixe, die den Adressraum für den P2S vpnclient darstellen.
+    summary: Durch Leerzeichen getrennte Liste von CIDR-Präfixen, die den Adressraum für den P2S-Vpnclient darstellen.
     description: ''
   - name: --asn
-    summary: Autonome System Nummer, die für die BGP-Einstellungen verwendet werden soll.
+    summary: Autonome Systemnummer, die für die BGP-Einstellungen verwendet werden soll.
     description: ''
   - name: --bgp-peering-address
-    summary: Die für BGP-Peering zu verwendende IP-Adresse.
+    summary: IP-Adresse, die für BGP-Peering verwendet werden soll.
     description: ''
   - name: --client-protocol
     parameterValueGroup: IkeV2, OpenVPN, SSTP
-    summary: Protokolle, die für die Verbindung verwendet werden sollen.
+    summary: Protokolle, die zum Herstellen einer Verbindung verwendet werden.
     description: ''
   - name: --enable-bgp
     parameterValueGroup: false, true
     summary: Aktivieren Sie BGP (Border Gateway Protocol).
     description: ''
   - name: --force-string
-    summary: Wenn Sie "Set" oder "Add" verwenden, erhalten Sie Zeichen folgen Literale, anstatt zu versuchen, in JSON zu konvertieren.
+    summary: Wenn Sie "set" oder "add" verwenden, behalten Sie Zeichenfolgenliterale bei, anstatt zu versuchen, in JSON zu konvertieren.
     description: ''
   - name: --gateway-default-site
-    summary: Der Name oder die ID eines lokalen Netzwerk Gateways, das einen lokalen Netzwerkstandort mit Standardrouten darstellt.
+    summary: Name oder ID eines lokalen Netzwerkgateways, das einen lokalen Netzwerkstandort mit Standardrouten darstellt.
     description: ''
   - name: --gateway-type
     parameterValueGroup: ExpressRoute, Vpn
     summary: Der Gatewaytyp.
     description: ''
   - name: --ids
-    summary: Mindestens eine Ressourcen-ID (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID handeln, die alle Informationen von Ressourcen-ID-Argumenten enthält. Sie sollten entweder--IDs oder andere Ressourcen-ID-Argumente angeben.
+    summary: Eine oder mehrere Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu Ressourcen-ID-Argumenten geben. Sie sollten entweder --ids oder andere Ressourcen-ID-Argumente bereitstellen.
     description: ''
   - name: --name -n
-    summary: Der Name des vnet-Gateways.
+    summary: Name des VNET-Gateways.
     description: ''
   - name: --no-wait
     summary: Nicht auf den Abschluss lang andauernder Vorgänge warten
     description: ''
   - name: --peer-weight
-    summary: Der durch BGP-Peering erlernten Routen wurde eine Gewichtung (0-100) hinzugefügt.
+    summary: Gewichtung (0-100) zu Routen hinzugefügt, die über BGP-Peering erlernt wurden.
     description: ''
   - name: --public-ip-addresses
-    summary: Geben Sie eine einzelne öffentliche IP-Adresse (Name oder ID) für ein aktiv/Standby-Gateway an. Geben Sie zwei durch Leerzeichen getrennte öffentliche IP-Adressen für ein aktiv/aktiv-Gateway an.
+    summary: Geben Sie eine einzelne öffentliche IP-Adresse (Name oder ID) für ein Aktiv-Standby-Gateway an. Geben Sie zwei durch Leerzeichen getrennte öffentliche IP-Dateien für ein Aktiv/Aktiv-Gateway an.
     description: ''
   - name: --radius-secret
-    summary: RADIUS-Geheimnis, das für die Authentifizierung verwendet werden soll.
+    summary: Radius-Geheimnis, das für die Authentifizierung verwendet werden soll.
     description: ''
   - name: --radius-server
-    summary: RADIUS-Server Adresse, mit der eine Verbindung hergestellt wird.
+    summary: Radius-Serveradresse, mit der eine Verbindung hergestellt werden soll.
     description: ''
   - name: --remove
-    summary: Entfernt eine Eigenschaft oder ein Element aus einer Liste.  Beispiel:--Remove Property. List <indexToRemove> oder--Remove propertytoremove.
+    summary: 'Entfernen sie eine Eigenschaft oder ein Element aus einer Liste.  Beispiel: --remove property.list <indexToRemove> OR --remove propertyToRemove.'
     description: ''
   - name: --resource-group -g
     summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
     description: ''
   - name: --set
-    summary: Aktualisieren Sie ein Objekt, indem Sie einen Eigenschafts Pfad und einen festzulegenden Wert angeben.  Beispiel:--Set Eigenschaft1. Eigenschaft2 =<value>.
+    summary: 'Aktualisieren Sie ein -Objekt, indem Sie einen festzulegenden Eigenschaftenpfad und -wert angeben.  Beispiel: --set property1.property2=<value>.'
     description: ''
   - name: --sku
     parameterValueGroup: Basic, ErGw1AZ, ErGw2AZ, ErGw3AZ, HighPerformance, Standard, UltraPerformance, VpnGw1, VpnGw1AZ, VpnGw2, VpnGw2AZ, VpnGw3, VpnGw3AZ
-    summary: Vnet-Gateway-SKU.
+    summary: VNET-Gateway-SKU.
     description: ''
   - name: --subscription
-    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
     description: ''
   - name: --tags
-    summary: 'Durch Leerzeichen getrennte Tags: Key [= value] [key [= value]...]. Verwenden Sie "", um vorhandene Tags zu löschen.'
+    summary: 'Durch Leerzeichen getrennte Tags: key[=value] [key[=value] ...]. Verwenden Sie "", um vorhandene Tags zu löschen.'
     description: ''
   - name: --vnet
-    summary: Der Name oder die ID eines virtuellen Netzwerks, das ein Subnetz mit dem Namen "gatewaysubnet" enthält.
+    summary: Name oder ID eines virtuellen Netzwerks, das ein Subnetz namens "GatewaySubnet" enthält.
     description: ''
   - name: --vpn-type
     parameterValueGroup: PolicyBased, RouteBased
-    summary: VPN-Routentyp.
+    summary: VPN-Routingtyp.
     description: ''
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/network/_help.py
 - uid: az_network_vnet-gateway_wait
   name: az network vnet-gateway wait
-  summary: Platzieren Sie die CLI in einem Wartezustand, bis eine Bedingung des Gateways des virtuellen Netzwerks erfüllt ist.
+  summary: Versetzen Sie die CLI in einen Wartezustand, bis eine Bedingung des Gateways des virtuellen Netzwerks erfüllt ist.
   description: ''
   syntax: >-
     az network vnet-gateway wait [--created]
@@ -450,45 +450,45 @@ directCommands:
                                  [--timeout]
                                  [--updated]
   examples:
-  - summary: Halten Sie die CLI an, bis das Gateway des virtuellen Netzwerks erstellt wird.
+  - summary: Halten Sie die CLI an, bis das Gateway für virtuelle Netzwerke erstellt wird.
     syntax: az network vnet-gateway wait -g MyResourceGroup -n MyVnetGateway --created
-  - summary: Platzieren Sie die CLI in einem Wartezustand, bis eine Bedingung des Gateways des virtuellen Netzwerks erfüllt ist. automatisch generierten
+  - summary: Versetzen Sie die CLI in einen Wartezustand, bis eine Bedingung des Gateways des virtuellen Netzwerks erfüllt ist. (automatisch generiert)
     syntax: az network vnet-gateway wait --name MyVnetGateway --resource-group MyResourceGroup --updated
   optionalParameters:
   - name: --created
-    summary: Warten Sie, bis "provisioningstate" bei "erfolgreich" erstellt wurde.
+    summary: Warten Sie, bis die Erstellung mit "provisioningState" bei "Succeeded" (Erfolgreich) ausgeführt wurde.
     description: ''
   - name: --custom
-    summary: "Warten Sie, bis die Bedingung eine benutzerdefinierte jmespath-Abfrage erfüllt. Beispiel: provisioningstate! = ' InProgress ', instanceview. statuses [? Code = = ' PowerState/Running ']."
+    summary: "Warten Sie, bis die Bedingung eine benutzerdefinierte JMESPath-Abfrage erfüllt. Beispiel: provisioningState!='InProgress', instanceView.statuses[?code=='PowerState/running']."
     description: ''
   - name: --deleted
-    summary: Warten Sie bis zum Löschen.
+    summary: Warten Sie, bis gelöscht wurde.
     description: ''
   - name: --exists
     summary: Warten Sie, bis die Ressource vorhanden ist.
     description: ''
   - name: --ids
-    summary: Mindestens eine Ressourcen-ID (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID handeln, die alle Informationen von Ressourcen-ID-Argumenten enthält. Sie sollten entweder--IDs oder andere Ressourcen-ID-Argumente angeben.
+    summary: Eine oder mehrere Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu Ressourcen-ID-Argumenten geben. Sie sollten entweder --ids oder andere Ressourcen-ID-Argumente bereitstellen.
     description: ''
   - name: --interval
     defaultValue: "30"
-    summary: Abruf Intervall in Sekunden.
+    summary: Abrufintervall in Sekunden.
     description: ''
   - name: --name -n
-    summary: Der Name des vnet-Gateways.
+    summary: Name des VNET-Gateways.
     description: ''
   - name: --resource-group -g
     summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
     description: ''
   - name: --subscription
-    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
     description: ''
   - name: --timeout
     defaultValue: "3600"
     summary: Maximale Wartezeit in Sekunden.
     description: ''
   - name: --updated
-    summary: Warten Sie, bis das Update mit provisioningstate bei "erfolgreich" abgeschlossen ist.
+    summary: Warten Sie, bis provisioningState auf "Succeeded" aktualisiert wurde.
     description: ''
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/network/_help.py
 commands:
@@ -532,11 +532,11 @@ globalParameters:
   summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
 metadata:
   doc_source_url_repo: https://github.com/Azure/azure-cli/blob/dev/
-  ms.date: 04/07/2021
+  ms.date: 04/12/2021
   description: Weitere Informationen zu Azure Virtual Network Gateways finden Sie unter https://docs.microsoft.com/azure/vpn-gateway/vpn-gateway-howto-site-to-site-resource-manager-cli .
-  ms.openlocfilehash: c195018d8dc5a585d8749ed05e930f1e10da2a27
-  ms.sourcegitcommit: 612554c029ba1f28d3a43fd22e743104a1a30ea0
+  ms.openlocfilehash: 099998e772292e8b6a7d3e5a3c9f49d04cb5d233
+  ms.sourcegitcommit: d01260d847ea835a8bbab0e0db73d1b39f5c18ef
   ms.translationtype: MT
   ms.contentlocale: de-DE
-  ms.lasthandoff: 04/07/2021
-  ms.locfileid: "106851145"
+  ms.lasthandoff: 04/13/2021
+  ms.locfileid: "107352529"
