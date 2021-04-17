@@ -1,19 +1,19 @@
 ### YamlMime:AzureCLIGroup
 uid: az_disk
 name: az disk
-summary: Verwalten Sie Azure Managed Disks.
+summary: Verwalten von Azure Managed Disks.
 description: >-
-  Azure Virtual Machines Datenträger als Speicherort zum Speichern von Betriebssystemen, Anwendungen und Daten verwenden. Alle virtuellen Azure-Computer verfügen über mindestens zwei Datenträger: einen Betriebssystem Datenträger und einen temporären Datenträger. Der Betriebssystem-Datenträger wird aus einem Image erstellt. Sowohl der Betriebssystem-Datenträger als auch das Image sind virtuelle Festplatten (VHDs), die im Azure-Speicherkonto gespeichert sind. Virtuelle Computer können auch über einen oder mehrere Datenträger verfügen, die ebenfalls als VHDs gespeichert werden.
+  Azure Virtual Machines Verwenden von Datenträgern als Ort zum Speichern eines Betriebssystems, von Anwendungen und von Daten. Alle virtuellen Azure-Computer verfügen über mindestens zwei Datenträger: einen Betriebssystemdatenträger und einen temporären Datenträger. Der Betriebssystem-Datenträger wird aus einem Image erstellt. Sowohl der Betriebssystem-Datenträger als auch das Image sind virtuelle Festplatten (VHDs), die im Azure-Speicherkonto gespeichert sind. Virtuelle Computer können auch über einen oder mehrere Datenträger verfügen, die ebenfalls als VHDs gespeichert werden.
 
-  Verwaltete und nicht verwaltete Azure-Datenträger haben eine maximale Größe von 4095 GB (mit Ausnahme von größeren Datenträgern in der Vorschau). Nicht verwaltete Azure-Datenträger verfügen auch über eine maximale Kapazität von 4095 GB.
+  Verwaltete und nicht verwaltete Azure-Datenträger haben eine maximale Größe von 4.095 GB (mit Ausnahme größerer Datenträger in der Vorschauversion). Nicht verwaltete Azure-Datenträger verfügen auch über eine maximale Kapazität von 4.095 GB.
 
   Weitere Informationen finden Sie unter
 
-  - Azure-Datenträger: https://docs.microsoft.com/azure/virtual-machines/linux/about-disks-and-vhds und https://docs.microsoft.com/azure/virtual-machines/windows/about-disks-and-vhds .
+  - Azure Disks – https://docs.microsoft.com/azure/virtual-machines/linux/about-disks-and-vhds und https://docs.microsoft.com/azure/virtual-machines/windows/about-disks-and-vhds .
 
-  - Größere Managed Disks in Public Preview- https://azure.microsoft.com/blog/introducing-the-public-preview-of-larger-managed-disks-sizes/
+  - Größere Managed Disks in Public Preview : https://azure.microsoft.com/blog/introducing-the-public-preview-of-larger-managed-disks-sizes/
 
-  - SSD Ultra Managed Disks in Public Preview- https://docs.microsoft.com/azure/virtual-machines/windows/disks-ultra-ssd .
+  - SSD Ultra Managed Disks in Public Preview - https://docs.microsoft.com/azure/virtual-machines/windows/disks-ultra-ssd .
 directCommands:
 - uid: az_disk_create
   name: az disk create
@@ -28,8 +28,9 @@ directCommands:
                    [--disk-iops-read-write]
                    [--disk-mbps-read-only]
                    [--disk-mbps-read-write]
+                   [--edge-zone]
                    [--enable-bursting {false, true}]
-                   [--encryption-type]
+                   [--encryption-type {EncryptionAtRestWithCustomerKey, EncryptionAtRestWithPlatformAndCustomerKeys, EncryptionAtRestWithPlatformKey}]
                    [--for-upload {false, true}]
                    [--gallery-image-reference]
                    [--gallery-image-reference-lun]
@@ -43,7 +44,7 @@ directCommands:
                    [--no-wait]
                    [--os-type {Linux, Windows}]
                    [--size-gb]
-                   [--sku {Premium_LRS, StandardSSD_LRS, Standard_LRS, UltraSSD_LRS}]
+                   [--sku {Premium_LRS, Premium_ZRS, StandardSSD_LRS, StandardSSD_ZRS, Standard_LRS, UltraSSD_LRS}]
                    [--source]
                    [--source-storage-account-id]
                    [--subscription]
@@ -52,25 +53,25 @@ directCommands:
                    [--upload-size-bytes]
                    [--zone {1, 2, 3}]
   examples:
-  - summary: Erstellen Sie einen verwalteten Datenträger, indem Sie ihn aus einem BLOB-URI importieren.
+  - summary: Erstellen Sie einen verwalteten Datenträger, indem Sie aus einem Blob-URI importieren.
     syntax: az disk create -g MyResourceGroup -n MyDisk --source https://vhd1234.blob.core.windows.net/vhds/osdisk1234.vhd
   - summary: Erstellen Sie einen leeren verwalteten Datenträger.
     syntax: az disk create -g MyResourceGroup -n MyDisk --size-gb 10
-  - summary: Erstellen Sie einen leeren verwalteten Datenträger mit aktiviertem Platz.
+  - summary: Erstellen Sie einen leeren verwalteten Datenträger mit aktivierter Bursting.
     syntax: az disk create -g MyResourceGroup -n MyDisk --size-gb 1024 --location centraluseuap --enable-bursting
-  - summary: Erstellen Sie einen verwalteten Datenträger durch Kopieren eines vorhandenen Datenträgers oder einer Momentaufnahme.
+  - summary: Erstellen Sie einen verwalteten Datenträger, indem Sie einen vorhandenen Datenträger oder eine Vorhandene Momentaufnahme kopieren.
     syntax: az disk create -g MyResourceGroup -n MyDisk2 --source MyDisk
-  - summary: Erstellen eines Datenträgers in einer Verfügbarkeits Zone in der Region "USA, Osten 2"
+  - summary: Erstellen eines Datenträgers in einer Verfügbarkeitszone in der Region "USA, Osten 2"
     syntax: az disk create -g MyResourceGroup -n MyDisk --size-gb 10 --location eastus2 --zone 1
-  - summary: Erstellen Sie einen Datenträger aus dem Image.
+  - summary: Erstellen Sie einen Datenträger aus einem Image.
     syntax: az disk create -g MyResourceGroup -n MyDisk --image-reference Canonical:UbuntuServer:18.04-LTS:18.04.202002180
-  - summary: Erstellen Sie einen Datenträger aus dem Katalog Image.
+  - summary: Erstellen Sie einen Datenträger aus einem Katalogimage.
     syntax: az disk create -g MyResourceGroup -n MyDisk --gallery-image-reference $id
-  - summary: Erstellen Sie einen Datenträger mit der Gesamtanzahl der IOPS-und der Gesamtdurchsatz Beschränkung (Mbit/s).
+  - summary: Erstellen Sie einen Datenträger mit der Gesamtanzahl von IOPS und der Beschränkung des Gesamtdurchsatzes (MBit/s).
     syntax: az disk create -g MyResourceGroup -n MyDisk --size-gb 10 --sku UltraSSD_LRS --disk-iops-read-only 200 --disk-mbps-read-only 30
-  - summary: Erstellen Sie einen Datenträger, und geben Sie die maximale Anzahl von VMS an, die gleichzeitig an den Datenträger angefügt werden können.
+  - summary: Erstellen Sie einen Datenträger, und geben Sie die maximale Anzahl von VMs an, die gleichzeitig an den Datenträger angefügt werden können.
     syntax: az disk create -g MyResourceGroup -n MyDisk --size-gb 256 --max-shares 2 -l centraluseuap
-  - summary: Erstellen Sie einen Datenträger, und ordnen Sie ihn einer Datenträger Zugriffs Ressource zu.
+  - summary: Erstellen Sie einen Datenträger, und ordnen Sie ihn einer Datenträgerzugriffsressource zu.
     syntax: az disk create -g MyResourceGroup -n MyDisk --size-gb 10 --network-access-policy AllowPrivate --disk-access MyDiskAccessID
   requiredParameters:
   - isRequired: true
@@ -83,104 +84,108 @@ directCommands:
     description: ''
   optionalParameters:
   - name: --disk-access
-    summary: Der Name oder die ID der Datenträger Zugriffs Ressource für die Verwendung privater Endpunkte auf Datenträgern.
+    summary: Name oder ID der Datenträgerzugriffsressource für die Verwendung privater Endpunkte auf Datenträgern.
     description: ''
   - name: --disk-encryption-set
-    summary: Der Name oder die ID des Datenträger Verschlüsselungs Satzes, der zum Verschlüsseln des Datenträgers verwendet wird.
+    summary: Name oder ID des Datenträgerverschlüsselungssatzes, der zum Verschlüsseln des Datenträgers verwendet wird.
     description: ''
   - name: --disk-iops-read-only
-    summary: Die Gesamtanzahl der IOPS, die auf allen VMS zulässig sind, die den freigegebenen Datenträger als schreibgeschützt einbinden. Ein Vorgang kann zwischen 4 KB und 256 KB übertragen werden.
+    summary: Die Gesamtzahl der IOPS, die auf allen VMs zulässig sind, die den freigegebenen Datenträger als ReadOnly einbinden. Ein Vorgang kann zwischen 4.000 und 256.000 Bytes übertragen.
     description: ''
   - name: --disk-iops-read-write
-    summary: Die Anzahl der IOPS, die für diesen Datenträger zulässig sind. Kann nur für ultrassd-Datenträger festgelegt werden. Ein Vorgang kann zwischen 4 KB und 256 KB übertragen werden.
+    summary: Die Anzahl der für diesen Datenträger zulässigen IOPS. Nur für UltraSSD-Datenträger festlegbar. Ein Vorgang kann zwischen 4.000 und 256.000 Bytes übertragen.
     description: ''
   - name: --disk-mbps-read-only
-    summary: Der Gesamtdurchsatz (Mbit/s), der für alle VMs zulässig ist, die den freigegebenen Datenträger als schreibgeschützt einbinden. Mbit/s bedeutet, dass Millionen von Bytes pro Sekunde-MB hier die ISO-Notation der Kräfte von 10 verwendet.
+    summary: Der Gesamtdurchsatz (MBit/s), der für alle VMs zulässig ist, die den freigegebenen Datenträger als ReadOnly einbinden. MBit/s bedeutet Millionen von Bytes pro Sekunde– MB verwendet hier die ISO-Notation mit Potenzen von 10.
     description: ''
   - name: --disk-mbps-read-write
-    summary: Die für diesen Datenträger zulässige Bandbreite. Kann nur für ultrassd-Datenträger festgelegt werden. Mbit/s bedeutet Millionen von Bytes pro Sekunde mit einer ISO-Notation von 10.
+    summary: Die für diesen Datenträger zulässige Bandbreite. Nur für UltraSSD-Datenträger festlegbar. MBit/s bedeutet Millionen von Bytes pro Sekunde mit ISO-Notation von Potenzen von 10.
+    description: ''
+  - name: --edge-zone
+    summary: Name des erweiterten Standorts der Edgezone.
     description: ''
   - name: --enable-bursting
     parameterValueGroup: false, true
-    summary: Aktivieren Sie das über das bereitgestellte Leistungsziel des Datenträgers hinaus. "Bursts" ist standardmäßig deaktiviert und gilt nicht für ultradisks.
+    summary: Aktivieren Sie Bursting über das bereitgestellte Leistungsziel des Datenträgers hinaus. Bursting ist standardmäßig deaktiviert und gilt nicht für Ultra-Datenträger.
     description: ''
   - name: --encryption-type
-    summary: 'Verschlüsselungstyp. Verschlüsselungatrestwithplatformkey: der Datenträger wird mit dem verwalteten XStore-Schlüssel verschlüsselt. Dabei handelt es sich um den Standard Verschlüsselungstyp. Verschlüsselungatrestwithcustomerkey: der Datenträger wird mit dem vom Kunden verwalteten Schlüssel im Ruhezustand verschlüsselt.'
+    parameterValueGroup: EncryptionAtRestWithCustomerKey, EncryptionAtRestWithPlatformAndCustomerKeys, EncryptionAtRestWithPlatformKey
+    summary: 'Verschlüsselungstyp. EncryptionAtRestWithPlatformKey: Der Datenträger wird mit dem verwalteten XStore-Schlüssel im Ruhezustand verschlüsselt. Dies ist der Standardverschlüsselungstyp. EncryptionAtRestWithCustomerKey: Der Datenträger wird mit dem vom Kunden verwalteten Ruheschlüssel verschlüsselt.'
     description: ''
   - name: --for-upload
     parameterValueGroup: false, true
-    summary: Erstellen Sie den Datenträger zum Hochladen von BLOB-Daten später mithilfe von Speicher Befehlen. Führen Sie "AZ Disk Grant-Access--Access-Level Write" aus, um das SAS-Token des Datenträgers abzurufen.
+    summary: Erstellen Sie den Datenträger zum späteren Hochladen von Blobs mithilfe von Speicherbefehlen. Führen Sie "az disk grant-access --access-level Write" aus, um das SAS-Token des Datenträgers abzurufen.
     description: ''
   - name: --gallery-image-reference
-    summary: ID der freigegebenen damals nahm-Image Version, von der ein Datenträger erstellt werden soll.
+    summary: ID der freigegebenen Imageversion, aus der ein Datenträger erstellt werden soll.
     description: ''
   - name: --gallery-image-reference-lun
-    summary: Wenn der Datenträger aus dem Datenträger eines Bilds erstellt wird, ist dies ein Index, der angibt, welche Datenträger im Image verwendet werden sollen. Bei Betriebssystem Datenträgern ist dieses Feld NULL.
+    summary: Wenn der Datenträger aus dem Datenträger eines Images erstellt wird, ist dies ein Index, der angibt, welcher der Datenträger im Image verwendet werden soll. Bei Betriebssystemdatenträgern ist dieses Feld NULL.
     description: ''
   - name: --hyper-v-generation
     defaultValue: V1
     parameterValueGroup: V1, V2
-    summary: Die Hypervisor-Generierung der virtuellen Maschine. Gilt nur für Betriebssystem Datenträger.
+    summary: Die Hypervisorgenerierung des virtuellen Computers. Gilt nur für Betriebssystemdatenträger.
     description: ''
   - name: --image-reference
-    summary: 'ID oder URN (Publisher: Angebot: SKU: Version) des Images, von dem ein Datenträger erstellt werden soll.'
+    summary: ID oder URN (publisher:offer:sku:version) des Images, aus dem bzw. dem ein Datenträger erstellt werden soll.
     description: ''
   - name: --image-reference-lun
-    summary: Wenn der Datenträger aus dem Datenträger eines Bilds erstellt wird, ist dies ein Index, der angibt, welche Datenträger im Image verwendet werden sollen. Bei Betriebssystem Datenträgern ist dieses Feld NULL.
+    summary: Wenn der Datenträger aus dem Datenträger eines Images erstellt wird, ist dies ein Index, der angibt, welcher der Datenträger im Image verwendet werden soll. Bei Betriebssystemdatenträgern ist dieses Feld NULL.
     description: ''
   - name: --location -l
-    summary: 'Der Standort. Werte aus: `az account list-locations`. Sie können den standardmäßig verwendeten Standort mit `az configure --defaults location=<location>` konfigurieren. Wenn kein Speicherort angegeben und kein Standard Speicherort angegeben wurde, wird der Speicherort automatisch auf die gleiche Weise wie die Ressourcengruppe festgelegt.'
+    summary: 'Der Standort. Werte aus: `az account list-locations`. Sie können den standardmäßig verwendeten Standort mit `az configure --defaults location=<location>` konfigurieren. Wenn der Standort nicht angegeben ist und kein Standardspeicherort angegeben ist, wird der Standort automatisch auf die gleiche Weise wie die Ressourcengruppe festgelegt.'
     description: ''
   - name: --logical-sector-size
-    summary: Logische Sektorgröße in Byte für ultradisks. Unterstützte Werte sind 512 AD 4096. 4096 ist die Standardeinstellung.
+    summary: Logische Sektorgröße in Bytes für Ultra-Datenträger. Unterstützte Werte sind 512 ad 4096. Der Standardwert ist 4096.
     description: ''
   - name: --max-shares
-    summary: Die maximale Anzahl von VMS, die gleichzeitig an den Datenträger angefügt werden können. Ein Wert größer als 1 gibt einen Datenträger an, der gleichzeitig auf mehreren VMS eingebunden werden kann.
+    summary: Die maximale Anzahl von VMs, die gleichzeitig an den Datenträger angefügt werden können. Der Wert größer als 1 gibt einen Datenträger an, der gleichzeitig auf mehreren VMs bereitgestellt werden kann.
     description: ''
   - name: --network-access-policy
     parameterValueGroup: AllowAll, AllowPrivate, DenyAll
-    summary: Richtlinie für den Zugriff auf den Datenträger über das Netzwerk
+    summary: Richtlinie für den Zugriff auf den Datenträger über das Netzwerk.
     description: ''
   - name: --no-wait
     summary: Nicht auf den Abschluss lang andauernder Vorgänge warten
     description: ''
   - name: --os-type
     parameterValueGroup: Linux, Windows
-    summary: Der Betriebs Systemtyp des Datenträgers.
+    summary: Der Betriebssystemtyp des Datenträgers.
     description: ''
   - name: --size-gb -z
-    summary: 'Größe in GB. Maximale Größe: 4095 GB (bestimmte Vorschau Datenträger können größer sein).'
+    summary: 'Größe in GB. Maximale Größe: 4095 GB (bestimmte Vorschaudatenträger können größer sein).'
     description: ''
   - name: --sku
     defaultValue: Premium_LRS
-    parameterValueGroup: Premium_LRS, StandardSSD_LRS, Standard_LRS, UltraSSD_LRS
+    parameterValueGroup: Premium_LRS, Premium_ZRS, StandardSSD_LRS, StandardSSD_ZRS, Standard_LRS, UltraSSD_LRS
     summary: Zugrunde liegende Speicher-SKU.
     description: ''
   - name: --source
-    summary: Quelle zum Erstellen des Datenträgers bzw. der Momentaufnahme, einschließlich nicht verwalteter BLOB-URI, ID oder Name des verwalteten Datenträgers oder der Momentaufnahme-ID oder des Namens.
+    summary: Quelle, aus der der Datenträger bzw. die Momentaufnahme erstellt werden soll, einschließlich nicht verwalteter Blob-URI, ID oder Name des verwalteten Datenträgers oder Momentaufnahme-ID oder -Name.
     description: ''
   - name: --source-storage-account-id
-    summary: Wird verwendet, wenn sich das quellblob in einem anderen Abonnement befindet.
+    summary: Wird verwendet, wenn sich das Quellblob in einem anderen Abonnement befindet.
     description: ''
   - name: --subscription
-    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
     description: ''
   - name: --tags
-    summary: 'Durch Leerzeichen getrennte Tags: Key [= value] [key [= value]...]. Verwenden Sie "", um vorhandene Tags zu löschen.'
+    summary: 'Durch Leerzeichen getrennte Tags: key[=value] [key[=value] ...]. Verwenden Sie "", um vorhandene Tags zu löschen.'
     description: ''
   - name: --tier
-    summary: 'Leistungsstufe des Datenträgers (z. b. P4, P4), wie hier beschrieben: https://azure.microsoft.com/en-us/pricing/details/managed-disks/ . Gilt nicht für ultradatenträger.'
+    summary: 'Leistungsstufe des Datenträgers (z. B. P4, S10), wie hier beschrieben: https://azure.microsoft.com/en-us/pricing/details/managed-disks/ . Gilt nicht für Ultra-Datenträger.'
     description: ''
   - name: --upload-size-bytes
-    summary: 'Die Größe (in Bytes) des Inhalts des Uploads einschließlich der VHD-Fußzeile. Minimalwert: 20972032. Maximalwert: 35183298347520.'
+    summary: 'Die Größe (in Bytes) des Inhalts des Uploads, einschließlich der VHD-Fußzeile. Mindestwert: 20972032. Maximaler Wert: 35183298347520.'
     description: ''
   - name: --zone
     parameterValueGroup: 1, 2, 3
-    summary: Verfügbarkeits Zone, in der die Ressource bereitgestellt werden soll.
+    summary: Verfügbarkeitszone, in der die Ressource bereitgestellt werden soll.
     description: ''
 - uid: az_disk_delete
   name: az disk delete
-  summary: Löschen Sie einen verwalteten Datenträger.
+  summary: Löschen sie einen verwalteten Datenträger.
   description: ''
   syntax: >-
     az disk delete [--ids]
@@ -190,11 +195,11 @@ directCommands:
                    [--subscription]
                    [--yes]
   examples:
-  - summary: Löschen Sie einen verwalteten Datenträger. automatisch generierten
+  - summary: Löschen sie einen verwalteten Datenträger. (automatisch generiert)
     syntax: az disk delete --name MyManagedDisk --resource-group MyResourceGroup
   optionalParameters:
   - name: --ids
-    summary: Mindestens eine Ressourcen-ID (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID handeln, die alle Informationen von Ressourcen-ID-Argumenten enthält. Sie sollten entweder--IDs oder andere Ressourcen-ID-Argumente angeben.
+    summary: Mindestens eine Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen von "Resource Id"-Argumenten sein. Sie sollten entweder --ids oder andere "Resource Id"-Argumente angeben.
     description: ''
   - name: --name -n
     summary: Der Name des verwalteten Datenträgers.
@@ -206,14 +211,14 @@ directCommands:
     summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
     description: ''
   - name: --subscription
-    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
     description: ''
   - name: --yes -y
     summary: Nicht zur Bestätigung auffordern
     description: ''
 - uid: az_disk_grant-access
   name: az disk grant-access
-  summary: Gewähren des Zugriffs auf einen verwalteten Datenträger für eine Ressource.
+  summary: Gewähren Sie einer Ressource Zugriff auf einen verwalteten Datenträger.
   description: ''
   syntax: >-
     az disk grant-access --duration-in-seconds
@@ -223,12 +228,12 @@ directCommands:
                          [--resource-group]
                          [--subscription]
   examples:
-  - summary: Gewähren von Lesezugriff für eine Ressource auf einen verwalteten Datenträger. automatisch generierten
+  - summary: Gewähren sie einer Ressource Lesezugriff auf einen verwalteten Datenträger. (automatisch generiert)
     syntax: az disk grant-access --access-level Read --duration-in-seconds 3600 --name MyManagedDisk --resource-group MyResourceGroup
   requiredParameters:
   - isRequired: true
     name: --duration-in-seconds
-    summary: Zeitspanne in Sekunden, bis der SAS-Zugriff abläuft.
+    summary: Dauer in Sekunden bis zum Ablauf des SAS-Zugriffs.
     description: ''
   optionalParameters:
   - name: --access-level
@@ -237,7 +242,7 @@ directCommands:
     summary: Zugriffsebene.
     description: ''
   - name: --ids
-    summary: Mindestens eine Ressourcen-ID (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID handeln, die alle Informationen von Ressourcen-ID-Argumenten enthält. Sie sollten entweder--IDs oder andere Ressourcen-ID-Argumente angeben.
+    summary: Eine oder mehrere Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu Ressourcen-ID-Argumenten geben. Sie sollten entweder --ids oder andere Ressourcen-ID-Argumente bereitstellen.
     description: ''
   - name: --name -n
     summary: Der Name des verwalteten Datenträgers.
@@ -246,11 +251,11 @@ directCommands:
     summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
     description: ''
   - name: --subscription
-    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
     description: ''
 - uid: az_disk_list
   name: az disk list
-  summary: Auflisten von verwalteten Datenträgern.
+  summary: Listet verwaltete Datenträger auf.
   description: ''
   syntax: >-
     az disk list [--query-examples]
@@ -258,17 +263,17 @@ directCommands:
                  [--subscription]
   optionalParameters:
   - name: --query-examples
-    summary: Empfehlen Sie die jmespath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und Sie nach dem Abfrage Parameter in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positions Schlüsselwörter hinzufügen, um Vorschläge auf der Grundlage dieser Schlüsselwörter zu geben.
+    summary: Empfehlen Sie die JMESPath-Zeichenfolge. Sie können eine der Abfragen kopieren und nach dem Parameter --query in doppelte Anführungszeichen einfügen, um die Ergebnisse zu sehen. Sie können ein oder mehrere Positionsschlüsselwörter hinzufügen, damit wir basierend auf diesen Schlüsselwörtern Vorschläge machen können.
     description: ''
   - name: --resource-group -g
     summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
     description: ''
   - name: --subscription
-    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
     description: ''
 - uid: az_disk_revoke-access
   name: az disk revoke-access
-  summary: Widerrufen des Lese Zugriffs einer Ressource für einen verwalteten Datenträger.
+  summary: Widerrufen sie den Lesezugriff einer Ressource auf einen verwalteten Datenträger.
   description: ''
   syntax: >-
     az disk revoke-access [--ids]
@@ -276,13 +281,13 @@ directCommands:
                           [--resource-group]
                           [--subscription]
   examples:
-  - summary: Widerrufen des Lese Zugriffs einer Ressource für einen verwalteten Datenträger. automatisch generierten
+  - summary: Widerrufen sie den Lesezugriff einer Ressource auf einen verwalteten Datenträger. (automatisch generiert)
     syntax: az disk revoke-access --ids $id
-  - summary: Widerrufen des Lese Zugriffs einer Ressource für einen verwalteten Datenträger. automatisch generierten
+  - summary: Widerrufen sie den Lesezugriff einer Ressource auf einen verwalteten Datenträger. (automatisch generiert)
     syntax: az disk revoke-access --name MyManagedDisk --resource-group MyResourceGroup
   optionalParameters:
   - name: --ids
-    summary: Mindestens eine Ressourcen-ID (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID handeln, die alle Informationen von Ressourcen-ID-Argumenten enthält. Sie sollten entweder--IDs oder andere Ressourcen-ID-Argumente angeben.
+    summary: Eine oder mehrere Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu Ressourcen-ID-Argumenten geben. Sie sollten entweder --ids oder andere Ressourcen-ID-Argumente bereitstellen.
     description: ''
   - name: --name -n
     summary: Der Name des verwalteten Datenträgers.
@@ -291,7 +296,7 @@ directCommands:
     summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
     description: ''
   - name: --subscription
-    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
     description: ''
 - uid: az_disk_show
   name: az disk show
@@ -305,23 +310,23 @@ directCommands:
                  [--subscription]
   optionalParameters:
   - name: --ids
-    summary: Mindestens eine Ressourcen-ID (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID handeln, die alle Informationen von Ressourcen-ID-Argumenten enthält. Sie sollten entweder--IDs oder andere Ressourcen-ID-Argumente angeben.
+    summary: Mindestens eine Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu "Ressourcen-ID"-Argumenten sein. Sie sollten entweder --ids oder andere "Resource Id"-Argumente angeben.
     description: ''
   - name: --name -n
     summary: Der Name des verwalteten Datenträgers.
     description: ''
   - name: --query-examples
-    summary: Empfehlen Sie die jmespath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und Sie nach dem Abfrage Parameter in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positions Schlüsselwörter hinzufügen, um Vorschläge auf der Grundlage dieser Schlüsselwörter zu geben.
+    summary: Empfehlen Sie die JMESPath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und sie nach dem Parameter --query in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positionsschlüsselwörter hinzufügen, damit wir basierend auf diesen Schlüsselwörtern Vorschläge geben können.
     description: ''
   - name: --resource-group -g
     summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
     description: ''
   - name: --subscription
-    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
     description: ''
 - uid: az_disk_update
   name: az disk update
-  summary: Aktualisieren Sie einen verwalteten Datenträger.
+  summary: Aktualisieren sie einen verwalteten Datenträger.
   description: ''
   syntax: >-
     az disk update [--add]
@@ -332,7 +337,7 @@ directCommands:
                    [--disk-mbps-read-only]
                    [--disk-mbps-read-write]
                    [--enable-bursting {false, true}]
-                   [--encryption-type]
+                   [--encryption-type {EncryptionAtRestWithCustomerKey, EncryptionAtRestWithPlatformAndCustomerKeys, EncryptionAtRestWithPlatformKey}]
                    [--force-string]
                    [--ids]
                    [--max-shares]
@@ -343,83 +348,84 @@ directCommands:
                    [--resource-group]
                    [--set]
                    [--size-gb]
-                   [--sku {Premium_LRS, StandardSSD_LRS, Standard_LRS, UltraSSD_LRS}]
+                   [--sku {Premium_LRS, Premium_ZRS, StandardSSD_LRS, StandardSSD_ZRS, Standard_LRS, UltraSSD_LRS}]
                    [--subscription]
   examples:
-  - summary: Aktualisieren Sie einen verwalteten Datenträger, und ordnen Sie ihn einer Datenträger Zugriffs Ressource zu.
+  - summary: Aktualisieren Sie einen verwalteten Datenträger, und ordnen Sie ihn einer Datenträgerzugriffsressource zu.
     syntax: az disk update --name MyManagedDisk --resource-group MyResourceGroup --network-access-policy AllowPrivate --disk-access MyDiskAccessID
-  - summary: Aktualisieren Sie einen verwalteten Datenträger. automatisch generierten
+  - summary: Aktualisieren eines verwalteten Datenträgers. (automatisch generiert)
     syntax: az disk update --name MyManagedDisk --resource-group MyResourceGroup --size-gb 20
   optionalParameters:
   - name: --add
-    summary: Fügen Sie einer Liste von-Objekten ein Objekt hinzu, indem Sie ein Pfad-und Schlüssel-Wert-Paar angeben.  Beispiel:--Add Property. ListProperty <Key = Value, String oder JSON String>.
+    summary: 'Fügen Sie einer Liste von -Objekten ein -Objekt hinzu, indem Sie ein Pfad- und Schlüsselwertpaar angeben.  Beispiel: --add property.listProperty <key=value, string oder JSON string>.'
     description: ''
   - name: --disk-access
-    summary: Der Name oder die ID der Datenträger Zugriffs Ressource für die Verwendung privater Endpunkte auf Datenträgern.
+    summary: Name oder ID der Datenträgerzugriffsressource für die Verwendung privater Endpunkte auf Datenträgern.
     description: ''
   - name: --disk-encryption-set
-    summary: Der Name oder die ID des Datenträger Verschlüsselungs Satzes, der zum Verschlüsseln des Datenträgers verwendet wird.
+    summary: Name oder ID des Datenträgerverschlüsselungssatzes, der zum Verschlüsseln des Datenträgers verwendet wird.
     description: ''
   - name: --disk-iops-read-only
-    summary: Die Gesamtanzahl der IOPS, die auf allen VMS zulässig sind, die den freigegebenen Datenträger als schreibgeschützt einbinden. Ein Vorgang kann zwischen 4 KB und 256 KB übertragen werden.
+    summary: Die Gesamtzahl der IOPS, die auf allen VMs zulässig sind, die den freigegebenen Datenträger als ReadOnly einbinden. Ein Vorgang kann zwischen 4.000 und 256.000 Bytes übertragen werden.
     description: ''
   - name: --disk-iops-read-write
-    summary: Die Anzahl der IOPS, die für diesen Datenträger zulässig sind. Kann nur für ultrassd-Datenträger festgelegt werden. Ein Vorgang kann zwischen 4 KB und 256 KB übertragen werden.
+    summary: Die Anzahl der für diesen Datenträger zulässigen IOPS. Nur für UltraSSD-Datenträger festlegbar. Ein Vorgang kann zwischen 4.000 und 256.000 Bytes übertragen werden.
     description: ''
   - name: --disk-mbps-read-only
-    summary: Der Gesamtdurchsatz (Mbit/s), der für alle VMs zulässig ist, die den freigegebenen Datenträger als schreibgeschützt einbinden. Mbit/s bedeutet, dass Millionen von Bytes pro Sekunde-MB hier die ISO-Notation der Kräfte von 10 verwendet.
+    summary: Der Gesamtdurchsatz (MBit/s), der für alle virtuellen Computer zulässig ist, die den freigegebenen Datenträger als ReadOnly einbinden. MBit/s bedeutet Millionen von Bytes pro Sekunde– HIER verwendet MB die ISO-Notation mit einer Größe von 10.
     description: ''
   - name: --disk-mbps-read-write
-    summary: Die für diesen Datenträger zulässige Bandbreite. Kann nur für ultrassd-Datenträger festgelegt werden. Mbit/s bedeutet Millionen von Bytes pro Sekunde mit einer ISO-Notation von 10.
+    summary: Die für diesen Datenträger zulässige Bandbreite. Nur für UltraSSD-Datenträger festlegbar. MBit/s bedeutet Millionen von Bytes pro Sekunde mit EINER ISO-Notation von 10 Werten.
     description: ''
   - name: --enable-bursting
     parameterValueGroup: false, true
-    summary: Aktivieren Sie das über das bereitgestellte Leistungsziel des Datenträgers hinaus. "Bursts" ist standardmäßig deaktiviert und gilt nicht für ultradisks.
+    summary: Aktivieren Sie bursting über das bereitgestellte Leistungsziel des Datenträgers hinaus. Bursting ist standardmäßig deaktiviert und gilt nicht für Ultra-Datenträger.
     description: ''
   - name: --encryption-type
-    summary: 'Verschlüsselungstyp. Verschlüsselungatrestwithplatformkey: der Datenträger wird mit dem verwalteten XStore-Schlüssel verschlüsselt. Dabei handelt es sich um den Standard Verschlüsselungstyp. Verschlüsselungatrestwithcustomerkey: der Datenträger wird mit dem vom Kunden verwalteten Schlüssel im Ruhezustand verschlüsselt.'
+    parameterValueGroup: EncryptionAtRestWithCustomerKey, EncryptionAtRestWithPlatformAndCustomerKeys, EncryptionAtRestWithPlatformKey
+    summary: 'Verschlüsselungstyp. EncryptionAtRestWithPlatformKey: Der Datenträger wird mit dem verwalteten XStore-Schlüssel im Ruhespeicher verschlüsselt. Dies ist der Standardverschlüsselungstyp. EncryptionAtRestWithCustomerKey: Der Datenträger wird mit dem vom Kunden verwalteten Schlüssel im Ruhespeicher verschlüsselt.'
     description: ''
   - name: --force-string
-    summary: Wenn Sie "Set" oder "Add" verwenden, erhalten Sie Zeichen folgen Literale, anstatt zu versuchen, in JSON zu konvertieren.
+    summary: Wenn Sie "set" oder "add" verwenden, behalten Sie Zeichenfolgenliterale bei, anstatt zu versuchen, in JSON zu konvertieren.
     description: ''
   - name: --ids
-    summary: Mindestens eine Ressourcen-ID (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID handeln, die alle Informationen von Ressourcen-ID-Argumenten enthält. Sie sollten entweder--IDs oder andere Ressourcen-ID-Argumente angeben.
+    summary: Eine oder mehrere Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu Ressourcen-ID-Argumenten geben. Sie sollten entweder --ids oder andere Ressourcen-ID-Argumente bereitstellen.
     description: ''
   - name: --max-shares
-    summary: Die maximale Anzahl von VMS, die gleichzeitig an den Datenträger angefügt werden können. Ein Wert größer als 1 gibt einen Datenträger an, der gleichzeitig auf mehreren VMS eingebunden werden kann.
+    summary: Die maximale Anzahl von VMs, die gleichzeitig an den Datenträger angefügt werden können. Der Wert größer als 1 gibt einen Datenträger an, der gleichzeitig auf mehreren VMs bereitgestellt werden kann.
     description: ''
   - name: --name -n
     summary: Der Name des verwalteten Datenträgers.
     description: ''
   - name: --network-access-policy
     parameterValueGroup: AllowAll, AllowPrivate, DenyAll
-    summary: Richtlinie für den Zugriff auf den Datenträger über das Netzwerk
+    summary: Richtlinie für den Zugriff auf den Datenträger über das Netzwerk.
     description: ''
   - name: --no-wait
     summary: Nicht auf den Abschluss lang andauernder Vorgänge warten
     description: ''
   - name: --remove
-    summary: Entfernt eine Eigenschaft oder ein Element aus einer Liste.  Beispiel:--Remove Property. List <indexToRemove> oder--Remove propertytoremove.
+    summary: 'Entfernen sie eine Eigenschaft oder ein Element aus einer Liste.  Beispiel: --remove property.list <indexToRemove> OR --remove propertyToRemove.'
     description: ''
   - name: --resource-group -g
     summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
     description: ''
   - name: --set
-    summary: Aktualisieren Sie ein Objekt, indem Sie einen Eigenschafts Pfad und einen festzulegenden Wert angeben.  Beispiel:--Set Eigenschaft1. Eigenschaft2 =<value>.
+    summary: 'Aktualisieren Sie ein Objekt, indem Sie einen festzulegenden Eigenschaftenpfad und -wert angeben.  Beispiel: --set property1.property2=<value>.'
     description: ''
   - name: --size-gb -z
-    summary: 'Größe in GB. Maximale Größe: 4095 GB (bestimmte Vorschau Datenträger können größer sein).'
+    summary: 'Größe in GB. Maximale Größe: 4.095 GB (bestimmte Vorschaudatenträger können größer sein).'
     description: ''
   - name: --sku
-    parameterValueGroup: Premium_LRS, StandardSSD_LRS, Standard_LRS, UltraSSD_LRS
+    parameterValueGroup: Premium_LRS, Premium_ZRS, StandardSSD_LRS, StandardSSD_ZRS, Standard_LRS, UltraSSD_LRS
     summary: Zugrunde liegende Speicher-SKU.
     description: ''
   - name: --subscription
-    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
     description: ''
 - uid: az_disk_wait
   name: az disk wait
-  summary: Platzieren Sie die CLI in einem Wartezustand, bis die Bedingung eines verwalteten Datenträgers erfüllt ist.
+  summary: Versetzen Sie die CLI in einen Wartezustand, bis eine Bedingung eines verwalteten Datenträgers erfüllt ist.
   description: ''
   syntax: >-
     az disk wait [--created]
@@ -434,29 +440,29 @@ directCommands:
                  [--timeout]
                  [--updated]
   examples:
-  - summary: Platzieren Sie die CLI in einem Wartezustand, bis die Bedingung eines verwalteten Datenträgers erfüllt ist. automatisch generierten
+  - summary: Versetzen Sie die CLI in einen Wartezustand, bis eine Bedingung eines verwalteten Datenträgers erfüllt ist. (automatisch generiert)
     syntax: az disk wait --created --name MyManagedDisk --resource-group MyResourceGroup
-  - summary: Platzieren Sie die CLI in einem Wartezustand, bis die Bedingung eines verwalteten Datenträgers erfüllt ist. automatisch generierten
+  - summary: Versetzen Sie die CLI in einen Wartezustand, bis eine Bedingung eines verwalteten Datenträgers erfüllt ist. (automatisch generiert)
     syntax: az disk wait --deleted --name MyManagedDisk --resource-group MyResourceGroup --subscription mysubscription
   optionalParameters:
   - name: --created
-    summary: Warten Sie, bis "provisioningstate" bei "erfolgreich" erstellt wurde.
+    summary: Warten Sie, bis die Erstellung mit "provisioningState" bei "Succeeded" (Erfolgreich) ausgeführt wurde.
     description: ''
   - name: --custom
-    summary: "Warten Sie, bis die Bedingung eine benutzerdefinierte jmespath-Abfrage erfüllt. Beispiel: provisioningstate! = ' InProgress ', instanceview. statuses [? Code = = ' PowerState/Running ']."
+    summary: "Warten Sie, bis die Bedingung eine benutzerdefinierte JMESPath-Abfrage erfüllt. Beispiel: provisioningState!='InProgress', instanceView.statuses[?code=='PowerState/running']."
     description: ''
   - name: --deleted
-    summary: Warten Sie bis zum Löschen.
+    summary: Warten Sie, bis gelöscht wurde.
     description: ''
   - name: --exists
     summary: Warten Sie, bis die Ressource vorhanden ist.
     description: ''
   - name: --ids
-    summary: Mindestens eine Ressourcen-ID (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID handeln, die alle Informationen von Ressourcen-ID-Argumenten enthält. Sie sollten entweder--IDs oder andere Ressourcen-ID-Argumente angeben.
+    summary: Eine oder mehrere Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu Ressourcen-ID-Argumenten geben. Sie sollten entweder --ids oder andere Ressourcen-ID-Argumente bereitstellen.
     description: ''
   - name: --interval
     defaultValue: "30"
-    summary: Abruf Intervall in Sekunden.
+    summary: Abrufintervall in Sekunden.
     description: ''
   - name: --name -n
     summary: Der Name des verwalteten Datenträgers.
@@ -465,14 +471,14 @@ directCommands:
     summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
     description: ''
   - name: --subscription
-    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
     description: ''
   - name: --timeout
     defaultValue: "3600"
     summary: Maximale Wartezeit in Sekunden.
     description: ''
   - name: --updated
-    summary: Warten Sie, bis das Update mit provisioningstate bei "erfolgreich" abgeschlossen ist.
+    summary: Warten Sie, bis provisioningState auf "Succeeded" aktualisiert wurde.
     description: ''
 commands:
 - az_disk_create
@@ -500,20 +506,20 @@ globalParameters:
   summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
 metadata:
   description: >-
-    Azure Virtual Machines Datenträger als Speicherort zum Speichern von Betriebssystemen, Anwendungen und Daten verwenden. Alle virtuellen Azure-Computer verfügen über mindestens zwei Datenträger: einen Betriebssystem Datenträger und einen temporären Datenträger. Der Betriebssystem-Datenträger wird aus einem Image erstellt. Sowohl der Betriebssystem-Datenträger als auch das Image sind virtuelle Festplatten (VHDs), die im Azure-Speicherkonto gespeichert sind. Virtuelle Computer können auch über einen oder mehrere Datenträger verfügen, die ebenfalls als VHDs gespeichert werden.
+    Azure Virtual Machines Verwenden von Datenträgern als Ort zum Speichern eines Betriebssystems, von Anwendungen und von Daten. Alle virtuellen Azure-Computer verfügen über mindestens zwei Datenträger: einen Betriebssystemdatenträger und einen temporären Datenträger. Der Betriebssystem-Datenträger wird aus einem Image erstellt. Sowohl der Betriebssystem-Datenträger als auch das Image sind virtuelle Festplatten (VHDs), die im Azure-Speicherkonto gespeichert sind. Virtuelle Computer können auch über einen oder mehrere Datenträger verfügen, die ebenfalls als VHDs gespeichert werden.
 
-    Verwaltete und nicht verwaltete Azure-Datenträger haben eine maximale Größe von 4095 GB (mit Ausnahme von größeren Datenträgern in der Vorschau). Nicht verwaltete Azure-Datenträger verfügen auch über eine maximale Kapazität von 4095 GB.
+    Verwaltete und nicht verwaltete Azure-Datenträger haben eine maximale Größe von 4095 GB (mit Ausnahme größerer Datenträger in der Vorschauversion). Nicht verwaltete Azure-Datenträger verfügen auch über eine maximale Kapazität von 4.095 GB.
 
     Weitere Informationen finden Sie unter
 
-    - Azure-Datenträger: https://docs.microsoft.com/azure/virtual-machines/linux/about-disks-and-vhds und https://docs.microsoft.com/azure/virtual-machines/windows/about-disks-and-vhds .
+    - Azure Disks – https://docs.microsoft.com/azure/virtual-machines/linux/about-disks-and-vhds und https://docs.microsoft.com/azure/virtual-machines/windows/about-disks-and-vhds .
 
-    - Größere Managed Disks in Public Preview- https://azure.microsoft.com/blog/introducing-the-public-preview-of-larger-managed-disks-sizes/
+    - Größere Managed Disks in Public Preview : https://azure.microsoft.com/blog/introducing-the-public-preview-of-larger-managed-disks-sizes/
 
-    - SSD Ultra Managed Disks in Public Preview- https://docs.microsoft.com/azure/virtual-machines/windows/disks-ultra-ssd .
-  ms.openlocfilehash: d9813a54878661792a977744fdb6d2dfd6c1bb6e
-  ms.sourcegitcommit: 612554c029ba1f28d3a43fd22e743104a1a30ea0
+    - SSD Ultra Managed Disks in Public Preview - https://docs.microsoft.com/azure/virtual-machines/windows/disks-ultra-ssd .
+  ms.openlocfilehash: b700cbd3bc5181fdcef445b7c6d6eb1524bf7e6f
+  ms.sourcegitcommit: 47edf65705fcb047974356c30962819ea5172832
   ms.translationtype: MT
   ms.contentlocale: de-DE
-  ms.lasthandoff: 04/07/2021
-  ms.locfileid: "106870610"
+  ms.lasthandoff: 04/16/2021
+  ms.locfileid: "107547004"
