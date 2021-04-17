@@ -1,7 +1,7 @@
 ### YamlMime:AzureCLIGroup
 uid: az_vm
 name: az vm
-summary: Verwalten von virtuellen Linux- oder Windows-Computern.
+summary: Verwalten von virtuellen Linux- oder Windows-Computern
 description: ''
 directCommands:
 - uid: az_vm_auto-shutdown
@@ -28,7 +28,7 @@ directCommands:
     summary: Der E-Mail-Empfänger, an den Benachrichtigungen gesendet werden sollen (kann eine Liste mit durch Semikolons getrennten E-Mail-Adressen sein).
     description: ''
   - name: --ids
-    summary: Mindestens eine Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen von "Resource Id"-Argumenten sein. Sie sollten entweder --ids oder andere "Resource Id"-Argumente angeben.
+    summary: Mindestens eine Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu "Ressourcen-ID"-Argumenten sein. Sie sollten entweder --ids oder andere "Resource Id"-Argumente angeben.
     description: ''
   - name: --location -l
     summary: 'Der Standort. Werte aus: `az account list-locations`. Sie können den standardmäßig verwendeten Standort mit `az configure --defaults location=<location>` konfigurieren.'
@@ -72,7 +72,7 @@ directCommands:
       az vm generalize -g MyResourceGroup -n MyVm
 
       az vm capture -g MyResourceGroup -n MyVm --vhd-name-prefix MyPrefix
-  - summary: Das Auffinden, Generalisieren und Erfassen mehrerer angehaltener virtueller Computer.
+  - summary: Sie können mehrere angehaltene virtuelle Computer wieder aufnehmen, generalisieren und erfassen.
     syntax: >-
       vms_ids=$(az vm list -g MyResourceGroup --query "[].id" -o tsv)
 
@@ -102,7 +102,7 @@ directCommands:
     description: ''
   - name: --storage-container
     defaultValue: vhds
-    summary: Der Containername des Speicherkontos, in dem die Datenträger gespeichert werden.
+    summary: Der Name des Speicherkontocontainers, in dem die Datenträger gespeichert werden.
     description: ''
   - name: --subscription
     summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
@@ -206,7 +206,7 @@ directCommands:
   examples:
   - summary: Erstellen Sie eine Ubuntu-Standard-VM mit automatischer SSH-Authentifizierung.
     syntax: az vm create -n MyVm -g MyResourceGroup --image UbuntuLTS
-  - summary: Erstellen Sie einen virtuellen RedHat-Standardcomputer mit automatischer SSH-Authentifizierung mithilfe eines Image-URNs.
+  - summary: Erstellen Sie einen virtuellen RedHat-Standardcomputer mit automatischer SSH-Authentifizierung mithilfe eines Image-URN.
     syntax: az vm create -n MyVm -g MyResourceGroup --image RedHat:RHEL:7-RAW:7.4.2018010506
   - summary: Erstellen Sie einen virtuellen Windows Server-Standardcomputer mit einer privaten IP-Adresse.
     syntax: az vm create -n MyVm -g MyResourceGroup --public-ip-address "" --image Win2012R2Datacenter
@@ -218,7 +218,7 @@ directCommands:
     syntax: az vm create -g MyResourceGroup -n MyVm --attach-os-disk MyOsDisk --os-type linux
   - summary: Erstellen Sie eine Ubuntu Linux VM mithilfe eines cloud-init-Skripts für die Konfiguration. Weitere Informationen finden Sie unter https://docs.microsoft.com/azure/virtual-machines/linux/using-cloud-init.
     syntax: az vm create -g MyResourceGroup -n MyVm --image debian --custom-data MyCloudInitScript.yml
-  - summary: Erstellen Sie einen virtuellen Debian-Computer mit SSH-Schlüsselauthentifizierung und einem öffentlichen DNS-Eintrag, der sich in einem vorhandenen virtuellen Netzwerk und einer vorhandenen Verfügbarkeitsgruppen befindet.
+  - summary: Erstellen Sie einen virtuellen Debian-Computer mit SSH-Schlüsselauthentifizierung und einem öffentlichen DNS-Eintrag, der sich in einem vorhandenen virtuellen Netzwerk und einer verfügbarkeitsbasierten Gruppe befindet.
     syntax: >-
       az vm create -n MyVm -g MyResourceGroup --image debian --vnet-name MyVnet --subnet subnet1 \
           --availability-set MyAvailabilitySet --public-ip-address-dns-name MyUniqueDnsName \
@@ -241,13 +241,13 @@ directCommands:
 
       az vm create -g group-name -n vm-name --admin-username deploy  \
         --image debian --secrets "$vm_secrets"
-  - summary: Erstellen Sie einen virtuellen CentOS-Computer mit einer vom System zugewiesenen Identität. Der virtuelle Computer hat die Rolle "Mitwirkender" mit Zugriff auf ein Speicherkonto.
+  - summary: Erstellen Sie einen virtuellen CentOS-Computer mit einer vom System zugewiesenen Identität. Die VM hat die Rolle "Mitwirkender" mit Zugriff auf ein Speicherkonto.
     syntax: az vm create -n MyVm -g rg1 --image centos --assign-identity [system] --scope /subscriptions/99999999-1bf0-4dda-aec3-cb9272f09590/MyResourceGroup/myRG/providers/Microsoft.Storage/storageAccounts/storage1
   - summary: Erstellen Sie einen virtuellen Debian-Computer mit einer vom Benutzer zugewiesenen Identität.
     syntax: az vm create -n MyVm -g rg1 --image debian --assign-identity /subscriptions/99999999-1bf0-4dda-aec3-cb9272f09590/resourcegroups/myRG/providers/Microsoft.ManagedIdentity/userAssignedIdentities/myID
   - summary: Erstellen Sie einen virtuellen Debian-Computer mit system- und benutzerseitig zugewiesener Identität.
     syntax: az vm create -n MyVm -g rg1 --image debian --assign-identity [system] /subscriptions/99999999-1bf0-4dda-aec3-cb9272f09590/resourcegroups/myRG/providers/Microsoft.ManagedIdentity/userAssignedIdentities/myID
-  - summary: Erstellen Sie mehrere VMs. In diesem Beispiel werden drei VMs erstellt. Dies sind MyVm0, MyVm1, MyVm2.
+  - summary: Erstellen Sie mehrere VMs. In diesem Beispiel werden drei VMs erstellt. Dabei handelt es sich um MyVm0, MyVm1, MyVm2.
     syntax: az vm create -n MyVm -g MyResourceGroup --image centos --count 3
   requiredParameters:
   - isRequired: true
@@ -261,7 +261,7 @@ directCommands:
   optionalParameters:
   - name: --accelerated-networking
     parameterValueGroup: false, true
-    summary: Aktivieren Sie den beschleunigten Netzwerkbetrieb. Sofern nicht angegeben, wird sie von der CLI basierend auf dem Computerimage und der Größe aktiviert.
+    summary: Aktivieren sie den beschleunigten Netzwerkbetrieb. Sofern nicht angegeben, wird sie von der CLI basierend auf dem Computerimage und der Größe aktiviert.
     description: ''
   - name: --admin-password
     summary: Kennwort für den virtuellen Computer, wenn der Authentifizierungstyp "Kennwort" lautet.
@@ -301,10 +301,10 @@ directCommands:
     summary: Benutzerdefinierte Init-Skriptdatei oder -text (cloud-init, cloud-config usw.).
     description: ''
   - name: --data-disk-caching
-    summary: Speicherzwischenspeichertyp für Datenträger, einschließlich "None", "ReadOnly", "ReadWrite" usw. Verwenden Sie einen einzelnen Wert, der auf alle Datenträger angewendet werden soll, oder verwenden Sie `<lun>=<vaule1> <lun>=<value2>` , um einzelne Datenträger zu konfigurieren.
+    summary: Speicherzwischenspeichertyp für Datenträger, einschließlich "None", "ReadOnly", "ReadWrite" usw. Verwenden Sie einen Singularwert, der auf alle Datenträger angewendet werden soll, oder verwenden Sie `<lun>=<vaule1> <lun>=<value2>` , um einzelne Datenträger zu konfigurieren.
     description: ''
   - name: --data-disk-sizes-gb
-    summary: Durch Leerzeichen getrennte Größen für verwaltete Datenträger in GB, die erstellt werden sollen.
+    summary: Leerer, durch Speicherplatz getrennter verwalteter Datenträgergrößen in GB, die erstellt werden sollen.
     description: ''
   - name: --encryption-at-host
     parameterValueGroup: false, true
@@ -322,7 +322,7 @@ directCommands:
     valueFrom: az vm image list, az vm image show
   - name: --license-type
     parameterValueGroup: None, RHEL_BYOS, SLES_BYOS, Windows_Client, Windows_Server
-    summary: Gibt an, dass das Windows-Image oder der Datenträger lokal lizenziert wurde. Verwenden Sie "Windows_Server", um Azure-Hybridvorteil für Windows Server zu aktivieren. Verwenden Sie "Windows_Client", um mehrstufige Hostingrechte für Windows 10 zu aktivieren. Weitere Informationen finden Sie in der Onlinedokumentation zu virtuellen Azure-Windows-Computer.
+    summary: Gibt an, dass das Windows-Image oder der Datenträger lokal lizenziert wurde. Verwenden Sie "Windows_Server", um Azure-Hybridvorteil für Windows Server zu aktivieren. Verwenden Sie "Windows_Client", um mehrstufige Hostingrechte für Windows 10 zu aktivieren. Weitere Informationen finden Sie in der Onlinedokumentation für virtuelle Azure-Windows-Computer.
     description: ''
   - name: --location -l
     summary: Speicherort, an dem der virtuelle Computer und die zugehörigen Ressourcen erstellt werden. Wenn der Standardspeicherort nicht konfiguriert ist, wird standardmäßig der Standort der Ressourcengruppe verwendet.
@@ -370,7 +370,7 @@ directCommands:
     summary: Statische private IP-Adresse (z.B. 10.0.0.5).
     description: ''
   - name: --public-ip-address
-    summary: Der Name der öffentlichen IP-Adresse beim Erstellen einer (Standard)-Adresse oder beim Verweisen auf eine vorhandene IP-Adresse. Kann auch anhand der ID auf eine vorhandene öffentliche IP-Adresse verweisen oder "" für "None" ('""' in Azure CLI mithilfe von PowerShell oder --% Operator angeben).
+    summary: Name der öffentlichen IP-Adresse beim Erstellen einer ip-Adresse (Standard) oder verweisen auf eine vorhandene IP-Adresse. Kann auch anhand der ID auf eine vorhandene öffentliche IP-Adresse verweisen oder "" für "None" ('""' in Azure CLI mithilfe von PowerShell oder --% Operator angeben).
     description: ''
   - name: --public-ip-address-allocation
     parameterValueGroup: dynamic, static
@@ -412,10 +412,10 @@ directCommands:
     summary: Durch Leerzeichen getrennte Liste mit öffentlichen SSH-Schlüsseln oder Dateipfaden mit öffentlichen Schlüsseln.
     description: ''
   - name: --storage-account
-    summary: Gilt nur bei Verwendung mit `--use-unmanaged-disk` . Der Name, der beim Erstellen eines neuen Speicherkontos oder beim Verweisen auf ein vorhandenes Speicherkonto verwendet werden soll. Wenn kein Speicherkonto angegeben wird, wird ein entsprechendes Speicherkonto in derselben Ressourcengruppe und demselben Speicherort verwendet, oder es wird ein neues erstellt.
+    summary: Gilt nur bei Verwendung mit `--use-unmanaged-disk` . Der Name, der beim Erstellen eines neuen Speicherkontos oder beim Verweisen auf ein vorhandenes Speicherkonto verwendet werden soll. Wenn dies nicht angegeben wird, wird ein geeignetes Speicherkonto in derselben Ressourcengruppe und demselben Speicherort verwendet, oder es wird ein neues erstellt.
     description: ''
   - name: --storage-container-name
-    summary: 'Gilt nur, wenn mit verwendet `--use-unmanaged-disk` wird. Name des Speichercontainers für den VM-Betriebssystemdatenträger. Standardwert: vhds.'
+    summary: 'Gilt nur, wenn mit verwendet `--use-unmanaged-disk` wird. Name des Speichercontainers für den VM-Betriebssystemdatenträger. Standard: vhds.'
     description: ''
   - name: --storage-sku
     summary: 'Die SKU des Speicherkontos, mit dem der virtuelle Computer beibehalten werden soll. Verwenden Sie eine einzelne SKU, die auf alle Datenträger angewendet wird, oder geben Sie einzelne Datenträger an. Verwendung: [--storage-sku SKU | --storage-sku ID=SKU ID=SKU ID=SKU...], wobei jede ID "os" oder eine 0-indizierte LUN ist. Zulässige Werte: Standard_LRS, Premium_LRS.'
@@ -459,7 +459,7 @@ directCommands:
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/vm/_help.py
 - uid: az_vm_deallocate
   name: az vm deallocate
-  summary: Machen Sie dieLocate eines virtuellen Computers wieder.
+  summary: Zuordnung eines virtuellen Computers wird freigegeben.
   description: Ein End-to-End-Tutorial finden Sie unter https://docs.microsoft.com/azure/virtual-machines/virtual-machines-linux-capture-image .
   syntax: >-
     az vm deallocate [--ids]
@@ -468,14 +468,14 @@ directCommands:
                      [--resource-group]
                      [--subscription]
   examples:
-  - summary: Hier können Sie einen beendeten virtuellen Computer wiederfinden, generalisieren und erfassen.
+  - summary: Aufgehobene Zuordnung, Generalisierung und Erfassung eines beendeten virtuellen Computers.
     syntax: >-
       az vm deallocate -g MyResourceGroup -n MyVm
 
       az vm generalize -g MyResourceGroup -n MyVm
 
       az vm capture -g MyResourceGroup -n MyVm --vhd-name-prefix MyPrefix
-  - summary: Das Auffinden, Generalisieren und Erfassen mehrerer angehaltener virtueller Computer.
+  - summary: Zuordnung, Generalisierung und Erfassung mehrerer beendeter virtueller Computer.
     syntax: >-
       vms_ids=$(az vm list -g MyResourceGroup --query "[].id" -o tsv)
 
@@ -484,11 +484,11 @@ directCommands:
       az vm generalize --ids {vms_ids}
 
       az vm capture --ids {vms_ids} --vhd-name-prefix MyPrefix
-  - summary: Geben Sie die Vm-Vm auf. (automatisch generiert)
+  - summary: Zuordnung eines virtuellen Computers wird freigegeben. (automatisch generiert)
     syntax: az vm deallocate --name MyVm --no-wait --resource-group MyResourceGroup
   optionalParameters:
   - name: --ids
-    summary: Eine oder mehrere Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu Ressourcen-ID-Argumenten geben. Sie sollten entweder --ids oder andere Ressourcen-ID-Argumente bereitstellen.
+    summary: Mindestens eine Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen von "Resource Id"-Argumenten sein. Sie sollten entweder --ids oder andere "Resource Id"-Argumente angeben.
     description: ''
   - name: --name -n
     summary: Der Name des virtuellen Computers. Sie können die Standardeinstellung mit `az configure --defaults vm=<name>` konfigurieren.
@@ -521,7 +521,7 @@ directCommands:
     syntax: az vm delete --ids $(az vm list -g MyResourceGroup --query "[].id" -o tsv)
   optionalParameters:
   - name: --ids
-    summary: Eine oder mehrere Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu Ressourcen-ID-Argumenten geben. Sie sollten entweder --ids oder andere Ressourcen-ID-Argumente bereitstellen.
+    summary: Mindestens eine Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu "Ressourcen-ID"-Argumenten sein. Sie sollten entweder --ids oder andere "Resource Id"-Argumente angeben.
     description: ''
   - name: --name -n
     summary: Der Name des virtuellen Computers. Sie können die Standardeinstellung mit `az configure --defaults vm=<name>` konfigurieren.
@@ -541,7 +541,7 @@ directCommands:
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/vm/_help.py
 - uid: az_vm_generalize
   name: az vm generalize
-  summary: Markieren Sie einen virtuellen Computer als generalisiert, sodass er für mehrere Bereitstellungen ein Image erstellt werden kann.
+  summary: Markieren Sie einen virtuellen Computer als generalisiert, sodass er für mehrere Bereitstellungen imageisiert werden kann.
   description: Ein End-to-End-Tutorial finden Sie unter https://docs.microsoft.com/azure/virtual-machines/virtual-machines-linux-capture-image .
   syntax: >-
     az vm generalize [--ids]
@@ -550,14 +550,14 @@ directCommands:
                      [--resource-group]
                      [--subscription]
   examples:
-  - summary: Aufgehobene Zuordnung, Generalisierung und Erfassung eines beendeten virtuellen Computers.
+  - summary: Hier finden Sie Informationen zum Auffinden, Generalisieren und Erfassen eines beendeten virtuellen Computers.
     syntax: >-
       az vm deallocate -g MyResourceGroup -n MyVm
 
       az vm generalize -g MyResourceGroup -n MyVm
 
       az vm capture -g MyResourceGroup -n MyVm --vhd-name-prefix MyPrefix
-  - summary: Zuordnung, Generalisierung und Erfassung mehrerer beendeter virtueller Computer.
+  - summary: Das Auffinden, Generalisieren und Erfassen mehrerer angehaltener virtueller Computer.
     syntax: >-
       vms_ids=$(az vm list -g MyResourceGroup --query "[].id" -o tsv)
 
@@ -568,7 +568,7 @@ directCommands:
       az vm capture --ids ${vms_ids} --vhd-name-prefix MyPrefix
   optionalParameters:
   - name: --ids
-    summary: Mindestens eine Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen von "Resource Id"-Argumenten sein. Sie sollten entweder --ids oder andere "Resource Id"-Argumente angeben.
+    summary: Eine oder mehrere Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu Ressourcen-ID-Argumenten geben. Sie sollten entweder --ids oder andere Ressourcen-ID-Argumente bereitstellen.
     description: ''
   - name: --name -n
     summary: Der Name des virtuellen Computers. Sie können die Standardeinstellung mit `az configure --defaults vm=<name>` konfigurieren.
@@ -585,7 +585,7 @@ directCommands:
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/vm/_help.py
 - uid: az_vm_get-instance-view
   name: az vm get-instance-view
-  summary: Abrufen von Instanzinformationen zu einem virtuellen Computer.
+  summary: Hier erhalten Sie Instanzinformationen zu einem virtuellen Computer.
   description: ''
   syntax: >-
     az vm get-instance-view [--ids]
@@ -593,13 +593,13 @@ directCommands:
                             [--resource-group]
                             [--subscription]
   examples:
-  - summary: Verwenden Sie eine Ressourcengruppe und einen Namen, um Instanzansichtsinformationen eines virtuellen Computers abzurufen.
+  - summary: Verwenden Sie eine Ressourcengruppe und einen Namen, um Instanzansichtsinformationen eines virtuellen Computers zu erhalten.
     syntax: az vm get-instance-view -g MyResourceGroup -n MyVm
-  - summary: Abrufen von Instanzansichten für alle virtuellen Computer in einer Ressourcengruppe.
+  - summary: Hier erhalten Sie Instanzansichten für alle virtuellen Computer in einer Ressourcengruppe.
     syntax: az vm get-instance-view --ids $(az vm list -g MyResourceGroup --query "[].id" -o tsv)
   optionalParameters:
   - name: --ids
-    summary: Mindestens eine Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen von "Resource Id"-Argumenten sein. Sie sollten entweder --ids oder andere "Resource Id"-Argumente angeben.
+    summary: Eine oder mehrere Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu Ressourcen-ID-Argumenten geben. Sie sollten entweder --ids oder andere Ressourcen-ID-Argumente bereitstellen.
     description: ''
   - name: --name -n
     summary: Der Name des virtuellen Computers. Sie können die Standardeinstellung mit `az configure --defaults vm=<name>` konfigurieren.
@@ -613,7 +613,7 @@ directCommands:
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/vm/_help.py
 - uid: az_vm_list
   name: az vm list
-  summary: Auflisten der Details Virtual Machines.
+  summary: Listet Details zu Virtual Machines auf.
   description: '`--resource-group` kann eine leere Zeichenfolge als Parameter übergeben, der alle VM-Informationen unter dem Abonnement ausgibt. Weitere Informationen zum Abfragen von Informationen zu Virtual Machines finden Sie unter https://docs.microsoft.com/cli/azure/query-az-cli2 .'
   syntax: >-
     az vm list [--query-examples]
@@ -629,13 +629,13 @@ directCommands:
     syntax: az vm list -g MyResourceGroup -d
   optionalParameters:
   - name: --query-examples
-    summary: Empfehlen Sie die JMESPath-Zeichenfolge. Sie können eine der Abfragen kopieren und nach dem Parameter --query in doppelte Anführungszeichen einfügen, um die Ergebnisse zu sehen. Sie können ein oder mehrere Positionsschlüsselwörter hinzufügen, damit wir basierend auf diesen Schlüsselwörtern Vorschläge machen können.
+    summary: Empfehlen Sie die JMESPath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und sie nach dem Parameter --query in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positionsschlüsselwörter hinzufügen, damit wir basierend auf diesen Schlüsselwörtern Vorschläge geben können.
     description: ''
   - name: --resource-group -g
     summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
     description: ''
   - name: --show-details -d
-    summary: Öffentliche IP-Adresse, FQDN und Energiezustände anzeigen. der Befehl wird langsam ausgeführt.
+    summary: Zeigen Sie öffentliche IP-Adresse, FQDN und Energiezustände an. -Befehl wird langsam ausgeführt.
     description: ''
   - name: --subscription
     summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
@@ -643,7 +643,7 @@ directCommands:
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/vm/_help.py
 - uid: az_vm_list-ip-addresses
   name: az vm list-ip-addresses
-  summary: Auflisten von IP-Adressen, die einem virtuellen Computer zugeordnet sind.
+  summary: Listet ip-Adressen auf, die einem virtuellen Computer zugeordnet sind.
   description: ''
   syntax: >-
     az vm list-ip-addresses [--ids]
@@ -651,13 +651,13 @@ directCommands:
                             [--resource-group]
                             [--subscription]
   examples:
-  - summary: Hier finden Sie die IP-Adressen für einen virtuellen Computer.
+  - summary: Abrufen der IP-Adressen für einen virtuellen Computer.
     syntax: az vm list-ip-addresses -g MyResourceGroup -n MyVm
-  - summary: Ip-Adressen für alle virtuellen Computer in einer Ressourcengruppe.
+  - summary: Abrufen von IP-Adressen für alle virtuellen Computer in einer Ressourcengruppe.
     syntax: az vm list-ip-addresses --ids $(az vm list -g MyResourceGroup --query "[].id" -o tsv)
   optionalParameters:
   - name: --ids
-    summary: Eine oder mehrere Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu Ressourcen-ID-Argumenten geben. Sie sollten entweder --ids oder andere Ressourcen-ID-Argumente bereitstellen.
+    summary: Mindestens eine Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen von "Resource Id"-Argumenten sein. Sie sollten entweder --ids oder andere "Resource Id"-Argumente angeben.
     description: ''
   - name: --name -n
     summary: Der Name des virtuellen Computers. Sie können die Standardeinstellung mit `az configure --defaults vm=<name>` konfigurieren.
@@ -671,7 +671,7 @@ directCommands:
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/vm/_help.py
 - uid: az_vm_list-sizes
   name: az vm list-sizes
-  summary: Listet verfügbare Größen für VMs auf.
+  summary: Listet die verfügbaren Größen für VMs auf.
   description: ''
   syntax: >-
     az vm list-sizes --location
@@ -692,7 +692,7 @@ directCommands:
 - uid: az_vm_list-skus
   name: az vm list-skus
   summary: Hier finden Sie Details zu computebezogenen Ressourcen-SKUs.
-  description: Dieser Befehl enthält Einschränkungen auf Abonnementebene und bietet die genauesten Informationen.
+  description: Dieser Befehl umfasst einschränkungen auf Abonnementebene und bietet die genauesten Informationen.
   syntax: >-
     az vm list-skus [--all {false, true}]
                     [--location]
@@ -705,14 +705,14 @@ directCommands:
     syntax: az vm list-skus -l westus
   - summary: Listet alle verfügbaren VM-Größen in der Region "USA, Osten 2" auf, die Verfügbarkeitszonen unterstützen.
     syntax: az vm list-skus -l eastus2 --zone
-  - summary: Listen Sie alle verfügbaren VM-Größen in der Region "USA, Osten 2" auf, die verfügbarkeitszonen mit dem Namen "standard_ds1..." unterstützen.
+  - summary: Listen Sie alle verfügbaren VM-Größen in der Region "USA, Osten 2" auf, die verfügbarkeitszonen mit einem Namen wie "standard_ds1..." unterstützen.
     syntax: az vm list-skus -l eastus2 --zone --size standard_ds1
   - summary: Auflisten von SKU-Informationen zu Verfügbarkeitsgruppen in der Region "USA, Westen".
     syntax: az vm list-skus -l westus --resource-type availabilitySets
   optionalParameters:
   - name: --all
     parameterValueGroup: false, true
-    summary: Zeigen Sie alle Informationen an, einschließlich vm-Größen, die unter dem aktuellen Abonnement nicht verfügbar sind.
+    summary: Zeigt alle Informationen an, einschließlich vm-Größen, die unter dem aktuellen Abonnement nicht verfügbar sind.
     description: ''
   - name: --location -l
     summary: 'Der Standort. Werte aus: `az account list-locations`. Sie können den standardmäßig verwendeten Standort mit `az configure --defaults location=<location>` konfigurieren.'
@@ -728,18 +728,18 @@ directCommands:
     description: ''
   - name: --zone -z
     parameterValueGroup: false, true
-    summary: Anzeigen von SKUS, die Verfügbarkeitszonen unterstützen.
+    summary: Anzeigen von SKUs, die Verfügbarkeitszonen unterstützen.
     description: ''
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/vm/_help.py
 - uid: az_vm_list-usage
   name: az vm list-usage
-  summary: Listet verfügbare Nutzungsressourcen für VMs auf.
+  summary: Auflisten der verfügbaren Nutzungsressourcen für VMs.
   description: ''
   syntax: >-
     az vm list-usage --location
                      [--subscription]
   examples:
-  - summary: Abrufen der Computeressourcennutzung für die Region "USA, Westen".
+  - summary: Hier erhalten Sie die Computeressourcennutzung für die Region "USA, Westen".
     syntax: az vm list-usage -l westus
   requiredParameters:
   - isRequired: true
@@ -753,7 +753,7 @@ directCommands:
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/vm/_help.py
 - uid: az_vm_list-vm-resize-options
   name: az vm list-vm-resize-options
-  summary: Listet verfügbare Größenoptionen für VMs auf.
+  summary: Listet verfügbare Größenänderungsoptionen für VMs auf.
   description: ''
   syntax: >-
     az vm list-vm-resize-options [--ids]
@@ -761,13 +761,13 @@ directCommands:
                                  [--resource-group]
                                  [--subscription]
   examples:
-  - summary: Listet alle verfügbaren VM-Größen für die Größenvergrößerung auf.
+  - summary: Listet alle verfügbaren VM-Größen für die Größenänderung auf.
     syntax: az vm list-vm-resize-options -g MyResourceGroup -n MyVm
-  - summary: Listen Sie die verfügbaren Größen für alle VMs in einer Ressourcengruppe auf.
+  - summary: Listet die verfügbaren Größen für alle VMs in einer Ressourcengruppe auf.
     syntax: az vm list-vm-resize-options --ids $(az vm list -g MyResourceGroup --query "[].id" -o tsv)
   optionalParameters:
   - name: --ids
-    summary: Eine oder mehrere Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu Ressourcen-ID-Argumenten geben. Sie sollten entweder --ids oder andere Ressourcen-ID-Argumente bereitstellen.
+    summary: Mindestens eine Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu "Ressourcen-ID"-Argumenten sein. Sie sollten entweder --ids oder andere "Resource Id"-Argumente angeben.
     description: ''
   - name: --name -n
     summary: Der Name des virtuellen Computers. Sie können die Standardeinstellung mit `az configure --defaults vm=<name>` konfigurieren.
@@ -782,7 +782,7 @@ directCommands:
 - uid: az_vm_open-port
   name: az vm open-port
   summary: Öffnet einen virtuellen Computer für eingehenden Datenverkehr an angegebenen Ports.
-  description: Fügt der Netzwerksicherheitsgruppe (NSG), die an die Netzwerkschnittstelle (NIC) oder das Subnetz des virtuellen Computers angefügt ist, eine Sicherheitsregel hinzu. Die vorhandene NSG wird verwendet, oder es wird eine neue erstellt. Der Regelname ist "open-port-{port}" und überschreibt eine vorhandene Regel mit diesem Namen. Verwenden Sie für multi-NIC-VMs oder für eine feiner abgrenzende Steuerung die entsprechenden Netzwerkbefehle direkt (nsg rule create usw.).
+  description: Fügt der Netzwerksicherheitsgruppe (NSG) eine Sicherheitsregel hinzu, die an die Netzwerkschnittstelle (NIC) oder das Subnetz des virtuellen Computers angefügt ist. Die vorhandene NSG wird verwendet oder eine neue erstellt. Der Regelname lautet "open-port-{port}" und überschreibt eine vorhandene Regel mit diesem Namen. Verwenden Sie für multi-NIC-VMs oder für eine präzisere Steuerung die entsprechenden Netzwerkbefehle direkt (Erstellen einer NSG-Regel usw.).
   syntax: >-
     az vm open-port --port
                     [--apply-to-subnet]
@@ -795,7 +795,7 @@ directCommands:
   examples:
   - summary: Öffnen Sie alle Ports auf einem virtuellen Computer für eingehenden Datenverkehr.
     syntax: az vm open-port -g MyResourceGroup -n MyVm --port '*'
-  - summary: Öffnen Sie einen Bereich von Ports auf einem virtuellen Computer für eingehenden Datenverkehr mit der höchsten Priorität.
+  - summary: Öffnen Sie eine Reihe von Ports auf einem virtuellen Computer für eingehenden Datenverkehr mit der höchsten Priorität.
     syntax: az vm open-port -g MyResourceGroup -n MyVm --port 80-100 --priority 100
   - summary: Öffnen Sie die Ports 555, 557, 558 und 559 für eingehenden Datenverkehr mit der höchsten Priorität.
     syntax: az vm open-port -g MyResourceGroup -n MyVm --port 555,557-559 --priority 100
@@ -804,20 +804,20 @@ directCommands:
   requiredParameters:
   - isRequired: true
     name: --port
-    summary: Der Port oder Portbereich (z. B. 80-100), für den eingehender Datenverkehr geöffnet werden soll. Verwenden Sie \* "", um Datenverkehr an alle Ports zu ermöglichen. Verwenden Sie durch Trennzeichen getrennte Werte, um mehr als einen Port oder Portbereich anzugeben.
+    summary: Der Port- oder Portbereich (z. B. 80-100), in den eingehender Datenverkehr geöffnet werden soll. Verwenden Sie " \* "", um Datenverkehr an alle Ports zuzulassen. Verwenden Sie durch Komma getrennte Werte, um mehr als einen Port oder Portbereich anzugeben.
     description: ''
   optionalParameters:
   - name: --apply-to-subnet
     summary: Lassen Sie eingehenden Datenverkehr im Subnetz anstelle der NIC zu.
     description: ''
   - name: --ids
-    summary: Mindestens eine Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen von "Resource Id"-Argumenten sein. Sie sollten entweder --ids oder andere "Resource Id"-Argumente angeben.
+    summary: Eine oder mehrere Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu Ressourcen-ID-Argumenten geben. Sie sollten entweder --ids oder andere Ressourcen-ID-Argumente bereitstellen.
     description: ''
   - name: --name -n
     summary: Der Name des virtuellen Computers, auf dem eingehender Datenverkehr geöffnet werden soll.
     description: ''
   - name: --nsg-name
-    summary: Der Name der Netzwerksicherheitsgruppe, die erstellt werden soll, wenn keine vorhanden ist. Wird ignoriert, wenn bereits eine NSG vorhanden ist.
+    summary: Der Name der netzwerksicherheitsgruppe, die erstellt werden soll, falls noch keine vorhanden ist. Wird ignoriert, wenn bereits eine NSG vorhanden ist.
     description: ''
   - name: --priority
     defaultValue: "900"
@@ -832,7 +832,7 @@ directCommands:
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/vm/_help.py
 - uid: az_vm_perform-maintenance
   name: az vm perform-maintenance
-  summary: Der Vorgang, der auf einem virtuellen Computer gewartet werden soll.
+  summary: Der Vorgang zum Ausführen der Wartung auf einem virtuellen Computer.
   description: ''
   syntax: >-
     az vm perform-maintenance [--ids]
@@ -841,7 +841,7 @@ directCommands:
                               [--subscription]
   optionalParameters:
   - name: --ids
-    summary: Mindestens eine Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen von "Resource Id"-Argumenten sein. Sie sollten entweder --ids oder andere "Resource Id"-Argumente angeben.
+    summary: Eine oder mehrere Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu Ressourcen-ID-Argumenten geben. Sie sollten entweder --ids oder andere Ressourcen-ID-Argumente bereitstellen.
     description: ''
   - name: --name -n
     summary: Der Name des virtuellen Computers. Sie können die Standardeinstellung mit `az configure --defaults vm=<name>` konfigurieren.
@@ -866,11 +866,11 @@ directCommands:
   examples:
   - summary: Erneutes Bereitstellen eines virtuellen Computers
     syntax: az vm redeploy -g MyResourceGroup -n MyVm
-  - summary: Stellen Sie alle virtuellen Computer in einer Ressourcengruppe erneut her.
+  - summary: Stellen Sie alle virtuellen Computer in einer Ressourcengruppe erneut zur Bereitstellung vor.
     syntax: az vm redeploy --ids $(az vm list -g MyResourceGroup --query "[].id" -o tsv)
   optionalParameters:
   - name: --ids
-    summary: Eine oder mehrere Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu Ressourcen-ID-Argumenten geben. Sie sollten entweder --ids oder andere Ressourcen-ID-Argumente bereitstellen.
+    summary: Mindestens eine Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu "Ressourcen-ID"-Argumenten sein. Sie sollten entweder --ids oder andere "Resource Id"-Argumente angeben.
     description: ''
   - name: --name -n
     summary: Der Name des virtuellen Computers. Sie können die Standardeinstellung mit `az configure --defaults vm=<name>` konfigurieren.
@@ -887,7 +887,7 @@ directCommands:
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/vm/_help.py
 - uid: az_vm_resize
   name: az vm resize
-  summary: Aktualisieren Sie die Größe eines virtuellen Computers.
+  summary: Aktualisieren sie die Größe eines virtuellen Computers.
   description: ''
   syntax: >-
     az vm resize --size
@@ -899,7 +899,7 @@ directCommands:
   examples:
   - summary: Ändern der Größe eines virtuellen Computers.
     syntax: az vm resize -g MyResourceGroup -n MyVm --size Standard_DS3_v2
-  - summary: Ändern sie die Größe aller virtuellen Computer in einer Ressourcengruppe.
+  - summary: Ändern Sie die Größe aller virtuellen Computer in einer Ressourcengruppe.
     syntax: az vm resize --size Standard_DS3_v2 --ids $(az vm list -g MyResourceGroup --query "[].id" -o tsv)
   requiredParameters:
   - isRequired: true
@@ -909,7 +909,7 @@ directCommands:
     valueFrom: az vm list-vm-resize-options
   optionalParameters:
   - name: --ids
-    summary: Eine oder mehrere Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu Ressourcen-ID-Argumenten geben. Sie sollten entweder --ids oder andere Ressourcen-ID-Argumente bereitstellen.
+    summary: Mindestens eine Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen von "Resource Id"-Argumenten sein. Sie sollten entweder --ids oder andere "Resource Id"-Argumente angeben.
     description: ''
   - name: --name -n
     summary: Der Name des virtuellen Computers. Sie können die Standardeinstellung mit `az configure --defaults vm=<name>` konfigurieren.
@@ -945,7 +945,7 @@ directCommands:
     summary: Erzwingen Sie den Neustart des virtuellen Computers, indem Sie ihn erneut bereitstellen. Verwenden Sie , wenn der virtuelle Computer nicht reagiert.
     description: ''
   - name: --ids
-    summary: Mindestens eine Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen von "Resource Id"-Argumenten sein. Sie sollten entweder --ids oder andere "Resource Id"-Argumente angeben.
+    summary: Eine oder mehrere Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu Ressourcen-ID-Argumenten geben. Sie sollten entweder --ids oder andere Ressourcen-ID-Argumente bereitstellen.
     description: ''
   - name: --name -n
     summary: Der Name des virtuellen Computers. Sie können die Standardeinstellung mit `az configure --defaults vm=<name>` konfigurieren.
@@ -962,7 +962,7 @@ directCommands:
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/vm/_help.py
 - uid: az_vm_show
   name: az vm show
-  summary: Abrufen der Details eines virtuellen Computers.
+  summary: Hier finden Sie die Details eines virtuellen Computers.
   description: ''
   syntax: >-
     az vm show [--ids]
@@ -972,25 +972,25 @@ directCommands:
                [--show-details]
                [--subscription]
   examples:
-  - summary: Anzeigen von Informationen zu einem virtuellen Computer.
+  - summary: Anzeigen von Informationen zu einem virtuellen Computer
     syntax: az vm show -g MyResourceGroup -n MyVm -d
-  - summary: Abrufen der Details für alle virtuellen Computer in einer Ressourcengruppe.
+  - summary: Hier finden Sie Die Details für alle virtuellen Computer in einer Ressourcengruppe.
     syntax: az vm show -d --ids $(az vm list -g MyResourceGroup --query "[].id" -o tsv)
   optionalParameters:
   - name: --ids
-    summary: Mindestens eine Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen von "Resource Id"-Argumenten sein. Sie sollten entweder --ids oder andere "Resource Id"-Argumente angeben.
+    summary: Eine oder mehrere Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu Ressourcen-ID-Argumenten geben. Sie sollten entweder --ids oder andere Ressourcen-ID-Argumente bereitstellen.
     description: ''
   - name: --name -n
     summary: Der Name des virtuellen Computers. Sie können die Standardeinstellung mit `az configure --defaults vm=<name>` konfigurieren.
     description: ''
   - name: --query-examples
-    summary: Empfehlen Sie die JMESPath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und sie nach dem Parameter --query in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positionsschlüsselwörter hinzufügen, damit wir basierend auf diesen Schlüsselwörtern Vorschläge geben können.
+    summary: Empfehlen Sie die JMESPath-Zeichenfolge. Sie können eine der Abfragen kopieren und nach dem Parameter --query in doppelte Anführungszeichen einfügen, um die Ergebnisse zu sehen. Sie können ein oder mehrere Positionsschlüsselwörter hinzufügen, damit wir basierend auf diesen Schlüsselwörtern Vorschläge machen können.
     description: ''
   - name: --resource-group -g
     summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
     description: ''
   - name: --show-details -d
-    summary: Zeigen Sie öffentliche IP-Adresse, FQDN und Energiezustände an. -Befehl wird langsam ausgeführt.
+    summary: Öffentliche IP-Adresse, FQDN und Energiezustände anzeigen. -Befehl wird langsam ausgeführt.
     description: ''
   - name: --subscription
     summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
@@ -1009,13 +1009,13 @@ directCommands:
   examples:
   - summary: Startet eine angehaltene VM.
     syntax: az vm start -g MyResourceGroup -n MyVm
-  - summary: Starten Sie alle VMs in einer Ressourcengruppe.
+  - summary: Starten Sie alle virtuellen Computer in einer Ressourcengruppe.
     syntax: az vm start --ids $(az vm list -g MyResourceGroup --query "[].id" -o tsv)
   - summary: Startet eine angehaltene VM. (automatisch generiert)
     syntax: az vm start --name MyVm --no-wait --resource-group MyResourceGroup
   optionalParameters:
   - name: --ids
-    summary: Eine oder mehrere Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu Ressourcen-ID-Argumenten geben. Sie sollten entweder --ids oder andere Ressourcen-ID-Argumente bereitstellen.
+    summary: Mindestens eine Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen von "Resource Id"-Argumenten sein. Sie sollten entweder --ids oder andere "Resource Id"-Argumente angeben.
     description: ''
   - name: --name -n
     summary: Der Name des virtuellen Computers. Sie können die Standardeinstellung mit `az configure --defaults vm=<name>` konfigurieren.
@@ -1032,8 +1032,8 @@ directCommands:
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/vm/_help.py
 - uid: az_vm_stop
   name: az vm stop
-  summary: Ausschalten (Beenden) eines ausgeführten virtuellen Computers
-  description: Der virtuelle Computer wird weiterhin abgerechnet. Um dies zu vermeiden, können Sie die Vm über "az vm deallocate" wieder auffinden.
+  summary: Ausschalten (Beenden) eines ausgeführten virtuellen Computers.
+  description: Der virtuelle Computer wird weiterhin in Rechnung gestellt. Um dies zu vermeiden, können Sie die Zuordnung des virtuellen Computers über "az vm deallocate" (az vm deallocate) wieder heraufzusetzen.
   syntax: >-
     az vm stop [--ids]
                [--name]
@@ -1041,15 +1041,15 @@ directCommands:
                [--resource-group]
                [--subscription]
   examples:
-  - summary: Ausschalten (Beenden) eines ausgeführten virtuellen Computers
+  - summary: Ausschalten (Beenden) eines ausgeführten virtuellen Computers.
     syntax: az vm stop --resource-group MyResourceGroup --name MyVm
-  - summary: Schalten Sie eine ausgeführte VM aus, ohne heruntergefahren zu werden.
+  - summary: Schalten Sie einen ausgeführten virtuellen Computer aus, ohne herunterzufahren.
     syntax: az vm stop --resource-group MyResourceGroup --name MyVm --skip-shutdown
-  - summary: Ausschalten von VMs in einer Ressourcengruppe
+  - summary: Schalten Sie VMs in einer Ressourcengruppe aus.
     syntax: az vm stop --ids $(az vm list -g MyResourceGroup --query "[].id" -o tsv)
   optionalParameters:
   - name: --ids
-    summary: Eine oder mehrere Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu Ressourcen-ID-Argumenten geben. Sie sollten entweder --ids oder andere Ressourcen-ID-Argumente bereitstellen.
+    summary: Mindestens eine Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu "Ressourcen-ID"-Argumenten sein. Sie sollten entweder --ids oder andere "Resource Id"-Argumente angeben.
     description: ''
   - name: --name -n
     summary: Der Name des virtuellen Computers. Sie können die Standardeinstellung mit `az configure --defaults vm=<name>` konfigurieren.
@@ -1066,7 +1066,7 @@ directCommands:
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/vm/_help.py
 - uid: az_vm_update
   name: az vm update
-  summary: Aktualisieren der Eigenschaften eines virtuellen Computers.
+  summary: Aktualisieren sie die Eigenschaften eines virtuellen Computers.
   description: Aktualisieren Sie VM-Objekte und -Eigenschaften mithilfe von Pfaden, die "az vm show" entsprechen.
   syntax: >-
     az vm update [--add]
@@ -1084,7 +1084,7 @@ directCommands:
   examples:
   - summary: Fügen Sie ein Tag hinzu, oder aktualisieren Sie es.
     syntax: az vm update -n name -g group --set tags.tagName=tagValue
-  - summary: Entfernen sie ein Tag.
+  - summary: Entfernen Sie ein Tag.
     syntax: az vm update -n name -g group --remove tags.tagName
   - summary: Legen Sie die primäre NIC eines virtuellen Computers fest.
     syntax: az vm update -n name -g group --set networkProfile.networkInterfaces[1].primary=false networkProfile.networkInterfaces[0].primary=true
@@ -1097,17 +1097,17 @@ directCommands:
     summary: 'Fügen Sie einer Liste von -Objekten ein -Objekt hinzu, indem Sie ein Pfad- und Schlüsselwertpaar angeben.  Beispiel: --add property.listProperty <key=value, string oder JSON string>.'
     description: ''
   - name: --disk-caching
-    summary: Verwenden Sie den Singularwert, um auf einzelne Datenträger anzuwenden, oder geben Sie einzelne Datenträger an, z. B. sollte "os=ReadWrite 0=None 1=ReadOnly" das Aktualisieren von Betriebssystemdatenträgern und 2 Datenträgern für Daten aktivieren.
+    summary: Verwenden Sie einen Singularwert, um auf einzelne Datenträger anzuwenden, oder geben Sie einzelne Datenträger an, z. B. "os=ReadWrite 0=None 1=ReadOnly" sollte update os disk und 2 Data Disks aktivieren.
     description: ''
   - name: --force-string
     summary: Wenn Sie "set" oder "add" verwenden, behalten Sie Zeichenfolgenliterale bei, anstatt zu versuchen, in JSON zu konvertieren.
     description: ''
   - name: --ids
-    summary: Mindestens eine Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen von "Resource Id"-Argumenten sein. Sie sollten entweder --ids oder andere "Resource Id"-Argumente angeben.
+    summary: Eine oder mehrere Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu Ressourcen-ID-Argumenten geben. Sie sollten entweder --ids oder andere Ressourcen-ID-Argumente bereitstellen.
     description: ''
   - name: --license-type
     parameterValueGroup: None, RHEL_BYOS, RHEL_ELS_6, SLES_BYOS, Windows_Client, Windows_Server
-    summary: Gibt an, dass das Windows-Image oder der Datenträger lokal lizenziert wurde. Verwenden Sie "Windows_Server", um Azure-Hybridvorteil für Windows Server zu aktivieren. Verwenden Sie "Windows_Client", um mehrstufige Hostingrechte für Windows 10 zu aktivieren. Weitere Informationen finden Sie in der Onlinedokumentation zu virtuellen Azure-Windows-Computer.
+    summary: Gibt an, dass das Windows-Image oder der Windows-Datenträger lokal lizenziert wurde. Verwenden Sie zum Azure-Hybridvorteil für Windows Server "Windows_Server". Verwenden Sie "Windows 10", um mehrteilige Hostingrechte für Windows_Client aktivieren. Weitere Informationen finden Sie in der Online-Dokumentation zu virtuellen Azure-Windows-Computer.
     description: ''
   - name: --name -n
     summary: Der Name des virtuellen Computers. Sie können die Standardeinstellung mit `az configure --defaults vm=<name>` konfigurieren.
@@ -1116,13 +1116,13 @@ directCommands:
     summary: Nicht auf den Abschluss lang andauernder Vorgänge warten
     description: ''
   - name: --remove
-    summary: 'Entfernen Sie eine Eigenschaft oder ein Element aus einer Liste.  Beispiel: --remove property.list <indexToRemove> OR --remove propertyToRemove.'
+    summary: 'Entfernen sie eine Eigenschaft oder ein Element aus einer Liste.  Beispiel: --remove property.list <indexToRemove> OR --remove propertyToRemove.'
     description: ''
   - name: --resource-group -g
     summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
     description: ''
   - name: --set
-    summary: 'Aktualisieren Sie ein -Objekt, indem Sie einen festzulegenden Eigenschaftenpfad und -wert angeben.  Beispiel: --set property1.property2=<value>.'
+    summary: 'Aktualisieren Sie ein Objekt, indem Sie einen festzulegenden Eigenschaftenpfad und -wert angeben.  Beispiel: --set property1.property2=<value>.'
     description: ''
   - name: --subscription
     summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
@@ -1133,7 +1133,7 @@ directCommands:
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/vm/_help.py
 - uid: az_vm_wait
   name: az vm wait
-  summary: Platzieren Sie die CLI in einen Wartezustand, bis eine Bedingung des virtuellen Computers erfüllt ist.
+  summary: Versetzen Sie die CLI in einen Wartezustand, bis eine Bedingung des virtuellen Computers erfüllt ist.
   description: ''
   syntax: >-
     az vm wait [--created]
@@ -1148,25 +1148,25 @@ directCommands:
                [--timeout]
                [--updated]
   examples:
-  - summary: Warten Sie, bis ein virtueller Computer erstellt wurde.
+  - summary: Warten Sie, bis eine VM erstellt wurde.
     syntax: az vm wait -g MyResourceGroup -n MyVm --created
   - summary: Warten Sie, bis alle VMs in einer Ressourcengruppe gelöscht wurden.
     syntax: az vm wait --deleted --ids $(az vm list -g MyResourceGroup --query "[].id" -o tsv)
   optionalParameters:
   - name: --created
-    summary: Warten Sie, bis mit "provisioningState" bei "Succeeded" erstellt wurde.
+    summary: Warten Sie, bis die Erstellung mit "provisioningState" bei "Succeeded" (Erfolgreich) ausgeführt wurde.
     description: ''
   - name: --custom
     summary: "Warten Sie, bis die Bedingung eine benutzerdefinierte JMESPath-Abfrage erfüllt. Beispiel: provisioningState!='InProgress', instanceView.statuses[?code=='PowerState/running']."
     description: ''
   - name: --deleted
-    summary: Warten Sie, bis sie gelöscht wurde.
+    summary: Warten Sie, bis gelöscht wurde.
     description: ''
   - name: --exists
     summary: Warten Sie, bis die Ressource vorhanden ist.
     description: ''
   - name: --ids
-    summary: Eine oder mehrere Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu Ressourcen-ID-Argumenten geben. Sie sollten entweder --ids oder andere Ressourcen-ID-Argumente bereitstellen.
+    summary: Mindestens eine Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu "Ressourcen-ID"-Argumenten sein. Sie sollten entweder --ids oder andere "Resource Id"-Argumente angeben.
     description: ''
   - name: --interval
     defaultValue: "30"
@@ -1186,10 +1186,14 @@ directCommands:
     summary: Maximale Wartezeit in Sekunden.
     description: ''
   - name: --updated
-    summary: Warten Sie, bis das Update mit provisioningState unter "Succeeded" (Erfolgreich) ausgeführt wurde.
+    summary: Warten Sie, bis provisioningState auf "Succeeded" aktualisiert wurde.
     description: ''
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/vm/_help.py
 commands:
+- az_vm_aem
+- az_vm_aem_delete
+- az_vm_aem_set
+- az_vm_aem_verify
 - az_vm_auto-shutdown
 - az_vm_availability-set
 - az_vm_availability-set_convert
@@ -1263,6 +1267,11 @@ commands:
 - az_vm_open-port
 - az_vm_perform-maintenance
 - az_vm_redeploy
+- az_vm_repair
+- az_vm_repair_create
+- az_vm_repair_list-scripts
+- az_vm_repair_restore
+- az_vm_repair_run
 - az_vm_resize
 - az_vm_restart
 - az_vm_run-command
@@ -1287,15 +1296,6 @@ commands:
 - az_vm_user_reset-ssh
 - az_vm_user_update
 - az_vm_wait
-- az_vm_aem
-- az_vm_aem_delete
-- az_vm_aem_set
-- az_vm_aem_verify
-- az_vm_repair
-- az_vm_repair_create
-- az_vm_repair_list-scripts
-- az_vm_repair_restore
-- az_vm_repair_run
 globalParameters:
 - name: --debug
   summary: Ausführlichkeit der Protokollierung erhöhen, um alle Debugprotokolle anzuzeigen.
@@ -1313,11 +1313,11 @@ globalParameters:
   summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
 metadata:
   doc_source_url_repo: https://github.com/Azure/azure-cli/blob/dev/
-  ms.date: 04/12/2021
-  description: Verwalten von virtuellen Linux- oder Windows-Computern.
-  ms.openlocfilehash: 1e5563be36d1a0e46d68b620a8e7c568abdfa63e
-  ms.sourcegitcommit: d01260d847ea835a8bbab0e0db73d1b39f5c18ef
+  ms.date: 04/15/2021
+  description: Verwalten von virtuellen Linux- oder Windows-Computern
+  ms.openlocfilehash: 238c6875cf11885649b0fb810b96e0aa0bf0888e
+  ms.sourcegitcommit: 47edf65705fcb047974356c30962819ea5172832
   ms.translationtype: MT
   ms.contentlocale: de-DE
-  ms.lasthandoff: 04/13/2021
-  ms.locfileid: "107344403"
+  ms.lasthandoff: 04/16/2021
+  ms.locfileid: "107556293"
