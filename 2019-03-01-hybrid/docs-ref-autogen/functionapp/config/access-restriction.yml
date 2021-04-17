@@ -1,12 +1,12 @@
 ### YamlMime:AzureCLIGroup
 uid: az_functionapp_config_access-restriction
 name: az functionapp config access-restriction
-summary: Methoden, die Zugriffs Einschränkungen für eine functionapp anzeigen, festlegen, hinzufügen und entfernen.
+summary: Methoden, die Zugriffseinschränkungen für eine Funktions-App anzeigen, festlegen, hinzufügen und entfernen.
 description: ''
 directCommands:
 - uid: az_functionapp_config_access-restriction_add
   name: az functionapp config access-restriction add
-  summary: Fügt der functionapp eine Zugriffs Einschränkung hinzu.
+  summary: Fügt der Funktions-App eine Zugriffseinschränkung hinzu.
   description: ''
   syntax: >-
     az functionapp config access-restriction add --priority
@@ -25,74 +25,74 @@ directCommands:
                                                  [--vnet-name]
                                                  [--vnet-resource-group]
   examples:
-  - summary: Fügen Sie die Zugriffsbeschränkung zum Öffnen (zulassen) von Entwicklern für IPv4 Address 130.220.0.0/27 mit Priorität 200 zum Hauptstandort hinzu.
+  - summary: Fügen Sie dem Hauptstandort die öffnende (Zulassen)-Zugriffseinschränkung namens developers für IPv4-Adresse 130.220.0.0/27 mit der Priorität 200 hinzu.
     syntax: az functionapp config access-restriction add -g ResourceGroup -n AppName --rule-name developers --action Allow --ip-address 130.220.0.0/27 --priority 200
-  - summary: Fügen Sie die Zugriffsbeschränkung (zulassen) mit dem Namen build_server für die IPv4-Adresse 192.168.0.0/27 mit der Priorität 250 der SCM-Website hinzu.
+  - summary: Fügen Sie dem scm-Standort die Öffnenseinschränkung (Zulassen) mit dem Namen build_server für die IPv4-Adresse 192.168.0.0/27 mit der Priorität 250 hinzu.
     syntax: az functionapp config access-restriction add -g ResourceGroup -n AppName --rule-name build_server --action Allow --ip-address 192.168.0.0/27 --priority 250 --scm-site true
-  - summary: Fügen Sie die Zugriffsbeschränkung (zulassen) mit dem Namen app_gateway für das Subnetz app_gw in vnet core_weu mit der Priorität 300 zum Hauptstandort hinzu.
+  - summary: Fügen Sie dem Hauptstandort das Öffnen (Zulassen) app_gateway Zugriffseinschränkung mit dem Namen app_gw subnet app_gw in vNet core_weu mit der Priorität 300 hinzu.
     syntax: az functionapp config access-restriction add -g ResourceGroup -n AppName --rule-name app_gateway --action Allow --vnet-name core_weu --subnet app_gateway --priority 300
-  - summary: Fügen Sie die Zugriffsbeschränkung (zulassen) mit dem Namen internal_agents für das Subnetz build_agents in vnet corp01 mit der Priorität 500 auf die SCM-Website hinzu. und ignorieren die dienstend Punkt Registrierung im Subnetz.
+  - summary: Hinzufügen von Zugriffseinschränkungen mit dem Namen internal_agents für Subnetz build_agents vNet corp01 mit der Priorität 500 zum SCM-Standort; und ignorieren die Dienstendpunktregistrierung im Subnetz.
     syntax: az functionapp config access-restriction add -g ResourceGroup -n AppName --rule-name internal_agents --action Allow --vnet-name corp01 --subnet build_agents --priority 500 --scm-site true --ignore-missing-endpoint true
-  - summary: Hinzufügen des Zugriffs Einschränkungs Öffnens (zulassen) benannter remote_agents im vnet "corp01" in der RG "vnets" mit dem Subnetz "Agents"
+  - summary: Hinzufügen des Öffnens (Zulassen) der Zugriffseinschränkung remote_agents vNet "corp01" in rg "vnets" mit Subnetz "Agents"
     syntax: az functionapp config access-restriction add -g ResourceGroup -n AppName --rule-name remote_agents --action Allow --vnet-name corp01 --subnet agents --priority 500 --vnet-resource-group vnets
-  - summary: Hinzufügen der Zugriffsbeschränkung zum Öffnen (zulassen) benannter Agents im vnet "corp01" in der RG "vnets" mit dem Subnetz "Agents" (unter Verwendung der subnetzressourcen-ID)
+  - summary: Hinzufügen von öffnenden (Zulassen) benannten Agents für Zugriffseinschränkungen im vNet "corp01" in rg "vnets" mit Subnetz "Agents" (unter Verwendung der Subnetzressourcen-ID)
     syntax: az functionapp config access-restriction add -g ResourceGroup -n AppName --rule-name remote_agents --action Allow --priority 800 --subnet '/subscriptions/<subscription-id>/resourceGroups/vnets/providers/Microsoft.Network/virtualNetworks/corp01/subnets/agents'
   requiredParameters:
   - isRequired: true
     name: --priority -p
-    summary: Priorität der Zugriffs Einschränkungs Regel.
+    summary: Priorität der Zugriffseinschränkungsregel.
     description: ''
   optionalParameters:
   - name: --action
     defaultValue: Allow
     parameterValueGroup: Allow, Deny
-    summary: Hiermit wird der Zugriff zugelassen oder verweigert.
+    summary: Zugriff zulassen oder verweigern.
     description: ''
   - name: --description
-    summary: Beschreibung der Zugriffs Einschränkungs Regel.
+    summary: Beschreibung der Zugriffseinschränkungsregel.
     description: ''
   - name: --ids
-    summary: Mindestens eine Ressourcen-ID (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID handeln, die alle Informationen von Ressourcen-ID-Argumenten enthält. Sie sollten entweder--IDs oder andere Ressourcen-ID-Argumente angeben.
+    summary: Eine oder mehrere Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu Ressourcen-ID-Argumenten geben. Sie sollten entweder --ids oder andere Ressourcen-ID-Argumente bereitstellen.
     description: ''
   - name: --ignore-missing-endpoint -i
     parameterValueGroup: false, true
-    summary: Erstellen Sie eine Zugriffs Einschränkungs Regel, die überprüft, ob das Subnetz den Microsoft. Web-Dienst Endpunkt aktiviert hat.
+    summary: Erstellen Sie eine Zugriffseinschränkungsregel mit der Überprüfung, ob für das Subnetz der Microsoft.Web-Dienstendpunkt aktiviert ist.
     description: ''
   - name: --ip-address
     summary: IP-Adresse oder CIDR-Bereich.
     description: ''
   - name: --name -n
-    summary: Der Name der Funktionen-app.
+    summary: Name der Funktions-App.
     description: ''
   - name: --resource-group -g
     summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
     description: ''
   - name: --rule-name -r
-    summary: Der Name der hinzu zufügenden Zugriffs Einschränkungs Regel.
+    summary: Name der hinzuzufügenden Zugriffseinschränkungsregel.
     description: ''
   - name: --scm-site
     parameterValueGroup: false, true
-    summary: True, wenn Zugriffsbeschränkungen für die SCM-Website hinzugefügt werden.
+    summary: True, wenn Zugriffseinschränkungen für die scm-Website hinzugefügt werden.
     description: ''
   - name: --slot -s
-    summary: Der Name des Slots. Standardmäßig den stagingslot, wenn kein Wert angegeben ist.
+    summary: Der Name des Slots. Wird nicht angegeben, wird standardmäßig der Produktionsslot verwendet.
     description: ''
   - name: --subnet
-    summary: Subnetzname (erfordert den vnet-Namen) oder die subnetzressourcen-ID.
+    summary: Subnetzname (vNET-Name erforderlich) oder Subnetzressourcen-ID.
     description: ''
   - name: --subscription
-    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
     description: ''
   - name: --vnet-name
-    summary: Vnet-Name.
+    summary: VNET-Name.
     description: ''
   - name: --vnet-resource-group
-    summary: Ressourcengruppe des virtuellen Netzwerks (Standardwert ist Web-App-Ressourcengruppe).
+    summary: 'Ressourcengruppe des virtuellen Netzwerks (Standardeinstellung: Web-App-Ressourcengruppe).'
     description: ''
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/appservice/_help.py
 - uid: az_functionapp_config_access-restriction_remove
   name: az functionapp config access-restriction remove
-  summary: Entfernt eine Zugriffs Einschränkung aus der functionapp.
+  summary: Entfernt eine Zugriffseinschränkung aus der FunctionApp.
   description: ''
   syntax: >-
     az functionapp config access-restriction remove [--action {Allow, Deny}]
@@ -107,51 +107,51 @@ directCommands:
                                                     [--subscription]
                                                     [--vnet-name]
   examples:
-  - summary: Entfernen Sie die Zugriffs Einschränkung namens Entwickler von der Hauptwebsite.
+  - summary: Entfernen Sie die Zugriffseinschränkung benannter Entwickler von der Hauptwebsite.
     syntax: az functionapp config access-restriction remove -g ResourceGroup -n AppName --rule-name developers
-  - summary: Entfernen Sie die Zugriffs Einschränkung mit dem Namen internal_agents von der SCM-Site.
+  - summary: Entfernen Sie die Zugriffseinschränkung mit dem Namen internal_agents von der scm-Website.
     syntax: az functionapp config access-restriction remove -g ResourceGroup -n AppName --rule-name internal_agents --scm-site true
   optionalParameters:
   - name: --action
     defaultValue: Allow
     parameterValueGroup: Allow, Deny
-    summary: Hiermit wird der Zugriff zugelassen oder verweigert.
+    summary: Zulassen oder Verweigern des Zugriffs.
     description: ''
   - name: --ids
-    summary: Mindestens eine Ressourcen-ID (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID handeln, die alle Informationen von Ressourcen-ID-Argumenten enthält. Sie sollten entweder--IDs oder andere Ressourcen-ID-Argumente angeben.
+    summary: Mindestens eine Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu "Ressourcen-ID"-Argumenten sein. Sie sollten entweder --ids oder andere "Resource Id"-Argumente angeben.
     description: ''
   - name: --ip-address
     summary: IP-Adresse oder CIDR-Bereich.
     description: ''
   - name: --name -n
-    summary: Der Name der Funktionen-app.
+    summary: Name der Funktions-App.
     description: ''
   - name: --resource-group -g
     summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
     description: ''
   - name: --rule-name -r
-    summary: Der Name der zu entfernenden Zugriffs Einschränkung.
+    summary: Name der zu entfernende Zugriffseinschränkung.
     description: ''
   - name: --scm-site
     parameterValueGroup: false, true
-    summary: True, wenn die Zugriffs Einschränkung von der SCM-Site entfernt werden soll.
+    summary: True, wenn die Zugriffseinschränkung von der scm-Website entfernt werden soll.
     description: ''
   - name: --slot -s
-    summary: Der Name des Slots. Standardmäßig den stagingslot, wenn kein Wert angegeben ist.
+    summary: Der Name des Slots. Wird nicht angegeben, wird standardmäßig der Produktionsslot verwendet.
     description: ''
   - name: --subnet
-    summary: Subnetzname (erfordert den vnet-Namen) oder die subnetzressourcen-ID.
+    summary: Subnetzname (vNET-Name erforderlich) oder Subnetzressourcen-ID.
     description: ''
   - name: --subscription
-    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
     description: ''
   - name: --vnet-name
-    summary: Vnet-Name.
+    summary: VNET-Name.
     description: ''
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/appservice/_help.py
 - uid: az_functionapp_config_access-restriction_set
   name: az functionapp config access-restriction set
-  summary: Legt fest, ob die SCM-Site die gleichen Einschränkungen wie der Hauptstandort verwendet.
+  summary: Legt fest, ob für den SCM-Standort die gleichen Einschränkungen gelten wie für den Hauptstandort.
   description: ''
   syntax: >-
     az functionapp config access-restriction set --use-same-restrictions-for-scm-site {false, true}
@@ -161,34 +161,34 @@ directCommands:
                                                  [--slot]
                                                  [--subscription]
   examples:
-  - summary: Aktivieren Sie die SCM-Site für die Verwendung gleicher Zugriffsbeschränkungen wie für den Hauptstandort.
+  - summary: Aktivieren Sie den SCM-Standort, um dieselben Zugriffseinschränkungen wie für den Hauptstandort zu verwenden.
     syntax: az functionapp config access-restriction set -g ResourceGroup -n AppName --use-same-restrictions-for-scm-site true
   requiredParameters:
   - isRequired: true
     name: --use-same-restrictions-for-scm-site
     parameterValueGroup: false, true
-    summary: Verwenden Sie dieselben Zugriffsbeschränkungen für die SCM-Website.
+    summary: Verwenden Sie dieselben Zugriffseinschränkungen für die scm-Website.
     description: ''
   optionalParameters:
   - name: --ids
-    summary: Mindestens eine Ressourcen-ID (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID handeln, die alle Informationen von Ressourcen-ID-Argumenten enthält. Sie sollten entweder--IDs oder andere Ressourcen-ID-Argumente angeben.
+    summary: Eine oder mehrere Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu Ressourcen-ID-Argumenten geben. Sie sollten entweder --ids oder andere Ressourcen-ID-Argumente bereitstellen.
     description: ''
   - name: --name -n
-    summary: Der Name der Funktionen-app.
+    summary: Name der Funktions-App.
     description: ''
   - name: --resource-group -g
     summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
     description: ''
   - name: --slot -s
-    summary: Der Name des Slots. Standardmäßig den stagingslot, wenn kein Wert angegeben ist.
+    summary: Der Name des Slots. Der Standardwert ist der Produktionsslot, wenn er nicht angegeben ist.
     description: ''
   - name: --subscription
-    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
     description: ''
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/appservice/_help.py
 - uid: az_functionapp_config_access-restriction_show
   name: az functionapp config access-restriction show
-  summary: Hiermit werden Einstellungen für die Zugriffsbeschränkung für functionapp angezeigt.
+  summary: Einstellungen für Zugriffseinschränkung für functionapp anzeigen.
   description: ''
   syntax: >-
     az functionapp config access-restriction show [--ids]
@@ -198,26 +198,26 @@ directCommands:
                                                   [--slot]
                                                   [--subscription]
   examples:
-  - summary: Abrufen von Zugriffs Einschränkungs Einstellungen für eine functionapp
+  - summary: Hier finden Sie Einstellungen für Zugriffseinschränkungen für eine Funktions-App.
     syntax: az functionapp config access-restriction show -g ResourceGroup -n AppName
   optionalParameters:
   - name: --ids
-    summary: Mindestens eine Ressourcen-ID (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID handeln, die alle Informationen von Ressourcen-ID-Argumenten enthält. Sie sollten entweder--IDs oder andere Ressourcen-ID-Argumente angeben.
+    summary: Eine oder mehrere Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu Ressourcen-ID-Argumenten geben. Sie sollten entweder --ids oder andere Ressourcen-ID-Argumente bereitstellen.
     description: ''
   - name: --name -n
-    summary: Der Name der Funktionen-app.
+    summary: Name der Funktions-App.
     description: ''
   - name: --query-examples
-    summary: Empfehlen Sie die jmespath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und Sie nach dem Abfrage Parameter in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positions Schlüsselwörter hinzufügen, um Vorschläge auf der Grundlage dieser Schlüsselwörter zu geben.
+    summary: Empfehlen Sie die JMESPath-Zeichenfolge. Sie können eine der Abfragen kopieren und nach dem Parameter --query in doppelte Anführungszeichen einfügen, um die Ergebnisse zu sehen. Sie können ein oder mehrere Positionsschlüsselwörter hinzufügen, damit wir basierend auf diesen Schlüsselwörtern Vorschläge machen können.
     description: ''
   - name: --resource-group -g
     summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
     description: ''
   - name: --slot -s
-    summary: Der Name des Slots. Standardmäßig den stagingslot, wenn kein Wert angegeben ist.
+    summary: Der Name des Slots. Wird nicht angegeben, wird standardmäßig der Produktionsslot verwendet.
     description: ''
   - name: --subscription
-    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
     description: ''
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/appservice/_help.py
 commands:
@@ -242,11 +242,11 @@ globalParameters:
   summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
 metadata:
   doc_source_url_repo: https://github.com/Azure/azure-cli/blob/dev/
-  ms.date: 04/08/2021
-  description: Methoden, die Zugriffs Einschränkungen für eine functionapp anzeigen, festlegen, hinzufügen und entfernen.
-  ms.openlocfilehash: 3e4c587e53354f505e0d0bb674215359ddf8a54a
-  ms.sourcegitcommit: b7481a4363417987865106c343ef8e60c69c9170
+  ms.date: 04/14/2021
+  description: Methoden, die Zugriffseinschränkungen für eine FunctionApp anzeigen, festlegen, hinzufügen und entfernen.
+  ms.openlocfilehash: 2d1ba41900b326c983ac9f452d95a2d5cb08535f
+  ms.sourcegitcommit: 47edf65705fcb047974356c30962819ea5172832
   ms.translationtype: MT
   ms.contentlocale: de-DE
-  ms.lasthandoff: 04/09/2021
-  ms.locfileid: "107248485"
+  ms.lasthandoff: 04/16/2021
+  ms.locfileid: "107547432"
