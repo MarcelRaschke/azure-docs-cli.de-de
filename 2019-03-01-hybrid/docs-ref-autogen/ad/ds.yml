@@ -1,0 +1,416 @@
+### YamlMime:AzureCLIGroup
+uid: az_ad_ds
+name: az ad ds
+extensionInformation: >-
+  > [!Note]
+
+  > Diese Referenz ist Teil der **AD** -Erweiterung für Azure CLI und erfordert Version 2.15.0 oder höher.  Die Erweiterung wird automatisch installiert, wenn Sie den Befehl **AZ AD DS** zum ersten Mal ausführen.  [Weitere Informationen zu Erweiterungen](https://docs.microsoft.com/en-us/cli/azure/azure-cli-extensions-overview)
+summary: Verwalten des Domänen Dienstanbieter mit Azure Active Directory.
+description: ''
+directCommands:
+- uid: az_ad_ds_create
+  name: az ad ds create
+  summary: Erstellen Sie einen neuen Domänen Dienst mit den angegebenen Parametern.
+  description: ''
+  syntax: >-
+    az ad ds create --domain
+                    --name
+                    --replica-sets
+                    --resource-group
+                    [--domain-config-type {FullySynced, ResourceTrusting}]
+                    [--external-access {Disabled, Enabled}]
+                    [--filtered-sync {Disabled, Enabled}]
+                    [--ldaps {Disabled, Enabled}]
+                    [--no-wait]
+                    [--notify-dc-admins {Disabled, Enabled}]
+                    [--notify-global-admins {Disabled, Enabled}]
+                    [--notify-others]
+                    [--ntlm-v1 {Disabled, Enabled}]
+                    [--pfx-cert]
+                    [--pfx-cert-pwd]
+                    [--resource-forest {Disabled, Enabled}]
+                    [--settings]
+                    [--sku {Enterprise, Premium, Standard}]
+                    [--sync-kerberos-pwd {Disabled, Enabled}]
+                    [--sync-ntlm-pwd {Disabled, Enabled}]
+                    [--sync-on-prem-pwd {Disabled, Enabled}]
+                    [--tags]
+                    [--tls-v1 {Disabled, Enabled}]
+  examples:
+  - summary: Domänendienst erstellen
+    syntax: az ad ds create --domain "TestDS.com" --replica-sets location="West US" subnet-id="<subnetId>" --name "TestDS.com" --resource-group "rg"
+  - summary: Domänen Dienst mit angegebenen Einstellungen erstellen (nur Zeilenumbrüche für die Lesbarkeit)
+    syntax: >-
+      az ad ds create --domain "TestDS.com" --replica-sets location="West US" subnet-id="<subnetId>" --name "TestDS.com" --resource-group "rg"
+
+      --ntlm-v1 "Enabled" --sync-ntlm-pwd "Enabled" --tls-v1 "Disabled" --filtered-sync "Enabled" --external-access "Enabled"
+
+      --ldaps "Enabled" --pfx-cert "cert or path to cert" --pfx-cert-pwd "<pfxCertificatePassword>"
+
+      --notify-others "a@gmail.com" "b@gmail.com" --notify-dc-admins "Enabled" --notify-global-admins "Enabled"
+  requiredParameters:
+  - isRequired: true
+    name: --domain
+    summary: Der Name der Azure-Domäne, in der der Benutzer Domänen Dienste bereitstellen möchte.
+    description: ''
+  - isRequired: true
+    name: --name -n
+    summary: Der Name des Domänen Dienstanbieter.
+    description: ''
+  - isRequired: true
+    name: --replica-sets
+    summary: Liste der replicasets.
+    description: >-
+      Syntax:--Replikat-Sets Location = XX Subnet-ID = XX
+
+
+      Speicherort: Subnetz des virtuellen Netzwerks Speicherort-ID: die ID des Subnetzes, in dem Domänen Dienste bereitgestellt werden.
+
+
+      Mehrere Aktionen können mithilfe von mehr als einem-Replikat-Sets-Argument angegeben werden.
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  optionalParameters:
+  - name: --domain-config-type
+    parameterValueGroup: FullySynced, ResourceTrusting
+    summary: Domänen Konfigurationstyp.
+    description: ''
+  - name: --external-access
+    parameterValueGroup: Disabled, Enabled
+    summary: Ein Flag, mit dem bestimmt wird, ob Secure LDAP Zugriff über das Internet aktiviert oder deaktiviert ist.
+    description: ''
+  - name: --filtered-sync
+    parameterValueGroup: Disabled, Enabled
+    summary: Aktiviertes oder deaktiviertes Flag zum Aktivieren der gruppenbasierten gefilterten Synchronisierung.
+    description: ''
+  - name: --ldaps
+    parameterValueGroup: Disabled, Enabled
+    summary: Ein Flag, das bestimmt, ob Secure LDAP aktiviert oder deaktiviert ist.
+    description: ''
+  - name: --no-wait
+    summary: Nicht auf den Abschluss lang andauernder Vorgänge warten
+    description: ''
+  - name: --notify-dc-admins
+    parameterValueGroup: Disabled, Enabled
+    summary: Sollten Domänen Controller-Administratoren benachrichtigt werden.
+    description: ''
+  - name: --notify-global-admins
+    parameterValueGroup: Disabled, Enabled
+    summary: Sollten globale Administratoren benachrichtigt werden.
+    description: ''
+  - name: --notify-others
+    summary: Die Liste der weiteren Empfänger.
+    description: ''
+  - name: --ntlm-v1
+    parameterValueGroup: Disabled, Enabled
+    summary: Ein Flag, das bestimmt, ob NtlmV1 aktiviert oder deaktiviert ist.
+    description: ''
+  - name: --pfx-cert
+    summary: Das zum Konfigurieren von Secure LDAP erforderliche Zertifikat. Der hier übergebenen Parameter sollte der Dateipfad zur pfx-Zertifikat Datei oder eine base64Encoded-Darstellung der PFX-Zertifikat Datei sein.
+    description: ''
+  - name: --pfx-cert-pwd
+    summary: Das Kennwort zum Entschlüsseln der bereitgestellten Secure LDAP pfx-Zertifikat Datei.
+    description: ''
+  - name: --resource-forest
+    parameterValueGroup: Disabled, Enabled
+    summary: Ressourcen Gesamtstruktur.
+    description: ''
+  - name: --settings
+    summary: Liste der Einstellungen für die Ressourcen Gesamtstruktur. Dabei kann es sich entweder um eine JSON-formatierte Zeichenfolge oder um den Speicherort einer Datei mit dem JSON-Objekt handeln.
+    description: 'Das Format des JSON-Einstellungs Objekts für die Ressourcen Gesamtstruktur: [{"trusted_domain_fqdn": "XX", "trust_direction": "XX", "friendly_name": "XX", "remote_dns_ips": "XX", "trust_password": "XX"},... n].'
+  - name: --sku
+    parameterValueGroup: Enterprise, Premium, Standard
+    summary: SKU-Typ.
+    description: ''
+  - name: --sync-kerberos-pwd
+    parameterValueGroup: Disabled, Enabled
+    summary: Ein Flag, das bestimmt, ob synckerberospasswords aktiviert oder deaktiviert ist.
+    description: ''
+  - name: --sync-ntlm-pwd
+    parameterValueGroup: Disabled, Enabled
+    summary: Ein Flag, das bestimmt, ob syncntlmpasswords aktiviert oder deaktiviert ist.
+    description: ''
+  - name: --sync-on-prem-pwd
+    parameterValueGroup: Disabled, Enabled
+    summary: Ein Flag, mit dem bestimmt wird, ob synanprempasswords aktiviert oder deaktiviert ist.
+    description: ''
+  - name: --tags
+    summary: 'Durch Leerzeichen getrennte Tags: Key [= value] [key [= value]...]. Verwenden Sie "", um vorhandene Tags zu löschen.'
+    description: ''
+  - name: --tls-v1
+    parameterValueGroup: Disabled, Enabled
+    summary: Ein Flag, das bestimmt, ob TlsV1 aktiviert oder deaktiviert ist.
+    description: ''
+- uid: az_ad_ds_delete
+  name: az ad ds delete
+  summary: Der Vorgang "Domänen Dienst löschen" löscht einen vorhandenen Domänen Dienst.
+  description: ''
+  syntax: >-
+    az ad ds delete --name
+                    --resource-group
+                    [--no-wait]
+                    [--yes]
+  examples:
+  - summary: Löscht Domänendienste.
+    syntax: az ad ds delete --name "TestDomainService.com" --resource-group "TestResourceGroup"
+  requiredParameters:
+  - isRequired: true
+    name: --name -n
+    summary: Der Name des Domänen Dienstanbieter.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  optionalParameters:
+  - name: --no-wait
+    summary: Nicht auf den Abschluss lang andauernder Vorgänge warten
+    description: ''
+  - name: --yes -y
+    summary: Nicht zur Bestätigung auffordern
+    description: ''
+- uid: az_ad_ds_list
+  name: az ad ds list
+  summary: Auflisten von Domänen Diensten in der Ressourcengruppe oder im Abonnement.
+  description: ''
+  syntax: az ad ds list [--resource-group]
+  examples:
+  - summary: Domänen Dienst nach Gruppe auflisten
+    syntax: az ad ds list --resource-group "TestResourceGroup"
+  - summary: Domänen Dienst nach Sub auflisten
+    syntax: az ad ds list
+  optionalParameters:
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+- uid: az_ad_ds_show
+  name: az ad ds show
+  summary: Den angegebenen Domänen Dienst erhalten.
+  description: ''
+  syntax: >-
+    az ad ds show --name
+                  --resource-group
+  examples:
+  - summary: Domänen Dienst erhalten
+    syntax: az ad ds show --name "TestDomainService.com" --resource-group "TestResourceGroup"
+  requiredParameters:
+  - isRequired: true
+    name: --name -n
+    summary: Der Name des Domänen Dienstanbieter.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+- uid: az_ad_ds_update
+  name: az ad ds update
+  summary: Aktualisieren Sie die vorhandenen Bereitstellungs Eigenschaften für den Domänen Dienst.
+  description: ''
+  syntax: >-
+    az ad ds update --name
+                    --resource-group
+                    [--domain-config-type {FullySynced, ResourceTrusting}]
+                    [--external-access {Disabled, Enabled}]
+                    [--filtered-sync {Disabled, Enabled}]
+                    [--ldaps {Disabled, Enabled}]
+                    [--no-wait]
+                    [--notify-dc-admins {Disabled, Enabled}]
+                    [--notify-global-admins {Disabled, Enabled}]
+                    [--notify-others]
+                    [--ntlm-v1 {Disabled, Enabled}]
+                    [--pfx-cert]
+                    [--pfx-cert-pwd]
+                    [--replica-sets]
+                    [--resource-forest {Disabled, Enabled}]
+                    [--settings]
+                    [--sku {Enterprise, Premium, Standard}]
+                    [--sync-kerberos-pwd {Disabled, Enabled}]
+                    [--sync-ntlm-pwd {Disabled, Enabled}]
+                    [--sync-on-prem-pwd {Disabled, Enabled}]
+                    [--tags]
+                    [--tls-v1 {Disabled, Enabled}]
+  examples:
+  - summary: SKU aktualisieren
+    syntax: az ad ds update --name "TestDS.com" --resource-group "rg" --sku "Enterprise"
+  - summary: Sicherheitseinstellungen für die Domäne aktualisieren
+    syntax: az ad ds update --name "TestDS.com" --resource-group "rg" --ntlm-v1 "Enabled" --tls-v1 "Disabled"
+  - summary: LDAPS-Einstellungen aktualisieren
+    syntax: az ad ds update --name "TestDS.com" --resource-group "rg" --external-access "Enabled" --ldaps "Enabled" --pfx-cert "MIIDPDCCAiSg..." --pfx-cert-pwd "<pfxCertificatePassword>"
+  - summary: Aktualisierung der Benachrichtigungseinstellungen
+    syntax: az ad ds update --name "TestDS.com" --resource-group "rg" --notify-dc-admins "Enabled" --notify-global-admins "Disabled"
+  requiredParameters:
+  - isRequired: true
+    name: --name -n
+    summary: Der Name des Domänen Dienstanbieter.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  optionalParameters:
+  - name: --domain-config-type
+    parameterValueGroup: FullySynced, ResourceTrusting
+    summary: Domänen Konfigurationstyp.
+    description: ''
+  - name: --external-access
+    parameterValueGroup: Disabled, Enabled
+    summary: Ein Flag, mit dem bestimmt wird, ob Secure LDAP Zugriff über das Internet aktiviert oder deaktiviert ist.
+    description: ''
+  - name: --filtered-sync
+    parameterValueGroup: Disabled, Enabled
+    summary: Aktiviertes oder deaktiviertes Flag zum Aktivieren der gruppenbasierten gefilterten Synchronisierung.
+    description: ''
+  - name: --ldaps
+    parameterValueGroup: Disabled, Enabled
+    summary: Ein Flag, das bestimmt, ob Secure LDAP aktiviert oder deaktiviert ist.
+    description: ''
+  - name: --no-wait
+    summary: Nicht auf den Abschluss lang andauernder Vorgänge warten
+    description: ''
+  - name: --notify-dc-admins
+    parameterValueGroup: Disabled, Enabled
+    summary: Sollten Domänen Controller-Administratoren benachrichtigt werden.
+    description: ''
+  - name: --notify-global-admins
+    parameterValueGroup: Disabled, Enabled
+    summary: Sollten globale Administratoren benachrichtigt werden.
+    description: ''
+  - name: --notify-others
+    summary: Die Liste der weiteren Empfänger.
+    description: ''
+  - name: --ntlm-v1
+    parameterValueGroup: Disabled, Enabled
+    summary: Ein Flag, das bestimmt, ob NtlmV1 aktiviert oder deaktiviert ist.
+    description: ''
+  - name: --pfx-cert
+    summary: Das zum Konfigurieren von Secure LDAP erforderliche Zertifikat. Der hier übergebenen Parameter sollte der Dateipfad zur pfx-Zertifikat Datei oder eine base64Encoded-Darstellung der PFX-Zertifikat Datei sein.
+    description: ''
+  - name: --pfx-cert-pwd
+    summary: Das Kennwort zum Entschlüsseln der bereitgestellten Secure LDAP pfx-Zertifikat Datei.
+    description: ''
+  - name: --replica-sets
+    summary: Liste der replicasets.
+    description: >-
+      Syntax:--Replikat-Sets Location = XX Subnet-ID = XX
+
+
+      Speicherort: Subnetz des virtuellen Netzwerks Speicherort-ID: die ID des Subnetzes, in dem Domänen Dienste bereitgestellt werden.
+
+
+      Mehrere Aktionen können mithilfe von mehr als einem-Replikat-Sets-Argument angegeben werden.
+  - name: --resource-forest
+    parameterValueGroup: Disabled, Enabled
+    summary: Ressourcen Gesamtstruktur.
+    description: ''
+  - name: --settings
+    summary: Liste der Einstellungen für die Ressourcen Gesamtstruktur. Dabei kann es sich entweder um eine JSON-formatierte Zeichenfolge oder um den Speicherort einer Datei mit dem JSON-Objekt handeln.
+    description: 'Das Format des JSON-Einstellungs Objekts für die Ressourcen Gesamtstruktur: [{"trusted_domain_fqdn": "XX", "trust_direction": "XX", "friendly_name": "XX", "remote_dns_ips": "XX", "trust_password": "XX"},... n].'
+  - name: --sku
+    parameterValueGroup: Enterprise, Premium, Standard
+    summary: SKU-Typ.
+    description: ''
+  - name: --sync-kerberos-pwd
+    parameterValueGroup: Disabled, Enabled
+    summary: Ein Flag, das bestimmt, ob synckerberospasswords aktiviert oder deaktiviert ist.
+    description: ''
+  - name: --sync-ntlm-pwd
+    parameterValueGroup: Disabled, Enabled
+    summary: Ein Flag, das bestimmt, ob syncntlmpasswords aktiviert oder deaktiviert ist.
+    description: ''
+  - name: --sync-on-prem-pwd
+    parameterValueGroup: Disabled, Enabled
+    summary: Ein Flag, mit dem bestimmt wird, ob synanprempasswords aktiviert oder deaktiviert ist.
+    description: ''
+  - name: --tags
+    summary: 'Durch Leerzeichen getrennte Tags: Key [= value] [key [= value]...]. Verwenden Sie "", um vorhandene Tags zu löschen.'
+    description: ''
+  - name: --tls-v1
+    parameterValueGroup: Disabled, Enabled
+    summary: Ein Flag, das bestimmt, ob TlsV1 aktiviert oder deaktiviert ist.
+    description: ''
+- uid: az_ad_ds_wait
+  name: az ad ds wait
+  summary: Platzieren Sie die CLI in einem Wartezustand, bis eine Bedingung der AD DS erfüllt ist.
+  description: ''
+  syntax: >-
+    az ad ds wait --name
+                  --resource-group
+                  [--created]
+                  [--custom]
+                  [--deleted]
+                  [--exists]
+                  [--interval]
+                  [--timeout]
+                  [--updated]
+  examples:
+  - summary: Ausführung der nächsten Zeile des CLI-Skripts anhalten, bis die AD DS erfolgreich erstellt wurde.
+    syntax: az ad ds wait --name "TestDomainService.com" --resource-group "TestResourceGroup" --created
+  - summary: Unterbrechen Sie die Ausführung der nächsten Zeile des CLI-Skripts, bis die AD DS erfolgreich aktualisiert wurde.
+    syntax: az ad ds wait --name "TestDomainService.com" --resource-group "TestResourceGroup" --updated
+  - summary: Ausführung der nächsten Zeile des CLI-Skripts anhalten, bis AD DS erfolgreich gelöscht wurde.
+    syntax: az ad ds wait --name "TestDomainService.com" --resource-group "TestResourceGroup" --deleted
+  requiredParameters:
+  - isRequired: true
+    name: --name -n
+    summary: Der Name des Domänen Dienstanbieter.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  optionalParameters:
+  - name: --created
+    summary: Warten Sie, bis "provisioningstate" bei "erfolgreich" erstellt wurde.
+    description: ''
+  - name: --custom
+    summary: "Warten Sie, bis die Bedingung eine benutzerdefinierte jmespath-Abfrage erfüllt. Beispiel: provisioningstate! = ' InProgress ', instanceview. statuses [? Code = = ' PowerState/Running ']."
+    description: ''
+  - name: --deleted
+    summary: Warten Sie bis zum Löschen.
+    description: ''
+  - name: --exists
+    summary: Warten Sie, bis die Ressource vorhanden ist.
+    description: ''
+  - name: --interval
+    defaultValue: "30"
+    summary: Abruf Intervall in Sekunden.
+    description: ''
+  - name: --timeout
+    defaultValue: "3600"
+    summary: Maximale Wartezeit in Sekunden.
+    description: ''
+  - name: --updated
+    summary: Warten Sie, bis das Update mit provisioningstate bei "erfolgreich" abgeschlossen ist.
+    description: ''
+commands:
+- az_ad_ds_create
+- az_ad_ds_delete
+- az_ad_ds_list
+- az_ad_ds_show
+- az_ad_ds_update
+- az_ad_ds_wait
+globalParameters:
+- name: --debug
+  summary: Ausführlichkeit der Protokollierung erhöhen, um alle Debugprotokolle anzuzeigen.
+- name: --help -h
+  summary: Zeigen Sie diese Hilfemeldung an, und schließen Sie sie.
+- name: --only-show-errors
+  summary: Nur Fehler anzeigen und Warnungen unterdrücken.
+- name: --output -o
+  defaultValue: json
+  parameterValueGroup: json, jsonc, table, tsv
+  summary: Ausgabeformat.
+- name: --query
+  summary: JMESPath-Abfragezeichenfolge. Weitere Informationen und Beispiele finden Sie unter <a href="http://jmespath.org/">http://jmespath.org/</a>.
+- name: --verbose
+  summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
+metadata:
+  description: Verwalten des Domänen Dienstanbieter mit Azure Active Directory.
+  ms.openlocfilehash: 9f0e53e87a23d83bd8a37555bd4c21dc4cab25ce
+  ms.sourcegitcommit: 612554c029ba1f28d3a43fd22e743104a1a30ea0
+  ms.translationtype: MT
+  ms.contentlocale: de-DE
+  ms.lasthandoff: 04/07/2021
+  ms.locfileid: "106939109"
