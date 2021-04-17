@@ -1,7 +1,7 @@
 ### YamlMime:AzureCLIGroup
 uid: az_disk-encryption-set
 name: az disk-encryption-set
-summary: Ressource für Datenträger Verschlüsselung festlegen.
+summary: Disk Encryption Set-Ressource.
 description: ''
 directCommands:
 - uid: az_disk-encryption-set_create
@@ -13,6 +13,7 @@ directCommands:
                                   --name
                                   --resource-group
                                   --source-vault
+                                  [--auto-rotation {false, true}]
                                   [--encryption-type {EncryptionAtRestWithCustomerKey, EncryptionAtRestWithPlatformAndCustomerKeys, EncryptionAtRestWithPlatformKey}]
                                   [--location]
                                   [--no-wait]
@@ -21,16 +22,16 @@ directCommands:
   examples:
   - summary: Erstellen Sie einen Datenträgerverschlüsselungssatz.
     syntax: az disk-encryption-set create --resource-group MyResourceGroup --name MyDiskEncryptionSet --key-url MyKey --source-vault MyVault
-  - summary: Erstellen Sie einen Datenträger Verschlüsselungs Satz, der die doppelte Verschlüsselung unterstützt.
+  - summary: Erstellen Sie einen Datenträgerverschlüsselungssatz, der doppelte Verschlüsselung unterstützt.
     syntax: az disk-encryption-set create --resource-group MyResourceGroup --name MyDiskEncryptionSet --key-url MyKey --source-vault MyVault --encryption-type EncryptionAtRestWithPlatformAndCustomerKeys
   requiredParameters:
   - isRequired: true
     name: --key-url
-    summary: URL, die auf einen Schlüssel oder geheimen Schlüssel in keyvault verweist.
+    summary: URL, die auf einen Schlüssel oder ein Geheimnis in KeyVault verweisen.
     description: ''
   - isRequired: true
     name: --name -n
-    summary: Der Name der Datenträger Verschlüsselung.
+    summary: Name des Datenträgerverschlüsselungssets.
     description: ''
   - isRequired: true
     name: --resource-group -g
@@ -38,12 +39,16 @@ directCommands:
     description: ''
   - isRequired: true
     name: --source-vault
-    summary: Der Name oder die ID des keyvault, der den Schlüssel oder geheimen Schlüssel enthält.
+    summary: Name oder ID des KeyVaults, der den Schlüssel oder das Geheimnis enthält.
     description: ''
   optionalParameters:
+  - name: --auto-rotation --enable-auto-key-rotation
+    parameterValueGroup: false, true
+    summary: Aktivieren Sie die automatische Rotation von Schlüsseln.
+    description: ''
   - name: --encryption-type
     parameterValueGroup: EncryptionAtRestWithCustomerKey, EncryptionAtRestWithPlatformAndCustomerKeys, EncryptionAtRestWithPlatformKey
-    summary: 'Der Schlüsseltyp, der zum Verschlüsseln der Daten auf dem Datenträger verwendet wird. Verschlüsselungatrestwithplatformkey: der Datenträger wird im Ruhezustand mit einem von der Plattform verwalteten Schlüssel verschlüsselt. Dabei handelt es sich um den Standard Verschlüsselungstyp. Verschlüsselungatrestwithcustomerkey: der Datenträger wird im Ruhezustand mit dem vom Kunden verwalteten Schlüssel verschlüsselt, der von einem Kunden geändert und widerrufen werden kann. Verschlüsselungatrestwithplatformandcustomerkeys: der Datenträger wird im Ruhezustand mit zwei Verschlüsselungs Ebenen verschlüsselt. Einer der Schlüssel ist vom Kunden verwaltet, und der andere Schlüssel ist Platt Form verwaltet.'
+    summary: 'Der Typ des Schlüssels, der zum Verschlüsseln der Daten des Datenträgers verwendet wird. EncryptionAtRestWithPlatformKey: Der Datenträger wird im Ruhespeicher mit einem von der Plattform verwalteten Schlüssel verschlüsselt. Dies ist der Standardverschlüsselungstyp. EncryptionAtRestWithCustomerKey: Der Datenträger wird im Ruhespeicher mit einem vom Kunden verwalteten Schlüssel verschlüsselt, der von einem Kunden geändert und widerrufen werden kann. EncryptionAtRestWithPlatformAndCustomerKeys: Der Datenträger wird im Ruhespeicher mit zwei Verschlüsselungsebenen verschlüsselt. Einer der Schlüssel ist vom Kunden verwaltet, der andere Schlüssel ist Plattform verwaltet.'
     description: ''
   - name: --location -l
     summary: 'Der Standort. Werte aus: `az account list-locations`. Sie können den standardmäßig verwendeten Standort mit `az configure --defaults location=<location>` konfigurieren.'
@@ -52,14 +57,14 @@ directCommands:
     summary: Nicht auf den Abschluss lang andauernder Vorgänge warten
     description: ''
   - name: --subscription
-    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
     description: ''
   - name: --tags
-    summary: 'Durch Leerzeichen getrennte Tags: Key [= value] [key [= value]...]. Verwenden Sie "", um vorhandene Tags zu löschen.'
+    summary: 'Durch Leerzeichen getrennte Tags: key[=value] [key[=value] ...]. Verwenden Sie "", um vorhandene Tags zu löschen.'
     description: ''
 - uid: az_disk-encryption-set_delete
   name: az disk-encryption-set delete
-  summary: Löscht einen Datenträger Verschlüsselungs Satz.
+  summary: Löscht einen Datenträgerverschlüsselungssatz.
   description: ''
   syntax: >-
     az disk-encryption-set delete [--ids]
@@ -67,24 +72,24 @@ directCommands:
                                   [--resource-group]
                                   [--subscription]
   examples:
-  - summary: Löscht einen Datenträger Verschlüsselungs Satz. automatisch generierten
+  - summary: Löscht einen Datenträgerverschlüsselungssatz. (automatisch generiert)
     syntax: az disk-encryption-set delete --name MyDiskEncryptionSet --resource-group MyResourceGroup
   optionalParameters:
   - name: --ids
-    summary: Mindestens eine Ressourcen-ID (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID handeln, die alle Informationen von Ressourcen-ID-Argumenten enthält. Sie sollten entweder--IDs oder andere Ressourcen-ID-Argumente angeben.
+    summary: Eine oder mehrere Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu Ressourcen-ID-Argumenten geben. Sie sollten entweder --ids oder andere Ressourcen-ID-Argumente bereitstellen.
     description: ''
   - name: --name -n
-    summary: Der Name der Datenträger Verschlüsselung.
+    summary: Name des Datenträgerverschlüsselungssatzes.
     description: ''
   - name: --resource-group -g
     summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
     description: ''
   - name: --subscription
-    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
     description: ''
 - uid: az_disk-encryption-set_list
   name: az disk-encryption-set list
-  summary: Auflisten von Datenträger-Verschlüsselungs Sätzen.
+  summary: Auflisten von Datenträgerverschlüsselungssätzen.
   description: ''
   syntax: >-
     az disk-encryption-set list [--query-examples]
@@ -92,17 +97,17 @@ directCommands:
                                 [--subscription]
   optionalParameters:
   - name: --query-examples
-    summary: Empfehlen Sie die jmespath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und Sie nach dem Abfrage Parameter in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positions Schlüsselwörter hinzufügen, um Vorschläge auf der Grundlage dieser Schlüsselwörter zu geben.
+    summary: Empfehlen Sie die JMESPath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und sie nach dem Parameter --query in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positionsschlüsselwörter hinzufügen, damit wir basierend auf diesen Schlüsselwörtern Vorschläge geben können.
     description: ''
   - name: --resource-group -g
     summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
     description: ''
   - name: --subscription
-    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
     description: ''
 - uid: az_disk-encryption-set_list-associated-resources
   name: az disk-encryption-set list-associated-resources
-  summary: Listet alle Ressourcen auf, die mit diesem Datenträger Verschlüsselungs Satz verschlüsselt werden.
+  summary: Listet alle Ressourcen auf, die mit diesem Datenträgerverschlüsselungssatz verschlüsselt sind.
   description: ''
   syntax: >-
     az disk-encryption-set list-associated-resources [--ids]
@@ -111,20 +116,20 @@ directCommands:
                                                      [--subscription]
   optionalParameters:
   - name: --ids
-    summary: Mindestens eine Ressourcen-ID (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID handeln, die alle Informationen von Ressourcen-ID-Argumenten enthält. Sie sollten entweder--IDs oder andere Ressourcen-ID-Argumente angeben.
+    summary: Mindestens eine Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen von "Resource Id"-Argumenten sein. Sie sollten entweder --ids oder andere "Resource Id"-Argumente angeben.
     description: ''
   - name: --name -n
-    summary: Der Name der Datenträger Verschlüsselung.
+    summary: Name des Datenträgerverschlüsselungssatzes.
     description: ''
   - name: --resource-group -g
     summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
     description: ''
   - name: --subscription
-    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
     description: ''
 - uid: az_disk-encryption-set_show
   name: az disk-encryption-set show
-  summary: Informationen zu Datenträger-Verschlüsselungs Sätzen erhalten.
+  summary: Abrufen von Informationen zu Datenträgerverschlüsselungssätzen.
   description: ''
   syntax: >-
     az disk-encryption-set show [--ids]
@@ -133,30 +138,31 @@ directCommands:
                                 [--resource-group]
                                 [--subscription]
   examples:
-  - summary: Informationen zu Datenträger-Verschlüsselungs Sätzen erhalten (automatisch generiert)
+  - summary: Abrufen von Informationen zu Datenträgerverschlüsselungssätzen (automatisch generiert)
     syntax: az disk-encryption-set show --name MyDiskEncryptionSet --resource-group MyResourceGroup
   optionalParameters:
   - name: --ids
-    summary: Mindestens eine Ressourcen-ID (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID handeln, die alle Informationen von Ressourcen-ID-Argumenten enthält. Sie sollten entweder--IDs oder andere Ressourcen-ID-Argumente angeben.
+    summary: Mindestens eine Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen von "Resource Id"-Argumenten sein. Sie sollten entweder --ids oder andere "Resource Id"-Argumente angeben.
     description: ''
   - name: --name -n
-    summary: Der Name der Datenträger Verschlüsselung.
+    summary: Name des Datenträgerverschlüsselungssatzes.
     description: ''
   - name: --query-examples
-    summary: Empfehlen Sie die jmespath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und Sie nach dem Abfrage Parameter in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positions Schlüsselwörter hinzufügen, um Vorschläge auf der Grundlage dieser Schlüsselwörter zu geben.
+    summary: Empfehlen Sie die JMESPath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und nach dem Parameter --query in doppelte Anführungszeichen einfügen, um die Ergebnisse zu sehen. Sie können ein oder mehrere Positionsschlüsselwörter hinzufügen, damit wir basierend auf diesen Schlüsselwörtern Vorschläge machen können.
     description: ''
   - name: --resource-group -g
     summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
     description: ''
   - name: --subscription
-    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
     description: ''
 - uid: az_disk-encryption-set_update
   name: az disk-encryption-set update
-  summary: Aktualisieren Sie einen Datenträger Verschlüsselungs Satz.
+  summary: Aktualisieren sie einen Datenträgerverschlüsselungssatz.
   description: ''
   syntax: >-
     az disk-encryption-set update [--add]
+                                  [--auto-rotation {false, true}]
                                   [--force-string]
                                   [--ids]
                                   [--key-url]
@@ -167,38 +173,42 @@ directCommands:
                                   [--source-vault]
                                   [--subscription]
   examples:
-  - summary: Aktualisieren Sie einen Datenträger Verschlüsselungs Satz. automatisch generierten
+  - summary: Aktualisieren sie einen Datenträgerverschlüsselungssatz. (automatisch generiert)
     syntax: az disk-encryption-set update --name MyDiskEncryptionSet --resource-group MyResourceGroup --key-url MyKey --source-vault MyVault
   optionalParameters:
   - name: --add
-    summary: Fügen Sie einer Liste von-Objekten ein Objekt hinzu, indem Sie ein Pfad-und Schlüssel-Wert-Paar angeben.  Beispiel:--Add Property. ListProperty <Key = Value, String oder JSON String>.
+    summary: 'Fügen Sie einer Liste von -Objekten ein -Objekt hinzu, indem Sie ein Pfad- und Schlüsselwertpaar angeben.  Beispiel: --add property.listProperty <key=value, string oder JSON string>.'
+    description: ''
+  - name: --auto-rotation --enable-auto-key-rotation
+    parameterValueGroup: false, true
+    summary: Aktivieren Sie die automatische Rotation von Schlüsseln.
     description: ''
   - name: --force-string
-    summary: Wenn Sie "Set" oder "Add" verwenden, erhalten Sie Zeichen folgen Literale, anstatt zu versuchen, in JSON zu konvertieren.
+    summary: Wenn Sie "set" oder "add" verwenden, behalten Sie Zeichenfolgenliterale bei, anstatt zu versuchen, in JSON zu konvertieren.
     description: ''
   - name: --ids
-    summary: Mindestens eine Ressourcen-ID (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID handeln, die alle Informationen von Ressourcen-ID-Argumenten enthält. Sie sollten entweder--IDs oder andere Ressourcen-ID-Argumente angeben.
+    summary: Eine oder mehrere Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu Ressourcen-ID-Argumenten geben. Sie sollten entweder --ids oder andere Ressourcen-ID-Argumente bereitstellen.
     description: ''
   - name: --key-url
-    summary: URL, die auf einen Schlüssel oder geheimen Schlüssel in keyvault verweist.
+    summary: URL, die auf einen Schlüssel oder ein Geheimnis in KeyVault verweisen.
     description: ''
   - name: --name -n
-    summary: Der Name der Datenträger Verschlüsselung.
+    summary: Name des Datenträgerverschlüsselungssets.
     description: ''
   - name: --remove
-    summary: Entfernt eine Eigenschaft oder ein Element aus einer Liste.  Beispiel:--Remove Property. List <indexToRemove> oder--Remove propertytoremove.
+    summary: 'Entfernen Sie eine Eigenschaft oder ein Element aus einer Liste.  Beispiel: --remove property.list <indexToRemove> OR --remove propertyToRemove.'
     description: ''
   - name: --resource-group -g
     summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
     description: ''
   - name: --set
-    summary: Aktualisieren Sie ein Objekt, indem Sie einen Eigenschafts Pfad und einen festzulegenden Wert angeben.  Beispiel:--Set Eigenschaft1. Eigenschaft2 =<value>.
+    summary: 'Aktualisieren Sie ein -Objekt, indem Sie einen festzulegenden Eigenschaftenpfad und -wert angeben.  Beispiel: --set property1.property2=<value>.'
     description: ''
   - name: --source-vault
-    summary: Der Name oder die ID des keyvault, der den Schlüssel oder geheimen Schlüssel enthält.
+    summary: Name oder ID des KeyVaults, der den Schlüssel oder das Geheimnis enthält.
     description: ''
   - name: --subscription
-    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
     description: ''
 commands:
 - az_disk-encryption-set_create
@@ -223,10 +233,10 @@ globalParameters:
 - name: --verbose
   summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
 metadata:
-  description: Ressource für Datenträger Verschlüsselung festlegen.
-  ms.openlocfilehash: cdd379fa0d870a84148a9773c8b789d6d31e4ea3
-  ms.sourcegitcommit: 612554c029ba1f28d3a43fd22e743104a1a30ea0
+  description: Datenträgerverschlüsselungssatz-Ressource.
+  ms.openlocfilehash: e26f9a1735dbbef8452ed8db33ae204301799958
+  ms.sourcegitcommit: d01260d847ea835a8bbab0e0db73d1b39f5c18ef
   ms.translationtype: MT
   ms.contentlocale: de-DE
-  ms.lasthandoff: 04/07/2021
-  ms.locfileid: "106870661"
+  ms.lasthandoff: 04/13/2021
+  ms.locfileid: "107359839"

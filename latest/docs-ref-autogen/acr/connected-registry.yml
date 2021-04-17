@@ -80,7 +80,7 @@ directCommands:
     description: ''
   - name: --sync-schedule -s
     defaultValue: ''
-    summary: Optionaler Parameter zum Definieren des Synchronisierungszeitplans. Verwendet cron-Ausdruck, um den Zeitplan zu bestimmen. Wenn keine Angabe erfolgt, wird die Instanz als immer online betrachtet und versucht, jede Minute zu synchronisieren.
+    summary: Optionaler Parameter zum Definieren des Synchronisierungszeitplans. Verwendet cron-Ausdruck, um den Zeitplan zu bestimmen. Wenn keine Angabe erfolgt, gilt die Instanz als immer online und versucht, jede Minute zu synchronisieren.
     description: ''
   - name: --sync-token
     summary: Gibt das Synchronisierungstoken an, das zum Synchronisieren der verbundenen Registrierung mit dem übergeordneten Element verwendet wird. Die meisten verfügen nur über Repositoryberechtigungen und mindestens über die aktionen, die für den Modus erforderlich sind. Dies kann den Zugriff für mehrere Repositorys umfassen.
@@ -105,7 +105,7 @@ directCommands:
   requiredParameters:
   - isRequired: true
     name: --name -n
-    summary: Name für die verbundene Registrierung. Der Name muss zwischen 5 und 40 Zeichen lang sein, mit einem Buchstaben beginnen und nur alphanumerische Zeichen enthalten (einschließlich "_" oder "-"). Der Name muss in der Cloud-ACR-Hierarchie eindeutig sein.
+    summary: Name für die verbundene Registrierung. Name muss zwischen 5 und 40 Zeichen lang sein, mit einem Buchstaben beginnen und nur alphanumerische Zeichen enthalten (einschließlich "_" oder "-"). Der Name muss in der Cloud ACR-Hierarchie eindeutig sein.
     description: ''
   - isRequired: true
     name: --registry -r
@@ -136,7 +136,7 @@ directCommands:
   examples:
   - summary: Löschen Sie die spiegelungsverbundene Registrierung "myconnectedregistry" aus der übergeordneten Registrierung "mycloudregistry".
     syntax: az acr connected-registry delete --registry mycloudregistry --name myconnectedregistry
-  - summary: Löschen Sie eine spiegelungsbasierte verbundene Registrierung "myconnectedregistry" mit dem Synchronisierungstoken und der Bereichszuordnung aus der übergeordneten Registrierung "mycloudregistry".
+  - summary: Löschen Sie eine spiegelungsbasierte verbundene Registrierung "myconnectedregistry", die das Synchronisierungstoken und die Bereichszuordnung aus der übergeordneten Registrierung "mycloudregistry" enthält.
     syntax: az acr connected-registry delete -r mycloudregistry -n myconnectedregistry --cleanup
   requiredParameters:
   - isRequired: true
@@ -175,7 +175,7 @@ directCommands:
   examples:
   - summary: Listet alle verbundenen Registrierungen von "mycloudregistry" im Tabellenformat auf.
     syntax: az acr connected-registry list --registry mycloudregistry --output table
-  - summary: Listet nur die unmittelbaren, von "mycloudregistry" in erweiterter Form in einer Tabelle direkt gespeicherten Kinder auf.
+  - summary: Listet nur die unmittelbaren kinder von "mycloudregistry" in erweiterter Form in einer Tabelle auf.
     syntax: az acr connected-registry list --registry mycloudregistry --no-children --output table
   - summary: Listet alle Verzeichnisse von "myconnectedregistry" in erweiterter Form innerhalb einer Tabelle auf.
     syntax: az acr connected-registry list -r mycloudregistry -p myconnectedregistry --output table
@@ -259,10 +259,10 @@ directCommands:
     description: ''
   optionalParameters:
   - name: --add
-    summary: Repositoryberechtigungen, die der verbundenen Zielregistrierung und den übergeordneten Synchronisierungsbereichszuordnungen hinzugefügt werden sollen. Verwenden Sie das Format "--add [REPO1 REPO2 ...]" pro Flag. Gültige Aktionen sind {'content/read', 'content/delete', 'metadata/read', 'content/write', 'metadata/write'}.
+    summary: Repositoryberechtigungen, die der verbundenen Zielregistrierung und den übergeordneten Synchronisierungsbereichszuordnungen hinzugefügt werden sollen. Verwenden Sie das Format "--add [REPO1 REPO2 ...]" pro Flag. Gültige Aktionen sind {'content/delete', 'content/read', 'metadata/write', 'metadata/read', 'content/write'}.
     description: ''
   - name: --remove
-    summary: Verantwortlicher Berechtigungen, die aus der zielorientierten verbundenen Registrierung entfernt werden sollen, und dies sind erfolgreiche Zuordnungen für Synchronisierungsumfang. Verwenden Sie das Format "--remove [REPO1 REPO2 ...]" pro Flag. Gültige Aktionen sind {'content/read', 'content/delete', 'metadata/read', 'content/write', 'metadata/write'}.
+    summary: Verantwortlicher Berechtigungen, die aus der zielorientierten verbundenen Registrierung entfernt werden sollen, und dies sind erfolgreiche Zuordnungen für Synchronisierungsumfang. Verwenden Sie das Format "--remove [REPO1 REPO2 ...]" pro Flag. Gültige Aktionen sind {'content/delete', 'content/read', 'metadata/write', 'metadata/read', 'content/write'}.
     description: ''
   - name: --resource-group -g
     summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
@@ -332,7 +332,7 @@ directCommands:
   requiredParameters:
   - isRequired: true
     name: --name -n
-    summary: Name für die verbundene Registrierung. Der Name muss zwischen 5 und 40 Zeichen lang sein, mit einem Buchstaben beginnen und nur alphanumerische Zeichen enthalten (einschließlich "_" oder "-"). Der Name muss in der Cloud-ACR-Hierarchie eindeutig sein.
+    summary: Name für die verbundene Registrierung. Name muss zwischen 5 und 40 Zeichen lang sein, mit einem Buchstaben beginnen und nur alphanumerische Zeichen enthalten (einschließlich "_" oder "-"). Der Name muss in der Cloud ACR-Hierarchie eindeutig sein.
     description: ''
   - isRequired: true
     name: --registry -r
@@ -340,7 +340,7 @@ directCommands:
     description: ''
   optionalParameters:
   - name: --add-client-tokens
-    summary: Clienttoken, die hinzugefügt werden sollen. Verwenden Sie das Format "---add-client-tokens [TOKEN_ID1 TOKEN_ID2 ...]" pro Token-ID.
+    summary: Hinzuzufügende Clienttoken. Verwenden Sie das Format "--add-client-tokens [TOKEN_ID1 TOKEN_ID2 ...]" pro Token-ID.
     description: ''
   - name: --audit-logs-enabled
     parameterValueGroup: false, true
@@ -398,10 +398,10 @@ globalParameters:
 metadata:
   doc_source_url_repo: https://github.com/Azure/azure-cli/blob/dev/
   ms.date: 04/09/2021
-  description: Verwalten von verbundenen Registrierungsressourcen mit Azure Container Registries.
-  ms.openlocfilehash: 44c192ef9419833d5f68a387228ec4c8d49ed984
-  ms.sourcegitcommit: d01260d847ea835a8bbab0e0db73d1b39f5c18ef
+  description: Verwalten verbundener Registrierungsressourcen mit Azure Container Registries.
+  ms.openlocfilehash: 44625b98c989c335f4ea6e6ff9eb81000c62c5df
+  ms.sourcegitcommit: 47edf65705fcb047974356c30962819ea5172832
   ms.translationtype: MT
   ms.contentlocale: de-DE
-  ms.lasthandoff: 04/13/2021
-  ms.locfileid: "107337263"
+  ms.lasthandoff: 04/16/2021
+  ms.locfileid: "107553301"
