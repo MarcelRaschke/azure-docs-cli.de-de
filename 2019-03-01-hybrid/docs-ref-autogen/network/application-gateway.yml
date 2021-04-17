@@ -44,17 +44,17 @@ directCommands:
                                           [--vnet-name]
                                           [--zones {1, 2, 3}]
   examples:
-  - summary: Erstellen Sie ein Anwendungs Gateway mit virtuellen Computern als Back-End-Server.
+  - summary: Erstellen Sie ein Anwendungsgateway mit VMs als Back-End-Server.
     syntax: >-
       az network application-gateway create -g MyResourceGroup -n MyAppGateway --capacity 2 --sku Standard_Medium \
           --vnet-name MyVNet --subnet MySubnet --http-settings-cookie-based-affinity Enabled \
           --public-ip-address MyAppGatewayPublicIp --servers 10.0.0.4 10.0.0.5
-  - summary: Erstellen eines Anwendungsgateways automatisch generierten
+  - summary: Erstellen eines Anwendungsgateways (automatisch generiert)
     syntax: az network application-gateway create --capacity 2 --frontend-port MyFrontendPort --http-settings-cookie-based-affinity Enabled --http-settings-port 80 --http-settings-protocol Http --location westus2 --name MyAppGateway --public-ip-address MyAppGatewayPublicIp --resource-group MyResourceGroup --sku Standard_Small --subnet MySubnet --vnet-name MyVNet
   requiredParameters:
   - isRequired: true
     name: --name -n
-    summary: Der Name des Anwendungs Gateways.
+    summary: Name des Anwendungsgateways.
     description: ''
   - isRequired: true
     name: --resource-group -g
@@ -63,19 +63,19 @@ directCommands:
   optionalParameters:
   - name: --capacity
     defaultValue: "2"
-    summary: Die Anzahl der Instanzen, die mit dem Anwendungs Gateway verwendet werden sollen.
+    summary: Die Anzahl der Instanzen, die mit dem Anwendungsgateway verwendet werden.
     description: ''
   - name: --cert-file
-    summary: Der Pfad zur pfx-Zertifikat Datei.
+    summary: Der Pfad zur PFX-Zertifikatdatei.
     description: ''
   - name: --cert-password
     summary: Das Kennwort des Zertifikats.
     description: ''
   - name: --connection-draining-timeout
-    summary: 'Die Zeit in Sekunden, nach der ein Back-End-Server entfernt wird, während der die geöffnete Verbindung aktiv bleibt. Bereich: 0 (deaktiviert) bis 3600.'
+    summary: 'Die Zeit in Sekunden nach dem Entfernen eines Back-End-Servers, während der die geöffnete Verbindung aktiv bleibt. Bereich: 0 (deaktiviert) bis 3600.'
     description: ''
   - name: --enable-private-link
-    summary: Aktivieren Sie das Feature für private Links für dieses Anwendungs Gateway. Wenn die öffentliche IP-Adresse und die private IP-Adresse in Kraft treten, werden nur die öffentlichen Front-End-IP-Adressen wirksam
+    summary: Aktivieren Private Link für dieses Anwendungsgateway. Wenn sowohl die öffentliche als auch die private IP-Adresse in einem Enbaling sind, wird sie nur in der öffentlichen Front-End-IP-Adresse wirksam.
     description: ''
   - name: --frontend-port
     summary: Die Front-End-Portnummer.
@@ -83,26 +83,26 @@ directCommands:
   - name: --http-settings-cookie-based-affinity
     defaultValue: disabled
     parameterValueGroup: Disabled, Enabled
-    summary: Aktiviert oder deaktiviert die cookiebasierte Affinität auf http-Einstellungen.
+    summary: Aktivieren oder deaktivieren Sie die cookiebasierte Affinität für HTTP-Einstellungen.
     description: ''
   - name: --http-settings-port
     defaultValue: "80"
-    summary: Der Port für http-Einstellungen.
+    summary: Der Port der HTTP-Einstellungen.
     description: ''
   - name: --http-settings-protocol
     defaultValue: Http
     parameterValueGroup: Http, Https
-    summary: Das http-Einstellungs Protokoll.
+    summary: Das HTTP-Einstellungsprotokoll.
     description: ''
   - name: --http2
     parameterValueGroup: Disabled, Enabled
-    summary: Verwenden Sie HTTP2 für das Anwendungs Gateway.
+    summary: Verwenden Sie HTTP2 für das Anwendungsgateway.
     description: ''
   - name: --identity
-    summary: Der Name oder die ID der managedidentity-Ressource.
+    summary: Name oder ID der ManagedIdentity-Ressource.
     description: ''
   - name: --key-vault-secret-id
-    summary: Die geheime ID (Base-64-codiertes unverschlüsseltes PFX) ' Secret ' oder ' Certificate ', die in Azure Key Vault gespeichert ist. Sie müssen vorläufiges löschen für keyvault aktivieren, damit dieses Feature verwendet werden kann.
+    summary: Geheime ID des (Base64-codierten unverschlüsselten PFX)-Objekts "Secret" oder "Certificate", das in Azure KeyVault gespeichert ist. Sie müssen das weiche Löschen aktivieren, damit keyvault dieses Feature verwenden kann.
     description: ''
   - name: --location -l
     summary: 'Der Standort. Werte aus: `az account list-locations`. Sie können den standardmäßig verwendeten Standort mit `az configure --defaults location=<location>` konfigurieren.'
@@ -111,25 +111,25 @@ directCommands:
     summary: Nicht auf den Abschluss lang andauernder Vorgänge warten
     description: ''
   - name: --private-ip-address
-    summary: Statische private IP-Adresse, die verwendet werden soll.
+    summary: Zu verwendende statische private IP-Adresse.
     description: ''
   - name: --private-link-ip-address
-    summary: Die statische private IP-Adresse eines Subnetzes für den privaten Link. Wenn Sie weglassen, wird ein dynamisches erstellt.
+    summary: Die statische private IP-Adresse eines Subnetzes für Private Link. Wenn sie weggelassen wird, wird eine dynamische erstellt.
     description: ''
   - name: --private-link-primary
     parameterValueGroup: false, true
-    summary: Gibt an, ob die IP-Konfiguration primär ist.
+    summary: Gibt an, ob die IP-Konfiguration primär ist oder nicht.
     description: ''
   - name: --private-link-subnet
     defaultValue: PrivateLinkDefaultSubnet
-    summary: Der Name des Subnetzes im gleichen vnet eines Anwendungs Gateways.
+    summary: Der Name des Subnetzes innerhalb desselben VNET eines Anwendungsgateways.
     description: ''
   - name: --private-link-subnet-prefix
     defaultValue: 10.0.1.0/24
     summary: Das CIDR-Präfix, das beim Erstellen eines neuen Subnetzes verwendet werden soll.
     description: ''
   - name: --public-ip-address
-    summary: Der Name oder die ID einer öffentlichen IP-Adresse. Verwendet die vorhandene Ressource oder erstellt bei Angabe von New oder None, wenn keine Angabe erfolgt.
+    summary: Name oder ID einer öffentlichen IP-Adresse. Verwendet eine vorhandene Ressource oder erstellt neue , falls angegeben, oder keine, wenn sie ausgelassen wird.
     description: ''
   - name: --public-ip-address-allocation
     defaultValue: Dynamic
@@ -138,7 +138,7 @@ directCommands:
   - name: --routing-rule-type
     defaultValue: Basic
     parameterValueGroup: Basic, PathBasedRouting
-    summary: Der Regeltyp für den Anforderungs Routing.
+    summary: Der Regeltyp für das Anforderungsrouting.
     description: ''
   - name: --servers
     summary: Durch Leerzeichen getrennte Liste von IP-Adressen oder DNS-Namen, die Back-End-Servern entsprechen.
@@ -150,36 +150,36 @@ directCommands:
     description: ''
   - name: --subnet
     defaultValue: default
-    summary: Der Name oder die ID des Subnetzes. Erstellt eine Ressource, wenn Sie nicht vorhanden ist. Wenn der Name angegeben ist, geben Sie auch--vnet-Name an. Wenn Sie ein vorhandenes Subnetz in einer anderen Ressourcengruppe oder einem anderen Abonnement verwenden möchten, geben Sie die ID anstelle des Namens des Subnetzes an.
+    summary: Name oder ID des Subnetzes. Erstellt eine Ressource, wenn sie nicht vorhanden ist. Geben Sie bei Angabe des Namens auch --vnet-name an. Wenn Sie ein vorhandenes Subnetz in einer anderen Ressourcengruppe oder einem anderen Abonnement verwenden möchten, geben Sie die ID anstelle des Namens des Subnetzes an.
     description: ''
   - name: --subnet-address-prefix
     defaultValue: 10.0.0.0/24
     summary: Das CIDR-Präfix, das beim Erstellen eines neuen Subnetzes verwendet werden soll.
     description: ''
   - name: --subscription
-    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
     description: ''
   - name: --tags
-    summary: 'Durch Leerzeichen getrennte Tags: Key [= value] [key [= value]...]. Verwenden Sie "", um vorhandene Tags zu löschen.'
+    summary: 'Durch Leerzeichen getrennte Tags: key[=value] [key[=value] ...]. Verwenden Sie "", um vorhandene Tags zu löschen.'
     description: ''
   - name: --validate
-    summary: Generieren und Validieren der Arm-Vorlage, ohne Ressourcen zu erstellen.
+    summary: Generieren und überprüfen Sie die ARM-Vorlage, ohne Ressourcen zu erstellen.
     description: ''
   - name: --vnet-address-prefix
     defaultValue: 10.0.0.0/16
-    summary: Das CIDR-Präfix, das beim Erstellen eines neuen vnets verwendet werden soll.
+    summary: Das CIDR-Präfix, das beim Erstellen eines neuen VNET verwendet werden soll.
     description: ''
   - name: --vnet-name
-    summary: Der Name des virtuellen Netzwerks (vnet).
+    summary: Der Name des virtuellen Netzwerks (VNET).
     description: ''
   - name: --zones -z
     parameterValueGroup: 1, 2, 3
-    summary: Durch Leerzeichen getrennte Liste von Verfügbarkeits Zonen, in die die Ressource bereitgestellt werden soll.
+    summary: Durch Leerzeichen getrennte Liste der Verfügbarkeitszonen, in denen die Ressource bereitgestellt werden soll.
     description: ''
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/network/_help.py
 - uid: az_network_application-gateway_delete
   name: az network application-gateway delete
-  summary: Löschen eines Anwendungs Gateways
+  summary: Löschen sie ein Anwendungsgateway.
   description: ''
   syntax: >-
     az network application-gateway delete [--ids]
@@ -188,14 +188,14 @@ directCommands:
                                           [--resource-group]
                                           [--subscription]
   examples:
-  - summary: Löschen eines Anwendungs Gateways
+  - summary: Löschen sie ein Anwendungsgateway.
     syntax: az network application-gateway delete -g MyResourceGroup -n MyAppGateway
   optionalParameters:
   - name: --ids
-    summary: Mindestens eine Ressourcen-ID (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID handeln, die alle Informationen von Ressourcen-ID-Argumenten enthält. Sie sollten entweder--IDs oder andere Ressourcen-ID-Argumente angeben.
+    summary: Eine oder mehrere Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu Ressourcen-ID-Argumenten geben. Sie sollten entweder --ids oder andere Ressourcen-ID-Argumente bereitstellen.
     description: ''
   - name: --name -n
-    summary: Der Name des Anwendungs Gateways.
+    summary: Name des Anwendungsgateways.
     description: ''
   - name: --no-wait
     summary: Nicht auf den Abschluss lang andauernder Vorgänge warten
@@ -204,34 +204,34 @@ directCommands:
     summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
     description: ''
   - name: --subscription
-    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
     description: ''
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/network/_help.py
 - uid: az_network_application-gateway_list
   name: az network application-gateway list
-  summary: Listet Anwendungs Gateways auf.
+  summary: Auflisten von Anwendungsgateways.
   description: ''
   syntax: >-
     az network application-gateway list [--query-examples]
                                         [--resource-group]
                                         [--subscription]
   examples:
-  - summary: Listet Anwendungs Gateways auf.
+  - summary: Auflisten von Anwendungsgateways.
     syntax: az network application-gateway list -g MyResourceGroup
   optionalParameters:
   - name: --query-examples
-    summary: Empfehlen Sie die jmespath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und Sie nach dem Abfrage Parameter in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positions Schlüsselwörter hinzufügen, um Vorschläge auf der Grundlage dieser Schlüsselwörter zu geben.
+    summary: Empfehlen Sie die JMESPath-Zeichenfolge. Sie können eine der Abfragen kopieren und nach dem Parameter --query in doppelte Anführungszeichen einfügen, um die Ergebnisse zu sehen. Sie können ein oder mehrere Positionsschlüsselwörter hinzufügen, damit wir basierend auf diesen Schlüsselwörtern Vorschläge machen können.
     description: ''
   - name: --resource-group -g
     summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
     description: ''
   - name: --subscription
-    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
     description: ''
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/network/_help.py
 - uid: az_network_application-gateway_show
   name: az network application-gateway show
-  summary: Hier finden Sie Details zu einem Anwendungs Gateway.
+  summary: Hier finden Sie die Details eines Anwendungsgateways.
   description: ''
   syntax: >-
     az network application-gateway show [--ids]
@@ -240,28 +240,28 @@ directCommands:
                                         [--resource-group]
                                         [--subscription]
   examples:
-  - summary: Hier finden Sie Details zu einem Anwendungs Gateway.
+  - summary: Hier finden Sie die Details eines Anwendungsgateways.
     syntax: az network application-gateway show -g MyResourceGroup -n MyAppGateway
   optionalParameters:
   - name: --ids
-    summary: Mindestens eine Ressourcen-ID (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID handeln, die alle Informationen von Ressourcen-ID-Argumenten enthält. Sie sollten entweder--IDs oder andere Ressourcen-ID-Argumente angeben.
+    summary: Eine oder mehrere Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu Ressourcen-ID-Argumenten geben. Sie sollten entweder --ids oder andere Ressourcen-ID-Argumente bereitstellen.
     description: ''
   - name: --name -n
-    summary: Der Name des Anwendungs Gateways.
+    summary: Name des Anwendungsgateways.
     description: ''
   - name: --query-examples
-    summary: Empfehlen Sie die jmespath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und Sie nach dem Abfrage Parameter in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positions Schlüsselwörter hinzufügen, um Vorschläge auf der Grundlage dieser Schlüsselwörter zu geben.
+    summary: Empfehlen Sie die JMESPath-Zeichenfolge. Sie können eine der Abfragen kopieren und sie nach dem Parameter --query in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positionsschlüsselwörter hinzufügen, damit wir basierend auf diesen Schlüsselwörtern Vorschläge geben können.
     description: ''
   - name: --resource-group -g
     summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
     description: ''
   - name: --subscription
-    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
     description: ''
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/network/_help.py
 - uid: az_network_application-gateway_show-backend-health
   name: az network application-gateway show-backend-health
-  summary: Hier erhalten Sie Informationen zur Back-End-Integrität eines Anwendungs Gateways.
+  summary: Abrufen von Informationen zur Back-End-Integrität eines Anwendungsgateways.
   description: ''
   syntax: >-
     az network application-gateway show-backend-health [--expand]
@@ -270,28 +270,28 @@ directCommands:
                                                        [--resource-group]
                                                        [--subscription]
   examples:
-  - summary: Anzeigen der Back-End-Integrität eines Anwendungs Gateways.
+  - summary: Anzeigen der Back-End-Integrität eines Anwendungsgateways.
     syntax: az network application-gateway show-backend-health -g MyResourceGroup -n MyAppGateway
   optionalParameters:
   - name: --expand
-    summary: Erweitert backendadresssspool und backendhttpsettings, auf die in Back-End-Integrität verwiesen wird.
+    summary: Erweitert BackendAddressPool und BackendHttpSettings, auf die in der Back-End-Integrität verwiesen wird.
     description: ''
   - name: --ids
-    summary: Mindestens eine Ressourcen-ID (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID handeln, die alle Informationen von Ressourcen-ID-Argumenten enthält. Sie sollten entweder--IDs oder andere Ressourcen-ID-Argumente angeben.
+    summary: Mindestens eine Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen von "Resource Id"-Argumenten sein. Sie sollten entweder --ids oder andere "Resource Id"-Argumente angeben.
     description: ''
   - name: --name -n
-    summary: Der Name des Anwendungs Gateways.
+    summary: Name des Anwendungsgateways.
     description: ''
   - name: --resource-group -g
     summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
     description: ''
   - name: --subscription
-    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
     description: ''
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/network/_help.py
 - uid: az_network_application-gateway_start
   name: az network application-gateway start
-  summary: Starten Sie ein Anwendungs Gateway.
+  summary: Starten Sie ein Anwendungsgateway.
   description: ''
   syntax: >-
     az network application-gateway start [--ids]
@@ -299,25 +299,25 @@ directCommands:
                                          [--resource-group]
                                          [--subscription]
   examples:
-  - summary: Starten Sie ein Anwendungs Gateway.
+  - summary: Starten Sie ein Anwendungsgateway.
     syntax: az network application-gateway start -g MyResourceGroup -n MyAppGateway
   optionalParameters:
   - name: --ids
-    summary: Mindestens eine Ressourcen-ID (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID handeln, die alle Informationen von Ressourcen-ID-Argumenten enthält. Sie sollten entweder--IDs oder andere Ressourcen-ID-Argumente angeben.
+    summary: Mindestens eine Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen von "Resource Id"-Argumenten sein. Sie sollten entweder --ids oder andere "Resource Id"-Argumente angeben.
     description: ''
   - name: --name -n
-    summary: Der Name des Anwendungs Gateways.
+    summary: Name des Anwendungsgateways.
     description: ''
   - name: --resource-group -g
     summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
     description: ''
   - name: --subscription
-    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
     description: ''
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/network/_help.py
 - uid: az_network_application-gateway_stop
   name: az network application-gateway stop
-  summary: Beenden Sie ein Anwendungs Gateway.
+  summary: Beenden Sie ein Anwendungsgateway.
   description: ''
   syntax: >-
     az network application-gateway stop [--ids]
@@ -325,25 +325,25 @@ directCommands:
                                         [--resource-group]
                                         [--subscription]
   examples:
-  - summary: Beenden Sie ein Anwendungs Gateway.
+  - summary: Beenden Sie ein Anwendungsgateway.
     syntax: az network application-gateway stop -g MyResourceGroup -n MyAppGateway
   optionalParameters:
   - name: --ids
-    summary: Mindestens eine Ressourcen-ID (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID handeln, die alle Informationen von Ressourcen-ID-Argumenten enthält. Sie sollten entweder--IDs oder andere Ressourcen-ID-Argumente angeben.
+    summary: Eine oder mehrere Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu Ressourcen-ID-Argumenten geben. Sie sollten entweder --ids oder andere Ressourcen-ID-Argumente bereitstellen.
     description: ''
   - name: --name -n
-    summary: Der Name des Anwendungs Gateways.
+    summary: Name des Anwendungsgateways.
     description: ''
   - name: --resource-group -g
     summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
     description: ''
   - name: --subscription
-    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
     description: ''
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/network/_help.py
 - uid: az_network_application-gateway_update
   name: az network application-gateway update
-  summary: Aktualisieren Sie ein Anwendungs Gateway.
+  summary: Aktualisieren eines Anwendungsgateways.
   description: ''
   syntax: >-
     az network application-gateway update [--add]
@@ -360,54 +360,54 @@ directCommands:
                                           [--subscription]
                                           [--tags]
   examples:
-  - summary: Aktualisieren Sie ein Anwendungs Gateway. automatisch generierten
+  - summary: Aktualisieren eines Anwendungsgateways. (automatisch generiert)
     syntax: az network application-gateway update --name MyApplicationGateway --resource-group MyResourceGroup --set useRemoteGateways=true
   optionalParameters:
   - name: --add
-    summary: Fügen Sie einer Liste von-Objekten ein Objekt hinzu, indem Sie ein Pfad-und Schlüssel-Wert-Paar angeben.  Beispiel:--Add Property. ListProperty <Key = Value, String oder JSON String>.
+    summary: 'Fügen Sie einer Liste von -Objekten ein -Objekt hinzu, indem Sie ein Pfad- und Schlüsselwertpaar angeben.  Beispiel: --add property.listProperty <key=value, string oder JSON string>.'
     description: ''
   - name: --capacity
-    summary: Die Anzahl der Instanzen, die mit dem Anwendungs Gateway verwendet werden sollen.
+    summary: Die Anzahl der Instanzen, die mit dem Anwendungsgateway verwendet werden.
     description: ''
   - name: --force-string
-    summary: Wenn Sie "Set" oder "Add" verwenden, erhalten Sie Zeichen folgen Literale, anstatt zu versuchen, in JSON zu konvertieren.
+    summary: Wenn Sie "set" oder "add" verwenden, behalten Sie Zeichenfolgenliterale bei, anstatt zu versuchen, in JSON zu konvertieren.
     description: ''
   - name: --http2
     parameterValueGroup: Disabled, Enabled
-    summary: Verwenden Sie HTTP2 für das Anwendungs Gateway.
+    summary: Verwenden Sie HTTP2 für das Anwendungsgateway.
     description: ''
   - name: --ids
-    summary: Mindestens eine Ressourcen-ID (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID handeln, die alle Informationen von Ressourcen-ID-Argumenten enthält. Sie sollten entweder--IDs oder andere Ressourcen-ID-Argumente angeben.
+    summary: Eine oder mehrere Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu Ressourcen-ID-Argumenten geben. Sie sollten entweder --ids oder andere Ressourcen-ID-Argumente bereitstellen.
     description: ''
   - name: --name -n
-    summary: Der Name des Anwendungs Gateways.
+    summary: Name des Anwendungsgateways.
     description: ''
   - name: --no-wait
     summary: Nicht auf den Abschluss lang andauernder Vorgänge warten
     description: ''
   - name: --remove
-    summary: Entfernt eine Eigenschaft oder ein Element aus einer Liste.  Beispiel:--Remove Property. List <indexToRemove> oder--Remove propertytoremove.
+    summary: 'Entfernen Sie eine Eigenschaft oder ein Element aus einer Liste.  Beispiel: --remove property.list <indexToRemove> OR --remove propertyToRemove.'
     description: ''
   - name: --resource-group -g
     summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
     description: ''
   - name: --set
-    summary: Aktualisieren Sie ein Objekt, indem Sie einen Eigenschafts Pfad und einen festzulegenden Wert angeben.  Beispiel:--Set Eigenschaft1. Eigenschaft2 =<value>.
+    summary: 'Aktualisieren Sie ein -Objekt, indem Sie einen festzulegenden Eigenschaftenpfad und -wert angeben.  Beispiel: --set property1.property2=<value>.'
     description: ''
   - name: --sku
     parameterValueGroup: Standard_Large, Standard_Medium, Standard_Small, WAF_Large, WAF_Medium
     summary: Der Name der SKU.
     description: ''
   - name: --subscription
-    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
     description: ''
   - name: --tags
-    summary: 'Durch Leerzeichen getrennte Tags: Key [= value] [key [= value]...]. Verwenden Sie "", um vorhandene Tags zu löschen.'
+    summary: 'Durch Leerzeichen getrennte Tags: key[=value] [key[=value] ...]. Verwenden Sie "", um vorhandene Tags zu löschen.'
     description: ''
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/network/_help.py
 - uid: az_network_application-gateway_wait
   name: az network application-gateway wait
-  summary: Platzieren Sie die CLI in einem Wartezustand, bis eine Bedingung des Anwendungs Gateways erfüllt ist.
+  summary: Versetzen Sie die CLI in einen Wartezustand, bis eine Bedingung des Anwendungsgateways erfüllt ist.
   description: ''
   syntax: >-
     az network application-gateway wait [--created]
@@ -422,43 +422,43 @@ directCommands:
                                         [--timeout]
                                         [--updated]
   examples:
-  - summary: Platzieren Sie die CLI in einem Wartezustand, bis das Anwendungs Gateway erstellt wird.
+  - summary: Platzieren Sie die CLI in einem Wartezustand, bis das Anwendungsgateway erstellt wird.
     syntax: az network application-gateway wait -g MyResourceGroup -n MyAppGateway --created
   optionalParameters:
   - name: --created
-    summary: Warten Sie, bis "provisioningstate" bei "erfolgreich" erstellt wurde.
+    summary: Warten Sie, bis die Erstellung mit "provisioningState" bei "Succeeded" (Erfolgreich) ausgeführt wurde.
     description: ''
   - name: --custom
-    summary: "Warten Sie, bis die Bedingung eine benutzerdefinierte jmespath-Abfrage erfüllt. Beispiel: provisioningstate! = ' InProgress ', instanceview. statuses [? Code = = ' PowerState/Running ']."
+    summary: "Warten Sie, bis die Bedingung eine benutzerdefinierte JMESPath-Abfrage erfüllt. Beispiel: provisioningState!='InProgress', instanceView.statuses[?code=='PowerState/running']."
     description: ''
   - name: --deleted
-    summary: Warten Sie bis zum Löschen.
+    summary: Warten Sie, bis gelöscht wurde.
     description: ''
   - name: --exists
     summary: Warten Sie, bis die Ressource vorhanden ist.
     description: ''
   - name: --ids
-    summary: Mindestens eine Ressourcen-ID (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID handeln, die alle Informationen von Ressourcen-ID-Argumenten enthält. Sie sollten entweder--IDs oder andere Ressourcen-ID-Argumente angeben.
+    summary: Mindestens eine Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen von "Resource Id"-Argumenten sein. Sie sollten entweder --ids oder andere "Resource Id"-Argumente angeben.
     description: ''
   - name: --interval
     defaultValue: "30"
-    summary: Abruf Intervall in Sekunden.
+    summary: Abrufintervall in Sekunden.
     description: ''
   - name: --name -n
-    summary: Der Name des Anwendungs Gateways.
+    summary: Name des Anwendungsgateways.
     description: ''
   - name: --resource-group -g
     summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
     description: ''
   - name: --subscription
-    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
     description: ''
   - name: --timeout
     defaultValue: "3600"
     summary: Maximale Wartezeit in Sekunden.
     description: ''
   - name: --updated
-    summary: Warten Sie, bis das Update mit provisioningstate bei "erfolgreich" abgeschlossen ist.
+    summary: Warten Sie, bis das Update mit provisioningState unter "Succeeded" (Erfolgreich) ausgeführt wurde.
     description: ''
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/network/_help.py
 commands:
@@ -575,11 +575,11 @@ globalParameters:
   summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
 metadata:
   doc_source_url_repo: https://github.com/Azure/azure-cli/blob/dev/
-  ms.date: 04/07/2021
+  ms.date: 04/12/2021
   description: Weitere Informationen zu Application Gateway finden Sie unter https://docs.microsoft.com/azure/application-gateway/application-gateway-create-gateway-cli .
-  ms.openlocfilehash: 5a2a387d21fd497945339c1215b37d15da32d72e
-  ms.sourcegitcommit: 612554c029ba1f28d3a43fd22e743104a1a30ea0
+  ms.openlocfilehash: 094d3029355bf95fcbd2dae0ab6bf9497e37759e
+  ms.sourcegitcommit: d01260d847ea835a8bbab0e0db73d1b39f5c18ef
   ms.translationtype: MT
   ms.contentlocale: de-DE
-  ms.lasthandoff: 04/07/2021
-  ms.locfileid: "106860444"
+  ms.lasthandoff: 04/13/2021
+  ms.locfileid: "107341921"
