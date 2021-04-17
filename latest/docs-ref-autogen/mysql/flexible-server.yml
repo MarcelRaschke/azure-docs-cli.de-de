@@ -1,12 +1,45 @@
 ### YamlMime:AzureCLIGroup
 uid: az_mysql_flexible-server
 name: az mysql flexible-server
-summary: Verwalten Azure Database for MySQL Flexible Server
+summary: Verwalten sie Azure Database for MySQL Flexible Server.
 description: ''
 directCommands:
+- uid: az_mysql_flexible-server_connect
+  name: az mysql flexible-server connect
+  summary: Stellen Sie eine Verbindung mit einem flexiblen Server her.
+  description: ''
+  syntax: >-
+    az mysql flexible-server connect --admin-user
+                                     --name
+                                     [--admin-password]
+                                     [--database-name]
+                                     [--interactive]
+                                     [--querytext]
+  requiredParameters:
+  - isRequired: true
+    name: --admin-user -u
+    summary: Der Anmeldebenutzername des Administrators.
+    description: ''
+  - isRequired: true
+    name: --name -n
+    summary: Name des Servers. Der Name darf nur Kleinbuchstaben, Zahlen und den Bindestrich (-) enthalten. Mindestens 3 Zeichen und maximal 63 Zeichen.
+    description: ''
+  optionalParameters:
+  - name: --admin-password -p
+    summary: Das Anmeldekennwort des Administrators.
+    description: ''
+  - name: --database-name -d
+    summary: Der Name einer Datenbank.
+    description: ''
+  - name: --interactive
+    summary: Übergeben Sie diesen Parameter, um eine Verbindung mit der Datenbank im interaktiven Modus herzustellen.
+    description: ''
+  - name: --querytext -q
+    summary: Eine Abfrage, die für den flexiblen Server ausgeführt werden soll.
+    description: ''
 - uid: az_mysql_flexible-server_create
   name: az mysql flexible-server create
-  summary: Erstellen Sie einen flexiblen Server.
+  summary: Erstellen sie einen flexiblen Server.
   description: ''
   syntax: >-
     az mysql flexible-server create [--address-prefixes]
@@ -31,25 +64,25 @@ directCommands:
                                     [--vnet]
                                     [--zone]
   examples:
-  - summary: Erstellen Sie einen flexiblen MySQL-Server mit Standardeinstellungen (Ressourcengruppe, Standort, Servername, Benutzername, Kennwort), für den das VNET standardmäßig aktiviert ist.
+  - summary: Erstellen Sie einen flexiblen MySQL-Server mit Standardparams (Ressourcengruppe, Speicherort, Servername, Benutzername, Kennwort), wobei das VNET standardmäßig aktiviert ist.
     syntax: az mysql flexible-server create
-  - summary: Erstellen Sie einen flexiblen MySQL-Server mit Standardeinstellungen (Ressourcengruppe, Standort, Servername, Benutzername, Kennwort) mit allen öffentlichen IPs (0.0.0.0 bis 255.255.255.255).
+  - summary: Erstellen Sie einen flexiblen MySQL-Server mit Standardparams (Ressourcengruppe, Speicherort, Servername, Benutzername, Kennwort) mit allen öffentlichen IP-Adresse (0.0.0.0 - 255.255.255.255).
     syntax: az mysql flexible-server create --public-access all
-  - summary: Erstellen Sie einen flexiblen MySQL-Server mit Standardeinstellungen (Ressourcengruppe, Standort, Servername, Benutzername, Kennwort) mit öffentlichem Zugriff ohne Firewallregeln.
+  - summary: Erstellen Sie einen flexiblen MySQL-Server mit Standardeinstellungen (Ressourcengruppe, Speicherort, Servername, Benutzername, Kennwort) mit öffentlichem Zugriff ohne Firewallregeln.
     syntax: az mysql flexible-server create --public-access none
-  - summary: Erstellen eines flexiblen MySQL-Servers mit öffentlichem Zugriff und Hinzufügen der Client-IP-Adresse für den Zugriff auf den Server
+  - summary: Erstellen eines flexiblen MySQL-Servers mit öffentlichem Zugriff und Hinzufügen einer Client-IP-Adresse für den Zugriff auf den Server
     syntax: az mysql flexible-server create --public-access <my_client_ip>
   - summary: Erstellen eines flexiblen MySQL-Servers mit öffentlichem Zugriff und Hinzufügen des IP-Adressbereichs für den Zugriff auf diesen Server
     syntax: az mysql flexible-server create --public-access <start_ip_address-end_ip_address>
-  - summary: Erstellen eines flexiblen MySQL-Servers mit öffentlichem Zugriff und zulassen, dass Anwendungen von Azure-IP-Adressen eine Verbindung mit Ihrem flexiblen Server herstellen
+  - summary: Erstellen eines flexiblen MySQL-Servers mit öffentlichem Zugriff und Zulassen der Verbindung von Anwendungen von Azure-IP-Adressen mit Ihrem flexiblen Server
     syntax: az mysql flexible-server create --public-access 0.0.0.0
-  - summary: Erstellen Sie einen flexiblen MySQL-Server mit angegebener SKU und Speicher unter Verwendung von Standardwerten aus dem lokalen Kontext.
+  - summary: Erstellen Sie einen flexiblen MySQL-Server mit der angegebenen SKU und dem angegebenen Speicher unter Verwendung von Standardwerten aus dem lokalen Kontext.
     syntax: az mysql flexible-server create --name testServer --admin-password password
-  - summary: Erstellen Sie einen flexiblen MySQL-Server mithilfe bereits vorhandener virtueller Netzwerke und Subnetze. Wenn das angegebene virtuelle Netzwerk und das Subnetz nicht vorhanden sind, werden beide mit dem Standardadresspräfix erstellt.
+  - summary: Erstellen Sie einen flexiblen MySQL-Server mithilfe eines bereits vorhandenen virtuellen Netzwerks und Subnetzes. Wenn das angegebene virtuelle Netzwerk und das Subnetz nicht vorhanden sind, werden beide mit dem Standardadresspräfix erstellt.
     syntax: az mysql flexible-server create --vnet myVnet --subnet mySubnet
-  - summary: Erstellen Sie einen flexiblen MySQL-Server mit bereits vorhandenem virtuellen Netzwerk, Subnetz und der Subnetz-ID. Das bereitgestellte Subnetz sollte keine anderen Ressourcen enthalten, und dieses Subnetz wird an Microsoft.DBforMySQL/flexibleServers delegiert, falls nicht bereits delegiert.
+  - summary: Erstellen Sie einen flexiblen MySQL-Server, indem Sie bereits vorhandenes virtuelles Netzwerk, Subnetz und die Subnetz-ID verwenden. Das bereitgestellte Subnetz sollte keine anderen Ressourcen enthalten, und dieses Subnetz wird an Microsoft.DBforMySQL/flexibleServers delegiert, falls nicht bereits delegiert.
     syntax: az mysql flexible-server create --subnet /subscriptions/{SubID}/resourceGroups/{ResourceGroup}/providers/Microsoft.Network/virtualNetworks/{VNetName}/subnets/{SubnetName}
-  - summary: Erstellen Sie einen flexiblen MySQL-Server mit einem neuen virtuellen Netzwerk und einem Subnetz mit einem nicht standardmäßigen Adresspräfix.
+  - summary: Erstellen Sie einen flexiblen MySQL-Server mithilfe eines neuen virtuellen Netzwerks, einem Subnetz mit einem nicht standardmäßigen Adresspräfix.
     syntax: az mysql flexible-server create --vnet myVnet --address-prefixes 10.0.0.0/24 --subnet mySubnet --subnet-prefixes 10.0.0.0/24
   - summary: Erstellen Sie einen flexiblen MySQL-Server mit festgelegten Parametern.
     syntax: >-
@@ -65,11 +98,11 @@ directCommands:
     summary: 'Das Kennwort des Administrators. Mindestens 8 Zeichen und maximal 128 Zeichen. Das Kennwort muss Zeichen aus drei der folgenden Kategorien enthalten: Englische Großbuchstaben, englische Kleinbuchstaben, Zahlen und nicht alphanumerische Zeichen.'
     description: ''
   - name: --admin-user -u
-    defaultValue: eagerOwl1
+    defaultValue: lethalBagels4
     summary: Administratorbenutzername für den Server. Nachdem sie festgelegt wurde, kann sie nicht mehr geändert werden.
     description: ''
   - name: --assign-identity
-    summary: Generieren und Zuweisen einer Azure Active Directory-Identität für diesen Server zur Verwendung mit Schlüsselverwaltungsdiensten wie Azure KeyVault. Sie müssen kein zusätzliches Argument eingeben.
+    summary: Generieren und zuweisen einer Azure Active Directory-Identität für diesen Server zur Verwendung mit Schlüsselverwaltungsdiensten wie Azure KeyVault. Sie müssen kein zusätzliches Argument eingeben.
     description: ''
   - name: --backup-retention
     defaultValue: "7"
@@ -80,7 +113,7 @@ directCommands:
     summary: Aktivieren oder Deaktivieren der Hochverfügbarkeitsfunktion.  Der Standardwert ist Deaktiviert.
     description: ''
   - name: --iops
-    summary: Anzahl der IOPS, die diesem Server zugeordnet werden sollen. Sie erhalten eine bestimmte Menge kostenloser IOPS basierend auf bereitgestellten Compute- und Speicherressourcen. Der Standardwert für IOPS ist free IOPS. Weitere Informationen zu IOPS basierend auf Compute und Speicher finden Sie unter IOPS in Azure Database for MySQL Flexible Server.
+    summary: Anzahl der IOPS, die diesem Server zugeordnet werden sollen. Sie erhalten eine bestimmte Menge kostenloser IOPS basierend auf bereitgestellter Compute- und Speicherleistung. Der Standardwert für IOPS ist free IOPS. Weitere Informationen zu IOPS basierend auf Compute und Speicher finden Sie unter IOPS in Azure Database for MySQL Flexible Server.
     description: ''
   - name: --location -l
     summary: 'Der Standort. Werte aus: `az account list-locations`. Sie können den standardmäßig verwendeten Standort mit `az configure --defaults location=<location>` konfigurieren.'
@@ -89,21 +122,21 @@ directCommands:
     summary: Name des Servers. Der Name darf nur Kleinbuchstaben, Zahlen und den Bindestrich (-) enthalten. Mindestens 3 Zeichen und maximal 63 Zeichen.
     description: ''
   - name: --public-access
-    summary: Bestimmt den öffentlichen Zugriff. Geben Sie einzelne IP-Adressen oder ip-Adressbereich ein, die in die Liste der zulässigen IP-Adressen aufgenommen werden sollen. IP-Adressbereiche müssen durch Bindestriche getrennt sein und dürfen keine Leerzeichen enthalten. Die Angabe von 0.0.0.0 ermöglicht den öffentlichen Zugriff von allen in Azure bereitgestellten Ressourcen für den Zugriff auf Ihren Server. Wenn sie auf "None" (Keine) festlegen, wird der Server im öffentlichen Zugriffsmodus, aber keine Firewallregel erstellt.
+    summary: Bestimmt den öffentlichen Zugriff. Geben Sie einzelne IP-Adressen oder ip-Adressbereich ein, die in die Liste der zulässigen IP-Adressen aufgenommen werden sollen. IP-Adressbereiche müssen durch Bindestriche getrennt sein und dürfen keine Leerzeichen enthalten. Die Angabe von 0.0.0.0 ermöglicht den öffentlichen Zugriff von allen ressourcen, die in Azure bereitgestellt werden, um auf Ihren Server zuzugreifen. Wenn sie auf "None" festgelegt wird, wird der Server im öffentlichen Zugriffsmodus festgelegt, aber es wird keine Firewallregel erstellt.
     description: ''
   - name: --resource-group -g
     summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
     description: ''
   - name: --sku-name
     defaultValue: Standard_B1ms
-    summary: 'Der Name der Compute-SKU. Folgt der Konvention Standard_{VM-Name}. Beispiele: Standard_B1ms, Standard_E16ds_v4.'
+    summary: 'Der Name der Compute-SKU. Entspricht der Konvention Standard_{VM-Name}. Beispiele: Standard_B1ms, Standard_E16ds_v4.'
     description: ''
   - name: --storage-size
     defaultValue: "10"
-    summary: Die Speicherkapazität des Servers. Der Mindestwert beträgt 5 GiB und erhöht sich in Schritten von 1 GiB. Die maximale Größe beträgt 16 TiB.
+    summary: Die Speicherkapazität des Servers. Der Mindestwert beträgt 5 GiB und erhöht sich um 1 GiB. Die maximale Größe beträgt 16 TiB.
     description: ''
   - name: --subnet
-    summary: Ressourcen-ID eines vorhandenen Subnetzes. Beachten Sie, dass das Subnetz an Microsoft.DBforPostgreSQL/flexibleServers/Microsoft.DBforMySQL/flexibleServers delegiert wird. Nach der Delegierung kann dieses Subnetz nicht für andere Arten von Azure-Ressourcen verwendet werden.
+    summary: Ressourcen-ID eines vorhandenen Subnetzes. Beachten Sie, dass das Subnetz an Microsoft.DBforPostgreSQL/flexibleServers/Microsoft.DBforMySQL/flexibleServers delegiert wird. Nach der Delegierung kann dieses Subnetz nicht für andere Azure-Ressourcen verwendet werden.
     description: ''
   - name: --subnet-prefixes
     summary: Das Subnetz-IP-Adresspräfix, das beim Erstellen eines neuen VNET im CIDR-Format verwendet werden soll. Der Standardwert ist 10.0.0.0/24.
@@ -130,7 +163,7 @@ directCommands:
     description: ''
 - uid: az_mysql_flexible-server_delete
   name: az mysql flexible-server delete
-  summary: Löschen sie einen flexiblen Server.
+  summary: Löscht einen flexiblen Server.
   description: ''
   syntax: >-
     az mysql flexible-server delete [--ids]
@@ -139,13 +172,13 @@ directCommands:
                                     [--subscription]
                                     [--yes]
   examples:
-  - summary: Löschen sie einen flexiblen Server.
+  - summary: Löscht einen flexiblen Server.
     syntax: az mysql flexible-server delete --resource-group testGroup --name testServer
   - summary: Löschen Sie einen flexiblen Server ohne Aufforderung oder Bestätigung.
     syntax: az mysql flexible-server delete --resource-group testGroup --name testServer --yes
   optionalParameters:
   - name: --ids
-    summary: Mindestens eine Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen von "Resource Id"-Argumenten sein. Sie sollten entweder --ids oder andere "Resource Id"-Argumente angeben.
+    summary: Eine oder mehrere Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu Ressourcen-ID-Argumenten geben. Sie sollten entweder --ids oder andere Ressourcen-ID-Argumente bereitstellen.
     description: ''
   - name: --name -n
     summary: Name des Servers. Der Name darf nur Kleinbuchstaben, Zahlen und den Bindestrich (-) enthalten. Mindestens 3 Zeichen und maximal 63 Zeichen.
@@ -215,7 +248,7 @@ directCommands:
     syntax: az mysql flexible-server restart --resource-group testGroup --name testServer
   optionalParameters:
   - name: --ids
-    summary: Eine oder mehrere Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu Ressourcen-ID-Argumenten geben. Sie sollten entweder --ids oder andere Ressourcen-ID-Argumente bereitstellen.
+    summary: Mindestens eine Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu "Ressourcen-ID"-Argumenten sein. Sie sollten entweder --ids oder andere "Resource Id"-Argumente angeben.
     description: ''
   - name: --name -n
     summary: Name des Servers. Der Name darf nur Kleinbuchstaben, Zahlen und den Bindestrich (-) enthalten. Mindestens 3 Zeichen und maximal 63 Zeichen.
@@ -250,7 +283,7 @@ directCommands:
   requiredParameters:
   - isRequired: true
     name: --restore-time
-    defaultValue: 2021-04-13T09:43:02+00:00
+    defaultValue: 2021-04-15T09:44:37+00:00
     summary: Der Zeitpunkt in UTC, aus dem die Wiederherstellung erfolgen soll (ISO8601-Format), z.B. 2017-04-26T02:10:00+00:00.
     description: ''
   - isRequired: true
@@ -291,13 +324,13 @@ directCommands:
     syntax: az mysql flexible-server show --resource-group testGroup --name testServer
   optionalParameters:
   - name: --ids
-    summary: Mindestens eine Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen von "Resource Id"-Argumenten sein. Sie sollten entweder --ids oder andere "Resource Id"-Argumente angeben.
+    summary: Mindestens eine Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu Ressourcen-ID-Argumenten geben. Sie sollten entweder --ids oder andere Ressourcen-ID-Argumente bereitstellen.
     description: ''
   - name: --name -n
     summary: Name des Servers. Der Name darf nur Kleinbuchstaben, Zahlen und den Bindestrich (-) enthalten. Mindestens 3 Zeichen und maximal 63 Zeichen.
     description: ''
   - name: --query-examples
-    summary: Empfehlen Sie die JMESPath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und sie nach dem Parameter --query in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positionsschlüsselwörter hinzufügen, damit wir basierend auf diesen Schlüsselwörtern Vorschläge geben können.
+    summary: Empfehlen Sie die JMESPath-Zeichenfolge. Sie können eine der Abfragen kopieren und nach dem Parameter --query in doppelte Anführungszeichen einfügen, um die Ergebnisse zu sehen. Sie können ein oder mehrere Positionsschlüsselwörter hinzufügen, damit wir basierend auf diesen Schlüsselwörtern Vorschläge machen können.
     description: ''
   - name: --resource-group -g
     summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
@@ -356,7 +389,7 @@ directCommands:
     syntax: az mysql flexible-server start --resource-group testGroup --name testServer
   optionalParameters:
   - name: --ids
-    summary: Eine oder mehrere Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu Ressourcen-ID-Argumenten geben. Sie sollten entweder --ids oder andere Ressourcen-ID-Argumente bereitstellen.
+    summary: Eine oder mehrere Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu Ressourcen-ID-Argumenten geben. Sie sollten entweder --ids oder andere "Resource Id"-Argumente angeben.
     description: ''
   - name: --name -n
     summary: Name des Servers. Der Name darf nur Kleinbuchstaben, Zahlen und den Bindestrich (-) enthalten. Mindestens 3 Zeichen und maximal 63 Zeichen.
@@ -369,7 +402,7 @@ directCommands:
     description: ''
 - uid: az_mysql_flexible-server_stop
   name: az mysql flexible-server stop
-  summary: Beenden Sie einen flexiblen Server.
+  summary: Beenden sie einen flexiblen Server.
   description: ''
   syntax: >-
     az mysql flexible-server stop [--ids]
@@ -377,11 +410,11 @@ directCommands:
                                   [--resource-group]
                                   [--subscription]
   examples:
-  - summary: Beenden Sie einen flexiblen Server.
+  - summary: Beenden sie einen flexiblen Server.
     syntax: az mysql flexible-server stop --resource-group testGroup --name testServer
   optionalParameters:
   - name: --ids
-    summary: Eine oder mehrere Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu Ressourcen-ID-Argumenten geben. Sie sollten entweder --ids oder andere "Resource Id"-Argumente angeben.
+    summary: Mindestens eine Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu "Ressourcen-ID"-Argumenten sein. Sie sollten entweder --ids oder andere "Resource Id"-Argumente angeben.
     description: ''
   - name: --name -n
     summary: Name des Servers. Der Name darf nur Kleinbuchstaben, Zahlen und den Bindestrich (-) enthalten. Mindestens 3 Zeichen und maximal 63 Zeichen.
@@ -438,13 +471,13 @@ directCommands:
     description: ''
   - name: --high-availability
     parameterValueGroup: Disabled, Enabled
-    summary: Aktivieren oder deaktivieren Sie das Feature für Hochverfügbarkeit.  Der Standardwert ist Deaktiviert.
+    summary: Aktivieren oder Deaktivieren der Hochverfügbarkeitsfunktion.  Der Standardwert ist Deaktiviert.
     description: ''
   - name: --ids
-    summary: Mindestens eine Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen von "Resource Id"-Argumenten sein. Sie sollten entweder --ids oder andere "Resource Id"-Argumente angeben.
+    summary: Eine oder mehrere Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu Ressourcen-ID-Argumenten geben. Sie sollten entweder --ids oder andere Ressourcen-ID-Argumente bereitstellen.
     description: ''
   - name: --iops
-    summary: Anzahl der IOPS, die diesem Server zugeordnet werden sollen. Sie erhalten eine bestimmte Menge kostenloser IOPS basierend auf bereitgestellter Compute- und Speicherleistung. Der Standardwert für IOPS ist free IOPS. Weitere Informationen zu IOPS basierend auf Compute und Speicher finden Sie unter IOPS in Azure Database for MySQL Flexible Server.
+    summary: Anzahl der IOPS, die diesem Server zugeordnet werden sollen. Sie erhalten eine bestimmte Menge kostenloser IOPS basierend auf bereitgestellten Compute- und Speicherressourcen. Der Standardwert für IOPS ist free IOPS. Weitere Informationen zu IOPS basierend auf Compute und Speicher finden Sie unter IOPS in Azure Database for MySQL Flexible Server.
     description: ''
   - name: --maintenance-window
     summary: 'Zeitraum (UTC), der für die Wartung festgelegt ist. Beispiele: "So:23:30" zur Planung am Sonntag, 23:30 Uhr UTC. Um auf den Standardwert zurück zu setzen, übergeben Sie "Disabled".'
@@ -465,7 +498,7 @@ directCommands:
     summary: 'Aktualisieren Sie ein -Objekt, indem Sie einen festzulegenden Eigenschaftenpfad und -wert angeben.  Beispiel: --set property1.property2=<value>.'
     description: ''
   - name: --sku-name
-    summary: 'Der Name der Compute-SKU. Folgt der Konvention Standard_{VM-Name}. Beispiele: Standard_B1ms, Standard_E16ds_v4.'
+    summary: 'Der Name der Compute-SKU. Entspricht der Konvention Standard_{VM-Name}. Beispiele: Standard_B1ms, Standard_E16ds_v4.'
     description: ''
   - name: --ssl-enforcement
     parameterValueGroup: Disabled, Enabled
@@ -473,7 +506,7 @@ directCommands:
     description: ''
   - name: --storage-auto-grow
     parameterValueGroup: Disabled, Enabled
-    summary: Aktivieren oder deaktivieren Sie die automatische Verwächste des Speichers. Der Standardwert ist Aktiviert.
+    summary: Aktivieren oder deaktivieren Sie die automatische Füllung des Speichers. Der Standardwert ist Aktiviert.
     description: ''
   - name: --storage-size
     summary: Die Speicherkapazität des Servers. Der Mindestwert beträgt 5 GiB und erhöht sich um 1 GiB. Die maximale Größe beträgt 16 TiB.
@@ -517,13 +550,13 @@ directCommands:
     summary: "Warten Sie, bis die Bedingung eine benutzerdefinierte JMESPath-Abfrage erfüllt. Beispiel: provisioningState!='InProgress', instanceView.statuses[?code=='PowerState/running']."
     description: ''
   - name: --deleted
-    summary: Warten Sie, bis gelöscht wurde.
+    summary: Warten Sie, bis sie gelöscht wurde.
     description: ''
   - name: --exists
     summary: Warten Sie, bis die Ressource vorhanden ist.
     description: ''
   - name: --ids
-    summary: Mindestens eine Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen von "Resource Id"-Argumenten sein. Sie sollten entweder --ids oder andere "Resource Id"-Argumente angeben.
+    summary: Eine oder mehrere Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu Ressourcen-ID-Argumenten geben. Sie sollten entweder --ids oder andere Ressourcen-ID-Argumente bereitstellen.
     description: ''
   - name: --interval
     defaultValue: "30"
@@ -545,40 +578,8 @@ directCommands:
   - name: --updated
     summary: Warten Sie, bis provisioningState auf "Succeeded" aktualisiert wurde.
     description: ''
-- uid: az_mysql_flexible-server_connect
-  name: az mysql flexible-server connect
-  summary: Stellen Sie eine Verbindung mit einem flexiblen Server herstellen.
-  description: ''
-  syntax: >-
-    az mysql flexible-server connect --admin-user
-                                     --name
-                                     [--admin-password]
-                                     [--database-name]
-                                     [--interactive]
-                                     [--querytext]
-  requiredParameters:
-  - isRequired: true
-    name: --admin-user -u
-    summary: Der Anmeldebenutzername des Administrators.
-    description: ''
-  - isRequired: true
-    name: --name -n
-    summary: Name des Servers. Der Name darf nur Kleinbuchstaben, Zahlen und den Bindestrich (-) enthalten. Mindestens 3 Zeichen und maximal 63 Zeichen.
-    description: ''
-  optionalParameters:
-  - name: --admin-password -p
-    summary: Das Anmeldekennwort des Administrators.
-    description: ''
-  - name: --database-name -d
-    summary: Der Name einer Datenbank.
-    description: ''
-  - name: --interactive
-    summary: Übergeben Sie diesen Parameter, um eine Verbindung mit der Datenbank im interaktiven Modus herzustellen.
-    description: ''
-  - name: --querytext -q
-    summary: Eine Abfrage, die für den flexiblen Server ausgeführt werden soll.
-    description: ''
 commands:
+- az_mysql_flexible-server_connect
 - az_mysql_flexible-server_create
 - az_mysql_flexible-server_db
 - az_mysql_flexible-server_db_create
@@ -610,7 +611,6 @@ commands:
 - az_mysql_flexible-server_stop
 - az_mysql_flexible-server_update
 - az_mysql_flexible-server_wait
-- az_mysql_flexible-server_connect
 globalParameters:
 - name: --debug
   summary: Ausführlichkeit der Protokollierung erhöhen, um alle Debugprotokolle anzuzeigen.
@@ -628,9 +628,9 @@ globalParameters:
   summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
 metadata:
   description: Verwalten Azure Database for MySQL Flexible Server
-  ms.openlocfilehash: 1a46f795c859f68022cb579498a881ad09068f81
-  ms.sourcegitcommit: d01260d847ea835a8bbab0e0db73d1b39f5c18ef
+  ms.openlocfilehash: 5254b047eac3aa43eeedb837e9be007c4290105c
+  ms.sourcegitcommit: 47edf65705fcb047974356c30962819ea5172832
   ms.translationtype: MT
   ms.contentlocale: de-DE
-  ms.lasthandoff: 04/13/2021
-  ms.locfileid: "107336260"
+  ms.lasthandoff: 04/16/2021
+  ms.locfileid: "107546412"
