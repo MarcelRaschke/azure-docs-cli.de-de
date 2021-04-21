@@ -14,6 +14,7 @@ directCommands:
                                        --private-connection-resource-id
                                        --resource-group
                                        --subnet
+                                       [--edge-zone]
                                        [--group-id]
                                        [--group-ids]
                                        [--location]
@@ -44,24 +45,27 @@ directCommands:
     description: ''
   - isRequired: true
     name: --subnet
-    summary: Name oder ID eines vorhandenen Subnetzes. Geben Sie bei Angabe des Namens auch --vnet-name an. Wenn Sie ein vorhandenes Subnetz in einer anderen Ressourcengruppe oder einem anderen Abonnement verwenden möchten, geben Sie die ID anstelle des Namens des Subnetzes an, und geben Sie nicht --vnet-name an.
+    summary: Name oder ID eines vorhandenen Subnetzes. Wenn der Name angegeben ist, geben Sie auch --vnet-name an. Wenn Sie ein vorhandenes Subnetz in einer anderen Ressourcengruppe oder einem anderen Abonnement verwenden möchten, geben Sie die ID anstelle des Namens des Subnetzes und nicht den Namen --vnet-name an.
     description: ''
   optionalParameters:
+  - name: --edge-zone
+    summary: Der Name der Edgezone.
+    description: ''
   - name: --group-id
-    summary: Die ID der Gruppe, die von der Remoteressource abgerufen wurde, mit der dieser private Endpunkt eine Verbindung herstellen soll. Sie können "az network private-link-resource list" verwenden, um die unterstützten Gruppen-IDs abzurufen. Sie müssen dies mit Ausnahme von PrivateLinkService angeben.
+    summary: Die ID der Gruppe, die von der Remoteressource erhalten wurde, mit der dieser private Endpunkt eine Verbindung herstellen soll. Sie können "az network private-link-resource list" verwenden, um die unterstützten Gruppen-IDs zu erhalten. Sie müssen dies mit Ausnahme von PrivateLinkService bereitstellen.
     description: ''
   - name: --group-ids
-    summary: Die ID der Gruppe, die von der Remoteressource abgerufen wurde, mit der dieser private Endpunkt eine Verbindung herstellen soll. Sie können "az network private-link-resource list" verwenden, um die unterstützten Gruppen-IDs abzurufen. Sie müssen dies mit Ausnahme von PrivateLinkService angeben.
+    summary: Die ID der Gruppe, die von der Remoteressource erhalten wurde, mit der dieser private Endpunkt eine Verbindung herstellen soll. Sie können "az network private-link-resource list" verwenden, um die unterstützten Gruppen-IDs zu erhalten. Sie müssen dies mit Ausnahme von PrivateLinkService bereitstellen.
     description: ''
   - name: --location -l
     summary: 'Der Standort. Werte aus: `az account list-locations`. Sie können den standardmäßig verwendeten Standort mit `az configure --defaults location=<location>` konfigurieren.'
     description: ''
   - name: --manual-request
     parameterValueGroup: false, true
-    summary: Verwenden Sie eine manuelle Anforderung, um die Verbindung herzustellen. Konfigurieren Sie sie als "true", wenn Sie keinen Zugriff auf das Abonnement des Private Link-Diensts haben.
+    summary: Verwenden Sie die manuelle Anforderung, um die Verbindung herzustellen. Konfigurieren Sie sie als "true", wenn Sie keinen Zugriff auf das Abonnement des Private Link-Diensts haben.
     description: ''
   - name: --request-message
-    summary: Eine Meldung, die mit dieser Verbindungsanforderung an den Besitzer der Remoteressource übergeben wird. Auf 140 Zeichen beschränkt.
+    summary: Eine Nachricht, die mit dieser Verbindungsanforderung an den Besitzer der Remoteressource übergeben wird. Auf 140 Zeichen beschränkt.
     description: ''
   - name: --subscription
     summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
@@ -70,7 +74,7 @@ directCommands:
     summary: 'Durch Leerzeichen getrennte Tags: key[=value] [key[=value] ...]. Verwenden Sie "", um vorhandene Tags zu löschen.'
     description: ''
   - name: --vnet-name
-    summary: Das virtuelle Netzwerk (VNET), das dem Subnetz zugeordnet ist (bei Angabe einer Subnetz-ID weglassen).
+    summary: Das virtuelle Netzwerk (VNET), das dem Subnetz zugeordnet ist (weglassen, wenn eine Subnetz-ID angezeigt wird).
     description: ''
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/network/_help.py
 - uid: az_network_private-endpoint_delete
@@ -83,11 +87,11 @@ directCommands:
                                        [--resource-group]
                                        [--subscription]
   examples:
-  - summary: Löscht einen privaten Endpunkt. (automatisch generiert)
+  - summary: Löschen sie einen privaten Endpunkt. (automatisch generiert)
     syntax: az network private-endpoint delete --name MyPrivateEndpoint --resource-group MyResourceGroup
   optionalParameters:
   - name: --ids
-    summary: Eine oder mehrere Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu Ressourcen-ID-Argumenten geben. Sie sollten entweder --ids oder andere Ressourcen-ID-Argumente bereitstellen.
+    summary: Mindestens eine Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen von "Resource Id"-Argumenten sein. Sie sollten entweder --ids oder andere "Resource Id"-Argumente angeben.
     description: ''
   - name: --name -n
     summary: Name des privaten Endpunkts.
@@ -101,7 +105,7 @@ directCommands:
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/network/_help.py
 - uid: az_network_private-endpoint_list
   name: az network private-endpoint list
-  summary: Auflisten privater Endpunkte.
+  summary: Listet private Endpunkte auf.
   description: ''
   syntax: >-
     az network private-endpoint list [--query-examples]
@@ -109,7 +113,7 @@ directCommands:
                                      [--subscription]
   optionalParameters:
   - name: --query-examples
-    summary: Empfehlen Sie die JMESPath-Zeichenfolge. Sie können eine der Abfragen kopieren und nach dem Parameter --query in doppelte Anführungszeichen einfügen, um die Ergebnisse zu sehen. Sie können ein oder mehrere Positionsschlüsselwörter hinzufügen, damit wir basierend auf diesen Schlüsselwörtern Vorschläge machen können.
+    summary: Empfehlen Sie die JMESPath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und sie nach dem Parameter --query in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positionsschlüsselwörter hinzufügen, damit wir basierend auf diesen Schlüsselwörtern Vorschläge geben können.
     description: ''
   - name: --resource-group -g
     summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
@@ -137,7 +141,7 @@ directCommands:
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/network/_help.py
 - uid: az_network_private-endpoint_show
   name: az network private-endpoint show
-  summary: Hier finden Sie die Details eines privaten Endpunkts.
+  summary: Abrufen der Details eines privaten Endpunkts.
   description: ''
   syntax: >-
     az network private-endpoint show [--ids]
@@ -146,17 +150,17 @@ directCommands:
                                      [--resource-group]
                                      [--subscription]
   examples:
-  - summary: Details eines privaten Endpunkts (automatisch generiert)
+  - summary: Abrufen der Details eines privaten Endpunkts (automatisch generiert)
     syntax: az network private-endpoint show --name MyPrivateEndpoint --resource-group MyResourceGroup
   optionalParameters:
   - name: --ids
-    summary: Eine oder mehrere Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu Ressourcen-ID-Argumenten geben. Sie sollten entweder --ids oder andere Ressourcen-ID-Argumente bereitstellen.
+    summary: Mindestens eine Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen von "Resource Id"-Argumenten sein. Sie sollten entweder --ids oder andere "Resource Id"-Argumente angeben.
     description: ''
   - name: --name -n
     summary: Name des privaten Endpunkts.
     description: ''
   - name: --query-examples
-    summary: Empfehlen Sie die JMESPath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und sie nach dem Parameter --query in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positionsschlüsselwörter hinzufügen, damit wir basierend auf diesen Schlüsselwörtern Vorschläge geben können.
+    summary: Empfehlen Sie die JMESPath-Zeichenfolge. Sie können eine der Abfragen kopieren und nach dem Parameter --query in doppelte Anführungszeichen einfügen, um die Ergebnisse zu sehen. Sie können ein oder mehrere Positionsschlüsselwörter hinzufügen, damit wir basierend auf diesen Schlüsselwörtern Vorschläge machen können.
     description: ''
   - name: --resource-group -g
     summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
@@ -193,16 +197,16 @@ directCommands:
     summary: Wenn Sie "set" oder "add" verwenden, behalten Sie Zeichenfolgenliterale bei, anstatt zu versuchen, in JSON zu konvertieren.
     description: ''
   - name: --ids
-    summary: Mindestens eine Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen von "Resource Id"-Argumenten sein. Sie sollten entweder --ids oder andere "Resource Id"-Argumente angeben.
+    summary: Eine oder mehrere Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu Ressourcen-ID-Argumenten geben. Sie sollten entweder --ids oder andere Ressourcen-ID-Argumente bereitstellen.
     description: ''
   - name: --name -n
     summary: Name des privaten Endpunkts.
     description: ''
   - name: --remove
-    summary: 'Entfernen sie eine Eigenschaft oder ein Element aus einer Liste.  Beispiel: --remove property.list <indexToRemove> OR --remove propertyToRemove.'
+    summary: 'Entfernen Sie eine Eigenschaft oder ein Element aus einer Liste.  Beispiel: --remove property.list <indexToRemove> OR --remove propertyToRemove.'
     description: ''
   - name: --request-message
-    summary: Eine Meldung, die mit dieser Verbindungsanforderung an den Besitzer der Remoteressource übergeben wird. Auf 140 Zeichen beschränkt.
+    summary: Eine Nachricht, die mit dieser Verbindungsanforderung an den Besitzer der Remoteressource übergeben wird. Auf 140 Zeichen beschränkt.
     description: ''
   - name: --resource-group -g
     summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
@@ -250,9 +254,9 @@ metadata:
   doc_source_url_repo: https://github.com/Azure/azure-cli/blob/dev/
   ms.date: 04/12/2021
   description: Verwalten privater Endpunkte
-  ms.openlocfilehash: 131383e8246308146525008cb9c3fb5b4eef0428
-  ms.sourcegitcommit: d01260d847ea835a8bbab0e0db73d1b39f5c18ef
+  ms.openlocfilehash: 85233f1aa5c588a742b056ab5ab25d187a9f036c
+  ms.sourcegitcommit: ced987fe078a63b4bbc8dba1295381e9d0a0ce91
   ms.translationtype: MT
   ms.contentlocale: de-DE
-  ms.lasthandoff: 04/13/2021
-  ms.locfileid: "107335280"
+  ms.lasthandoff: 04/20/2021
+  ms.locfileid: "107793785"
