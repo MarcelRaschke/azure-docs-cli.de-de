@@ -4,21 +4,33 @@ description: Enthält Informationen zu den aktuellen Updates der Azure CLI.
 author: dbradish-microsoft
 ms.author: dbradish
 manager: barbkess
-ms.date: 04/13/2021
+ms.date: 04/19/2021
 ms.topic: article
 ms.service: azure-cli
 ms.devlang: azurecli
 ms.custom: devx-track-azurecli
-ms.openlocfilehash: e43ca67adf92db97666a26deda3d0c423d23ead9
-ms.sourcegitcommit: d01260d847ea835a8bbab0e0db73d1b39f5c18ef
+ms.openlocfilehash: a9238658f3f3174caf346364a9668012f4a5a477
+ms.sourcegitcommit: f11f08a8b571d9909044693a8dc52c0cf2e9b2bc
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 04/13/2021
-ms.locfileid: "107355470"
+ms.lasthandoff: 04/19/2021
+ms.locfileid: "107712264"
 ---
 # <a name="azure-cli-release-notes"></a>Versionshinweise für die Azure CLI
 
 # <a name="current-release-notes"></a>[Aktuelle Versionshinweise](#tab/azure-cli)
+
+## <a name="april-19-2021"></a>19. April 2021
+
+Version 2.22.1
+
+### <a name="arm"></a>ARM
+
+* Hotfix: Behebung des Problems, dass der Bicep-Build in Python 3.6 beschädigt wurde
+
+### <a name="key-vault"></a>Key Vault
+
+* Hotfix: Allgemeine Verfügbarkeit von Befehlen und Parametern für verwaltetes HSM
 
 ## <a name="april-13-2021"></a>13. April 2021
 
