@@ -4,21 +4,139 @@ description: Enthält Informationen zu den aktuellen Updates der Azure CLI.
 author: dbradish-microsoft
 ms.author: dbradish
 manager: barbkess
-ms.date: 03/23/2021
+ms.date: 04/13/2021
 ms.topic: article
 ms.service: azure-cli
 ms.devlang: azurecli
 ms.custom: devx-track-azurecli
-ms.openlocfilehash: 2a5dd1e49962a6ab3ed5a1f24761bf4c851a7333
-ms.sourcegitcommit: 936ec07eb1c56e24d8000cc24a2a0e05102e0cf4
+ms.openlocfilehash: e43ca67adf92db97666a26deda3d0c423d23ead9
+ms.sourcegitcommit: d01260d847ea835a8bbab0e0db73d1b39f5c18ef
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 03/23/2021
-ms.locfileid: "104928780"
+ms.lasthandoff: 04/13/2021
+ms.locfileid: "107355470"
 ---
 # <a name="azure-cli-release-notes"></a>Versionshinweise für die Azure CLI
 
 # <a name="current-release-notes"></a>[Aktuelle Versionshinweise](#tab/azure-cli)
+
+## <a name="april-13-2021"></a>13. April 2021
+
+Version 2.22.0
+
+### <a name="acr"></a>ACR
+
+* [BREAKING CHANGE] `az acr connected-registry install info`: Schlüssel ACR_REGISTRY_NAME, ACR_SYNC_TOKEN_NAME, ACR_SYNC_TOKEN_PASSWORD, ACR_PARENT_GATEWAY_ENDPOINT und ACR_PARENT_PROTOCOL durch einen neuen verbundenen Zeichenfolgenschlüssel (ACR_REGISTRY_CONNECTION_STRING) ersetzt
+* [BREAKING CHANGE] `az acr connected-registry install renew-credentials`: Schlüssel ACR_REGISTRY_NAME, ACR_SYNC_TOKEN_NAME, ACR_SYNC_TOKEN_PASSWORD, ACR_PARENT_GATEWAY_ENDPOINT und ACR_PARENT_PROTOCOL durch einen neuen verbundenen Zeichenfolgenschlüssel (ACR_REGISTRY_CONNECTION_STRING) ersetzt
+* `az acr connected-registry create`: Überprüfen Sie vor der Erstellung der Token- und Synchronisierungsbereichszuordnung, ob alle Vorgänger aktiv sind.
+* `az acr connected-registry create`: Fügen Sie bei Bedarf vor der Erstellung der verbundenen Registrierung allen Vorgängern der neuen verbundenen Registrierung die für die Erstellung erforderlichen Repository- und Gatewayberechtigungen hinzu.
+* `az acr connected-registry delete`: Entfernen Sie die Gatewayberechtigungen der gelöschten Ressourcen aus allen Synchronisierungsbereichszuordnungen ihrer Vorgänger.
+* `az acr connected-registry repo`: Neuer Befehl zum Hinzufügen von Repositoryberechtigungen zu einer verbundenen Registrierung und allen Synchronisierungsbereichszuordnungen ihrer Vorgänger sowie zum Entfernen von Repositoryberechtigungen aus der verbundenen Registrierung und allen Synchronisierungsbereichszuordnungen ihrer Nachfolger
+
+### <a name="aks"></a>AKS
+
+* `az aks create`-Unterstützung für die Features `--private-dns-zone` und `--fqdn-subdomain` hinzugefügt
+
+### <a name="app-config"></a>App-Konfiguration
+
+* Konfigurieren der maximalen Zeilenbreite für den YAML-Parser, damit die Ausgabe nicht mehr umgebrochen wird
+* Fehler in der Seitenansicht des Wiederherstellungsbefehls behoben
+
+### <a name="app-service"></a>App Service
+
+* Fehlerbehebung Nr. 17219: Fehler bei der SSL-Bindung behoben
+* Vorschauflag für Python 3.9 im Befehl zum Erstellen einer Funktions-App entfernt
+* Fehlerbehebung: Behandeln, wenn nur ein einzelnes Veröffentlichungsprofil zurückgegeben wird
+* Fehlerbehebung Nr. 16203: „az webapp log tail“ unterstützt unter Linux ausgeführte Web-Apps.
+
+### <a name="arm"></a>ARM
+
+* [BREAKING CHANGE] `az bicep build`: Parameter `--files` in `--file` geändert
+* [BREAKING CHANGE] `az bicep decompile`: Parameter `--files` in `--file` geändert
+* Fehlerbehebung Nr. 17379: Die automatische Bicep-Installation führt zu einer ungültigen JSON-Ausgabe der Bereitstellung.
+* `az bicep build`: Parameter `--outdir` zum Angeben des Ausgabeverzeichnisses hinzugefügt
+* `az bicep build`: Parameter `--outfile` zum Angeben des Ausgabedateipfads hinzugefügt
+* Problem behoben, aufgrund dessen bei der Überprüfung des Versionsupgrades für die Bicep-Befehlszeilenschnittstelle bei Erreichen des GitHub-API-Ratenlimits eine Ausnahme ausgelöst wurde
+* `az policy exemption`: Neue Befehle zur Unterstützung von Richtlinienausnahmen hinzugefügt
+
+### <a name="backup"></a>Backup
+
+* Fehlerbehebung Nr. 14776: Funktionalität des Parameters `--force` für Befehl `az backup vault delete` korrigiert
+* On-Demand-Sicherung korrigiert
+* `az backup protectable-item list`: Optionaler Parameter `--backup-management-type` hinzugefügt
+* Richtlinienerstellung mit „rgNamePrefix“ und „rgNameSuffix“ korrigiert
+* `az backup protectable-item list`: `--server-name` als optionales Argument hinzugefügt
+
+### <a name="compute"></a>Compute
+
+* `az ssh vm`: Unterstützung von VM-SSH mit Dienstprinzipal
+* Option für paralleles VMSS-Upgrade hinzugefügt
+* Neuer Befehl: `vm install-patches`
+* Datenträgerverschlüsselungssatz: `--enable-auto-key-rotation` hinzugefügt
+
+### <a name="container"></a>Container
+
+* Fehlerbehebung Nr. 16499: `az container create`: Behandlung des Rückgabewerts von „network_profiles.create_or_update“ korrigiert
+
+### <a name="cosmos-db"></a>Cosmos DB
+
+* Unterstützung für verwaltete Dienstidentität und Standardidentität
+
+### <a name="eventgrid"></a>EventGrid
+
+* `az eventgrid system-topic create/update`: MSI-Unterstützung hinzugefügt
+* `az eventgrid [partner topic | system-topic] event-subscription`: Unterstützung für StorageQueueMessageTTL, AdvancedFilters, EnableAdvancedFilteringOnArrays hinzugefügt
+* `az eventgrid [partner topic | system-topic] event-subscription`: Unterstützung für Übermittlungsattribut hinzugefügt
+* `az eventgrid topic create`: Unterstützung für das Erstellen eines Themas für azure oder azurearc hinzugefügt
+
+### <a name="interactive"></a>Interactive
+
+* Fehlerbehebung Nr. 16931: `KeyError` in `az interactive --update` behoben
+
+### <a name="netappfiles"></a>NetAppFiles
+
+* `az netappfiles account ad add`: Optionaler Parameter mit dem Namen „allow-local-ldap-users“ hinzugefügt
+* `az netappfiles volume create`: Optionaler Parameter mit dem Namen „ldap-enabled“ hinzugefügt
+* `az netappfiles volume backup status show`: Vorgang hinzugefügt
+* Sicherungstests aktualisiert
+
+### <a name="network"></a>Netzwerk
+
+* `az network vnet-gateway`: Mehrfachwert für `--vpn-auth-type` zulässig
+
+### <a name="packaging"></a>Verpackung
+
+* [BREAKING CHANGE] Von der durch das RPM-Paket installierten az-Komponente wird nun `python3` anstelle der hartcodierten Variante `/usr/bin/python3` verwendet.
+
+### <a name="rdbms"></a>RDBMS
+
+* Zulassen des privaten Datenbankserverzugriffs aus einem anderen Abonnement
+* Servererstellung mit privatem Netzwerk geändert, Fehler im Zusammenhang mit der Wiederherstellungszeit behoben
+
+### <a name="search"></a>Suchen,
+
+* `az search service create`: asynchrone Optionen (--no-wait) hinzugefügt
+* `az search service update`: asynchrone Optionen (--no-wait) hinzugefügt
+* `az search shared-private-link-resource create`: asynchrone Optionen (--no-wait) hinzugefügt
+* `az search shared-private-link-resource update`: asynchrone Optionen (--no-wait) hinzugefügt
+
+### <a name="service-fabric"></a>Service Fabric
+
+* CLI-Befehle für verwaltete Anwendungen hinzugefügt
+
+### <a name="storage"></a>Storage
+
+* `az storage fs directory upload/download`: Unterstützung für den Upload und Download des ADLS Gen2-Dateisystemverzeichnisses
+* `az storage fs file list`: Unterstützung für „--show-next-marker“
+* `az storage share-rm`: Unterstützung für das Erstellen/Anzeigen/Löschen von Momentaufnahmen
+
+### <a name="synapse"></a>Synapse
+
+* [BREAKING CHANGE] `az synapse role assignment create`: Rollennamen in alter Version nicht zulässig (SQL-Administrator, Apache Spark-Administrator, Arbeitsbereichsadministrator)
+* [BREAKING CHANGE] `az synapse role assignment create`: Wenn vom Argument „--assignee“ das Prinzipalobjekt nicht eindeutig bestimmt werden kann, löst der Befehl einen Fehler aus, statt eine Rollenzuweisung für das unsichere Prinzipalobjekt hinzuzufügen.
+* `az synapse role scope list`: Auflisten aller von Synapse unterstützten Bereiche
+* `az synapse role assignment create/list/delete`: Argumente „--scope“, „--item-type“ und „--item“ hinzugefügt, um die bereichsbasierte Verwaltung von Rollenzuweisungen zu unterstützen
+* `az synapse role assignment create/list/delete`: Argument „--assignee-object-id“ hinzugefügt. Mit diesem Objekt wird die Graph-API umgangen und das Prinzipalobjekt eindeutig bestimmt, statt das Prinzipalobjekt mithilfe des Arguments „--assignee“ abzuleiten.
 
 ## <a name="march-23-2021"></a>23. März 2021
 
