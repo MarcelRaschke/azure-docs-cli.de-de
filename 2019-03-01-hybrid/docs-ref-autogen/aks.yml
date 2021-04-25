@@ -4,7 +4,7 @@ name: az aks
 extensionInformation: >-
   > [!Note]
 
-  > Dieser Verweis ist Teil der **aks-preview-Erweiterung** für Azure CLI und erfordert Version 2.0.49 oder höher.  Die Erweiterung wird automatisch installiert, wenn Sie den Befehl **az aks** zum ersten Mal ausführen.  [Weitere Informationen zu Erweiterungen](https://docs.microsoft.com/en-us/cli/azure/azure-cli-extensions-overview)
+  > Dieser Verweis ist Teil der **aks-preview-Erweiterung** für Azure CLI und erfordert Version 2.0.49 oder höher.  Die Erweiterung wird automatisch installiert, wenn Sie zum ersten Mal den **Befehl az aks** ausführen.  [Weitere Informationen zu Erweiterungen](https://docs.microsoft.com/en-us/cli/azure/azure-cli-extensions-overview)
 summary: Verwalten von Azure Kubernetes Services.
 description: ''
 directCommands:
@@ -40,8 +40,8 @@ directCommands:
     description: Fügen Sie dieses Argument hinzu, um an einer bestimmten IP-Adresse zu lauschen.
   - name: --listen-port
     defaultValue: "8001"
-    summary: Der Überwachungsport für das Dashboard.
-    description: Fügen Sie dieses Argument hinzu, wenn der Standardmäßige Lauschenport von einem anderen Prozess verwendet wird oder nicht verfügbar ist.
+    summary: Der Lauschenport für das Dashboard.
+    description: Fügen Sie dieses Argument hinzu, wenn der standardmäßige Lauschenport von einem anderen Prozess verwendet wird oder nicht verfügbar ist.
 - uid: az_aks_create
   name: az aks create
   summary: Erstellen eines neuen Managed Kubernetes-Clusters.
@@ -65,6 +65,7 @@ directCommands:
                   [--appgw-subnet-prefix]
                   [--appgw-watch-namespace]
                   [--assign-identity]
+                  [--assign-kubelet-identity]
                   [--attach-acr]
                   [--auto-upgrade-channel {node-image, none, patch, rapid, stable}]
                   [--client-secret]
@@ -79,6 +80,7 @@ directCommands:
                   [--enable-azure-rbac]
                   [--enable-cluster-autoscaler]
                   [--enable-encryption-at-host {false, true}]
+                  [--enable-fips-image]
                   [--enable-managed-identity]
                   [--enable-node-public-ip]
                   [--enable-pod-identity]
@@ -143,31 +145,31 @@ directCommands:
     syntax: az aks create -g MyResourceGroup -n MyManagedCluster --kubernetes-version 1.13.9
   - summary: Erstellen Sie einen Kubernetes-Cluster mit einem größeren Knotenpool.
     syntax: az aks create -g MyResourceGroup -n MyManagedCluster --node-count 7
-  - summary: Erstellen Sie einen Kubernetes-Cluster mit aktivierter automatischer Clustererklärung.
+  - summary: Erstellen Sie einen Kubernetes-Cluster, für den die automatische Clusterklaler-Funktion aktiviert ist.
     syntax: az aks create -g MyResourceGroup -n MyManagedCluster --kubernetes-version 1.13.9 --node-count 3 --enable-cluster-autoscaler --min-count 1 --max-count 5
-  - summary: Erstellen Sie einen Kubernetes-Cluster mit k8s 1.13.9, verwenden Sie jedoch VMAS.
+  - summary: Erstellen Sie einen Kubernetes-Cluster mit k8s 1.13.9, verwenden Sie jedoch vmas.
     syntax: az aks create -g MyResourceGroup -n MyManagedCluster --kubernetes-version 1.13.9 --vm-set-type AvailabilitySet
-  - summary: Erstellen Sie einen Kubernetes-Cluster mit standardmäßiger Kubernetes-Vesrion, Standard-SKU-Lastenausgleich (Standard) und vm set-Standardtyp (VirtualMachineScaleSets).
+  - summary: Erstellen Sie einen Kubernetes-Cluster mit standard kubernetes vesrion, standard SKU load balancer(standard) und default vm set type(VirtualMachineScaleSets).
     syntax: az aks create -g MyResourceGroup -n MyManagedCluster
-  - summary: Erstellen Sie einen Kubernetes-Cluster mit einem Standard-SKU-Lastenausgleich und zwei AKS-erstellten IPs für die Nutzung ausgehender Verbindungen des Lastenausgleichs.
+  - summary: Erstellen Sie einen Kubernetes-Cluster mit load balancer der Standard-SKU und zwei von AKS erstellten IPs für die Ausgehende Verbindungsnutzung des Lastenausgleichs.
     syntax: az aks create -g MyResourceGroup -n MyManagedCluster --load-balancer-managed-outbound-ip-count 2
-  - summary: Erstellen Sie einen Kubernetes-Cluster mit einem Standard-SKU-Lastenausgleich, und verwenden Sie die bereitgestellten öffentlichen IP-Dateien für die Nutzung ausgehender Verbindungen des Lastenausgleichs.
+  - summary: Erstellen Sie einen Kubernetes-Cluster mit Load Balancer der Standard-SKU, und verwenden Sie die bereitgestellten öffentlichen IPs für die Ausgehende Verbindungsnutzung des Lastenausgleichs.
     syntax: az aks create -g MyResourceGroup -n MyManagedCluster --load-balancer-outbound-ips <ip-resource-id-1,ip-resource-id-2>
-  - summary: Erstellen Sie einen Kubernetes-Cluster mit Load Balancer der Standard-SKU, und verwenden Sie die bereitgestellten Präfixe für öffentliche IP-Adressen für die Ausgehende Verbindungsnutzung des Lastenausgleichs.
+  - summary: Erstellen Sie einen Kubernetes-Cluster mit einem Standard-SKU-Lastenausgleich, und verwenden Sie die bereitgestellten präfixe für öffentliche IP-Adressen für die Nutzung ausgehender Verbindungen des Lastenausgleichs.
     syntax: az aks create -g MyResourceGroup -n MyManagedCluster --load-balancer-outbound-ip-prefixes <ip-prefix-resource-id-1,ip-prefix-resource-id-2>
-  - summary: Erstellen Sie einen Kubernetes-Cluster mit einem Load Balancer der Standard-SKU mit zwei ausgehenden verwalteten AKS-IPs und einem Leerlauffluss-Timeout von 5 Minuten und 8.000 zugeordneten Ports pro Computer.
+  - summary: Erstellen eines Kubernetes-Clusters mit einem Standard-SKU-Lastenausgleich mit zwei ausgehenden verwalteten AKS-IP-Computern mit einem Leerlaufflowtimeout von 5 Minuten und 8.000 zugeordneten Ports pro Computer
     syntax: az aks create -g MyResourceGroup -n MyManagedCluster --load-balancer-managed-outbound-ip-count 2 --load-balancer-idle-timeout 5 --load-balancer-outbound-ports 8000
-  - summary: Erstellen Sie einen Kubernetes-Cluster mit load balancer basic-SKU und dem VM-Settyp AvailabilitySet.
+  - summary: Erstellen Sie einen Kubernetes-Cluster mit basic SKU Load Balancer und dem Vm-Set-Typ AvailabilitySet.
     syntax: az aks create -g MyResourceGroup -n MyManagedCluster --load-balancer-sku basic --vm-set-type AvailabilitySet
   - summary: Erstellen Sie einen Kubernetes-Cluster mit autorisierten APIServer-IP-Adressbereichen.
     syntax: az aks create -g MyResourceGroup -n MyManagedCluster --api-server-authorized-ip-ranges 193.168.1.0/24,194.168.1.0/24,195.168.1.0
-  - summary: Erstellen Sie einen Kubernetes-Cluster mit serverseitiger Verschlüsselung mit Ihrem eigenen Schlüssel.
+  - summary: Erstellen Sie einen Kubernetes-Cluster mit serverseitiger Verschlüsselung unter Verwendung Ihres eigenen Schlüssels.
     syntax: az aks create -g MyResourceGroup -n MyManagedCluster --node-osdisk-diskencryptionset-id <disk-encryption-set-resource-id>
-  - summary: Erstellen eines Kubernetes-Clusters mit userDefinedRouting, einer Load Balancer Standard-SKU und einem benutzerdefinierten Subnetz, das mit einer Routentabelle vorkonfiguriert ist
+  - summary: Erstellen eines Kubernetes-Clusters mit userDefinedRouting, einer Standard-Load Balancer-SKU und einem benutzerdefinierten Subnetz, das mit einer Routingtabelle vorkonfiguriert ist
     syntax: az aks create -g MyResourceGroup -n MyManagedCluster --outbound-type userDefinedRouting --load-balancer-sku standard --vnet-subnet-id customUserSubnetVnetID
-  - summary: Erstellen Sie einen Kubernetes-Cluster mit unterstützenden Windows-Agent-Pools mit aktivierter AHUB-Unterstützung.
+  - summary: Erstellen Sie einen Kubernetes-Cluster mit unterstützenden Windows-Agentpools mit aktivierter AHUB-Funktion.
     syntax: az aks create -g MyResourceGroup -n MyManagedCluster --load-balancer-sku Standard --network-plugin azure --windows-admin-username azure --windows-admin-password 'replacePassword1234$' --enable-ahub
-  - summary: Erstellen Sie einen Kubernetes-Cluster mit aktivierter verwalteter AAD.
+  - summary: Erstellen Sie einen Kubernetes-Cluster mit aktivierter verwalteter AAD-
     syntax: az aks create -g MyResourceGroup -n MyManagedCluster --enable-aad --aad-admin-group-object-ids <id-1,id-2> --aad-tenant-id <id>
   - summary: Erstellen Sie einen Kubernetes-Cluster mit aktiviertem kurzlebigen Betriebssystem.
     syntax: az aks create -g MyResourceGroup -n MyManagedCluster --node-osdisk-type Ephemeral --node-osdisk-size 48
@@ -175,6 +177,8 @@ directCommands:
     syntax: az aks create -g MyResourceGroup -n MyManagedCluster --tags "foo=bar" "baz=qux"
   - summary: Erstellen Sie einen Kubernetes-Cluster mit aktivierter EncryptionAtHost-Funktion.
     syntax: az aks create -g MyResourceGroup -n MyManagedCluster --enable-encryption-at-host
+  - summary: Erstellen Sie einen Kubernetes-Cluster mit benutzerdefinierter Identität auf Steuerungsebene und Kubelet-Identität.
+    syntax: az aks create -g MyResourceGroup -n MyManagedCluster --assign-identity <control-plane-identity-resource-id> --assign-kubelet-identity <kubelet-identity-resource-id>
   requiredParameters:
   - isRequired: true
     name: --name -n
@@ -186,13 +190,13 @@ directCommands:
     description: ''
   optionalParameters:
   - name: --aad-admin-group-object-ids
-    summary: Durch Komma getrennte Liste der Aad-Gruppenobjekt-IDs, die als Clusteradministrator festgelegt werden.
+    summary: Durch Kommas getrennte Liste von AAD-Gruppenobjekt-IDs, die als Clusteradministrator festgelegt werden.
     description: ''
   - name: --aad-client-app-id
-    summary: Die ID einer Azure Active Directory Clientanwendung vom Typ "Nativ". Diese Anwendung ist für die Benutzeranmeldung über kubectl.
+    summary: Die ID einer Azure Active Directory Clientanwendung vom Typ "Nativ". Diese Anwendung ist für die Benutzeranmeldung über kubectl vorgesehen.
     description: ''
   - name: --aad-server-app-id
-    summary: Die ID einer Azure Active Directory Serveranwendung vom Typ "Web-App/API". Diese Anwendung stellt den API-Server (Serveranwendung) des verwalteten Clusters dar.
+    summary: Die ID einer Azure Active Directory Serveranwendung vom Typ "Web-App/API". Diese Anwendung stellt den apiserver (Serveranwendung) des verwalteten Clusters dar.
     description: ''
   - name: --aad-server-app-secret
     summary: Das Geheimnis einer Azure Active Directory Serveranwendung.
@@ -201,7 +205,7 @@ directCommands:
     summary: Die ID eines Azure Active Directory Mandanten.
     description: ''
   - name: --aci-subnet-name
-    summary: Der Name eines Subnetzes in einem vorhandenen VNET, in dem die virtuellen Knoten bereitgestellt werden.
+    summary: Der Name eines Subnetzes in einem vorhandenen VNET, in dem die virtuellen Knoten bereitgestellt werden sollen.
     description: ''
   - name: --admin-username -u
     defaultValue: azureuser
@@ -211,35 +215,38 @@ directCommands:
     summary: Senden von benutzerdefinierten Headern. Wenn angegeben, sollte das Format Key1=Value1,Key2=Value2 sein.
     description: ''
   - name: --api-server-authorized-ip-ranges
-    summary: Kommatrennte Liste der autorisierten APIServer-IP-Adressbereiche. Legen Sie auf 0.0.0.0/32 fest, um apiserver-Datenverkehr auf Knotenpools einzuschränken.
+    summary: Durch Komma getrennte Liste der autorisierten APIServer-IP-Adressbereiche. Legen Sie auf 0.0.0.0/32 fest, um den APIServer-Datenverkehr auf Knotenpools zu beschränken.
     description: ''
   - name: --appgw-id
-    summary: Ressourcen-ID eines vorhandenen Application Gateway, das mit AGIC verwendet werden soll. Verwenden Sie mit ingress-azure addon.
+    summary: Ressourcen-ID eines vorhandenen Application Gateway, der mit AGIC verwendet werden soll. Verwenden Sie mit dem Add-On ingress-azure.
     description: ''
   - name: --appgw-name
-    summary: Name des Anwendungsgateways, das in der Knotenressourcengruppe erstellt/verwendet werden soll. Verwenden Sie mit ingress-azure addon.
+    summary: Name des Anwendungsgateways, das in der Knotenressourcengruppe erstellt/verwendet werden soll. Verwenden Sie mit dem Add-On ingress-azure.
     description: ''
   - name: --appgw-subnet-cidr
-    summary: Subnetz-CIDR, das für ein neues Subnetz verwendet werden soll, das zum Bereitstellen der Application Gateway erstellt wurde. Verwenden Sie mit ingress-azure addon.
+    summary: Subnetz-CIDR, das für ein neues Subnetz verwendet werden soll, das zum Bereitstellen des Application Gateway. Verwenden Sie mit dem Add-On ingress-azure.
     description: ''
   - name: --appgw-subnet-id
-    summary: Ressourcen-ID eines vorhandenen Subnetzes, das zum Bereitstellen der Application Gateway verwendet wird. Verwenden Sie mit ingress-azure addon.
+    summary: Ressourcen-ID eines vorhandenen Subnetzes, das zum Bereitstellen des Application Gateway. Verwenden Sie mit dem Add-On ingress-azure.
     description: ''
   - name: --appgw-subnet-prefix
-    summary: Subnetzpräfix, das für ein neues Subnetz verwendet werden soll, das zum Bereitstellen der Application Gateway erstellt wurde. Verwenden Sie mit ingress-azure addon.
+    summary: Subnetzpräfix, das für ein neues Subnetz verwendet werden soll, das zum Bereitstellen des Application Gateway. Verwenden Sie mit dem Add-On ingress-azure.
     description: ''
   - name: --appgw-watch-namespace
-    summary: Geben Sie den Namespace an, der von AGIC überwacht werden soll. Dabei kann es sich um eine einzelne Zeichenfolge oder eine durch Trennzeichen getrennte Namespaceliste handeln.
+    summary: Geben Sie den Namespace an, den AGIC beobachten soll. Dabei kann es sich um eine einzelne Zeichenfolge oder eine durch Trennzeichen getrennte Namespaceliste handeln.
     description: ''
   - name: --assign-identity
-    summary: (VORSCHAU) Geben Sie eine vorhandene vom Benutzer zugewiesene Identität zum Verwalten der Clusterressourcengruppe an.
+    summary: Geben Sie eine vorhandene vom Benutzer zugewiesene Identität an, um die Clusterressourcengruppe zu verwalten.
+    description: ''
+  - name: --assign-kubelet-identity
+    summary: Geben Sie eine vorhandene vom Benutzer zugewiesene Identität für die Verwendung von Kubelet an, die in der Regel zum Pullen von Images aus ACR verwendet wird.
     description: ''
   - name: --attach-acr
-    summary: Gewähren Sie der ACR die Rollenzuweisung "acrpull", die durch den Namen oder die Ressourcen-ID angegeben wird.
+    summary: Erteilen Sie die Rollenzuweisung "acrpull" dem ACR, der durch den Namen oder die Ressourcen-ID angegeben ist.
     description: ''
   - name: --auto-upgrade-channel
     parameterValueGroup: node-image, none, patch, rapid, stable
-    summary: Geben Sie den Upgradekanal für autoupgrade an. Dies kann schnell, stabil, patchen, node-image oder none sein. Keines bedeutet, dass das automatische Upgrade deaktiviert wird.
+    summary: Geben Sie den Upgradekanal für das automatische Upgrade an. Dies kann schnell, stabil, patch, node-image oder none sein. Keiner bedeutet, dass autoupgrade deaktiviert wird.
     description: ''
   - name: --client-secret
     summary: Dem Dienstprinzipal zugeordnetes Geheimnis Dieses Argument ist erforderlich, wenn `--service-principal` angegeben ist.
@@ -248,34 +255,34 @@ directCommands:
     summary: Durch Leerzeichen getrennte Liste von Schlüssel-Wert-Paaren zum Konfigurieren der automatischen Clusterskalierung. Übergeben Sie eine leere Zeichenfolge, um das Profil zu löschen.
     description: ''
   - name: --disable-rbac
-    summary: Deaktivieren Sie Kubernetes Role-Based Access Control.
+    summary: Deaktivieren Sie kubernetes Role-Based Access Control.
     description: ''
   - name: --dns-name-prefix -p
-    summary: Präfix für hostnames, die erstellt werden. Wenn nichts angegeben ist, generieren Sie einen Hostnamen mithilfe der Namen des verwalteten Clusters und der Ressourcengruppe.
+    summary: Präfix für hostnames, die erstellt werden. Wenn kein Hostname angegeben ist, generieren Sie einen Hostnamen mithilfe des verwalteten Clusters und der Ressourcengruppennamen.
     description: ''
   - name: --dns-service-ip
     summary: IP-Adresse, die dem Kubernetes-DNS-Dienst zugewiesen ist
-    description: 'Diese Adresse muss innerhalb des Kubernetes-Dienstadressenbereichs liegen, der durch "--service-cidr" angegeben wird. Beispiel: 10.0.0.10.'
+    description: 'Diese Adresse muss innerhalb des von "--service-cidr" angegebenen Kubernetes-Dienstadressbereichs liegen. Beispiel: 10.0.0.10.'
   - name: --docker-bridge-address
-    summary: Eine bestimmte IP-Adresse und Netzmaske für die Docker-Brücke unter Verwendung der CIDR-Standard notation.
-    description: 'Diese Adresse darf sich nicht in Subnetz-IP-Adressbereichen oder im Kubernetes-Dienstadressenbereich befinden. Beispiel: 172.17.0.1/16.'
+    summary: Eine bestimmte IP-Adresse und Netzmaske für die Docker-Brücke unter Verwendung der STANDARD-CIDR-Notation.
+    description: 'Diese Adresse darf sich nicht in Subnetz-IP-Adressbereichen oder im Kubernetes-Dienstadressbereich befinden. Beispiel: 172.17.0.1/16.'
   - name: --enable-aad
     summary: Aktivieren Sie das verwaltete AAD-Feature für cluster.
     description: ''
   - name: --enable-addons -a
     summary: Aktivieren der Kubernetes-Add-Ons in einer kommagetrennten Liste
     description: >-
-      Diese Add-Ons sind verfügbar: http_application_routing : Konfigurieren Sie den Ein- und Einsing mit automatischer Erstellung öffentlicher DNS-Namen.
+      Diese Add-Ons sind verfügbar: http_application_routing : Konfigurieren Des Eingangs mit automatischer Erstellung des öffentlichen DNS-Namens.
 
-      Überwachung: Aktivieren Sie die Log Analytics-Überwachung. Verwendet den Log Analytics-Standardarbeitsbereich, sofern vorhanden, ander denn, er erstellt einen. Geben Sie "--workspace-resource-id" an, um einen vorhandenen Arbeitsbereich zu verwenden.
+      Überwachung: Aktivieren Sie die Log Analytics-Überwachung. Verwendet den Log Analytics-Standardarbeitsbereich, sofern vorhanden, andernfalls wird ein Arbeitsbereich erstellt. Geben Sie "--workspace-resource-id" an, um einen vorhandenen Arbeitsbereich zu verwenden.
 
-      Wenn das Überwachungs-Add-On aktiviert ist– das Argument no-wait hat keine Auswirkungen auf virtuelle Knoten – aktivieren Sie den virtuellen AKS-Knoten. Erfordert --aci-subnet-name, um den Namen eines vorhandenen Subnetzes für den zu verwendenden virtuellen Knoten angeben zu können.
+      Wenn das Überwachungs-Add-On aktiviert ist und das Argument --no-wait keine Auswirkung auf virtual-node hat, aktivieren Sie den virtuellen AKS-Knoten. Erfordert --aci-subnet-name, um den Namen eines vorhandenen Subnetzes anzugeben, das der virtuelle Knoten verwenden soll.
 
-      aci-subnet-name muss sich im gleichen VNET befinden, das auch durch --vnet-subnet-id angegeben wird (erforderlich).
+      aci-subnet-name muss sich im gleichen VNET befinden, das auch durch --vnet-subnet-id angegeben wird (ebenfalls erforderlich).
 
-      azure-policy: Aktivieren Sie Azure Policy. Das Azure Policy-Add-On für AKS ermöglicht zentrale und konsistente Erzwingungen und Schutzmaßnahmen in Ihren Clustern.
+      azure-policy: Aktivieren Sie Azure Policy. Das Azure Policy-Add-On für AKS ermöglicht zentrale, konsistente Erzwingungen und Sicherheitsvorkehrungen für Ihre Cluster.
 
-      Weitere Informationen finden Sie aka.ms/aks/policy.
+      Weitere Informationen finden Sie unter aka.ms/aks/policy.
 
       ingress-appgw: Aktivieren Sie Application Gateway Eingangscontroller-Add-On (VORSCHAU).
 
@@ -298,6 +305,9 @@ directCommands:
   - name: --enable-encryption-at-host
     parameterValueGroup: false, true
     summary: Aktivieren Sie EncryptionAtHost im Agentknotenpool.
+    description: ''
+  - name: --enable-fips-image
+    summary: Verwenden Sie das FIPS-fähige Betriebssystem auf Agentknoten.
     description: ''
   - name: --enable-managed-identity
     defaultValue: "1"
@@ -354,12 +364,12 @@ directCommands:
     description: Gewünschte Anzahl von verwalteten ausgehenden IPs für ausgehende Load Balancer-Verbindungen. Gilt nur für Load Balancer-Cluster der Standard-SKU.
   - name: --load-balancer-outbound-ip-prefixes
     summary: Ressourcen-IDs für ausgehende IP-Präfixe des Lastenausgleichs.
-    description: Durch Komma getrennte Öffentliche IP-Präfixressourcen-IDs für ausgehende Load Balancer-Verbindungen. Gilt nur für Load Balancer-Cluster der Standard-SKU.
+    description: Durch Komma getrennte öffentliche IP-Präfixressourcen-IDs für ausgehende Load Balancer-Verbindungen. Gilt nur für Load Balancer-Cluster der Standard-SKU.
   - name: --load-balancer-outbound-ips
     summary: Ausgehende IP-Ressourcen-IDs des Lastenausgleichs.
-    description: Durch Komma getrennte öffentliche IP-Ressourcen-IDs für ausgehende Load Balancer-Verbindungen. Gilt nur für Load Balancer-Cluster der Standard-SKU.
+    description: Durch Kommas getrennte öffentliche IP-Ressourcen-IDs für ausgehende Lastenausgleichsverbindungen. Gilt nur für Load Balancer-Cluster der Standard-SKU.
   - name: --load-balancer-outbound-ports
-    summary: Ausgehende zugeordnete Ports des Lastenausgleichs.
+    summary: Ausgehend zugewiesene Ports des Lastenausgleichs.
     description: Gewünschte statische Anzahl von ausgehenden Ports pro VM im Back-End-Pool des Lastenausgleichs. Legen Sie standardmäßig auf 0 fest, wobei die Standardzuordnung basierend auf der Anzahl der VMs verwendet wird. Geben Sie einen Wert im Bereich [0, 64000] an, der ein Vielfaches von 8 ist.
   - name: --load-balancer-sku
     summary: Azure Load Balancer SKU-Auswahl für Ihren Cluster. basic oder standard.
@@ -390,7 +400,7 @@ directCommands:
       Der Standardwert ist "" (Netzwerkrichtlinie deaktiviert).
   - name: --no-ssh-key -x
     summary: Keinen lokalen SSH-Schlüssel verwenden oder erstellen
-    description: Verwenden Sie das Azure-Portal, um nach dem Erstellen eines Clusters mit dieser Option auf Knoten zuzugreifen.
+    description: Verwenden Sie das Azure-Portal, um nach dem Erstellen eines Clusters mit dieser Option auf Knoten zu zugreifen.
   - name: --no-wait
     summary: Nicht auf den Abschluss lang andauernder Vorgänge warten
     description: ''
@@ -422,7 +432,7 @@ directCommands:
     summary: (--node-zones ist veraltet, verwenden Sie --zones.) Durch Leerzeichen getrennte Liste der Verfügbarkeitszonen, in denen Agent-Knoten platziert werden.
     description: ''
   - name: --nodepool-labels
-    summary: 'Durch Leerzeichen getrennte Bezeichnungen: key[=value] [key[=value] ...]. Sie können die Knotenbezeichnungen nach der Erstellung nicht über die CLI ändern. Informationen https://aka.ms/node-labels zur Syntax von Bezeichnungen finden Sie unter .'
+    summary: 'Durch Leerzeichen getrennte Bezeichnungen: key[=value] [key[=value] ...]. Sie können die Knotenbezeichnungen nach der Erstellung nicht über die CLI ändern. Informationen zur Syntax von Bezeichnungen finden Sie https://aka.ms/node-labels unter .'
     description: ''
   - name: --nodepool-name
     defaultValue: nodepool1
@@ -434,7 +444,7 @@ directCommands:
   - name: --outbound-type
     parameterValueGroup: loadBalancer, userDefinedRouting
     summary: Wie ausgehender Datenverkehr für einen Cluster konfiguriert wird.
-    description: Wählen Sie zwischen loadBalancer und userDefinedRouting aus. Wenn nicht festgelegt, wird standardmäßig loadBalancereingestellt. Erfordert, dass --vnet-subnet-id mit einer vorkonfigurierten Routentabelle und --load-balancer-sku als Standard bereitgestellt wird.
+    description: Wählen Sie zwischen loadBalancer und userDefinedRouting aus. Wenn diese Einstellung nicht festgelegt ist, gibt standardmäßig loadBalancer ein. Erfordert, dass "--vnet-subnet-id" mit einer vorkonfigurierten Routingtabelle bereitgestellt wird und "--load-balancer-sku" standard ist.
   - name: --pod-cidr
     summary: IP-Bereich in CIDR-Notation, über den Pod-IPs zugewiesen werden, wenn kubenet verwendet wird
     description: 'Dieser Bereich darf sich nicht mit Subnetz-IP-Adressbereichen überschneiden. Beispiel: 172.244.0.0/16.'
@@ -476,7 +486,7 @@ directCommands:
     summary: Benutzerkontokennwort, das auf Windows-Knoten-VMs verwendet werden soll.
     description: >-
       Regeln für windows-admin-password:
-          - Mindestlänge: 8 Zeichen
+          - Mindestlänge: 14 Zeichen
           - Maximale Länge: 123 Zeichen
           - Komplexitätsanforderungen: 3 von 4 bedingungen unten müssen erfüllt sein.
             * Hat Kleinzeichen
@@ -494,7 +504,7 @@ directCommands:
           - Mindestlänge: 1 Zeichen
           - Maximale Länge: 20 Zeichen Referenz: https://docs.microsoft.com/en-us/dotnet/api/microsoft.azure.management.compute.models.virtualmachinescalesetosprofile.adminusername?view=azure-dotnet .
   - name: --workspace-resource-id
-    summary: Ressourcen-ID eines vorhandenen Log Analytics-Arbeitsbereichs zum Speichern von Überwachungsdaten Wenn kein Wert angegeben wird, wird der Log Analytics-Standardarbeitsbereich verwendet, sofern vorhanden. Andernfalls wird ein Arbeitsbereich erstellt.
+    summary: Ressourcen-ID eines vorhandenen Log Analytics-Arbeitsbereichs zum Speichern von Überwachungsdaten Wenn nicht angegeben, wird der Log Analytics-Standardarbeitsbereich verwendet, sofern vorhanden. Andernfalls wird ein Arbeitsbereich erstellt.
     description: ''
   - name: --yes -y
     summary: Nicht zur Bestätigung auffordern
@@ -514,7 +524,7 @@ directCommands:
   requiredParameters:
   - isRequired: true
     name: --addons -a
-    summary: Deaktivieren Sie die Kubernetes-Add-Ons in einer durch Komma getrennten Liste.
+    summary: Deaktivieren Sie die Kubernetes-Add-Ons in einer durch Kommas getrennten Liste.
     description: ''
   - isRequired: true
     name: --name -n
@@ -586,7 +596,7 @@ directCommands:
     description: ''
   optionalParameters:
   - name: --appgw-id
-    summary: Ressourcen-ID eines vorhandenen Application Gateway, das mit AGIC verwendet werden soll. Verwenden Sie mit ingress-azure addon.
+    summary: Ressourcen-ID eines vorhandenen Application Gateway, der mit AGIC verwendet werden soll. Verwenden Sie mit dem Add-On ingress-azure.
     description: ''
   - name: --appgw-name
     summary: Name des Anwendungsgateways, das in der Knotenressourcengruppe erstellt/verwendet werden soll. Verwenden Sie mit dem Add-On ingress-azure.
@@ -644,7 +654,7 @@ directCommands:
     description: ''
   optionalParameters:
   - name: --admin -a
-    summary: 'Erhalten Sie Anmeldeinformationen für den Clusteradministrator.  Standardeinstellung: Anmeldeinformationen für Clusterbenutzer.'
+    summary: 'Erhalten Sie Anmeldeinformationen für den Clusteradministrator.  Standard: Anmeldeinformationen für Clusterbenutzer.'
     description: ''
   - name: --context
     summary: Wenn angegeben, überschreiben Sie den Standardkontextnamen.
@@ -732,11 +742,11 @@ directCommands:
     syntax: az aks kollect -g MyResourceGroup -n MyManagedCluster --storage-account MyStorageAccount --sas-token "MySasToken"
   - summary: mithilfe der Ressourcen-ID einer Speicherkontoressource, deren Eigentümer Sie sind.
     syntax: az aks kollect -g MyResourceGroup -n MyManagedCluster --storage-account "MyStoreageAccountResourceId"
-  - summary: verwenden sie das Storagea-Konto in den Diagnoseeinstellungen für Ihren verwalteten Cluster.
+  - summary: Verwenden sie das Speicherkonto in den Diagnoseeinstellungen für Ihren verwalteten Cluster.
     syntax: az aks kollect -g MyResourceGroup -n MyManagedCluster
-  - summary: Passen Sie die zu erfassende Containerprotokolle an.
+  - summary: Passen Sie die zu erfassenden Containerprotokolle an.
     syntax: az aks kollect -g MyResourceGroup -n MyManagedCluster --container-logs "mynamespace1/mypod1 myns2"
-  - summary: Passen Sie die kubernetes-Objekte an, die erfasst werden sollen.
+  - summary: Passen Sie die zu sammelnden Kubernetes-Objekte an.
     syntax: az aks kollect -g MyResourceGroup -n MyManagedCluster --kube-objects "mynamespace1/service myns2/deployment/deployment1"
   - summary: Passen Sie die zu erfassenden Knotenprotokolldateien an.
     syntax: az aks kollect -g MyResourceGroup -n MyManagedCluster --node-logs "/var/log/azure-vnet.log /var/log/azure-vnet-ipam.log"
@@ -922,6 +932,7 @@ directCommands:
                   [--tags]
                   [--update-cluster-autoscaler]
                   [--uptime-sla]
+                  [--windows-admin-password]
                   [--yes]
   examples:
   - summary: Aktivieren der automatischen Clusterskalierung innerhalb des Knotenanzahlbereichs [1,5]
@@ -942,7 +953,7 @@ directCommands:
     syntax: az aks update -g MyResourceGroup -n MyManagedCluster --load-balancer-outbound-ip-prefixes <ip-prefix-resource-id-1,ip-prefix-resource-id-2>
   - summary: Aktualisieren eines Kubernetes-Clusters mit zwei ausgehenden verwalteten AKS-IP-Computern mit einem Leerlaufflowtimeout von 5 Minuten und 8.000 zugewiesenen Ports pro Computer
     syntax: az aks update -g MyResourceGroup -n MyManagedCluster --load-balancer-managed-outbound-ip-count 2 --load-balancer-idle-timeout 5 --load-balancer-outbound-ports 8000
-  - summary: Aktualisieren Sie einen Kubernetes-Cluster mit autorisierten APIServer-IP-Adressbereichen.
+  - summary: Aktualisieren Sie einen Kubernetes-Cluster mit autorisierten APIServer-IP-Bereichen.
     syntax: az aks update -g MyResourceGroup -n MyManagedCluster --api-server-authorized-ip-ranges 193.168.1.0/24,194.168.1.0/24
   - summary: Deaktivieren Sie die Funktion für autorisierte APIServer-IP-Adressbereiche für einen Kubernetes-Cluster.
     syntax: az aks update -g MyResourceGroup -n MyManagedCluster --api-server-authorized-ip-ranges ""
@@ -952,11 +963,11 @@ directCommands:
     syntax: az aks update -g MyResourceGroup -n MyManagedCluster --aad-admin-group-object-ids <id-1,id-2> --aad-tenant-id <id>
   - summary: Migrieren sie einen AKS-AAD-Integrated-Cluster oder einen Nicht-AAAAD-Cluster zu einem von AKS verwalteten AAD-Cluster.
     syntax: az aks update -g MyResourceGroup -n MyManagedCluster --enable-aad --aad-admin-group-object-ids <id-1,id-2> --aad-tenant-id <id>
-  - summary: Aktivieren sie die Leistung von Azure-Hybridbenutzervorteilen für einen Kubernetes-Cluster.
+  - summary: Aktivieren Sie die Azure Hybrid User Benefits-Featture für einen Kubernetes-Cluster.
     syntax: az aks update -g MyResourceGroup -n MyManagedCluster --enable-ahub
-  - summary: Deaktivieren Sie die Leistung von Azure-Hybridbenutzervorteilen für einen Kubernetes-Cluster.
+  - summary: Deaktivieren Sie die Azure Hybrid User Benefits-Featture für einen Kubernetes-Cluster.
     syntax: az aks update -g MyResourceGroup -n MyManagedCluster --disable-ahub
-  - summary: Aktualisieren Sie den Cluster, um die vom System zugewiesene verwaltete Identität auf steuerungsebene zu verwenden.
+  - summary: Aktualisieren Sie den Cluster so, dass er die vom System zugewiesene verwaltete Identität auf Steuerungsebene verwendet.
     syntax: az aks update -g MyResourceGroup -n MyManagedCluster --enable-managed-identity
   - summary: Aktualisieren Sie den Cluster so, dass er eine vom Benutzer zugewiesene verwaltete Identität auf Steuerungsebene verwendet.
     syntax: az aks update -g MyResourceGroup -n MyManagedCluster --enable-managed-identity --assign-identity <user_assigned_identity_resource_id>
@@ -966,6 +977,8 @@ directCommands:
     syntax: az aks update -g MyResourceGroup -n MyManagedCluster --disable-pod-identity
   - summary: Aktualisieren der Tags eines Kubernetes-Clusters
     syntax: az aks update -g MyResourceGroup -n MyManagedCLuster --tags "foo=bar" "baz=qux"
+  - summary: Aktualisieren des Windows-Kennworts eines Kubernetes-Clusters
+    syntax: az aks update -g MyResourceGroup -n MyManagedCLuster --windows-admin-password "Repl@cePassw0rd12345678"
   requiredParameters:
   - isRequired: true
     name: --name -n
@@ -992,7 +1005,7 @@ directCommands:
     summary: (VORSCHAU) Geben Sie eine vorhandene vom Benutzer zugewiesene Identität an, um die Clusterressourcengruppe zu verwalten.
     description: ''
   - name: --attach-acr
-    summary: Erteilen Sie der ACR- die Rollenzuweisung "acrpull", die durch den Namen oder die Ressourcen-ID angegeben ist.
+    summary: Erteilen Sie die Rollenzuweisung "acrpull" dem ACR, der durch den Namen oder die Ressourcen-ID angegeben ist.
     description: ''
   - name: --auto-upgrade-channel
     parameterValueGroup: node-image, none, patch, rapid, stable
@@ -1002,13 +1015,13 @@ directCommands:
     summary: Durch Leerzeichen getrennte Liste von Schlüssel-Wert-Paaren zum Konfigurieren der automatischen Clusterskalierung. Übergeben Sie eine leere Zeichenfolge, um das Profil zu löschen.
     description: ''
   - name: --detach-acr
-    summary: Deaktivieren Sie die Rollenzuweisung "acrpull" zu der ACR,die durch den Namen oder die Ressourcen-ID angegeben ist.
+    summary: Deaktivieren Sie die Rollenzuweisung "acrpull" für den ACR, der anhand des Namens oder der Ressourcen-ID angegeben wird.
     description: ''
   - name: --disable-ahub
     summary: Deaktivieren Sie das Feature Azure Hybrid User Benefits (AHUB) für Cluster.
     description: ''
   - name: --disable-cluster-autoscaler -d
-    summary: Deaktivieren Sie die automatische Clusterskaliererung.
+    summary: Deaktivieren Sie die automatische Clusterskalierung.
     description: ''
   - name: --disable-pod-identity
     summary: (VORSCHAU) Deaktivieren Sie das Podidentitäts-Add-On für den Cluster.
@@ -1047,14 +1060,14 @@ directCommands:
     summary: Leerlauftimeout des Lastenausgleichs in Minuten.
     description: Gewünschtes Leerlauftimeout für ausgehende Datenflüsse des Lastenausgleichs. Der Standardwert ist 30 Minuten. Geben Sie einen Wert im Bereich von [4, 100] an.
   - name: --load-balancer-managed-outbound-ip-count
-    summary: Anzahl der vom Lastenausgleich verwalteten ausgehenden IP-Adressen.
-    description: Gewünschte Anzahl von verwalteten ausgehenden IPs für ausgehende Load Balancer-Verbindungen. Gilt nur für Load Balancer-Cluster der Standard-SKU. Wenn sie aktualisiert wird, wird die vorhandene Einstellung für die Anzahl der vom Load Balancer verwalteten ausgehenden IP-Adressen gelöscht. Ip-Ressourcen-IDs für ausgehenden Lastenausgleich und Ip-Präfixressourcen-IDs für ausgehenden Lastenausgleich.
+    summary: Die Anzahl ausgehender IP-Adressen wurde vom Lastenausgleich verwaltet.
+    description: Gewünschte Anzahl von verwalteten ausgehenden IPs für ausgehende Load Balancer-Verbindungen. Gilt nur für Load Balancer-Cluster der Standard-SKU. Wenn sie aktualisiert wird, wird die vorhandene Einstellung für die von Load Balancer verwaltete Anzahl ausgehender IP-Adressen zurückgelöscht. Ausgehende IP-Ressourcen-IDs des Lastenausgleichs und Ressourcen-IDs für ausgehende IP-Präfixe des Lastenausgleichs.
   - name: --load-balancer-outbound-ip-prefixes
     summary: Ressourcen-IDs für ausgehende IP-Präfixe des Lastenausgleichs.
-    description: Durch Komma getrennte Öffentliche IP-Präfixressourcen-IDs für ausgehende Load Balancer-Verbindungen. Gilt nur für Load Balancer-Cluster der Standard-SKU. Wenn dies aktualisiert wird, wird die vorhandene Einstellung für die von Load Balancer verwaltete Anzahl ausgehender IP-Adressen zurückgelöscht. Ausgehende IP-Ressourcen-IDs des Lastenausgleichs und Ressourcen-IDs für ausgehende IP-Präfixe des Lastenausgleichs
+    description: Durch Komma getrennte öffentliche IP-Präfixressourcen-IDs für ausgehende Load Balancer-Verbindungen. Gilt nur für Load Balancer-Cluster der Standard-SKU. Wenn sie aktualisiert wird, wird die vorhandene Einstellung für die von Load Balancer verwaltete Anzahl ausgehender IP-Adressen zurückgelöscht. Ausgehende IP-Ressourcen-IDs des Lastenausgleichs und Ressourcen-IDs für ausgehende IP-Präfixe des Lastenausgleichs.
   - name: --load-balancer-outbound-ips
     summary: Ausgehende IP-Ressourcen-IDs des Lastenausgleichs.
-    description: Durch Komma getrennte öffentliche IP-Ressourcen-IDs für ausgehende Load Balancer-Verbindungen. Gilt nur für Load Balancer-Cluster der Standard-SKU. Wenn dies aktualisiert wird, wird die vorhandene Einstellung für die von Load Balancer verwaltete Anzahl ausgehender IP-Adressen zurückgelöscht. Ausgehende IP-Ressourcen-IDs des Lastenausgleichs und Ressourcen-IDs für ausgehende IP-Präfixe des Lastenausgleichs
+    description: Durch Komma getrennte öffentliche IP-Ressourcen-IDs für ausgehende Load Balancer-Verbindungen. Gilt nur für Load Balancer-Cluster der Standard-SKU. Wenn sie aktualisiert wird, wird die vorhandene Einstellung für die von Load Balancer verwaltete Anzahl ausgehender IP-Adressen zurückgelöscht. Ausgehende IP-Ressourcen-IDs des Lastenausgleichs und Ressourcen-IDs für ausgehende IP-Präfixe des Lastenausgleichs.
   - name: --load-balancer-outbound-ports
     summary: Ausgehende zugeordnete Ports des Lastenausgleichs.
     description: Gewünschte statische Anzahl ausgehender Ports pro VM im Back-End-Pool des Lastenausgleichs. Legen Sie standardmäßig auf 0 fest. Dabei wird die Standardzuordnung basierend auf der Anzahl der VMs verwendet. Geben Sie einen Wert im Bereich von [0, 64000] an, der ein Vielfaches von 8 ist.
@@ -1074,11 +1087,24 @@ directCommands:
     summary: Die Tags des verwalteten Clusters. Die verwaltete Clusterinstanz und alle vom Cloudanbieter verwalteten Ressourcen werden gekennzeichnet.
     description: ''
   - name: --update-cluster-autoscaler -u
-    summary: Aktualisieren Sie min-count oder max-count für die automatische Clusterskaliererung.
+    summary: Aktualisieren Sie "min-count" oder "max-count" für die automatische Clusterskalierung.
     description: ''
   - name: --uptime-sla
     summary: Aktivieren Sie einen kostenpflichtigen verwalteten Clusterdienst mit einer finanziellen SLA.
     description: ''
+  - name: --windows-admin-password
+    summary: Benutzerkontokennwort, das auf Windows-Knoten-VMs verwendet werden soll.
+    description: >-
+      Regeln für windows-admin-password:
+          - Mindestlänge: 14 Zeichen
+          - Maximale Länge: 123 Zeichen
+          - Komplexitätsanforderungen: Drei von vier Bedingungen unten müssen erfüllt sein.
+            * Weist niedrigere Zeichen auf
+            * Verfügt über Oberzeichen
+            * Hat eine Ziffer
+            * Hat ein Sonderzeichen (RegEx-Übereinstimmung [W_])
+          - Unzulässige Werte: abc@123 " ", "P@$$w 0rd", P@ssw0rd ", " P@ssword123 ", "Pa$$word", " pass@word1 ", "Password!", "Password1", "Password22", "usernameveyou!"
+      Referenz: https://docs.microsoft.com/en-us/dotnet/api/microsoft.azure.management.compute.models.virtualmachinescalesetosprofile.adminpassword?view=azure-dotnet.
   - name: --yes -y
     summary: Nicht zur Bestätigung auffordern
     description: ''
@@ -1109,7 +1135,7 @@ directCommands:
     summary: Senden von benutzerdefinierten Headern. Wenn angegeben, sollte das Format Key1=Value1,Key2=Value2 sein.
     description: ''
   - name: --control-plane-only
-    summary: Aktualisieren Sie nur die Clustersteuerungsebene. Wenn keine Angabe erfolgt, wird die Steuerungsebene UND alle Knotenpools aktualisiert.
+    summary: Aktualisieren Sie nur die Clustersteuerungsebene. Wenn nichts angegeben wird, werden die Steuerungsebene UND alle Knotenpools aktualisiert.
     description: ''
   - name: --kubernetes-version -k
     summary: Version von Kubernetes, auf die der Cluster aktualisiert werden soll, z.B. "1.11.12".
@@ -1126,7 +1152,7 @@ directCommands:
     description: ''
 - uid: az_aks_use-dev-spaces
   name: az aks use-dev-spaces
-  summary: Verwenden Sie Azure Dev Spaces mit einem verwalteten Kubernetes-Cluster.
+  summary: Verwenden Azure Dev Spaces mit einem verwalteten Kubernetes-Cluster.
   description: ''
   syntax: >-
     az aks use-dev-spaces --name
@@ -1136,13 +1162,13 @@ directCommands:
                           [--update]
                           [--yes]
   examples:
-  - summary: Verwenden Sie Azure Dev Spaces mit einem verwalteten Kubernetes-Cluster, und wählen Sie interaktiv einen Entwicklungsbereich aus.
+  - summary: Verwenden Azure Dev Spaces mit einem verwalteten Kubernetes-Cluster und interaktiver Auswahl eines Entwicklungraums.
     syntax: az aks use-dev-spaces -g my-aks-group -n my-aks
-  - summary: Verwenden Sie Azure Dev Spaces mit einem verwalteten Kubernetes-Cluster, aktualisieren Sie auf die neuesten Azure Dev Spaces Clientkomponenten, und wählen Sie einen neuen oder vorhandenen Entwicklungsbereich "my-space" aus.
+  - summary: Verwenden Azure Dev Spaces mit einem verwalteten Kubernetes-Cluster, Aktualisieren auf die neuesten Azure Dev Spaces-Clientkomponenten und Auswählen eines neuen oder vorhandenen Entwicklungraums "my-space".
     syntax: az aks use-dev-spaces -g my-aks-group -n my-aks --update --space my-space
-  - summary: Verwenden Sie Azure Dev Spaces mit einem verwalteten Kubernetes-Cluster, und wählen Sie einen neuen oder vorhandenen Entwicklungsbereich "develop/my-space" aus, ohne zur Bestätigung aufzufordern.
+  - summary: Verwenden Azure Dev Spaces mit einem verwalteten Kubernetes-Cluster, und wählen Sie einen neuen oder vorhandenen Entwicklungraum "develop/my-space" aus, ohne zur Bestätigung aufgefordert zu werden.
     syntax: az aks use-dev-spaces -g my-aks-group -n my-aks -s develop/my-space -y
-  - summary: Verwenden Sie Azure Dev Spaces mit einem verwalteten Kubernetes-Cluster mit einem privaten Endpunkt.
+  - summary: Verwenden Azure Dev Spaces mit einem verwalteten Kubernetes-Cluster mit einem privaten Endpunkt.
     syntax: az aks use-dev-spaces -g my-aks-group -n my-aks -e private
   requiredParameters:
   - isRequired: true
@@ -1157,20 +1183,20 @@ directCommands:
   - name: --endpoint -e
     defaultValue: Public
     parameterValueGroup: None, Private, Public
-    summary: Der Endpunkttyp, der für einen Azure Dev Spaces Controller verwendet werden soll. Weitere Informationen finden Sie unter https://aka.ms/azds-networking.
+    summary: Der Endpunkttyp, der für einen Azure Dev Spaces werden soll. Weitere Informationen finden Sie unter https://aka.ms/azds-networking.
     description: ''
   - name: --space -s
-    summary: Name des neuen oder vorhandenen Entwicklungsbereichs, der ausgewählt werden soll. Standardmäßig wird eine interaktive Auswahlerfahrung verwendet.
+    summary: Name des neuen oder vorhandenen Entwicklungraums, der ausgewählt werden soll. Standardmäßig wird eine interaktive Auswahlerfahrung verwendet.
     description: ''
   - name: --update
-    summary: Aktualisieren Sie auf die neuesten Azure Dev Spaces Clientkomponenten.
+    summary: Aktualisieren Sie auf die Azure Dev Spaces Clientkomponenten.
     description: ''
   - name: --yes -y
     summary: Nicht zur Bestätigung auffordern Erfordert --space.
     description: ''
 - uid: az_aks_wait
   name: az aks wait
-  summary: Warten Sie, bis ein verwalteter Kubernetes-Cluster den gewünschten Zustand erreicht.
+  summary: Warten Sie, bis ein verwalteter Kubernetes-Cluster den gewünschten Zustand erreicht hat.
   description: Wenn ein Vorgang in einem Cluster unterbrochen oder mit gestartet wurde, verwenden Sie diesen Befehl, um zu `--no-wait` warten, bis er abgeschlossen ist.
   syntax: >-
     az aks wait --name
@@ -1204,7 +1230,7 @@ directCommands:
     summary: "Warten Sie, bis die Bedingung eine benutzerdefinierte JMESPath-Abfrage erfüllt. Beispiel: provisioningState!='InProgress', instanceView.statuses[?code=='PowerState/running']."
     description: ''
   - name: --deleted
-    summary: Warten Sie, bis sie gelöscht wurde.
+    summary: Warten Sie, bis gelöscht wurde.
     description: ''
   - name: --exists
     summary: Warten Sie, bis die Ressource vorhanden ist.
@@ -1218,7 +1244,7 @@ directCommands:
     summary: Maximale Wartezeit in Sekunden.
     description: ''
   - name: --updated
-    summary: Warten Sie, bis provisioningState auf "Succeeded" aktualisiert wurde.
+    summary: Warten Sie, bis das Update mit provisioningState unter "Succeeded" (Erfolgreich) ausgeführt wurde.
     description: ''
 commands:
 - az_aks_app
@@ -1285,9 +1311,9 @@ globalParameters:
   summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
 metadata:
   description: Verwalten von Azure Kubernetes Services.
-  ms.openlocfilehash: 0e41ea69871e62d394b6408afed8fef256f38f57
-  ms.sourcegitcommit: 47edf65705fcb047974356c30962819ea5172832
+  ms.openlocfilehash: 3c89d0f76cc04ce9955892bb55124ec37a8f273d
+  ms.sourcegitcommit: b76cc7c91ed21ae04b3463544ad46a749461cc6a
   ms.translationtype: MT
   ms.contentlocale: de-DE
-  ms.lasthandoff: 04/16/2021
-  ms.locfileid: "107552788"
+  ms.lasthandoff: 04/25/2021
+  ms.locfileid: "107972203"
