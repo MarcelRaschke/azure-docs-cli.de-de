@@ -30,13 +30,13 @@ directCommands:
     summary: Kennwort für das Bootstrapkonto des Clusters, sofern es in der Gruppe virtueller SQL-Computer angegeben ist.
     description: ''
   - name: --ids
-    summary: Mindestens eine Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen von "Resource Id"-Argumenten sein. Sie sollten entweder --ids oder andere "Resource Id"-Argumente angeben.
+    summary: Mindestens eine Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu "Ressourcen-ID"-Argumenten sein. Sie sollten entweder --ids oder andere "Resource Id"-Argumente angeben.
     description: ''
   - name: --name -n
     summary: Name des virtuellen SQL-Computers.
     description: ''
   - name: --operator-acc-pwd -p
-    summary: Kennwort für das Clusteroperatorkonto, das in der GRUPPE VIRTUELLER SQL-Computer angegeben ist.
+    summary: Das Kennwort für das Clusteroperatorkonto, das in der Gruppe virtueller SQL-Computer angegeben ist.
     description: ''
   - name: --resource-group -g
     summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
@@ -53,8 +53,7 @@ directCommands:
   summary: Erstellt einen virtuellen SQL-Computer.
   description: ''
   syntax: >-
-    az sql vm create --license-type {AHUB, DR, PAYG}
-                     --name
+    az sql vm create --name
                      --resource-group
                      [--backup-pwd]
                      [--backup-schedule-type {Automated, Manual}]
@@ -73,6 +72,7 @@ directCommands:
                      [--image-offer]
                      [--image-sku {Developer, Enterprise, Express, Standard, Web}]
                      [--key-vault]
+                     [--license-type {AHUB, DR, PAYG}]
                      [--location]
                      [--log-backup-frequency]
                      [--maintenance-window-duration]
@@ -107,11 +107,6 @@ directCommands:
   - summary: Erstellen Sie einen virtuellen SQL-Computer, und konfigurieren Sie SQL-Konnektivitätseinstellungen.
     syntax: az sql vm create -n sqlvm -g myresourcegroup -l eastus --license-type PAYG --sql-mgmt-type Full --connectivity-type private --port 1433 --sql-auth-update-username {newlogin} --sql-auth-update-pwd {sqlpassword}
   requiredParameters:
-  - isRequired: true
-    name: --license-type -i
-    parameterValueGroup: AHUB, DR, PAYG
-    summary: SQL Server Lizenztyp.
-    description: ''
   - isRequired: true
     name: --name -n
     summary: Name des virtuellen SQL-Computers. Der Name des neuen virtuellen SQL-Computers muss gleich dem zugrunde liegenden virtuellen Computer sein, der aus dem SQL Marketplace-Image erstellt wurde.
@@ -183,6 +178,10 @@ directCommands:
   - name: --key-vault
     summary: Azure Key Vault URL.
     description: ''
+  - name: --license-type -i
+    parameterValueGroup: AHUB, DR, PAYG
+    summary: SQL Server Lizenztyp.
+    description: ''
   - name: --location -l
     summary: Der Standort. Wenn sie nicht angegeben wird, sollte sich der virtuelle Computer in derselben Region der Ressourcengruppe befinden. Sie können den Standardspeicherort mit `az configure --defaults location=<location>` konfigurieren.
     description: ''
@@ -211,7 +210,7 @@ directCommands:
     summary: Geheimnis des Dienstprinzipalnamens für den Zugriff auf den Schlüsseltresor.
     description: ''
   - name: --sql-auth-update-pwd
-    summary: SQL Server Systemadministrator-Anmeldekennwort.
+    summary: SQL Server Systemadministrator-Anmeldekennwort ein.
     description: ''
   - name: --sql-auth-update-username
     summary: SQL Server zu erstellende sysadmin-Anmeldung.
@@ -330,7 +329,7 @@ directCommands:
     summary: Name des virtuellen SQL-Computers.
     description: ''
   - name: --query-examples
-    summary: Empfehlen Sie die JMESPath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und sie nach dem Parameter --query in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positionsschlüsselwörter hinzufügen, damit wir basierend auf diesen Schlüsselwörtern Vorschläge geben können.
+    summary: Empfehlen Sie die JMESPath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und nach dem Parameter --query in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positionsschlüsselwörter hinzufügen, damit wir basierend auf diesen Schlüsselwörtern Vorschläge geben können.
     description: ''
   - name: --resource-group -g
     summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
@@ -463,7 +462,7 @@ directCommands:
     summary: Die Startzeit eines bestimmten Tags, an dem eine vollständige Sicherung stattfinden kann. 0 bis 23 Stunden.
     description: ''
   - name: --ids
-    summary: Mindestens eine Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen von "Resource Id"-Argumenten sein. Sie sollten entweder --ids oder andere "Resource Id"-Argumente angeben.
+    summary: Mindestens eine Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu "Ressourcen-ID"-Argumenten sein. Sie sollten entweder --ids oder andere "Resource Id"-Argumente angeben.
     description: ''
   - name: --image-sku
     parameterValueGroup: Developer, Enterprise, Express, Standard, Web
@@ -477,7 +476,7 @@ directCommands:
     summary: SQL Server Lizenztyp.
     description: ''
   - name: --log-backup-frequency
-    summary: Intervall für Protokollsicherungen. 5-60 Minuten.
+    summary: Intervall für Protokollsicherungen. 5 bis 60 Minuten.
     description: ''
   - name: --maintenance-window-duration
     summary: Dauer des Patchens. 30-180 Minuten.
@@ -573,9 +572,9 @@ metadata:
   doc_source_url_repo: https://github.com/Azure/azure-cli/blob/dev/
   ms.date: 04/19/2021
   description: Verwalten virtueller SQL-Computer.
-  ms.openlocfilehash: 7715ff8208f690c1c627ba2d2e2f7f165e74a108
-  ms.sourcegitcommit: f11f08a8b571d9909044693a8dc52c0cf2e9b2bc
+  ms.openlocfilehash: 73fa76ae339f342d305e4a015771b5ac438556de
+  ms.sourcegitcommit: b76cc7c91ed21ae04b3463544ad46a749461cc6a
   ms.translationtype: MT
   ms.contentlocale: de-DE
-  ms.lasthandoff: 04/19/2021
-  ms.locfileid: "107712424"
+  ms.lasthandoff: 04/25/2021
+  ms.locfileid: "107958059"
