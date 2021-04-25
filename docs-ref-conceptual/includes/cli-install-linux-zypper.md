@@ -7,12 +7,12 @@ ms.topic: include
 ms.service: azure-cli
 ms.devlang: azurecli
 ms.custom: devx-track-azurecli
-ms.openlocfilehash: bb447f0c64bbe1574c93c8ea3ea978db0cd364d3
-ms.sourcegitcommit: 8bff8b2ce4492ab99ad39390e4c802fb4f4425c8
+ms.openlocfilehash: 8bd36c82d381377dd8a2c96d0ff6e1f7585537b2
+ms.sourcegitcommit: 47edf65705fcb047974356c30962819ea5172832
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 03/26/2021
-ms.locfileid: "105582283"
+ms.lasthandoff: 04/16/2021
+ms.locfileid: "107564441"
 ---
 ## <a name="overview"></a>Übersicht
 
@@ -80,32 +80,15 @@ sudo zypper rm -y --clean-deps azure-cli
 
 Unter SLES 12 ist `3.4` das standardmäßige `python3`-Paket und wird von der Azure CLI nicht unterstützt. Sie können zuerst die Schritte 1 bis 3 der [Installationsanweisungen](#install) ausführen, um das Repository `azure-cli` hinzuzufügen. Erstellen Sie dann eine höhere Version von `python3` aus der Quelle. Abschließend können Sie das Azure CLI-Paket herunterladen und ohne Abhängigkeit installieren.
 
-Sie können den folgenden Befehl verwenden, um die Azure CLI zu installieren. (Beachten Sie, dass Ihre vorhandene Python 3-Version von Python 3.6 überschrieben wird.)
+Sie können den folgenden Befehl verwenden, um die Azure CLI anhand der oben beschriebenen Schritten zu installieren oder zu aktualisieren. Dieses Skript installiert `Python 3.8` unter `/usr/local/azcli` und erzwingt die Verwendung durch die Azure CLI, indem der Alias `az` auf `PATH=/usr/local/azcli/bin:$PATH az` festgelegt wird. Sie können das Skript auch herunterladen und entsprechend Ihren Anforderungen ändern. Beispielsweise können Sie die Python-Version oder den Installationsspeicherort ändern.
 
 ```bash
-curl -sL https://azurecliprod.blob.core.windows.net/sles12_install.sh | sudo bash
+curl -sL https://azurecliprod.blob.core.windows.net/sles12_install_v2.sh | sudo bash
 ```
-
-Alternativ können Sie Schritt für Schritt vorgehen:
+Denken Sie bei der ersten Installation daran, den folgenden Befehl auszuführen, um den Alias zu aktivieren:
 
 ```bash
-# !Please add azure-cli repository first following step 1-3 of the install instruction before running below commands
-$ sudo zypper refresh
-$ sudo zypper install -y gcc gcc-c++ make ncurses patch wget tar zlib-devel zlib openssl-devel
-# Download Python source code
-$ PYTHON_VERSION="3.6.9"
-$ PYTHON_SRC_DIR=$(mktemp -d)
-$ wget -qO- https://www.python.org/ftp/python/$PYTHON_VERSION/Python-$PYTHON_VERSION.tgz | tar -xz -C "$PYTHON_SRC_DIR"
-# Build Python
-# Please be aware that with --prefix=/usr, the command will override the existing Python 3 version
-$ $PYTHON_SRC_DIR/*/configure --prefix=/usr
-$ make
-$ sudo make install
-# Download azure-cli package 
-$ AZ_VERSION=$(zypper --no-refresh info azure-cli |grep Version | awk -F': ' '{print $2}' | awk '{$1=$1;print}')
-$ wget https://packages.microsoft.com/yumrepos/azure-cli/azure-cli-$AZ_VERSION.x86_64.rpm
-# Install without dependency
-$ sudo rpm -ivh --nodeps azure-cli-$AZ_VERSION.x86_64.rpm
+source ~/.bashrc
 ```
 
 ### <a name="proxy-blocks-connection"></a>Der Proxy blockiert die Verbindung.

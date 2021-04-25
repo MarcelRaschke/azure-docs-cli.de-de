@@ -9,12 +9,12 @@ ms.topic: conceptual
 ms.service: azure-cli
 ms.devlang: azurecli
 ms.custom: devx-track-azurecli
-ms.openlocfilehash: 97873602f04c02bf69cd1465b84f99633a8cbd9f
-ms.sourcegitcommit: 8bff8b2ce4492ab99ad39390e4c802fb4f4425c8
+ms.openlocfilehash: c403c67ef181cd35e658ae3b1a7471d2aaa546b9
+ms.sourcegitcommit: ced987fe078a63b4bbc8dba1295381e9d0a0ce91
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 03/26/2021
-ms.locfileid: "105581528"
+ms.lasthandoff: 04/20/2021
+ms.locfileid: "107793038"
 ---
 # <a name="sign-in-with-azure-cli"></a>Anmelden mit der Azure CLI 
 
@@ -106,6 +106,11 @@ Auf Ressourcen, die für verwaltete Identitäten von Azure-Ressourcen konfigurie
 
 ```azurecli-interactive
 az login --identity
+```
+
+Verfügt die Ressource über mehrere benutzerseitig zugewiesene verwaltete Identitäten und keine systemseitig zugewiesene Identität, müssen Sie für die Anmeldung die Client-ID, Objekt-ID oder Ressourcen-ID der benutzerseitig zugewiesenen verwalteten Identität mit `--username` angeben.
+```azurecli-interactive
+az login --identity --username <client_id|object_id|resource_id>
 ```
 
 Weitere Informationen zu verwalteten Identitäten für Azure-Ressourcen finden Sie unter [Konfigurieren von verwalteten Identitäten für Azure-Ressourcen auf einem virtuellen Azure-Computer mithilfe der Azure-Befehlszeilenschnittstelle](/azure/active-directory/managed-identities-azure-resources/qs-configure-cli-windows-vm) und [Verwenden von verwalteten Identitäten für Azure-Ressourcen auf einem virtuellen Azure-Computer für die Anmeldung](/azure/active-directory/managed-identities-azure-resources/how-to-use-vm-sign-in).
