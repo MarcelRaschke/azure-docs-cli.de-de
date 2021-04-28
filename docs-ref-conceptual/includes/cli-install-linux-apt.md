@@ -5,12 +5,12 @@ manager: barbkess
 ms.date: 09/29/2020
 ms.topic: include
 ms.custom: devx-track-azurecli
-ms.openlocfilehash: 5f395b922ae4c39932854adf9f10fba14d71e47a
-ms.sourcegitcommit: 8bff8b2ce4492ab99ad39390e4c802fb4f4425c8
+ms.openlocfilehash: 0738d79c9fc968d9b1000605c30ec30c6fa6eb3c
+ms.sourcegitcommit: b76cc7c91ed21ae04b3463544ad46a749461cc6a
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 03/26/2021
-ms.locfileid: "105582514"
+ms.lasthandoff: 04/25/2021
+ms.locfileid: "107984475"
 ---
 ## <a name="overview"></a>Übersicht
 
@@ -23,6 +23,8 @@ Der `apt`-Paket-Manager enthält ein x86_64-Paket für die Azure-Befehlszeilensc
 
 > [!WARNING]
 > Ubuntu 20.04 (Focal Fossa) und 20.10 (Groovy Gorilla) enthalten ein `azure-cli`-Paket mit der Version `2.0.81`, das im `universe`-Repository verfügbar ist. Dieses Paket ist veraltet und wird nicht empfohlen. Falls dieses Paket installiert ist, entfernen Sie es mit dem Befehl `sudo apt remove azure-cli -y && sudo apt autoremove -y`, bevor Sie fortfahren.
+>
+> Die ARM64-Architektur wird vom Deb-Paket `azure-cli` nicht unterstützt.
 
 ## <a name="installation-options"></a>Installationsoptionen
 
@@ -57,7 +59,7 @@ Wenn Sie die Installation der Azure CLI lieber Schritt für Schritt durchführe
         sudo tee /etc/apt/trusted.gpg.d/microsoft.gpg > /dev/null
     ```
 
-3. <div id="set-release"/>Fügen Sie das Azure CLI-Softwarerepository hinzu (überspringen Sie diesen Schritt bei ARM64-Linux-Distributionen):
+3. <div id="set-release"/>Fügen Sie das Azure CLI-Softwarerepository hinzu:
 
     ```bash
     AZ_REPO=$(lsb_release -cs)
