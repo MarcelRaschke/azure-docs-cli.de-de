@@ -53,7 +53,7 @@ directCommands:
     summary: Aktivieren Sie BGP für diese VPN-Verbindung.
     description: ''
   - name: --express-route-circuit2
-    summary: Name oder ID des ExpressRoute-Ziels, mit dem über eine ExpressRoute-Verbindung eine Verbindung hergestellt werden soll.
+    summary: Name oder ID des ExpressRoute-Ziels, mit dem eine ExpressRoute-Verbindung hergestellt werden soll.
     description: ''
   - name: --express-route-gateway-bypass
     parameterValueGroup: false, true
@@ -80,10 +80,10 @@ directCommands:
     description: ''
   - name: --use-policy-based-traffic-selectors
     parameterValueGroup: false, true
-    summary: Aktivieren Sie richtlinienbasierte Datenverkehrsselektoren.
+    summary: Aktivieren Sie richtlinienbasierte Datenverkehrsauswahl.
     description: ''
   - name: --validate
-    summary: Zeigen Sie die ARM-Vorlage an, und überprüfen Sie sie, aber erstellen Sie keine Ressourcen.
+    summary: Zeigen Sie die ARM-Vorlage an, und überprüfen Sie sie, erstellen Sie jedoch keine Ressourcen.
     description: ''
   - name: --vnet-gateway2
     summary: Name oder ID des Gateways des virtuellen Zielnetzwerks, mit dem über eine Vnet2Vnet-Verbindung eine Verbindung hergestellt werden soll.
@@ -91,7 +91,7 @@ directCommands:
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/network/_help.py
 - uid: az_network_vpn-connection_delete
   name: az network vpn-connection delete
-  summary: Löschen sie eine VPN-Verbindung.
+  summary: Löscht eine VPN-Verbindung.
   description: ''
   syntax: >-
     az network vpn-connection delete [--ids]
@@ -99,11 +99,11 @@ directCommands:
                                      [--resource-group]
                                      [--subscription]
   examples:
-  - summary: Löschen sie eine VPN-Verbindung.
+  - summary: Löscht eine VPN-Verbindung.
     syntax: az network vpn-connection delete -g MyResourceGroup -n MyConnection
   optionalParameters:
   - name: --ids
-    summary: Mindestens eine Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu "Ressourcen-ID"-Argumenten sein. Sie sollten entweder --ids oder andere "Resource Id"-Argumente angeben.
+    summary: Eine oder mehrere Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu Ressourcen-ID-Argumenten geben. Sie sollten entweder --ids oder andere Ressourcen-ID-Argumente bereitstellen.
     description: ''
   - name: --name -n
     summary: Verbindungsname.
@@ -117,15 +117,18 @@ directCommands:
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/network/_help.py
 - uid: az_network_vpn-connection_list
   name: az network vpn-connection list
-  summary: Listet alle VPN-Verbindungen in einer Ressourcengruppe auf.
+  summary: Listet alle VPN-Verbindungen auf.
   description: ''
   syntax: >-
     az network vpn-connection list --resource-group
                                    [--query-examples]
                                    [--subscription]
+                                   [--vnet-gateway]
   examples:
   - summary: Listet alle VPN-Verbindungen in einer Ressourcengruppe auf.
     syntax: az network vpn-connection list -g MyResourceGroup
+  - summary: Listet alle VPN-Verbindungen in einem Gateway für virtuelle Netzwerke auf.
+    syntax: az network vpn-connection list -g MyResourceGroup --vnet-gateway MyVnetGateway
   requiredParameters:
   - isRequired: true
     name: --resource-group -g
@@ -133,7 +136,36 @@ directCommands:
     description: ''
   optionalParameters:
   - name: --query-examples
-    summary: Empfehlen Sie die JMESPath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und nach dem Parameter --query in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positionsschlüsselwörter hinzufügen, damit wir basierend auf diesen Schlüsselwörtern Vorschläge geben können.
+    summary: Empfehlen Sie die JMESPath-Zeichenfolge. Sie können eine der Abfragen kopieren und nach dem Parameter --query in doppelte Anführungszeichen einfügen, um die Ergebnisse zu sehen. Sie können ein oder mehrere Positionsschlüsselwörter hinzufügen, damit wir basierend auf diesen Schlüsselwörtern Vorschläge machen können.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+  - name: --vnet-gateway
+    summary: Name des VNET-Gateways.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/network/_help.py
+- uid: az_network_vpn-connection_list-ike-sas
+  name: az network vpn-connection list-ike-sas
+  summary: Listet IKE-Sicherheitszuordnungen für eine VPN-Verbindung auf.
+  description: ''
+  syntax: >-
+    az network vpn-connection list-ike-sas [--ids]
+                                           [--name]
+                                           [--resource-group]
+                                           [--subscription]
+  examples:
+  - summary: Listet IKE-Sicherheitszuordnungen für eine VPN-Verbindung auf.
+    syntax: az network vpn-connection list-ike-sas -g MyResourceGroup -n MyConnection
+  optionalParameters:
+  - name: --ids
+    summary: Mindestens eine Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu "Ressourcen-ID"-Argumenten sein. Sie sollten entweder --ids oder andere "Resource Id"-Argumente angeben.
+    description: ''
+  - name: --name -n
+    summary: Verbindungsname.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
     description: ''
   - name: --subscription
     summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
@@ -154,13 +186,55 @@ directCommands:
     syntax: az network vpn-connection show -g MyResourceGroup -n MyConnection
   optionalParameters:
   - name: --ids
-    summary: Mindestens eine Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu "Ressourcen-ID"-Argumenten sein. Sie sollten entweder --ids oder andere Ressourcen-ID-Argumente bereitstellen.
+    summary: Mindestens eine Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu "Ressourcen-ID"-Argumenten sein. Sie sollten entweder --ids oder andere "Resource Id"-Argumente angeben.
     description: ''
   - name: --name -n
     summary: Verbindungsname.
     description: ''
   - name: --query-examples
-    summary: Empfehlen Sie die JMESPath-Zeichenfolge. Sie können eine der Abfragen kopieren und nach dem Parameter --query in doppelte Anführungszeichen einfügen, um die Ergebnisse zu sehen. Sie können ein oder mehrere Positionsschlüsselwörter hinzufügen, damit wir basierend auf diesen Schlüsselwörtern Vorschläge machen können.
+    summary: Empfehlen Sie die JMESPath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und nach dem Parameter --query in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positionsschlüsselwörter hinzufügen, damit wir basierend auf diesen Schlüsselwörtern Vorschläge geben können.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/network/_help.py
+- uid: az_network_vpn-connection_show-device-config-script
+  name: az network vpn-connection show-device-config-script
+  summary: Abrufen einer XML-Formatdarstellung für das Konfigurationsskript für VPN-Verbindungsgeräte.
+  description: ''
+  syntax: >-
+    az network vpn-connection show-device-config-script --device-family
+                                                        --firmware-version
+                                                        --vendor
+                                                        [--ids]
+                                                        [--name]
+                                                        [--resource-group]
+                                                        [--subscription]
+  examples:
+  - summary: Abrufen einer XML-Formatdarstellung für das Konfigurationsskript für VPN-Verbindungsgeräte.
+    syntax: az network vpn-connection show-device-config-script -g MyResourceGroup -n MyConnection --vendor "Cisco" --device-family "Cisco-ISR(IOS)" --firmware-version "Cisco-ISR-15.x--IKEv2+BGP"
+  requiredParameters:
+  - isRequired: true
+    name: --device-family
+    summary: Die Gerätefamilie für das VPN-Gerät.
+    description: ''
+  - isRequired: true
+    name: --firmware-version
+    summary: Die Firmwareversion für das VPN-Gerät.
+    description: ''
+  - isRequired: true
+    name: --vendor
+    summary: Der Anbieter für das VPN-Gerät.
+    description: ''
+  optionalParameters:
+  - name: --ids
+    summary: Mindestens eine Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu "Ressourcen-ID"-Argumenten sein. Sie sollten entweder --ids oder andere "Resource Id"-Argumente angeben.
+    description: ''
+  - name: --name -n
+    summary: Verbindungsname.
     description: ''
   - name: --resource-group -g
     summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
@@ -189,7 +263,7 @@ directCommands:
                                      [--tags]
                                      [--use-policy-based-traffic-selectors {false, true}]
   examples:
-  - summary: Fügen Sie BGP einer vorhandenen Verbindung hinzu.
+  - summary: Fügen Sie einer vorhandenen Verbindung BGP hinzu.
     syntax: az network vpn-connection update -g MyResourceGroup -n MyConnection --enable-bgp True
   - summary: Aktualisieren sie eine VPN-Verbindung. (automatisch generiert)
     syntax: az network vpn-connection update --name MyConnection --resource-group MyResourceGroup --use-policy-based-traffic-selectors true
@@ -209,13 +283,13 @@ directCommands:
     summary: Wenn Sie "set" oder "add" verwenden, behalten Sie Zeichenfolgenliterale bei, anstatt zu versuchen, in JSON zu konvertieren.
     description: ''
   - name: --ids
-    summary: Eine oder mehrere Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu Ressourcen-ID-Argumenten geben. Sie sollten entweder --ids oder andere Ressourcen-ID-Argumente bereitstellen.
+    summary: Mindestens eine Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu "Ressourcen-ID"-Argumenten sein. Sie sollten entweder --ids oder andere "Resource Id"-Argumente angeben.
     description: ''
   - name: --name -n
     summary: Verbindungsname.
     description: ''
   - name: --remove
-    summary: 'Entfernen Sie eine Eigenschaft oder ein Element aus einer Liste.  Beispiel: --remove property.list <indexToRemove> OR --remove propertyToRemove.'
+    summary: 'Entfernen sie eine Eigenschaft oder ein Element aus einer Liste.  Beispiel: --remove property.list <indexToRemove> OR --remove propertyToRemove.'
     description: ''
   - name: --resource-group -g
     summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
@@ -224,7 +298,7 @@ directCommands:
     summary: Gewichtung des Verbindungsroutings.
     description: ''
   - name: --set
-    summary: 'Aktualisieren Sie ein Objekt, indem Sie einen festzulegenden Eigenschaftenpfad und -wert angeben.  Beispiel: --set property1.property2=<value>.'
+    summary: 'Aktualisieren Sie ein -Objekt, indem Sie einen festzulegenden Eigenschaftenpfad und -wert angeben.  Beispiel: --set property1.property2=<value>.'
     description: ''
   - name: --shared-key
     summary: Gemeinsam verwendeter IPSec-Schlüssel.
@@ -237,7 +311,7 @@ directCommands:
     description: ''
   - name: --use-policy-based-traffic-selectors
     parameterValueGroup: false, true
-    summary: Aktivieren Sie richtlinienbasierte Datenverkehrsselektoren.
+    summary: Aktivieren Sie richtlinienbasierte Datenverkehrsauswahl.
     description: ''
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/network/_help.py
 commands:
@@ -248,11 +322,16 @@ commands:
 - az_network_vpn-connection_ipsec-policy_clear
 - az_network_vpn-connection_ipsec-policy_list
 - az_network_vpn-connection_list
+- az_network_vpn-connection_list-ike-sas
+- az_network_vpn-connection_packet-capture
+- az_network_vpn-connection_packet-capture_start
+- az_network_vpn-connection_packet-capture_stop
 - az_network_vpn-connection_shared-key
 - az_network_vpn-connection_shared-key_reset
 - az_network_vpn-connection_shared-key_show
 - az_network_vpn-connection_shared-key_update
 - az_network_vpn-connection_show
+- az_network_vpn-connection_show-device-config-script
 - az_network_vpn-connection_update
 globalParameters:
 - name: --debug
@@ -271,11 +350,11 @@ globalParameters:
   summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
 metadata:
   doc_source_url_repo: https://github.com/Azure/azure-cli/blob/dev/
-  ms.date: 04/21/2021
+  ms.date: 04/25/2021
   description: Weitere Informationen zu Site-to-Site-Verbindungen finden Sie unter https://docs.microsoft.com/azure/vpn-gateway/vpn-gateway-howto-site-to-site-resource-manager-cli . Weitere Informationen zu VNET-zu-VNET-Verbindungen finden Sie unter https://docs.microsoft.com/azure/vpn-gateway/vpn-gateway-howto-vnet-vnet-cli .
-  ms.openlocfilehash: 9ed04a49e30c18a8118fa1db2ebd3619bfef53bf
-  ms.sourcegitcommit: b76cc7c91ed21ae04b3463544ad46a749461cc6a
+  ms.openlocfilehash: f328ba69f77e46bc925c002cc11efde30456d0a3
+  ms.sourcegitcommit: 15a6f14c5a8570ba89a3bd5bb442f3324d72bc37
   ms.translationtype: MT
   ms.contentlocale: de-DE
-  ms.lasthandoff: 04/25/2021
-  ms.locfileid: "107975382"
+  ms.lasthandoff: 04/29/2021
+  ms.locfileid: "108256073"

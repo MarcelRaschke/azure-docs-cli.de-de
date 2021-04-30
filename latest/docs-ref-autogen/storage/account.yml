@@ -6,7 +6,7 @@ description: ''
 directCommands:
 - uid: az_storage_account_check-name
   name: az storage account check-name
-  summary: Überprüfen Sie, ob der Name des Speicherkontos gültig ist und noch nicht verwendet wird.
+  summary: Überprüfen Sie, ob der Speicherkontoname gültig ist und noch nicht verwendet wird.
   description: ''
   syntax: >-
     az storage account check-name --name
@@ -24,7 +24,7 @@ directCommands:
 - uid: az_storage_account_create
   name: az storage account create
   summary: Erstellen Sie ein Speicherkonto.
-  description: Die SKU des Speicherkontos ist standardmäßig auf "Standard_RAGRS" eingestellt.
+  description: Die SKU des Speicherkontos ist standardmäßig auf "Standard_RAGRS" festgelegt.
   syntax: >-
     az storage account create --name
                               --resource-group
@@ -44,11 +44,18 @@ directCommands:
                               [--enable-files-adds {false, true}]
                               [--enable-hierarchical-namespace {false, true}]
                               [--enable-large-file-share]
+                              [--encryption-key-name]
+                              [--encryption-key-source {Microsoft.Keyvault, Microsoft.Storage}]
                               [--encryption-key-type-for-queue {Account, Service}]
                               [--encryption-key-type-for-table {Account, Service}]
+                              [--encryption-key-vault]
+                              [--encryption-key-version]
                               [--encryption-services {blob, file, queue, table}]
                               [--forest-name]
                               [--https-only {false, true}]
+                              [--identity-type {None, SystemAssigned, SystemAssigned,UserAssigned, UserAssigned}]
+                              [--key-exp-days]
+                              [--key-vault-user-identity-id]
                               [--kind {BlobStorage, BlockBlobStorage, FileStorage, Storage, StorageV2}]
                               [--location]
                               [--min-tls-version {TLS1_0, TLS1_1, TLS1_2}]
@@ -57,13 +64,15 @@ directCommands:
                               [--publish-microsoft-endpoints {false, true}]
                               [--require-infrastructure-encryption {false, true}]
                               [--routing-choice {InternetRouting, MicrosoftRouting}]
+                              [--sas-exp]
                               [--sku {Premium_LRS, Premium_ZRS, Standard_GRS, Standard_GZRS, Standard_LRS, Standard_RAGRS, Standard_RAGZRS, Standard_ZRS}]
                               [--subscription]
                               [--tags]
+                              [--user-identity-id]
   examples:
-  - summary: Erstellen Sie ein Speicherkonto "mystorageaccount" in der Ressourcengruppe "MyResourceGroup" in der Region "USA, Westen" mit lokal redundanten Speicher.
+  - summary: Erstellen Sie das Speicherkonto "mystorageaccount" in der Ressourcengruppe "MyResourceGroup" in der Region "USA, Westen" mit lokal redundantem Speicher.
     syntax: az storage account create -n mystorageaccount -g MyResourceGroup -l westus --sku Standard_LRS
-  - summary: Erstellen Sie ein Speicherkonto "mystorageaccount" in der Ressourcengruppe "MyResourceGroup" in der Region eastus2euap mit aktivierten kontobezogenen Verschlüsselungsschlüsseln für den Tabellenspeicherdienst.
+  - summary: Erstellen Sie das Speicherkonto "mystorageaccount" in der Ressourcengruppe "MyResourceGroup" in der Region eastus2euap mit aktivierten kontospezifischen Verschlüsselungsschlüsseln für den Tabellenspeicherdienst.
     syntax: az storage account create -n mystorageaccount -g MyResourceGroup --kind StorageV2 -l eastus2euap -t Account
   requiredParameters:
   - isRequired: true
@@ -77,32 +86,32 @@ directCommands:
   optionalParameters:
   - name: --access-tier
     parameterValueGroup: Cool, Hot
-    summary: Die Zugriffsebene, die für die Abrechnung von StandardBlob-Konten verwendet wird. Kann für die Kontotypen StandardLRS, StandardGRS, StandardRAGRS oder PremiumLRS nicht festgelegt werden. Sie ist für StandardBlob-Konten während der Erstellung erforderlich.
+    summary: Die Zugriffsebene, die für die Abrechnung von StandardBlob-Konten verwendet wird. Kann nicht für die Kontotypen StandardLRS, StandardGRS, StandardRAGRS oder PremiumLRS festgelegt werden. Dies ist für StandardBlob-Konten während der Erstellung erforderlich.
     description: ''
   - name: --allow-blob-public-access
     parameterValueGroup: false, true
-    summary: Zulassen oder Verbieten des öffentlichen Zugriffs auf alle Blobs oder Container im Speicherkonto. Der Standardwert für diese Eigenschaft ist NULL, was true entspricht. True gibt an, dass Container im Konto möglicherweise für den öffentlichen Zugriff konfiguriert werden. Beachten Sie, dass das Festlegen dieser Eigenschaft auf TRUE keinen anonymen Zugriff auf Daten im Konto ermöglicht. Der zusätzliche Schritt zum Konfigurieren der Einstellung für den öffentlichen Zugriff für einen Container ist erforderlich, um den anonymen Zugriff zu aktivieren.
+    summary: Lässt den öffentlichen Zugriff auf alle Blobs oder Container im Speicherkonto zu oder lässt diesen nicht zu. Der Standardwert für diese Eigenschaft ist NULL, was TRUE entspricht. True gibt an, dass Container im Konto für den öffentlichen Zugriff konfiguriert werden können. Beachten Sie, dass das Festlegen dieser Eigenschaft auf TRUE keinen anonymen Zugriff auf Daten im Konto ermöglicht. Der zusätzliche Schritt zum Konfigurieren der Einstellung für den öffentlichen Zugriff für einen Container ist erforderlich, um den anonymen Zugriff zu aktivieren.
     description: ''
   - name: --allow-shared-key-access -k
     parameterValueGroup: false, true
-    summary: Geben Sie an, ob das Speicherkonto die Autorisierung von Anforderungen mit dem Kontozugriffsschlüssel über einen gemeinsam verwendeten Schlüssel zulässt. False gibt an, dass alle Anforderungen, einschließlich Shared Access Signatures, mit Azure Active Directory (Azure AD) autorisiert werden müssen. Der Standardwert ist NULL, was true entspricht.
+    summary: Geben Sie an, ob das Speicherkonto die Autorisierter Anforderungen mit dem Kontozugriffsschlüssel über den gemeinsam genutzten Schlüssel zuläss. False gibt an, dass alle Anforderungen, einschließlich Shared Access Signatures, mit Azure Active Directory (Azure AD) autorisiert werden müssen. Der Standardwert ist NULL, was true entspricht.
     description: ''
   - name: --assign-identity
-    summary: Generieren sie eine neue Speicherkontoidentität für dieses Speicherkonto, und weisen Sie sie für die Verwendung mit Schlüsselverwaltungsdiensten wie Azure KeyVault zu.
+    summary: Generieren Sie eine neue Speicherkontoidentität für dieses Speicherkonto, und weisen Sie sie für die Verwendung mit Schlüsselverwaltungsdiensten wie Azure KeyVault zu.
     description: ''
   - name: --azure-storage-sid
-    summary: Geben Sie die Sicherheits-ID (SID) für Azure Storage an. Erforderlich, wenn --enable-files-adds auf True festgelegt ist.
+    summary: Geben Sie die Sicherheits-ID (SID) für Azure Storage. Erforderlich, wenn --enable-files-adds auf True festgelegt ist.
     description: ''
   - name: --bypass
     parameterValueGroup: AzureServices, Logging, Metrics, None
-    summary: Umgehen Sie den Datenverkehr für durch Leerzeichen getrennte Verwendungen.
+    summary: Umgehen Sie Datenverkehr für durch Leerzeichen getrennte Verwendungszwecke.
     description: ''
   - name: --custom-domain
-    summary: Benutzerdomäne, die dem Speicherkonto zugewiesen ist. Name ist die CNAME-Quelle.
+    summary: Dem Speicherkonto zugewiesene Benutzerdomäne. Name ist die CNAME-Quelle.
     description: ''
   - name: --default-action
     parameterValueGroup: Allow, Deny
-    summary: Standardaktion, die angewendet werden soll, wenn keine Regel entspricht.
+    summary: Standardaktion, die angewendet werden soll, wenn keine Regel übereinstimmt.
     description: ''
   - name: --domain-guid
     summary: Geben Sie die Domänen-GUID an. Erforderlich, wenn --enable-files-adds auf True festgelegt ist.
@@ -118,37 +127,60 @@ directCommands:
     description: ''
   - name: --enable-files-aadds
     parameterValueGroup: false, true
-    summary: Aktivieren Azure Active Directory Domain Services Authentifizierung für Azure Files.
+    summary: Aktivieren Sie Azure Active Directory Domain Services Authentifizierung für Azure Files.
     description: ''
   - name: --enable-files-adds
     parameterValueGroup: false, true
-    summary: Aktivieren Azure Files Active Directory-Domäne-Dienstauthentifizierung für das Speicherkonto. Wenn --enable-files-adds auf TRUE festgelegt ist, Azure Active Directory Eigenschaftenargumente angegeben werden.
+    summary: Aktivieren Sie Azure Files Active Directory-Domäne-Dienstauthentifizierung für das Speicherkonto. Wenn --enable-files-adds auf TRUE festgelegt ist, müssen Azure Active Directory Properties-Argumente bereitgestellt werden.
     description: ''
   - name: --enable-hierarchical-namespace --hns
     parameterValueGroup: false, true
-    summary: Lassen Sie zu, dass der Blobdienst Dateisystemsemantik zeigt. Diese Eigenschaft kann nur aktiviert werden, wenn die Speicherkontoart StorageV2 ist.
+    summary: Lassen Sie zu, dass der Blobdienst Dateisystemsemantik aufweist. Diese Eigenschaft kann nur aktiviert werden, wenn die Art des Speicherkontos StorageV2 lautet.
     description: ''
   - name: --enable-large-file-share
-    summary: Aktivieren Sie die Funktion zur Unterstützung großer Dateifreigaben mit mehr als 5 TiB Kapazität für das Speicherkonto. Sobald die Eigenschaft aktiviert ist, kann das Feature nicht mehr deaktiviert werden. Derzeit nur für LRS- und ZRS-Replikationstypen unterstützt, sind Kontokonvertierungen in georedundante Konten daher nicht möglich. Weitere Informationen finden Sie unter https://go.microsoft.com/fwlink/?linkid=2086047 .
+    summary: Aktivieren Sie die Möglichkeit, große Dateifreigaben mit mehr als 5 TiB Kapazität für das Speicherkonto zu unterstützen. Sobald die Eigenschaft aktiviert ist, kann das Feature nicht mehr deaktiviert werden. Derzeit nur für LRS- und ZRS-Replikationstypen unterstützt, sind Kontokonvertierungen in georedundante Konten nicht möglich. Weitere Informationen finden Sie unter https://go.microsoft.com/fwlink/?linkid=2086047 .
+    description: ''
+  - name: --encryption-key-name
+    summary: Der Name des KeyVault-Schlüssels.
+    description: ''
+  - name: --encryption-key-source
+    parameterValueGroup: Microsoft.Keyvault, Microsoft.Storage
+    summary: Die Standardverschlüsselungsschlüsselquelle.
     description: ''
   - name: --encryption-key-type-for-queue -q
     parameterValueGroup: Account, Service
-    summary: 'Legen Sie den Verschlüsselungsschlüsseltyp für Warteschlangendienst fest. "Konto": Die Warteschlange wird mit einem verschlüsselungsschlüssel im Kontobereich verschlüsselt. "Dienst": Die Warteschlange wird immer mit dienstbezogenen Schlüsseln verschlüsselt. Derzeit lautet der Standardverschlüsselungsschlüsseltyp "Service".'
+    summary: 'Legen Sie den Verschlüsselungsschlüsseltyp für Warteschlangendienst. "Konto": Die Warteschlange wird mit einem kontospezifischen Verschlüsselungsschlüssel verschlüsselt. "Dienst": Die Warteschlange wird immer mit dienstspezifischen Schlüsseln verschlüsselt. Derzeit ist der Standardverschlüsselungsschlüsseltyp "Dienst".'
     description: ''
   - name: --encryption-key-type-for-table -t
     parameterValueGroup: Account, Service
-    summary: 'Legen Sie den Verschlüsselungsschlüsseltyp für den Tabellendienst fest. "Konto": Die Tabelle wird mit einem verschlüsselungsschlüssel im Kontobereich verschlüsselt. "Dienst": Die Tabelle wird immer mit dienstbezogenen Schlüsseln verschlüsselt. Derzeit lautet der Standardverschlüsselungsschlüsseltyp "Service".'
+    summary: 'Legen Sie den Verschlüsselungsschlüsseltyp für den Tabellendienst fest. "Konto": Die Tabelle wird mit einem kontospezifischen Verschlüsselungsschlüssel verschlüsselt. "Dienst": Die Tabelle wird immer mit dienstspezifischen Schlüsseln verschlüsselt. Derzeit ist der Standardverschlüsselungsschlüsseltyp "Dienst".'
+    description: ''
+  - name: --encryption-key-vault
+    summary: Der URI des KeyVault.
+    description: ''
+  - name: --encryption-key-version
+    summary: Die version des zu verwendenden KeyVault-Schlüssels, die die implizite Schlüsselrotation abmelden wird. Verwenden Sie "", um die automatische Schlüsselrotation erneut zu deaktivieren.
     description: ''
   - name: --encryption-services
     parameterValueGroup: blob, file, queue, table
-    summary: Gibt an, welche Dienste verschlüsselt werden sollen.
+    summary: Gibt an, welche Dienste verschlüsselt werden.
     description: ''
   - name: --forest-name
-    summary: Geben Sie die abzurufende Active Directory-Gesamtstruktur an. Erforderlich, wenn --enable-files-adds auf True festgelegt ist.
+    summary: Geben Sie die zu erhaltende Active Directory-Gesamtstruktur an. Erforderlich, wenn --enable-files-adds auf True festgelegt ist.
     description: ''
   - name: --https-only
     parameterValueGroup: false, true
     summary: Lassen Sie HTTPS-Datenverkehr nur an den Speicherdienst zu, wenn er auf TRUE festgelegt ist. Der Standardwert lautet „true“.
+    description: ''
+  - name: --identity-type
+    parameterValueGroup: None, SystemAssigned, SystemAssigned,UserAssigned, UserAssigned
+    summary: Der Identitätstyp.
+    description: ''
+  - name: --key-exp-days --key-expiration-period-in-days
+    summary: Ablaufzeitraum in Tagen der Schlüsselrichtlinie, die dem Speicherkonto zugewiesen ist.
+    description: ''
+  - name: --key-vault-user-identity-id -u
+    summary: Ressourcenbezeichner der UserAssigned-Identität, die der serverseitigen Verschlüsselung im Speicherkonto zugeordnet werden soll.
     description: ''
   - name: --kind
     defaultValue: StorageV2
@@ -167,7 +199,7 @@ directCommands:
     description: ''
   - name: --publish-internet-endpoints
     parameterValueGroup: false, true
-    summary: Ein boolesches Flag, das angibt, ob Internetroutingspeicher-Endpunkte veröffentlicht werden sollen.
+    summary: Ein boolesches Flag, das angibt, ob Internetrouting-Speicherendpunkte veröffentlicht werden sollen.
     description: ''
   - name: --publish-microsoft-endpoints
     parameterValueGroup: false, true
@@ -179,7 +211,10 @@ directCommands:
     description: ''
   - name: --routing-choice
     parameterValueGroup: InternetRouting, MicrosoftRouting
-    summary: Routing Choice definiert die Art des Netzwerkroutings, das vom Benutzer gewählt wird.
+    summary: Routing Choice definiert die Art des Vom Benutzer gewählten Netzwerkroutings.
+    description: ''
+  - name: --sas-exp --sas-expiration-period
+    summary: Ablaufzeitraum der SAS-Richtlinie, die dem Speicherkonto (DD.HH:MM:SS) zugewiesen ist.
     description: ''
   - name: --sku
     defaultValue: Standard_RAGRS
@@ -192,10 +227,13 @@ directCommands:
   - name: --tags
     summary: 'Durch Leerzeichen getrennte Tags: key[=value] [key[=value] ...]. Verwenden Sie "", um vorhandene Tags zu löschen.'
     description: ''
+  - name: --user-identity-id
+    summary: Der Schlüssel ist der ARM-Ressourcenbezeichner der Identität. Hier ist nur eine vom Benutzer zugewiesene Identität zulässig.
+    description: ''
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/storage/_help.py
 - uid: az_storage_account_delete
   name: az storage account delete
-  summary: Löschen Sie ein Speicherkonto.
+  summary: Löschen sie ein Speicherkonto.
   description: ''
   syntax: >-
     az storage account delete [--ids]
@@ -210,7 +248,7 @@ directCommands:
     syntax: az storage account delete -n MyStorageAccount -g MyResourceGroup
   optionalParameters:
   - name: --ids
-    summary: Eine oder mehrere Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu Ressourcen-ID-Argumenten geben. Sie sollten entweder --ids oder andere Ressourcen-ID-Argumente bereitstellen.
+    summary: Mindestens eine Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu "Ressourcen-ID"-Argumenten sein. Sie sollten entweder --ids oder andere "Resource Id"-Argumente angeben.
     description: ''
   - name: --name -n
     summary: Der Name des Speicherkontos.
@@ -297,11 +335,11 @@ directCommands:
   requiredParameters:
   - isRequired: true
     name: --expiry
-    summary: Gibt den UTC-Datetime-Wert (Y-m-d'T'H:M'Z') an, an dem die SAS ungültig wird.
+    summary: Gibt die UTC datetime (Y-m-d'T'H:M'Z') an, an der die SAS ungültig wird.
     description: ''
   - isRequired: true
     name: --permissions
-    summary: 'Die Berechtigungen, die die SAS gewährt. Zulässige Werte: (a)dd (c)reate (d)elete (l)ist (p)rocess (r)sender (u)pdate (w)ates. Kann kombiniert werden.'
+    summary: 'Die Berechtigungen, die die SAS gewährt. Zulässige Werte: (a)dd (c)reate (d)elete (l)ist (p)rocess (r)ead (u)pdate (w)label. Kann kombiniert werden.'
     description: ''
   - isRequired: true
     name: --resource-types
@@ -322,16 +360,16 @@ directCommands:
     summary: 'Verbindungszeichenfolge des Speicherkontos. Umgebungsvariable: AZURE_STORAGE_CONNECTION_STRING.'
     description: ''
   - name: --https-only
-    summary: Lassen Sie nur Anforderungen zu, die mit dem HTTPS-Protokoll gesendet werden. Wenn sie nicht angegeben wird, sind Anforderungen sowohl vom HTTP- als auch vom HTTPS-Protokoll zulässig.
+    summary: Lassen Sie nur Anforderungen zu, die mit dem HTTPS-Protokoll erfolgen. Wenn diese Angabe ausgelassen wird, sind Anforderungen sowohl vom HTTP- als auch vom HTTPS-Protokoll zulässig.
     description: ''
   - name: --ids
-    summary: Eine oder mehrere Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu Ressourcen-ID-Argumenten geben. Sie sollten entweder --ids oder andere Ressourcen-ID-Argumente bereitstellen.
+    summary: Mindestens eine Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu "Ressourcen-ID"-Argumenten sein. Sie sollten entweder --ids oder andere "Resource Id"-Argumente angeben.
     description: ''
   - name: --ip
-    summary: Gibt die IP-Adresse oder den IP-Adressbereich an, von denen Anforderungen akzeptiert werden. Unterstützt nur Adressen im IPv4-Format.
+    summary: Gibt die IP-Adresse oder den IP-Adressbereich an, von denen Anforderungen akzeptiert werden sollen. Unterstützt nur IPv4-Adressen.
     description: ''
   - name: --start
-    summary: Gibt die UTC datetime (Y-m-d'T'H:M'Z') an, ab der die SAS gültig wird. Der Standardwert ist die Uhrzeit der Anforderung.
+    summary: Gibt den UTC-Datetime-Wert (Y-m-d'T'H:M'Z') an, ab dem die SAS gültig wird. Der Standardwert ist der Zeitpunkt der Anforderung.
     description: ''
   - name: --subscription
     summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
@@ -377,7 +415,7 @@ directCommands:
     syntax: az storage account revoke-delegation-keys -n mystorageaccount -g MyResourceGroup
   optionalParameters:
   - name: --ids
-    summary: Mindestens eine Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen von "Resource Id"-Argumenten sein. Sie sollten entweder --ids oder andere "Resource Id"-Argumente angeben.
+    summary: Eine oder mehrere Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu Ressourcen-ID-Argumenten geben. Sie sollten entweder --ids oder andere Ressourcen-ID-Argumente bereitstellen.
     description: ''
   - name: --name -n
     summary: Der Name des Speicherkontos.
@@ -401,22 +439,22 @@ directCommands:
                             [--resource-group]
                             [--subscription]
   examples:
-  - summary: Anzeigen von Eigenschaften für ein Speicherkonto nach Ressourcen-ID.
+  - summary: Anzeigen von Eigenschaften für ein Speicherkonto nach Ressourcen-ID
     syntax: az storage account show --ids /subscriptions/{SubID}/resourceGroups/{ResourceGroup}/providers/Microsoft.Storage/storageAccounts/{StorageAccount}
-  - summary: Anzeigen von Eigenschaften für ein Speicherkonto mithilfe eines Kontonamens und einer Ressourcengruppe.
+  - summary: Anzeigen von Eigenschaften für ein Speicherkonto mithilfe eines Kontonamens und einer Ressourcengruppe
     syntax: az storage account show -g MyResourceGroup -n MyStorageAccount
   optionalParameters:
   - name: --expand
-    summary: Kann verwendet werden, um die Eigenschaften in den Eigenschaften des Kontos zu erweitern. Standardmäßig sind Daten beim Abrufen von Eigenschaften nicht enthalten. Derzeit unterstützen wir nur geoReplicationStats und blobRestoreStatus.
+    summary: Kann verwendet werden, um die Eigenschaften in den Eigenschaften des Kontos zu erweitern. Standardmäßig werden beim Abrufen von Eigenschaften keine Daten einbezogen. Derzeit unterstützen wir nur geoReplicationStats und blobRestoreStatus.
     description: ''
   - name: --ids
-    summary: Mindestens eine Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen von "Resource Id"-Argumenten sein. Sie sollten entweder --ids oder andere "Resource Id"-Argumente angeben.
+    summary: Mindestens eine Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu "Ressourcen-ID"-Argumenten sein. Sie sollten entweder --ids oder andere "Resource Id"-Argumente angeben.
     description: ''
   - name: --name -n
     summary: Der Name des Speicherkontos.
     description: ''
   - name: --query-examples
-    summary: Empfehlen Sie die JMESPath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und sie nach dem Parameter --query in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positionsschlüsselwörter hinzufügen, damit wir basierend auf diesen Schlüsselwörtern Vorschläge geben können.
+    summary: Empfehlen Sie die JMESPath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und nach dem Parameter --query in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positionsschlüsselwörter hinzufügen, damit wir basierend auf diesen Schlüsselwörtern Vorschläge geben können.
     description: ''
   - name: --resource-group -g
     summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
@@ -454,7 +492,7 @@ directCommands:
     summary: Benutzerdefinierter Endpunkt für Dateien.
     description: ''
   - name: --ids
-    summary: Eine oder mehrere Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu Ressourcen-ID-Argumenten geben. Sie sollten entweder --ids oder andere Ressourcen-ID-Argumente bereitstellen.
+    summary: Mindestens eine Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu "Ressourcen-ID"-Argumenten sein. Sie sollten entweder --ids oder andere "Resource Id"-Argumente angeben.
     description: ''
   - name: --key
     defaultValue: primary
@@ -533,7 +571,10 @@ directCommands:
                               [--force-string]
                               [--forest-name]
                               [--https-only {false, true}]
+                              [--identity-type {None, SystemAssigned, SystemAssigned,UserAssigned, UserAssigned}]
                               [--ids]
+                              [--key-exp-days]
+                              [--key-vault-user-identity-id]
                               [--min-tls-version {TLS1_0, TLS1_1, TLS1_2}]
                               [--name]
                               [--net-bios-domain-name]
@@ -542,11 +583,13 @@ directCommands:
                               [--remove]
                               [--resource-group]
                               [--routing-choice {InternetRouting, MicrosoftRouting}]
+                              [--sas-exp]
                               [--set]
                               [--sku {Premium_LRS, Premium_ZRS, Standard_GRS, Standard_GZRS, Standard_LRS, Standard_RAGRS, Standard_RAGZRS, Standard_ZRS}]
                               [--subscription]
                               [--tags]
                               [--use-subdomain {false, true}]
+                              [--user-identity-id]
   examples:
   - summary: Aktualisieren Sie die Eigenschaften eines Speicherkontos. (automatisch generiert)
     syntax: az storage account update --default-action Allow --name MyStorageAccount --resource-group MyResourceGroup
@@ -560,11 +603,11 @@ directCommands:
     description: ''
   - name: --allow-blob-public-access
     parameterValueGroup: false, true
-    summary: Zulassen oder Verbieten des öffentlichen Zugriffs auf alle Blobs oder Container im Speicherkonto. Der Standardwert für diese Eigenschaft ist NULL, was true entspricht. True gibt an, dass Container im Konto möglicherweise für den öffentlichen Zugriff konfiguriert werden. Beachten Sie, dass das Festlegen dieser Eigenschaft auf TRUE keinen anonymen Zugriff auf Daten im Konto ermöglicht. Der zusätzliche Schritt zum Konfigurieren der Einstellung für den öffentlichen Zugriff für einen Container ist erforderlich, um den anonymen Zugriff zu aktivieren.
+    summary: Lässt den öffentlichen Zugriff auf alle Blobs oder Container im Speicherkonto zu oder lässt diesen nicht zu. Der Standardwert für diese Eigenschaft ist NULL, was TRUE entspricht. True gibt an, dass Container im Konto für den öffentlichen Zugriff konfiguriert werden können. Beachten Sie, dass das Festlegen dieser Eigenschaft auf TRUE keinen anonymen Zugriff auf Daten im Konto ermöglicht. Der zusätzliche Schritt zum Konfigurieren der Einstellung für den öffentlichen Zugriff für einen Container ist erforderlich, um den anonymen Zugriff zu aktivieren.
     description: ''
   - name: --allow-shared-key-access -k
     parameterValueGroup: false, true
-    summary: Geben Sie an, ob das Speicherkonto die Autorisierung von Anforderungen mit dem Kontozugriffsschlüssel über einen gemeinsam verwendeten Schlüssel zulässt. False gibt an, dass alle Anforderungen, einschließlich Shared Access Signatures, mit Azure Active Directory (Azure AD) autorisiert werden müssen. Der Standardwert ist NULL, was true entspricht.
+    summary: Geben Sie an, ob das Speicherkonto die Autorisierter Anforderungen mit dem Kontozugriffsschlüssel über den gemeinsam genutzten Schlüssel zuläss. False gibt an, dass alle Anforderungen, einschließlich Shared Access Signatures, mit Azure Active Directory (Azure AD) autorisiert werden müssen. Der Standardwert ist NULL, was true entspricht.
     description: ''
   - name: --assign-identity
     summary: Generieren sie eine neue Speicherkontoidentität für dieses Speicherkonto, und weisen Sie sie für die Verwendung mit Schlüsselverwaltungsdiensten wie Azure KeyVault zu.
@@ -577,7 +620,7 @@ directCommands:
     summary: Umgehen Sie Datenverkehr für durch Leerzeichen getrennte Verwendungszwecke.
     description: ''
   - name: --custom-domain
-    summary: Benutzerdomäne, die dem Speicherkonto zugewiesen ist. Name ist die CNAME-Quelle. Verwenden Sie "", um den vorhandenen Wert zu löschen.
+    summary: Dem Speicherkonto zugewiesene Benutzerdomäne. Name ist die CNAME-Quelle. Verwenden Sie "", um den vorhandenen Wert zu löschen.
     description: ''
   - name: --default-action
     parameterValueGroup: Allow, Deny
@@ -594,14 +637,14 @@ directCommands:
     description: ''
   - name: --enable-files-aadds
     parameterValueGroup: false, true
-    summary: Aktivieren Azure Active Directory Domain Services Authentifizierung für Azure Files.
+    summary: Aktivieren Sie Azure Active Directory Domain Services Authentifizierung für Azure Files.
     description: ''
   - name: --enable-files-adds
     parameterValueGroup: false, true
-    summary: Aktivieren Azure Files Active Directory-Domäne-Dienstauthentifizierung für das Speicherkonto. Wenn --enable-files-adds auf TRUE festgelegt ist, Azure Active Directory Eigenschaftenargumente angegeben werden.
+    summary: Aktivieren Sie Azure Files Active Directory-Domäne-Dienstauthentifizierung für das Speicherkonto. Wenn --enable-files-adds auf TRUE festgelegt ist, müssen Azure Active Directory Properties-Argumente bereitgestellt werden.
     description: ''
   - name: --enable-large-file-share
-    summary: Aktivieren Sie die Funktion zur Unterstützung großer Dateifreigaben mit mehr als 5 TiB Kapazität für das Speicherkonto. Sobald die Eigenschaft aktiviert ist, kann das Feature nicht mehr deaktiviert werden. Derzeit nur für LRS- und ZRS-Replikationstypen unterstützt, sind Kontokonvertierungen in georedundante Konten daher nicht möglich. Weitere Informationen finden Sie unter https://go.microsoft.com/fwlink/?linkid=2086047 .
+    summary: Aktivieren Sie die Möglichkeit, große Dateifreigaben mit mehr als 5 TiB Kapazität für das Speicherkonto zu unterstützen. Sobald die Eigenschaft aktiviert ist, kann das Feature nicht mehr deaktiviert werden. Derzeit nur für LRS- und ZRS-Replikationstypen unterstützt, sind Kontokonvertierungen in georedundante Konten nicht möglich. Weitere Informationen finden Sie unter https://go.microsoft.com/fwlink/?linkid=2086047 .
     description: ''
   - name: --encryption-key-name
     summary: Der Name des KeyVault-Schlüssels.
@@ -630,12 +673,22 @@ directCommands:
     parameterValueGroup: false, true
     summary: Lässt https-Datenverkehr nur an den Speicherdienst zu.
     description: ''
+  - name: --identity-type
+    parameterValueGroup: None, SystemAssigned, SystemAssigned,UserAssigned, UserAssigned
+    summary: Der Identitätstyp.
+    description: ''
   - name: --ids
-    summary: Eine oder mehrere Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen von "Resource Id"-Argumenten sein. Sie sollten entweder --ids oder andere "Resource Id"-Argumente angeben.
+    summary: Eine oder mehrere Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu Ressourcen-ID-Argumenten geben. Sie sollten entweder --ids oder andere Ressourcen-ID-Argumente bereitstellen.
+    description: ''
+  - name: --key-exp-days --key-expiration-period-in-days
+    summary: Ablaufzeitraum in Tagen der Schlüsselrichtlinie, die dem Speicherkonto zugewiesen ist.
+    description: ''
+  - name: --key-vault-user-identity-id -u
+    summary: Ressourcenbezeichner der UserAssigned-Identität, die der serverseitigen Verschlüsselung im Speicherkonto zugeordnet werden soll.
     description: ''
   - name: --min-tls-version
     parameterValueGroup: TLS1_0, TLS1_1, TLS1_2
-    summary: Die TLS-Mindestversion, die bei Speicheranforderungen zugelassen werden soll. Die Standardinterpretation ist TLS 1.0 für diese Eigenschaft.
+    summary: Die TLS-Mindestversion, die bei Anforderungen an den Speicher zugelassen werden soll. Die Standardinterpretation ist TLS 1.0 für diese Eigenschaft.
     description: ''
   - name: --name -n
     summary: Der Name des Speicherkontos.
@@ -645,7 +698,7 @@ directCommands:
     description: ''
   - name: --publish-internet-endpoints
     parameterValueGroup: false, true
-    summary: Ein boolesches Flag, das angibt, ob Internetroutingspeicher-Endpunkte veröffentlicht werden sollen.
+    summary: Ein boolesches Flag, das angibt, ob Internetrouting-Speicherendpunkte veröffentlicht werden sollen.
     description: ''
   - name: --publish-microsoft-endpoints
     parameterValueGroup: false, true
@@ -659,10 +712,13 @@ directCommands:
     description: ''
   - name: --routing-choice
     parameterValueGroup: InternetRouting, MicrosoftRouting
-    summary: Die Routingauswahl definiert die Art des Vom Benutzer gewählten Netzwerkroutings.
+    summary: Routing Choice definiert die Art des Vom Benutzer gewählten Netzwerkroutings.
+    description: ''
+  - name: --sas-exp --sas-expiration-period
+    summary: Ablaufzeitraum der SAS-Richtlinie, die dem Speicherkonto (DD.HH:MM:SS) zugewiesen ist.
     description: ''
   - name: --set
-    summary: 'Aktualisieren Sie ein -Objekt, indem Sie einen festzulegenden Eigenschaftenpfad und -wert angeben.  Beispiel: --set property1.property2=<value>.'
+    summary: 'Aktualisieren Sie ein Objekt, indem Sie einen festzulegenden Eigenschaftenpfad und -wert angeben.  Beispiel: --set property1.property2=<value>.'
     description: ''
   - name: --sku
     parameterValueGroup: Premium_LRS, Premium_ZRS, Standard_GRS, Standard_GZRS, Standard_LRS, Standard_RAGRS, Standard_RAGZRS, Standard_ZRS
@@ -677,6 +733,9 @@ directCommands:
   - name: --use-subdomain
     parameterValueGroup: false, true
     summary: Geben Sie an, ob die indirekte CNAME-Überprüfung verwendet werden soll.
+    description: ''
+  - name: --user-identity-id
+    summary: Der Schlüssel ist der ARM-Ressourcenbezeichner der Identität. Hier ist nur eine vom Benutzer zugewiesene Identität zulässig.
     description: ''
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/storage/_help.py
 commands:
@@ -755,11 +814,11 @@ globalParameters:
   summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
 metadata:
   doc_source_url_repo: https://github.com/Azure/azure-cli/blob/dev/
-  ms.date: 04/08/2021
+  ms.date: 04/26/2021
   description: Verwalten von Speicherkonten.
-  ms.openlocfilehash: c9c82640cca8756f4f0c526bc7a8f05d2760ddd9
-  ms.sourcegitcommit: f11f08a8b571d9909044693a8dc52c0cf2e9b2bc
+  ms.openlocfilehash: ee566075118d282910602e115089d475377bed64
+  ms.sourcegitcommit: 15a6f14c5a8570ba89a3bd5bb442f3324d72bc37
   ms.translationtype: MT
   ms.contentlocale: de-DE
-  ms.lasthandoff: 04/19/2021
-  ms.locfileid: "107710673"
+  ms.lasthandoff: 04/29/2021
+  ms.locfileid: "108234157"
