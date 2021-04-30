@@ -1,12 +1,12 @@
 ### YamlMime:AzureCLIGroup
 uid: az_vmss
 name: az vmss
-summary: Verwalten von Gruppierungen virtueller Computer in einer Azure-VM-Skalierungsgruppe (VMSS).
+summary: Verwalten von Gruppierungen von virtuellen Computern in einer Azure-VM-Skalierungsgruppe (VMSS).
 description: ''
 directCommands:
 - uid: az_vmss_create
   name: az vmss create
-  summary: Erstellen sie eine Azure-VM-Skalierung gruppe.
+  summary: Erstellen Sie eine Azure Virtual Machine Scale Set.
   description: Ein End-to-End-Tutorial finden Sie unter https://docs.microsoft.com/azure/virtual-machine-scale-sets/virtual-machine-scale-sets-linux-create-cli .
   syntax: >-
     az vmss create --name
@@ -98,14 +98,14 @@ directCommands:
                    [--vnet-name]
                    [--zones {1, 2, 3}]
   examples:
-  - summary: Erstellen Sie eine Windows-VM-Skalierung gruppe mit 5 Instanzen, einem Lastenausgleich, einer öffentlichen IP-Adresse, einem 2 GB großen Datenträger und einem Betriebssystemdatenträger mit 40 GB.
+  - summary: Erstellen Sie eine Windows-VM-Skalierung gruppe mit fünf Instanzen, einem Lastenausgleich, einer öffentlichen IP-Adresse, einem Datenträger mit 2 GB und einem Betriebssystemdatenträger mit 40 GB.
     syntax: az vmss create -n MyVmss -g MyResourceGroup --instance-count 5 --image Win2016Datacenter --data-disk-sizes-gb 2 --os-disk-size-gb 40
   - summary: Erstellen Sie eine Linux-VM-Skalierung gruppe mit einem automatisch generierten SSH-Schlüsselpaar, einer öffentlichen IP-Adresse, einem DNS-Eintrag, einem vorhandenen Lastenausgleich und einem vorhandenen virtuellen Netzwerk.
     syntax: >-
       az vmss create -n MyVmss -g MyResourceGroup --public-ip-address-dns-name my-globally-dns-name \
           --load-balancer MyLoadBalancer --vnet-name MyVnet --subnet MySubnet --image UbuntuLTS \
           --generate-ssh-keys
-  - summary: Erstellen Sie eine Linux-VM-Skalierung gruppe aus einem benutzerdefinierten Image unter Verwendung des standardmäßig vorhandenen öffentlichen SSH-Schlüssels.
+  - summary: Erstellen Sie eine Linux-VM-Skalierung gruppe aus einem benutzerdefinierten Image mithilfe des standardmäßig vorhandenen öffentlichen SSH-Schlüssels.
     syntax: az vmss create -n MyVmss -g MyResourceGroup --image MyImage
   - summary: Erstellen Sie eine Linux-VM-Skalierung gruppe mit einem Lastenausgleich und benutzerdefinierten DNS-Servern. Jeder virtuelle Computer verfügt über eine öffentliche IP-Adresse und einen benutzerdefinierten Domänennamen.
     syntax: >-
@@ -113,9 +113,9 @@ directCommands:
           --public-ip-per-vm --vm-domain-name myvmss --dns-servers 10.0.0.6 10.0.0.5
   - summary: 'Erstellen Sie eine Linux-VM-Skalierung gruppe mithilfe eines cloud-init-Skripts für die Konfiguration. Siehe: https://docs.microsoft.com/azure/virtual-machines/linux/using-cloud-init'
     syntax: az vmss create -g MyResourceGroup -n MyVmss --image debian --custom-data MyCloudInitScript.yml
-  - summary: Erstellen Sie eine Linux-VM-Skalierung gruppe aus einer spezialisierten Imageversion.
+  - summary: Erstellen Sie eine Linux-VM-Skalierungskala aus einer spezialisierten Imageversion.
     syntax: az vmss create -n MyVmss -g MyResourceGroup --image $id --specialized
-  - summary: Erstellen Sie eine Debian-VM-Skalierungsmenge mit Key Vault Geheimnissen.
+  - summary: Erstellen Sie eine Debian-VM-Skalierungsmenge mithilfe Key Vault Geheimnissen.
     syntax: >-
       az keyvault certificate create --vault-name vaultname -n cert1 \
         -p "$(az keyvault certificate get-default-policy)"
@@ -128,18 +128,18 @@ directCommands:
 
       az vmss create -g group-name -n vm-name --admin-username deploy  \
         --image debian --secrets "$vm_secrets"
-  - summary: Erstellen Sie eine VM-Skalierungsmenge mit einer vom System zugewiesenen Identität. Die VM hat die Rolle "Mitwirkender" mit Zugriff auf ein Speicherkonto.
+  - summary: Erstellen Sie eine VM-Skalierungsmenge mit system zugewiesener Identität. Der virtuelle Computer hat die Rolle "Mitwirkender" mit Zugriff auf ein Speicherkonto.
     syntax: az vmss create -n MyVmss -g MyResourceGroup --image centos --assign-identity --scope /subscriptions/99999999-1bf0-4dda-aec3-cb9272f09590/MyResourceGroup/myRG/providers/Microsoft.Storage/storageAccounts/storage1
   - summary: Erstellen Sie eine Debian-VM-Skalierungsmenge mit einer vom Benutzer zugewiesenen Identität.
     syntax: az vmss create -n MyVmss -g rg1 --image debian --assign-identity  /subscriptions/99999999-1bf0-4dda-aec3-cb9272f09590/resourcegroups/myRG/providers/Microsoft.ManagedIdentity/userAssignedIdentities/myID
-  - summary: Erstellen Sie eine Debian-VM-Skalierungsmenge mit system- und benutzerseitig zugewiesener Identität.
+  - summary: Erstellen Sie eine Debian-VM-Skalierungsmenge mit system- und benutzer zugewiesener Identität.
     syntax: az vmss create -n MyVmss -g rg1 --image debian --assign-identity  [system] /subscriptions/99999999-1bf0-4dda-aec3-cb9272f09590/resourcegroups/myRG/providers/Microsoft.ManagedIdentity/userAssignedIdentities/myID
   - summary: Erstellen einer VM-Skalierungsgruppe mit einer einzelnen Zone in der Region der aktuellen Ressourcengruppe
     syntax: az vmss create -n MyVmss -g MyResourceGroup --image Centos --zones 1
   requiredParameters:
   - isRequired: true
     name: --name -n
-    summary: Name der VM-Skalierung gruppe.
+    summary: Name der SKALIERUNGSKALA FÜR VIRTUELLE COMPUTER.
     description: ''
   - isRequired: true
     name: --resource-group -g
@@ -148,101 +148,101 @@ directCommands:
   optionalParameters:
   - name: --accelerated-networking
     parameterValueGroup: false, true
-    summary: Aktivieren Sie den beschleunigten Netzwerkbetrieb. Sofern nicht angegeben, wird sie von der CLI basierend auf dem Computerimage und der Größe aktiviert.
+    summary: Aktivieren Sie den beschleunigten Netzwerkbetrieb. Sofern nicht angegeben, aktiviert die CLI dies basierend auf dem Computerimage und der Größe.
     description: ''
   - name: --admin-password
-    summary: Kennwort für den virtuellen Computer, wenn der Authentifizierungstyp "Kennwort" ist.
+    summary: Kennwort für den virtuellen Computer, wenn der Authentifizierungstyp "Kennwort" lautet.
     description: ''
   - name: --admin-username
-    summary: Benutzername für den virtuellen Computer. Der Standardwert ist der aktuelle Benutzername des Betriebssystems. Wenn der Standardwert vom System reserviert ist, wird der Standardwert auf azureuser festgelegt. Eine vollständige Liste https://docs.microsoft.com/en-us/rest/api/compute/virtualmachines/createorupdate#osprofile der reservierten Werte finden Sie unter .
+    summary: Benutzername für den virtuellen Computer. Der Standardwert ist der aktuelle Benutzername des Betriebssystems. Wenn der Standardwert vom System reserviert ist, wird der Standardwert auf azureuser festgelegt. Eine https://docs.microsoft.com/en-us/rest/api/compute/virtualmachines/createorupdate#osprofile vollständige Liste der reservierten Werte finden Sie unter .
     description: ''
   - name: --app-gateway
-    summary: Der Name, der beim Erstellen eines neuen Anwendungsgateways (Standard) oder beim Verweisen auf ein vorhandenes Anwendungsgateway verwendet werden soll. Kann auch über die ID auf ein vorhandenes Anwendungsgateway verweisen oder "" für "None" angeben.
+    summary: Der Name, der beim Erstellen eines neuen Anwendungsgateways (Standard) oder beim Verweisen auf ein vorhandenes Anwendungsgateway verwendet werden soll. Kann auch anhand der ID auf ein vorhandenes Anwendungsgateway verweisen oder "" für "None" angeben.
     description: ''
   - name: --app-gateway-capacity
     defaultValue: "10"
-    summary: Die Anzahl von Instanzen, die beim Erstellen eines neuen Anwendungsgateways verwendet werden.
+    summary: Die Anzahl der Instanzen, die beim Erstellen eines neuen Anwendungsgateways verwendet werden sollen.
     description: ''
   - name: --app-gateway-sku
     defaultValue: Standard_Large
     summary: SKU beim Erstellen eines neuen Anwendungsgateways.
     description: ''
   - name: --app-gateway-subnet-address-prefix
-    summary: Das Ip-Adresspräfix des Subnetzes, das beim Erstellen eines neuen Anwendungsgateways im CIDR-Format verwendet werden soll.
+    summary: Das Subnetz-IP-Adresspräfix, das beim Erstellen eines neuen Anwendungsgateways im CIDR-Format verwendet werden soll.
     description: ''
   - name: --asgs
     summary: Durch Leerzeichen getrennte Liste vorhandener Anwendungssicherheitsgruppen, die dem virtuellen Computer zugeordnet werden sollen.
     description: ''
   - name: --assign-identity
-    summary: Akzeptieren Sie system- oder benutzer zugewiesene Identitäten, die durch Leerzeichen getrennt sind. Verwenden Sie "[system]", um auf die vom System zugewiesene Identität zu verweisen, oder eine Ressourcen-ID, um auf eine vom Benutzer zugewiesene Identität zu verweisen. Weitere Beispiele finden Sie in der Hilfe.
+    summary: Akzeptieren Sie vom System oder vom Benutzer zugewiesene Identitäten, die durch Leerzeichen getrennt sind. Verwenden Sie "[system]", um auf eine vom System zugewiesene Identität zu verweisen, oder eine Ressourcen-ID, um auf die vom Benutzer zugewiesene Identität zu verweisen. Weitere Beispiele finden Sie in der Hilfe.
     description: ''
   - name: --authentication-type
     parameterValueGroup: all, password, ssh
-    summary: Typ der Authentifizierung, die mit dem virtuellen Computer verwendet werden soll. Der Standardwert ist das Kennwort für Windows und der öffentliche SSH-Schlüssel für Linux. "all" ermöglicht sowohl die SSH- als auch die Kennwortauthentifizierung.
+    summary: Typ der Authentifizierung, die mit dem virtuellen Computer verwendet werden soll. Standardmäßig wird kennwort für Windows und öffentlicher SSH-Schlüssel für Linux verwendet. "all" ermöglicht sowohl die SSH- als auch die Kennwortauthentifizierung.
     description: ''
   - name: --automatic-repairs-grace-period
-    summary: Die Zeit (in Minuten, zwischen 30 und 90), für die automatische Reparaturen aufgrund einer Zustandsänderung auf dem virtuellen Computer angehalten werden.
+    summary: Die Zeitspanne (in Minuten, zwischen 30 und 90), für die automatische Reparaturen aufgrund einer Zustandsänderung auf dem virtuellen Computer angehalten werden.
     description: ''
   - name: --backend-pool-name
-    summary: Name, der beim Erstellen eines neuen Lastenausgleichs oder Anwendungsgateways für den Back-End-Pool verwendet werden soll.
+    summary: Der Name, der beim Erstellen eines neuen Lastenausgleichs oder Anwendungsgateways für den Back-End-Pool verwendet werden soll.
     description: ''
   - name: --backend-port
-    summary: 'Beim Erstellen eines neuen Lastenausgleichs wird der Back-End-Port mit NAT-Regeln geöffnet (Standardwerte: 22 unter Linux und 3389 unter Windows). Beim Erstellen eines Anwendungsgateways der Back-End-Port, der für die BACK-End-HTTP-Einstellungen verwendet werden soll.'
+    summary: 'Beim Erstellen eines neuen Lastenausgleichs wird der Back-End-Port mit NAT-Regeln geöffnet (Standardwert: 22 unter Linux und 3389 unter Windows). Beim Erstellen eines Anwendungsgateways der Back-End-Port, der für die Back-End-HTTP-Einstellungen verwendet werden soll.'
     description: ''
   - name: --computer-name-prefix
     summary: Computernamenpräfix für alle virtuellen Computer in der Skalierung gruppe. Computernamenpräfixe müssen 1 bis 15 Zeichen lang sein.
     description: ''
   - name: --custom-data
-    summary: Benutzerdefinierte Init-Skriptdatei oder -text (cloud-init, cloud-config usw.).
+    summary: Benutzerdefinierte Init-Skriptdatei oder Text (cloud-init, cloud-config usw.).
     description: ''
   - name: --data-disk-caching
-    summary: Speicherzwischenspeichertyp für Datenträger, einschließlich "None", "ReadOnly", "ReadWrite" usw. Verwenden Sie einen Singularwert, der auf alle Datenträger angewendet werden soll, oder verwenden Sie `<lun>=<vaule1> <lun>=<value2>` , um einzelne Datenträger zu konfigurieren.
+    summary: Speicherzwischenspeichertyp für Datenträger, einschließlich "None", "ReadOnly", "ReadWrite" usw. Verwenden Sie einen singular-Wert, der auf alle Datenträger angewendet wird, oder verwenden Sie , `<lun>=<vaule1> <lun>=<value2>` um einen einzelnen Datenträger zu konfigurieren.
     description: ''
   - name: --data-disk-encryption-sets
     summary: Namen oder IDs (durch Leerzeichen getrennt) von Datenträgerverschlüsselungssätzen für Datenträger.
     description: ''
   - name: --data-disk-iops
-    summary: Geben Sie die Read-Write IOPS (durch Leerzeichen getrennt) für den verwalteten Datenträger an. Sollte nur verwendet werden, wenn StorageAccountType UltraSSD_LRS ist. Wenn kein Wert angegeben wird, wird ein Standardwert basierend auf diskSizeGB zugewiesen.
+    summary: Geben Sie Read-Write IOPS (durch Leerzeichen getrennt) für den verwalteten Datenträger an. Sollte nur verwendet werden, wenn StorageAccountType UltraSSD_LRS. Wenn kein Wert angegeben wird, wird basierend auf diskSizeGB ein Standardwert zugewiesen.
     description: ''
   - name: --data-disk-mbps
-    summary: Geben Sie die Bandbreite in MB pro Sekunde (durch Leerzeichen getrennt) für den verwalteten Datenträger an. Sollte nur verwendet werden, wenn StorageAccountType UltraSSD_LRS ist. Wenn kein Wert angegeben wird, wird ein Standardwert basierend auf diskSizeGB zugewiesen.
+    summary: Geben Sie die Bandbreite in MB pro Sekunde (durch Leerzeichen getrennt) für den verwalteten Datenträger an. Sollte nur verwendet werden, wenn StorageAccountType UltraSSD_LRS. Wenn kein Wert angegeben wird, wird basierend auf diskSizeGB ein Standardwert zugewiesen.
     description: ''
   - name: --data-disk-sizes-gb
-    summary: Leerer, durch Speicherplatz getrennter verwalteter Datenträgergrößen in GB, die erstellt werden sollen.
+    summary: Leerer verwalteter Datenträger in GB, der durch Leerzeichen getrennt werden soll.
     description: ''
   - name: --disable-overprovision
-    summary: Option "Überbereitstellung" (weitere Informationen finden Sie unter https://azure.microsoft.com/documentation/articles/virtual-machine-scale-sets-overview/ ).
+    summary: Option "Überprovision" (weitere https://azure.microsoft.com/documentation/articles/virtual-machine-scale-sets-overview/ Informationen).
     description: ''
   - name: --dns-servers
     summary: Durch Leerzeichen getrennte IP-Adressen von DNS-Servern, z.B. 10.0.0.5 10.0.0.6.
     description: ''
   - name: --edge-zone
-    summary: Name des erweiterten Standorts der Edgezone.
+    summary: Der Name der Edgezone.
     description: ''
   - name: --enable-cross-zone-upgrade
     parameterValueGroup: false, true
-    summary: Legen Sie diese boolesche Eigenschaft fest, damit VMSS beim Erstellen von Upgradebatches AZ-Grenzen ignorieren kann, und berücksichtigen Sie nur Update Domain und maxBatchInstancePercent, um die Batchgröße zu bestimmen.
+    summary: Legen Sie diese boolesche Eigenschaft fest, damit VMSS BEIM Erstellen von Upgradebatches AZ-Grenzen ignoriert und nur Update Domain und maxBatchInstancePercent in Betracht ziehen, um die Batchgröße zu bestimmen.
     description: ''
   - name: --encryption-at-host
     parameterValueGroup: false, true
-    summary: Aktivieren Sie die Hostverschlüsselung für die VM oder VMSS. Dadurch wird die Verschlüsselung für alle Datenträger aktiviert, einschließlich des Resource/Temp-Datenträgers auf dem Host selbst.
+    summary: Aktivieren Sie die Hostverschlüsselung für die VM oder VMSS. Dadurch wird die Verschlüsselung für alle Datenträger aktiviert, einschließlich des Ressourcen-/temporären Datenträgers auf dem Host selbst.
     description: ''
   - name: --ephemeral-os-disk
     parameterValueGroup: false, true
-    summary: Ermöglicht es Ihnen, einen Betriebssystemdatenträger direkt auf dem Hostknoten zu erstellen, wodurch die Leistung des lokalen Datenträgers und eine schnellere VM/VMSS-Reimagezeit ermöglicht wird.
+    summary: Ermöglicht es Ihnen, einen Betriebssystemdatenträger direkt auf dem Hostknoten zu erstellen, um die Leistung des lokalen Datenträgers und eine schnellere VM/VMSS-Neustartzeit zu ermöglichen.
     description: ''
   - name: --eviction-policy
     parameterValueGroup: Deallocate, Delete
-    summary: Die Eviction-Richtlinie für virtuelle Computer in einer Spot-Prioritätsskala. Die Standardrichtlinie für die Ortung ist "Deallocate" für eine Spot-Prioritätsskala.
+    summary: Die Eviction-Richtlinie für virtuelle Computer in einer Spot-Skalierungsrichtlinie mit Priorität. Die Standardmäßige Eviction-Richtlinie lautet Zuordnung für eine Spot-Prioritätsskalate.
     description: ''
   - name: --generate-ssh-keys
     summary: Erstellen der Dateien für öffentliche und private SSH-Schlüssel, sofern diese fehlen. Die Schlüssel werden im Verzeichnis ~/.ssh gespeichert.
     description: ''
   - name: --health-probe
-    summary: Der Testname des vorhandenen Lastenausgleichs, der hauptsächlich für das rollierende Upgrade oder automatische Reparaturen verwendet wird.
+    summary: Testname aus dem vorhandenen Lastenausgleich, der hauptsächlich für parallele Upgrades oder automatische Reparaturen verwendet wird.
     description: ''
   - name: --host-group
-    summary: Name oder ID der dedizierten Hostgruppe, in der sich die SKALIERUNGSGRUPPE des virtuellen Computers befindet.
+    summary: Name oder ID der dedizierten Hostgruppe, in der sich die VM-Skalierungsgruppe befindet.
     description: ''
   - name: --image
     summary: 'Der Name des Betriebssystemimages als URN-Alias, URN, benutzerdefinierter Imagename oder -ID oder VHD-Blob-URI. Gültiges URN-Format: "Publisher:Offer:Sku:Version".'
@@ -250,27 +250,27 @@ directCommands:
     valueFrom: az vm image list, az vm image show
   - name: --instance-count
     defaultValue: "2"
-    summary: Anzahl der virtuellen Computer in der Skalierung gruppe.
+    summary: Anzahl der VMs in der Skalierung gruppe.
     description: ''
   - name: --lb --load-balancer
-    summary: Der Name, der beim Erstellen eines neuen Lastenausgleichs (Standard) oder beim Verweisen auf einen vorhandenen Lastenausgleich verwendet werden soll. Kann auch über die ID auf einen vorhandenen Lastenausgleich verweisen oder "" für "None" angeben.
+    summary: Der Name, der beim Erstellen eines neuen Lastenausgleichs (Standard) oder beim Verweisen auf einen vorhandenen Lastenausgleich verwendet werden soll. Kann auch anhand der ID auf einen vorhandenen Lastenausgleich verweisen oder "" für "None" angeben.
     description: ''
   - name: --lb-nat-pool-name --nat-pool-name
     summary: Name, der beim Erstellen eines neuen Lastenausgleichs für den NAT-Pool verwendet werden soll.
     description: ''
   - name: --lb-sku
     parameterValueGroup: Basic, Standard
-    summary: SKU des zu erstellenden Load Balancer. Der Standardwert ist "Standard", wenn eine einzelne Platzierungsgruppe deaktiviert ist. andernfalls wird standardmäßig "Basic" verwendet.
+    summary: SKU der zu erstellende Load Balancer. Der Standardwert ist "Standard", wenn eine einzelne Platzierungsgruppe deaktiviert ist. Andernfalls wird standardmäßig "Basic" verwendet.
     description: ''
   - name: --license-type
     parameterValueGroup: None, RHEL_BYOS, SLES_BYOS, Windows_Client, Windows_Server
-    summary: Gibt an, dass das Windows-Image oder der Windows-Datenträger lokal lizenziert wurde. Verwenden Sie zum Azure-Hybridvorteil für Windows Server "Windows_Server". Verwenden Sie "Windows 10", um mehrteilige Hostingrechte für Windows_Client aktivieren. Weitere Informationen finden Sie in der Online-Dokumentation zu virtuellen Azure-Windows-Computer.
+    summary: Gibt an, dass das Windows-Image oder der Datenträger lokal lizenziert wurde. Verwenden Sie "Windows_Server", um Azure-Hybridvorteil für Windows Server zu aktivieren. Verwenden Sie "Windows_Client", um mehrstufige Hostingrechte für Windows 10 zu aktivieren. Weitere Informationen finden Sie in der Onlinedokumentation für virtuelle Azure-Windows-Computer.
     description: ''
   - name: --location -l
-    summary: Speicherort, an dem der virtuelle Computer und die zugehörigen Ressourcen erstellt werden. Wenn der Standardspeicherort nicht konfiguriert ist, wird standardmäßig der Standort der Ressourcengruppe verwendet.
+    summary: Speicherort, an dem der virtuelle Computer und die zugehörigen Ressourcen erstellt werden sollen. Wenn der Standardspeicherort nicht konfiguriert ist, wird standardmäßig der Standort der Ressourcengruppe verwendet.
     description: ''
   - name: --max-batch-instance-percent
-    summary: 'Der maximale Prozentwert der Gesamten virtuellen Computerinstanzen, die gleichzeitig durch das parallele Upgrade in einem Batch aktualisiert werden. Standardwert: 20 %.'
+    summary: 'Der maximale Prozentsatz der gesamten VM-Instanzen, die gleichzeitig durch das parallele Upgrade in einem Batch aktualisiert werden. Standardwert: 20 %.'
     description: ''
   - name: --max-price
     summary: Der Höchstpreis (in US-Dollar), den Sie für eine Spot-VM/VMSS bezahlen möchten. -1 gibt an, dass die Spot-VM/VMSS aus Preisgründen nicht entfernt werden sollte.
@@ -290,11 +290,11 @@ directCommands:
   - name: --orchestration-mode
     defaultValue: Uniform
     parameterValueGroup: Flexible, Uniform
-    summary: Wählen Sie aus, wie virtuelle Computer von der Skalierung gruppe verwaltet werden. Im Uniform-Modus definieren Sie ein Modell für virtuelle Computer, und Azure generiert identische Instanzen basierend auf diesem Modell. Im flexiblen Modus erstellen Sie manuell einen virtuellen Computer einer beliebigen Konfiguration und fügen diesen hinzu oder generieren identische Instanzen basierend auf dem für die Skalierung gruppe definierten VM-Modell.
+    summary: Wählen Sie aus, wie virtuelle Computer von der Skalierung gruppe verwaltet werden. Im Uniform-Modus definieren Sie ein VM-Modell, und Azure generiert identische Instanzen basierend auf diesem Modell. Im flexiblen Modus erstellen Sie manuell einen virtuellen Computer einer beliebigen Konfiguration und fügen diesen hinzu oder generieren identische Instanzen basierend auf dem für die Skalierung gruppe definierten VM-Modell.
     description: ''
   - name: --os-disk-caching
     parameterValueGroup: None, ReadOnly, ReadWrite
-    summary: 'Speicherzwischenspeichertyp für den VM-Betriebssystemdatenträger. Standard: ReadWrite.'
+    summary: 'Speicherzwischenspeichertyp für den VM-Betriebssystemdatenträger. Standardeinstellung: ReadWrite.'
     description: ''
   - name: --os-disk-encryption-set
     summary: Name oder ID des Datenträgerverschlüsselungssatzes für den Betriebssystemdatenträger.
@@ -336,10 +336,10 @@ directCommands:
     description: ''
   - name: --priority
     parameterValueGroup: Low, Regular, Spot
-    summary: Priority Verwenden Sie "Spot", um kurzlebige Workloads kostengünstig ausführen zu können. Die "Low"-Aufzähle wird in Zukunft veraltet sein. Verwenden Sie "Spot", um eine Azure Spot-VM und/oder VMSS bereitzustellen. Der Standardwert ist "Regular".
+    summary: Priority Verwenden Sie "Spot", um kurzlebige Workloads kostengünstig ausführen zu können. Die "Low"-Enum wird in Zukunft veraltet sein. Verwenden Sie "Spot", um eine Azure Spot-VM und/oder VMSS bereitzustellen. Der Standardwert ist "Regular".
     description: ''
   - name: --public-ip-address
-    summary: Der Name der öffentlichen IP-Adresse beim Erstellen einer ip-Adresse (Standard) oder beim Verweisen auf eine vorhandene IP-Adresse. Kann auch über die ID auf eine vorhandene öffentliche IP-Adresse verweisen oder "" für None ('""" in Azure CLI powerShell oder --%-Operator angeben).
+    summary: Name der öffentlichen IP-Adresse beim Erstellen einer (Standard) oder beim Verweisen auf eine vorhandene IP-Adresse. Kann auch über die ID auf eine vorhandene öffentliche IP-Adresse verweisen oder "" für None ('""" in Azure CLI powerShell oder --%-Operator angeben).
     description: ''
   - name: --public-ip-address-allocation
     parameterValueGroup: dynamic, static
@@ -349,11 +349,11 @@ directCommands:
     summary: Global eindeutiger DNS-Name für eine neu erstellte öffentliche IP-Adresse.
     description: ''
   - name: --public-ip-per-vm
-    summary: Jede VM-Instanz hat eine öffentliche IP-Adresse. Aus Sicherheitsgründen können Sie "--nsg" verwenden, um geeignete Regeln anzuwenden.
+    summary: Jede VM-Instanz hat eine öffentliche IP-Adresse. Aus Sicherheitsgründen können Sie "--nsg" verwenden, um entsprechende Regeln anzuwenden.
     description: ''
   - name: --role
     defaultValue: Contributor
-    summary: Rollenname oder -id der system zugewiesenen Identität.
+    summary: Der Rollenname oder die ID der system zugewiesenen Identität.
     description: ''
   - name: --scale-in-policy
     parameterValueGroup: Default, NewestVM, OldestVM
@@ -399,7 +399,7 @@ directCommands:
     summary: 'Durch Leerzeichen getrennte Tags: key[=value] [key[=value] ...]. Verwenden Sie "", um vorhandene Tags zu löschen.'
     description: ''
   - name: --terminate-notification-time
-    summary: Die Zeitspanne (in Minuten, zwischen 5 und 15) einer Benachrichtigung, die an den virtuellen Computer auf dem Instanzmetadatenserver gesendet werden soll, bis der virtuelle Computer gelöscht wird.
+    summary: Zeitraum (in Minuten, zwischen 5 und 15) eine Benachrichtigung, die an den virtuellen Computer auf dem Instanzmetadatenserver gesendet werden soll, bis der virtuelle Computer gelöscht wird.
     description: ''
   - name: --ultra-ssd-enabled
     parameterValueGroup: false, true
@@ -647,7 +647,7 @@ directCommands:
     syntax: az vmss list-instance-public-ips --name MyScaleSet --resource-group MyResourceGroup
   optionalParameters:
   - name: --ids
-    summary: Mindestens eine Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen von "Resource Id"-Argumenten sein. Sie sollten entweder --ids oder andere "Resource Id"-Argumente angeben.
+    summary: Mindestens eine Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu "Ressourcen-ID"-Argumenten sein. Sie sollten entweder --ids oder andere "Resource Id"-Argumente angeben.
     description: ''
   - name: --name -n
     summary: Skalierungssatzname. Sie können die Standardeinstellung mit `az configure --defaults vmss=<name>` konfigurieren.
@@ -679,7 +679,7 @@ directCommands:
     summary: Der Filter, der auf den Vorgang angewendet werden soll. Zulässige Werte sind "startswith(instanceView/statuses/code, 'PowerState') eq true", "properties/latestModelApplied eq true", "properties/latestModelApplied eq false".
     description: ''
   - name: --ids
-    summary: Eine oder mehrere Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu Ressourcen-ID-Argumenten geben. Sie sollten entweder --ids oder andere Ressourcen-ID-Argumente bereitstellen.
+    summary: Mindestens eine Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu "Ressourcen-ID"-Argumenten sein. Sie sollten entweder --ids oder andere "Resource Id"-Argumente angeben.
     description: ''
   - name: --name -n
     summary: Skalierungssatzname. Sie können die Standardeinstellung mit `az configure --defaults vmss=<name>` konfigurieren.
@@ -696,7 +696,7 @@ directCommands:
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/vm/_help.py
 - uid: az_vmss_list-skus
   name: az vmss list-skus
-  summary: Ruft eine Liste der skUs ab, die für Ihre VM-Skalierung gruppe verfügbar sind, einschließlich der minimalen und maximalen VM-Instanzen, die für jede SKU zulässig sind.
+  summary: Ruft eine Liste der für Ihre VM-Skalierungssatz verfügbaren SKUs ab, einschließlich der minimalen und maximalen VM-Instanzen, die für jede SKU zulässig sind.
   description: ''
   syntax: >-
     az vmss list-skus [--ids]
@@ -705,7 +705,7 @@ directCommands:
                       [--subscription]
   optionalParameters:
   - name: --ids
-    summary: Eine oder mehrere Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu Ressourcen-ID-Argumenten geben. Sie sollten entweder --ids oder andere Ressourcen-ID-Argumente bereitstellen.
+    summary: Mindestens eine Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu "Ressourcen-ID"-Argumenten sein. Sie sollten entweder --ids oder andere "Resource Id"-Argumente angeben.
     description: ''
   - name: --name -n
     summary: Skalierungssatzname. Sie können die Standardeinstellung mit `az configure --defaults vmss=<name>` konfigurieren.
@@ -719,8 +719,8 @@ directCommands:
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/vm/_help.py
 - uid: az_vmss_perform-maintenance
   name: az vmss perform-maintenance
-  summary: Führen Sie eine Wartung für einen oder mehrere virtuelle Computer in einer VM-Skalierung gruppe durch.
-  description: 'Der Vorgang für Instanzen, die nicht zur Durchführung von Wartungen berechtigt sind, ist fehlgeschlagen. Weitere Informationen finden Sie unter Bewährte Methoden: https://docs.microsoft.com/en-us/azure/virtual-machine-scale-sets/virtual- machine-scale-sets-maintenance-notifications.'
+  summary: Führen Sie Die Wartung auf einem oder mehreren virtuellen Computern in einer VM-Skalierung gruppe durch.
+  description: 'Der Vorgang für Instanzen, die nicht für die Durchführung von Wartungen berechtigt sind, ist fehlgeschlagen. Weitere Informationen finden Sie unter Best Practices: https://docs.microsoft.com/en-us/azure/virtual-machine-scale-sets/virtual- machine-scale-sets-maintenance-notifications.'
   syntax: >-
     az vmss perform-maintenance [--ids]
                                 [--name]
@@ -729,7 +729,7 @@ directCommands:
                                 [--vm-instance-i-ds]
   optionalParameters:
   - name: --ids
-    summary: Eine oder mehrere Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu Ressourcen-ID-Argumenten geben. Sie sollten entweder --ids oder andere "Resource Id"-Argumente angeben.
+    summary: Mindestens eine Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu "Ressourcen-ID"-Argumenten sein. Sie sollten entweder --ids oder andere Ressourcen-ID-Argumente bereitstellen.
     description: ''
   - name: --name -n
     summary: Skalierungssatzname. Sie können die Standardeinstellung mit `az configure --defaults vmss=<name>` konfigurieren.
@@ -746,7 +746,7 @@ directCommands:
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/vm/_help.py
 - uid: az_vmss_reimage
   name: az vmss reimage
-  summary: Erstellen Sie ein Reimage für VMs in einer VM-SSS.
+  summary: Erstellen Sie ein Reimage für VMs innerhalb einer VM-SSS.
   description: ''
   syntax: >-
     az vmss reimage [--ids]
@@ -756,14 +756,14 @@ directCommands:
                     [--resource-group]
                     [--subscription]
   examples:
-  - summary: Erneutes Image von VMs in einer VMSS. (automatisch generiert)
+  - summary: Erstellen Sie ein Reimage für VMs innerhalb einer VM-SSS. (automatisch generiert)
     syntax: az vmss reimage --instance-id 1 --name MyScaleSet --resource-group MyResourceGroup --subscription MySubscription
   optionalParameters:
   - name: --ids
-    summary: Mindestens eine Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen von "Resource Id"-Argumenten sein. Sie sollten entweder --ids oder andere "Resource Id"-Argumente angeben.
+    summary: Eine oder mehrere Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu Ressourcen-ID-Argumenten geben. Sie sollten entweder --ids oder andere Ressourcen-ID-Argumente bereitstellen.
     description: ''
   - name: --instance-id
-    summary: VM-Instanz-ID. Wenn das Image fehlt, stellen Sie für alle Instanzen ein erneutes Image her.
+    summary: VM-Instanz-ID. Wenn dies nicht der Fall ist, erstellen Sie für alle Instanzen ein Erneutes Bild.
     description: ''
   - name: --name -n
     summary: Skalierungssatzname. Sie können die Standardeinstellung mit `az configure --defaults vmss=<name>` konfigurieren.
@@ -780,7 +780,7 @@ directCommands:
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/vm/_help.py
 - uid: az_vmss_restart
   name: az vmss restart
-  summary: Starten Sie VMs innerhalb einer VM-SSS neu.
+  summary: Starten Sie virtuelle Computer in einer VM-SSS neu.
   description: ''
   syntax: >-
     az vmss restart --name
@@ -789,7 +789,7 @@ directCommands:
                     [--no-wait]
                     [--subscription]
   examples:
-  - summary: Starten Sie VMs innerhalb einer VM-SSS neu. (automatisch generiert)
+  - summary: Starten Sie virtuelle Computer in einer VM-SSS neu. (automatisch generiert)
     syntax: az vmss restart --instance-ids 1 --name MyScaleSet --resource-group MyResourceGroup
   requiredParameters:
   - isRequired: true
@@ -813,7 +813,7 @@ directCommands:
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/vm/_help.py
 - uid: az_vmss_scale
   name: az vmss scale
-  summary: Ändern sie die Anzahl von VMs in einer VM-SSS.
+  summary: Ändern sie die Anzahl der virtuellen Computer innerhalb einer VM-SSS.
   description: ''
   syntax: >-
     az vmss scale --new-capacity
@@ -823,7 +823,7 @@ directCommands:
                   [--resource-group]
                   [--subscription]
   examples:
-  - summary: Ändern sie die Anzahl der virtuellen Computer in einer VM-SSS. (automatisch generiert)
+  - summary: Ändern sie die Anzahl der virtuellen Computer innerhalb einer VM-SSS. (automatisch generiert)
     syntax: az vmss scale --name MyScaleSet --new-capacity 6 --resource-group MyResourceGroup
   requiredParameters:
   - isRequired: true
@@ -832,7 +832,7 @@ directCommands:
     description: ''
   optionalParameters:
   - name: --ids
-    summary: Eine oder mehrere Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu Ressourcen-ID-Argumenten geben. Sie sollten entweder --ids oder andere Ressourcen-ID-Argumente bereitstellen.
+    summary: Mindestens eine Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu "Ressourcen-ID"-Argumenten sein. Sie sollten entweder --ids oder andere "Resource Id"-Argumente angeben.
     description: ''
   - name: --name -n
     summary: Skalierungssatzname. Sie können die Standardeinstellung mit `az configure --defaults vmss=<name>` konfigurieren.
@@ -849,7 +849,7 @@ directCommands:
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/vm/_help.py
 - uid: az_vmss_set-orchestration-service-state
   name: az vmss set-orchestration-service-state
-  summary: Ändern der ServiceState-Eigenschaft für einen bestimmten Dienst innerhalb einer VM-SSS.
+  summary: Ändern der ServiceState-Eigenschaft für einen bestimmten Dienst in einer VMSS.
   description: ''
   syntax: >-
     az vmss set-orchestration-service-state --action {Resume, Suspend}
@@ -875,7 +875,7 @@ directCommands:
     description: ''
   optionalParameters:
   - name: --ids
-    summary: Eine oder mehrere Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu Ressourcen-ID-Argumenten geben. Sie sollten entweder --ids oder andere Ressourcen-ID-Argumente bereitstellen.
+    summary: Mindestens eine Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu "Ressourcen-ID"-Argumenten sein. Sie sollten entweder --ids oder andere "Resource Id"-Argumente angeben.
     description: ''
   - name: --name -n
     summary: Skalierungssatzname. Sie können die Standardeinstellung mit `az configure --defaults vmss=<name>` konfigurieren.
@@ -917,7 +917,7 @@ directCommands:
     summary: VM-Instanz-ID. Wenn sie nicht vorhanden ist, zeigen Sie die VMSS an.
     description: ''
   - name: --query-examples
-    summary: Empfehlen Sie die JMESPath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und sie nach dem Parameter --query in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positionsschlüsselwörter hinzufügen, damit wir basierend auf diesen Schlüsselwörtern Vorschläge geben können.
+    summary: Empfehlen Sie die JMESPath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und nach dem Parameter --query in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positionsschlüsselwörter hinzufügen, damit wir basierend auf diesen Schlüsselwörtern Vorschläge geben können.
     description: ''
   - name: --subscription
     summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
@@ -1094,26 +1094,26 @@ directCommands:
     summary: Wenn Sie "set" oder "add" verwenden, behalten Sie Zeichenfolgenliterale bei, anstatt zu versuchen, in JSON zu konvertieren.
     description: ''
   - name: --ids
-    summary: Mindestens eine Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen von "Resource Id"-Argumenten sein. Sie sollten entweder --ids oder andere "Resource Id"-Argumente angeben.
+    summary: Mindestens eine Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu "Ressourcen-ID"-Argumenten sein. Sie sollten entweder --ids oder andere "Resource Id"-Argumente angeben.
     description: ''
   - name: --instance-id
     summary: Aktualisieren Sie die VM-Instanz mit dieser ID. Falls nicht vorhanden, aktualisieren Sie die VMSS.
     description: ''
   - name: --license-type
     parameterValueGroup: None, RHEL_BYOS, SLES_BYOS, Windows_Client, Windows_Server
-    summary: Gibt an, dass das Windows-Image oder der Windows-Datenträger lokal lizenziert wurde. Um die Azure-Hybridvorteil Windows Server zu aktivieren, verwenden Sie "Windows_Server". Verwenden Sie "Windows 10", um mehrstufige Hostingrechte für Windows_Client aktivieren. Weitere Informationen finden Sie in der Online-Dokumentation zu virtuellen Azure-Windows-Computer.
+    summary: Gibt an, dass das Windows-Image oder der Windows-Datenträger lokal lizenziert wurde. Um die Azure-Hybridvorteil Windows Server zu aktivieren, verwenden Sie "Windows_Server". Verwenden Sie "Windows 10", um mehrteilige Hostingrechte für Windows_Client aktivieren. Weitere Informationen finden Sie in der Online-Dokumentation zu virtuellen Azure-Windows-Computer.
     description: ''
   - name: --max-batch-instance-percent
     summary: 'Der maximale Prozentwert der Gesamten virtuellen Computerinstanzen, die gleichzeitig durch das parallele Upgrade in einem Batch aktualisiert werden. Standardwert: 20 %.'
     description: ''
   - name: --max-price
-    summary: Der Höchstpreis (in US-Dollar), den Sie für eine Spot-VM/VMSS bezahlen möchten. -1 gibt an, dass die Spot-VM/VM-SSS aus Preisgründen nicht aus dem Netzwerk bzw. der Spot-VM-Umgebung bzw. der Spot-VM-SSS bzw. der Spot-VM-SSS aus Preisgründen bzw.
+    summary: Der maximale Preis (in US-Dollar), den Sie für eine Spot-VM/VMSS bezahlen möchten. -1 gibt an, dass die Spot-VM/VM-SSS aus Preisgründen nicht aus dem Netzwerk bzw. der Spot-VM-SSS aus Preisgründen bzw.
     description: ''
   - name: --max-unhealthy-instance-percent
     summary: 'Der maximale Prozentsatz der gesamten Instanzen virtueller Computer in der Skalierung gruppe, die gleichzeitig fehlerhaft sein können. Standardwert: 20 %.'
     description: ''
   - name: --max-unhealthy-upgraded-instance-percent
-    summary: 'Der maximale Prozentsatz der aktualisierten Instanzen virtueller Computer, deren Status fehlerhaft ist. Standardwert: 20 %.'
+    summary: 'Der maximale Prozentsatz der aktualisierten Instanzen virtueller Computer, die sich in einem fehlerhaften Zustand sehen lassen. Standardwert: 20 %.'
     description: ''
   - name: --name -n
     summary: Skalierungssatzname. Sie können die Standardeinstellung mit `az configure --defaults vmss=<name>` konfigurieren.
@@ -1223,7 +1223,7 @@ directCommands:
     syntax: az vmss wait --updated --name MyScaleSet --resource-group MyResourceGroup
   - summary: Platzieren Sie die CLI in einen Wartezustand, bis die VMSS-Instanz aktualisiert wurde.
     syntax: az vmss wait --updated --instance-id 1 --name MyScaleSet --resource-group MyResourceGroup
-  - summary: Platzieren Sie die CLI in einen Wartezustand, bis eine Bedingung einer Skalierungsliste erfüllt ist. (automatisch generiert)
+  - summary: Platzieren Sie die CLI in einen Wartezustand, bis eine Bedingung einer Skalierungssatz erfüllt ist. (automatisch generiert)
     syntax: az vmss wait --created --name MyScaleSet --resource-group MyResourceGroup
   optionalParameters:
   - name: --created
@@ -1345,9 +1345,9 @@ metadata:
   doc_source_url_repo: https://github.com/Azure/azure-cli/blob/dev/
   ms.date: 04/15/2021
   description: Verwalten von Gruppierungen virtueller Computer in einer Azure-VM-Skalierungsgruppe (VMSS).
-  ms.openlocfilehash: ff6ab72dd0a60fd68e871c874dcd5ea59c0fa3b3
-  ms.sourcegitcommit: 47edf65705fcb047974356c30962819ea5172832
+  ms.openlocfilehash: 3c9aba7d263417b0d5bda2b96ad4f832dd0f921c
+  ms.sourcegitcommit: 15a6f14c5a8570ba89a3bd5bb442f3324d72bc37
   ms.translationtype: MT
   ms.contentlocale: de-DE
-  ms.lasthandoff: 04/16/2021
-  ms.locfileid: "107555626"
+  ms.lasthandoff: 04/29/2021
+  ms.locfileid: "108243459"

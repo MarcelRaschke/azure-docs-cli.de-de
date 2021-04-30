@@ -7,7 +7,7 @@ directCommands:
 - uid: az_functionapp_create
   name: az functionapp create
   summary: Erstellen einer Funktions-App.
-  description: Der Name der Funktions-App muss in der Lage sein, einen eindeutigen FQDN als AppName.azurewebsites.net.
+  description: Der Name der Funktions-App muss in der Lage sein, einen eindeutigen FQDN als AppName.azurewebsites.net zu erzeugen.
   syntax: >-
     az functionapp create --name
                           --resource-group
@@ -37,7 +37,7 @@ directCommands:
     syntax: az functionapp create -g MyResourceGroup  -p MyPlan -n MyUniqueAppName -s MyStorageAccount
   - summary: Erstellen einer Funktions-App. (automatisch generiert)
     syntax: az functionapp create --consumption-plan-location westus --name MyUniqueAppName --os-type Windows --resource-group MyResourceGroup --runtime dotnet --storage-account MyStorageAccount
-  - summary: Erstellen Sie eine Funktions-App mithilfe eines privaten ACR-Images.
+  - summary: Erstellen Sie eine Funktions-App mit einem privaten ACR-Image.
     syntax: az functionapp create -g MyResourceGroup -p MyPlan -n MyUniqueAppName --runtime node --storage-account MyStorageAccount --deployment-container-image-name myacr.azurecr.io/myimage:tag --docker-registry-server-password passw0rd --docker-registry-server-user MyUser
   requiredParameters:
   - isRequired: true
@@ -50,23 +50,23 @@ directCommands:
     description: ''
   - isRequired: true
     name: --storage-account -s
-    summary: Geben Sie einen Zeichenfolgenwert eines Speicherkontos in der bereitgestellten Ressourcengruppe an. Oder Ressourcen-ID eines Speicherkontos in einer anderen Ressourcengruppe.
+    summary: Geben Sie einen Zeichenfolgenwert eines Speicherkontos in der bereitgestellten Ressourcengruppe an. Oder die Ressourcen-ID eines Speicherkontos in einer anderen Ressourcengruppe.
     description: ''
   optionalParameters:
   - name: --app-insights
-    summary: Name des vorhandenen App Insights-Projekts, das der Funktions-App hinzugefügt werden soll. Muss in derselben Ressourcengruppe sein.
+    summary: Name des vorhandenen App Insights-Projekts, das der Funktions-App hinzugefügt werden soll. Muss sich in derselben Ressourcengruppe finden.
     description: ''
   - name: --app-insights-key
     summary: Instrumentierungsschlüssel von App Insights, der hinzugefügt werden soll.
     description: ''
   - name: --assign-identity
-    summary: Akzeptieren Sie system- oder benutzer zugewiesene Identitäten, die durch Leerzeichen getrennt sind. Verwenden Sie "[system]", um auf eine vom System zugewiesene Identität zu verweisen, oder eine Ressourcen-ID, um auf eine vom Benutzer zugewiesene Identität zu verweisen. Weitere Beispiele finden Sie in der Hilfe.
+    summary: Akzeptieren Sie vom System oder vom Benutzer zugewiesene Identitäten, die durch Leerzeichen getrennt sind. Verwenden Sie "[system]", um auf eine vom System zugewiesene Identität zu verweisen, oder eine Ressourcen-ID, um auf die vom Benutzer zugewiesene Identität zu verweisen. Weitere Beispiele finden Sie in der Hilfe.
     description: ''
   - name: --consumption-plan-location -c
-    summary: Geografischer Standort, an dem die Funktions-App gehostet wird. Verwenden `az functionapp list-consumption-locations` Sie , um verfügbare Standorte anzeigen zu können.
+    summary: Geografischer Standort, an dem die Funktions-App gehostet wird. Verwenden Sie `az functionapp list-consumption-locations` , um verfügbare Standorte anzuzeigen.
     description: ''
   - name: --deployment-container-image-name -i
-    summary: Nur Linux. Containerimagename aus Docker Hub, z.B. publisher/image-name:tag.
+    summary: Nur Linux. Name des Containerimages aus Docker Hub, z. B. herausgeber/image-name:tag.
     description: ''
   - name: --deployment-local-git -l
     summary: Aktivieren Sie lokales Git.
@@ -76,11 +76,11 @@ directCommands:
     summary: Der bereitzustellende Branch.
     description: ''
   - name: --deployment-source-url -u
-    summary: Url des Git-Repositorys zum Verknüpfen mit manueller Integration.
+    summary: Git-Repository-URL zum Verknüpfen mit manueller Integration.
     description: ''
   - name: --disable-app-insights
     parameterValueGroup: false, true
-    summary: Deaktivieren Sie das Erstellen einer Application Insights-Ressource während der Erstellung von FunctionApps. Es sind keine Protokolle verfügbar.
+    summary: Deaktivieren Sie das Erstellen einer Application Insights-Ressource während der Erstellung von functionapp. Es sind keine Protokolle verfügbar.
     description: ''
   - name: --docker-registry-server-password
     summary: Das Kennwort des Containerregistrierungsservers. Erforderlich für private Registrierungen.
@@ -90,28 +90,28 @@ directCommands:
     description: ''
   - name: --functions-version
     parameterValueGroup: 2, 3
-    summary: Die Functions-App-Version.
+    summary: Die App-Version der Funktionen.
     description: ''
   - name: --os-type
     parameterValueGroup: Linux, Windows
-    summary: Legen Sie den Betriebssystemtyp für die zu erstellende App fest.
+    summary: Legen Sie den Betriebssystemtyp für die app fest, die erstellt werden soll.
     description: ''
   - name: --plan -p
-    summary: Name oder Ressourcen-ID des Funktions-App Service-Plans. Verwenden Sie "appservice plan create", um einen zu erhalten. Wenn Sie einen App Service Plan aus einer anderen Ressourcengruppe verwenden, muss die vollständige Ressourcen-ID und nicht der Planname verwendet werden.
+    summary: Name oder Ressourcen-ID des Funktions-App Service-Plans. Verwenden Sie "appservice plan create", um einen zu erhalten. Wenn Sie einen App Service aus einer anderen Ressourcengruppe verwenden, muss die vollständige Ressourcen-ID und nicht der Planname verwendet werden.
     description: ''
   - name: --role
     defaultValue: Contributor
-    summary: Der Rollenname oder die ID der vom System zugewiesenen Identität.
+    summary: Der Rollenname oder die ID der system zugewiesenen Identität.
     description: ''
   - name: --runtime
     parameterValueGroup: custom, dotnet, dotnet-isolated, java, node, powershell, python
     summary: Der Laufzeitstapel der Funktionen.
     description: ''
   - name: --runtime-version
-    summary: 'Die Version des Laufzeitstapels der Funktionen. Zulässige Werte für jede --Runtime sind: dotnet-isolated -> [5.0 (Vorschauversion)], node -> [8, 10, 12, 14], java -> [8, 11], powershell -> [], python -> [3.6, 3.7, 3.8, 3.9].'
+    summary: 'Die Version des Funktionslaufzeitstapels. Zulässige Werte für jede --runtime sind: dotnet-isolated -> [5.0 (Vorschau)], node -> [8, 10, 12, 14], java -> [8, 11], powershell -> [], python -> [3.6, 3.7, 3.8, 3.9].'
     description: ''
   - name: --scope
-    summary: Bereich, auf den die vom System zugewiesene Identität zugreifen kann.
+    summary: Bereich, auf den die system zugewiesene Identität zugreifen kann.
     description: ''
   - name: --subscription
     summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
@@ -122,7 +122,7 @@ directCommands:
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/appservice/_help.py
 - uid: az_functionapp_delete
   name: az functionapp delete
-  summary: Löschen sie eine Funktions-App.
+  summary: Löscht eine Funktions-App.
   description: ''
   syntax: >-
     az functionapp delete [--ids]
@@ -131,11 +131,11 @@ directCommands:
                           [--slot]
                           [--subscription]
   examples:
-  - summary: Löschen sie eine Funktions-App. (automatisch generiert)
+  - summary: Löscht eine Funktions-App. (automatisch generiert)
     syntax: az functionapp delete --name MyFunctionApp --resource-group MyResourceGroup
   optionalParameters:
   - name: --ids
-    summary: Eine oder mehrere Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu Ressourcen-ID-Argumenten geben. Sie sollten entweder --ids oder andere Ressourcen-ID-Argumente bereitstellen.
+    summary: Mindestens eine Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu "Ressourcen-ID"-Argumenten sein. Sie sollten entweder --ids oder andere "Resource Id"-Argumente angeben.
     description: ''
   - name: --name -n
     summary: Name der Funktions-App.
@@ -144,7 +144,7 @@ directCommands:
     summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
     description: ''
   - name: --slot -s
-    summary: Der Name des Slots. Der Standardwert ist der Produktionsslot, wenn er nicht angegeben ist.
+    summary: Der Name des Slots. Wird nicht angegeben, wird standardmäßig der Produktionsslot verwendet.
     description: ''
   - name: --subscription
     summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
@@ -152,7 +152,7 @@ directCommands:
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/appservice/_help.py
 - uid: az_functionapp_deploy
   name: az functionapp deploy
-  summary: Stellt ein bereitgestelltes Artefakt in azure functionappbereit.
+  summary: Stellt ein bereitgestelltes Artefakt für Azure FunctionApp bereit.
   description: ''
   syntax: >-
     az functionapp deploy [--async {false, true}]
@@ -170,7 +170,7 @@ directCommands:
                           [--timeout]
                           [--type]
   examples:
-  - summary: Asynchrones Bereitstellen einer Wardatei.
+  - summary: Asynchrones Bereitstellen einer War-Datei.
     syntax: az functionapp deploy --resource-group ResouceGroup --name AppName --src-path SourcePath --type war --async true
   - summary: Bereitstellen einer statischen Textdatei in wwwroot/staticfiles/test.txt
     syntax: az functionapp deploy --resource-group ResouceGroup --name AppName --src-path SourcePath --type static --target-path staticfiles/test.txt
@@ -181,30 +181,30 @@ directCommands:
     description: ''
   - name: --clean
     parameterValueGroup: false, true
-    summary: Bereinigt oder nicht. default ist zieltypspezifisch.
+    summary: Bereinigen oder nicht. default ist zieltypspezifisch.
     description: ''
   - name: --ids
-    summary: Eine oder mehrere Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu Ressourcen-ID-Argumenten geben. Sie sollten entweder --ids oder andere Ressourcen-ID-Argumente bereitstellen.
+    summary: Mindestens eine Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu "Ressourcen-ID"-Argumenten sein. Sie sollten entweder --ids oder andere "Resource Id"-Argumente angeben.
     description: ''
   - name: --ignore-stack
     parameterValueGroup: false, true
     summary: Sollte die Standardstapelüberprüfung überschreiben.
     description: ''
   - name: --name -n
-    summary: Name der FunctionApp, mit der eine Verbindung hergestellt werden soll.
+    summary: Name der Funktions-App, mit der eine Verbindung hergestellt werden soll.
     description: ''
   - name: --resource-group -g
     summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
     description: ''
   - name: --restart
     parameterValueGroup: false, true
-    summary: Neustarten oder nicht. Das Standardverhalten ist ein Neustart.
+    summary: Starten Sie neu, oder nicht. Das Standardverhalten ist der Neustart.
     description: ''
   - name: --slot -s
-    summary: Name des zu verwendende Bereitstellungsslots.
+    summary: Name des zu verwendenden Bereitstellungsslots.
     description: ''
   - name: --src-path
-    summary: 'Pfad der bereitzustellenden Datei. Beispiel: /mnt/apps/myapp.war.'
+    summary: 'Pfad der datei, die bereitgestellt werden soll. Beispiel: /mnt/apps/myapp.war.'
     description: ''
   - name: --src-url
     summary: 'URL zum Herunterladen des Pakets. Beispiel: http://mysite.com/files/myapp.war?key=123.'
@@ -216,10 +216,10 @@ directCommands:
     summary: Zielpfad relativ zu wwwroot, in dem die Datei bereitgestellt wird.
     description: ''
   - name: --timeout
-    summary: Timeout für den Vorgang in Millisekunden.
+    summary: Timeout für vorgang in Millisekunden.
     description: ''
   - name: --type
-    summary: Typ der angeforderten Bereitstellung.
+    summary: Angeforderter Bereitstellungstyp.
     description: ''
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/appservice/_help.py
 - uid: az_functionapp_list
@@ -237,7 +237,7 @@ directCommands:
     syntax: az functionapp list --query "[?state=='Running']"
   optionalParameters:
   - name: --query-examples
-    summary: Empfehlen Sie die JMESPath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und sie nach dem Parameter --query in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positionsschlüsselwörter hinzufügen, damit wir basierend auf diesen Schlüsselwörtern Vorschläge geben können.
+    summary: Empfehlen Sie die JMESPath-Zeichenfolge. Sie können eine der Abfragen kopieren und nach dem Parameter --query in doppelte Anführungszeichen einfügen, um die Ergebnisse zu sehen. Sie können ein oder mehrere Positionsschlüsselwörter hinzufügen, damit wir basierend auf diesen Schlüsselwörtern Vorschläge machen können.
     description: ''
   - name: --resource-group -g
     summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
@@ -248,7 +248,7 @@ directCommands:
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/appservice/_help.py
 - uid: az_functionapp_list-consumption-locations
   name: az functionapp list-consumption-locations
-  summary: Listet die verfügbaren Speicherorte für die Ausführung von Funktions-Apps auf.
+  summary: Listet verfügbare Speicherorte für die Ausführung von Funktions-Apps auf.
   description: ''
   syntax: az functionapp list-consumption-locations [--subscription]
   optionalParameters:
@@ -271,7 +271,7 @@ directCommands:
     syntax: az functionapp restart --name MyFunctionApp --resource-group MyResourceGroup
   optionalParameters:
   - name: --ids
-    summary: Eine oder mehrere Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu Ressourcen-ID-Argumenten geben. Sie sollten entweder --ids oder andere Ressourcen-ID-Argumente bereitstellen.
+    summary: Mindestens eine Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu "Ressourcen-ID"-Argumenten sein. Sie sollten entweder --ids oder andere "Resource Id"-Argumente angeben.
     description: ''
   - name: --name -n
     summary: Name der Funktions-App.
@@ -280,7 +280,7 @@ directCommands:
     summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
     description: ''
   - name: --slot -s
-    summary: Der Name des Slots. Der Standardwert ist der Produktionsslot, wenn er nicht angegeben ist.
+    summary: Der Name des Slots. Wird nicht angegeben, wird standardmäßig der Produktionsslot verwendet.
     description: ''
   - name: --subscription
     summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
@@ -288,7 +288,7 @@ directCommands:
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/appservice/_help.py
 - uid: az_functionapp_show
   name: az functionapp show
-  summary: Hier finden Sie die Details einer Funktions-App.
+  summary: Abrufen der Details einer Funktions-App.
   description: ''
   syntax: >-
     az functionapp show [--ids]
@@ -298,23 +298,23 @@ directCommands:
                         [--slot]
                         [--subscription]
   examples:
-  - summary: Hier finden Sie die Details einer Funktions-App. (automatisch generiert)
+  - summary: Abrufen der Details einer Funktions-App. (automatisch generiert)
     syntax: az functionapp show --name MyFunctionApp --resource-group MyResourceGroup
   optionalParameters:
   - name: --ids
-    summary: Eine oder mehrere Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu Ressourcen-ID-Argumenten geben. Sie sollten entweder --ids oder andere Ressourcen-ID-Argumente bereitstellen.
+    summary: Mindestens eine Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu "Ressourcen-ID"-Argumenten sein. Sie sollten entweder --ids oder andere "Resource Id"-Argumente angeben.
     description: ''
   - name: --name -n
     summary: Name der Funktions-App.
     description: ''
   - name: --query-examples
-    summary: Empfehlen Sie die JMESPath-Zeichenfolge. Sie können eine der Abfragen kopieren und nach dem Parameter --query in doppelte Anführungszeichen einfügen, um die Ergebnisse zu sehen. Sie können ein oder mehrere Positionsschlüsselwörter hinzufügen, damit wir basierend auf diesen Schlüsselwörtern Vorschläge machen können.
+    summary: Empfehlen Sie die JMESPath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und nach dem Parameter --query in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positionsschlüsselwörter hinzufügen, damit wir basierend auf diesen Schlüsselwörtern Vorschläge geben können.
     description: ''
   - name: --resource-group -g
     summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
     description: ''
   - name: --slot -s
-    summary: Der Name des Slots. Der Standardwert ist der Produktionsslot, wenn er nicht angegeben ist.
+    summary: Der Name des Slots. Wird nicht angegeben, wird standardmäßig der Produktionsslot verwendet.
     description: ''
   - name: --subscription
     summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
@@ -335,7 +335,7 @@ directCommands:
     syntax: az functionapp start --name MyFunctionApp --resource-group MyResourceGroup
   optionalParameters:
   - name: --ids
-    summary: Mindestens eine Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen von "Resource Id"-Argumenten sein. Sie sollten entweder --ids oder andere "Resource Id"-Argumente angeben.
+    summary: Eine oder mehrere Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu Ressourcen-ID-Argumenten geben. Sie sollten entweder --ids oder andere Ressourcen-ID-Argumente bereitstellen.
     description: ''
   - name: --name -n
     summary: Name der Funktions-App.
@@ -344,7 +344,7 @@ directCommands:
     summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
     description: ''
   - name: --slot -s
-    summary: Der Name des Slots. Wird nicht angegeben, wird standardmäßig der Produktionsslot verwendet.
+    summary: Der Name des Slots. Der Standardwert ist der Produktionsslot, wenn er nicht angegeben ist.
     description: ''
   - name: --subscription
     summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
@@ -352,7 +352,7 @@ directCommands:
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/appservice/_help.py
 - uid: az_functionapp_stop
   name: az functionapp stop
-  summary: Beenden sie eine Funktions-App.
+  summary: Beenden Sie eine Funktions-App.
   description: ''
   syntax: >-
     az functionapp stop [--ids]
@@ -361,11 +361,11 @@ directCommands:
                         [--slot]
                         [--subscription]
   examples:
-  - summary: Beenden sie eine Funktions-App. (automatisch generiert)
+  - summary: Beenden Sie eine Funktions-App. (automatisch generiert)
     syntax: az functionapp stop --name MyFunctionApp --resource-group MyResourceGroup
   optionalParameters:
   - name: --ids
-    summary: Mindestens eine Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen von "Resource Id"-Argumenten sein. Sie sollten entweder --ids oder andere "Resource Id"-Argumente angeben.
+    summary: Eine oder mehrere Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu Ressourcen-ID-Argumenten geben. Sie sollten entweder --ids oder andere Ressourcen-ID-Argumente bereitstellen.
     description: ''
   - name: --name -n
     summary: Name der Funktions-App.
@@ -374,7 +374,7 @@ directCommands:
     summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
     description: ''
   - name: --slot -s
-    summary: Der Name des Slots. Wird nicht angegeben, wird standardmäßig der Produktionsslot verwendet.
+    summary: Der Name des Slots. Der Standardwert ist der Produktionsslot, wenn er nicht angegeben ist.
     description: ''
   - name: --subscription
     summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
@@ -403,28 +403,28 @@ directCommands:
     summary: 'Fügen Sie einer Liste von -Objekten ein -Objekt hinzu, indem Sie ein Pfad- und Schlüsselwertpaar angeben.  Beispiel: --add property.listProperty <key=value, string oder JSON string>.'
     description: ''
   - name: --force
-    summary: Erforderlich, wenn versucht wird, functionapp von Premium zu Consumption --plan zu migrieren.
+    summary: Erforderlich, wenn Versucht wird, functionapp von Premium zu Consumption --plan zu migrieren.
     description: ''
   - name: --force-string
     summary: Wenn Sie "set" oder "add" verwenden, behalten Sie Zeichenfolgenliterale bei, anstatt zu versuchen, in JSON zu konvertieren.
     description: ''
   - name: --ids
-    summary: Eine oder mehrere Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu Ressourcen-ID-Argumenten geben. Sie sollten entweder --ids oder andere Ressourcen-ID-Argumente bereitstellen.
+    summary: Mindestens eine Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu "Ressourcen-ID"-Argumenten sein. Sie sollten entweder --ids oder andere "Resource Id"-Argumente angeben.
     description: ''
   - name: --name -n
     summary: Name der Funktions-App.
     description: ''
   - name: --plan
-    summary: Der Name oder die Ressourcen-ID des Plans, mit dem die Funktions-App aktualisiert werden soll.
+    summary: Der Name oder die Ressourcen-ID des Plans, mit dem die FunctionApp aktualisiert werden soll.
     description: ''
   - name: --remove
-    summary: 'Entfernen Sie eine Eigenschaft oder ein Element aus einer Liste.  Beispiel: --remove property.list <indexToRemove> OR --remove propertyToRemove.'
+    summary: 'Entfernen sie eine Eigenschaft oder ein Element aus einer Liste.  Beispiel: --remove property.list <indexToRemove> OR --remove propertyToRemove.'
     description: ''
   - name: --resource-group -g
     summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
     description: ''
   - name: --set
-    summary: 'Aktualisieren Sie ein -Objekt, indem Sie einen festzulegenden Eigenschaftenpfad und -wert angeben.  Beispiel: --set property1.property2=<value>.'
+    summary: 'Aktualisieren Sie ein Objekt, indem Sie einen festzulegenden Eigenschaftenpfad und -wert angeben.  Beispiel: --set property1.property2=<value>.'
     description: ''
   - name: --subscription
     summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
@@ -552,11 +552,11 @@ globalParameters:
   summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
 metadata:
   doc_source_url_repo: https://github.com/Azure/azure-cli/blob/dev/
-  ms.date: 04/16/2021
+  ms.date: 04/27/2021
   description: Verwalten von Funktions-Apps. Informationen zum Installieren der Azure Functions Core-Tools finden Sie unter https://github.com/Azure/azure-functions-core-tools .
-  ms.openlocfilehash: aa26501b8367141b09fb7ab3500895ed4bf264a2
-  ms.sourcegitcommit: f11f08a8b571d9909044693a8dc52c0cf2e9b2bc
+  ms.openlocfilehash: e10cbc7c9316de8194b9d44060b365a702869d8c
+  ms.sourcegitcommit: 15a6f14c5a8570ba89a3bd5bb442f3324d72bc37
   ms.translationtype: MT
   ms.contentlocale: de-DE
-  ms.lasthandoff: 04/19/2021
-  ms.locfileid: "107710775"
+  ms.lasthandoff: 04/29/2021
+  ms.locfileid: "108262108"
