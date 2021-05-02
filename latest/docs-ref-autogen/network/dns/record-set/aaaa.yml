@@ -24,11 +24,11 @@ directCommands:
   requiredParameters:
   - isRequired: true
     name: --ipv6-address -a
-    summary: IPv6-Adresse in Zeichenfolgen notation.
+    summary: IPv6-Adresse in Zeichenfolgen-Notation.
     description: ''
   - isRequired: true
     name: --record-set-name -n
-    summary: Der Name des Datensatzes relativ zur Zone. Erstellt einen neuen Datensatzsatz, wenn er nicht vorhanden ist.
+    summary: Der Name des Eintragssets relativ zur Zone. Erstellt einen neuen Datensatz, falls noch kein Eintrag vorhanden ist.
     description: ''
   - isRequired: true
     name: --resource-group -g
@@ -47,7 +47,7 @@ directCommands:
     description: ''
   - name: --ttl
     defaultValue: "3600"
-    summary: Gültigkeitsdauer des Datensatzsatzes (Gültigkeitsdauer).
+    summary: Datensatzsatz-TTL ( Livezeit).
     description: ''
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/network/_help.py
 - uid: az_network_dns_record-set_aaaa_create
@@ -70,7 +70,7 @@ directCommands:
   requiredParameters:
   - isRequired: true
     name: --name -n
-    summary: Der Name des Eintragssatzes relativ zum Namen der Zone.
+    summary: Der Name des Eintragssets relativ zum Namen der Zone.
     description: ''
   - isRequired: true
     name: --resource-group -g
@@ -82,7 +82,7 @@ directCommands:
     description: ''
   optionalParameters:
   - name: --if-match
-    summary: Das ETag des Datensatzes. Lassen Sie diesen Wert aus, um den aktuellen Datensatzsatz immer zu überschreiben. Geben Sie den zuletzt erkannten ETag-Wert an, um zu verhindern, dass gleichzeitige Änderungen versehentlich überschrieben werden.
+    summary: Das ETag des Datensatzes. Diesen Wert weglassen, um den aktuellen Eintragssatz immer zu überschreiben. Geben Sie den zuletzt gesehenen ETag-Wert an, um zu verhindern, dass gleichzeitige Änderungen versehentlich überschreiben.
     description: ''
   - name: --if-none-match
     summary: Erstellen Sie den Eintragssatz nur, wenn er noch nicht vorhanden ist.
@@ -94,11 +94,11 @@ directCommands:
     summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
     description: ''
   - name: --target-resource
-    summary: ID einer Azure-Ressource, aus der der WERT der DNS-Ressource übernommen wird.
+    summary: ID einer Azure-Ressource, aus der der DNS-Ressourcenwert entnommen wird.
     description: ''
   - name: --ttl
     defaultValue: "3600"
-    summary: Datensatzsatz-TTL ( Livezeit).
+    summary: Gültigkeitsdauer des Datensatzsatzes (Gültigkeitsdauer).
     description: ''
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/network/_help.py
 - uid: az_network_dns_record-set_aaaa_delete
@@ -118,7 +118,7 @@ directCommands:
   requiredParameters:
   - isRequired: true
     name: --name -n
-    summary: Der Name des Eintragssets relativ zum Namen der Zone.
+    summary: Der Name des Eintragssatzes relativ zum Namen der Zone.
     description: ''
   - isRequired: true
     name: --resource-group -g
@@ -130,7 +130,7 @@ directCommands:
     description: ''
   optionalParameters:
   - name: --if-match
-    summary: Das ETag des Datensatzes. Diesen Wert weglassen, um immer den aktuellen Eintragssatz zu löschen. Geben Sie den zuletzt gesehenen ETag-Wert an, um zu verhindern, dass gleichzeitige Änderungen versehentlich gelöscht werden.
+    summary: Das ETag des Datensatzes. Lassen Sie diesen Wert aus, um immer den aktuellen Datensatzsatz zu löschen. Geben Sie den zuletzt erkannten ETag-Wert an, um zu verhindern, dass gleichzeitige Änderungen versehentlich gelöscht werden.
     description: ''
   - name: --subscription
     summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
@@ -164,7 +164,7 @@ directCommands:
     description: ''
   optionalParameters:
   - name: --query-examples
-    summary: Empfehlen Sie die JMESPath-Zeichenfolge. Sie können eine der Abfragen kopieren und nach dem Parameter --query in doppelte Anführungszeichen einfügen, um die Ergebnisse zu sehen. Sie können ein oder mehrere Positionsschlüsselwörter hinzufügen, damit wir basierend auf diesen Schlüsselwörtern Vorschläge machen können.
+    summary: Empfehlen Sie die JMESPath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und nach dem Parameter --query in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positionsschlüsselwörter hinzufügen, damit wir basierend auf diesen Schlüsselwörtern Vorschläge geben können.
     description: ''
   - name: --subscription
     summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
@@ -172,8 +172,8 @@ directCommands:
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/network/_help.py
 - uid: az_network_dns_record-set_aaaa_remove-record
   name: az network dns record-set aaaa remove-record
-  summary: Entfernen Sie den AAAA-Eintrag aus seinem Eintragssatz.
-  description: Wenn der letzte Datensatz in einem Satz entfernt wird, wird der Datensatzsatz standardmäßig gelöscht. Um den leeren Datensatzsatz beizubehalten, schließen Sie --keep-empty-record-set ein.
+  summary: Entfernen Sie den AAAA-Eintrag aus dem Zugehörigen Eintragssatz.
+  description: Wenn der letzte Datensatz in einem Satz entfernt wird, wird der Eintragssatz standardmäßig gelöscht. Schließen Sie --keep-empty-record-set ein, um den leeren Datensatzsatz zu behalten.
   syntax: >-
     az network dns record-set aaaa remove-record --ipv6-address
                                                  --record-set-name
@@ -182,18 +182,18 @@ directCommands:
                                                  [--keep-empty-record-set]
                                                  [--subscription]
   examples:
-  - summary: Entfernen Sie einen AAAA-Eintrag aus seinem Eintragssatz.
+  - summary: Entfernen Sie einen AAAA-Eintrag aus dem Zugehörigen Eintragssatz.
     syntax: >-
       az network dns record-set aaaa remove-record -g MyResourceGroup -z www.mysite.com \
           -n MyRecordSet -a MyIpv6Address
   requiredParameters:
   - isRequired: true
     name: --ipv6-address -a
-    summary: IPv6-Adresse in Zeichenfolgen notation.
+    summary: IPv6-Adresse in Zeichenfolgen-Notation.
     description: ''
   - isRequired: true
     name: --record-set-name -n
-    summary: Der Name des Datensatzes relativ zur Zone.
+    summary: Der Name des Eintragssets relativ zur Zone.
     description: ''
   - isRequired: true
     name: --resource-group -g
@@ -213,7 +213,7 @@ directCommands:
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/network/_help.py
 - uid: az_network_dns_record-set_aaaa_show
   name: az network dns record-set aaaa show
-  summary: Abrufen der Details eines AAAA-Eintragssatzes.
+  summary: Hier finden Sie die Details eines AAAA-Eintragssets.
   description: ''
   syntax: >-
     az network dns record-set aaaa show --name
@@ -222,12 +222,12 @@ directCommands:
                                         [--query-examples]
                                         [--subscription]
   examples:
-  - summary: Abrufen der Details eines AAAA-Eintragssatzes.
+  - summary: Hier finden Sie die Details eines AAAA-Eintragssets.
     syntax: az network dns record-set aaaa show -g MyResourceGroup -z www.mysite.com -n MyRecordSet
   requiredParameters:
   - isRequired: true
     name: --name -n
-    summary: Der Name des Eintragssatzes relativ zum Namen der Zone.
+    summary: Der Name des Eintragssets relativ zum Namen der Zone.
     description: ''
   - isRequired: true
     name: --resource-group -g
@@ -239,7 +239,7 @@ directCommands:
     description: ''
   optionalParameters:
   - name: --query-examples
-    summary: Empfehlen Sie die JMESPath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und sie nach dem Parameter --query in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positionsschlüsselwörter hinzufügen, damit wir basierend auf diesen Schlüsselwörtern Vorschläge geben können.
+    summary: Empfehlen Sie die JMESPath-Zeichenfolge. Sie können eine der Abfragen kopieren und nach dem Parameter --query in doppelte Anführungszeichen einfügen, um die Ergebnisse zu sehen. Sie können ein oder mehrere Positionsschlüsselwörter hinzufügen, damit wir basierend auf diesen Schlüsselwörtern Vorschläge machen können.
     description: ''
   - name: --subscription
     summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
@@ -247,7 +247,7 @@ directCommands:
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/network/_help.py
 - uid: az_network_dns_record-set_aaaa_update
   name: az network dns record-set aaaa update
-  summary: Aktualisieren sie einen AAAA-Eintragssatz.
+  summary: Aktualisiert einen AAAA-Eintragssatz.
   description: ''
   syntax: >-
     az network dns record-set aaaa update --name
@@ -263,14 +263,14 @@ directCommands:
                                           [--subscription]
                                           [--target-resource]
   examples:
-  - summary: Aktualisieren sie einen AAAA-Eintragssatz.
+  - summary: Aktualisiert einen AAAA-Eintragssatz.
     syntax: >-
       az network dns record-set aaaa update -g MyResourceGroup -z www.mysite.com \
           -n MyRecordSet --metadata owner=WebTeam
   requiredParameters:
   - isRequired: true
     name: --name -n
-    summary: Der Name des Eintragssatzes relativ zum Namen der Zone.
+    summary: Der Name des Eintragssets relativ zum Namen der Zone.
     description: ''
   - isRequired: true
     name: --resource-group -g
@@ -291,7 +291,7 @@ directCommands:
     summary: Das ETag des Datensatzes. Lassen Sie diesen Wert aus, um den aktuellen Datensatzsatz immer zu überschreiben. Geben Sie den zuletzt erkannten ETag-Wert an, um zu verhindern, dass gleichzeitige Änderungen versehentlich überschrieben werden.
     description: ''
   - name: --if-none-match
-    summary: Legen Sie diese Einstellung auf \* ' fest, um die Erstellung eines neuen Eintragssatzes zu ermöglichen, aber um zu verhindern, dass ein vorhandener Datensatzsatz aktualisiert wird. Andere Werte werden ignoriert.
+    summary: Legen Sie diese Einstellung auf \* ' fest, um die Erstellung eines neuen Eintragssatzes zu ermöglichen, aber um zu verhindern, dass ein vorhandener Eintragssatz aktualisiert wird. Andere Werte werden ignoriert.
     description: ''
   - name: --metadata
     summary: Metadaten in durch Leerzeichen getrennten Schlüssel-Wert-Paaren. Dadurch werden alle vorhandenen Metadaten überschrieben.
@@ -300,7 +300,7 @@ directCommands:
     summary: 'Entfernen sie eine Eigenschaft oder ein Element aus einer Liste.  Beispiel: --remove property.list <indexToRemove> OR --remove propertyToRemove.'
     description: ''
   - name: --set
-    summary: 'Aktualisieren Sie ein -Objekt, indem Sie einen festzulegenden Eigenschaftenpfad und -wert angeben.  Beispiel: --set property1.property2=<value>.'
+    summary: 'Aktualisieren Sie ein Objekt, indem Sie einen festzulegenden Eigenschaftenpfad und -wert angeben.  Beispiel: --set property1.property2=<value>.'
     description: ''
   - name: --subscription
     summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
@@ -334,11 +334,11 @@ globalParameters:
   summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
 metadata:
   doc_source_url_repo: https://github.com/Azure/azure-cli/blob/dev/
-  ms.date: 04/21/2021
+  ms.date: 04/25/2021
   description: Verwalten von DNS AAAA-Einträgen.
-  ms.openlocfilehash: c39f5c9d418e36482bf5f1b2cfb21494bea28907
-  ms.sourcegitcommit: b76cc7c91ed21ae04b3463544ad46a749461cc6a
+  ms.openlocfilehash: deb260e4ddfa7f37b0cc9fbaf2bbb867b104435d
+  ms.sourcegitcommit: 15a6f14c5a8570ba89a3bd5bb442f3324d72bc37
   ms.translationtype: MT
   ms.contentlocale: de-DE
-  ms.lasthandoff: 04/25/2021
-  ms.locfileid: "107955934"
+  ms.lasthandoff: 04/29/2021
+  ms.locfileid: "108236081"

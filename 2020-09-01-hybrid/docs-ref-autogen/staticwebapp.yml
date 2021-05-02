@@ -1,35 +1,12 @@
 ### YamlMime:AzureCLIGroup
 uid: az_staticwebapp
 name: az staticwebapp
-summary: Statische apps verwalten.
+summary: Verwalten statischer Apps.
 description: ''
 directCommands:
-- uid: az_staticwebapp_browse
-  name: az staticwebapp browse
-  summary: Anzeigen der Details einer statischen App
-  description: ''
-  syntax: >-
-    az staticwebapp browse --name
-                           [--resource-group]
-                           [--subscription]
-  examples:
-  - summary: Anzeigen der statischen app in einem Abonnement.
-    syntax: az staticwebapp browse -n MyStaticAppName
-  requiredParameters:
-  - isRequired: true
-    name: --name -n
-    summary: Der Name der statischen Site.
-    description: ''
-  optionalParameters:
-  - name: --resource-group -g
-    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
-    description: ''
-  - name: --subscription
-    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
-    description: ''
 - uid: az_staticwebapp_create
   name: az staticwebapp create
-  summary: Erstellen Sie eine statische App mit Inhalt aus der githubrepository-URL, die in der Quelle für den angegebenen Branch bereitgestellt wird Gibt die erstellte app zurück.
+  summary: Erstellen Sie eine statische App mit Inhalt aus der GitHubRepository-URL, die in der Quelle im bereitgestellten Branch bereitgestellt wird. Gibt die erstellte App zurück.
   description: ''
   syntax: >-
     az staticwebapp create --branch
@@ -38,19 +15,20 @@ directCommands:
                            --resource-group
                            --source
                            [--api-location]
-                           [--app-artifact-location]
                            [--app-location]
                            [--no-wait]
+                           [--output-location]
+                           [--sku {Free, Standard}]
                            [--subscription]
                            [--tags]
                            [--token]
   examples:
-  - summary: Erstellen Sie eine statische app in einem Abonnement.
+  - summary: Erstellen Sie eine statische App in einem Abonnement.
     syntax: az staticwebapp create -n MyStaticAppName -g MyExistingRg -s https://github.com/JohnDoe/my-first-static-web-app -l WestUs2 -b master
   requiredParameters:
   - isRequired: true
     name: --branch -b
-    summary: Der zielbranch im Repository.
+    summary: Der Zielzweig im Repository.
     description: ''
   - isRequired: true
     name: --location -l
@@ -58,7 +36,7 @@ directCommands:
     description: ''
   - isRequired: true
     name: --name -n
-    summary: Der Name der statischen Site.
+    summary: Name der statischen Website.
     description: ''
   - isRequired: true
     name: --resource-group -g
@@ -66,36 +44,41 @@ directCommands:
     description: ''
   - isRequired: true
     name: --source -s
-    summary: URL für das Repository der statischen Site.
+    summary: URL für das Repository der statischen Website.
     description: ''
   optionalParameters:
   - name: --api-location
     defaultValue: .
-    summary: Speicherort Ihres Azure Functions-Codes. Beispielsweise stellt "/API" einen Ordner mit dem Namen "API" dar.
-    description: ''
-  - name: --app-artifact-location
-    defaultValue: .github/workflows
-    summary: Der Pfad der Buildausgabe in Relation zum Speicherort Ihrer Apps. Wenn Sie z. b. den Wert "Build" festlegen, wenn Ihr App-Speicherort auf "/App" festgelegt ist, wird der Inhalt von "/App/Build" verarbeitet.
+    summary: Speicherort Ihres Azure Functions-Codes. "/api" stellt z. B. einen Ordner namens "api" dar.
     description: ''
   - name: --app-location
     defaultValue: .
-    summary: Speicherort Ihres Anwendungscodes. Beispielsweise stellt "/" den Stamm der APP dar, während "/App" ein Verzeichnis mit dem Namen "App" darstellt.
+    summary: Speicherort Ihres Anwendungscodes. "/" stellt z. B. den Stamm Ihrer App dar, während "/app" ein Verzeichnis mit dem Namen "app" darstellt.
     description: ''
   - name: --no-wait
     summary: Nicht auf den Abschluss lang andauernder Vorgänge warten
     description: ''
+  - name: --output-location
+    defaultValue: .github/workflows
+    summary: Der Pfad der Buildausgabe relativ zum Speicherort Ihrer Apps. Wenn Sie beispielsweise den Wert "build" festlegen, wenn Ihr App-Speicherort auf "/app" festgelegt ist, wird der Inhalt unter "/app/build" bedient.
+    description: ''
+  - name: --sku
+    defaultValue: Free
+    parameterValueGroup: Free, Standard
+    summary: Die Tarife für statische Web-App.
+    description: ''
   - name: --subscription
-    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
     description: ''
   - name: --tags
-    summary: 'Durch Leerzeichen getrennte Tags: Key [= value] [key [= value]...]. Verwenden Sie "", um vorhandene Tags zu löschen.'
+    summary: 'Durch Leerzeichen getrennte Tags: key[=value] [key[=value] ...]. Verwenden Sie "", um vorhandene Tags zu löschen.'
     description: ''
   - name: --token -t
-    summary: 'Das GitHub-Repository-Token eines Benutzers. Diese dient zum Einrichten der GitHub-Aktions Workflow Datei und der API-Geheimnisse. Wenn Sie ein persönliches GitHub-Zugriffs Token erstellen müssen, befolgen Sie die Schritte unter folgendem Link: https://help.github.com/en/articles/creating-a-personal-access-token-for-the-command-line .'
+    summary: 'Das GitHub-Repositorytoken eines Benutzers. Dies wird verwendet, um die GitHub Actions-Workflowdatei und API-Geheimnisse einzurichten. Wenn Sie ein persönliches GitHub-Zugriffstoken erstellen müssen, führen Sie die Schritte unter folgendem Link aus: https://help.github.com/en/articles/creating-a-personal-access-token-for-the-command-line .'
     description: ''
 - uid: az_staticwebapp_delete
   name: az staticwebapp delete
-  summary: Löschen Sie eine statische app.
+  summary: Löschen einer statischen App.
   description: ''
   syntax: >-
     az staticwebapp delete --name
@@ -104,12 +87,12 @@ directCommands:
                            [--subscription]
                            [--yes]
   examples:
-  - summary: Löschen Sie eine statische app.
+  - summary: Löschen einer statischen App.
     syntax: az staticwebapp delete -n MyStaticAppName -g MyRg
   requiredParameters:
   - isRequired: true
     name: --name -n
-    summary: Der Name der statischen Site.
+    summary: Name der statischen Website.
     description: ''
   optionalParameters:
   - name: --no-wait
@@ -119,14 +102,14 @@ directCommands:
     summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
     description: ''
   - name: --subscription
-    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
     description: ''
   - name: --yes -y
     summary: Nicht zur Bestätigung auffordern
     description: ''
 - uid: az_staticwebapp_disconnect
   name: az staticwebapp disconnect
-  summary: Trennen Sie die Quell Code Verwaltung, um eine Verbindung mit einem anderen Repository herzustellen.
+  summary: Trennen Sie die Quellcodeverwaltung, um das Herstellen einer Verbindung mit einem anderen Repository zu ermöglichen.
   description: ''
   syntax: >-
     az staticwebapp disconnect --name
@@ -134,12 +117,12 @@ directCommands:
                                [--resource-group]
                                [--subscription]
   examples:
-  - summary: Trennen Sie die statische app.
+  - summary: Trennen Sie die statische App.
     syntax: az staticwebapp disconnect -n MyStaticAppName
   requiredParameters:
   - isRequired: true
     name: --name -n
-    summary: Der Name der statischen Site.
+    summary: Name der statischen Website.
     description: ''
   optionalParameters:
   - name: --no-wait
@@ -149,32 +132,32 @@ directCommands:
     summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
     description: ''
   - name: --subscription
-    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
     description: ''
 - uid: az_staticwebapp_list
   name: az staticwebapp list
-  summary: Listet alle statischen App-Ressourcen in einem Abonnement oder in der Ressourcengruppe auf, falls angegeben.
+  summary: Listen Sie alle statischen App-Ressourcen in einem Abonnement oder ggf. in der Ressourcengruppe auf.
   description: ''
   syntax: >-
     az staticwebapp list [--query-examples]
                          [--resource-group]
                          [--subscription]
   examples:
-  - summary: Listet statische apps in einem Abonnement auf.
+  - summary: Auflisten statischer Apps in einem Abonnement.
     syntax: az staticwebapp list
   optionalParameters:
   - name: --query-examples
-    summary: Empfehlen Sie die jmespath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und Sie nach dem Abfrage Parameter in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positions Schlüsselwörter hinzufügen, um Vorschläge auf der Grundlage dieser Schlüsselwörter zu geben.
+    summary: Empfehlen Sie die JMESPath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und nach dem Parameter --query in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positionsschlüsselwörter hinzufügen, damit wir basierend auf diesen Schlüsselwörtern Vorschläge geben können.
     description: ''
   - name: --resource-group -g
     summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
     description: ''
   - name: --subscription
-    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
     description: ''
 - uid: az_staticwebapp_reconnect
   name: az staticwebapp reconnect
-  summary: Stellen Sie eine Verbindung mit einem Repository her, und Verzweigen Sie nach einem Disconnect
+  summary: Stellen Sie nach einem Disconnect-Befehl eine Verbindung mit einem Repository und einem Branch her.
   description: ''
   syntax: >-
     az staticwebapp reconnect --branch
@@ -185,20 +168,20 @@ directCommands:
                               [--subscription]
                               [--token]
   examples:
-  - summary: Verbinden Sie ein Repository und eine Verzweigung mit der statischen app.
+  - summary: Verbinden Sie ein Repository und einen Branch mit einer statischen App.
     syntax: az staticwebapp reconnect -n MyStaticAppName --source MyGitHubRepo -b master --token MyAccessToken
   requiredParameters:
   - isRequired: true
     name: --branch -b
-    summary: Der zielbranch im Repository.
+    summary: Der Zielverzweigung im Repository.
     description: ''
   - isRequired: true
     name: --name -n
-    summary: Der Name der statischen Site.
+    summary: Name der statischen Website.
     description: ''
   - isRequired: true
     name: --source -s
-    summary: URL für das Repository der statischen Site.
+    summary: URL für das Repository der statischen Website.
     description: ''
   optionalParameters:
   - name: --no-wait
@@ -208,17 +191,87 @@ directCommands:
     summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
     description: ''
   - name: --subscription
-    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
     description: ''
   - name: --token -t
-    summary: 'Das GitHub-Repository-Token eines Benutzers. Diese dient zum Einrichten der GitHub-Aktions Workflow Datei und der API-Geheimnisse. Wenn Sie ein persönliches GitHub-Zugriffs Token erstellen müssen, befolgen Sie die Schritte unter folgendem Link: https://help.github.com/en/articles/creating-a-personal-access-token-for-the-command-line .'
+    summary: 'Das GitHub-Repositorytoken eines Benutzers. Dies wird verwendet, um die GitHub Actions-Workflowdatei und API-Geheimnisse einzurichten. Wenn Sie ein persönliches GitHub-Zugriffstoken erstellen müssen, führen Sie die Schritte unter folgendem Link aus: https://help.github.com/en/articles/creating-a-personal-access-token-for-the-command-line .'
+    description: ''
+- uid: az_staticwebapp_show
+  name: az staticwebapp show
+  summary: Zeigt Details zu einer statischen App an.
+  description: ''
+  syntax: >-
+    az staticwebapp show --name
+                         [--query-examples]
+                         [--resource-group]
+                         [--subscription]
+  examples:
+  - summary: Anzeigen einer statischen App in einem Abonnement
+    syntax: az staticwebapp show -n MyStaticAppName
+  requiredParameters:
+  - isRequired: true
+    name: --name -n
+    summary: Name der statischen Website.
+    description: ''
+  optionalParameters:
+  - name: --query-examples
+    summary: Empfehlen Sie die JMESPath-Zeichenfolge. Sie können eine der Abfragen kopieren und nach dem Parameter --query in doppelte Anführungszeichen einfügen, um die Ergebnisse zu sehen. Sie können ein oder mehrere Positionsschlüsselwörter hinzufügen, damit wir basierend auf diesen Schlüsselwörtern Vorschläge machen können.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+- uid: az_staticwebapp_update
+  name: az staticwebapp update
+  summary: Aktualisieren einer statischen App. Gibt die aktualisierte App zurück.
+  description: ''
+  syntax: >-
+    az staticwebapp update --name
+                           [--branch]
+                           [--no-wait]
+                           [--sku {Free, Standard}]
+                           [--source]
+                           [--subscription]
+                           [--tags]
+                           [--token]
+  examples:
+  - summary: Aktualisieren Sie die statische App auf die Standard-SKU.
+    syntax: az staticwebapp update -n MyStaticAppName --sku Standard
+  requiredParameters:
+  - isRequired: true
+    name: --name -n
+    summary: Name der statischen Website.
+    description: ''
+  optionalParameters:
+  - name: --branch -b
+    summary: Der Zielzweig im Repository.
+    description: ''
+  - name: --no-wait
+    summary: Nicht auf den Abschluss lang andauernder Vorgänge warten
+    description: ''
+  - name: --sku
+    parameterValueGroup: Free, Standard
+    summary: Die Tarife für statische Web-App.
+    description: ''
+  - name: --source -s
+    summary: URL für das Repository der statischen Website.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+  - name: --tags
+    summary: 'Durch Leerzeichen getrennte Tags: key[=value] [key[=value] ...]. Verwenden Sie "", um vorhandene Tags zu löschen.'
+    description: ''
+  - name: --token -t
+    summary: 'Das GitHub-Repositorytoken eines Benutzers. Dies wird verwendet, um die GitHub Actions-Workflowdatei und API-Geheimnisse einzurichten. Wenn Sie ein persönliches GitHub-Zugriffstoken erstellen müssen, führen Sie die Schritte unter folgendem Link aus: https://help.github.com/en/articles/creating-a-personal-access-token-for-the-command-line .'
     description: ''
 commands:
 - az_staticwebapp_appsettings
 - az_staticwebapp_appsettings_delete
 - az_staticwebapp_appsettings_list
 - az_staticwebapp_appsettings_set
-- az_staticwebapp_browse
 - az_staticwebapp_create
 - az_staticwebapp_delete
 - az_staticwebapp_disconnect
@@ -232,6 +285,8 @@ commands:
 - az_staticwebapp_hostname_set
 - az_staticwebapp_list
 - az_staticwebapp_reconnect
+- az_staticwebapp_show
+- az_staticwebapp_update
 - az_staticwebapp_users
 - az_staticwebapp_users_invite
 - az_staticwebapp_users_list
@@ -252,10 +307,10 @@ globalParameters:
 - name: --verbose
   summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
 metadata:
-  description: Statische apps verwalten.
-  ms.openlocfilehash: 94de9529b09dc43ed44199ef2b622e46b6ffb723
-  ms.sourcegitcommit: 612554c029ba1f28d3a43fd22e743104a1a30ea0
+  description: Verwalten statischer Apps.
+  ms.openlocfilehash: 5f4235ebb13a2c07e4c2a2a7f20c330fa2166b05
+  ms.sourcegitcommit: 15a6f14c5a8570ba89a3bd5bb442f3324d72bc37
   ms.translationtype: MT
   ms.contentlocale: de-DE
-  ms.lasthandoff: 04/07/2021
-  ms.locfileid: "106872361"
+  ms.lasthandoff: 04/29/2021
+  ms.locfileid: "108244513"
