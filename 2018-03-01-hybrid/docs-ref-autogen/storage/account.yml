@@ -6,7 +6,7 @@ description: ''
 directCommands:
 - uid: az_storage_account_check-name
   name: az storage account check-name
-  summary: Überprüfen Sie, ob der Speicherkontoname gültig ist und noch nicht verwendet wird.
+  summary: Überprüfen Sie, ob der Name des Speicherkontos gültig ist und noch nicht verwendet wird.
   description: ''
   syntax: >-
     az storage account check-name --name
@@ -24,7 +24,7 @@ directCommands:
 - uid: az_storage_account_create
   name: az storage account create
   summary: Erstellen Sie ein Speicherkonto.
-  description: Die SKU des Speicherkontos ist standardmäßig auf "Standard_RAGRS" festgelegt.
+  description: Die SKU des Speicherkontos ist standardmäßig auf "Standard_RAGRS" eingestellt.
   syntax: >-
     az storage account create --name
                               --resource-group
@@ -33,18 +33,27 @@ directCommands:
                               [--allow-shared-key-access]
                               [--custom-domain]
                               [--edge-zone]
+                              [--encryption-key-name]
+                              [--encryption-key-source]
+                              [--encryption-key-vault]
+                              [--encryption-key-version]
                               [--https-only {false, true}]
+                              [--identity-type]
+                              [--key-expiration-period-in-days]
+                              [--key-vault-user-identity-id]
                               [--kind {BlobStorage, Storage}]
                               [--location]
                               [--min-tls-version]
                               [--require-infrastructure-encryption]
+                              [--sas-expiration-period]
                               [--sku {Premium_LRS, Standard_GRS, Standard_LRS, Standard_RAGRS, Standard_ZRS}]
                               [--subscription]
                               [--tags]
+                              [--user-identity-id]
   examples:
-  - summary: Erstellen Sie das Speicherkonto "mystorageaccount" in der Ressourcengruppe "MyResourceGroup" in der Region "USA, Westen" mit lokal redundantem Speicher.
+  - summary: Erstellen Sie ein Speicherkonto "mystorageaccount" in der Ressourcengruppe "MyResourceGroup" in der Region "USA, Westen" mit lokal redundanten Speicher.
     syntax: az storage account create -n mystorageaccount -g MyResourceGroup -l westus --sku Standard_LRS
-  - summary: Erstellen Sie das Speicherkonto "mystorageaccount" in der Ressourcengruppe "MyResourceGroup" in der Region eastus2euap mit aktivierten kontospezifischen Verschlüsselungsschlüsseln für den Tabellenspeicherdienst.
+  - summary: Erstellen Sie ein Speicherkonto "mystorageaccount" in der Ressourcengruppe "MyResourceGroup" in der Region eastus2euap mit aktivierten kontobezogenen Verschlüsselungsschlüsseln für den Tabellenspeicherdienst.
     syntax: az storage account create -n mystorageaccount -g MyResourceGroup --kind StorageV2 -l eastus2euap -t Account
   requiredParameters:
   - isRequired: true
@@ -58,7 +67,7 @@ directCommands:
   optionalParameters:
   - name: --access-tier
     parameterValueGroup: Cool, Hot
-    summary: Die Zugriffsebene, die für die Abrechnung von StandardBlob-Konten verwendet wird. Kann nicht für die Kontotypen StandardLRS, StandardGRS, StandardRAGRS oder PremiumLRS festgelegt werden. Dies ist für StandardBlob-Konten während der Erstellung erforderlich.
+    summary: Die Zugriffsebene, die für die Abrechnung von StandardBlob-Konten verwendet wird. Kann für Die Kontotypen StandardLRS, StandardGRS, StandardRAGRS oder PremiumLRS nicht festgelegt werden. Dies ist für StandardBlob-Konten während der Erstellung erforderlich.
     description: ''
   - name: --allow-blob-public-access
     summary: ''
@@ -67,14 +76,35 @@ directCommands:
     summary: ''
     description: ''
   - name: --custom-domain
-    summary: Benutzerdomäne, die dem Speicherkonto zugewiesen ist. Name ist die CNAME-Quelle.
+    summary: Dem Speicherkonto zugewiesene Benutzerdomäne. Name ist die CNAME-Quelle.
     description: ''
   - name: --edge-zone
     summary: ''
     description: ''
+  - name: --encryption-key-name
+    summary: ''
+    description: ''
+  - name: --encryption-key-source
+    summary: ''
+    description: ''
+  - name: --encryption-key-vault
+    summary: ''
+    description: ''
+  - name: --encryption-key-version
+    summary: ''
+    description: ''
   - name: --https-only
     parameterValueGroup: false, true
-    summary: Lassen Sie HTTPS-Datenverkehr nur an den Speicherdienst zu, wenn er auf TRUE festgelegt ist. Der Standardwert ist „FALSE“.
+    summary: Lassen Sie HTTPS-Datenverkehr nur an den Speicherdienst zu, wenn diese Einstellung auf TRUE festgelegt ist. Der Standardwert ist „FALSE“.
+    description: ''
+  - name: --identity-type
+    summary: ''
+    description: ''
+  - name: --key-expiration-period-in-days
+    summary: ''
+    description: ''
+  - name: --key-vault-user-identity-id
+    summary: ''
     description: ''
   - name: --kind
     defaultValue: Storage
@@ -90,6 +120,9 @@ directCommands:
   - name: --require-infrastructure-encryption
     summary: ''
     description: ''
+  - name: --sas-expiration-period
+    summary: ''
+    description: ''
   - name: --sku
     defaultValue: Standard_RAGRS
     parameterValueGroup: Premium_LRS, Standard_GRS, Standard_LRS, Standard_RAGRS, Standard_ZRS
@@ -101,10 +134,13 @@ directCommands:
   - name: --tags
     summary: 'Durch Leerzeichen getrennte Tags: key[=value] [key[=value] ...]. Verwenden Sie "", um vorhandene Tags zu löschen.'
     description: ''
+  - name: --user-identity-id
+    summary: ''
+    description: ''
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/storage/_help.py
 - uid: az_storage_account_delete
   name: az storage account delete
-  summary: Löschen Sie ein Speicherkonto.
+  summary: Löschen sie ein Speicherkonto.
   description: ''
   syntax: >-
     az storage account delete [--ids]
@@ -119,7 +155,7 @@ directCommands:
     syntax: az storage account delete -n MyStorageAccount -g MyResourceGroup
   optionalParameters:
   - name: --ids
-    summary: Eine oder mehrere Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu Ressourcen-ID-Argumenten geben. Sie sollten entweder --ids oder andere Ressourcen-ID-Argumente bereitstellen.
+    summary: Mindestens eine Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu Ressourcen-ID-Argumenten geben. Sie sollten entweder --ids oder andere Ressourcen-ID-Argumente bereitstellen.
     description: ''
   - name: --name -n
     summary: Der Name des Speicherkontos.
@@ -192,10 +228,10 @@ directCommands:
     summary: 'Verbindungszeichenfolge des Speicherkontos. Umgebungsvariable: AZURE_STORAGE_CONNECTION_STRING.'
     description: ''
   - name: --https-only
-    summary: Lassen Sie nur Anforderungen zu, die mit dem HTTPS-Protokoll erfolgen. Wenn dies nicht angegeben wird, sind Anforderungen sowohl vom HTTP- als auch vom HTTPS-Protokoll zulässig.
+    summary: Lassen Sie nur Anforderungen zu, die mit dem HTTPS-Protokoll erfolgen. Wenn diese Angabe ausgelassen wird, sind Anforderungen sowohl vom HTTP- als auch vom HTTPS-Protokoll zulässig.
     description: ''
   - name: --ids
-    summary: Mindestens eine Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen von "Resource Id"-Argumenten sein. Sie sollten entweder --ids oder andere "Resource Id"-Argumente angeben.
+    summary: Mindestens eine Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu "Ressourcen-ID"-Argumenten sein. Sie sollten entweder --ids oder andere "Resource Id"-Argumente angeben.
     description: ''
   - name: --ip
     summary: Gibt die IP-Adresse oder den IP-Adressbereich an, von denen Anforderungen akzeptiert werden sollen. Unterstützt nur IPv4-Adressen.
@@ -222,7 +258,7 @@ directCommands:
     syntax: az storage account list -g MyResourceGroup
   optionalParameters:
   - name: --query-examples
-    summary: Empfehlen Sie die JMESPath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und sie nach dem Parameter --query in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positionsschlüsselwörter hinzufügen, damit wir basierend auf diesen Schlüsselwörtern Vorschläge geben können.
+    summary: Empfehlen Sie die JMESPath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und nach dem Parameter --query in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positionsschlüsselwörter hinzufügen, damit wir basierend auf diesen Schlüsselwörtern Vorschläge geben können.
     description: ''
   - name: --resource-group -g
     summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
@@ -380,11 +416,11 @@ globalParameters:
   summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
 metadata:
   doc_source_url_repo: https://github.com/Azure/azure-cli/blob/dev/
-  ms.date: 04/08/2021
+  ms.date: 04/26/2021
   description: Verwalten von Speicherkonten.
-  ms.openlocfilehash: 3286332e16fcb31662ccdaa188f736c914bcd8e4
-  ms.sourcegitcommit: f11f08a8b571d9909044693a8dc52c0cf2e9b2bc
+  ms.openlocfilehash: c889574a82d185a84fede208e3096a0f5f074de3
+  ms.sourcegitcommit: 15a6f14c5a8570ba89a3bd5bb442f3324d72bc37
   ms.translationtype: MT
   ms.contentlocale: de-DE
-  ms.lasthandoff: 04/19/2021
-  ms.locfileid: "107708413"
+  ms.lasthandoff: 04/29/2021
+  ms.locfileid: "108253438"
