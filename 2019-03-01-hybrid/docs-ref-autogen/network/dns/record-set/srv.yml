@@ -34,7 +34,7 @@ directCommands:
     description: ''
   - isRequired: true
     name: --record-set-name -n
-    summary: Der Name des Datensatzes relativ zur Zone. Erstellt einen neuen Datensatzsatz, wenn er nicht vorhanden ist.
+    summary: Der Name des Eintragssets relativ zur Zone. Erstellt einen neuen Datensatz, falls noch kein Eintrag vorhanden ist.
     description: ''
   - isRequired: true
     name: --resource-group -g
@@ -54,7 +54,7 @@ directCommands:
     description: ''
   optionalParameters:
   - name: --if-none-match
-    summary: Erstellen Sie den Datensatzsatz nur, wenn er noch nicht vorhanden ist.
+    summary: Erstellen Sie den Eintragssatz nur, wenn er noch nicht vorhanden ist.
     description: ''
   - name: --subscription
     summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
@@ -62,7 +62,7 @@ directCommands:
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/network/_help.py
 - uid: az_network_dns_record-set_srv_create
   name: az network dns record-set srv create
-  summary: Erstellen Sie einen leeren SRV-Ressourceneintragssatz.
+  summary: Erstellen Sie einen leeren SRV-Eintragssatz.
   description: ''
   syntax: >-
     az network dns record-set srv create --name
@@ -74,57 +74,12 @@ directCommands:
                                          [--subscription]
                                          [--ttl]
   examples:
-  - summary: Erstellen Sie einen leeren SRV-Ressourceneintragssatz.
+  - summary: Erstellen Sie einen leeren SRV-Eintragssatz.
     syntax: >-
       az network dns record-set srv create -g MyResourceGroup -z www.mysite.com \
           -n MyRecordSet
-  - summary: Erstellen Sie einen leeren SRV-Ressourceneintragssatz. (automatisch generiert)
+  - summary: Erstellen Sie einen leeren SRV-Eintragssatz. (automatisch generiert)
     syntax: az network dns record-set srv create --metadata owner=WebTeam --name MyRecordSet --resource-group MyResourceGroup --ttl 30 --zone-name www.mysite.com
-  requiredParameters:
-  - isRequired: true
-    name: --name -n
-    summary: Der Name des Eintragssatzes relativ zum Namen der Zone.
-    description: ''
-  - isRequired: true
-    name: --resource-group -g
-    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
-    description: ''
-  - isRequired: true
-    name: --zone-name -z
-    summary: Der Name der Zone.
-    description: ''
-  optionalParameters:
-  - name: --if-match
-    summary: Das ETag des Datensatzes. Lassen Sie diesen Wert aus, um den aktuellen Datensatzsatz immer zu überschreiben. Geben Sie den zuletzt gesehenen ETag-Wert an, um zu verhindern, dass gleichzeitige Änderungen versehentlich überschreiben.
-    description: ''
-  - name: --if-none-match
-    summary: Erstellen Sie den Eintragssatz nur, wenn er noch nicht vorhanden ist.
-    description: ''
-  - name: --metadata
-    summary: Metadaten in durch Leerzeichen getrennten Schlüssel-Wert-Paaren. Dadurch werden alle vorhandenen Metadaten überschrieben.
-    description: ''
-  - name: --subscription
-    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
-    description: ''
-  - name: --ttl
-    defaultValue: "3600"
-    summary: Datensatzsatz-TTL ( Livezeit).
-    description: ''
-  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/network/_help.py
-- uid: az_network_dns_record-set_srv_delete
-  name: az network dns record-set srv delete
-  summary: Löschen Sie einen SRV-Eintragssatz und alle zugeordneten Datensätze.
-  description: ''
-  syntax: >-
-    az network dns record-set srv delete --name
-                                         --resource-group
-                                         --zone-name
-                                         [--if-match]
-                                         [--subscription]
-                                         [--yes]
-  examples:
-  - summary: Löschen Sie einen SRV-Eintragssatz und alle zugeordneten Datensätze.
-    syntax: az network dns record-set srv delete -g MyResourceGroup -z www.mysite.com -n MyRecordSet
   requiredParameters:
   - isRequired: true
     name: --name -n
@@ -140,7 +95,52 @@ directCommands:
     description: ''
   optionalParameters:
   - name: --if-match
-    summary: Das ETag des Datensatzes. Diesen Wert weglassen, um immer den aktuellen Eintragssatz zu löschen. Geben Sie den zuletzt gesehenen ETag-Wert an, um zu verhindern, dass gleichzeitige Änderungen versehentlich gelöscht werden.
+    summary: Das ETag des Datensatzes. Diesen Wert weglassen, um den aktuellen Eintragssatz immer zu überschreiben. Geben Sie den zuletzt erkannten ETag-Wert an, um zu verhindern, dass gleichzeitige Änderungen versehentlich überschrieben werden.
+    description: ''
+  - name: --if-none-match
+    summary: Erstellen Sie den Datensatzsatz nur, wenn er noch nicht vorhanden ist.
+    description: ''
+  - name: --metadata
+    summary: Metadaten in durch Leerzeichen getrennten Schlüssel-Wert-Paaren. Dadurch werden alle vorhandenen Metadaten überschrieben.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+  - name: --ttl
+    defaultValue: "3600"
+    summary: Gültigkeitsdauer des Datensatzsatzes (Gültigkeitsdauer).
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/network/_help.py
+- uid: az_network_dns_record-set_srv_delete
+  name: az network dns record-set srv delete
+  summary: Löschen Sie einen SRV-Ressourceneintragssatz und alle zugeordneten Datensätze.
+  description: ''
+  syntax: >-
+    az network dns record-set srv delete --name
+                                         --resource-group
+                                         --zone-name
+                                         [--if-match]
+                                         [--subscription]
+                                         [--yes]
+  examples:
+  - summary: Löschen Sie einen SRV-Ressourceneintragssatz und alle zugeordneten Datensätze.
+    syntax: az network dns record-set srv delete -g MyResourceGroup -z www.mysite.com -n MyRecordSet
+  requiredParameters:
+  - isRequired: true
+    name: --name -n
+    summary: Der Name des Eintragssatzes relativ zum Namen der Zone.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - isRequired: true
+    name: --zone-name -z
+    summary: Der Name der Zone.
+    description: ''
+  optionalParameters:
+  - name: --if-match
+    summary: Das ETag des Datensatzes. Lassen Sie diesen Wert aus, um immer den aktuellen Datensatzsatz zu löschen. Geben Sie den zuletzt erkannten ETag-Wert an, um zu verhindern, dass gleichzeitige Änderungen versehentlich gelöscht werden.
     description: ''
   - name: --subscription
     summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
@@ -151,7 +151,7 @@ directCommands:
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/network/_help.py
 - uid: az_network_dns_record-set_srv_list
   name: az network dns record-set srv list
-  summary: Listet alle SRV-Eintragssätze in einer Zone auf.
+  summary: Listet alle SRV-Ressourceneintragssätze in einer Zone auf.
   description: ''
   syntax: >-
     az network dns record-set srv list --resource-group
@@ -159,7 +159,7 @@ directCommands:
                                        [--query-examples]
                                        [--subscription]
   examples:
-  - summary: Listet alle SRV-Eintragssätze in einer Zone auf.
+  - summary: Listet alle SRV-Ressourceneintragssätze in einer Zone auf.
     syntax: az network dns record-set srv list -g MyResourceGroup -z www.mysite.com
   requiredParameters:
   - isRequired: true
@@ -172,7 +172,7 @@ directCommands:
     description: ''
   optionalParameters:
   - name: --query-examples
-    summary: Empfehlen Sie die JMESPath-Zeichenfolge. Sie können eine der Abfragen kopieren und nach dem Parameter --query in doppelte Anführungszeichen einfügen, um die Ergebnisse zu sehen. Sie können ein oder mehrere Positionsschlüsselwörter hinzufügen, damit wir basierend auf diesen Schlüsselwörtern Vorschläge machen können.
+    summary: Empfehlen Sie die JMESPath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und nach dem Parameter --query in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positionsschlüsselwörter hinzufügen, damit wir basierend auf diesen Schlüsselwörtern Vorschläge geben können.
     description: ''
   - name: --subscription
     summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
@@ -180,8 +180,8 @@ directCommands:
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/network/_help.py
 - uid: az_network_dns_record-set_srv_remove-record
   name: az network dns record-set srv remove-record
-  summary: Entfernen Sie einen SRV-Eintrag aus seinem Ressourceneintragssatz.
-  description: Wenn der letzte Datensatz in einem Satz entfernt wird, wird der Datensatzsatz standardmäßig gelöscht. Um den leeren Datensatzsatz beizubehalten, schließen Sie --keep-empty-record-set ein.
+  summary: Entfernen Sie einen SRV-Eintrag aus seinem Ressourcensatz.
+  description: Wenn der letzte Datensatz in einem Satz entfernt wird, wird der Eintragssatz standardmäßig gelöscht. Schließen Sie --keep-empty-record-set ein, um den leeren Datensatzsatz zu behalten.
   syntax: >-
     az network dns record-set srv remove-record --port
                                                 --priority
@@ -193,7 +193,7 @@ directCommands:
                                                 [--keep-empty-record-set]
                                                 [--subscription]
   examples:
-  - summary: Entfernen Sie einen SRV-Eintrag aus seinem Ressourceneintragssatz.
+  - summary: Entfernen Sie einen SRV-Eintrag aus seinem Ressourcensatz.
     syntax: >-
       az network dns record-set srv remove-record -g MyResourceGroup -z www.mysite.com \
           -n MyRecordSet -t webserver.mysite.com -r 8081 -p 10 -w 10
@@ -208,7 +208,7 @@ directCommands:
     description: ''
   - isRequired: true
     name: --record-set-name -n
-    summary: Der Name des Datensatzes relativ zur Zone.
+    summary: Der Name des Eintragssets relativ zur Zone.
     description: ''
   - isRequired: true
     name: --resource-group -g
@@ -236,7 +236,7 @@ directCommands:
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/network/_help.py
 - uid: az_network_dns_record-set_srv_show
   name: az network dns record-set srv show
-  summary: Abrufen der Details eines SRV-Ressourceneintragssatzes.
+  summary: Hier finden Sie Die Details eines SRV-Eintragssets.
   description: ''
   syntax: >-
     az network dns record-set srv show --name
@@ -245,12 +245,12 @@ directCommands:
                                        [--query-examples]
                                        [--subscription]
   examples:
-  - summary: Abrufen der Details eines SRV-Ressourceneintragssatzes.
+  - summary: Hier finden Sie Die Details eines SRV-Eintragssets.
     syntax: az network dns record-set srv show -g MyResourceGroup -z www.mysite.com -n MyRecordSet
   requiredParameters:
   - isRequired: true
     name: --name -n
-    summary: Der Name des Eintragssatzes relativ zum Namen der Zone.
+    summary: Der Name des Eintragssets relativ zum Namen der Zone.
     description: ''
   - isRequired: true
     name: --resource-group -g
@@ -262,7 +262,7 @@ directCommands:
     description: ''
   optionalParameters:
   - name: --query-examples
-    summary: Empfehlen Sie die JMESPath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und nach dem Parameter --query in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positionsschlüsselwörter hinzufügen, damit wir basierend auf diesen Schlüsselwörtern Vorschläge geben können.
+    summary: Empfehlen Sie die JMESPath-Zeichenfolge. Sie können eine der Abfragen kopieren und nach dem Parameter --query in doppelte Anführungszeichen einfügen, um die Ergebnisse zu sehen. Sie können ein oder mehrere Positionsschlüsselwörter hinzufügen, damit wir basierend auf diesen Schlüsselwörtern Vorschläge machen können.
     description: ''
   - name: --subscription
     summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
@@ -270,7 +270,7 @@ directCommands:
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/network/_help.py
 - uid: az_network_dns_record-set_srv_update
   name: az network dns record-set srv update
-  summary: Aktualisiert einen SRV-Ressourcensatz.
+  summary: Aktualisieren eines SRV-Ressourceneintragssatzes.
   description: ''
   syntax: >-
     az network dns record-set srv update --name
@@ -285,14 +285,14 @@ directCommands:
                                          [--set]
                                          [--subscription]
   examples:
-  - summary: Aktualisiert einen SRV-Ressourcensatz.
+  - summary: Aktualisieren sie einen SRV-Ressourceneintragssatz.
     syntax: >-
       az network dns record-set srv update -g MyResourceGroup -z www.mysite.com \
           -n MyRecordSet --metadata owner=WebTeam
   requiredParameters:
   - isRequired: true
     name: --name -n
-    summary: Der Name des Eintragssets relativ zum Namen der Zone.
+    summary: Der Name des Eintragssatzes relativ zum Namen der Zone.
     description: ''
   - isRequired: true
     name: --resource-group -g
@@ -310,19 +310,19 @@ directCommands:
     summary: Wenn Sie "set" oder "add" verwenden, behalten Sie Zeichenfolgenliterale bei, anstatt zu versuchen, in JSON zu konvertieren.
     description: ''
   - name: --if-match
-    summary: Das ETag des Datensatzes. Diesen Wert weglassen, um den aktuellen Eintragssatz immer zu überschreiben. Geben Sie den zuletzt gesehenen ETag-Wert an, um zu verhindern, dass gleichzeitige Änderungen versehentlich überschreiben.
+    summary: Das ETag des Datensatzes. Lassen Sie diesen Wert aus, um den aktuellen Datensatzsatz immer zu überschreiben. Geben Sie den zuletzt erkannten ETag-Wert an, um zu verhindern, dass gleichzeitige Änderungen versehentlich überschrieben werden.
     description: ''
   - name: --if-none-match
-    summary: Legen Sie auf " " fest, um das Erstellen eines neuen \* Eintragssets zu ermöglichen, aber um zu verhindern, dass ein vorhandener Eintragssatz aktualisiert wird. Andere Werte werden ignoriert.
+    summary: Legen Sie diese Einstellung auf \* ' fest, um die Erstellung eines neuen Eintragssatzes zu ermöglichen, aber um zu verhindern, dass ein vorhandener Datensatzsatz aktualisiert wird. Andere Werte werden ignoriert.
     description: ''
   - name: --metadata
     summary: Metadaten in durch Leerzeichen getrennten Schlüssel-Wert-Paaren. Dadurch werden alle vorhandenen Metadaten überschrieben.
     description: ''
   - name: --remove
-    summary: 'Entfernen Sie eine Eigenschaft oder ein Element aus einer Liste.  Beispiel: --remove property.list <indexToRemove> OR --remove propertyToRemove.'
+    summary: 'Entfernen sie eine Eigenschaft oder ein Element aus einer Liste.  Beispiel: --remove property.list <indexToRemove> OR --remove propertyToRemove.'
     description: ''
   - name: --set
-    summary: 'Aktualisieren Sie ein -Objekt, indem Sie einen festzulegenden Eigenschaftenpfad und -wert angeben.  Beispiel: --set property1.property2=<value>.'
+    summary: 'Aktualisieren Sie ein Objekt, indem Sie einen festzulegenden Eigenschaftenpfad und -wert angeben.  Beispiel: --set property1.property2=<value>.'
     description: ''
   - name: --subscription
     summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
@@ -353,11 +353,11 @@ globalParameters:
   summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
 metadata:
   doc_source_url_repo: https://github.com/Azure/azure-cli/blob/dev/
-  ms.date: 04/21/2021
+  ms.date: 04/25/2021
   description: Verwalten von DNS-SRV-Einträgen.
-  ms.openlocfilehash: 35a7758444189d7f849e24fe8658d1aff418c851
-  ms.sourcegitcommit: b76cc7c91ed21ae04b3463544ad46a749461cc6a
+  ms.openlocfilehash: 9b82a6ab7c675ada053bcaa7c3a3e15bb96b190f
+  ms.sourcegitcommit: 15a6f14c5a8570ba89a3bd5bb442f3324d72bc37
   ms.translationtype: MT
   ms.contentlocale: de-DE
-  ms.lasthandoff: 04/25/2021
-  ms.locfileid: "107977404"
+  ms.lasthandoff: 04/29/2021
+  ms.locfileid: "108264794"
