@@ -1,13 +1,13 @@
 ### YamlMime:AzureCLIGroup
 uid: az_sig_image-version
 name: az sig image-version
-summary: Erstellen Sie eine neue Version aus einer Imagedefintion.
+summary: Erstellen Sie eine neue Version aus einer Imagedefinierung.
 description: ''
 directCommands:
 - uid: az_sig_image-version_create
   name: az sig image-version create
   summary: Erstellen Sie eine neue Imageversion.
-  description: Dieser Vorgang kann je nach Anzahl der Replikationsregion sehr lange dauern. Es wird empfohlen, "--no-wait" zu verwenden.
+  description: Dieser Vorgang kann abhängig von der Nummer der Replikationsregion sehr lange dauern. Es wird empfohlen, "---no-wait" zu verwenden.
   syntax: >-
     az sig image-version create --gallery-image-definition
                                 --gallery-image-version
@@ -15,6 +15,9 @@ directCommands:
                                 --resource-group
                                 [--data-snapshot-luns]
                                 [--data-snapshots]
+                                [--data-vhds-luns]
+                                [--data-vhds-sa]
+                                [--data-vhds-uris]
                                 [--end-of-life-date]
                                 [--exclude-from-latest {false, true}]
                                 [--location]
@@ -46,14 +49,14 @@ directCommands:
     syntax: az sig image-version create -g MyResourceGroup --gallery-name MyGallery --gallery-image-definition MyImage --gallery-image-version 1.0.0 --os-snapshot /subscriptions/00000000-0000-0000-0000-00000000xxxx/resourceGroups/imageGroups/providers/Microsoft.Compute/disks/MyOSDisk --data-snapshots /subscriptions/00000000-0000-0000-0000-00000000xxxx/resourceGroups/imageGroups/providers/Microsoft.Compute/disks/MyDataDisk --data-snapshot-luns 0
   - summary: Hinzufügen einer neuen Imageversion mit einer Mischung aus Momentaufnahmen und verwalteten Datenträgern
     syntax: az sig image-version create -g MyResourceGroup --gallery-name MyGallery --gallery-image-definition MyImage --gallery-image-version 1.0.0 --os-snapshot /subscriptions/00000000-0000-0000-0000-00000000xxxx/resourceGroups/imageGroups/providers/Microsoft.Compute/disks/MyOSDisk --data-snapshots /subscriptions/00000000-0000-0000-0000-00000000xxxx/resourceGroups/imageGroups/providers/Microsoft.Compute/snapshots/MyDiskSnapshot1 /subscriptions/00000000-0000-0000-0000-00000000xxxx/resourceGroups/imageGroups/providers/Microsoft.Compute/disks/MyDataDisk2 --data-snapshot-luns 1 2
-  - summary: Fügen Sie eine neue Imageversion hinzu, die in mehreren Regionen mit jeweils unterschiedlicher Replikationsanzahl repliziert wird. Für Eastus2 ist die Replikatanzahl auf die Standardreplikatanzahl festgelegt.
+  - summary: Fügen Sie eine neue Imageversion hinzu, die in mehreren Regionen mit jeweils unterschiedlichen Replikationsanzahlen repliziert wird. Für Eastus2 ist die Replikatanzahl auf die Standardreplikatanzahl festgelegt.
     syntax: >-
       az sig image-version create -g MyResourceGroup --gallery-name MyGallery \
 
       --gallery-image-definition MyImage --gallery-image-version 1.0.0 \
 
       --managed-image image-name --target-regions eastus2 ukwest=3 southindia=2
-  - summary: Fügen Sie eine neue Imageversion hinzu, und warten Sie nicht darauf. Später können Sie den Befehl "az sig image-version wait" aufrufen, wenn Sie bereit sind, einen virtuellen Computer aus der Katalogimageversion zu erstellen.
+  - summary: Fügen Sie eine neue Imageversion hinzu, und warten Sie nicht darauf. Später können Sie den Befehl "az sig image-version wait" aufrufen, wenn Sie bereit sind, einen virtuellen Computer aus der Imageversion des Katalogs zu erstellen.
     syntax: >-
       az sig image-version create --no-wait -g MyResourceGroup --gallery-name MyGallery \
 
@@ -69,20 +72,20 @@ directCommands:
       --gallery-name MyGallery --gallery-image-definition MyImage \
 
       --managed-image imageInTheSameResourceGroup
-  - summary: Fügen Sie eine neue Imageversion hinzu, indem Sie einen virtuellen Computer mit Zielregionen und vom Kunden verwalteten Schlüsseln für die Verschlüsselung verwenden. Sie geben an, welche Datenträger in der Imageversion verschlüsselt werden. In einer Region verschlüsselte Datenträger müssen in einer anderen Region mit einem anderen Datenträgerverschlüsselungssatz verschlüsselt werden.
+  - summary: Fügen Sie eine neue Imageversion hinzu, indem Sie einen virtuellen Computer mit Zielregionen und vom Kunden verwalteten Schlüsseln für die Verschlüsselung verwenden. Sie geben an, welche Datenträger in der Imageversion verschlüsselt werden sollen. In einer Region verschlüsselte Datenträger müssen in einer anderen Region mit einem anderen Datenträgerverschlüsselungssatz verschlüsselt werden.
     syntax: az sig image-version create -g MyResourceGroup --gallery-image-version 1.0.0 --target-regions westus=2=standard eastus --target-region-encryption WestUSDiskEncryptionSet1,0,WestUSDiskEncryptionSet2 EastUSDiskEncryptionSet1,0,EastUSDiskEncryptionSet2 --gallery-name MyGallery --gallery-image-definition MyImage --managed-image /subscriptions/00000000-0000-0000-0000-00000000xxxx/resourceGroups/imageGroups/providers/Microsoft.Compute/virtualMachines/MyVM
-  - summary: Fügen Sie eine neue Imageversion mit Datenträgern mit Zielregionen und vom Kunden verwalteten Schlüsseln für die Verschlüsselung hinzu. Sie geben an, welche Datenträger in der Imageversion verschlüsselt werden sollen. In einer Region verschlüsselte Datenträger müssen in einer anderen Region mit einem anderen Datenträgerverschlüsselungssatz verschlüsselt werden.
+  - summary: Fügen Sie eine neue Imageversion hinzu, indem Sie Datenträger mit Zielregionen und vom Kunden verwaltete Schlüssel für die Verschlüsselung verwenden. Sie geben an, welche Datenträger in der Imageversion verschlüsselt werden. In einer Region verschlüsselte Datenträger müssen in einer anderen Region mit einem anderen Datenträgerverschlüsselungssatz verschlüsselt werden.
     syntax: az sig image-version create -g MyResourceGroup --gallery-image-version 1.0.0 --target-regions westus=2=standard eastus --target-region-encryption WestUSDiskEncryptionSet1,0,WestUSDiskEncryptionSet2 EastUSDiskEncryptionSet1,0,EastUSDiskEncryptionSet2 --gallery-name MyGallery --gallery-image-definition MyImage --os-snapshot /subscriptions/00000000-0000-0000-0000-00000000xxxx/resourceGroups/imageGroups/providers/Microsoft.Compute/disks/MyOSDisk --data-snapshots /subscriptions/00000000-0000-0000-0000-00000000xxxx/resourceGroups/imageGroups/providers/Microsoft.Compute/disks/MyDataDisk --data-snapshot-luns 0
-  - summary: Fügen Sie eine neue Imageversion aus einer VHD eines Betriebssystemdatenträgers hinzu.
+  - summary: Fügen Sie eine neue Imageversion von einer VHD eines Betriebssystemdatenträgers hinzu.
     syntax: az sig image-version create -g MyResourceGroup --gallery-name MyGallery --gallery-image-definition MyImage --gallery-image-version 1.0.0 --os-vhd-uri <vhd-uri> --os-vhd-storage-account account
   requiredParameters:
   - isRequired: true
     name: --gallery-image-definition -i
-    summary: Definition des Katalogimages.
+    summary: Katalogimagedefinition.
     description: ''
   - isRequired: true
     name: --gallery-image-version -e
-    summary: Katalogimageversion im semantischen Versionsmuster. Die zulässigen Zeichen sind Ziffer und Punkt. Ziffern müssen innerhalb des Bereichs einer 32-Bit-Ganzzahl liegen, z. B. `<MajorVersion>.<MinorVersion>.<Patch>` .
+    summary: Katalogimageversion im semantischen Versionsmuster. Die zulässigen Zeichen sind "digit" und "period". Ziffern müssen innerhalb des Bereichs einer 32-Bit-Ganzzahl liegen, z. B. `<MajorVersion>.<MinorVersion>.<Patch>` .
     description: ''
   - isRequired: true
     name: --gallery-name -r
@@ -99,18 +102,27 @@ directCommands:
   - name: --data-snapshots
     summary: Namen oder IDs (durch Leerzeichen getrennt) von Datenträgermomentaufnahmen.
     description: ''
+  - name: --data-vhds-luns
+    summary: Logische Einheitennummern (durch Leerzeichen getrennt) von Quell-VHD-URIs von Datenträgern.
+    description: ''
+  - name: --data-vhds-sa --data-vhds-storage-accounts
+    summary: Namen oder IDs (durch Leerzeichen getrennt) von Speicherkonten von Quell-VHD-URIs von Datenträgern.
+    description: ''
+  - name: --data-vhds-uris
+    summary: Quell-VHD-URIs (durch Leerzeichen getrennt) von Datenträgern.
+    description: ''
   - name: --end-of-life-date
-    summary: Das Enddatum der Lebensdauer, z.B. "2020-12-31".
+    summary: Das Datum des Endes der Lebensdauer, z.B. "2020-12-31".
     description: ''
   - name: --exclude-from-latest
     parameterValueGroup: false, true
-    summary: Das Flag bedeutet, dass Personen, die VMs mit nicht angegebener Version bereitstellen, diese Version nicht verwenden, wenn sie auf TRUE festgelegt ist.
+    summary: Das Flag bedeutet, dass Personen, die virtuelle Computer mit nicht angegebener Version bereitstellen, diese Version nicht verwenden, wenn es auf TRUE festgelegt ist.
     description: ''
   - name: --location -l
     summary: 'Der Standort. Werte aus: `az account list-locations`. Sie können den standardmäßig verwendeten Standort mit `az configure --defaults location=<location>` konfigurieren.'
     description: ''
   - name: --managed-image
-    summary: Imagename (wenn sich in derselben Ressourcengruppe befindet) oder Ressourcen-ID.
+    summary: Imagename (falls in derselben Ressourcengruppe) oder Ressourcen-ID.
     description: ''
   - name: --no-wait
     summary: Nicht auf den Abschluss lang andauernder Vorgänge warten
@@ -187,7 +199,7 @@ directCommands:
   requiredParameters:
   - isRequired: true
     name: --gallery-image-definition -i
-    summary: Definition des Katalogimages.
+    summary: Katalogimagedefinition.
     description: ''
   - isRequired: true
     name: --gallery-name -r
@@ -263,9 +275,9 @@ directCommands:
   examples:
   - summary: Replizieren in eine neue Gruppe von Regionen
     syntax: az sig image-version update -g MyResourceGroup --gallery-name MyGallery --gallery-image-definition MyImage --gallery-image-version 1.0.0 --target-regions westcentralus=2 eastus2
-  - summary: Replizieren in eine weitere Region
+  - summary: Replizieren in einer weiteren Region
     syntax: az sig image-version update -g MyResourceGroup --gallery-name MyGallery --gallery-image-definition MyImage --gallery-image-version 1.0.0 --add publishingProfile.targetRegions name=westcentralus
-  - summary: Hinzufügen einer Region mit einer anderen regionalen Replikatanzahl
+  - summary: Hinzufügen einer Region mit einer anderen Regionalen Replikatanzahl
     syntax: az sig image-version update -g MyResourceGroup --gallery-name MyGallery --gallery-image-definition MyImage --gallery-image-version 1.0.0 --add publishingProfile.targetRegions name=westcentralus regionalReplicaCount=3
   - summary: Entfernen einer Region
     syntax: az sig image-version update -g MyResourceGroup --gallery-name MyGallery --gallery-image-definition MyImage --gallery-image-version 1.0.0 --remove publishingProfile.targetRegions name=westcentralus
@@ -307,7 +319,7 @@ directCommands:
     summary: Die Standardanzahl von Replikaten, die pro Region erstellt werden sollen. Verwenden Sie --target-regions, um die Anzahl der regionalen Replikationen festzulegen.
     description: ''
   - name: --set
-    summary: 'Aktualisieren Sie ein -Objekt, indem Sie einen festzulegenden Eigenschaftenpfad und -wert angeben.  Beispiel: --set property1.property2=<value>.'
+    summary: 'Aktualisieren Sie ein Objekt, indem Sie einen festzulegenden Eigenschaftenpfad und -wert angeben.  Beispiel: --set property1.property2=<value>.'
     description: ''
   - name: --subscription
     summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
@@ -369,7 +381,7 @@ directCommands:
     summary: Warten Sie, bis die Ressource vorhanden ist.
     description: ''
   - name: --expand
-    summary: Der Erweiterungsausdruck, der auf den Vorgang angewendet werden soll.
+    summary: Der erweiterungsausdruck, der auf den Vorgang angewendet werden soll.
     description: ''
   - name: --interval
     defaultValue: "30"
@@ -409,9 +421,9 @@ globalParameters:
   summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
 metadata:
   description: Erstellen Sie eine neue Version aus einer Imagedefinierung.
-  ms.openlocfilehash: 690d188dabacc354d7f90827cb3a86ee274c5b61
-  ms.sourcegitcommit: 47edf65705fcb047974356c30962819ea5172832
+  ms.openlocfilehash: 89645beaf9c9b3af9659e298e373305b74b7bf37
+  ms.sourcegitcommit: 15a6f14c5a8570ba89a3bd5bb442f3324d72bc37
   ms.translationtype: MT
   ms.contentlocale: de-DE
-  ms.lasthandoff: 04/16/2021
-  ms.locfileid: "107552521"
+  ms.lasthandoff: 04/29/2021
+  ms.locfileid: "108262737"
