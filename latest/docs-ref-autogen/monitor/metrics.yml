@@ -29,30 +29,30 @@ directCommands:
                             [--subscription]
                             [--top]
   examples:
-  - summary: Auflisten der CPU-Auslastung eines virtuellen Computers für die vergangene Stunde
+  - summary: Auflisten der CPU-Auslastung eines virtuellen Computers für die letzte Stunde
     syntax: az monitor metrics list --resource {ResourceName} --metric "Percentage CPU"
-  - summary: Auflisten der E2E-Erfolgslatenz eines Speicherkontos und Aufteilen der Datenreihe basierend auf dem API-Namen
+  - summary: Auflisten der E2E-Latenz eines Speicherkontos und Aufteilen der Datenreihe basierend auf dem API-Namen
     syntax: >-
       az monitor metrics list --resource {ResourceName} --metric SuccessE2ELatency \
                               --dimension ApiName
-  - summary: Auflisten der E2E-Erfolgslatenz eines Speicherkontos und Aufteilen der Datenreihe basierend auf API-Name und Geotyp
+  - summary: Auflisten der E2E-Latenz eines Speicherkontos und Aufteilen der Datenreihe basierend auf API-Name und Geotyp
     syntax: >-
       az monitor metrics list --resource {ResourceName} --metric SuccessE2ELatency \
                               --dimension ApiName GeoType
-  - summary: Auflisten der E2E-Erfolgslatenz eines Speicherkontos und Aufteilen der Datenreihe basierend auf API-Name und Geotyp mithilfe des Parameters "--filter"
+  - summary: Auflisten der E2E-Latenz eines Speicherkontos und Aufteilen der Datenreihe basierend auf API-Name und Geotyp mit dem Parameter "--filter"
     syntax: >-
       az monitor metrics list --resource {ResourceName} --metric SuccessE2ELatency \
                               --filter "ApiName eq '*' and GeoType eq '*'"
-  - summary: Auflisten der E2E-Erfolgslatenz eines Speicherkontos und Aufteilen der Datenreihe basierend auf API-Name und Geotyp. Schränkt den API-Namen auf "DeleteContainer" ein.
+  - summary: Listen Sie die E2E-Latenz eines Speicherkontos auf, und teilen Sie die Datenreihe basierend auf API-Name und Geotyp auf. Beschränkt den API-Namen auf "DeleteContainer".
     syntax: >-
       az monitor metrics list --resource {ResourceName} --metric SuccessE2ELatency \
                               --filter "ApiName eq 'DeleteContainer' and GeoType eq '*'"
-  - summary: Auflisten von Transaktionen eines Speicherkontos pro Tag seit dem 01.01.2017
+  - summary: Auflisten von Transaktionen eines Speicherkontos pro Tag seit dem 1.1.2017
     syntax: >-
       az monitor metrics list --resource {ResourceName} --metric Transactions \
                               --start-time 2017-01-01T00:00:00Z \
                               --interval PT24H
-  - summary: Auflisten der Metadatenwerte für ein Speicherkonto in der API-Namensdimension der Transaktionsmetrik seit 2017
+  - summary: Listen Sie die Metadatenwerte für ein Speicherkonto seit 2017 unter der Dimension "API-Name" der Transaktionsmetrik auf.
     syntax: >-
       az monitor metrics list --resource {ResourceName} --metric Transactions \
                               --filter "ApiName eq '*'" \
@@ -73,14 +73,14 @@ directCommands:
     description: ''
     valueFrom: az monitor metrics list-definitions
   - name: --end-time
-    summary: 'Die Endzeit der Abfrage. Der Standardwert ist die aktuelle Zeit. Format: Datum (yyyy-mm-tt) Uhrzeit (hh:mm:ss.xxxxx) Zeitzone (+/-hh:mm).'
+    summary: 'Die Endzeit der Abfrage. Der Standardwert ist die aktuelle Uhrzeit. Format: Datumszeit (jjjj-mm-tt) (hh:mm:ss.xxxxx) Zeitzone (+/-hh:mm).'
     description: ''
   - name: --filter
-    summary: "Eine Zeichenfolge, die verwendet wird, um den Zurückgegebenen Satz von Metrikdaten zu reduzieren. Beispiel: \"BlobType eq ' \\* '\"."
+    summary: "Eine Zeichenfolge, die verwendet wird, um den Satz der zurückgegebenen Metrikdaten zu reduzieren. Beispiel: \"BlobType eq ' \\* '\"."
     description: Eine vollständige Liste der Filter finden Sie in der Filterzeichenfolgenreferenz unter https://docs.microsoft.com/rest/api/monitor/metrics/list .
   - name: --interval
     defaultValue: 1m
-    summary: 'Das Intervall, über das Metriken aggregiert werden, im ##h##m Format.'
+    summary: 'Das Intervall, in dem Metriken im Format ##h##m aggregiert werden sollen.'
     description: ''
   - name: --metadata
     summary: Gibt die Metadatenwerte anstelle von Metrikdaten zurück.
@@ -90,18 +90,18 @@ directCommands:
     description: ''
     valueFrom: az monitor metrics list-definitions
   - name: --namespace
-    summary: Namespace, für den Metrikdefinitionen abgefragt werden sollen.
+    summary: Namespace, für den Metrikdefinitionen abfragen werden.
     description: ''
     valueFrom: az monitor metrics list-namespaces
   - name: --offset
     defaultValue: 1h
-    summary: 'Zeitoffset des Abfragebereichs im Format ##d##h.'
+    summary: 'Zeitoffset des Abfragebereichs im ##d##h Format.'
     description: Kann entweder mit --start-time oder --end-time verwendet werden. Bei Verwendung mit --start-time wird die Endzeit durch Hinzufügen des Offsets berechnet. Bei Verwendung mit --end-time (Standard) wird die Startzeit berechnet, indem der Offset subtrahiert wird. Wenn --start-time und --end-time angegeben werden, wird --offset ignoriert.
   - name: --orderby
     summary: 'Aggregation, die zum Sortieren von Ergebnissen und der Sortierrichtung verwendet werden soll. Es kann nur eine Bestellung spezifisch sein. Beispiele: sum asc.'
     description: ''
   - name: --query-examples
-    summary: Empfehlen Sie die JMESPath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und sie nach dem Parameter --query in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positionsschlüsselwörter hinzufügen, damit wir basierend auf diesen Schlüsselwörtern Vorschläge geben können.
+    summary: Empfehlen Sie die JMESPath-Zeichenfolge. Sie können eine der Abfragen kopieren und nach dem Parameter --query in doppelte Anführungszeichen einfügen, um die Ergebnisse zu sehen. Sie können ein oder mehrere Positionsschlüsselwörter hinzufügen, damit wir basierend auf diesen Schlüsselwörtern Vorschläge machen können.
     description: ''
   - name: --resource-group -g
     summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
@@ -116,14 +116,14 @@ directCommands:
     summary: Zielressourcentyp. Kann auch das Namespace-/Typformat akzeptieren (z.B. "Microsoft.Compute/virtualMachines").
     description: ''
   - name: --start-time
-    summary: 'Die Startzeit der Abfrage. Format: Datumszeit (jjjj-mm-tt) (hh:mm:ss.xxxxx) Zeitzone (+/-hh:mm).'
+    summary: 'Die Startzeit der Abfrage. Format: Datum (yyyy-mm-tt) Uhrzeit (hh:mm:ss.xxxxx) Zeitzone (+/-hh:mm).'
     description: ''
   - name: --subscription
     summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
     description: ''
   - name: --top
     defaultValue: "10"
-    summary: Maximale Anzahl abzurufener Datensätze. Nur gültig, wenn --filter verwendet wird.
+    summary: Maximale Anzahl der abzurufenden Datensätze. Nur gültig, wenn --filter verwendet wird.
     description: ''
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/monitor/_help.py
 - uid: az_monitor_metrics_list-definitions
@@ -148,7 +148,7 @@ directCommands:
     description: ''
   optionalParameters:
   - name: --namespace
-    summary: Namespace, für den Metrikdefinitionen abfragen werden.
+    summary: Namespace, für den Metrikdefinitionen abgefragt werden sollen.
     description: ''
     valueFrom: az monitor metrics list-namespaces
   - name: --resource-group -g
@@ -185,7 +185,7 @@ directCommands:
     description: ''
   optionalParameters:
   - name: --start-time
-    summary: 'Die Startzeit der Abfrage. Format: Datum (yyyy-mm-tt) Uhrzeit (hh:mm:ss.xxxxx) Zeitzone (+/-hh:mm).'
+    summary: 'Die Startzeit der Abfrage. Format: Datumszeit (jjjj-mm-tt) (hh:mm:ss.xxxxx) Zeitzone (+/-hh:mm).'
     description: ''
   - name: --subscription
     summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
