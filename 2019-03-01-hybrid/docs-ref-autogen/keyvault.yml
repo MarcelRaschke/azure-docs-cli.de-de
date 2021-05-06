@@ -1,13 +1,13 @@
 ### YamlMime:AzureCLIGroup
 uid: az_keyvault
 name: az keyvault
-summary: Key Vault-Schlüssel, Geheimnisse und Zertifikate verwalten.
+summary: Verwalten von KeyVault-Schlüsseln, Geheimnissen und Zertifikaten.
 description: ''
 directCommands:
 - uid: az_keyvault_create
   name: az keyvault create
   summary: Erstellen Sie einen Tresor oder ein HSM.
-  description: Wenn `--enable-rbac-authorization` nicht angegeben wird, werden Standard Berechtigungen für den aktuellen Benutzer oder Dienst Prinzipal erstellt, es sei denn, das- `--no-self-perms` Flag ist angegeben.
+  description: Wenn nicht angegeben ist, werden Standardberechtigungen für den aktuellen Benutzer oder Dienstprinzipal erstellt, es sei denn, `--enable-rbac-authorization` das `--no-self-perms` Flag ist angegeben.
   syntax: >-
     az keyvault create --resource-group
                        [--administrators]
@@ -30,17 +30,17 @@ directCommands:
                        [--subscription]
                        [--tags]
   examples:
-  - summary: Erstellen Sie einen Schlüssel Tresor mit angegebenen Netzwerk-ACLs (verwenden Sie "--Network-ACLs", um IP-und vnet-Regeln mithilfe einer JSON-Zeichenfolge anzugeben).
+  - summary: Erstellen Sie einen Schlüsseltresor mit angegebenen Netzwerk-ACLs (verwenden Sie --network-acls, um IP- und VNET-Regeln mithilfe einer JSON-Zeichenfolge anzugeben).
     syntax: 'az keyvault create --location westus2 --name MyKeyVault --resource-group MyResourceGroup --network-acls "{\"ip\": [\"1.2.3.4\", \"2.3.4.0/24\"], \"vnet\": [\"vnet_name_1/subnet_name1\", \"vnet_name_2/subnet_name2\", \"/subscriptions/000000-0000-0000/resourceGroups/MyResourceGroup/providers/Microsoft.Network/virtualNetworks/MyVNet/subnets/MySubnet\"]}"'
-  - summary: Erstellen Sie einen Schlüssel Tresor mit angegebenen Netzwerk-ACLs (verwenden Sie "--Network-ACLs", um IP-und vnet-Regeln mithilfe einer JSON-Datei anzugeben).
+  - summary: Erstellen Sie einen Schlüsseltresor mit angegebenen Netzwerk-ACLs (verwenden Sie --network-acls, um IP- und VNET-Regeln mithilfe einer JSON-Datei anzugeben).
     syntax: az keyvault create --location westus2 --name MyKeyVault --resource-group MyResourceGroup --network-acls network-acls-example.json
-  - summary: Erstellen Sie einen Schlüssel Tresor mit angegebenen Netzwerk-ACLs (verwenden Sie "--Network-ACLs-IPS", um IP-Regeln anzugeben).
+  - summary: Erstellen Sie einen Schlüsseltresor mit angegebenen Netzwerk-ACLs (verwenden Sie --network-acls-ips, um IP-Regeln anzugeben).
     syntax: az keyvault create --location westus2 --name MyKeyVault --resource-group MyResourceGroup --network-acls-ips 3.4.5.0/24 4.5.6.0/24
-  - summary: Erstellen Sie einen Schlüssel Tresor mit angegebenen Netzwerk-ACLs (verwenden Sie "--Network-ACLs-vnets", um vnet-Regeln anzugeben).
+  - summary: Erstellen Sie einen Schlüsseltresor mit angegebenen Netzwerk-ACLs (verwenden Sie --network-acls-vnets, um VNET-Regeln anzugeben).
     syntax: az keyvault create --location westus2 --name MyKeyVault --resource-group MyResourceGroup --network-acls-vnets vnet_name_2/subnet_name_2 vnet_name_3/subnet_name_3 /subscriptions/000000-0000-0000/resourceGroups/MyResourceGroup/providers/Microsoft.Network/virtualNetworks/vnet_name_4/subnets/subnet_name_4
-  - summary: Erstellen Sie einen Schlüssel Tresor mit angegebenen Netzwerk-ACLs (verwenden Sie "--Network-ACLs", "--Network-ACLs-IPS" und "--Network-ACLs-vnets"), redundante Regeln werden entfernt, und schließlich werden vier IP-Regeln und drei vnet-Regeln verwendet.
+  - summary: Erstellen Sie einen Schlüsseltresor mit angegebenen Netzwerk-ACLs (verwenden Sie --network-acls, --network-acls-ips und --network-acls-vnets zusammen, redundante Regeln werden entfernt, und schließlich gibt es 4 IP-Regeln und 3 VNET-Regeln).
     syntax: 'az keyvault create --location westus2 --name MyKeyVault --resource-group MyResourceGroup --network-acls "{\"ip\": [\"1.2.3.4\", \"2.3.4.0/24\"], \"vnet\": [\"vnet_name_1/subnet_name1\", \"vnet_name_2/subnet_name2\"]}" --network-acls-ips 3.4.5.0/24 4.5.6.0/24 --network-acls-vnets vnet_name_2/subnet_name_2 vnet_name_3/subnet_name_3 /subscriptions/000000-0000-0000/resourceGroups/MyResourceGroup/providers/Microsoft.Network/virtualNetworks/vnet_name_4/subnets/subnet_name_4'
-  - summary: Erstellen eines Schlüsseltresors automatisch generierten
+  - summary: Erstellen eines Schlüsseltresors (automatisch generiert)
     syntax: az keyvault create --location westus2 --name MyKeyVault --resource-group MyResourceGroup
   requiredParameters:
   - isRequired: true
@@ -49,11 +49,11 @@ directCommands:
     description: ''
   optionalParameters:
   - name: --administrators
-    summary: '[Nur HSM] Administrator Rolle für Vorgänge auf Datenebene für verwaltetes HSM. Er akzeptiert eine durch Leerzeichen getrennte Liste von OIDs, die zugewiesen wird.'
+    summary: '[Nur HSM] Administratorrolle für Datenebenenvorgänge für verwaltetes HSM. Sie akzeptiert eine durch Leerzeichen getrennte Liste von OIDs, die zugewiesen werden.'
     description: ''
   - name: --enable-purge-protection
     parameterValueGroup: false, true
-    summary: Eigenschaft, die angibt, ob der Schutz vor dem Löschen für diesen Tresor aktiviert ist. Wenn diese Eigenschaft auf true festgelegt wird, wird der Schutz vor dem Löschen für diesen Tresor und dessen Inhalt aktiviert. nur der Key Vault Dienst initiiert möglicherweise einen schwer BEHEB baren Löschvorgang. Die Einstellung ist nur wirksam, wenn vorläufiges löschen ebenfalls aktiviert ist. Die Aktivierung dieser Funktionalität ist nicht rückgängig, d. h., die-Eigenschaft akzeptiert false nicht als Wert.
+    summary: Eigenschaft, die an gibt, ob der Schutz vor Bereinigung für diesen Tresor aktiviert ist. Wenn Sie diese Eigenschaft auf TRUE festlegen, wird der Schutz vor dem Löschen für diesen Tresor und dessen Inhalt aktiviert. Nur der Key Vault-Dienst kann eine harte, nicht behebbare Löschung initiieren. Die Einstellung ist nur wirksam, wenn das weiche Löschen ebenfalls aktiviert ist. Das Aktivieren dieser Funktion kann nicht rückgängig gemacht werden. Das heißt, die Eigenschaft akzeptiert false nicht als Wert.
     description: ''
   - name: --enable-rbac-authorization
     parameterValueGroup: false, true
@@ -61,62 +61,62 @@ directCommands:
     description: ''
   - name: --enable-soft-delete
     parameterValueGroup: false, true
-    summary: '[Nur Tresor] -Eigenschaft, um anzugeben, ob die Funktion "Vorläufiges löschen" für diesen Schlüssel Tresor aktiviert ist. Wenn beim Erstellen eines neuen Schlüssel Tresors kein Wert (true oder false) festgelegt ist, wird dieser standardmäßig auf true festgelegt. Nachdem die Eigenschaft auf true festgelegt wurde, kann Sie nicht auf false zurückgesetzt werden.'
+    summary: '[Nur Tresor] Eigenschaft, um anzugeben, ob die Funktion "Soft Delete" für diesen Schlüsseltresor aktiviert ist. Wenn er beim Erstellen eines neuen Schlüsseltresors nicht auf einen Wert (TRUE oder FALSE) festgelegt ist, wird er standardmäßig auf TRUE festgelegt. Sobald der Wert auf TRUE festgelegt ist, kann er nicht auf FALSE zurückverwendet werden.'
     description: ''
   - name: --enabled-for-deployment
     parameterValueGroup: false, true
-    summary: '[Nur Tresor] , Um anzugeben, ob Azure-Virtual Machines Zertifikate abrufen dürfen, die als Geheimnisse aus dem Schlüssel Tresor gespeichert sind.'
+    summary: '[Nur Tresor] Eigenschaft, um anzugeben, ob Azure Virtual Machines zertifikate, die als Geheimnisse gespeichert sind, aus dem Schlüsseltresor abrufen dürfen.'
     description: ''
   - name: --enabled-for-disk-encryption
     parameterValueGroup: false, true
-    summary: '[Nur Tresor] -Eigenschaft, um anzugeben, ob Azure Disk Encryption geheime Schlüssel aus dem Tresor abrufen und Schlüssel entpacken darf.'
+    summary: '[Nur Tresor] Eigenschaft, um anzugeben, Azure Disk Encryption Schlüssel aus dem Tresor abrufen und die Umschlüsselung entpacken dürfen.'
     description: ''
   - name: --enabled-for-template-deployment
     parameterValueGroup: false, true
-    summary: '[Nur Tresor] -Eigenschaft, um anzugeben, ob Azure Resource Manager Geheimnisse aus dem Schlüssel Tresor abrufen darf.'
+    summary: '[Nur Tresor] Eigenschaft, mit der angegeben wird Azure Resource Manager ob das Abrufen von Geheimnissen aus dem Schlüsseltresor zulässig ist.'
     description: ''
   - name: --hsm-name
-    summary: Der Name des HSM. (--HSM-Name und--Name/-n schließen sich gegenseitig aus. Geben Sie nur eine davon an).
+    summary: Name des HSM. (--hsm-name und --name/-n schließen sich gegenseitig aus, geben Sie nur eine davon an).
     description: ''
   - name: --location -l
     summary: 'Der Standort. Werte aus: `az account list-locations`. Sie können den standardmäßig verwendeten Standort mit `az configure --defaults location=<location>` konfigurieren.'
     description: ''
   - name: --name -n
-    summary: Der Name des Tresors.
+    summary: Name des Tresors.
     description: ''
   - name: --network-acls
-    summary: 'Netzwerk-ACLs. Er akzeptiert einen JSON-Dateinamen oder eine JSON-Zeichenfolge. JSON-Format: `{"ip":[<ip1>, <ip2>...],"vnet":[<vnet_name_1>/<subnet_name_1>,<subnet_id2>...]}` .'
+    summary: 'Netzwerk-ACLs. Sie akzeptiert einen JSON-Dateinamen oder eine JSON-Zeichenfolge. JSON-Format: `{"ip":[<ip1>, <ip2>...],"vnet":[<vnet_name_1>/<subnet_name_1>,<subnet_id2>...]}` .'
     description: ''
   - name: --network-acls-ips
-    summary: Netzwerk-ACLs-IP-Regeln. Durch Leerzeichen getrennte Liste von IP-Adressen.
+    summary: IP-Regeln für Netzwerk-ACLs. Durch Leerzeichen getrennte Liste von IP-Adressen.
     description: ''
   - name: --network-acls-vnets
-    summary: Vnet-Regeln für Netzwerk-ACLs. Durch Leerzeichen getrennte Liste von vnet-/subnetzpaaren oder subnetzressourcen-IDs.
+    summary: Netzwerk-ACLS-VNET-Regeln. Durch Leerzeichen getrennte Liste von VNET-/Subnetzpaaren oder Subnetzressourcen-IDs.
     description: ''
   - name: --no-self-perms
     parameterValueGroup: false, true
-    summary: '[Nur Tresor] Fügen Sie im neuen Tresor keine Berechtigungen für den aktuellen Benutzer/Dienst Prinzipal hinzu.'
+    summary: '[Nur Tresor] Fügen Sie keine Berechtigungen für den aktuellen Benutzer/Dienstprinzipal im neuen Tresor hinzu.'
     description: ''
   - name: --no-wait
     summary: Nicht auf den Abschluss lang andauernder Vorgänge warten
     description: ''
   - name: --retention-days
     defaultValue: "90"
-    summary: Aufbewahrungs Tage für vorläufiges Löschen von Daten. Er akzeptiert >= 7 und <= 90.
+    summary: Datenaufbewahrungstage für das weiche Löschen. Sie akzeptiert >=7 und <=90.
     description: ''
   - name: --sku
-    summary: 'Erforderlich. SKU-Details. Zulässige Werte für den Tresor: Premium, Standard. Standardwert: Standard. Zulässige Werte für HSM: Standard_B1 Custom_B32. Standard: Standard_B1.'
+    summary: 'Erforderlich. SKU-Details. Zulässige Werte für Tresor: Premium, Standard. Standard: Standard. Zulässige Werte für HSM: Standard_B1, Custom_B32. Standard: Standard_B1.'
     description: ''
   - name: --subscription
-    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
     description: ''
   - name: --tags
-    summary: 'Durch Leerzeichen getrennte Tags: Key [= value] [key [= value]...]. Verwenden Sie "", um vorhandene Tags zu löschen.'
+    summary: 'Durch Leerzeichen getrennte Tags: key[=value] [key[=value] ...]. Verwenden Sie "", um vorhandene Tags zu löschen.'
     description: ''
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/keyvault/_help.py
 - uid: az_keyvault_delete
   name: az keyvault delete
-  summary: Löschen eines Tresors oder eines HSM.
+  summary: Löscht einen Tresor oder ein HSM.
   description: ''
   syntax: >-
     az keyvault delete [--hsm-name]
@@ -125,28 +125,28 @@ directCommands:
                        [--resource-group]
                        [--subscription]
   examples:
-  - summary: Löschen eines Schlüssel Tresors. automatisch generierten
+  - summary: Löschen sie einen Schlüsseltresor. (automatisch generiert)
     syntax: az keyvault delete --name MyKeyVault --resource-group MyResourceGroup
   optionalParameters:
   - name: --hsm-name
-    summary: Der Name des HSM. (--HSM-Name und--Name/-n schließen sich gegenseitig aus. Geben Sie nur eine davon an).
+    summary: Name des HSM. (---hsm-name und --name/-n schließen sich gegenseitig aus, geben Sie nur einen von ihnen an).
     description: ''
   - name: --name -n
-    summary: Der Name des Tresors.
+    summary: Name des Tresors.
     description: ''
   - name: --no-wait
     summary: Nicht auf den Abschluss lang andauernder Vorgänge warten
     description: ''
   - name: --resource-group -g
-    summary: Der Vorgang wird nur fortgesetzt, wenn key Vault zur angegebenen Ressourcengruppe gehört.
+    summary: Fahren Sie nur fort, wenn Key Vault zur angegebenen Ressourcengruppe gehört.
     description: ''
   - name: --subscription
-    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
     description: ''
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/keyvault/_help.py
 - uid: az_keyvault_delete-policy
   name: az keyvault delete-policy
-  summary: Löschen Sie die Sicherheitsrichtlinien Einstellungen für eine Key Vault.
+  summary: Löschen von Sicherheitsrichtlinieneinstellungen für eine Key Vault.
   description: ''
   syntax: >-
     az keyvault delete-policy --name
@@ -159,7 +159,7 @@ directCommands:
   requiredParameters:
   - isRequired: true
     name: --name -n
-    summary: Der Name des Tresors.
+    summary: Name des Tresors.
     description: ''
   optionalParameters:
   - name: --no-wait
@@ -169,16 +169,16 @@ directCommands:
     summary: Eine GUID, die den Prinzipal identifiziert, der Berechtigungen erhält.
     description: ''
   - name: --resource-group -g
-    summary: Der Vorgang wird nur fortgesetzt, wenn key Vault zur angegebenen Ressourcengruppe gehört.
+    summary: Fahren Sie nur fort, wenn Key Vault zur angegebenen Ressourcengruppe gehört.
     description: ''
   - name: --spn
-    summary: Name eines Dienst Prinzipals, der Berechtigungen erhält.
+    summary: Name eines Dienstprinzipals, der Berechtigungen erhält.
     description: ''
   - name: --subscription
-    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
     description: ''
   - name: --upn
-    summary: Name eines Benutzer Prinzipals, der Berechtigungen erhält.
+    summary: Name eines Benutzerprinzipals, der Berechtigungen erhält.
     description: ''
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/keyvault/_help.py
 - uid: az_keyvault_list
@@ -192,36 +192,36 @@ directCommands:
                      [--subscription]
   optionalParameters:
   - name: --query-examples
-    summary: Empfehlen Sie die jmespath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und Sie nach dem Abfrage Parameter in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positions Schlüsselwörter hinzufügen, um Vorschläge auf der Grundlage dieser Schlüsselwörter zu geben.
+    summary: Empfehlen Sie die JMESPath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und nach dem Parameter --query in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positionsschlüsselwörter hinzufügen, damit wir basierend auf diesen Schlüsselwörtern Vorschläge geben können.
     description: ''
   - name: --resource-group -g
     summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
     description: ''
   - name: --resource-type
-    summary: Wenn "--Resource-Type" nicht vorhanden ist, listet der Befehl alle Tresore und HSMs auf. Mögliche Werte für "--Resource-Type" sind "Vault" und "HSM".
+    summary: Wenn --resource-type nicht vorhanden ist, listet der Befehl alle Tresore und HSMs auf. Mögliche Werte für --resource-type sind tresor und hsm.
     description: ''
   - name: --subscription
-    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
     description: ''
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/keyvault/_help.py
 - uid: az_keyvault_list-deleted
   name: az keyvault list-deleted
-  summary: Hier erhalten Sie Informationen zu den gelöschten Tresoren oder HSMs in einem Abonnement.
+  summary: Abrufen von Informationen zu den gelöschten Tresoren oder HSMs in einem Abonnement.
   description: ''
   syntax: >-
     az keyvault list-deleted [--resource-type]
                              [--subscription]
   optionalParameters:
   - name: --resource-type
-    summary: Wenn "--Resource-Type" nicht vorhanden ist, werden alle gelöschten Tresore und HSMs aufgelistet. Mögliche Werte für "--Resource-Type" sind "Vault" und "HSM".
+    summary: Wenn --resource-type nicht vorhanden ist, listet der Befehl alle gelöschten Tresore und HSMs auf. Mögliche Werte für --resource-type sind tresor und hsm.
     description: ''
   - name: --subscription
-    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
     description: ''
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/keyvault/_help.py
 - uid: az_keyvault_purge
   name: az keyvault purge
-  summary: Löschen Sie den angegebenen Tresor oder das HSM dauerhaft. Sie löscht den gelöschten Tresor oder das HSM.
+  summary: Löschen Sie den angegebenen Tresor oder das angegebene HSM dauerhaft. Der gelöschte Tresor oder das gelöschte HSM wird gelöscht.
   description: ''
   syntax: >-
     az keyvault purge [--hsm-name]
@@ -231,25 +231,25 @@ directCommands:
                       [--subscription]
   optionalParameters:
   - name: --hsm-name
-    summary: Der Name des gelöschten HSM. (--HSM-Name und--Name/-n schließen sich gegenseitig aus. Geben Sie nur eine davon an).
+    summary: Name des gelöschten HSM. (---hsm-name und --name/-n schließen sich gegenseitig aus, geben Sie nur einen von ihnen an).
     description: ''
   - name: --location -l
-    summary: Speicherort des gelöschten Tresors oder HSM.
+    summary: Speicherort des gelöschten Tresors oder HSMs.
     description: ''
   - name: --name -n
-    summary: Der Name des gelöschten Tresors.
+    summary: Name des gelöschten Tresors.
     description: ''
   - name: --no-wait
     summary: Nicht auf den Abschluss lang andauernder Vorgänge warten
     description: ''
   - name: --subscription
-    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
     description: ''
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/keyvault/_help.py
 - uid: az_keyvault_recover
   name: az keyvault recover
   summary: Stellen Sie einen Tresor oder ein HSM wieder her.
-  description: Stellen Sie einen zuvor gelöschten Tresor oder HSM wieder her, für den vorläufiges löschen aktiviert war.
+  description: Stellen Sie einen zuvor gelöschten Tresor oder ein zuvor gelöschtes HSM wieder her, für den das vorläufig gelöschte Löschen aktiviert wurde.
   syntax: >-
     az keyvault recover [--hsm-name]
                         [--location]
@@ -258,17 +258,17 @@ directCommands:
                         [--resource-group]
                         [--subscription]
   examples:
-  - summary: Stellen Sie einen Schlüssel Tresor wieder her. automatisch generierten
+  - summary: Stellen Sie einen Schlüsseltresor wieder her. (automatisch generiert)
     syntax: az keyvault recover --location westus2 --name MyKeyVault --resource-group MyResourceGroup
   optionalParameters:
   - name: --hsm-name
-    summary: Der Name des gelöschten HSM. (--HSM-Name und--Name/-n schließen sich gegenseitig aus. Geben Sie nur eine davon an).
+    summary: Name des gelöschten HSM. (---hsm-name und --name/-n schließen sich gegenseitig aus, geben Sie nur einen von ihnen an).
     description: ''
   - name: --location -l
     summary: Speicherort des gelöschten Tresors oder HSM.
     description: ''
   - name: --name -n
-    summary: Der Name des gelöschten Tresors.
+    summary: Name des gelöschten Tresors.
     description: ''
   - name: --no-wait
     summary: Nicht auf den Abschluss lang andauernder Vorgänge warten
@@ -277,12 +277,12 @@ directCommands:
     summary: Ressourcengruppe des gelöschten Tresors oder HSM.
     description: ''
   - name: --subscription
-    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
     description: ''
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/keyvault/_help.py
 - uid: az_keyvault_set-policy
   name: az keyvault set-policy
-  summary: Aktualisieren Sie die Sicherheitsrichtlinien Einstellungen für eine Key Vault.
+  summary: Aktualisieren der Sicherheitsrichtlinieneinstellungen für Key Vault.
   description: ''
   syntax: >-
     az keyvault set-policy --name
@@ -297,25 +297,25 @@ directCommands:
                            [--subscription]
                            [--upn]
   examples:
-  - summary: Zuweisen von Schlüssel `get` Berechtigungen `list` `import` und geheimen Berechtigungen `backup` `restore` zu einer Objekt-ID.
+  - summary: Weisen Sie einer `get` `list` Objekt-ID Schlüsselberechtigungen , und `import` `backup` `restore` Geheimnisberechtigungen zu.
     syntax: az keyvault set-policy -n MyVault --key-permissions get list import --secret-permissions backup restore --object-id {GUID}
-  - summary: Zuweisen von Schlüssel `get` Berechtigungen `list` zu einem UPN (Benutzer Prinzipal Name).
+  - summary: Weisen Sie einem `get` `list` UPN (Benutzerprinzipalname) Schlüsselberechtigungen zu.
     syntax: az keyvault set-policy -n MyVault --key-permissions get list --upn {UPN}
-  - summary: Zuweisen von Schlüssel `get` Berechtigungen `list` zu einem SPN (Dienst Prinzipal Name).
+  - summary: Weisen Sie einem `get` `list` SPN (Dienstprinzipalname) Schlüsselberechtigungen zu.
     syntax: az keyvault set-policy -n MyVault --key-permissions get list --spn {SPN}
   requiredParameters:
   - isRequired: true
     name: --name -n
-    summary: Der Name des Tresors.
+    summary: Name des Tresors.
     description: ''
   optionalParameters:
   - name: --certificate-permissions
     parameterValueGroup: create, delete, deleteissuers, get, getissuers, import, list, listissuers, managecontacts, manageissuers, purge, recover, setissuers, update
-    summary: Durch Leerzeichen getrennte Liste der zuzuweisenden Zertifikat Berechtigungen.
+    summary: Durch Leerzeichen getrennte Liste der zu zuweisenden Zertifikatberechtigungen.
     description: ''
   - name: --key-permissions
     parameterValueGroup: backup, create, decrypt, delete, encrypt, get, import, list, purge, recover, restore, sign, unwrapKey, update, verify, wrapKey
-    summary: Durch Leerzeichen getrennte Liste von Schlüssel Berechtigungen, die zugewiesen werden sollen.
+    summary: Durch Leerzeichen getrennte Liste der zu zuweisenden Schlüsselberechtigungen.
     description: ''
   - name: --no-wait
     summary: Nicht auf den Abschluss lang andauernder Vorgänge warten
@@ -324,29 +324,29 @@ directCommands:
     summary: Eine GUID, die den Prinzipal identifiziert, der Berechtigungen erhält.
     description: ''
   - name: --resource-group -g
-    summary: Der Vorgang wird nur fortgesetzt, wenn key Vault zur angegebenen Ressourcengruppe gehört.
+    summary: Fahren Sie nur fort Key Vault der angegebenen Ressourcengruppe angehört.
     description: ''
   - name: --secret-permissions
     parameterValueGroup: backup, delete, get, list, purge, recover, restore, set
-    summary: Durch Leerzeichen getrennte Liste geheimer Berechtigungen, die zugewiesen werden sollen.
+    summary: Durch Leerzeichen getrennte Liste der zu zuweisenden Geheimnisberechtigungen.
     description: ''
   - name: --spn
-    summary: Name eines Dienst Prinzipals, der Berechtigungen erhält.
+    summary: Name eines Dienstprinzipals, der Berechtigungen erhält.
     description: ''
   - name: --storage-permissions
     parameterValueGroup: backup, delete, deletesas, get, getsas, list, listsas, purge, recover, regeneratekey, restore, set, setsas, update
-    summary: Durch Leerzeichen getrennte Liste der Speicher Berechtigungen, die zugewiesen werden sollen.
+    summary: Durch Leerzeichen getrennte Liste der zu zuweisenden Speicherberechtigungen.
     description: ''
   - name: --subscription
-    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
     description: ''
   - name: --upn
-    summary: Name eines Benutzer Prinzipals, der Berechtigungen erhält.
+    summary: Der Name eines Benutzerprinzipals, der Berechtigungen erhält.
     description: ''
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/keyvault/_help.py
 - uid: az_keyvault_show
   name: az keyvault show
-  summary: Anzeigen der Details eines Tresors oder eines HSM.
+  summary: Zeigt Details zu einem Tresor oder HSM an.
   description: ''
   syntax: >-
     az keyvault show [--hsm-name]
@@ -355,28 +355,54 @@ directCommands:
                      [--resource-group]
                      [--subscription]
   examples:
-  - summary: Anzeigen der Details eines Schlüssel Tresors. automatisch generierten
+  - summary: Zeigt Details zu einem Schlüsseltresor an. (automatisch generiert)
     syntax: az keyvault show --name MyKeyVault
   optionalParameters:
   - name: --hsm-name
-    summary: Der Name des HSM. (--HSM-Name und--Name/-n schließen sich gegenseitig aus. Geben Sie nur eine davon an).
+    summary: Name des HSM. (---hsm-name und --name/-n schließen sich gegenseitig aus, geben Sie nur einen von ihnen an).
     description: ''
   - name: --name -n
-    summary: Der Name des Tresors.
+    summary: Name des Tresors.
     description: ''
   - name: --query-examples
-    summary: Empfehlen Sie die jmespath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und Sie nach dem Abfrage Parameter in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positions Schlüsselwörter hinzufügen, um Vorschläge auf der Grundlage dieser Schlüsselwörter zu geben.
+    summary: Empfehlen Sie die JMESPath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und nach dem Parameter --query in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positionsschlüsselwörter hinzufügen, damit wir basierend auf diesen Schlüsselwörtern Vorschläge geben können.
     description: ''
   - name: --resource-group -g
-    summary: Der Vorgang wird nur fortgesetzt, wenn key Vault zur angegebenen Ressourcengruppe gehört.
+    summary: Fahren Sie nur fort, wenn Key Vault zur angegebenen Ressourcengruppe gehört.
     description: ''
   - name: --subscription
-    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/keyvault/_help.py
+- uid: az_keyvault_show-deleted
+  name: az keyvault show-deleted
+  summary: Zeigt Details zu einem gelöschten Tresor oder HSM an.
+  description: ''
+  syntax: >-
+    az keyvault show-deleted [--hsm-name]
+                             [--location]
+                             [--name]
+                             [--subscription]
+  examples:
+  - summary: Zeigt Details zu einem gelöschten Schlüsseltresor an.
+    syntax: az keyvault show-deleted --name MyKeyVault
+  optionalParameters:
+  - name: --hsm-name
+    summary: Name des gelöschten HSM. (---hsm-name und --name/-n schließen sich gegenseitig aus, geben Sie nur einen von ihnen an).
+    description: ''
+  - name: --location -l
+    summary: Speicherort des gelöschten Tresors oder HSMs.
+    description: ''
+  - name: --name -n
+    summary: Name des gelöschten Tresors.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
     description: ''
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/keyvault/_help.py
 - uid: az_keyvault_update
   name: az keyvault update
-  summary: Aktualisieren Sie die Eigenschaften eines Tresors.
+  summary: Aktualisieren der Eigenschaften eines Tresors.
   description: ''
   syntax: >-
     az keyvault update --name
@@ -395,20 +421,20 @@ directCommands:
                        [--set]
                        [--subscription]
   examples:
-  - summary: Aktualisieren Sie die Eigenschaften eines Tresors. automatisch generierten
+  - summary: Aktualisieren der Eigenschaften eines Tresors. (automatisch generiert)
     syntax: az keyvault update --enabled-for-disk-encryption true --name MyKeyVault --resource-group MyResourceGroup
   requiredParameters:
   - isRequired: true
     name: --name -n
-    summary: Der Name des Tresors.
+    summary: Name des Tresors.
     description: ''
   optionalParameters:
   - name: --add
-    summary: Fügen Sie einer Liste von-Objekten ein Objekt hinzu, indem Sie ein Pfad-und Schlüssel-Wert-Paar angeben.  Beispiel:--Add Property. ListProperty <Key = Value, String oder JSON String>.
+    summary: 'Fügen Sie einer Liste von -Objekten ein -Objekt hinzu, indem Sie ein Pfad- und Schlüsselwertpaar angeben.  Beispiel: --add property.listProperty <key=value, string oder JSON string>.'
     description: ''
   - name: --enable-purge-protection
     parameterValueGroup: false, true
-    summary: Eigenschaft, die angibt, ob der Schutz vor dem Löschen für diesen Tresor aktiviert ist. Wenn diese Eigenschaft auf true festgelegt wird, wird der Schutz vor dem Löschen für diesen Tresor und dessen Inhalt aktiviert. nur der Key Vault Dienst initiiert möglicherweise einen schwer BEHEB baren Löschvorgang. Die Einstellung ist nur wirksam, wenn vorläufiges löschen ebenfalls aktiviert ist. Die Aktivierung dieser Funktionalität ist nicht rückgängig, d. h., die-Eigenschaft akzeptiert false nicht als Wert.
+    summary: Eigenschaft, die angibt, ob der Schutz vor Bereinigung für diesen Tresor aktiviert ist. Wenn Sie diese Eigenschaft auf TRUE festlegen, wird der Schutz vor der Bereinigung für diesen Tresor und dessen Inhalt aktiviert. Nur der Key Vault Dienst kann einen hartbehebbaren, nicht behebbaren Löschvorgang initiieren. Die Einstellung ist nur wirksam, wenn das soft delete ebenfalls aktiviert ist. Die Aktivierung dieser Funktion kann nicht rückgängig gemacht werden, d. h., die Eigenschaft akzeptiert nicht false als Wert.
     description: ''
   - name: --enable-rbac-authorization
     parameterValueGroup: false, true
@@ -416,45 +442,45 @@ directCommands:
     description: ''
   - name: --enable-soft-delete
     parameterValueGroup: false, true
-    summary: '[Nur Tresor] -Eigenschaft, um anzugeben, ob die Funktion "Vorläufiges löschen" für diesen Schlüssel Tresor aktiviert ist. Wenn beim Erstellen eines neuen Schlüssel Tresors kein Wert (true oder false) festgelegt ist, wird dieser standardmäßig auf true festgelegt. Nachdem die Eigenschaft auf true festgelegt wurde, kann Sie nicht auf false zurückgesetzt werden.'
+    summary: '[Nur Tresor] Eigenschaft, um anzugeben, ob die Funktion "Soft Delete" für diesen Schlüsseltresor aktiviert ist. Wenn beim Erstellen eines neuen Schlüsseltresors kein Wert (true oder false) festgelegt wird, wird er standardmäßig auf TRUE festgelegt. Sobald sie auf TRUE festgelegt ist, kann sie nicht mehr auf FALSE zurückgesetzt werden.'
     description: ''
   - name: --enabled-for-deployment
     parameterValueGroup: false, true
-    summary: '[Nur Tresor] , Um anzugeben, ob Azure-Virtual Machines Zertifikate abrufen dürfen, die als Geheimnisse aus dem Schlüssel Tresor gespeichert sind.'
+    summary: '[Nur Tresor] Eigenschaft, um anzugeben, ob Azure Virtual Machines Zertifikate abrufen dürfen, die als Geheimnisse aus dem Schlüsseltresor gespeichert sind.'
     description: ''
   - name: --enabled-for-disk-encryption
     parameterValueGroup: false, true
-    summary: '[Nur Tresor] -Eigenschaft, um anzugeben, ob Azure Disk Encryption geheime Schlüssel aus dem Tresor abrufen und Schlüssel entpacken darf.'
+    summary: '[Nur Tresor] Eigenschaft, um anzugeben, ob Azure Disk Encryption Geheimnisse aus dem Tresor abrufen und Schlüssel entpacken darf.'
     description: ''
   - name: --enabled-for-template-deployment
     parameterValueGroup: false, true
-    summary: '[Nur Tresor] -Eigenschaft, um anzugeben, ob Azure Resource Manager Geheimnisse aus dem Schlüssel Tresor abrufen darf.'
+    summary: '[Nur Tresor] Eigenschaft, um anzugeben, ob Azure Resource Manager Geheimnisse aus dem Schlüsseltresor abrufen darf.'
     description: ''
   - name: --force-string
-    summary: Wenn Sie "Set" oder "Add" verwenden, erhalten Sie Zeichen folgen Literale, anstatt zu versuchen, in JSON zu konvertieren.
+    summary: Wenn Sie "set" oder "add" verwenden, behalten Sie Zeichenfolgenliterale bei, anstatt zu versuchen, in JSON zu konvertieren.
     description: ''
   - name: --no-wait
     summary: Nicht auf den Abschluss lang andauernder Vorgänge warten
     description: ''
   - name: --remove
-    summary: Entfernt eine Eigenschaft oder ein Element aus einer Liste.  Beispiel:--Remove Property. List <indexToRemove> oder--Remove propertytoremove.
+    summary: 'Entfernen sie eine Eigenschaft oder ein Element aus einer Liste.  Beispiel: --remove property.list <indexToRemove> OR --remove propertyToRemove.'
     description: ''
   - name: --resource-group -g
-    summary: Der Vorgang wird nur fortgesetzt, wenn key Vault zur angegebenen Ressourcengruppe gehört.
+    summary: Fahren Sie nur fort, wenn Key Vault zur angegebenen Ressourcengruppe gehört.
     description: ''
   - name: --retention-days
-    summary: Aufbewahrungs Tage für vorläufiges Löschen von Daten. Er akzeptiert >= 7 und <= 90.
+    summary: Datenaufbewahrungstage für das weiche Löschen. Er akzeptiert >=7 und <=90.
     description: ''
   - name: --set
-    summary: Aktualisieren Sie ein Objekt, indem Sie einen Eigenschafts Pfad und einen festzulegenden Wert angeben.  Beispiel:--Set Eigenschaft1. Eigenschaft2 =<value>.
+    summary: 'Aktualisieren Sie ein Objekt, indem Sie einen festzulegenden Eigenschaftenpfad und -wert angeben.  Beispiel: --set property1.property2=<value>.'
     description: ''
   - name: --subscription
-    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
     description: ''
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/keyvault/_help.py
 - uid: az_keyvault_wait
   name: az keyvault wait
-  summary: Platzieren Sie die CLI in einem Wartezustand, bis eine Bedingung des Tresors erfüllt ist.
+  summary: Platzieren Sie die CLI in einen Wartezustand, bis eine Bedingung des Tresors erfüllt ist.
   description: ''
   syntax: >-
     az keyvault wait --name
@@ -473,37 +499,37 @@ directCommands:
   requiredParameters:
   - isRequired: true
     name: --name -n
-    summary: Der Name des Tresors.
+    summary: Name des Tresors.
     description: ''
   optionalParameters:
   - name: --created
-    summary: Warten Sie, bis "provisioningstate" bei "erfolgreich" erstellt wurde.
+    summary: Warten Sie, bis mit "provisioningState" bei "Succeeded" erstellt wurde.
     description: ''
   - name: --custom
-    summary: "Warten Sie, bis die Bedingung eine benutzerdefinierte jmespath-Abfrage erfüllt. Beispiel: provisioningstate! = ' InProgress ', instanceview. statuses [? Code = = ' PowerState/Running ']."
+    summary: "Warten Sie, bis die Bedingung eine benutzerdefinierte JMESPath-Abfrage erfüllt. Beispiel: provisioningState!='InProgress', instanceView.statuses[?code=='PowerState/running']."
     description: ''
   - name: --deleted
-    summary: Warten Sie bis zum Löschen.
+    summary: Warten Sie, bis sie gelöscht wurde.
     description: ''
   - name: --exists
     summary: Warten Sie, bis die Ressource vorhanden ist.
     description: ''
   - name: --interval
     defaultValue: "30"
-    summary: Abruf Intervall in Sekunden.
+    summary: Abrufintervall in Sekunden.
     description: ''
   - name: --resource-group -g
-    summary: Der Vorgang wird nur fortgesetzt, wenn key Vault zur angegebenen Ressourcengruppe gehört.
+    summary: Fahren Sie nur fort Key Vault der angegebenen Ressourcengruppe angehört.
     description: ''
   - name: --subscription
-    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
     description: ''
   - name: --timeout
     defaultValue: "3600"
     summary: Maximale Wartezeit in Sekunden.
     description: ''
   - name: --updated
-    summary: Warten Sie, bis das Update mit provisioningstate bei "erfolgreich" abgeschlossen ist.
+    summary: Warten Sie, bis provisioningState auf "Succeeded" aktualisiert wurde.
     description: ''
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/keyvault/_help.py
 commands:
@@ -580,6 +606,7 @@ commands:
 - az_keyvault_secret_show-deleted
 - az_keyvault_set-policy
 - az_keyvault_show
+- az_keyvault_show-deleted
 - az_keyvault_update
 - az_keyvault_wait
 globalParameters:
@@ -599,11 +626,11 @@ globalParameters:
   summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
 metadata:
   doc_source_url_repo: https://github.com/Azure/azure-cli/blob/dev/
-  ms.date: 04/06/2021
-  description: Key Vault-Schlüssel, Geheimnisse und Zertifikate verwalten.
-  ms.openlocfilehash: b6e011c39d9cf945144d13264f07deea6f79e4ad
-  ms.sourcegitcommit: 612554c029ba1f28d3a43fd22e743104a1a30ea0
+  ms.date: 04/26/2021
+  description: Verwalten von KeyVault-Schlüsseln, Geheimnissen und Zertifikaten.
+  ms.openlocfilehash: d0699b3c91b064f84b29b69ba8b6cb30aa1e51fa
+  ms.sourcegitcommit: 15a6f14c5a8570ba89a3bd5bb442f3324d72bc37
   ms.translationtype: MT
   ms.contentlocale: de-DE
-  ms.lasthandoff: 04/07/2021
-  ms.locfileid: "106860631"
+  ms.lasthandoff: 04/29/2021
+  ms.locfileid: "108256889"

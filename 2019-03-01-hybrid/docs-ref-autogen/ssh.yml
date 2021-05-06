@@ -4,31 +4,31 @@ name: az ssh
 extensionInformation: >-
   > [!Note]
 
-  > Diese Referenz ist Teil der **SSH** -Erweiterung für Azure CLI und erfordert Version 2.4.0 oder höher.  Die Erweiterung wird automatisch installiert, wenn Sie den Befehl **AZ SSH** zum ersten Mal ausführen.  [Weitere Informationen zu Erweiterungen](https://docs.microsoft.com/en-us/cli/azure/azure-cli-extensions-overview)
-summary: SSH in Ressourcen (Azure-VMS usw.) unter Verwendung von Aad-ausgestellten OpenSSH-Zertifikaten.
+  > Dieser Verweis ist Teil der **SSH-Erweiterung** für Azure CLI und erfordert Version 2.4.0 oder höher.  Die Erweiterung wird automatisch installiert, wenn Sie den **Befehl az ssh zum ersten Mal** ausführen.  [Weitere Informationen zu Erweiterungen](https://docs.microsoft.com/en-us/cli/azure/azure-cli-extensions-overview)
+summary: Stellen Sie mithilfe von von AAD ausgestellten openssh-Zertifikaten eine SSH-SSH-Datei mit Ressourcen (Azure-VMs usw.) zur Verfügung.
 description: ''
 directCommands:
 - uid: az_ssh_cert
   name: az ssh cert
-  summary: Erstellen Sie ein von Aad signiertes SSH-RSA-Zertifikat.
+  summary: Erstellen Sie ein SSH-RSA-Zertifikat, das von AAD signiert wurde.
   description: ''
   syntax: >-
     az ssh cert [--file]
                 [--public-key-file]
   examples:
-  - summary: Erstellen eines kurzlebigen SSH-Zertifikats, das von Aad signiert wurde
+  - summary: Erstellen eines kurzlebigen SSH-Zertifikats, das von AAD signiert wurde
     syntax: az ssh cert --public-key-file ./id_rsa.pub --file ./id_rsa-aadcert.pub
   optionalParameters:
   - name: --file -f
-    summary: Der Dateipfad, in den das SSH-Zertifikat geschrieben werden soll. Standardmäßig wird der Pfad des öffentlichen Schlüssels mit der angehaltenen Datei "-aadcert
+    summary: Der Dateipfad, in den das SSH-Zertifikat geschrieben werden soll, ist standardmäßig der Pfad des öffentlichen Schlüssels mit -aadcert.pub appened.
     description: ''
   - name: --public-key-file -p
     summary: Der Dateipfad des öffentlichen RSA-Schlüssels.
     description: ''
 - uid: az_ssh_config
   name: az ssh config
-  summary: Erstellen Sie eine SSH-Konfiguration für Ressourcen (Azure-VMS usw.), die dann in SSH-Clients von Drittanbietern importiert werden können.
-  description: ''
+  summary: Erstellen Sie eine SSH-Konfiguration für Ressourcen (Azure-VMs usw.), die dann von Clients verwendet werden kann, die OpenSSH-Konfigurationen und -Zertifikate unterstützen.
+  description: Andere Software (git/rsync/usw.), die das Festlegen eines SSH-Befehls unterstützt, kann für die Verwendung der Konfigurationsdatei festgelegt werden, indem der Befehl auf "ssh -F /path/to/config" festgelegt wird, z.B. rsync -e 'ssh -F /path/to/config'.
   syntax: >-
     az ssh config --file
                   [--ip]
@@ -39,10 +39,13 @@ directCommands:
                   [--public-key-file]
                   [--resource-group]
   examples:
-  - summary: Angeben einer Ressourcengruppe und eines virtuellen Computers, für den eine Konfiguration erstellt und in einer lokalen Datei gespeichert werden soll
+  - summary: Geben Sie eine Ressourcengruppe und einen virtuellen Computer an, für den eine Konfiguration erstellt werden soll, und speichern Sie sie in einer lokalen Datei.
     syntax: az ssh config --resource-group myResourceGroup --vm-name myVm --file ./sshconfig
-  - summary: Hiermit wird die öffentliche IP-Adresse (oder der Hostname) einer VM zugewiesen, für die eine Konfiguration erstellt werden soll.
-    syntax: az ssh config --ip 1.2.3.4 --file ./sshconfig
+  - summary: Geben Sie die öffentliche IP-Adresse (oder den Hostnamen) eines virtuellen Computers an, für den eine Konfiguration erstellt werden soll, und dann SSH.
+    syntax: >-
+      az ssh config --ip 1.2.3.4 --file ./sshconfig
+
+      ssh -F ./sshconfig 1.2.3.4
   - summary: Erstellen einer generischen Konfiguration für die Verwendung mit einem beliebigen Host
     syntax: >-
       #Bash
@@ -52,6 +55,15 @@ directCommands:
       #PowerShell
 
       az ssh config --ip * --file ./sshconfig
+  - summary: Beispiele mit anderer Software
+    syntax: >-
+      #Bash
+
+      az ssh config --ip \* --file ./sshconfig
+
+      rsync -e 'ssh -F ./sshconfig' -avP directory/ myvm:~/directory
+
+      GIT_SSH_COMMAND="ssh -F ./sshconfig" git clone myvm:~/gitrepo
   requiredParameters:
   - isRequired: true
     name: --file -f
@@ -68,10 +80,10 @@ directCommands:
     summary: Überschreibt die Konfigurationsdatei, wenn dieses Flag festgelegt ist.
     description: ''
   - name: --prefer-private-ip
-    summary: Wenn verfügbar, wird eine private IP-Adresse verwendet. Standardmäßig werden nur öffentliche IP-Adressen verwendet.
+    summary: Verwendet eine private IP-Adresse, falls verfügbar. Standardmäßig werden nur öffentliche IPs verwendet.
     description: ''
   - name: --private-key-file -i
-    summary: Der Dateipfad für den privaten RSA-Schlüssel.
+    summary: Der Dateipfad des privaten RSA-Schlüssels.
     description: ''
   - name: --public-key-file -p
     summary: Der Dateipfad des öffentlichen RSA-Schlüssels.
@@ -81,7 +93,7 @@ directCommands:
     description: ''
 - uid: az_ssh_vm
   name: az ssh vm
-  summary: Verwenden Sie ein SSH-Zertifikat, um per SSH auf Azure-VMS
+  summary: SSH-Verbindungen mit Azure-VMs mithilfe eines SSH-Zertifikats.
   description: ''
   syntax: >-
     az ssh vm [--ip]
@@ -91,10 +103,12 @@ directCommands:
               [--public-key-file]
               [--resource-group]
   examples:
-  - summary: Eine Ressourcengruppe und einen virtuellen Computer für die SSH-übermitteln
+  - summary: Geben Sie eine Ressourcengruppe und einen virtuellen Computer an SSH an
     syntax: az ssh vm --resource-group myResourceGroup --vm-name myVm
-  - summary: Benennen Sie die öffentliche IP-Adresse (oder den Hostnamen) eines virtuellen Computers für SSH an
+  - summary: Geben Sie die öffentliche IP-Adresse (oder den Hostnamen) eines virtuellen Computers an SSH an.
     syntax: az ssh vm --ip 1.2.3.4
+  - summary: Verwenden einer benutzerdefinierten Datei mit privatem Schlüssel
+    syntax: az ssh vm --ip 1.2.3.4 --private-key-file key --public-key-file key.pub
   optionalParameters:
   - name: --ip
     summary: Die öffentliche IP-Adresse (oder der Hostname) des virtuellen Computers.
@@ -103,10 +117,10 @@ directCommands:
     summary: Der Name der VM.
     description: ''
   - name: --prefer-private-ip
-    summary: Wenn verfügbar, wird eine private IP-Adresse verwendet. Standardmäßig werden nur öffentliche IP-Adressen verwendet.
+    summary: Verwendet ggf. eine private IP-Adresse. Standardmäßig werden nur öffentliche IP-Dateien verwendet.
     description: ''
   - name: --private-key-file -i
-    summary: Der Dateipfad für den privaten RSA-Schlüssel.
+    summary: Der Dateipfad des privaten RSA-Schlüssels.
     description: ''
   - name: --public-key-file -p
     summary: Der Dateipfad des öffentlichen RSA-Schlüssels.
@@ -134,10 +148,10 @@ globalParameters:
 - name: --verbose
   summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
 metadata:
-  description: SSH in Ressourcen (Azure-VMS usw.) unter Verwendung von Aad-ausgestellten OpenSSH-Zertifikaten.
-  ms.openlocfilehash: 900a8bcffe7f0f8418a54445661cf729cd4aeb73
-  ms.sourcegitcommit: 612554c029ba1f28d3a43fd22e743104a1a30ea0
+  description: Stellen Sie mithilfe von von AAD ausgestellten OpenSH-Zertifikaten eine SSH-Verbindungen mit Ressourcen (Azure-VMs usw.) her.
+  ms.openlocfilehash: 65c4f25c5df15c4a20c389b86c880167a6ed1c6b
+  ms.sourcegitcommit: 15a6f14c5a8570ba89a3bd5bb442f3324d72bc37
   ms.translationtype: MT
   ms.contentlocale: de-DE
-  ms.lasthandoff: 04/07/2021
-  ms.locfileid: "106924573"
+  ms.lasthandoff: 04/29/2021
+  ms.locfileid: "108257246"
