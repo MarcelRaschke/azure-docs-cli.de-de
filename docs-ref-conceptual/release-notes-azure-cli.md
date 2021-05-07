@@ -4,21 +4,163 @@ description: Enthält Informationen zu den aktuellen Updates der Azure CLI.
 author: dbradish-microsoft
 ms.author: dbradish
 manager: barbkess
-ms.date: 04/19/2021
+ms.date: 05/06/2021
 ms.topic: article
 ms.service: azure-cli
 ms.devlang: azurecli
 ms.custom: devx-track-azurecli
-ms.openlocfilehash: a9238658f3f3174caf346364a9668012f4a5a477
-ms.sourcegitcommit: f11f08a8b571d9909044693a8dc52c0cf2e9b2bc
+ms.openlocfilehash: 5536f88f3db89a5bec82393dd0a9369e1319fc98
+ms.sourcegitcommit: 15a6f14c5a8570ba89a3bd5bb442f3324d72bc37
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 04/19/2021
-ms.locfileid: "107712264"
+ms.lasthandoff: 04/29/2021
+ms.locfileid: "108242796"
 ---
 # <a name="azure-cli-release-notes"></a>Versionshinweise für die Azure CLI
 
 # <a name="current-release-notes"></a>[Aktuelle Versionshinweise](#tab/azure-cli)
+
+## <a name="may-06-2021"></a>6\. Mai 2021
+
+Version 2.23.0
+
+### <a name="acr"></a>ACR
+
+* `az acr check-health`: Unterstützung zum Überprüfen von DNS-Routings zu privaten Endpunkten hinzugefügt
+* Fehlerbehebung Nr. 17618: Behandlung von Hinzufüge-/Aktualisierungsvorgängen für Aufgaben aktualisiert, die mithilfe von „--auth-mode“ erstellt wurden
+
+### <a name="aks"></a>AKS
+
+* `az aks update`: `--windows-admin-password` hinzugefügt, um die Aktualisierung des Windows-Kennworts zu unterstützen
+* `az aks update`: Unterstützung für die Aktualisierung von einem SPN-Cluster auf einen MSI-Cluster
+* `az aks create`: Parameter `--enable-encryption-at-host` hinzugefügt
+
+### <a name="app-service"></a>App Service
+
+* [BREAKING CHANGE] Websites SDK auf aktuelle Version aktualisiert (azure-mgmt-web==2.0.0) und Adopt track2 SDK
+* [BREAKING CHANGE] `az staticwebapp browse` in `az staticwebapp show` umbenannt
+* SKU-Option für `az staticwebapp create --sku` hinzugefügt
+* Befehl `az staticwebapp update` hinzugefügt
+* `az webapp/functionapp config access-restriction add/remove`: Unterstützung für Diensttags, HTTP-Header und Regeln für mehrere Quellen
+
+### <a name="arm"></a>ARM
+
+* `az bicep`: Ersetzen von datetime-APIs, die in Python 3.6 nicht verfügbar sind
+* `az deployment group create`: Kompatibilitätsproblem von api-version für Parameter `--template-specs` behoben
+
+### <a name="backup"></a>Backup
+
+* `az backup vault create`: Tags als optionales Argument hinzugefügt
+* AFS-Konfigurationssicherungsflow als idempotent festgelegt
+
+### <a name="cdn"></a>CDN
+
+* `az cdn endpoint rule add`: Erstellung der Zustellungsregel für nicht von Microsoft stammende SKUs korrigiert
+
+### <a name="compute"></a>Compute
+
+* Erweiterter Standort für Compute-RP
+* `az sig image-version create`: Unterstützung für die Erstellung auf der Grundlage einer VHD
+* `az vm create --count`: Unterstützung von VNet- und Subnetzkonfiguration
+* `az vmss extension upgrade`: Fehler behoben
+* Fehlermeldung für `vm identity assign` hinzugefügt
+* Verwaltete ZRS-Datenträger (Zonenredundanter Speicher)
+* `az disk create`: Vertrauenswürdiger Start
+* `az disk create`: Ruhezustand
+* Kompatibilitätsproblems mit der alten API-Version behoben
+* `az sig image version create`: Unterstützung für Datenträger-VHDs
+
+### <a name="feedback"></a>Feedback
+
+* Feedbackproblemtext nicht minimieren
+
+### <a name="functionapp"></a>FunctionApp
+
+* Problem mit der ZIP-Bereitstellung behoben, das dazu führte, dass statt der erwarteten koordinierten Weltzeit (UTC) die Ortszeit angegeben wurde
+* JSON-Code der Stapel-API aktualisiert, um PowerShell unter Linux in Functions hinzuzufügen
+
+### <a name="hdinsight"></a>HDInsight
+
+* Anstehenden BREAKING CHANGE für das Entfernen der Standardwerte `--workernode-size` und `--headnode-size` hinzugefügt
+
+### <a name="key-vault"></a>Key Vault
+
+* [BREAKING CHANGE] Unterstützung für das Feature für vorläufiges Löschen für verwaltetes HSM `keyvault delete --hsm-name` führt vorläufiges Löschen für einen MHSM aus.
+
+### <a name="marketplace-ordering"></a>Marketplace-Bestellungen
+
+* Neue Befehlsgruppe `az term` zum Akzeptieren/Anzeigen von Bedingungen
+
+### <a name="misc"></a>Verschiedenes:
+
+* Design für Cloud Shell definiert
+
+### <a name="monitor"></a>Monitor
+
+* Neuer Befehl `az monitor metrics list-namespaces`
+
+### <a name="network"></a>Netzwerk
+
+* [BREAKING CHANGE] az network dns record-set a show: Eigenschaft `arecords` in der Ausgabe wird in `aRecords` geändert.
+* Neuer Befehl `az network express-route list-route-tables-summary`
+* Neuer Befehl `az network express-route peering get-stats`
+* Neuer Befehl `az network express-route peering connection list`
+* `az network lb create`: Neuer Parameter `--edge-zone` hinzugefügt
+* `az network nic create`: Neuer Parameter `--edge-zone` hinzugefügt
+* `az network private-endpoint create`: Neuer Parameter `--edge-zone` hinzugefügt
+* `az network private-link-service create`: Neuer Parameter `--edge-zone` hinzugefügt
+* `az network public-ip create`: Neuer Parameter `--edge-zone` hinzugefügt
+* `az network public-ip prefix create`: Neuer Parameter `--edge-zone` hinzugefügt
+* `az network vnet create`: Neuer Parameter `--edge-zone` hinzugefügt
+* Neuer Befehl `az network lb list-nic`
+* `az network application-gateway show-backend-health`: Unterstützung für Testvorgangsargumente
+* `az network vpn-connection list`: Unterstützung für Parameter `--vnet-gateway`
+* Neuer Befehl `az network vnet-gateway disconnect-vpn-connections`
+* Neuer Befehl `az network vnet-gateway vpn-client show-health`
+* Neuer Befehl `az network vnet-gateway vpn-client ipsec-policy show`
+* Neuer Befehl `az network vnet-gateway vpn-client ipsec-policy set`
+* Neuer Befehl `az network vnet-gateway packet-capture start`
+* Neuer Befehl `az network vnet-gateway packet-capture stop`
+* Neuer Befehl `az network vnet-gateway show-supported-devices`
+* Neuer Befehl `az network vpn-connection list-ike-sas`
+* Neuer Befehl `az network vpn-connection packet-capture start`
+* Neuer Befehl `az network vpn-connection packet-capture stop`
+* Neuer Befehl: `az network vpn-connection show-device-config-script`
+* `az network private-link-resource list`: Unterstützung für weitere Anbieter für `--type`
+
+### <a name="packaging"></a>Paketerstellung
+
+* Python auf `3.8.9` im Docker-Image aktualisiert
+* Python-Paket auf `3.8.9` in MSI aktualisiert
+
+### <a name="rdbms"></a>RDBMS
+* [BREAKING CHANGE] `az mysql flexible-server create`: Der Standardwert für `--storage-size` wird von 10 in 32 geändert.
+* `az postgres flexible-server create`: Parameter `--private-dns-zone` zum Erstellen eines Servers mit privatem Zugriff hinzugefügt.
+
+### <a name="role"></a>Role
+
+* `az role assignment create/update`: AutoVervollständigen für `assignee_principal_type`
+
+### <a name="sql"></a>SQL
+
+* `az sql db create`: Argument „--ha-replicas“ hinzugefügt
+* `az sql db replica create`: Argument „--ha-replicas“ hinzugefügt
+* Kurze MW-Richtliniennamen für MI zulässig
+
+### <a name="sql-vm"></a>SQL-VM
+
+* „SqlServerLicenseType“ als optional festgelegt
+
+### <a name="storage"></a>Storage
+
+* Fehlerbehebung Nr. 16272 und Nr. 16853: Fehlermeldung optimiert
+* `az storage account create`: Unterstützung für Edgezonen hinzugefügt
+* Unterstützung für benutzerseitig zugewiesene Identität für das Speicherkonto
+* `az storage account create/update`: Unterstützung von SAS und Schlüsselrichtlinie
+
+### <a name="synapse"></a>Synapse
+
+* `az synapse notebook create`: Erstellen eines Notebooks
 
 ## <a name="april-19-2021"></a>19. April 2021
 
