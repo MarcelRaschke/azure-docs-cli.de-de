@@ -47,9 +47,11 @@ directCommands:
                                        [--admin-user]
                                        [--assign-identity]
                                        [--backup-retention]
+                                       [--database-name]
                                        [--high-availability]
                                        [--location]
                                        [--name]
+                                       [--private-dns-zone]
                                        [--public-access]
                                        [--resource-group]
                                        [--sku-name]
@@ -69,9 +71,9 @@ directCommands:
     syntax: az postgres flexible-server create --public-access all
   - summary: Erstellen Sie einen flexiblen PostgreSQL-Server mit Standardparams (Ressourcengruppe, Speicherort, Servername, Benutzername, Kennwort) mit öffentlichem Zugriff ohne Firewallregeln.
     syntax: az postgres flexible-server create --public-access none
-  - summary: Erstellen eines flexiblen PostgreSQL-Servers mit öffentlichem Zugriff und Hinzufügen einer Client-IP-Adresse für den Zugriff auf den Server
+  - summary: Erstellen sie einen flexiblen PostgreSQL-Server mit öffentlichem Zugriff, und fügen Sie die Client-IP-Adresse hinzu, um Zugriff auf den Server zu haben.
     syntax: az postgres flexible-server create --public-access <my_client_ip>
-  - summary: Erstellen eines flexiblen PostgreSQL-Servers mit öffentlichem Zugriff und Hinzufügen des IP-Adressbereichs für den Zugriff auf diesen Server
+  - summary: Erstellen Sie einen flexiblen PostgreSQL-Server mit öffentlichem Zugriff, und fügen Sie den IP-Adressbereich hinzu, um Zugriff auf diesen Server zu erhalten.
     syntax: az postgres flexible-server create --public-access <start_ip_address-end_ip_address>
   - summary: Erstellen eines flexiblen PostgreSQL-Servers mit öffentlichem Zugriff und Zulassen der Verbindung von Anwendungen von Azure-IP-Adressen mit Ihrem flexiblen Server
     syntax: az postgres flexible-server create --public-access 0.0.0.0
@@ -82,7 +84,11 @@ directCommands:
   - summary: Erstellen Sie einen flexiblen PostgreSQL-Server, indem Sie bereits vorhandenes virtuelles Netzwerk, Subnetz und die Subnetz-ID verwenden. Das bereitgestellte Subnetz sollte keine anderen Ressourcen enthalten, und dieses Subnetz wird an Microsoft.DBforMySQL/flexibleServers delegiert, falls nicht bereits delegiert.
     syntax: az postgres flexible-server create --subnet /subscriptions/{SubID}/resourceGroups/{ResourceGroup}/providers/Microsoft.Network/virtualNetworks/{VNetName}/subnets/{SubnetName}
   - summary: Erstellen Sie einen flexiblen PostgreSQL-Server mithilfe eines neuen virtuellen Netzwerks, einem Subnetz mit einem nicht standardmäßigen Adresspräfix.
-    syntax: az postgres flexible-server create --vnet myVnet --address-prefixes 10.0.0.0/24 --subnet mySubnet --subnet-prefixes 10.0.0.0/24
+    syntax: az postgres flexible-server create --vnet myVnet --address-prefixes 15.0.0.0/24 --subnet mySubnet --subnet-prefixes 15.0.0.0/24
+  - summary: Erstellen eines flexiblen PostgreSQL-Servers mit einem neuen virtuellen Netzwerk, Subnetz und einer neuen privaten DNS-Zonenadresse
+    syntax: az postgres flexible-server create --vnet myVnet --subnet mySubnet --private-dns-zone myDnsZone.private.postgres.database.azure.com
+  - summary: Erstellen eines flexiblen PostgreSQL-Servers unter Verwendung eines vorhandenen Subnetzes und einer privaten DNS-Zonenadresse in einer anderen Ressourcengruppe
+    syntax: az postgres flexible-server create --subnet /subscriptions/{SubID}/resourceGroups/{ResourceGroup}/providers/Microsoft.Network/virtualNetworks/{VNetName}/subnets/{SubnetName} --private-dns-zone /subscriptions/{SubID}/resourceGroups/{ResourceGroup}/providers/Microsoft.Network/privateDnsZones/myDnsZone.private.postgres.database.azure.com
   - summary: Erstellen Sie einen flexiblen PostgreSQL-Server mit festgelegten Parametern.
     syntax: >-
       az postgres flexible-server create --location northeurope --resource-group testGroup \
@@ -96,26 +102,32 @@ directCommands:
   - name: --admin-password -p
     summary: 'Das Kennwort des Administrators. Mindestens 8 Zeichen und maximal 128 Zeichen. Das Kennwort muss Zeichen aus drei der folgenden Kategorien enthalten: Englische Großbuchstaben, englische Kleinbuchstaben, Zahlen und nicht alphanumerische Zeichen.'
     description: ''
-  - name: --admin-user -u
-    defaultValue: angryDunnock0
-    summary: Administratorbenutzername für den Server. Nach der Festlegung kann sie nicht mehr geändert werden.
+  - name: --admin-user -
+    defaultValue: shyseafowl6
+    summary: Administratorbenutzername für den Server. Nachdem sie festgelegt wurde, kann sie nicht mehr geändert werden.
     description: ''
   - name: --assign-identity
-    summary: Generieren sie eine Azure Active Directory-Identität für diesen Server, und weisen Sie sie für die Verwendung mit Schlüsselverwaltungsdiensten wie Azure KeyVault zu. Es ist nicht erforderlich, ein zusätzliches Argument einzugeben.
+    summary: Generieren und zuweisen einer Azure Active Directory-Identität für diesen Server zur Verwendung mit Schlüsselverwaltungsdiensten wie Azure KeyVault. Sie müssen kein zusätzliches Argument eingeben.
     description: ''
   - name: --backup-retention
     defaultValue: "7"
-    summary: Die Anzahl der Tage, die eine Sicherung aufbewahrt wird. Bereich von 7 bis 35 Tagen. Der Standard ist 7 Tage.
+    summary: Die Anzahl der Tage, für die eine Sicherung aufbewahrt wird. Bereich von 7 bis 35 Tagen. Der Standard ist 7 Tage.
+    description: ''
+  - name: --database-name -d
+    summary: Der Name der Datenbank, die bei der Bereitstellung des Datenbankservers erstellt werden soll.
     description: ''
   - name: --high-availability
     defaultValue: Disabled
-    summary: Aktivieren oder deaktivieren Sie das Feature für Hochverfügbarkeit.  Der Standardwert ist Deaktiviert.
+    summary: Aktivieren oder Deaktivieren der Hochverfügbarkeitsfunktion.  Der Standardwert ist Deaktiviert.
     description: ''
   - name: --location -l
     summary: 'Der Standort. Werte aus: `az account list-locations`. Sie können den standardmäßig verwendeten Standort mit `az configure --defaults location=<location>` konfigurieren.'
     description: ''
   - name: --name -n
     summary: Name des Servers. Der Name darf nur Kleinbuchstaben, Zahlen und den Bindestrich (-) enthalten. Mindestens 3 Zeichen und maximal 63 Zeichen.
+    description: ''
+  - name: --private-dns-zone
+    summary: Der Name oder die ID der neuen oder vorhandenen privaten DNS-Zone. Sie können die private DNS-Zone aus derselben Ressourcengruppe, einer anderen Ressourcengruppe oder einem anderen Abonnement verwenden. Wenn Sie eine Zone aus einer anderen Ressourcengruppe oder einem anderen Abonnement verwenden möchten, geben Sie die Ressourcen-ID an. Die CLI erstellt eine neue private DNS-Zone innerhalb derselben Ressourcengruppe, wenn sie nicht von Benutzern bereitgestellt wird.
     description: ''
   - name: --public-access
     summary: Bestimmt den öffentlichen Zugriff. Geben Sie eine ip-Adresse oder einen Ip-Adressbereich ein, die in die Liste der zulässigen IP-Adressen aufgenommen werden sollen. IP-Adressbereiche müssen durch Bindestriche getrennt sein und dürfen keine Leerzeichen enthalten. Die Angabe von 0.0.0.0 ermöglicht den öffentlichen Zugriff von allen ressourcen, die in Azure bereitgestellt werden, um auf Ihren Server zuzugreifen. Wenn sie auf "None" festgelegt wird, wird der Server im öffentlichen Zugriffsmodus festgelegt, es wird jedoch keine Firewallregel erstellt.
@@ -125,17 +137,17 @@ directCommands:
     description: ''
   - name: --sku-name
     defaultValue: Standard_D2s_v3
-    summary: 'Der Name der Compute-SKU. Folgt der Konvention Standard_{VM-Name}. Beispiele: Standard_D4s_v3.'
+    summary: 'Der Name der Compute-SKU. Entspricht der Konvention Standard_{VM-Name}. Beispiele: Standard_D4s_v3.'
     description: ''
   - name: --storage-size
     defaultValue: "128"
-    summary: Die Speicherkapazität des Servers. Der Mindestwert beträgt 32 GiB und der Höchstwert 16 TiB.
+    summary: Die Speicherkapazität des Servers. Der Mindestwert beträgt 32 GiB und der höchstwert 16 TiB.
     description: ''
   - name: --subnet
-    summary: Ressourcen-ID eines vorhandenen Subnetzes. Beachten Sie, dass das Subnetz an Microsoft.DBforPostgreSQL/flexibleServers/Microsoft.DBforMySQL/flexibleServers delegiert wird. Nach der Delegierung kann dieses Subnetz nicht für andere Arten von Azure-Ressourcen verwendet werden.
+    summary: Name oder Ressourcen-ID eines neuen oder vorhandenen Subnetzes. Wenn Sie ein Subnetz aus einer anderen Ressourcengruppe oder einem anderen Abonnement verwenden möchten, geben Sie anstelle des Namens die Ressourcen-ID an. Beachten Sie, dass das Subnetz an Microsoft.DBforPostgreSQL/flexibleServers/Microsoft.DBforMySQL/flexibleServers delegiert wird. Nach der Delegierung kann dieses Subnetz nicht für andere Arten von Azure-Ressourcen verwendet werden.
     description: ''
   - name: --subnet-prefixes
-    summary: Das Ip-Adresspräfix des Subnetzes, das beim Erstellen eines neuen VNET im CIDR-Format verwendet werden soll. Der Standardwert ist 10.0.0.0/24.
+    summary: Das Subnetz-IP-Adresspräfix, das beim Erstellen eines neuen VNET im CIDR-Format verwendet werden soll. Der Standardwert ist 10.0.0.0/24.
     description: ''
   - name: --subscription
     summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
@@ -145,14 +157,14 @@ directCommands:
     description: ''
   - name: --tier
     defaultValue: GeneralPurpose
-    summary: 'Computeebene des Servers. Akzeptierte Werte: Burstable, GeneralPurpose, Memory Optimized.'
+    summary: 'Computeebene des Servers. Akzeptierte Werte: Burstfähig, AllgemeinPurpose, Arbeitsspeicheroptimierte Werte.'
     description: ''
   - name: --version
     defaultValue: "12"
     summary: Server-Hauptversion.
     description: ''
   - name: --vnet
-    summary: Name eines vorhandenen virtuellen Netzwerks oder Name eines neuen zu erstellenden Netzwerks. Der Name muss zwischen 2 und 64 Zeichen lang sein. Der Name muss mit einem Buchstaben oder einer Ziffer beginnen, auf einen Buchstaben, eine Ziffer oder einen Unterstrich enden und darf nur Buchstaben, Ziffern, Unterstriche, Punkte und Bindestriche enthalten.
+    summary: Name oder ID eines neuen oder vorhandenen virtuellen Netzwerks. Wenn Sie ein VNET aus einer anderen Ressourcengruppe oder einem anderen Abonnement verwenden möchten, geben Sie eine Ressourcen-ID an. Der Name muss zwischen 2 und 64 Zeichen lang sein. Der Name muss mit einem Buchstaben oder einer Ziffer beginnen, auf einen Buchstaben, eine Ziffer oder einen Unterstrich enden und darf nur Buchstaben, Ziffern, Unterstriche, Punkte und Bindestriche enthalten.
     description: ''
   - name: --zone -z
     summary: Verfügbarkeitszone, in der die Ressource bereitgestellt werden soll.
@@ -174,7 +186,7 @@ directCommands:
     syntax: az postgres flexible-server delete --resource-group testGroup --name testServer --yes
   optionalParameters:
   - name: --ids
-    summary: Eine oder mehrere Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu "Ressourcen-ID"-Argumenten sein. Sie sollten entweder --ids oder andere "Resource Id"-Argumente angeben.
+    summary: Eine oder mehrere Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu Ressourcen-ID-Argumenten geben. Sie sollten entweder --ids oder andere Ressourcen-ID-Argumente bereitstellen.
     description: ''
   - name: --name -n
     summary: Name des Servers. Der Name darf nur Kleinbuchstaben, Zahlen und den Bindestrich (-) enthalten. Mindestens 3 Zeichen und maximal 63 Zeichen.
@@ -203,7 +215,7 @@ directCommands:
     syntax: az postgres flexible-server list --resource-group testGroup
   optionalParameters:
   - name: --query-examples
-    summary: Empfehlen Sie die JMESPath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und nach dem Parameter --query in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positionsschlüsselwörter hinzufügen, damit wir basierend auf diesen Schlüsselwörtern Vorschläge geben können.
+    summary: Empfehlen Sie die JMESPath-Zeichenfolge. Sie können eine der Abfragen kopieren und nach dem Parameter --query in doppelte Anführungszeichen einfügen, um die Ergebnisse zu sehen. Sie können ein oder mehrere Positionsschlüsselwörter hinzufügen, damit wir basierend auf diesen Schlüsselwörtern Vorschläge machen können.
     description: ''
   - name: --resource-group -g
     summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
@@ -241,7 +253,7 @@ directCommands:
     syntax: az postgres flexible-server restart --resource-group testGroup --name testServer
   optionalParameters:
   - name: --ids
-    summary: Mindestens eine Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu "Ressourcen-ID"-Argumenten sein. Sie sollten entweder --ids oder andere "Resource Id"-Argumente angeben.
+    summary: Mindestens eine Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen von "Resource Id"-Argumenten sein. Sie sollten entweder --ids oder andere "Resource Id"-Argumente angeben.
     description: ''
   - name: --name -n
     summary: Name des Servers. Der Name darf nur Kleinbuchstaben, Zahlen und den Bindestrich (-) enthalten. Mindestens 3 Zeichen und maximal 63 Zeichen.
@@ -267,9 +279,9 @@ directCommands:
                                         [--subscription]
                                         [--zone]
   examples:
-  - summary: Stellen Sie "testServer" als neuen Server "testServerNew" auf einen bestimmten Zeitpunkt wieder auf.
+  - summary: Stellen Sie "testServer" zu einem bestimmten Zeitpunkt als neuen Server "testServerNew" wieder her.
     syntax: az postgres flexible-server restore --resource-group testGroup --name testServerNew --source-server testServer --restore-time "2017-06-15T13:10:00Z"
-  - summary: Wiederherstellen von "testServer2" in "testServerNew", wobei sich "testServerNew" in einer anderen Ressourcengruppe als "testServer2" befindet.
+  - summary: Stellen Sie "testServer2" auf "testServerNew" wieder her, wobei sich "testServerNew" in einer anderen Ressourcengruppe als "testServer2" befindet.
     syntax: >-
       az postgres flexible-server restore --resource-group testGroup --name testServerNew \
         --source-server "/subscriptions/${SubID}/resourceGroups/${ResourceGroup}/providers/Microsoft.DBforPostgreSQL/servers/testServer2" \
@@ -281,7 +293,7 @@ directCommands:
     description: ''
   optionalParameters:
   - name: --ids
-    summary: Eine oder mehrere Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu Ressourcen-ID-Argumenten geben. Sie sollten entweder --ids oder andere Ressourcen-ID-Argumente bereitstellen.
+    summary: Mindestens eine Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen von "Resource Id"-Argumenten sein. Sie sollten entweder --ids oder andere "Resource Id"-Argumente angeben.
     description: ''
   - name: --location -l
     summary: 'Der Standort. Werte aus: `az account list-locations`. Sie können den standardmäßig verwendeten Standort mit `az configure --defaults location=<location>` konfigurieren.'
@@ -296,8 +308,8 @@ directCommands:
     summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
     description: ''
   - name: --restore-time
-    defaultValue: 2021-04-29T07:18:22+00:00
-    summary: Der Zeitpunkt in UTC für die Wiederherstellung aus (ISO8601-Format), z.B. 2017-04-26T02:10:00+00:00.
+    defaultValue: 2021-05-06T05:52:26+00:00
+    summary: Der Zeitpunkt in UTC, aus dem die Wiederherstellung erfolgen soll (ISO8601-Format), z.B. 2017-04-26T02:10:00+00:00.
     description: ''
   - name: --subscription
     summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
@@ -326,7 +338,7 @@ directCommands:
     summary: Name des Servers. Der Name darf nur Kleinbuchstaben, Zahlen und den Bindestrich (-) enthalten. Mindestens 3 Zeichen und maximal 63 Zeichen.
     description: ''
   - name: --query-examples
-    summary: Empfehlen Sie die JMESPath-Zeichenfolge. Sie können eine der Abfragen kopieren und nach dem Parameter --query in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positionsschlüsselwörter hinzufügen, damit wir basierend auf diesen Schlüsselwörtern Vorschläge geben können.
+    summary: Empfehlen Sie die JMESPath-Zeichenfolge. Sie können eine der Abfragen kopieren und nach dem Parameter --query in doppelte Anführungszeichen einfügen, um die Ergebnisse zu sehen. Sie können ein oder mehrere Positionsschlüsselwörter hinzufügen, damit wir basierend auf diesen Schlüsselwörtern Vorschläge machen können.
     description: ''
   - name: --resource-group -g
     summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
@@ -346,7 +358,7 @@ directCommands:
                                                        [--server-name]
                                                        [--subscription]
   examples:
-  - summary: Zeigt Verbindungszeichenfolgen für cmd und Programmiersprachen an.
+  - summary: Anzeigen von Verbindungszeichenfolgen für cmd und Programmiersprachen.
     syntax: az postgres flexible-server show-connection-string -s testServer -u username -p password -d databasename
   optionalParameters:
   - name: --admin-password -p
@@ -362,7 +374,7 @@ directCommands:
     summary: Der Name der Datenbank.
     description: ''
   - name: --ids
-    summary: Mindestens eine Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu "Ressourcen-ID"-Argumenten sein. Sie sollten entweder --ids oder andere "Resource Id"-Argumente angeben.
+    summary: Eine oder mehrere Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu Ressourcen-ID-Argumenten geben. Sie sollten entweder --ids oder andere Ressourcen-ID-Argumente bereitstellen.
     description: ''
   - name: --server-name -s
     defaultValue: '{server}'
@@ -385,7 +397,7 @@ directCommands:
     syntax: az postgres flexible-server start --resource-group testGroup --name testServer
   optionalParameters:
   - name: --ids
-    summary: Mindestens eine Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu "Ressourcen-ID"-Argumenten sein. Sie sollten entweder --ids oder andere "Resource Id"-Argumente angeben.
+    summary: Mindestens eine Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen von "Resource Id"-Argumenten sein. Sie sollten entweder --ids oder andere "Resource Id"-Argumente angeben.
     description: ''
   - name: --name -n
     summary: Name des Servers. Der Name darf nur Kleinbuchstaben, Zahlen und den Bindestrich (-) enthalten. Mindestens 3 Zeichen und maximal 63 Zeichen.
@@ -406,11 +418,11 @@ directCommands:
                                      [--resource-group]
                                      [--subscription]
   examples:
-  - summary: Beenden Sie einen flexiblen Server.
+  - summary: Beenden sie einen flexiblen Server.
     syntax: az postgres flexible-server stop --resource-group testGroup --name testServer
   optionalParameters:
   - name: --ids
-    summary: Eine oder mehrere Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu Ressourcen-ID-Argumenten geben. Sie sollten entweder --ids oder andere Ressourcen-ID-Argumente bereitstellen.
+    summary: Mindestens eine Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen von "Resource Id"-Argumenten sein. Sie sollten entweder --ids oder andere "Resource Id"-Argumente angeben.
     description: ''
   - name: --name -n
     summary: Name des Servers. Der Name darf nur Kleinbuchstaben, Zahlen und den Bindestrich (-) enthalten. Mindestens 3 Zeichen und maximal 63 Zeichen.
@@ -423,7 +435,7 @@ directCommands:
     description: ''
 - uid: az_postgres_flexible-server_update
   name: az postgres flexible-server update
-  summary: Aktualisieren sie einen flexiblen Server.
+  summary: Aktualisieren eines flexiblen Servers.
   description: ''
   syntax: >-
     az postgres flexible-server update [--add]
@@ -443,7 +455,7 @@ directCommands:
                                        [--tags]
                                        [--tier]
   examples:
-  - summary: Aktualisieren Sie die SKU eines flexiblen Servers unter Verwendung des lokalen Kontexts für Server und Ressourcengruppe.
+  - summary: Aktualisieren Sie die SKU eines flexiblen Servers mit lokalem Kontext für Server und Ressourcengruppe.
     syntax: az postgres flexible-server update --sku-name Standard_D4s_v3
   - summary: Aktualisieren sie die Tags eines Servers.
     syntax: az postgres flexible-server update --resource-group testGroup --name testServer --tags "k1=v1" "k2=v2"
@@ -467,22 +479,22 @@ directCommands:
     summary: Aktivieren oder Deaktivieren der Hochverfügbarkeitsfunktion.  Der Standardwert ist Deaktiviert.
     description: ''
   - name: --ids
-    summary: Eine oder mehrere Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu "Ressourcen-ID"-Argumenten sein. Sie sollten entweder --ids oder andere "Resource Id"-Argumente angeben.
+    summary: Eine oder mehrere Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu Ressourcen-ID-Argumenten geben. Sie sollten entweder --ids oder andere Ressourcen-ID-Argumente bereitstellen.
     description: ''
   - name: --maintenance-window
-    summary: 'Zeitraum (UTC), der für die Wartung festgelegt ist. Beispiele: "Sun:23:30" zum Planen am Sonntag, 23:30 Uhr UTC. Um die Standardeinstellung zurückzusetzen, übergeben Sie "Disabled".'
+    summary: 'Zeitraum (UTC), der für die Wartung festgelegt ist. Beispiele: "So:23:30" zur Planung am Sonntag, 23:30 Uhr UTC. Um auf den Standardwert zurück zu setzen, übergeben Sie "Disabled".'
     description: ''
   - name: --name -n
     summary: Name des Servers. Der Name darf nur Kleinbuchstaben, Zahlen und den Bindestrich (-) enthalten. Mindestens 3 Zeichen und maximal 63 Zeichen.
     description: ''
   - name: --remove
-    summary: 'Entfernen sie eine Eigenschaft oder ein Element aus einer Liste.  Beispiel: --remove property.list <indexToRemove> OR --remove propertyToRemove.'
+    summary: 'Entfernen Sie eine Eigenschaft oder ein Element aus einer Liste.  Beispiel: --remove property.list <indexToRemove> OR --remove propertyToRemove.'
     description: ''
   - name: --resource-group -g
     summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
     description: ''
   - name: --set
-    summary: 'Aktualisieren Sie ein Objekt, indem Sie einen festzulegenden Eigenschaftenpfad und -wert angeben.  Beispiel: --set property1.property2=<value>.'
+    summary: 'Aktualisieren Sie ein -Objekt, indem Sie einen festzulegenden Eigenschaftenpfad und -wert angeben.  Beispiel: --set property1.property2=<value>.'
     description: ''
   - name: --sku-name
     summary: 'Der Name der Compute-SKU. Entspricht der Konvention Standard_{VM-Name}. Beispiele: Standard_D4s_v3.'
@@ -517,19 +529,19 @@ directCommands:
                                      [--updated]
   optionalParameters:
   - name: --created
-    summary: Warten Sie, bis mit "provisioningState" bei "Succeeded" erstellt wurde.
+    summary: Warten Sie, bis die Erstellung mit "provisioningState" bei "Succeeded" (Erfolgreich) ausgeführt wurde.
     description: ''
   - name: --custom
     summary: "Warten Sie, bis die Bedingung eine benutzerdefinierte JMESPath-Abfrage erfüllt. Beispiel: provisioningState!='InProgress', instanceView.statuses[?code=='PowerState/running']."
     description: ''
   - name: --deleted
-    summary: Warten Sie, bis sie gelöscht wurde.
+    summary: Warten Sie, bis gelöscht wurde.
     description: ''
   - name: --exists
     summary: Warten Sie, bis die Ressource vorhanden ist.
     description: ''
   - name: --ids
-    summary: Eine oder mehrere Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu Ressourcen-ID-Argumenten geben. Sie sollten entweder --ids oder andere Ressourcen-ID-Argumente bereitstellen.
+    summary: Mindestens eine Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen von "Resource Id"-Argumenten sein. Sie sollten entweder --ids oder andere "Resource Id"-Argumente angeben.
     description: ''
   - name: --interval
     defaultValue: "30"
@@ -596,10 +608,10 @@ globalParameters:
 - name: --verbose
   summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
 metadata:
-  description: Verwalten Azure Database for PostgreSQL Flexible Server
-  ms.openlocfilehash: 5865e0bd38fadba283245b142dad2178e00a3021
-  ms.sourcegitcommit: 15a6f14c5a8570ba89a3bd5bb442f3324d72bc37
+  description: Verwalten Azure Database for PostgreSQL Flexible Server.
+  ms.openlocfilehash: dcdc2a9025c296222323aed8ad45e643eae9aacd
+  ms.sourcegitcommit: 391f13c8335440fb9fbb3167ae473157e8e110bc
   ms.translationtype: MT
   ms.contentlocale: de-DE
-  ms.lasthandoff: 04/29/2021
-  ms.locfileid: "108249273"
+  ms.lasthandoff: 05/07/2021
+  ms.locfileid: "109503219"
