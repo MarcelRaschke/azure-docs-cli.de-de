@@ -1,0 +1,259 @@
+### YamlMime:AzureCLIGroup
+uid: az_afd_endpoint
+name: az afd endpoint
+summary: Verwalten von AFD-Endpunkten innerhalb des angegebenen Profils.
+description: Ein Endpunkt ist eine logische Gruppierung von Domänen und ihren zugeordneten Konfigurationen.
+directCommands:
+- uid: az_afd_endpoint_create
+  name: az afd endpoint create
+  summary: Erstellt einen Endpunkt innerhalb des angegebenen Profils.
+  description: ''
+  syntax: >-
+    az afd endpoint create --enabled-state {Disabled, Enabled}
+                           --endpoint-name
+                           --origin-response-timeout-seconds
+                           --profile-name
+                           --resource-group
+                           [--subscription]
+                           [--tags]
+  examples:
+  - summary: Erstellt einen aktivierten Endpunkt, bei dem das Timeout der Ursprungs Antwort auf 60 Sekunden festgelegt ist
+    syntax: az afd endpoint create -g group --endpoint-name endpoint1 --profile-name profile --origin-response-timeout-seconds 60 --enabled-state Enabled
+  requiredParameters:
+  - isRequired: true
+    name: --enabled-state
+    parameterValueGroup: Disabled, Enabled
+    summary: Gibt an, ob dieser Endpunkt aktiviert werden soll.
+    description: ''
+  - isRequired: true
+    name: --endpoint-name
+    summary: Der Name des Endpunkts im Profil, der global eindeutig ist.
+    description: ''
+  - isRequired: true
+    name: --origin-response-timeout-seconds
+    summary: Sende-und Empfangs Timeout bei der Weiterleitungs Anforderung an den Ursprung. Wenn das Timeout erreicht ist, schlägt die Anforderung fehl und gibt zurück.
+    description: ''
+  - isRequired: true
+    name: --profile-name
+    summary: Der Name des CDN-Profils, das innerhalb der Ressourcengruppe eindeutig ist.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  optionalParameters:
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  - name: --tags
+    summary: 'Durch Leerzeichen getrennte Tags: Key [= value] [key [= value]...]. Verwenden Sie "", um vorhandene Tags zu löschen.'
+    description: ''
+- uid: az_afd_endpoint_delete
+  name: az afd endpoint delete
+  summary: Löscht einen Endpunkt innerhalb des angegebenen Profils.
+  description: ''
+  syntax: >-
+    az afd endpoint delete [--endpoint-name]
+                           [--ids]
+                           [--profile-name]
+                           [--resource-group]
+                           [--subscription]
+                           [--yes]
+  examples:
+  - summary: Löschen Sie einen Endpunkt mit dem Namen endpoint1.
+    syntax: az afd endpoint delete -g group --profile-name profile --endpoint-name endpoint1
+  optionalParameters:
+  - name: --endpoint-name
+    summary: Der Name des Endpunkts im Profil, der global eindeutig ist.
+    description: ''
+  - name: --ids
+    summary: Mindestens eine Ressourcen-ID (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID handeln, die alle Informationen von Ressourcen-ID-Argumenten enthält. Sie sollten entweder--IDs oder andere Ressourcen-ID-Argumente angeben.
+    description: ''
+  - name: --profile-name
+    summary: Der Name des CDN-Profils, das innerhalb der Ressourcengruppe eindeutig ist.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  - name: --yes -y
+    summary: Nicht zur Bestätigung auffordern
+    description: ''
+- uid: az_afd_endpoint_list
+  name: az afd endpoint list
+  summary: Listet alle Endpunkte im angegebenen Profil auf.
+  description: ''
+  syntax: >-
+    az afd endpoint list --profile-name
+                         --resource-group
+                         [--query-examples]
+                         [--subscription]
+  examples:
+  - summary: Listet alle Endpunkte im angegebenen Profil auf.
+    syntax: az afd endpoint list -g group --profile-name profile
+  requiredParameters:
+  - isRequired: true
+    name: --profile-name
+    summary: Der Name des CDN-Profils, das innerhalb der Ressourcengruppe eindeutig ist.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  optionalParameters:
+  - name: --query-examples
+    summary: Empfehlen Sie die jmespath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und Sie nach dem Abfrage Parameter in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positions Schlüsselwörter hinzufügen, um Vorschläge auf der Grundlage dieser Schlüsselwörter zu geben.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+- uid: az_afd_endpoint_purge
+  name: az afd endpoint purge
+  summary: Entfernt zwischengespeicherte Inhalte von der Azure-Front-Door.
+  description: ''
+  syntax: >-
+    az afd endpoint purge --content-paths
+                          [--domains]
+                          [--endpoint-name]
+                          [--ids]
+                          [--no-wait]
+                          [--profile-name]
+                          [--resource-group]
+                          [--subscription]
+  examples:
+  - summary: Alle zwischengespeicherten cozelte aus dem Verzeichnis "/Script" für die Domäne entfernen www.contoso.com entfernen
+    syntax: az afd endpoint purge -g group --profile-name profile --domains www.contoso.com --content-paths '/scripts/*'
+  requiredParameters:
+  - isRequired: true
+    name: --content-paths
+    summary: Der Pfad zu dem Inhalt, der gelöscht werden soll. Kann einen Dateipfad oder ein Platzhalter Verzeichnis beschreiben.
+    description: ''
+  optionalParameters:
+  - name: --domains
+    summary: Liste der Domänen.
+    description: ''
+  - name: --endpoint-name
+    summary: Der Name des Endpunkts im Profil, der global eindeutig ist.
+    description: ''
+  - name: --ids
+    summary: Mindestens eine Ressourcen-ID (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID handeln, die alle Informationen von Ressourcen-ID-Argumenten enthält. Sie sollten entweder--IDs oder andere Ressourcen-ID-Argumente angeben.
+    description: ''
+  - name: --no-wait
+    summary: Nicht auf den Abschluss lang andauernder Vorgänge warten
+    description: ''
+  - name: --profile-name
+    summary: Der Name des CDN-Profils, das innerhalb der Ressourcengruppe eindeutig ist.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+- uid: az_afd_endpoint_show
+  name: az afd endpoint show
+  summary: Anzeigen der Details eines Endpunkts innerhalb des angegebenen Profils.
+  description: ''
+  syntax: >-
+    az afd endpoint show [--endpoint-name]
+                         [--ids]
+                         [--profile-name]
+                         [--query-examples]
+                         [--resource-group]
+                         [--subscription]
+  examples:
+  - summary: Anzeigen von Details zum Endpunkt mit dem Namen endpoint1.
+    syntax: az afd endpoint show -g group --profile-name profile  --endpoint-name endpoint1
+  optionalParameters:
+  - name: --endpoint-name
+    summary: Der Name des Endpunkts im Profil, der global eindeutig ist.
+    description: ''
+  - name: --ids
+    summary: Mindestens eine Ressourcen-ID (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID handeln, die alle Informationen von Ressourcen-ID-Argumenten enthält. Sie sollten entweder--IDs oder andere Ressourcen-ID-Argumente angeben.
+    description: ''
+  - name: --profile-name
+    summary: Der Name des CDN-Profils, das innerhalb der Ressourcengruppe eindeutig ist.
+    description: ''
+  - name: --query-examples
+    summary: Empfehlen Sie die jmespath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und Sie nach dem Abfrage Parameter in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positions Schlüsselwörter hinzufügen, um Vorschläge auf der Grundlage dieser Schlüsselwörter zu geben.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+- uid: az_afd_endpoint_update
+  name: az afd endpoint update
+  summary: Aktualisiert einen Endpunkt innerhalb des angegebenen Profils.
+  description: ''
+  syntax: >-
+    az afd endpoint update [--enabled-state {Disabled, Enabled}]
+                           [--endpoint-name]
+                           [--ids]
+                           [--origin-response-timeout-seconds]
+                           [--profile-name]
+                           [--resource-group]
+                           [--subscription]
+                           [--tags]
+  examples:
+  - summary: Aktualisieren Sie das Ursprungs Antwort Timeout eines Endpunkts auf 30 Sekunden.
+    syntax: az afd endpoint update -g group --endpoint-name endpoint1 --profile-name profile --origin-response-timeout-seconds 30
+  optionalParameters:
+  - name: --enabled-state
+    parameterValueGroup: Disabled, Enabled
+    summary: Gibt an, ob dieser Endpunkt aktiviert werden soll.
+    description: ''
+  - name: --endpoint-name
+    summary: Der Name des Endpunkts im Profil, der global eindeutig ist.
+    description: ''
+  - name: --ids
+    summary: Mindestens eine Ressourcen-ID (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID handeln, die alle Informationen von Ressourcen-ID-Argumenten enthält. Sie sollten entweder--IDs oder andere Ressourcen-ID-Argumente angeben.
+    description: ''
+  - name: --origin-response-timeout-seconds
+    summary: Sende-und Empfangs Timeout bei der Weiterleitungs Anforderung an den Ursprung. Wenn das Timeout erreicht ist, schlägt die Anforderung fehl und gibt zurück.
+    description: ''
+  - name: --profile-name
+    summary: Der Name des CDN-Profils, das innerhalb der Ressourcengruppe eindeutig ist.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  - name: --tags
+    summary: 'Durch Leerzeichen getrennte Tags: Key [= value] [key [= value]...]. Verwenden Sie "", um vorhandene Tags zu löschen.'
+    description: ''
+commands:
+- az_afd_endpoint_create
+- az_afd_endpoint_delete
+- az_afd_endpoint_list
+- az_afd_endpoint_purge
+- az_afd_endpoint_show
+- az_afd_endpoint_update
+globalParameters:
+- name: --debug
+  summary: Ausführlichkeit der Protokollierung erhöhen, um alle Debugprotokolle anzuzeigen.
+- name: --help -h
+  summary: Zeigen Sie diese Hilfemeldung an, und schließen Sie sie.
+- name: --only-show-errors
+  summary: Nur Fehler anzeigen und Warnungen unterdrücken.
+- name: --output -o
+  defaultValue: json
+  parameterValueGroup: json, jsonc, table, tsv
+  summary: Ausgabeformat.
+- name: --query
+  summary: JMESPath-Abfragezeichenfolge. Weitere Informationen und Beispiele finden Sie unter <a href="http://jmespath.org/">http://jmespath.org/</a>.
+- name: --verbose
+  summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
+metadata:
+  description: Ein Endpunkt ist eine logische Gruppierung von Domänen und ihren zugeordneten Konfigurationen.
+  ms.openlocfilehash: f79fd1f58a6b9472cc45c73e834f9b40ed0fcfa7
+  ms.sourcegitcommit: 612554c029ba1f28d3a43fd22e743104a1a30ea0
+  ms.translationtype: MT
+  ms.contentlocale: de-DE
+  ms.lasthandoff: 04/07/2021
+  ms.locfileid: "106805483"

@@ -1,0 +1,641 @@
+### YamlMime:AzureCLIGroup
+uid: az_batch_job-schedule
+name: az batch job-schedule
+summary: Verwalten von Batch-Auftrags Zeitplänen.
+description: ''
+directCommands:
+- uid: az_batch_job-schedule_create
+  name: az batch job-schedule create
+  summary: Fügen Sie einem Konto einen Batch Auftrags Zeitplan hinzu.
+  description: ''
+  syntax: >-
+    az batch job-schedule create [--account-endpoint]
+                                 [--account-key]
+                                 [--account-name]
+                                 [--do-not-run-after]
+                                 [--do-not-run-until]
+                                 [--id]
+                                 [--job-manager-task-command-line]
+                                 [--job-manager-task-id]
+                                 [--job-manager-task-resource-files]
+                                 [--job-max-task-retry-count]
+                                 [--job-max-wall-clock-time]
+                                 [--json-file]
+                                 [--metadata]
+                                 [--on-all-tasks-complete {noaction, terminatejob}]
+                                 [--pool-id]
+                                 [--priority]
+                                 [--recurrence-interval]
+                                 [--required-slots]
+                                 [--start-window]
+                                 [--subscription]
+                                 [--uses-task-dependencies]
+  optionalParameters:
+  - name: --account-endpoint
+    summary: 'Batch-Dienst Endpunkt. Alternativ dazu können Sie auch durch Umgebungsvariable: AZURE_BATCH_ENDPOINT festlegen.'
+    description: ''
+  - name: --account-key
+    summary: 'Batch-Kontoschlüssel. Alternativ dazu können Sie auch durch Umgebungsvariable: AZURE_BATCH_ACCESS_KEY festlegen.'
+    description: ''
+  - name: --account-name
+    summary: 'Name des Batch-Kontos. Alternativ dazu können Sie auch durch Umgebungsvariable: AZURE_BATCH_ACCOUNT festlegen.'
+    description: ''
+  - name: --do-not-run-after
+    summary: Eine Zeit, nach der kein Auftrag unter diesem Auftrags Zeitplan erstellt wird. Der Zeitplan wechselt in den Status "abgeschlossen", sobald dieser Stichtag abgelaufen ist und es keinen aktiven Auftrag unter diesem Auftrags Zeitplan gibt. Wenn Sie keine donotrunafter-Zeit angeben und einen Zeitplan für wiederkehrende Aufträge erstellen, bleibt der Auftrags Zeitplan so lange aktiv, bis Sie ihn explizit beenden. Das erwartete Format ist ein ISO-8601-Zeitstempel.
+    description: ''
+  - name: --do-not-run-until
+    summary: Der früheste Zeitpunkt, zu dem ein Auftrag unter diesem Auftrags Zeitplan erstellt werden kann. Wenn Sie keine donotrununtil-Zeit angeben, wird der Zeitplan sofort bereit, Aufträge zu erstellen. Das erwartete Format ist ein ISO-8601-Zeitstempel.
+    description: ''
+  - name: --id
+    summary: Erforderlich. Eine Zeichenfolge, die den Zeitplan innerhalb des Kontos eindeutig identifiziert. Die ID kann eine beliebige Kombination aus alphanumerischen Zeichen einschließlich Bindestrichen und unterstrichen enthalten und darf nicht mehr als 64 Zeichen enthalten. Bei der ID wird die Groß-/Kleinschreibung beibehalten und die Groß-/Kleinschreibung nicht beachtet.
+    description: ''
+  - name: --job-manager-task-command-line
+    summary: Erforderlich. Die Befehlszeile der Auftrags-Manager-Aufgabe. Die Befehlszeile wird nicht unter einer Shell ausgeführt und kann daher keine Shellfeatures wie die Erweiterung der Umgebungsvariablen nutzen. Wenn Sie diese Features nutzen möchten, sollten Sie die Shell in der Befehlszeile aufrufen, z. b. "cmd/c myCommand" in Windows oder "/bin/sh-c myCommand" unter Linux. Wenn sich die Befehlszeile auf Dateipfade bezieht, sollte ein relativer Pfad (relativ zum Arbeitsverzeichnis der Aufgabe) verwendet werden, oder die von Batch bereitgestellte Umgebungsvariable () wird verwendet https://docs.microsoft.com/en-us/azure/batch/batch-compute-node-environment-variables) .
+    description: ''
+  - name: --job-manager-task-id
+    summary: Erforderlich. Eine Zeichenfolge, die die Auftrags-Manager-Aufgabe innerhalb des Auftrags eindeutig identifiziert. Die ID kann eine beliebige Kombination aus alphanumerischen Zeichen einschließlich Bindestrichen und unterstrichen enthalten und darf nicht mehr als 64 Zeichen enthalten.
+    description: ''
+  - name: --job-manager-task-resource-files
+    summary: Eine Liste der Dateien, die vom Batch-Dienst auf den Computeknoten heruntergeladen werden, bevor die Befehlszeile ausgeführt wird. Die unter diesem Element aufgeführten Dateien befinden sich im Arbeitsverzeichnis der Aufgabe. Es ist eine maximale Größe für die Liste der Ressourcen Dateien vorhanden.  Wenn die maximale Größe überschritten wird, schlägt die Anforderung fehl, und der Antwort Fehlercode ist RequestEntityTooLarge. Wenn dies auftritt, muss die Größe der ResourceFiles-Auflistung reduziert werden. Dies kann mithilfe von ZIP-Dateien, Anwendungspaketen oder docker-Containern erreicht werden. Durch Leerzeichen getrennte Ressourcen Verweise im Dateiname = HttpUrl-Format.
+    description: ''
+  - name: --job-max-task-retry-count
+    summary: Die maximale Anzahl von Wiederholungs versuchen für jeden Task. Der Batch-Dienst wiederholt einen Task, wenn der Exitcode ungleich 0 (null) ist. Beachten Sie, dass dieser Wert die Anzahl der Wiederholungen ausdrücklich steuert. Der Batch-Dienst versucht jede Aufgabe einmal und kann dann bis zu diesem Limit wiederholen. Wenn beispielsweise die maximale Anzahl von Wiederholungs versuchen 3 beträgt, versucht Batch, eine Aufgabe bis zu vier Mal auszuführen (ein anfänglicher Versuch und drei Wiederholungen). Wenn die maximale Anzahl von Wiederholungs versuchen 0 beträgt, werden die Tasks vom Batch-Dienst nicht wiederholt. Wenn die maximale Anzahl von Wiederholungs versuchen-1 beträgt, wiederholt der Batch-Dienst Tasks ohne Einschränkung. Der Standardwert ist 0 (keine Wiederholungsversuche).
+    description: ''
+  - name: --job-max-wall-clock-time
+    summary: Die maximal verstrichene Zeit, die der Auftrag ausgeführt werden kann, gemessen ab dem Zeitpunkt, zu dem der Auftrag erstellt wird. Wenn der Auftrag nicht innerhalb des Zeitlimits ausgeführt wird, beendet der Batch-Dienst ihn und alle Tasks, die noch ausgeführt werden. In diesem Fall ist der Abbruch Grund maxwallclocktimeabläuft. Wenn diese Eigenschaft nicht angegeben wird, gibt es keine zeitliche Beschränkung für die Ausführungsdauer des Auftrags. Das erwartete Format ist eine ISO-8601-Dauer.
+    description: ''
+  - name: --json-file
+    summary: Eine Datei, die die Cloud-Auftrags Zeit Plan Spezifikation in JSON enthält (entsprechend dem entsprechenden Rest-API-Text formatiert). Wenn dieser Parameter angegeben wird, werden alle "Cloud Job Schedule Arguments" ignoriert.
+    description: ''
+  - name: --metadata
+    summary: Eine Liste von Name-Wert-Paaren, die dem Zeitplan als Metadaten zugeordnet sind. Der Batch-Dienst weist den Metadaten keine Bedeutung zu. Er dient lediglich der Verwendung von Benutzercode. Durch Leerzeichen getrennte Werte im Format "Key = Value".
+    description: ''
+  - name: --on-all-tasks-complete
+    parameterValueGroup: noaction, terminatejob
+    summary: Die Aktion, die der Batch-Dienst ausführen sollte, wenn alle Tasks in einem Auftrag, der gemäß diesem Zeitplan erstellt wurde, den Status "abgeschlossen" aufweisen. Beachten Sie, dass alle Aufgaben als vollständig angesehen werden, wenn ein Auftrag keine Aufgaben enthält. Diese Option wird daher am häufigsten bei einer Auftrags-Manager-Aufgabe verwendet. Wenn Sie die automatische Auftrags Beendigung ohne einen Auftrags-Manager verwenden möchten, sollten Sie zunächst onalltaskscomplete auf NoAction festlegen und die Auftrags Eigenschaften aktualisieren, um onalltaskscomplete auf terminatejob festzulegen, nachdem Sie das Hinzufügen von Aufgaben abgeschlossen haben. Der Standardwert ist "NoAction".
+    description: ''
+  - name: --pool-id
+    summary: Die ID eines vorhandenen Pools. Alle Aufgaben des Auftrags werden im angegebenen Pool ausgeführt.
+    description: ''
+  - name: --priority
+    summary: Die Priorität der Aufträge, die gemäß diesem Zeitplan erstellt werden. Die Prioritätswerte reichen von -1.000 bis 1.000. Dabei ist -1.000 die niedrigste Priorität und 1000 die höchste Priorität. Der Standardwert ist 0. Diese Priorität wird als Standardeinstellung für alle Aufträge unter dem Auftrags Zeitplan verwendet. Sie können die Priorität eines Auftrags aktualisieren, nachdem er mithilfe der Update Job-API erstellt wurde.
+    description: ''
+  - name: --recurrence-interval
+    summary: 'Das Zeitintervall zwischen den Startzeiten von zwei aufeinander folgenden Aufträgen unter dem Auftrags Zeitplan. Ein Auftrags Zeitplan kann jeweils höchstens einen aktiven Auftrag enthalten. Da ein Auftrags Zeitplan zu einem beliebigen Zeitpunkt über höchstens einen aktiven Auftrag verfügen kann, erstellt der Batch-Dienst erst dann den neuen Auftrag, wenn der vorherige Auftrag abgeschlossen ist, wenn ein neuer Auftrag unter einem Auftrags Zeitplan erstellt werden soll, der vorherige Auftrag jedoch noch ausgeführt wird. Wenn der vorherige Auftrag nicht innerhalb des startwindow-Zeitraums des neuen recurrenceingeterval abgeschlossen wird, wird kein neuer Auftrag für dieses Intervall geplant. Für wiederkehrende Aufträge sollten Sie normalerweise einen jobmanagertask in der jobspecification angeben. Wenn Sie jobmanagertask nicht verwenden, benötigen Sie einen externen Prozess zum Überwachen der Erstellung von Aufträgen, zum Hinzufügen von Aufgaben zu den Aufträgen und zum Beenden der Aufträge, die für die nächste Wiederholung vorbereitet sind. Der Standardwert ist, dass der Zeitplan nicht wiederholt wird: ein Auftrag wird innerhalb des Start Fensters nach der donotrununtil-Zeit erstellt, und der Zeitplan ist abgeschlossen, sobald dieser Auftrag abgeschlossen ist. Der Mindestwert ist 1 Minute. Wenn Sie einen niedrigeren Wert angeben, lehnt der Batch-Dienst den Zeitplan mit einem Fehler ab. Wenn Sie die Rest-API direkt aufrufen, lautet der HTTP-Statuscode 400 (ungültige Anforderung). Das erwartete Format ist eine ISO-8601-Dauer.'
+    description: ''
+  - name: --required-slots
+    summary: Die Anzahl der Zeit Planungs Slots, die der Task für die Ausführung benötigt. Der Standardwert ist 1. Eine Aufgabe kann nur für die Ausführung auf einem Computeknoten geplant werden, wenn für den Knoten genügend kostenlose Zeit Planungs Slots verfügbar sind. Bei Tasks mit mehreren Instanzen muss dies 1 sein.
+    description: ''
+  - name: --start-window
+    summary: Das Zeitintervall, beginnend ab dem Zeitpunkt, zu dem der Zeitplan angibt, dass ein Auftrag erstellt werden soll, in dem ein Auftrag erstellt werden muss. Wenn ein Auftrag nicht innerhalb des startwindow-Intervalls erstellt wird, geht die "Chance" verloren. bis zur nächsten Wiederholung des Zeitplans wird kein Auftrag erstellt. Wenn der Zeitplan wiederholt wird und das startwindow-Intervall länger ist als das Wiederholungsintervall, entspricht dies einem unendlichen startwindow, da der Auftrag, der in einem recurrenceinterval ' Due ' ist, nicht in das nächste Wiederholungsintervall übertragen wird. Der Standardwert ist gleich "infinite". Der Mindestwert ist 1 Minute. Wenn Sie einen niedrigeren Wert angeben, lehnt der Batch-Dienst den Zeitplan mit einem Fehler ab. Wenn Sie die Rest-API direkt aufrufen, lautet der HTTP-Statuscode 400 (ungültige Anforderung). Das erwartete Format ist eine ISO-8601-Dauer.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  - name: --uses-task-dependencies
+    summary: Gibt an, ob Tasks im Auftrag Abhängigkeiten voneinander definieren können. Die Standardeinstellung ist „false“. True, wenn das Flag vorhanden ist.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/batch/_help.py
+- uid: az_batch_job-schedule_delete
+  name: az batch job-schedule delete
+  summary: Löscht einen Auftrags Zeitplan aus dem angegebenen Konto.
+  description: Wenn Sie einen Auftrags Zeitplan löschen, werden dadurch auch alle Aufträge und Aufgaben in diesem Zeitplan gelöscht. Wenn Aufgaben gelöscht werden, werden auch alle Dateien in ihren Arbeits Verzeichnissen auf den Computeknoten gelöscht (die Beibehaltungs Dauer wird ignoriert). Der Zugriff auf die Statistiken des Auftrags Zeitplans ist nicht mehr möglich, sobald der Auftrags Zeitplan gelöscht wurde, obwohl Sie nach wie vor für die Statistik zur Konto Lebensdauer gezählt werden
+  syntax: >-
+    az batch job-schedule delete --job-schedule-id
+                                 [--account-endpoint]
+                                 [--account-key]
+                                 [--account-name]
+                                 [--if-match]
+                                 [--if-modified-since]
+                                 [--if-none-match]
+                                 [--if-unmodified-since]
+                                 [--subscription]
+                                 [--yes]
+  requiredParameters:
+  - isRequired: true
+    name: --job-schedule-id
+    summary: Die ID des Auftrags Zeitplans, der gelöscht werden soll.
+    description: ''
+  optionalParameters:
+  - name: --account-endpoint
+    summary: 'Batch-Dienst Endpunkt. Alternativ dazu können Sie auch durch Umgebungsvariable: AZURE_BATCH_ENDPOINT festlegen.'
+    description: ''
+  - name: --account-key
+    summary: 'Batch-Kontoschlüssel. Alternativ dazu können Sie auch durch Umgebungsvariable: AZURE_BATCH_ACCESS_KEY festlegen.'
+    description: ''
+  - name: --account-name
+    summary: 'Name des Batch-Kontos. Alternativ dazu können Sie auch durch Umgebungsvariable: AZURE_BATCH_ACCOUNT festlegen.'
+    description: ''
+  - name: --if-match
+    summary: Ein ETag-Wert, der der Version der Ressource zugeordnet ist, die dem Client bekannt ist. Der Vorgang wird nur ausgeführt, wenn das aktuelle ETag der Ressource im Dienst exakt mit dem vom Client angegebenen Wert übereinstimmt.
+    description: ''
+  - name: --if-modified-since
+    summary: Ein Zeitstempel, der den Zeitpunkt der letzten Änderung der Ressource angibt, die dem Client bekannt ist. Der Vorgang wird nur ausgeführt, wenn die Ressource für den Dienst seit der angegebenen Zeit geändert wurde.
+    description: ''
+  - name: --if-none-match
+    summary: Ein ETag-Wert, der der Version der Ressource zugeordnet ist, die dem Client bekannt ist. Der Vorgang wird nur ausgeführt, wenn das aktuelle ETag der Ressource für den Dienst nicht mit dem vom Client angegebenen Wert identisch ist.
+    description: ''
+  - name: --if-unmodified-since
+    summary: Ein Zeitstempel, der den Zeitpunkt der letzten Änderung der Ressource angibt, die dem Client bekannt ist. Der Vorgang wird nur ausgeführt, wenn die Ressource für den Dienst seit der angegebenen Zeit nicht geändert wurde.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  - name: --yes -y
+    summary: Nicht zur Bestätigung auffordern
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/batch/_help.py
+- uid: az_batch_job-schedule_disable
+  name: az batch job-schedule disable
+  summary: Deaktiviert einen Auftrags Zeitplan.
+  description: Es werden keine neuen Aufträge erstellt, bis der Auftrags Zeitplan erneut aktiviert wird.
+  syntax: >-
+    az batch job-schedule disable --job-schedule-id
+                                  [--account-endpoint]
+                                  [--account-key]
+                                  [--account-name]
+                                  [--if-match]
+                                  [--if-modified-since]
+                                  [--if-none-match]
+                                  [--if-unmodified-since]
+                                  [--subscription]
+  requiredParameters:
+  - isRequired: true
+    name: --job-schedule-id
+    summary: Die ID des Auftrags Zeitplans, der deaktiviert werden soll.
+    description: ''
+  optionalParameters:
+  - name: --account-endpoint
+    summary: 'Batch-Dienst Endpunkt. Alternativ dazu können Sie auch durch Umgebungsvariable: AZURE_BATCH_ENDPOINT festlegen.'
+    description: ''
+  - name: --account-key
+    summary: 'Batch-Kontoschlüssel. Alternativ dazu können Sie auch durch Umgebungsvariable: AZURE_BATCH_ACCESS_KEY festlegen.'
+    description: ''
+  - name: --account-name
+    summary: 'Name des Batch-Kontos. Alternativ dazu können Sie auch durch Umgebungsvariable: AZURE_BATCH_ACCOUNT festlegen.'
+    description: ''
+  - name: --if-match
+    summary: Ein ETag-Wert, der der Version der Ressource zugeordnet ist, die dem Client bekannt ist. Der Vorgang wird nur ausgeführt, wenn das aktuelle ETag der Ressource im Dienst exakt mit dem vom Client angegebenen Wert übereinstimmt.
+    description: ''
+  - name: --if-modified-since
+    summary: Ein Zeitstempel, der den Zeitpunkt der letzten Änderung der Ressource angibt, die dem Client bekannt ist. Der Vorgang wird nur ausgeführt, wenn die Ressource für den Dienst seit der angegebenen Zeit geändert wurde.
+    description: ''
+  - name: --if-none-match
+    summary: Ein ETag-Wert, der der Version der Ressource zugeordnet ist, die dem Client bekannt ist. Der Vorgang wird nur ausgeführt, wenn das aktuelle ETag der Ressource für den Dienst nicht mit dem vom Client angegebenen Wert identisch ist.
+    description: ''
+  - name: --if-unmodified-since
+    summary: Ein Zeitstempel, der den Zeitpunkt der letzten Änderung der Ressource angibt, die dem Client bekannt ist. Der Vorgang wird nur ausgeführt, wenn die Ressource für den Dienst seit der angegebenen Zeit nicht geändert wurde.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/batch/_help.py
+- uid: az_batch_job-schedule_enable
+  name: az batch job-schedule enable
+  summary: Aktiviert einen Auftrags Zeitplan.
+  description: ''
+  syntax: >-
+    az batch job-schedule enable --job-schedule-id
+                                 [--account-endpoint]
+                                 [--account-key]
+                                 [--account-name]
+                                 [--if-match]
+                                 [--if-modified-since]
+                                 [--if-none-match]
+                                 [--if-unmodified-since]
+                                 [--subscription]
+  requiredParameters:
+  - isRequired: true
+    name: --job-schedule-id
+    summary: Die ID des zu aktivierenden Auftrags Zeitplans.
+    description: ''
+  optionalParameters:
+  - name: --account-endpoint
+    summary: 'Batch-Dienst Endpunkt. Alternativ dazu können Sie auch durch Umgebungsvariable: AZURE_BATCH_ENDPOINT festlegen.'
+    description: ''
+  - name: --account-key
+    summary: 'Batch-Kontoschlüssel. Alternativ dazu können Sie auch durch Umgebungsvariable: AZURE_BATCH_ACCESS_KEY festlegen.'
+    description: ''
+  - name: --account-name
+    summary: 'Name des Batch-Kontos. Alternativ dazu können Sie auch durch Umgebungsvariable: AZURE_BATCH_ACCOUNT festlegen.'
+    description: ''
+  - name: --if-match
+    summary: Ein ETag-Wert, der der Version der Ressource zugeordnet ist, die dem Client bekannt ist. Der Vorgang wird nur ausgeführt, wenn das aktuelle ETag der Ressource im Dienst exakt mit dem vom Client angegebenen Wert übereinstimmt.
+    description: ''
+  - name: --if-modified-since
+    summary: Ein Zeitstempel, der den Zeitpunkt der letzten Änderung der Ressource angibt, die dem Client bekannt ist. Der Vorgang wird nur ausgeführt, wenn die Ressource für den Dienst seit der angegebenen Zeit geändert wurde.
+    description: ''
+  - name: --if-none-match
+    summary: Ein ETag-Wert, der der Version der Ressource zugeordnet ist, die dem Client bekannt ist. Der Vorgang wird nur ausgeführt, wenn das aktuelle ETag der Ressource für den Dienst nicht mit dem vom Client angegebenen Wert identisch ist.
+    description: ''
+  - name: --if-unmodified-since
+    summary: Ein Zeitstempel, der den Zeitpunkt der letzten Änderung der Ressource angibt, die dem Client bekannt ist. Der Vorgang wird nur ausgeführt, wenn die Ressource für den Dienst seit der angegebenen Zeit nicht geändert wurde.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/batch/_help.py
+- uid: az_batch_job-schedule_list
+  name: az batch job-schedule list
+  summary: Listet alle Auftrags Zeitpläne im angegebenen Konto auf.
+  description: ''
+  syntax: >-
+    az batch job-schedule list [--account-endpoint]
+                               [--account-key]
+                               [--account-name]
+                               [--expand]
+                               [--filter]
+                               [--query-examples]
+                               [--select]
+                               [--subscription]
+  optionalParameters:
+  - name: --account-endpoint
+    summary: 'Batch-Dienst Endpunkt. Alternativ dazu können Sie auch durch Umgebungsvariable: AZURE_BATCH_ENDPOINT festlegen.'
+    description: ''
+  - name: --account-key
+    summary: 'Batch-Kontoschlüssel. Alternativ dazu können Sie auch durch Umgebungsvariable: AZURE_BATCH_ACCESS_KEY festlegen.'
+    description: ''
+  - name: --account-name
+    summary: 'Name des Batch-Kontos. Alternativ dazu können Sie auch durch Umgebungsvariable: AZURE_BATCH_ACCOUNT festlegen.'
+    description: ''
+  - name: --expand
+    summary: Eine odata-$expand-Klausel.
+    description: ''
+  - name: --filter
+    summary: Eine odata-$Filter-Klausel. Weitere Informationen zum Erstellen dieses Filters finden Sie unter https://docs.microsoft.com/en-us/rest/api/batchservice/odata-filters-in-batch#list-job-schedules .
+    description: ''
+  - name: --query-examples
+    summary: Empfehlen Sie die jmespath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und Sie nach dem Abfrage Parameter in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positions Schlüsselwörter hinzufügen, um Vorschläge auf der Grundlage dieser Schlüsselwörter zu geben.
+    description: ''
+  - name: --select
+    summary: Eine odata-$SELECT-Klausel.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/batch/_help.py
+- uid: az_batch_job-schedule_reset
+  name: az batch job-schedule reset
+  summary: Zurücksetzen der Eigenschaften eines Auftrags Zeitplans  Eine aktualisierte Auftragsspezifikation gilt nur für neue Aufträge.
+  description: ''
+  syntax: >-
+    az batch job-schedule reset --job-schedule-id
+                                [--account-endpoint]
+                                [--account-key]
+                                [--account-name]
+                                [--do-not-run-after]
+                                [--do-not-run-until]
+                                [--if-match]
+                                [--if-modified-since]
+                                [--if-none-match]
+                                [--if-unmodified-since]
+                                [--job-manager-task-application-package-references]
+                                [--job-manager-task-command-line]
+                                [--job-manager-task-environment-settings]
+                                [--job-manager-task-id]
+                                [--job-manager-task-resource-files]
+                                [--job-metadata]
+                                [--json-file]
+                                [--metadata]
+                                [--on-all-tasks-complete {noaction, terminatejob}]
+                                [--pool-id]
+                                [--priority]
+                                [--recurrence-interval]
+                                [--required-slots]
+                                [--start-window]
+                                [--subscription]
+                                [--uses-task-dependencies]
+  requiredParameters:
+  - isRequired: true
+    name: --job-schedule-id
+    summary: Die ID des Auftrags Zeitplans, der aktualisiert werden soll.
+    description: ''
+  optionalParameters:
+  - name: --account-endpoint
+    summary: 'Batch-Dienst Endpunkt. Alternativ dazu können Sie auch durch Umgebungsvariable: AZURE_BATCH_ENDPOINT festlegen.'
+    description: ''
+  - name: --account-key
+    summary: 'Batch-Kontoschlüssel. Alternativ dazu können Sie auch durch Umgebungsvariable: AZURE_BATCH_ACCESS_KEY festlegen.'
+    description: ''
+  - name: --account-name
+    summary: 'Name des Batch-Kontos. Alternativ dazu können Sie auch durch Umgebungsvariable: AZURE_BATCH_ACCOUNT festlegen.'
+    description: ''
+  - name: --do-not-run-after
+    summary: Eine Zeit, nach der kein Auftrag unter diesem Auftrags Zeitplan erstellt wird. Der Zeitplan wechselt in den Status "abgeschlossen", sobald dieser Stichtag abgelaufen ist und es keinen aktiven Auftrag unter diesem Auftrags Zeitplan gibt. Wenn Sie keine donotrunafter-Zeit angeben und einen Zeitplan für wiederkehrende Aufträge erstellen, bleibt der Auftrags Zeitplan so lange aktiv, bis Sie ihn explizit beenden. Das erwartete Format ist ein ISO-8601-Zeitstempel.
+    description: ''
+  - name: --do-not-run-until
+    summary: Der früheste Zeitpunkt, zu dem ein Auftrag unter diesem Auftrags Zeitplan erstellt werden kann. Wenn Sie keine donotrununtil-Zeit angeben, wird der Zeitplan sofort bereit, Aufträge zu erstellen. Das erwartete Format ist ein ISO-8601-Zeitstempel.
+    description: ''
+  - name: --if-match
+    summary: Ein ETag-Wert, der der Version der Ressource zugeordnet ist, die dem Client bekannt ist. Der Vorgang wird nur ausgeführt, wenn das aktuelle ETag der Ressource im Dienst exakt mit dem vom Client angegebenen Wert übereinstimmt.
+    description: ''
+  - name: --if-modified-since
+    summary: Ein Zeitstempel, der den Zeitpunkt der letzten Änderung der Ressource angibt, die dem Client bekannt ist. Der Vorgang wird nur ausgeführt, wenn die Ressource für den Dienst seit der angegebenen Zeit geändert wurde.
+    description: ''
+  - name: --if-none-match
+    summary: Ein ETag-Wert, der der Version der Ressource zugeordnet ist, die dem Client bekannt ist. Der Vorgang wird nur ausgeführt, wenn das aktuelle ETag der Ressource für den Dienst nicht mit dem vom Client angegebenen Wert identisch ist.
+    description: ''
+  - name: --if-unmodified-since
+    summary: Ein Zeitstempel, der den Zeitpunkt der letzten Änderung der Ressource angibt, die dem Client bekannt ist. Der Vorgang wird nur ausgeführt, wenn die Ressource für den Dienst seit der angegebenen Zeit nicht geändert wurde.
+    description: ''
+  - name: --job-manager-task-application-package-references
+    summary: Eine Liste von Anwendungspaketen, die vom Batch-Dienst vor dem Ausführen der Befehlszeile auf dem Computeknoten bereitgestellt werden. Anwendungspakete werden heruntergeladen und in einem freigegebenen Verzeichnis bereitgestellt, nicht im Arbeitsverzeichnis der Aufgabe. Wenn sich ein Anwendungspaket, auf das verwiesen wird, bereits auf dem Computeknoten befindet und auf dem neuesten Stand ist, wird es daher nicht erneut heruntergeladen. die vorhandene Kopie auf dem Computeknoten wird verwendet. Wenn ein referenziertes Anwendungspaket nicht installiert werden kann, z. b. weil das Paket gelöscht wurde oder weil der Download fehlgeschlagen ist, schlägt der Task fehl. Durch Leerzeichen getrennte Anwendungs-IDs mit optionaler Version im Format "ID [#Version]".
+    description: ''
+  - name: --job-manager-task-command-line
+    summary: Erforderlich. Die Befehlszeile der Auftrags-Manager-Aufgabe. Die Befehlszeile wird nicht unter einer Shell ausgeführt und kann daher keine Shellfeatures wie die Erweiterung der Umgebungsvariablen nutzen. Wenn Sie diese Features nutzen möchten, sollten Sie die Shell in der Befehlszeile aufrufen, z. b. "cmd/c myCommand" in Windows oder "/bin/sh-c myCommand" unter Linux. Wenn sich die Befehlszeile auf Dateipfade bezieht, sollte ein relativer Pfad (relativ zum Arbeitsverzeichnis der Aufgabe) verwendet werden, oder die von Batch bereitgestellte Umgebungsvariable () wird verwendet https://docs.microsoft.com/en-us/azure/batch/batch-compute-node-environment-variables) .
+    description: ''
+  - name: --job-manager-task-environment-settings
+    summary: Eine Liste von Umgebungsvariablen Einstellungen für die Auftrags-Manager-Aufgabe. Durch Leerzeichen getrennte Werte im Format "Key = Value".
+    description: ''
+  - name: --job-manager-task-id
+    summary: Erforderlich. Eine Zeichenfolge, die die Auftrags-Manager-Aufgabe innerhalb des Auftrags eindeutig identifiziert. Die ID kann eine beliebige Kombination aus alphanumerischen Zeichen einschließlich Bindestrichen und unterstrichen enthalten und darf nicht mehr als 64 Zeichen enthalten.
+    description: ''
+  - name: --job-manager-task-resource-files
+    summary: Eine Liste der Dateien, die vom Batch-Dienst auf den Computeknoten heruntergeladen werden, bevor die Befehlszeile ausgeführt wird. Die unter diesem Element aufgeführten Dateien befinden sich im Arbeitsverzeichnis der Aufgabe. Es ist eine maximale Größe für die Liste der Ressourcen Dateien vorhanden.  Wenn die maximale Größe überschritten wird, schlägt die Anforderung fehl, und der Antwort Fehlercode ist RequestEntityTooLarge. Wenn dies auftritt, muss die Größe der ResourceFiles-Auflistung reduziert werden. Dies kann mithilfe von ZIP-Dateien, Anwendungspaketen oder docker-Containern erreicht werden. Durch Leerzeichen getrennte Ressourcen Verweise im Dateiname = HttpUrl-Format.
+    description: ''
+  - name: --job-metadata
+    summary: Eine Liste von Name-Wert-Paaren, die den einzelnen Aufträgen zugeordnet sind, die gemäß diesem Zeitplan als Metadaten erstellt werden. Der Batch-Dienst weist den Metadaten keine Bedeutung zu. Er dient lediglich der Verwendung von Benutzercode. Durch Leerzeichen getrennte Werte im Format "Key = Value".
+    description: ''
+  - name: --json-file
+    summary: Eine Datei, die die Parameter Spezifikation für den Auftrags Zeitplan im JSON-Format enthält (entsprechend dem entsprechenden Rest-API-Text formatiert). Wenn dieser Parameter angegeben wird, werden alle "Auftrags Zeit Plan Argumente" ignoriert.
+    description: ''
+  - name: --metadata
+    summary: Eine Liste von Name-Wert-Paaren, die dem Auftrags Zeitplan als Metadaten zugeordnet sind. Wenn Sie dieses Element nicht angeben, wird der Standardwert einer leeren Liste benötigt. Tatsächlich werden vorhandene Metadaten gelöscht. Durch Leerzeichen getrennte Werte im Format "Key = Value".
+    description: ''
+  - name: --on-all-tasks-complete
+    parameterValueGroup: noaction, terminatejob
+    summary: Die Aktion, die der Batch-Dienst ausführen sollte, wenn alle Tasks in einem Auftrag, der gemäß diesem Zeitplan erstellt wurde, den Status "abgeschlossen" aufweisen. Beachten Sie, dass alle Aufgaben als vollständig angesehen werden, wenn ein Auftrag keine Aufgaben enthält. Diese Option wird daher am häufigsten bei einer Auftrags-Manager-Aufgabe verwendet. Wenn Sie die automatische Auftrags Beendigung ohne einen Auftrags-Manager verwenden möchten, sollten Sie zunächst onalltaskscomplete auf NoAction festlegen und die Auftrags Eigenschaften aktualisieren, um onalltaskscomplete auf terminatejob festzulegen, nachdem Sie das Hinzufügen von Aufgaben abgeschlossen haben. Der Standardwert ist "NoAction".
+    description: ''
+  - name: --pool-id
+    summary: Die ID eines vorhandenen Pools. Alle Aufgaben des Auftrags werden im angegebenen Pool ausgeführt.
+    description: ''
+  - name: --priority
+    summary: Die Priorität der Aufträge, die gemäß diesem Zeitplan erstellt werden. Die Prioritätswerte reichen von -1.000 bis 1.000. Dabei ist -1.000 die niedrigste Priorität und 1000 die höchste Priorität. Der Standardwert ist 0. Diese Priorität wird als Standardeinstellung für alle Aufträge unter dem Auftrags Zeitplan verwendet. Sie können die Priorität eines Auftrags aktualisieren, nachdem er mithilfe der Update Job-API erstellt wurde.
+    description: ''
+  - name: --recurrence-interval
+    summary: 'Das Zeitintervall zwischen den Startzeiten von zwei aufeinander folgenden Aufträgen unter dem Auftrags Zeitplan. Ein Auftrags Zeitplan kann jeweils höchstens einen aktiven Auftrag enthalten. Da ein Auftrags Zeitplan zu einem beliebigen Zeitpunkt über höchstens einen aktiven Auftrag verfügen kann, erstellt der Batch-Dienst erst dann den neuen Auftrag, wenn der vorherige Auftrag abgeschlossen ist, wenn ein neuer Auftrag unter einem Auftrags Zeitplan erstellt werden soll, der vorherige Auftrag jedoch noch ausgeführt wird. Wenn der vorherige Auftrag nicht innerhalb des startwindow-Zeitraums des neuen recurrenceingeterval abgeschlossen wird, wird kein neuer Auftrag für dieses Intervall geplant. Für wiederkehrende Aufträge sollten Sie normalerweise einen jobmanagertask in der jobspecification angeben. Wenn Sie jobmanagertask nicht verwenden, benötigen Sie einen externen Prozess zum Überwachen der Erstellung von Aufträgen, zum Hinzufügen von Aufgaben zu den Aufträgen und zum Beenden der Aufträge, die für die nächste Wiederholung vorbereitet sind. Der Standardwert ist, dass der Zeitplan nicht wiederholt wird: ein Auftrag wird innerhalb des Start Fensters nach der donotrununtil-Zeit erstellt, und der Zeitplan ist abgeschlossen, sobald dieser Auftrag abgeschlossen ist. Der Mindestwert ist 1 Minute. Wenn Sie einen niedrigeren Wert angeben, lehnt der Batch-Dienst den Zeitplan mit einem Fehler ab. Wenn Sie die Rest-API direkt aufrufen, lautet der HTTP-Statuscode 400 (ungültige Anforderung). Das erwartete Format ist eine ISO-8601-Dauer.'
+    description: ''
+  - name: --required-slots
+    summary: Die Anzahl der Zeit Planungs Slots, die der Task für die Ausführung benötigt. Der Standardwert ist 1. Eine Aufgabe kann nur für die Ausführung auf einem Computeknoten geplant werden, wenn für den Knoten genügend kostenlose Zeit Planungs Slots verfügbar sind. Bei Tasks mit mehreren Instanzen muss dies 1 sein.
+    description: ''
+  - name: --start-window
+    summary: Das Zeitintervall, beginnend ab dem Zeitpunkt, zu dem der Zeitplan angibt, dass ein Auftrag erstellt werden soll, in dem ein Auftrag erstellt werden muss. Wenn ein Auftrag nicht innerhalb des startwindow-Intervalls erstellt wird, geht die "Chance" verloren. bis zur nächsten Wiederholung des Zeitplans wird kein Auftrag erstellt. Wenn der Zeitplan wiederholt wird und das startwindow-Intervall länger ist als das Wiederholungsintervall, entspricht dies einem unendlichen startwindow, da der Auftrag, der in einem recurrenceinterval ' Due ' ist, nicht in das nächste Wiederholungsintervall übertragen wird. Der Standardwert ist gleich "infinite". Der Mindestwert ist 1 Minute. Wenn Sie einen niedrigeren Wert angeben, lehnt der Batch-Dienst den Zeitplan mit einem Fehler ab. Wenn Sie die Rest-API direkt aufrufen, lautet der HTTP-Statuscode 400 (ungültige Anforderung). Das erwartete Format ist eine ISO-8601-Dauer.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  - name: --uses-task-dependencies
+    summary: Gibt an, ob Tasks im Auftrag Abhängigkeiten voneinander definieren können. Die Standardeinstellung ist „false“. True, wenn das Flag vorhanden ist.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/batch/_help.py
+- uid: az_batch_job-schedule_set
+  name: az batch job-schedule set
+  summary: Aktualisieren Sie die Eigenschaften eines Auftrags Zeitplans.
+  description: Sie können den Zeitplan und die Auftragsspezifikation unabhängig voneinander aktualisieren, aber jede Änderung an einer dieser Entitäten setzt alle Eigenschaften in dieser Entität zurück.
+  syntax: >-
+    az batch job-schedule set --job-schedule-id
+                              [--account-endpoint]
+                              [--account-key]
+                              [--account-name]
+                              [--do-not-run-after]
+                              [--do-not-run-until]
+                              [--if-match]
+                              [--if-modified-since]
+                              [--if-none-match]
+                              [--if-unmodified-since]
+                              [--job-manager-task-application-package-references]
+                              [--job-manager-task-command-line]
+                              [--job-manager-task-environment-settings]
+                              [--job-manager-task-id]
+                              [--job-manager-task-resource-files]
+                              [--job-metadata]
+                              [--json-file]
+                              [--metadata]
+                              [--on-all-tasks-complete {noaction, terminatejob}]
+                              [--pool-id]
+                              [--priority]
+                              [--recurrence-interval]
+                              [--required-slots]
+                              [--start-window]
+                              [--subscription]
+                              [--uses-task-dependencies]
+  requiredParameters:
+  - isRequired: true
+    name: --job-schedule-id
+    summary: Die ID des Auftrags Zeitplans, der aktualisiert werden soll.
+    description: ''
+  optionalParameters:
+  - name: --account-endpoint
+    summary: 'Batch-Dienst Endpunkt. Alternativ dazu können Sie auch durch Umgebungsvariable: AZURE_BATCH_ENDPOINT festlegen.'
+    description: ''
+  - name: --account-key
+    summary: 'Batch-Kontoschlüssel. Alternativ dazu können Sie auch durch Umgebungsvariable: AZURE_BATCH_ACCESS_KEY festlegen.'
+    description: ''
+  - name: --account-name
+    summary: 'Name des Batch-Kontos. Alternativ dazu können Sie auch durch Umgebungsvariable: AZURE_BATCH_ACCOUNT festlegen.'
+    description: ''
+  - name: --do-not-run-after
+    summary: Eine Zeit, nach der kein Auftrag unter diesem Auftrags Zeitplan erstellt wird. Der Zeitplan wechselt in den Status "abgeschlossen", sobald dieser Stichtag abgelaufen ist und es keinen aktiven Auftrag unter diesem Auftrags Zeitplan gibt. Wenn Sie keine donotrunafter-Zeit angeben und einen Zeitplan für wiederkehrende Aufträge erstellen, bleibt der Auftrags Zeitplan so lange aktiv, bis Sie ihn explizit beenden. Das erwartete Format ist ein ISO-8601-Zeitstempel.
+    description: ''
+  - name: --do-not-run-until
+    summary: Der früheste Zeitpunkt, zu dem ein Auftrag unter diesem Auftrags Zeitplan erstellt werden kann. Wenn Sie keine donotrununtil-Zeit angeben, wird der Zeitplan sofort bereit, Aufträge zu erstellen. Das erwartete Format ist ein ISO-8601-Zeitstempel.
+    description: ''
+  - name: --if-match
+    summary: Ein ETag-Wert, der der Version der Ressource zugeordnet ist, die dem Client bekannt ist. Der Vorgang wird nur ausgeführt, wenn das aktuelle ETag der Ressource im Dienst exakt mit dem vom Client angegebenen Wert übereinstimmt.
+    description: ''
+  - name: --if-modified-since
+    summary: Ein Zeitstempel, der den Zeitpunkt der letzten Änderung der Ressource angibt, die dem Client bekannt ist. Der Vorgang wird nur ausgeführt, wenn die Ressource für den Dienst seit der angegebenen Zeit geändert wurde.
+    description: ''
+  - name: --if-none-match
+    summary: Ein ETag-Wert, der der Version der Ressource zugeordnet ist, die dem Client bekannt ist. Der Vorgang wird nur ausgeführt, wenn das aktuelle ETag der Ressource für den Dienst nicht mit dem vom Client angegebenen Wert identisch ist.
+    description: ''
+  - name: --if-unmodified-since
+    summary: Ein Zeitstempel, der den Zeitpunkt der letzten Änderung der Ressource angibt, die dem Client bekannt ist. Der Vorgang wird nur ausgeführt, wenn die Ressource für den Dienst seit der angegebenen Zeit nicht geändert wurde.
+    description: ''
+  - name: --job-manager-task-application-package-references
+    summary: Eine Liste von Anwendungspaketen, die vom Batch-Dienst vor dem Ausführen der Befehlszeile auf dem Computeknoten bereitgestellt werden. Anwendungspakete werden heruntergeladen und in einem freigegebenen Verzeichnis bereitgestellt, nicht im Arbeitsverzeichnis der Aufgabe. Wenn sich ein Anwendungspaket, auf das verwiesen wird, bereits auf dem Computeknoten befindet und auf dem neuesten Stand ist, wird es daher nicht erneut heruntergeladen. die vorhandene Kopie auf dem Computeknoten wird verwendet. Wenn ein referenziertes Anwendungspaket nicht installiert werden kann, z. b. weil das Paket gelöscht wurde oder weil der Download fehlgeschlagen ist, schlägt der Task fehl. Durch Leerzeichen getrennte Anwendungs-IDs mit optionaler Version im Format "ID [#Version]".
+    description: ''
+  - name: --job-manager-task-command-line
+    summary: Erforderlich. Die Befehlszeile der Auftrags-Manager-Aufgabe. Die Befehlszeile wird nicht unter einer Shell ausgeführt und kann daher keine Shellfeatures wie die Erweiterung der Umgebungsvariablen nutzen. Wenn Sie diese Features nutzen möchten, sollten Sie die Shell in der Befehlszeile aufrufen, z. b. "cmd/c myCommand" in Windows oder "/bin/sh-c myCommand" unter Linux. Wenn sich die Befehlszeile auf Dateipfade bezieht, sollte ein relativer Pfad (relativ zum Arbeitsverzeichnis der Aufgabe) verwendet werden, oder die von Batch bereitgestellte Umgebungsvariable () wird verwendet https://docs.microsoft.com/en-us/azure/batch/batch-compute-node-environment-variables) .
+    description: ''
+  - name: --job-manager-task-environment-settings
+    summary: Eine Liste von Umgebungsvariablen Einstellungen für die Auftrags-Manager-Aufgabe. Durch Leerzeichen getrennte Werte im Format "Key = Value".
+    description: ''
+  - name: --job-manager-task-id
+    summary: Erforderlich. Eine Zeichenfolge, die die Auftrags-Manager-Aufgabe innerhalb des Auftrags eindeutig identifiziert. Die ID kann eine beliebige Kombination aus alphanumerischen Zeichen einschließlich Bindestrichen und unterstrichen enthalten und darf nicht mehr als 64 Zeichen enthalten.
+    description: ''
+  - name: --job-manager-task-resource-files
+    summary: Eine Liste der Dateien, die vom Batch-Dienst auf den Computeknoten heruntergeladen werden, bevor die Befehlszeile ausgeführt wird. Die unter diesem Element aufgeführten Dateien befinden sich im Arbeitsverzeichnis der Aufgabe. Es ist eine maximale Größe für die Liste der Ressourcen Dateien vorhanden.  Wenn die maximale Größe überschritten wird, schlägt die Anforderung fehl, und der Antwort Fehlercode ist RequestEntityTooLarge. Wenn dies auftritt, muss die Größe der ResourceFiles-Auflistung reduziert werden. Dies kann mithilfe von ZIP-Dateien, Anwendungspaketen oder docker-Containern erreicht werden. Durch Leerzeichen getrennte Ressourcen Verweise im Dateiname = HttpUrl-Format.
+    description: ''
+  - name: --job-metadata
+    summary: Eine Liste von Name-Wert-Paaren, die den einzelnen Aufträgen zugeordnet sind, die gemäß diesem Zeitplan als Metadaten erstellt werden. Der Batch-Dienst weist den Metadaten keine Bedeutung zu. Er dient lediglich der Verwendung von Benutzercode. Durch Leerzeichen getrennte Werte im Format "Key = Value".
+    description: ''
+  - name: --json-file
+    summary: Eine Datei, die die Parameter Spezifikation für den Auftrags Zeitplan im JSON-Format enthält (entsprechend dem entsprechenden Rest-API-Text formatiert). Wenn dieser Parameter angegeben wird, werden alle "Auftrags Zeit Plan Argumente" ignoriert.
+    description: ''
+  - name: --metadata
+    summary: Eine Liste von Name-Wert-Paaren, die dem Auftrags Zeitplan als Metadaten zugeordnet sind. Wenn Sie dieses Element nicht angeben, bleiben vorhandene Metadaten unverändert. Durch Leerzeichen getrennte Werte im Format "Key = Value".
+    description: ''
+  - name: --on-all-tasks-complete
+    parameterValueGroup: noaction, terminatejob
+    summary: Die Aktion, die der Batch-Dienst ausführen sollte, wenn alle Tasks in einem Auftrag, der gemäß diesem Zeitplan erstellt wurde, den Status "abgeschlossen" aufweisen. Beachten Sie, dass alle Aufgaben als vollständig angesehen werden, wenn ein Auftrag keine Aufgaben enthält. Diese Option wird daher am häufigsten bei einer Auftrags-Manager-Aufgabe verwendet. Wenn Sie die automatische Auftrags Beendigung ohne einen Auftrags-Manager verwenden möchten, sollten Sie zunächst onalltaskscomplete auf NoAction festlegen und die Auftrags Eigenschaften aktualisieren, um onalltaskscomplete auf terminatejob festzulegen, nachdem Sie das Hinzufügen von Aufgaben abgeschlossen haben. Der Standardwert ist "NoAction".
+    description: ''
+  - name: --pool-id
+    summary: Die ID eines vorhandenen Pools. Alle Aufgaben des Auftrags werden im angegebenen Pool ausgeführt.
+    description: ''
+  - name: --priority
+    summary: Die Priorität der Aufträge, die gemäß diesem Zeitplan erstellt werden. Die Prioritätswerte reichen von -1.000 bis 1.000. Dabei ist -1.000 die niedrigste Priorität und 1000 die höchste Priorität. Der Standardwert ist 0. Diese Priorität wird als Standardeinstellung für alle Aufträge unter dem Auftrags Zeitplan verwendet. Sie können die Priorität eines Auftrags aktualisieren, nachdem er mithilfe der Update Job-API erstellt wurde.
+    description: ''
+  - name: --recurrence-interval
+    summary: 'Das Zeitintervall zwischen den Startzeiten von zwei aufeinander folgenden Aufträgen unter dem Auftrags Zeitplan. Ein Auftrags Zeitplan kann jeweils höchstens einen aktiven Auftrag enthalten. Da ein Auftrags Zeitplan zu einem beliebigen Zeitpunkt über höchstens einen aktiven Auftrag verfügen kann, erstellt der Batch-Dienst erst dann den neuen Auftrag, wenn der vorherige Auftrag abgeschlossen ist, wenn ein neuer Auftrag unter einem Auftrags Zeitplan erstellt werden soll, der vorherige Auftrag jedoch noch ausgeführt wird. Wenn der vorherige Auftrag nicht innerhalb des startwindow-Zeitraums des neuen recurrenceingeterval abgeschlossen wird, wird kein neuer Auftrag für dieses Intervall geplant. Für wiederkehrende Aufträge sollten Sie normalerweise einen jobmanagertask in der jobspecification angeben. Wenn Sie jobmanagertask nicht verwenden, benötigen Sie einen externen Prozess zum Überwachen der Erstellung von Aufträgen, zum Hinzufügen von Aufgaben zu den Aufträgen und zum Beenden der Aufträge, die für die nächste Wiederholung vorbereitet sind. Der Standardwert ist, dass der Zeitplan nicht wiederholt wird: ein Auftrag wird innerhalb des Start Fensters nach der donotrununtil-Zeit erstellt, und der Zeitplan ist abgeschlossen, sobald dieser Auftrag abgeschlossen ist. Der Mindestwert ist 1 Minute. Wenn Sie einen niedrigeren Wert angeben, lehnt der Batch-Dienst den Zeitplan mit einem Fehler ab. Wenn Sie die Rest-API direkt aufrufen, lautet der HTTP-Statuscode 400 (ungültige Anforderung). Das erwartete Format ist eine ISO-8601-Dauer.'
+    description: ''
+  - name: --required-slots
+    summary: Die Anzahl der Zeit Planungs Slots, die der Task für die Ausführung benötigt. Der Standardwert ist 1. Eine Aufgabe kann nur für die Ausführung auf einem Computeknoten geplant werden, wenn für den Knoten genügend kostenlose Zeit Planungs Slots verfügbar sind. Bei Tasks mit mehreren Instanzen muss dies 1 sein.
+    description: ''
+  - name: --start-window
+    summary: Das Zeitintervall, beginnend ab dem Zeitpunkt, zu dem der Zeitplan angibt, dass ein Auftrag erstellt werden soll, in dem ein Auftrag erstellt werden muss. Wenn ein Auftrag nicht innerhalb des startwindow-Intervalls erstellt wird, geht die "Chance" verloren. bis zur nächsten Wiederholung des Zeitplans wird kein Auftrag erstellt. Wenn der Zeitplan wiederholt wird und das startwindow-Intervall länger ist als das Wiederholungsintervall, entspricht dies einem unendlichen startwindow, da der Auftrag, der in einem recurrenceinterval ' Due ' ist, nicht in das nächste Wiederholungsintervall übertragen wird. Der Standardwert ist gleich "infinite". Der Mindestwert ist 1 Minute. Wenn Sie einen niedrigeren Wert angeben, lehnt der Batch-Dienst den Zeitplan mit einem Fehler ab. Wenn Sie die Rest-API direkt aufrufen, lautet der HTTP-Statuscode 400 (ungültige Anforderung). Das erwartete Format ist eine ISO-8601-Dauer.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  - name: --uses-task-dependencies
+    summary: Gibt an, ob Tasks im Auftrag Abhängigkeiten voneinander definieren können. Die Standardeinstellung ist „false“. Geben Sie entweder "true" oder "false" an, um die Eigenschaft zu aktualisieren.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/batch/_help.py
+- uid: az_batch_job-schedule_show
+  name: az batch job-schedule show
+  summary: Ruft Informationen über den angegebenen Auftrags Zeitplan ab.
+  description: ''
+  syntax: >-
+    az batch job-schedule show --job-schedule-id
+                               [--account-endpoint]
+                               [--account-key]
+                               [--account-name]
+                               [--expand]
+                               [--if-match]
+                               [--if-modified-since]
+                               [--if-none-match]
+                               [--if-unmodified-since]
+                               [--query-examples]
+                               [--select]
+                               [--subscription]
+  requiredParameters:
+  - isRequired: true
+    name: --job-schedule-id
+    summary: Die ID des zu erzurufenden Auftrags Zeitplans.
+    description: ''
+  optionalParameters:
+  - name: --account-endpoint
+    summary: 'Batch-Dienst Endpunkt. Alternativ dazu können Sie auch durch Umgebungsvariable: AZURE_BATCH_ENDPOINT festlegen.'
+    description: ''
+  - name: --account-key
+    summary: 'Batch-Kontoschlüssel. Alternativ dazu können Sie auch durch Umgebungsvariable: AZURE_BATCH_ACCESS_KEY festlegen.'
+    description: ''
+  - name: --account-name
+    summary: 'Name des Batch-Kontos. Alternativ dazu können Sie auch durch Umgebungsvariable: AZURE_BATCH_ACCOUNT festlegen.'
+    description: ''
+  - name: --expand
+    summary: Eine odata-$expand-Klausel.
+    description: ''
+  - name: --if-match
+    summary: Ein ETag-Wert, der der Version der Ressource zugeordnet ist, die dem Client bekannt ist. Der Vorgang wird nur ausgeführt, wenn das aktuelle ETag der Ressource im Dienst exakt mit dem vom Client angegebenen Wert übereinstimmt.
+    description: ''
+  - name: --if-modified-since
+    summary: Ein Zeitstempel, der den Zeitpunkt der letzten Änderung der Ressource angibt, die dem Client bekannt ist. Der Vorgang wird nur ausgeführt, wenn die Ressource für den Dienst seit der angegebenen Zeit geändert wurde.
+    description: ''
+  - name: --if-none-match
+    summary: Ein ETag-Wert, der der Version der Ressource zugeordnet ist, die dem Client bekannt ist. Der Vorgang wird nur ausgeführt, wenn das aktuelle ETag der Ressource für den Dienst nicht mit dem vom Client angegebenen Wert identisch ist.
+    description: ''
+  - name: --if-unmodified-since
+    summary: Ein Zeitstempel, der den Zeitpunkt der letzten Änderung der Ressource angibt, die dem Client bekannt ist. Der Vorgang wird nur ausgeführt, wenn die Ressource für den Dienst seit der angegebenen Zeit nicht geändert wurde.
+    description: ''
+  - name: --query-examples
+    summary: Empfehlen Sie die jmespath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und Sie nach dem Abfrage Parameter in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positions Schlüsselwörter hinzufügen, um Vorschläge auf der Grundlage dieser Schlüsselwörter zu geben.
+    description: ''
+  - name: --select
+    summary: Eine odata-$SELECT-Klausel.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/batch/_help.py
+- uid: az_batch_job-schedule_stop
+  name: az batch job-schedule stop
+  summary: Beendet einen Auftrags Zeitplan.
+  description: ''
+  syntax: >-
+    az batch job-schedule stop --job-schedule-id
+                               [--account-endpoint]
+                               [--account-key]
+                               [--account-name]
+                               [--if-match]
+                               [--if-modified-since]
+                               [--if-none-match]
+                               [--if-unmodified-since]
+                               [--subscription]
+  requiredParameters:
+  - isRequired: true
+    name: --job-schedule-id
+    summary: Die ID des Auftrags Zeitplans, der beendet werden soll.
+    description: ''
+  optionalParameters:
+  - name: --account-endpoint
+    summary: 'Batch-Dienst Endpunkt. Alternativ dazu können Sie auch durch Umgebungsvariable: AZURE_BATCH_ENDPOINT festlegen.'
+    description: ''
+  - name: --account-key
+    summary: 'Batch-Kontoschlüssel. Alternativ dazu können Sie auch durch Umgebungsvariable: AZURE_BATCH_ACCESS_KEY festlegen.'
+    description: ''
+  - name: --account-name
+    summary: 'Name des Batch-Kontos. Alternativ dazu können Sie auch durch Umgebungsvariable: AZURE_BATCH_ACCOUNT festlegen.'
+    description: ''
+  - name: --if-match
+    summary: Ein ETag-Wert, der der Version der Ressource zugeordnet ist, die dem Client bekannt ist. Der Vorgang wird nur ausgeführt, wenn das aktuelle ETag der Ressource im Dienst exakt mit dem vom Client angegebenen Wert übereinstimmt.
+    description: ''
+  - name: --if-modified-since
+    summary: Ein Zeitstempel, der den Zeitpunkt der letzten Änderung der Ressource angibt, die dem Client bekannt ist. Der Vorgang wird nur ausgeführt, wenn die Ressource für den Dienst seit der angegebenen Zeit geändert wurde.
+    description: ''
+  - name: --if-none-match
+    summary: Ein ETag-Wert, der der Version der Ressource zugeordnet ist, die dem Client bekannt ist. Der Vorgang wird nur ausgeführt, wenn das aktuelle ETag der Ressource für den Dienst nicht mit dem vom Client angegebenen Wert identisch ist.
+    description: ''
+  - name: --if-unmodified-since
+    summary: Ein Zeitstempel, der den Zeitpunkt der letzten Änderung der Ressource angibt, die dem Client bekannt ist. Der Vorgang wird nur ausgeführt, wenn die Ressource für den Dienst seit der angegebenen Zeit nicht geändert wurde.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/batch/_help.py
+commands:
+- az_batch_job-schedule_create
+- az_batch_job-schedule_delete
+- az_batch_job-schedule_disable
+- az_batch_job-schedule_enable
+- az_batch_job-schedule_list
+- az_batch_job-schedule_reset
+- az_batch_job-schedule_set
+- az_batch_job-schedule_show
+- az_batch_job-schedule_stop
+globalParameters:
+- name: --debug
+  summary: Ausführlichkeit der Protokollierung erhöhen, um alle Debugprotokolle anzuzeigen.
+- name: --help -h
+  summary: Zeigen Sie diese Hilfemeldung an, und schließen Sie sie.
+- name: --only-show-errors
+  summary: Nur Fehler anzeigen und Warnungen unterdrücken.
+- name: --output -o
+  defaultValue: json
+  parameterValueGroup: json, jsonc, table, tsv
+  summary: Ausgabeformat.
+- name: --query
+  summary: JMESPath-Abfragezeichenfolge. Weitere Informationen und Beispiele finden Sie unter <a href="http://jmespath.org/">http://jmespath.org/</a>.
+- name: --verbose
+  summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
+metadata:
+  doc_source_url_repo: https://github.com/Azure/azure-cli/blob/dev/
+  ms.date: 12/07/2020
+  description: Verwalten von Batch-Auftrags Zeitplänen.
+  ms.openlocfilehash: 9a4d4e45acd7070adb9bf6b52ed9c88857beec42
+  ms.sourcegitcommit: 612554c029ba1f28d3a43fd22e743104a1a30ea0
+  ms.translationtype: MT
+  ms.contentlocale: de-DE
+  ms.lasthandoff: 04/07/2021
+  ms.locfileid: "106830694"

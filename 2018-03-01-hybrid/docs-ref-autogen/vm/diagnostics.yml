@@ -1,0 +1,174 @@
+### YamlMime:AzureCLIGroup
+uid: az_vm_diagnostics
+name: az vm diagnostics
+summary: Konfigurieren Sie die Diagnoseerweiterung für virtuelle Azure-Computer.
+description: ''
+directCommands:
+- uid: az_vm_diagnostics_get-default-config
+  name: az vm diagnostics get-default-config
+  summary: Abrufen der Standardkonfigurationseinstellungen für einen virtuellen Computer.
+  description: ''
+  syntax: >-
+    az vm diagnostics get-default-config [--is-windows-os]
+                                         [--subscription]
+  examples:
+  - summary: Abrufen der Standarddiagnose für einen virtuellen Linux-Computer und Überschreiben des Speicherkontonamens und der VM-Ressourcen-ID
+    syntax: >-
+      az vm diagnostics get-default-config \
+          | sed "s#__DIAGNOSTIC_STORAGE_ACCOUNT__#MyStorageAccount#g" \
+          | sed "s#__VM_OR_VMSS_RESOURCE_ID__#MyVmResourceId#g"
+  - summary: Abrufen der Standarddiagnose für einen virtuellen Windows-Computer.
+    syntax: az vm diagnostics get-default-config --is-windows-os
+  optionalParameters:
+  - name: --is-windows-os
+    summary: Für virtuelle Windows-Computer.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/vm/_help.py
+- uid: az_vm_diagnostics_set
+  name: az vm diagnostics set
+  summary: Konfigurieren Sie die Azure-VM-Diagnoseerweiterung.
+  description: ''
+  syntax: >-
+    az vm diagnostics set --settings
+                          [--ids]
+                          [--no-auto-upgrade {false, true}]
+                          [--no-auto-upgrade-minor-version {false, true}]
+                          [--protected-settings]
+                          [--resource-group]
+                          [--subscription]
+                          [--version]
+                          [--vm-name]
+  examples:
+  - summary: Richten Sie die Standarddiagnose auf einem virtuellen Linux-Computer für Metrikdiagramme und syslog-Sammlungen im Azure-Portal ein.
+    syntax: >-
+      # Set the following 3 parameters first.
+
+      my_resource_group={Resource group name containing your Linux VM and the storage account}
+
+      my_linux_vm={Your Azure Linux VM name}
+
+      my_diagnostic_storage_account={Your Azure storage account for storing VM diagnostic data}
+
+
+      my_vm_resource_id=$(az vm show -g $my_resource_group -n $my_linux_vm --query "id" -o tsv)
+
+
+      default_config=$(az vm diagnostics get-default-config \
+          | sed "s#__DIAGNOSTIC_STORAGE_ACCOUNT__#$my_diagnostic_storage_account#g" \
+          | sed "s#__VM_OR_VMSS_RESOURCE_ID__#$my_vm_resource_id#g")
+
+      storage_sastoken=$(az storage account generate-sas \
+          --account-name $my_diagnostic_storage_account --expiry 2037-12-31T23:59:00Z \
+          --permissions wlacu --resource-types co --services bt -o tsv)
+
+      protected_settings="{'storageAccountName': '$my_diagnostic_storage_account', \
+          'storageAccountSasToken': '$storage_sastoken'}"
+
+      az vm diagnostics set --settings "$default_config" \
+          --protected-settings "$protected_settings" \
+          --resource-group $my_resource_group --vm-name $my_linux_vm
+  - summary: Richten Sie die Standarddiagnose auf einem virtuellen Windows-Computer ein.
+    syntax: >-
+      # Set the following 3 parameters first.
+
+      my_resource_group={Resource group name containing your Windows VM and the storage account}
+
+      my_windows_vm={Your Azure Windows VM name}
+
+      my_diagnostic_storage_account={Your Azure storage account for storing VM diagnostic data}
+
+
+      my_vm_resource_id=$(az vm show -g $my_resource_group -n $my_windows_vm --query "id" -o tsv)
+
+
+      default_config=$(az vm diagnostics get-default-config  --is-windows-os \
+          | sed "s#__DIAGNOSTIC_STORAGE_ACCOUNT__#$my_diagnostic_storage_account#g" \
+          | sed "s#__VM_OR_VMSS_RESOURCE_ID__#$my_vm_resource_id#g")
+
+      # Please use the same options, the WAD diagnostic extension has strict
+
+      # expectations of the sas token's format. Set the expiry as desired.
+
+      storage_sastoken=$(az storage account generate-sas \
+          --account-name $my_diagnostic_storage_account --expiry 2037-12-31T23:59:00Z \
+          --permissions acuw --resource-types co --services bt --https-only --output tsv)
+
+      protected_settings="{'storageAccountName': '$my_diagnostic_storage_account', \
+          'storageAccountSasToken': '$storage_sastoken'}"
+
+      az vm diagnostics set --settings "$default_config" \
+          --protected-settings "$protected_settings" \
+          --resource-group $my_resource_group --vm-name $my_windows_vm
+
+      # # Alternatively, if the WAD extension has issues parsing the sas token,
+
+      # # one can use a storage account key instead.
+
+      storage_account_key=$(az storage account keys list --account-name {my_storage_account} \
+        --query [0].value -o tsv)
+      protected_settings="{'storageAccountName': '$my_diagnostic_storage_account', \
+        'storageAccountKey': '$storage_account_key'}"
+  requiredParameters:
+  - isRequired: true
+    name: --settings
+    summary: Json-Zeichenfolge oder Ein Dateipfad, der die zu sammelnden Daten definiert.
+    description: ''
+  optionalParameters:
+  - name: --ids
+    summary: Mindestens eine Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu "Ressourcen-ID"-Argumenten sein. Sie sollten entweder --ids oder andere "Resource Id"-Argumente angeben.
+    description: ''
+  - name: --no-auto-upgrade
+    parameterValueGroup: false, true
+    summary: Wenn diese Einstellung festgelegt ist, wählt der Erweiterungsdienst nicht automatisch die neueste Nebenversion aus oder führt ein Upgrade auf diese aus, auch wenn die Erweiterung erneut bereitgestellt wird.
+    description: ''
+  - name: --no-auto-upgrade-minor-version
+    parameterValueGroup: false, true
+    summary: Wenn diese Einstellung festgelegt ist, wählt der Erweiterungsdienst nicht automatisch die neueste Nebenversion aus oder führt ein Upgrade auf diese aus, auch wenn die Erweiterung erneut bereitgestellt wird.
+    description: ''
+  - name: --protected-settings
+    summary: Json-Zeichenfolge oder ein Dateipfad mit privaten Konfigurationen wie Speicherkontoschlüsseln usw.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+  - name: --version
+    summary: Version der Diagnoseerweiterung. Verwendet die neueste , wenn sie nicht spezifikationsdezifiiert ist.
+    description: ''
+  - name: --vm-name
+    summary: Der Name des virtuellen Computers. Sie können die Standardeinstellung mit `az configure --defaults vm=<name>` konfigurieren.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/vm/_help.py
+commands:
+- az_vm_diagnostics_get-default-config
+- az_vm_diagnostics_set
+globalParameters:
+- name: --debug
+  summary: Ausführlichkeit der Protokollierung erhöhen, um alle Debugprotokolle anzuzeigen.
+- name: --help -h
+  summary: Zeigen Sie diese Hilfemeldung an, und schließen Sie sie.
+- name: --only-show-errors
+  summary: Nur Fehler anzeigen und Warnungen unterdrücken.
+- name: --output -o
+  defaultValue: json
+  parameterValueGroup: json, jsonc, table, tsv
+  summary: Ausgabeformat.
+- name: --query
+  summary: JMESPath-Abfragezeichenfolge. Weitere Informationen und Beispiele finden Sie unter <a href="http://jmespath.org/">http://jmespath.org/</a>.
+- name: --verbose
+  summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
+metadata:
+  doc_source_url_repo: https://github.com/Azure/azure-cli/blob/dev/
+  ms.date: 04/15/2021
+  description: Konfigurieren Sie die Diagnoseerweiterung für virtuelle Azure-Computer.
+  ms.openlocfilehash: 205f34d2793e40bd6aa318f2e9184485e5fa317a
+  ms.sourcegitcommit: 47edf65705fcb047974356c30962819ea5172832
+  ms.translationtype: MT
+  ms.contentlocale: de-DE
+  ms.lasthandoff: 04/16/2021
+  ms.locfileid: "107555022"

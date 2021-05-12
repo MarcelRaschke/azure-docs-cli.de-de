@@ -1,0 +1,259 @@
+### YamlMime:AzureCLIGroup
+uid: az_devops
+name: az devops
+summary: Verwalten von Vorgängen der Azure devops-Organisationsebene.
+description: 'Verwandte Gruppen AZ Pipelines: Manage Azure Pipelines AZ Boards: Manage Azure Boards AZ Repos: Manage Azure Repos AZ Artefakte: Manage Azure Artifacts.'
+directCommands:
+- uid: az_devops_configure
+  name: az devops configure
+  summary: Konfigurieren Sie die Azure devops-CLI, oder zeigen Sie Ihre Konfiguration an.
+  description: ''
+  syntax: >-
+    az devops configure [--defaults]
+                        [--list]
+                        [--subscription]
+                        [--use-git-aliases {false, true}]
+  optionalParameters:
+  - name: --defaults -d
+    summary: Durch Leerzeichen getrennte "Name = Wert"-Paare für gängige Argument Standardwerte, z. b. "--defaults Project = My-Project-Name Organization = https://dev.azure.com/organizationName arg = Value". Verwenden Sie "", um die Standardwerte zu löschen, z. b.--defaults Project = ' '.
+    description: ''
+  - name: --list -l
+    summary: Listet den Inhalt der Konfigurationsdatei auf.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  - name: --use-git-aliases
+    parameterValueGroup: false, true
+    summary: Auf "true" festlegen, um die globale git-Konfigurationsdatei für git-Aliase zu konfigurieren (um Befehle wie "git-PR-Liste" zu aktivieren). Legen Sie diese Einstellung auf "false" fest, um alle vom Tool festgelegten Aliase zu entfernen.
+    description: ''
+- uid: az_devops_feedback
+  name: az devops feedback
+  summary: Zeigt Informationen zum Bereitstellen von Feedback an das Azure devops-CLI-Team an.
+  description: ''
+  syntax: az devops feedback [--subscription]
+  optionalParameters:
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+- uid: az_devops_invoke
+  name: az devops invoke
+  summary: 'Mit diesem Befehl wird eine Anforderung für alle devops-Bereiche und-Ressourcen aufgerufen. Verwenden Sie nur die JSON-Ausgabe, da die Antwort dieses Befehls nicht korrigiert ist. Hilfreiche https://docs.microsoft.com/en-us/rest/api/azure/devops/ Dokumente:'
+  description: ''
+  syntax: >-
+    az devops invoke [--accept-media-type]
+                     [--api-version]
+                     [--area]
+                     [--detect {false, true}]
+                     [--encoding {ascii, utf-16be, utf-16le, utf-8}]
+                     [--http-method {DELETE, GET, HEAD, OPTIONS, PATCH, POST, PUT}]
+                     [--in-file]
+                     [--media-type]
+                     [--org]
+                     [--out-file]
+                     [--query-parameters]
+                     [--resource]
+                     [--route-parameters]
+                     [--subscription]
+  examples:
+  - summary: Bereiche im Zusammenhang mit "wiki" ermitteln
+    syntax: az devops invoke --query "[?contains(area,'wiki')]"
+  - summary: Alle Wikis in einem Projekt erhalten
+    syntax: >-
+      az devops invoke --area wiki --resource wikis --route-parameters project={Project Name} -o json
+
+      az devops invoke --area wiki --resource wikis --route-parameters project=WikiIssue -o json
+  - summary: Hinzufügen einer Seite zu einem wiki
+    syntax: >-
+      az devops invoke --area wiki --resource pages --route-parameters project={Project Name}
+
+      wikiIdentifier={Wiki Id} --in-file {Full File Path containing text to add to wiki}
+
+      --query-parameters path={Page Path In Wiki} --http-method PUT --api-version 5.1-preview -o json
+
+      az devops invoke --area wiki --resource pages --route-parameters project=WikiIssue
+
+      wikiIdentifier=e479f402-2be8-4953-bb0b-3a0209cbc2d2 --in-file D:/temp/createWikiRequestBody.txt
+
+      --encoding 'utf-8' --query-parameters path=sample738 --http-method PUT --api-version 5.1-preview -o json
+  optionalParameters:
+  - name: --accept-media-type
+    defaultValue: application/json
+    summary: Gibt den Inhaltstyp der Antwort an.
+    description: ''
+  - name: --api-version
+    defaultValue: "5.0"
+    summary: Die Version der API für die Ziel-.
+    description: ''
+  - name: --area
+    summary: Der Bereich, in dem die Ressource gesucht werden soll.
+    description: ''
+  - name: --detect
+    parameterValueGroup: false, true
+    summary: Die Organisation wird automatisch erkannt.
+    description: ''
+  - name: --encoding
+    defaultValue: utf-8
+    parameterValueGroup: ascii, utf-16be, utf-16le, utf-8
+    summary: Codierung der Eingabedatei. Wird in Verbindung mit der-in-Datei verwendet.
+    description: ''
+  - name: --http-method
+    defaultValue: GET
+    parameterValueGroup: DELETE, GET, HEAD, OPTIONS, PATCH, POST, PUT
+    summary: Gibt die für die Anforderung verwendete Methode an.
+    description: ''
+  - name: --in-file
+    summary: Pfad und Dateiname der Datei, die den Inhalt der Anforderung enthält.
+    description: ''
+  - name: --media-type
+    defaultValue: application/json
+    summary: Gibt den Inhaltstyp der Anforderung an.
+    description: ''
+  - name: --org --organization
+    summary: 'Azure devops-Organisations-URL. Sie können die Standard Organisation mithilfe von AZ devops configure-d Organization = ORG_URL konfigurieren. Erforderlich, wenn nicht als Standard konfiguriert oder über die git-Konfiguration ausgewählt. Beispiel: https://dev.azure.com/MyOrganizationName/ .'
+    description: ''
+  - name: --out-file
+    summary: Pfad und Dateiname der Datei, für die diese Funktion den Antworttext speichert.
+    description: ''
+  - name: --query-parameters
+    summary: Gibt die Liste von Abfrage Parametern an.
+    description: ''
+  - name: --resource
+    summary: Der Name der Ressource, die verwendet werden soll.
+    description: ''
+  - name: --route-parameters
+    summary: Gibt die Liste von Routen Parametern an.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+- uid: az_devops_login
+  name: az devops login
+  summary: Legen Sie die Anmelde Informationen (Pat) für eine bestimmte Organisation fest.
+  description: https://aka.ms/azure-devops-cli-authWeitere Informationen zum Bereitstellen von Pat als Eingabe finden Sie unter.
+  syntax: >-
+    az devops login [--org]
+                    [--subscription]
+  optionalParameters:
+  - name: --org --organization
+    summary: 'Azure devops-Organisations-URL. Beispiel: https://dev.azure.com/MyOrganizationName.'
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+- uid: az_devops_logout
+  name: az devops logout
+  summary: Löschen Sie die Anmelde Informationen für alle oder eine bestimmte Organisation.
+  description: ''
+  syntax: >-
+    az devops logout [--org]
+                     [--subscription]
+  optionalParameters:
+  - name: --org --organization
+    summary: 'Azure devops-Organisations-URL. Beispiel: https://dev.azure.com/MyOrganizationName/. Wenn keine Organisation angegeben ist, werden alle Organisationen abgemeldet.'
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+commands:
+- az_devops_admin
+- az_devops_admin_banner
+- az_devops_admin_banner_add
+- az_devops_admin_banner_list
+- az_devops_admin_banner_remove
+- az_devops_admin_banner_show
+- az_devops_admin_banner_update
+- az_devops_configure
+- az_devops_extension
+- az_devops_extension_disable
+- az_devops_extension_enable
+- az_devops_extension_install
+- az_devops_extension_list
+- az_devops_extension_search
+- az_devops_extension_show
+- az_devops_extension_uninstall
+- az_devops_feedback
+- az_devops_invoke
+- az_devops_login
+- az_devops_logout
+- az_devops_project
+- az_devops_project_create
+- az_devops_project_delete
+- az_devops_project_list
+- az_devops_project_show
+- az_devops_security
+- az_devops_security_group
+- az_devops_security_group_create
+- az_devops_security_group_delete
+- az_devops_security_group_list
+- az_devops_security_group_membership
+- az_devops_security_group_membership_add
+- az_devops_security_group_membership_list
+- az_devops_security_group_membership_remove
+- az_devops_security_group_show
+- az_devops_security_group_update
+- az_devops_security_permission
+- az_devops_security_permission_list
+- az_devops_security_permission_namespace
+- az_devops_security_permission_namespace_list
+- az_devops_security_permission_namespace_show
+- az_devops_security_permission_reset
+- az_devops_security_permission_reset-all
+- az_devops_security_permission_show
+- az_devops_security_permission_update
+- az_devops_service-endpoint
+- az_devops_service-endpoint_azurerm
+- az_devops_service-endpoint_azurerm_create
+- az_devops_service-endpoint_create
+- az_devops_service-endpoint_delete
+- az_devops_service-endpoint_github
+- az_devops_service-endpoint_github_create
+- az_devops_service-endpoint_list
+- az_devops_service-endpoint_show
+- az_devops_service-endpoint_update
+- az_devops_team
+- az_devops_team_create
+- az_devops_team_delete
+- az_devops_team_list
+- az_devops_team_list-member
+- az_devops_team_show
+- az_devops_team_update
+- az_devops_user
+- az_devops_user_add
+- az_devops_user_list
+- az_devops_user_remove
+- az_devops_user_show
+- az_devops_user_update
+- az_devops_wiki
+- az_devops_wiki_create
+- az_devops_wiki_delete
+- az_devops_wiki_list
+- az_devops_wiki_page
+- az_devops_wiki_page_create
+- az_devops_wiki_page_delete
+- az_devops_wiki_page_show
+- az_devops_wiki_page_update
+- az_devops_wiki_show
+globalParameters:
+- name: --debug
+  summary: Ausführlichkeit der Protokollierung erhöhen, um alle Debugprotokolle anzuzeigen.
+- name: --help -h
+  summary: Zeigen Sie diese Hilfemeldung an, und schließen Sie sie.
+- name: --only-show-errors
+  summary: Nur Fehler anzeigen und Warnungen unterdrücken.
+- name: --output -o
+  defaultValue: json
+  parameterValueGroup: json, jsonc, table, tsv
+  summary: Ausgabeformat.
+- name: --query
+  summary: JMESPath-Abfragezeichenfolge. Weitere Informationen und Beispiele finden Sie unter <a href="http://jmespath.org/">http://jmespath.org/</a>.
+- name: --verbose
+  summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
+metadata:
+  description: 'Verwandte Gruppen AZ Pipelines: Manage Azure Pipelines AZ Boards: Manage Azure Boards AZ Repos: Manage Azure Repos AZ Artefakte: Manage Azure Artifacts.'
+  ms.openlocfilehash: 0e199585296abd1b8d009f94e4c3f9196c8801e5
+  ms.sourcegitcommit: 612554c029ba1f28d3a43fd22e743104a1a30ea0
+  ms.translationtype: MT
+  ms.contentlocale: de-DE
+  ms.lasthandoff: 04/07/2021
+  ms.locfileid: "106831680"

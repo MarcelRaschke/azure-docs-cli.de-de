@@ -1,0 +1,232 @@
+### YamlMime:AzureCLIGroup
+uid: az_monitor_metrics
+name: az monitor metrics
+summary: Anzeigen von Azure-Ressourcenmetriken
+description: ''
+directCommands:
+- uid: az_monitor_metrics_list
+  name: az monitor metrics list
+  summary: Listet die Metrikwerte für eine Ressource auf.
+  description: ''
+  syntax: >-
+    az monitor metrics list --resource
+                            [--aggregation {Average, Count, Maximum, Minimum, Total}]
+                            [--dimension]
+                            [--end-time]
+                            [--filter]
+                            [--interval]
+                            [--metadata]
+                            [--metrics]
+                            [--namespace]
+                            [--offset]
+                            [--orderby]
+                            [--query-examples]
+                            [--resource-group]
+                            [--resource-namespace]
+                            [--resource-parent]
+                            [--resource-type]
+                            [--start-time]
+                            [--subscription]
+                            [--top]
+  examples:
+  - summary: Auflisten der CPU-Auslastung eines virtuellen Computers für die letzte Stunde
+    syntax: az monitor metrics list --resource {ResourceName} --metric "Percentage CPU"
+  - summary: Auflisten der E2E-Latenz eines Speicherkontos und Aufteilen der Datenreihe basierend auf dem API-Namen
+    syntax: >-
+      az monitor metrics list --resource {ResourceName} --metric SuccessE2ELatency \
+                              --dimension ApiName
+  - summary: Auflisten der E2E-Latenz eines Speicherkontos und Aufteilen der Datenreihe basierend auf API-Name und Geotyp
+    syntax: >-
+      az monitor metrics list --resource {ResourceName} --metric SuccessE2ELatency \
+                              --dimension ApiName GeoType
+  - summary: Auflisten der E2E-Latenz eines Speicherkontos und Aufteilen der Datenreihe basierend auf API-Name und Geotyp mit dem Parameter "--filter"
+    syntax: >-
+      az monitor metrics list --resource {ResourceName} --metric SuccessE2ELatency \
+                              --filter "ApiName eq '*' and GeoType eq '*'"
+  - summary: Listen Sie die E2E-Latenz eines Speicherkontos auf, und teilen Sie die Datenreihe basierend auf API-Name und Geotyp auf. Beschränkt den API-Namen auf "DeleteContainer".
+    syntax: >-
+      az monitor metrics list --resource {ResourceName} --metric SuccessE2ELatency \
+                              --filter "ApiName eq 'DeleteContainer' and GeoType eq '*'"
+  - summary: Auflisten von Transaktionen eines Speicherkontos pro Tag seit dem 1.1.2017
+    syntax: >-
+      az monitor metrics list --resource {ResourceName} --metric Transactions \
+                              --start-time 2017-01-01T00:00:00Z \
+                              --interval PT24H
+  - summary: Listen Sie die Metadatenwerte für ein Speicherkonto seit 2017 unter der Dimension "API-Name" der Transaktionsmetrik auf.
+    syntax: >-
+      az monitor metrics list --resource {ResourceName} --metric Transactions \
+                              --filter "ApiName eq '*'" \
+                              --start-time 2017-01-01T00:00:00Z
+  requiredParameters:
+  - isRequired: true
+    name: --resource
+    summary: Name oder ID der Zielressource.
+    description: ''
+  optionalParameters:
+  - name: --aggregation
+    parameterValueGroup: Average, Count, Maximum, Minimum, Total
+    summary: Die Liste der abzurufenden Aggregationstypen (durch Leerzeichen getrennt).
+    description: ''
+    valueFrom: az monitor metrics list-definitions
+  - name: --dimension
+    summary: Die Liste der Dimensionen (durch Leerzeichen getrennt), in die die Metriken abgefragt werden.
+    description: ''
+    valueFrom: az monitor metrics list-definitions
+  - name: --end-time
+    summary: 'Die Endzeit der Abfrage. Der Standardwert ist die aktuelle Uhrzeit. Format: Datumszeit (jjjj-mm-tt) (hh:mm:ss.xxxxx) Zeitzone (+/-hh:mm).'
+    description: ''
+  - name: --filter
+    summary: "Eine Zeichenfolge, die verwendet wird, um den Satz der zurückgegebenen Metrikdaten zu reduzieren. Beispiel: \"BlobType eq ' \\* '\"."
+    description: Eine vollständige Liste der Filter finden Sie in der Filterzeichenfolgenreferenz unter https://docs.microsoft.com/rest/api/monitor/metrics/list .
+  - name: --interval
+    defaultValue: 1m
+    summary: 'Das Intervall, in dem Metriken im Format ##h##m aggregiert werden sollen.'
+    description: ''
+  - name: --metadata
+    summary: Gibt die Metadatenwerte anstelle von Metrikdaten zurück.
+    description: ''
+  - name: --metrics
+    summary: Durch Leerzeichen getrennte Liste der abzurufenden Metriknamen.
+    description: ''
+    valueFrom: az monitor metrics list-definitions
+  - name: --namespace
+    summary: Namespace, für den Metrikdefinitionen abfragen werden.
+    description: ''
+    valueFrom: az monitor metrics list-namespaces
+  - name: --offset
+    defaultValue: 1h
+    summary: 'Zeitoffset des Abfragebereichs im ##d##h Format.'
+    description: Kann entweder mit --start-time oder --end-time verwendet werden. Bei Verwendung mit --start-time wird die Endzeit durch Hinzufügen des Offsets berechnet. Bei Verwendung mit --end-time (Standard) wird die Startzeit berechnet, indem der Offset subtrahiert wird. Wenn --start-time und --end-time angegeben werden, wird --offset ignoriert.
+  - name: --orderby
+    summary: 'Aggregation, die zum Sortieren von Ergebnissen und der Sortierrichtung verwendet werden soll. Es kann nur eine Bestellung spezifisch sein. Beispiele: sum asc.'
+    description: ''
+  - name: --query-examples
+    summary: Empfehlen Sie die JMESPath-Zeichenfolge. Sie können eine der Abfragen kopieren und nach dem Parameter --query in doppelte Anführungszeichen einfügen, um die Ergebnisse zu sehen. Sie können ein oder mehrere Positionsschlüsselwörter hinzufügen, damit wir basierend auf diesen Schlüsselwörtern Vorschläge machen können.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --resource-namespace
+    summary: Zielressourcenanbieternamespace.
+    description: ''
+  - name: --resource-parent
+    summary: Übergeordneter Pfad der Zielressource, falls zutreffend.
+    description: ''
+  - name: --resource-type
+    summary: Zielressourcentyp. Kann auch das Namespace-/Typformat akzeptieren (z.B. "Microsoft.Compute/virtualMachines").
+    description: ''
+  - name: --start-time
+    summary: 'Die Startzeit der Abfrage. Format: Datum (yyyy-mm-tt) Uhrzeit (hh:mm:ss.xxxxx) Zeitzone (+/-hh:mm).'
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+  - name: --top
+    defaultValue: "10"
+    summary: Maximale Anzahl der abzurufenden Datensätze. Nur gültig, wenn --filter verwendet wird.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/monitor/_help.py
+- uid: az_monitor_metrics_list-definitions
+  name: az monitor metrics list-definitions
+  summary: Listen Sie die Metrikdefinitionen für die Ressource auf.
+  description: ''
+  syntax: >-
+    az monitor metrics list-definitions --resource
+                                        [--namespace]
+                                        [--resource-group]
+                                        [--resource-namespace]
+                                        [--resource-parent]
+                                        [--resource-type]
+                                        [--subscription]
+  examples:
+  - summary: Listen Sie die Metrikdefinitionen für die Ressource auf. (automatisch generiert)
+    syntax: az monitor metrics list-definitions --resource /subscriptions/{subscriptionID}/resourceGroups/{resourceGroup}/Microsoft.Network/networkSecurityGroups/{resourceName}
+  requiredParameters:
+  - isRequired: true
+    name: --resource
+    summary: Name oder ID der Zielressource.
+    description: ''
+  optionalParameters:
+  - name: --namespace
+    summary: Namespace, für den Metrikdefinitionen abgefragt werden sollen.
+    description: ''
+    valueFrom: az monitor metrics list-namespaces
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --resource-namespace
+    summary: Zielressourcenanbieternamespace.
+    description: ''
+  - name: --resource-parent
+    summary: Übergeordneter Pfad der Zielressource, falls zutreffend.
+    description: ''
+  - name: --resource-type
+    summary: Zielressourcentyp. Kann auch das Namespace-/Typformat akzeptieren (z.B. "Microsoft.Compute/virtualMachines").
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/monitor/_help.py
+- uid: az_monitor_metrics_list-namespaces
+  name: az monitor metrics list-namespaces
+  summary: Listen Sie die Metriknamespaces für die Ressource auf.
+  description: ''
+  syntax: >-
+    az monitor metrics list-namespaces --resource-uri
+                                       [--start-time]
+                                       [--subscription]
+  examples:
+  - summary: Listen Sie die Metriknamespaces für die Ressource auf.
+    syntax: az monitor metrics list-namespaces --resource /subscriptions/{subscriptionID}/resourceGroups/{resourceGroup}/Microsoft.Network/networkSecurityGroups/{resourceName} --start-time 2021-03-01T00:00:00Z
+  requiredParameters:
+  - isRequired: true
+    name: --resource-uri
+    summary: Der Bezeichner der Ressource.
+    description: ''
+  optionalParameters:
+  - name: --start-time
+    summary: 'Die Startzeit der Abfrage. Format: Datumszeit (jjjj-mm-tt) (hh:mm:ss.xxxxx) Zeitzone (+/-hh:mm).'
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/monitor/_help.py
+commands:
+- az_monitor_metrics_alert
+- az_monitor_metrics_alert_condition
+- az_monitor_metrics_alert_condition_create
+- az_monitor_metrics_alert_create
+- az_monitor_metrics_alert_delete
+- az_monitor_metrics_alert_dimension
+- az_monitor_metrics_alert_dimension_create
+- az_monitor_metrics_alert_list
+- az_monitor_metrics_alert_show
+- az_monitor_metrics_alert_update
+- az_monitor_metrics_list
+- az_monitor_metrics_list-definitions
+- az_monitor_metrics_list-namespaces
+globalParameters:
+- name: --debug
+  summary: Ausführlichkeit der Protokollierung erhöhen, um alle Debugprotokolle anzuzeigen.
+- name: --help -h
+  summary: Zeigen Sie diese Hilfemeldung an, und schließen Sie sie.
+- name: --only-show-errors
+  summary: Nur Fehler anzeigen und Warnungen unterdrücken.
+- name: --output -o
+  defaultValue: json
+  parameterValueGroup: json, jsonc, table, tsv
+  summary: Ausgabeformat.
+- name: --query
+  summary: JMESPath-Abfragezeichenfolge. Weitere Informationen und Beispiele finden Sie unter <a href="http://jmespath.org/">http://jmespath.org/</a>.
+- name: --verbose
+  summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
+metadata:
+  doc_source_url_repo: https://github.com/Azure/azure-cli/blob/dev/
+  ms.date: 04/13/2021
+  description: Anzeigen von Azure-Ressourcenmetriken
+  ms.openlocfilehash: 9e4f5449672fbca9c216516a7d019b76c0bcf6f9
+  ms.sourcegitcommit: d01260d847ea835a8bbab0e0db73d1b39f5c18ef
+  ms.translationtype: MT
+  ms.contentlocale: de-DE
+  ms.lasthandoff: 04/13/2021
+  ms.locfileid: "107359618"

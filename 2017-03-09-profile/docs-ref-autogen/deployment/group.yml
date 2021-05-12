@@ -1,0 +1,379 @@
+### YamlMime:AzureCLIGroup
+uid: az_deployment_group
+name: az deployment group
+summary: Verwalten Azure Resource Manager Vorlagenbereitstellung in der Ressourcengruppe.
+description: ''
+directCommands:
+- uid: az_deployment_group_cancel
+  name: az deployment group cancel
+  summary: Brechen Sie eine Bereitstellung in der Ressourcengruppe ab.
+  description: ''
+  syntax: >-
+    az deployment group cancel --name
+                               --resource-group
+                               [--subscription]
+  examples:
+  - summary: Brechen Sie eine Bereitstellung in der Ressourcengruppe ab.
+    syntax: az deployment group cancel -g testrg -n deployment01
+  requiredParameters:
+  - isRequired: true
+    name: --name -n
+    summary: Der Bereitstellungsname.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  optionalParameters:
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/resource/_help.py
+- uid: az_deployment_group_create
+  name: az deployment group create
+  summary: Starten Sie eine Bereitstellung in der Ressourcengruppe.
+  description: ''
+  syntax: >-
+    az deployment group create --resource-group
+                               [--aux-subs]
+                               [--aux-tenants]
+                               [--handle-extended-json-format]
+                               [--mode {Complete, Incremental}]
+                               [--name]
+                               [--no-prompt {false, true}]
+                               [--no-wait]
+                               [--parameters]
+                               [--query-string]
+                               [--rollback-on-error]
+                               [--subscription]
+                               [--template-file]
+                               [--template-uri]
+  examples:
+  - summary: Erstellen Sie mithilfe von Parametern aus einer lokalen JSON-Datei eine Bereitstellung in einer Ressourcengruppe aus einer Remotevorlagendatei.
+    syntax: >-
+      az deployment group create --resource-group testrg --name rollout01 \
+          --template-uri https://myresource/azuredeploy.json --parameters @myparameters.json
+  - summary: Erstellen Sie mithilfe von Parametern aus einer JSON-Zeichenfolge eine Bereitstellung in einer Ressourcengruppe aus einer lokalen Vorlagendatei.
+    syntax: >-
+      az deployment group create --resource-group testrg --name rollout01 \
+          --template-file azuredeploy.json  \
+          --parameters '{ \"policyName\": { \"value\": \"policy2\" } }'
+  - summary: Erstellen Sie mithilfe von Parametern aus einer Arrayzeichenfolge eine Bereitstellung in einer Ressourcengruppe aus einer lokalen Vorlagendatei.
+    syntax: az deployment group create --resource-group testgroup --template-file demotemplate.json --parameters exampleString='inline string' exampleArray='("value1", "value2")'
+  - summary: Erstellen Sie eine Bereitstellung in einer Ressourcengruppe aus einer lokalen Vorlage, indem Sie eine Parameterdatei, eine Remoteparameterdatei und selektives Überschreiben von Schlüssel-Wert-Paaren verwenden.
+    syntax: >-
+      az deployment group create --resource-group testrg --name rollout01 \
+          --template-file azuredeploy.json  --parameters @params.json \
+          --parameters https://mysite/params.json --parameters MyValue=This MyArray=@array.json
+  - summary: Erstellen einer Bereitstellung im Abonnementbereich aus einer Vorlagenspezifikation
+    syntax: az deployment group create --resource-group testrg --template-spec "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/testrg/providers/Microsoft.Resources/templateSpecs/myTemplateSpec/versions/1.0"
+  requiredParameters:
+  - isRequired: true
+    name: --resource-group -g
+    summary: Die Ressourcengruppe, unter der die Bereitstellung erstellt werden soll.
+    description: ''
+  optionalParameters:
+  - name: --aux-subs
+    summary: Zusätzliche Abonnements, die während der mandantenübergreifenden Bereitstellung verwendet werden.
+    description: ''
+  - name: --aux-tenants
+    summary: Zusätzliche Mandanten, die während der mandantenübergreifenden Bereitstellung verwendet werden.
+    description: ''
+  - name: --handle-extended-json-format -j
+    summary: Unterstützung für die Handhabung erweiterter Vorlageninhalte, einschließlich mehrstufiger Vorlagen und Kommentaren in der Bereitstellung.
+    description: ''
+  - name: --mode
+    defaultValue: Incremental
+    parameterValueGroup: Complete, Incremental
+    summary: Der Bereitstellungsmodus.
+    description: ''
+  - name: --name -n
+    summary: Der Bereitstellungsname.
+    description: ''
+  - name: --no-prompt
+    parameterValueGroup: false, true
+    summary: Die Option zum Deaktivieren der Eingabeaufforderung fehlender Parameter für die ARM-Vorlage. Wenn der Wert true ist, wird die Eingabeaufforderung ignoriert, die Benutzer zur Bereitstellung fehlender Parameter auffordern. Der Standardwert ist „FALSE“.
+    description: ''
+  - name: --no-wait
+    summary: Nicht auf den Abschluss lang andauernder Vorgänge warten
+    description: ''
+  - name: --parameters -p
+    summary: Geben Sie Werte für Bereitstellungsparameter an.
+    description: Parameter können aus einer Datei mithilfe der `@{path}` Syntax, einer JSON-Zeichenfolge oder als <KEY=VALUE>-Paare angegeben werden. Parameter werden in der angegebenen Reihenfolge ausgewertet. Wenn also ein Wert zweimal zugewiesen wird, wird der zweite Wert verwendet. Es wird empfohlen, zuerst Die Parameterdatei zu verwenden und dann selektiv mithilfe der KEY=VALUE-Syntax außer Kraft zu setzen.
+  - name: --query-string -q
+    summary: Die Abfragezeichenfolge (ein SAS-Token), die bei verknüpften Vorlagen mit dem Vorlagen-URI verwendet werden soll.
+    description: ''
+  - name: --rollback-on-error
+    summary: Der Name einer Bereitstellung, auf die bei einem Fehler ein Rollback durchgeführt werden soll, oder verwenden Sie als Flag, um ein Rollback auf die letzte erfolgreiche Bereitstellung zu führen.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+  - name: --template-file -f
+    summary: Der Pfad zur Vorlagendatei oder Bicep-Datei.
+    description: ''
+  - name: --template-uri -u
+    summary: Der URI der Vorlagendatei.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/resource/_help.py
+- uid: az_deployment_group_delete
+  name: az deployment group delete
+  summary: Löschen Sie eine Bereitstellung in der Ressourcengruppe.
+  description: ''
+  syntax: >-
+    az deployment group delete --name
+                               --resource-group
+                               [--no-wait]
+                               [--subscription]
+  examples:
+  - summary: Löschen Sie eine Bereitstellung in der Ressourcengruppe.
+    syntax: az deployment group delete -g testrg -n deployment01
+  requiredParameters:
+  - isRequired: true
+    name: --name -n
+    summary: Der Bereitstellungsname.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  optionalParameters:
+  - name: --no-wait
+    summary: Nicht auf den Abschluss lang andauernder Vorgänge warten
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/resource/_help.py
+- uid: az_deployment_group_export
+  name: az deployment group export
+  summary: Exportiert die für die Bereitstellung verwendete Vorlage.
+  description: ''
+  syntax: >-
+    az deployment group export --name
+                               --resource-group
+                               [--subscription]
+  examples:
+  - summary: Exportieren Sie die Vorlage, die für eine Bereitstellung in der Ressourcengruppe verwendet wird.
+    syntax: az deployment group export --resource-group testrg --name MyDeployment
+  requiredParameters:
+  - isRequired: true
+    name: --name -n
+    summary: Der Bereitstellungsname.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  optionalParameters:
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/resource/_help.py
+- uid: az_deployment_group_list
+  name: az deployment group list
+  summary: Listen Sie Bereitstellungen in der Ressourcengruppe auf.
+  description: ''
+  syntax: >-
+    az deployment group list --resource-group
+                             [--filter]
+                             [--query-examples]
+                             [--subscription]
+  examples:
+  - summary: Listen Sie Bereitstellungen in der Ressourcengruppe auf.
+    syntax: az deployment group list -g testrg
+  requiredParameters:
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  optionalParameters:
+  - name: --filter
+    summary: Filtern Sie den Ausdruck mithilfe der OData-Notation. Sie können "--filter "provisioningState eq '{state}'" verwenden, um provisioningState zu filtern. Weitere Informationen finden Sie unter https://docs.microsoft.com/en-us/rest/api/resources/deployments/listatsubscriptionscope#uri-parameters .
+    description: ''
+  - name: --query-examples
+    summary: Empfehlen Sie die JMESPath-Zeichenfolge. Sie können eine der Abfragen kopieren und nach dem Parameter --query in doppelte Anführungszeichen einfügen, um die Ergebnisse zu sehen. Sie können ein oder mehrere Positionsschlüsselwörter hinzufügen, damit wir basierend auf diesen Schlüsselwörtern Vorschläge machen können.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/resource/_help.py
+- uid: az_deployment_group_show
+  name: az deployment group show
+  summary: Anzeigen einer Bereitstellung in der Ressourcengruppe.
+  description: ''
+  syntax: >-
+    az deployment group show --name
+                             --resource-group
+                             [--query-examples]
+                             [--subscription]
+  examples:
+  - summary: Anzeigen einer Bereitstellung in der Ressourcengruppe.
+    syntax: az deployment group show -g testrg -n deployment01
+  requiredParameters:
+  - isRequired: true
+    name: --name -n
+    summary: Der Bereitstellungsname.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  optionalParameters:
+  - name: --query-examples
+    summary: Empfehlen Sie die JMESPath-Zeichenfolge. Sie können eine der Abfragen kopieren und nach dem Parameter --query in doppelte Anführungszeichen einfügen, um die Ergebnisse zu sehen. Sie können ein oder mehrere Positionsschlüsselwörter hinzufügen, damit wir basierend auf diesen Schlüsselwörtern Vorschläge machen können.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/resource/_help.py
+- uid: az_deployment_group_validate
+  name: az deployment group validate
+  summary: Überprüfen Sie, ob eine Vorlage in der Ressourcengruppe gültig ist.
+  description: ''
+  syntax: >-
+    az deployment group validate --resource-group
+                                 [--handle-extended-json-format]
+                                 [--mode {Complete, Incremental}]
+                                 [--name]
+                                 [--no-prompt {false, true}]
+                                 [--parameters]
+                                 [--query-string]
+                                 [--rollback-on-error]
+                                 [--subscription]
+                                 [--template-file]
+                                 [--template-uri]
+  examples:
+  - summary: Überprüfen Sie, ob eine Vorlage in der Ressourcengruppe gültig ist.
+    syntax: az deployment group validate --resource-group testrg --template-file {template-file}
+  - summary: Überprüfen Sie, ob eine Vorlage in der Ressourcengruppe gültig ist. (automatisch generiert)
+    syntax: az deployment group validate --parameters MyValue=This MyArray=@array.json --resource-group testrg --template-file azuredeploy.json
+  requiredParameters:
+  - isRequired: true
+    name: --resource-group -g
+    summary: Die Ressourcengruppe, unter der die Bereitstellung erstellt werden soll.
+    description: ''
+  optionalParameters:
+  - name: --handle-extended-json-format -j
+    summary: Unterstützung für die Handhabung von erweiterten Vorlageninhalten, einschließlich mehrstufiger Vorlagen und Kommentaren in der Bereitstellung.
+    description: ''
+  - name: --mode
+    defaultValue: Incremental
+    parameterValueGroup: Complete, Incremental
+    summary: Der Bereitstellungsmodus.
+    description: ''
+  - name: --name -n
+    summary: Der Bereitstellungsname.
+    description: ''
+  - name: --no-prompt
+    parameterValueGroup: false, true
+    summary: Die Option zum Deaktivieren der Eingabeaufforderung fehlender Parameter für die ARM-Vorlage. Wenn der Wert true ist, wird die Eingabeaufforderung ignoriert, die Benutzer zur Bereitstellung fehlender Parameter auffordern. Der Standardwert ist „FALSE“.
+    description: ''
+  - name: --parameters -p
+    summary: Geben Sie Werte für Bereitstellungsparameter an.
+    description: Parameter können aus einer Datei mithilfe der Syntax, einer JSON-Zeichenfolge oder <`@{path}` KEY=VALUE-Paaren> werden. Parameter werden in der angegebenen Reihenfolge ausgewertet. Wenn also ein Wert zweimal zugewiesen wird, wird der zweite Wert verwendet. Es wird empfohlen, zuerst die Parameterdatei ein- und dann selektiv mithilfe der KEY=VALUE-Syntax zu überschreiben.
+  - name: --query-string -q
+    summary: Die Abfragezeichenfolge (ein SAS-Token), die bei verknüpften Vorlagen mit dem Template-URI verwendet werden soll.
+    description: ''
+  - name: --rollback-on-error
+    summary: Der Name einer Bereitstellung, auf die bei einem Fehler ein Rollback bzw. ein Flag für ein Rollback zur letzten erfolgreichen Bereitstellung verwendet werden soll.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+  - name: --template-file -f
+    summary: Der Pfad zur Vorlagendatei oder Bicep-Datei.
+    description: ''
+  - name: --template-uri -u
+    summary: Der URI der Vorlagendatei.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/resource/_help.py
+- uid: az_deployment_group_wait
+  name: az deployment group wait
+  summary: Platzieren Sie die CLI in einen Wartezustand, bis eine Bereitstellungsbedingung erfüllt ist.
+  description: ''
+  syntax: >-
+    az deployment group wait --name
+                             --resource-group
+                             [--created]
+                             [--custom]
+                             [--deleted]
+                             [--exists]
+                             [--interval]
+                             [--subscription]
+                             [--timeout]
+                             [--updated]
+  examples:
+  - summary: Platzieren Sie die CLI in einen Wartezustand, bis eine Bereitstellungsbedingung erfüllt ist. (automatisch generiert)
+    syntax: az deployment group wait --created --name MyDeployment --resource-group MyResourceGroup
+  requiredParameters:
+  - isRequired: true
+    name: --name -n
+    summary: Der Bereitstellungsname.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  optionalParameters:
+  - name: --created
+    summary: Warten Sie, bis mit "provisioningState" bei "Succeeded" erstellt wurde.
+    description: ''
+  - name: --custom
+    summary: "Warten Sie, bis die Bedingung eine benutzerdefinierte JMESPath-Abfrage erfüllt. Beispiel: provisioningState!='InProgress', instanceView.statuses[?code=='PowerState/running']."
+    description: ''
+  - name: --deleted
+    summary: Warten Sie, bis sie gelöscht wurde.
+    description: ''
+  - name: --exists
+    summary: Warten Sie, bis die Ressource vorhanden ist.
+    description: ''
+  - name: --interval
+    defaultValue: "30"
+    summary: Abrufintervall in Sekunden.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+  - name: --timeout
+    defaultValue: "3600"
+    summary: Maximale Wartezeit in Sekunden.
+    description: ''
+  - name: --updated
+    summary: Warten Sie, bis das Update mit provisioningState unter "Succeeded" (Erfolgreich) ausgeführt wurde.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/resource/_help.py
+commands:
+- az_deployment_group_cancel
+- az_deployment_group_create
+- az_deployment_group_delete
+- az_deployment_group_export
+- az_deployment_group_list
+- az_deployment_group_show
+- az_deployment_group_validate
+- az_deployment_group_wait
+globalParameters:
+- name: --debug
+  summary: Ausführlichkeit der Protokollierung erhöhen, um alle Debugprotokolle anzuzeigen.
+- name: --help -h
+  summary: Zeigen Sie diese Hilfemeldung an, und schließen Sie sie.
+- name: --only-show-errors
+  summary: Nur Fehler anzeigen und Warnungen unterdrücken.
+- name: --output -o
+  defaultValue: json
+  parameterValueGroup: json, jsonc, table, tsv
+  summary: Ausgabeformat.
+- name: --query
+  summary: JMESPath-Abfragezeichenfolge. Weitere Informationen und Beispiele finden Sie unter <a href="http://jmespath.org/">http://jmespath.org/</a>.
+- name: --verbose
+  summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
+metadata:
+  doc_source_url_repo: https://github.com/Azure/azure-cli/blob/dev/
+  ms.date: 04/09/2021
+  description: Verwalten sie Azure Resource Manager Vorlagenbereitstellung in der Ressourcengruppe.
+  ms.openlocfilehash: 5701ca63834e9d82fc443df085225840db9804dd
+  ms.sourcegitcommit: d01260d847ea835a8bbab0e0db73d1b39f5c18ef
+  ms.translationtype: MT
+  ms.contentlocale: de-DE
+  ms.lasthandoff: 04/13/2021
+  ms.locfileid: "107334747"

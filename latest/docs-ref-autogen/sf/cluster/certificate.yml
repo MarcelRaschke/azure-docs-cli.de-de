@@ -1,0 +1,119 @@
+### YamlMime:AzureCLIGroup
+uid: az_sf_cluster_certificate
+name: az sf cluster certificate
+summary: Verwalten eines Cluster Zertifikats
+description: ''
+directCommands:
+- uid: az_sf_cluster_certificate_add
+  name: az sf cluster certificate add
+  summary: Fügen Sie dem Cluster ein sekundäres Cluster Zertifikat hinzu.
+  description: ''
+  syntax: >-
+    az sf cluster certificate add --cluster-name
+                                  --resource-group
+                                  [--cert-out-folder]
+                                  [--cert-subject-name]
+                                  [--certificate-file]
+                                  [--certificate-password]
+                                  [--secret-identifier]
+                                  [--subscription]
+                                  [--vault-name]
+                                  [--vault-resource-group]
+  examples:
+  - summary: Fügen Sie einem Cluster mithilfe einer Key Vault-Geheimnis-ID ein Zertifikat hinzu.
+    syntax: >-
+      az sf cluster certificate add -g group-name -c cluster1 \
+          --secret-identifier 'https://{KeyVault}.vault.azure.net/secrets/{Secret}'
+  - summary: Fügen Sie ein selbst signiertes Zertifikat zu einem Cluster hinzu.
+    syntax: az sf cluster certificate add -g group-name -c cluster1 --certificate-subject-name test.com
+  - summary: Fügen Sie dem Cluster ein sekundäres Cluster Zertifikat hinzu. automatisch generierten
+    syntax: az sf cluster certificate add --cluster-name cluster1 --resource-group group-name --secret-identifier 'https://{KeyVault}.vault.azure.net/secrets/{Secret}' --vault-name MyVault
+  requiredParameters:
+  - isRequired: true
+    name: --cluster-name -c
+    summary: Geben Sie den Namen des Clusters an. Wenn dieser nicht angegeben wird, entspricht er dem Ressourcengruppen Namen.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Geben Sie den Namen der Ressourcengruppe an. Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  optionalParameters:
+  - name: --cert-out-folder --certificate-output-folder
+    summary: Der Ordner der neuen Zertifikatsdatei, die erstellt werden soll.
+    description: ''
+  - name: --cert-subject-name --certificate-subject-name
+    summary: Der Antragstellername des Zertifikats, das erstellt werden soll
+    description: ''
+  - name: --certificate-file
+    summary: Der vorhandene Zertifikats Dateipfad für das primäre Cluster Zertifikat.
+    description: ''
+  - name: --certificate-password
+    summary: Das Kennwort der Zertifikat Datei.
+    description: ''
+  - name: --secret-identifier
+    summary: Die vorhandene Geheimnis-URL für Azure Key Vault.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  - name: --vault-name
+    summary: Der Name des Azure Key Vault-Schlüssels, der nicht angegeben wird, ist der Name der Cluster Ressourcengruppe.
+    description: ''
+  - name: --vault-resource-group
+    summary: Name der Schlüssel Tresor-Ressourcengruppe, falls nicht angegeben, wird der Name der Cluster Ressourcengruppe verwendet.
+    description: ''
+- uid: az_sf_cluster_certificate_remove
+  name: az sf cluster certificate remove
+  summary: Entfernen eines Zertifikats aus einem Cluster
+  description: ''
+  syntax: >-
+    az sf cluster certificate remove --cluster-name
+                                     --resource-group
+                                     --thumbprint
+                                     [--subscription]
+  examples:
+  - summary: Entfernen Sie ein Zertifikat nach Fingerabdruck.
+    syntax: az sf cluster certificate remove -g group-name -c cluster1 --thumbprint '5F3660C715EBBDA31DB1FFDCF508302348DE8E7A'
+  requiredParameters:
+  - isRequired: true
+    name: --cluster-name -c
+    summary: Geben Sie den Namen des Clusters an. Wenn dieser nicht angegeben wird, entspricht er dem Ressourcengruppen Namen.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Geben Sie den Namen der Ressourcengruppe an. Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - isRequired: true
+    name: --thumbprint
+    summary: Der Fingerabdruck des Cluster Zertifikats, der entfernt werden soll.
+    description: ''
+  optionalParameters:
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+commands:
+- az_sf_cluster_certificate_add
+- az_sf_cluster_certificate_remove
+globalParameters:
+- name: --debug
+  summary: Ausführlichkeit der Protokollierung erhöhen, um alle Debugprotokolle anzuzeigen.
+- name: --help -h
+  summary: Zeigen Sie diese Hilfemeldung an, und schließen Sie sie.
+- name: --only-show-errors
+  summary: Nur Fehler anzeigen und Warnungen unterdrücken.
+- name: --output -o
+  defaultValue: json
+  parameterValueGroup: json, jsonc, table, tsv
+  summary: Ausgabeformat.
+- name: --query
+  summary: JMESPath-Abfragezeichenfolge. Weitere Informationen und Beispiele finden Sie unter <a href="http://jmespath.org/">http://jmespath.org/</a>.
+- name: --verbose
+  summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
+metadata:
+  description: Verwalten eines Cluster Zertifikats
+  ms.openlocfilehash: 2f143c2a76ec86e08411d5fb97c1730b2ee4f55d
+  ms.sourcegitcommit: a0cc51d7b2b39a52c402af1d98d3b48ff369bd16
+  ms.translationtype: MT
+  ms.contentlocale: de-DE
+  ms.lasthandoff: 09/22/2020
+  ms.locfileid: "102818986"

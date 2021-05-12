@@ -1,0 +1,412 @@
+### YamlMime:AzureCLIGroup
+uid: az_ad_app
+name: az ad app
+summary: Verwalten von Anwendungen mit Aad Graph
+description: ''
+directCommands:
+- uid: az_ad_app_create
+  name: az ad app create
+  summary: Erstellen Sie eine Webanwendung, eine Web-API oder eine native Anwendung.
+  description: ''
+  syntax: >-
+    az ad app create --display-name
+                     [--app-roles]
+                     [--available-to-other-tenants {false, true}]
+                     [--credential-description]
+                     [--end-date]
+                     [--homepage]
+                     [--identifier-uris]
+                     [--key-type {AsymmetricX509Cert, Password, Symmetric}]
+                     [--key-usage {Sign, Verify}]
+                     [--key-value]
+                     [--native-app {false, true}]
+                     [--oauth2-allow-implicit-flow {false, true}]
+                     [--optional-claims]
+                     [--password]
+                     [--reply-urls]
+                     [--required-resource-accesses]
+                     [--start-date]
+  examples:
+  - summary: Erstellen Sie eine native Anwendung mit der Delegierten Berechtigung "Zugriff auf das Aad-Verzeichnis als angemeldeter Benutzer".
+    syntax: >-
+      az ad app create --display-name my-native --native-app --required-resource-accesses @manifest.json
+
+      ("manifest.json" contains the following content)
+
+      [{
+          "resourceAppId": "00000002-0000-0000-c000-000000000000",
+          "resourceAccess": [
+              {
+                  "id": "a42657d6-7f20-40e3-b6f0-cee03008a62a",
+                  "type": "Scope"
+              }
+         ]
+      }]
+  - summary: Erstellen einer Anwendung mit einer Rolle
+    syntax: >-
+      az ad app create --display-name mytestapp --identifier-uris https://mytestapp.websites.net --app-roles @manifest.json
+
+      ("manifest.json" contains the following content)
+
+      [{
+          "allowedMemberTypes": [
+            "User"
+          ],
+          "description": "Approvers can mark documents as approved",
+          "displayName": "Approver",
+          "isEnabled": "true",
+          "value": "approver"
+      }]
+  - summary: Erstellen einer Anwendung mit optionalen Ansprüchen
+    syntax: >-
+      az ad app create --display-name mytestapp --optional-claims @manifest.json
+
+      ("manifest.json" contains the following content)
+
+      {
+          "idToken": [
+              {
+                  "name": "auth_time",
+                  "source": null,
+                  "essential": false
+              }
+          ],
+          "accessToken": [
+              {
+                  "name": "email",
+                  "source": null,
+                  "essential": false
+              }
+          ]
+      }
+  requiredParameters:
+  - isRequired: true
+    name: --display-name
+    summary: Der Anzeigename der Anwendung.
+    description: ''
+  optionalParameters:
+  - name: --app-roles
+    summary: Deklarieren Sie die Rollen, die Sie der Anwendung zuordnen möchten. Sollte im Manifest-JSON-Format vorliegen. Weitere Informationen finden Sie unten in den Beispielen.
+    description: ''
+  - name: --available-to-other-tenants
+    parameterValueGroup: false, true
+    summary: Die Anwendung kann mit allen Azure AD-Mandanten verwendet werden.
+    description: ''
+  - name: --credential-description
+    summary: Die Beschreibung des Kennworts.
+    description: ''
+  - name: --end-date
+    summary: Date-oder DateTime-Wert, nach dem die Anmelde Informationen ablaufen (z. b. "2017-12-31t11:59:59 + 00:00" oder "2017-12-31"). Der Standardwert ist ein Jahr nach der aktuellen Uhrzeit.
+    description: ''
+  - name: --homepage
+    summary: Die URL, unter der sich Benutzer anmelden und Ihre APP verwenden können.
+    description: ''
+  - name: --identifier-uris
+    summary: Durch Leerzeichen getrennte eindeutige URIs, die Azure AD für diese APP verwenden können.
+    description: ''
+  - name: --key-type
+    defaultValue: AsymmetricX509Cert
+    parameterValueGroup: AsymmetricX509Cert, Password, Symmetric
+    summary: Der Typ der Schlüssel Anmelde Informationen, die der Anwendung zugeordnet sind.
+    description: ''
+  - name: --key-usage
+    defaultValue: Verify
+    parameterValueGroup: Sign, Verify
+    summary: Die Verwendung der Schlüssel Anmelde Informationen, die der Anwendung zugeordnet sind.
+    description: ''
+  - name: --key-value
+    summary: Der Wert für die Schlüssel Anmelde Informationen, die der Anwendung zugeordnet sind.
+    description: ''
+  - name: --native-app
+    parameterValueGroup: false, true
+    summary: Eine Anwendung, die auf dem Gerät oder Computer eines Benutzers installiert werden kann.
+    description: ''
+  - name: --oauth2-allow-implicit-flow
+    parameterValueGroup: false, true
+    summary: Gibt an, ob der implizite Zuweisungs Fluss für OAuth2 zulässig ist.
+    description: ''
+  - name: --optional-claims
+    summary: Deklarieren Sie die optionalen Ansprüche für die Anwendung. Sollte im Manifest-JSON-Format vorliegen. Weitere Informationen finden Sie unten in den Beispielen. Verweisen Sie https://docs.microsoft.com/en-us/azure/active-directory/develop/active-directory-optional-claims#optionalclaim-type auf optionale Anspruchs Eigenschaften.
+    description: ''
+  - name: --password
+    summary: App-Kennwort, auch als „geheimer Clientschlüssel“ bezeichnet.
+    description: ''
+  - name: --reply-urls
+    summary: Durch Leerzeichen getrennte URIs, an die Azure AD als Antwort auf eine OAuth 2,0-Anforderung umgeleitet wird. Der Wert muss kein physischer Endpunkt, aber unbedingt ein gültiger URI sein.
+    description: ''
+  - name: --required-resource-accesses
+    summary: Ressourcen Bereiche und Rollen, auf die die Anwendung zugreifen muss. Sollte im Manifest-JSON-Format vorliegen. Weitere Informationen finden Sie unten in den Beispielen.
+    description: ''
+  - name: --start-date
+    summary: Date-oder DateTime-Wert, bei dem die Anmelde Informationen gültig werden (z. b. "2017-01-01t01:00:00 + 00:00" oder "2017-01-01"). Der Standardwert ist die aktuelle Zeit.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/role/_help.py
+- uid: az_ad_app_delete
+  name: az ad app delete
+  summary: Löschen einer Anwendung.
+  description: ''
+  syntax: az ad app delete --id
+  examples:
+  - summary: Löschen einer Anwendung. automatisch generierten
+    syntax: az ad app delete --id 00000000-0000-0000-0000-000000000000
+  requiredParameters:
+  - isRequired: true
+    name: --id
+    summary: Bezeichneruri, Anwendungs-ID oder Objekt-ID.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/role/_help.py
+- uid: az_ad_app_list
+  name: az ad app list
+  summary: Auflisten von Anwendungen.
+  description: Bei geringer Latenz werden standardmäßig nur die ersten 100 zurückgegeben, es sei denn, Sie geben Filter Argumente an oder verwenden "--All".
+  syntax: >-
+    az ad app list [--all]
+                   [--app-id]
+                   [--display-name]
+                   [--filter]
+                   [--identifier-uri]
+                   [--query-examples]
+                   [--show-mine]
+  optionalParameters:
+  - name: --all
+    summary: Listet alle Entitäten auf, erwartet eine lange Verzögerung bei einer großen Organisation.
+    description: ''
+  - name: --app-id
+    summary: Anwendungs-ID.
+    description: ''
+  - name: --display-name
+    summary: Der Anzeigename der Anwendung.
+    description: ''
+  - name: --filter
+    summary: Odata-Filter, z. b.--Filter "Display Name EQ ' Test ' und serviceprincipaltype EQ ' Application '".
+    description: ''
+  - name: --identifier-uri
+    summary: Der Graph-Anwendungs Bezeichner muss im URI-Format vorliegen.
+    description: ''
+  - name: --query-examples
+    summary: Empfehlen Sie die jmespath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und Sie nach dem Abfrage Parameter in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positions Schlüsselwörter hinzufügen, um Vorschläge auf der Grundlage dieser Schlüsselwörter zu geben.
+    description: ''
+  - name: --show-mine
+    summary: Listet Entitäten auf, die dem aktuellen Benutzer gehören.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/role/_help.py
+- uid: az_ad_app_show
+  name: az ad app show
+  summary: Hier erhalten Sie Informationen zu einer Anwendung.
+  description: ''
+  syntax: >-
+    az ad app show --id
+                   [--query-examples]
+  examples:
+  - summary: Hier erhalten Sie Informationen zu einer Anwendung. automatisch generierten
+    syntax: az ad app show --id 00000000-0000-0000-0000-000000000000
+  requiredParameters:
+  - isRequired: true
+    name: --id
+    summary: Bezeichneruri, Anwendungs-ID oder Objekt-ID.
+    description: ''
+  optionalParameters:
+  - name: --query-examples
+    summary: Empfehlen Sie die jmespath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und Sie nach dem Abfrage Parameter in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positions Schlüsselwörter hinzufügen, um Vorschläge auf der Grundlage dieser Schlüsselwörter zu geben.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/role/_help.py
+- uid: az_ad_app_update
+  name: az ad app update
+  summary: Aktualisieren einer Anwendung.
+  description: ''
+  syntax: >-
+    az ad app update --id
+                     [--add]
+                     [--app-roles]
+                     [--available-to-other-tenants {false, true}]
+                     [--credential-description]
+                     [--display-name]
+                     [--end-date]
+                     [--force-string]
+                     [--homepage]
+                     [--identifier-uris]
+                     [--key-type {AsymmetricX509Cert, Password, Symmetric}]
+                     [--key-usage {Sign, Verify}]
+                     [--key-value]
+                     [--oauth2-allow-implicit-flow {false, true}]
+                     [--optional-claims]
+                     [--password]
+                     [--remove]
+                     [--reply-urls]
+                     [--required-resource-accesses]
+                     [--set]
+                     [--start-date]
+  examples:
+  - summary: Aktualisieren einer systemeigenen Anwendung mit der Delegierten Berechtigung "Zugriff auf das Aad-Verzeichnis als angemeldeter Benutzer"
+    syntax: >-
+      az ad app update --id e042ec79-34cd-498f-9d9f-123456781234 --required-resource-accesses @manifest.json
+
+      ("manifest.json" contains the following content)
+
+      [{
+          "resourceAppId": "00000002-0000-0000-c000-000000000000",
+          "resourceAccess": [
+              {
+                  "id": "a42657d6-7f20-40e3-b6f0-cee03008a62a",
+                  "type": "Scope"
+              }
+         ]
+      }]
+  - summary: Deklarieren einer Anwendungs Rolle
+    syntax: >-
+      az ad app update --id e042ec79-34cd-498f-9d9f-123456781234 --app-roles @manifest.json
+
+      ("manifest.json" contains the following content)
+
+      [{
+          "allowedMemberTypes": [
+            "User"
+          ],
+          "description": "Approvers can mark documents as approved",
+          "displayName": "Approver",
+          "isEnabled": "true",
+          "value": "approver"
+      }]
+  - summary: Aktualisieren von optionalen Ansprüchen
+    syntax: >-
+      az ad app update --id e042ec79-34cd-498f-9d9f-123456781234 --optional-claims @manifest.json
+
+      ("manifest.json" contains the following content)
+
+      {
+          "idToken": [
+              {
+                  "name": "auth_time",
+                  "source": null,
+                  "essential": false
+              }
+          ],
+          "accessToken": [
+              {
+                  "name": "email",
+                  "source": null,
+                  "essential": false
+              }
+          ]
+      }
+  - summary: Aktualisieren der Gruppen Mitgliedschafts Ansprüche einer Anwendung auf "alle"
+    syntax: az ad app update --id e042ec79-34cd-498f-9d9f-123456781234 --set groupMembershipClaims=All
+  requiredParameters:
+  - isRequired: true
+    name: --id
+    summary: Bezeichneruri, Anwendungs-ID oder Objekt-ID.
+    description: ''
+  optionalParameters:
+  - name: --add
+    summary: Fügen Sie einer Liste von-Objekten ein Objekt hinzu, indem Sie ein Pfad-und Schlüssel-Wert-Paar angeben.  Beispiel:--Add Property. ListProperty <Key = Value, String oder JSON String>.
+    description: ''
+  - name: --app-roles
+    summary: Deklarieren Sie die Rollen, die Sie der Anwendung zuordnen möchten. Sollte im Manifest-JSON-Format vorliegen. Weitere Informationen finden Sie unten in den Beispielen.
+    description: ''
+  - name: --available-to-other-tenants
+    parameterValueGroup: false, true
+    summary: Die Anwendung kann mit allen Azure AD-Mandanten verwendet werden.
+    description: ''
+  - name: --credential-description
+    summary: Die Beschreibung des Kennworts.
+    description: ''
+  - name: --display-name
+    summary: Der Anzeigename der Anwendung.
+    description: ''
+  - name: --end-date
+    summary: Date-oder DateTime-Wert, nach dem die Anmelde Informationen ablaufen (z. b. "2017-12-31t11:59:59 + 00:00" oder "2017-12-31"). Der Standardwert ist ein Jahr nach der aktuellen Uhrzeit.
+    description: ''
+  - name: --force-string
+    summary: Wenn Sie "Set" oder "Add" verwenden, erhalten Sie Zeichen folgen Literale, anstatt zu versuchen, in JSON zu konvertieren.
+    description: ''
+  - name: --homepage
+    summary: Die URL, unter der sich Benutzer anmelden und Ihre APP verwenden können.
+    description: ''
+  - name: --identifier-uris
+    summary: Durch Leerzeichen getrennte eindeutige URIs, die Azure AD für diese APP verwenden können.
+    description: ''
+  - name: --key-type
+    defaultValue: AsymmetricX509Cert
+    parameterValueGroup: AsymmetricX509Cert, Password, Symmetric
+    summary: Der Typ der Schlüssel Anmelde Informationen, die der Anwendung zugeordnet sind.
+    description: ''
+  - name: --key-usage
+    defaultValue: Verify
+    parameterValueGroup: Sign, Verify
+    summary: Die Verwendung der Schlüssel Anmelde Informationen, die der Anwendung zugeordnet sind.
+    description: ''
+  - name: --key-value
+    summary: Der Wert für die Schlüssel Anmelde Informationen, die der Anwendung zugeordnet sind.
+    description: ''
+  - name: --oauth2-allow-implicit-flow
+    parameterValueGroup: false, true
+    summary: Gibt an, ob der implizite Zuweisungs Fluss für OAuth2 zulässig ist.
+    description: ''
+  - name: --optional-claims
+    summary: Deklarieren Sie die optionalen Ansprüche für die Anwendung. Sollte im Manifest-JSON-Format vorliegen. Weitere Informationen finden Sie unten in den Beispielen. Verweisen Sie https://docs.microsoft.com/en-us/azure/active-directory/develop/active-directory-optional-claims#optionalclaim-type auf optionale Anspruchs Eigenschaften.
+    description: ''
+  - name: --password
+    summary: App-Kennwort, auch als „geheimer Clientschlüssel“ bezeichnet.
+    description: ''
+  - name: --remove
+    summary: Entfernt eine Eigenschaft oder ein Element aus einer Liste.  Beispiel:--Remove Property. List <indexToRemove> oder--Remove propertytoremove.
+    description: ''
+  - name: --reply-urls
+    summary: Durch Leerzeichen getrennte URIs, an die Azure AD als Antwort auf eine OAuth 2,0-Anforderung umgeleitet wird. Der Wert muss kein physischer Endpunkt, aber unbedingt ein gültiger URI sein.
+    description: ''
+  - name: --required-resource-accesses
+    summary: Ressourcen Bereiche und Rollen, auf die die Anwendung zugreifen muss. Sollte im Manifest-JSON-Format vorliegen. Weitere Informationen finden Sie unten in den Beispielen.
+    description: ''
+  - name: --set
+    summary: Aktualisieren Sie ein Objekt, indem Sie einen Eigenschafts Pfad und einen festzulegenden Wert angeben.  Beispiel:--Set Eigenschaft1. Eigenschaft2 =<value>.
+    description: ''
+  - name: --start-date
+    summary: Date-oder DateTime-Wert, bei dem die Anmelde Informationen gültig werden (z. b. "2017-01-01t01:00:00 + 00:00" oder "2017-01-01"). Der Standardwert ist die aktuelle Zeit.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/role/_help.py
+commands:
+- az_ad_app_create
+- az_ad_app_credential
+- az_ad_app_credential_delete
+- az_ad_app_credential_list
+- az_ad_app_credential_reset
+- az_ad_app_delete
+- az_ad_app_list
+- az_ad_app_owner
+- az_ad_app_owner_add
+- az_ad_app_owner_list
+- az_ad_app_owner_remove
+- az_ad_app_permission
+- az_ad_app_permission_add
+- az_ad_app_permission_admin-consent
+- az_ad_app_permission_delete
+- az_ad_app_permission_grant
+- az_ad_app_permission_list
+- az_ad_app_permission_list-grants
+- az_ad_app_show
+- az_ad_app_update
+globalParameters:
+- name: --debug
+  summary: Ausführlichkeit der Protokollierung erhöhen, um alle Debugprotokolle anzuzeigen.
+- name: --help -h
+  summary: Zeigen Sie diese Hilfemeldung an, und schließen Sie sie.
+- name: --only-show-errors
+  summary: Nur Fehler anzeigen und Warnungen unterdrücken.
+- name: --output -o
+  defaultValue: json
+  parameterValueGroup: json, jsonc, table, tsv
+  summary: Ausgabeformat.
+- name: --query
+  summary: JMESPath-Abfragezeichenfolge. Weitere Informationen und Beispiele finden Sie unter <a href="http://jmespath.org/">http://jmespath.org/</a>.
+- name: --verbose
+  summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
+metadata:
+  doc_source_url_repo: https://github.com/Azure/azure-cli/blob/dev/
+  ms.date: 01/20/2021
+  description: Verwalten von Anwendungen mit Aad Graph
+  ms.openlocfilehash: ed6d63096593ec6977dfea81a0f2623480ee4b2e
+  ms.sourcegitcommit: 612554c029ba1f28d3a43fd22e743104a1a30ea0
+  ms.translationtype: MT
+  ms.contentlocale: de-DE
+  ms.lasthandoff: 04/07/2021
+  ms.locfileid: "106821803"

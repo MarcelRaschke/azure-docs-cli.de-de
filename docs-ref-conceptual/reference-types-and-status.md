@@ -9,12 +9,12 @@ ms.topic: conceptual
 ms.service: azure-cli
 ms.devlang: azurecli
 ms.custom: devx-track-azurecli
-ms.openlocfilehash: ff77011db5a64e7c541dc67f2b2564301bfeebfb
-ms.sourcegitcommit: 6996f3d05d73f528a95b61fdce1422eee3c7a580
+ms.openlocfilehash: 2d651dc718413ba69138344680290350ca077c69
+ms.sourcegitcommit: 8bff8b2ce4492ab99ad39390e4c802fb4f4425c8
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 11/25/2020
-ms.locfileid: "95870150"
+ms.lasthandoff: 03/26/2021
+ms.locfileid: "105581154"
 ---
 # <a name="overview-azure-cli-reference-types-and-status"></a>Übersicht: Azure CLI-Verweistypen und -status
 
@@ -26,8 +26,8 @@ Die Azure CLI-Syntax ist eine Kombination aus Verweisen, Befehlen und Parameter
 
 | Azure-Dienst | Verweis | Subdienst für den Verweis | Get-Help | Vollständiger Verweisbefehl | Parameterbeispiele
 |-|-|-|-|-|-|
-| Azure CLI | [az configure](/cli/azure/reference-index#az-configure) | | | az configure | --defaults, --list-default, --scope
-| Azure-Netzwerk | [az network](/cli/azure/network) | application-gateway | create | [az network application-gateway create](/cli/azure/network/application-gateway#az-network-application-gateway-create) | --name, --resource-group, --capacity
+| Azure CLI | [az configure](/cli/azure/reference-index#az_configure) | | | az configure | --defaults, --list-default, --scope
+| Azure-Netzwerk | [az network](/cli/azure/network) | application-gateway | create | [az network application-gateway create](/cli/azure/network/application-gateway#az_network_application_gateway_create) | --name, --resource-group, --capacity
 | Azure DevOps Server | [az pipelines](/cli/azure/pipelines) | Agent | list | [az pipelines agent list](/cli/azure/pipelines/agent) | --pool-id, --agent-name, --demands
 
 ## <a name="reference-types"></a>Verweistypen
@@ -59,9 +59,9 @@ Erweiterungen werden nicht zusammen mit der CLI bereitgestellt, können aber als
 | az iot hub device identify create | | ja
 
 > [!IMPORTANT]
-> Vor der Verwendung muss durch Ausführen des Befehls [az extension add](/cli/azure/extension#az-extension-add) eine Erweiterung installiert werden.
+> Vor der Verwendung muss durch Ausführen des Befehls [az extension add](/cli/azure/extension#az_extension_add) eine Erweiterung installiert werden.
 
-Weitere Informationen zu Erweiterungsverweisen (einschließlich Installation und Aktualisierung) finden Sie unter [Verwenden von Erweiterungen mit der Azure CLI](azure-cli-extensions-overview.md).  Sehen Sie sich die Erweiterung [wiki tips](https://github.com/Azure/azure-network-cli-extension/wiki/Tips) an, um die Nutzung zu maximieren.  Unter [Verfügbare Erweiterungen für die Azure CLI](azure-cli-extensions-list.md) finden Sie eine vollständige Liste der Erweiterungsverweisbefehle.
+Weitere Informationen zu Erweiterungsverweisen (einschließlich Installation und Aktualisierung) finden Sie unter [Verwenden von Erweiterungen mit der Azure CLI](azure-cli-extensions-overview.md).  Unter [Verfügbare Erweiterungen für die Azure CLI](azure-cli-extensions-list.md) finden Sie eine vollständige Liste der Erweiterungsverweisbefehle.
 
 ## <a name="reference-status"></a>Verweisstatus
 

@@ -1,0 +1,408 @@
+### YamlMime:AzureCLIGroup
+uid: az_lab_vm
+name: az lab vm
+summary: Verwalten von VMS in einer Azure devtest Lab-Umgebung.
+description: ''
+directCommands:
+- uid: az_lab_vm_apply-artifacts
+  name: az lab vm apply-artifacts
+  summary: Anwenden von Artefakten auf einen virtuellen Computer in Azure devtest Lab.
+  description: ''
+  syntax: >-
+    az lab vm apply-artifacts --lab-name
+                              --name
+                              --resource-group
+                              [--artifacts]
+                              [--subscription]
+  examples:
+  - summary: Anwenden von Artefakten auf einen virtuellen Computer in Azure devtest Lab. automatisch generierten
+    syntax: az lab vm apply-artifacts --artifacts '@artifacts.json' --lab-name MyLab --name MyVirtualMachine --resource-group MyResourceGroup
+  requiredParameters:
+  - isRequired: true
+    name: --lab-name
+    summary: Der Name des Labs.
+    description: ''
+  - isRequired: true
+    name: --name -n
+    summary: Der Name des virtuellen Computers.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Lab-Ressourcengruppe.
+    description: ''
+  optionalParameters:
+  - name: --artifacts
+    summary: JSON-codiertes Array von Artefakten, die angewendet werden sollen. Verwenden Sie ' @ {file} ', um Daten aus einer Datei zu laden.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/lab/_help.py
+- uid: az_lab_vm_claim
+  name: az lab vm claim
+  summary: Beanspruchen Sie einen virtuellen Computer aus dem Lab.
+  description: ''
+  syntax: >-
+    az lab vm claim [--ids]
+                    [--lab-name]
+                    [--name]
+                    [--resource-group]
+                    [--subscription]
+  examples:
+  - summary: Beanspruchen Sie einen beliebigen verfügbaren virtuellen Computer im Lab.
+    syntax: az lab vm claim -g {ResourceGroup} --lab-name {LabName}
+  - summary: Beanspruchen Sie einen bestimmten virtuellen Computer im Lab.
+    syntax: az lab vm claim -g {ResourceGroup} --lab-name {LabName} --name {VMName}
+  - summary: Beanspruchen Sie mehrere virtuelle Computer im Lab nach IDs.
+    syntax: >-
+      az lab vm claim --ids \
+          /subscriptions/{SubID}/resourcegroups/{ResourceGroup}/providers/microsoft.devtestlab/labs/{LabName}/virtualmachines/{VMName1} \
+          /subscriptions/{SubID}/resourcegroups/{ResourceGroup}/providers/microsoft.devtestlab/labs/{LabName}/virtualmachines/{VMName2}
+  optionalParameters:
+  - name: --ids
+    summary: Mindestens eine Ressourcen-ID (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID handeln, die alle Informationen von Ressourcen-ID-Argumenten enthält. Sie sollten entweder--IDs oder andere Ressourcen-ID-Argumente angeben.
+    description: ''
+  - name: --lab-name
+    summary: Name des Labs
+    description: ''
+  - name: --name -n
+    summary: Der Name des zu Anspruchs enden virtuellen Computers.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Lab-Ressourcengruppe.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/lab/_help.py
+- uid: az_lab_vm_create
+  name: az lab vm create
+  summary: Erstellen Sie einen virtuellen Computer in einem Lab.
+  description: ''
+  syntax: >-
+    az lab vm create --lab-name
+                     --name
+                     --resource-group
+                     [--admin-password]
+                     [--admin-username]
+                     [--allow-claim]
+                     [--artifacts]
+                     [--authentication-type]
+                     [--disk-type]
+                     [--expiration-date]
+                     [--formula]
+                     [--generate-ssh-keys]
+                     [--image]
+                     [--image-type]
+                     [--ip-configuration]
+                     [--notes]
+                     [--saved-secret]
+                     [--size]
+                     [--ssh-key]
+                     [--subnet]
+                     [--subscription]
+                     [--tags]
+                     [--vnet-name]
+  examples:
+  - summary: Erstellen Sie eine VM im Lab aus einem Katalog Image.
+    syntax: az lab vm create --lab-name {LabName} -g {ResourceGroup} --name {VMName} --image "Ubuntu Server 16.04 LTS" --image-type gallery --size Standard_DS1_v2
+  - summary: Erstellen Sie eine VM im Lab aus einem Katalog Image mit SSH-Authentifizierung.
+    syntax: az lab vm create --lab-name {LabName} -g {ResourceGroup} --name {VMName} --image "Ubuntu Server 16.04 LTS" --image-type gallery --size Standard_DS1_v2 --authentication-type ssh
+  - summary: Erstellen Sie aus einem Katalog Image mit Kenn Wort Authentifizierung einen Anforder baren virtuellen Computer im Lab.
+    syntax: az lab vm create --lab-name {LabName} -g {ResourceGroup} --name {VMName} --image "Ubuntu Server 16.04 LTS" --image-type gallery --size Standard_DS1_v2 --allow-claim
+  - summary: Erstellen Sie eine Windows-VM im Lab aus einem Katalog Image mit Kenn Wort Authentifizierung.
+    syntax: az lab vm create --lab-name {LabName} -g {ResourceGroup} --name {VMName} --image "Windows Server 2008 R2 SP1" --image-type gallery --size Standard_DS1_v2
+  - summary: Erstellen Sie eine VM im Lab aus einem benutzerdefinierten Image.
+    syntax: az lab vm create --lab-name {LabName} -g {ResourceGroup} --name {VMName} --image "jenkins_custom" --image-type custom --size Standard_DS1_v2
+  - summary: Erstellen Sie eine VM im Lab mit einer öffentlichen IP-Adresse.
+    syntax: az lab vm create --lab-name {LabName} -g {ResourceGroup} --name {VMName} --image "Ubuntu Server 16.04 LTS" --image-type gallery --size Standard_DS1_v2 --ip-configuration public
+  - summary: Erstellen Sie eine VM aus einer Formel.
+    syntax: az lab vm create --lab-name {LabName} -g {ResourceGroup} --name {VMName} --formula MyFormula --artifacts '@artifacts.json'
+  requiredParameters:
+  - isRequired: true
+    name: --lab-name
+    summary: Name des Labs
+    description: ''
+  - isRequired: true
+    name: --name -n
+    summary: Der Name des virtuellen Computers.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  optionalParameters:
+  - name: --admin-password
+    summary: Kennwort für den VM-Administrator.
+    description: ''
+  - name: --admin-username
+    defaultValue: your_system_user_login_name
+    summary: Benutzername für den VM-Administrator.
+    description: ''
+  - name: --allow-claim
+    summary: Flag zum angeben, ob die VM als "claimable" erstellt werden soll.
+    description: ''
+  - name: --artifacts
+    summary: JSON-codiertes Array von Artefakten, die angewendet werden sollen. Verwenden Sie ' @ {file} ', um Daten aus einer Datei zu laden.
+    description: ''
+  - name: --authentication-type
+    defaultValue: password
+    summary: 'Der für den virtuellen Computer zulässige Authentifizierungstyp. Zulässige Werte sind: Password, SSH.'
+    description: ''
+  - name: --disk-type
+    summary: Speichertyp, der für den virtuellen Computer verwendet werden soll.
+    description: ''
+  - name: --expiration-date
+    summary: 'Das Ablaufdatum in UTC (yyyy-mm-ddThh: mm: SS) für die VM.'
+    description: ''
+  - name: --formula
+    summary: Der Name der Formel. Verwenden Sie `az lab formula list` für verfügbare Formeln.
+    description: Verwenden `az lab formula` Sie mit dem `--export-artifacts` -Flag, um Artefakte zu exportieren und zu aktualisieren, und übergeben Sie dann die Ergebnisse über das `--artifacts` Argument.
+  - name: --generate-ssh-keys
+    summary: Erstellen der Dateien für öffentliche und private SSH-Schlüssel, sofern diese fehlen.
+    description: ''
+  - name: --image
+    summary: Der Name des Betriebssystem Abbilds (Katalog Image Name oder Name/ID des benutzerdefinierten Images).
+    description: Verwenden Sie `az lab gallery-image list` für verfügbare Katalog Images oder `az lab custom-image list` für Verfügbare benutzerdefinierte Images.
+  - name: --image-type
+    summary: 'Der Typ des Bilds. Zulässige Werte sind: Gallery, Custom.'
+    description: ''
+  - name: --ip-configuration
+    summary: Typ der IP-Konfiguration, die für den virtuellen Computer verwendet werden soll. Zulässige Werte sind "Shared", "Public", "private".
+    description: Wenn die Angabe nicht erfolgt, wird basierend auf dem vnet des virtuellen Computers ausgewählt.
+  - name: --notes
+    summary: Hinweise zum virtuellen Computer.
+    description: ''
+  - name: --saved-secret
+    summary: Der Name des gespeicherten geheimen Schlüssels, der für die Authentifizierung verwendet werden soll.
+    description: Wenn dieser Wert angegeben wird, wird er anstelle anderer Authentifizierungsmethoden verwendet.
+  - name: --size
+    summary: Die Größe des zu erstellenden virtuellen Computers. https://azure.microsoft.com/pricing/details/virtual-machines/Informationen zur Größe finden Sie unter.
+    description: ''
+  - name: --ssh-key
+    summary: Der öffentliche SSH-Schlüssel oder der öffentliche Schlüssel Dateipfad. Verwenden `--generate-ssh-keys` Sie, um SSH-Schlüssel zu generieren.
+    description: ''
+  - name: --subnet
+    summary: Der Name des Subnetzes, dem die VM hinzugefügt werden soll.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  - name: --tags
+    summary: Durch Leerzeichen getrennte Tags im- `key[=value]` Format.
+    description: Tags können gelöscht werden, indem Sie den leeren Wert "" zuweisen.
+  - name: --vnet-name
+    summary: Der Name des virtuellen Netzwerks, dem die VM hinzugefügt werden soll.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/lab/_help.py
+- uid: az_lab_vm_delete
+  name: az lab vm delete
+  summary: Löschen Sie den virtuellen Computer.
+  description: Dieser Vorgang kann eine Weile dauern.
+  syntax: >-
+    az lab vm delete --lab-name
+                     --name
+                     --resource-group
+                     [--subscription]
+  requiredParameters:
+  - isRequired: true
+    name: --lab-name
+    summary: Der Name des Labs.
+    description: ''
+  - isRequired: true
+    name: --name
+    summary: Der Name des virtuellen Computers.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  optionalParameters:
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/lab/_help.py
+- uid: az_lab_vm_list
+  name: az lab vm list
+  summary: Auflisten der VMs in einer Azure devtest Lab-Umgebung.
+  description: ''
+  syntax: >-
+    az lab vm list --lab-name
+                   --resource-group
+                   [--all]
+                   [--claimable]
+                   [--environment]
+                   [--expand]
+                   [--filters]
+                   [--object-id]
+                   [--order-by]
+                   [--query-examples]
+                   [--subscription]
+                   [--top]
+  examples:
+  - summary: Auflisten der VMs in einer Azure devtest Lab-Umgebung. automatisch generierten
+    syntax: az lab vm list --lab-name MyLab --resource-group MyResourceGroup
+  requiredParameters:
+  - isRequired: true
+    name: --lab-name
+    summary: Name des Labs
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  optionalParameters:
+  - name: --all
+    summary: Auflisten aller virtuellen Computer im Lab. Kann nicht mit verwendet werden `--filters` .
+    description: ''
+  - name: --claimable
+    summary: Auflisten nur der Anforder baren virtuellen Computer im Lab. Kann nicht mit verwendet werden `--filters` .
+    description: ''
+  - name: --environment
+    summary: Der Name oder die ID der Umgebung, in der die virtuellen Maschinen aufgelistet werden sollen. Kann nicht mit verwendet werden `--filters` .
+    description: ''
+  - name: --expand
+    summary: Die Erweiterungs Abfrage.
+    description: ''
+  - name: --filters
+    summary: Der anzuwendende Filter.
+    description: ''
+  - name: --object-id
+    summary: Objekt-ID des Besitzers, für den VMS aufgelistet werden sollen.
+    description: ''
+  - name: --order-by
+    summary: Der Anordnungs Ausdruck für die Ergebnisse mithilfe der odata-Notation.
+    description: ''
+  - name: --query-examples
+    summary: Empfehlen Sie die jmespath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und Sie nach dem Abfrage Parameter in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positions Schlüsselwörter hinzufügen, um Vorschläge auf der Grundlage dieser Schlüsselwörter zu geben.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  - name: --top
+    summary: Die maximale Anzahl der zurück zugebende Ressourcen.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/lab/_help.py
+- uid: az_lab_vm_show
+  name: az lab vm show
+  summary: Virtuellen Computer erhalten.
+  description: ''
+  syntax: >-
+    az lab vm show --lab-name
+                   --name
+                   --resource-group
+                   [--expand]
+                   [--query-examples]
+                   [--subscription]
+  requiredParameters:
+  - isRequired: true
+    name: --lab-name
+    summary: Der Name des Labs.
+    description: ''
+  - isRequired: true
+    name: --name
+    summary: Der Name des virtuellen Computers.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  optionalParameters:
+  - name: --expand
+    summary: "Geben Sie die $Expand Abfrage an. Beispiel: ' Properties ($Expand = Artefakte, computevm, NetworkInterface, applicableschedule) '."
+    description: ''
+  - name: --query-examples
+    summary: Empfehlen Sie die jmespath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und Sie nach dem Abfrage Parameter in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positions Schlüsselwörter hinzufügen, um Vorschläge auf der Grundlage dieser Schlüsselwörter zu geben.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/lab/_help.py
+- uid: az_lab_vm_start
+  name: az lab vm start
+  summary: Dient zum Starten eines virtuellen Computers.
+  description: Dieser Vorgang kann eine Weile dauern.
+  syntax: >-
+    az lab vm start --lab-name
+                    --name
+                    --resource-group
+                    [--subscription]
+  requiredParameters:
+  - isRequired: true
+    name: --lab-name
+    summary: Der Name des Labs.
+    description: ''
+  - isRequired: true
+    name: --name
+    summary: Der Name des virtuellen Computers.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  optionalParameters:
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/lab/_help.py
+- uid: az_lab_vm_stop
+  name: az lab vm stop
+  summary: Beenden Sie einen virtuellen Computer. dieser Vorgang kann einige Zeit in Anspruch nehmen.
+  description: ''
+  syntax: >-
+    az lab vm stop --lab-name
+                   --name
+                   --resource-group
+                   [--subscription]
+  requiredParameters:
+  - isRequired: true
+    name: --lab-name
+    summary: Der Name des Labs.
+    description: ''
+  - isRequired: true
+    name: --name
+    summary: Der Name des virtuellen Computers.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  optionalParameters:
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/lab/_help.py
+commands:
+- az_lab_vm_apply-artifacts
+- az_lab_vm_claim
+- az_lab_vm_create
+- az_lab_vm_delete
+- az_lab_vm_list
+- az_lab_vm_show
+- az_lab_vm_start
+- az_lab_vm_stop
+globalParameters:
+- name: --debug
+  summary: Ausführlichkeit der Protokollierung erhöhen, um alle Debugprotokolle anzuzeigen.
+- name: --help -h
+  summary: Zeigen Sie diese Hilfemeldung an, und schließen Sie sie.
+- name: --only-show-errors
+  summary: Nur Fehler anzeigen und Warnungen unterdrücken.
+- name: --output -o
+  defaultValue: json
+  parameterValueGroup: json, jsonc, table, tsv
+  summary: Ausgabeformat.
+- name: --query
+  summary: JMESPath-Abfragezeichenfolge. Weitere Informationen und Beispiele finden Sie unter <a href="http://jmespath.org/">http://jmespath.org/</a>.
+- name: --verbose
+  summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
+metadata:
+  doc_source_url_repo: https://github.com/Azure/azure-cli/blob/dev/
+  ms.date: 10/20/2019
+  description: Verwalten von VMS in einer Azure devtest Lab-Umgebung.
+  ms.openlocfilehash: 218c369d5447a8229c0bd653dd8eefd0b682b96c
+  ms.sourcegitcommit: 612554c029ba1f28d3a43fd22e743104a1a30ea0
+  ms.translationtype: MT
+  ms.contentlocale: de-DE
+  ms.lasthandoff: 04/07/2021
+  ms.locfileid: "106874775"

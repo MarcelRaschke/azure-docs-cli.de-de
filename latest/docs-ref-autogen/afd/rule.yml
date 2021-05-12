@@ -1,0 +1,295 @@
+### YamlMime:AzureCLIGroup
+uid: az_afd_rule
+name: az afd rule
+summary: Verwalten von Übermittlungsregeln innerhalb des angegebenen Regelsets.
+description: ''
+directCommands:
+- uid: az_afd_rule_create
+  name: az afd rule create
+  summary: Erstellt eine neue Übermittlungsregel innerhalb des angegebenen Regelsets.
+  description: ''
+  syntax: >-
+    az afd rule create --action-name {CacheExpiration, CacheKeyQueryString, ModifyRequestHeader, ModifyResponseHeader, OriginGroupOverride, RequestHeader, ResponseHeader, UrlRedirect, UrlRewrite, UrlSigning}
+                       --order
+                       --profile-name
+                       --resource-group
+                       --rule-name
+                       --rule-set-name
+                       [--cache-behavior {BypassCache, Override, SetIfMissing}]
+                       [--cache-duration]
+                       [--custom-fragment]
+                       [--custom-hostname]
+                       [--custom-path]
+                       [--custom-querystring]
+                       [--destination]
+                       [--header-action {Append, Delete, Overwrite}]
+                       [--header-name]
+                       [--header-value]
+                       [--match-processing-behavior {Continue, Stop}]
+                       [--match-values]
+                       [--match-variable {Cookies, HttpVersion, IsDevice, PostArgs, QueryString, RemoteAddress, RequestBody, RequestHeader, RequestMethod, RequestScheme, RequestUri, UrlFileExtension, UrlFileName, UrlPath}]
+                       [--negate-condition {false, true}]
+                       [--operator]
+                       [--preserve-unmatched-path {false, true}]
+                       [--query-parameters]
+                       [--query-string-behavior {Exclude, ExcludeAll, Include, IncludeAll}]
+                       [--redirect-protocol {Http, Https, MatchRequest}]
+                       [--redirect-type {Found, Moved, PermanentRedirect, TemporaryRedirect}]
+                       [--selector]
+                       [--source-pattern]
+                       [--subscription]
+                       [--transform {Lowercase, Uppercase}]
+  examples:
+  - summary: Erstellen Sie eine Regel zum Anfügen eines Antwortheaders für Anforderungen von Einer.
+    syntax: az afd rule create -g group --rule-set-name ruleset1 --profile-name profile --order 2 --match-variable RemoteAddress --operator GeoMatch --match-values TH --rule-name disablecahing --action-name ModifyResponseHeader --header-action Append --header-name X-CDN --header-value AFDX
+  - summary: Erstellen einer Regel für die Umleitung von HTTP zu HTTPS
+    syntax: az afd rule create -g group --rule-set-name ruleset1 --profile-name profile --order 1 --rule-name "redirect" --match-variable RequestScheme --operator Equal --match-values HTTP --action-name "UrlRedirect" --redirect-protocol Https --redirect-type Moved
+  requiredParameters:
+  - isRequired: true
+    name: --action-name
+    parameterValueGroup: CacheExpiration, CacheKeyQueryString, ModifyRequestHeader, ModifyResponseHeader, OriginGroupOverride, RequestHeader, ResponseHeader, UrlRedirect, UrlRewrite, UrlSigning
+    summary: Name der Aktion.
+    description: ''
+  - isRequired: true
+    name: --order
+    summary: Die Reihenfolge, in der die Regeln für den Endpunkt angewendet werden. Mögliche Werte {0,1,2,3,.........}. Eine Regel mit einer niedrigeren Reihenfolge wird vor einer Regel mit einer höheren Reihenfolge angewendet. Regel mit Der Reihenfolge 0 ist eine spezielle Regel. Es ist keine Bedingung erforderlich, und die aufgeführten Aktionen werden immer angewendet.
+    description: ''
+  - isRequired: true
+    name: --profile-name
+    summary: Name des CDN-Profils, das innerhalb der Ressourcengruppe eindeutig ist.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - isRequired: true
+    name: --rule-name
+    summary: Name der Regel.
+    description: ''
+  - isRequired: true
+    name: --rule-set-name
+    summary: Name des Regelsets.
+    description: ''
+  optionalParameters:
+  - name: --cache-behavior
+    parameterValueGroup: BypassCache, Override, SetIfMissing
+    summary: Zwischenspeicherungsverhalten für die Anforderungen.
+    description: ''
+  - name: --cache-duration
+    summary: Die Dauer, für die der Inhalt zwischengespeichert werden muss.                Das zulässige Format ist [d.]hh:mm:ss.
+    description: ''
+  - name: --custom-fragment
+    summary: Fragment, das der Umleitungs-URL hinzugefügt werden soll.
+    description: ''
+  - name: --custom-hostname
+    summary: Host, der umgeleitet werden soll.                Lassen Sie leer, um den eingehenden Host als Zielhost zu verwenden.
+    description: ''
+  - name: --custom-path
+    summary: Der vollständige Pfad, der umgeleitet werden soll. Der Pfad darf nicht leer sein und muss mit /beginnen.                Lassen Sie leer, um den eingehenden Pfad als Zielpfad zu verwenden.
+    description: ''
+  - name: --custom-querystring
+    summary: Der Satz von Abfragezeichenfolgen, die in der Umleitungs-URL platziert werden sollen.                Lassen Sie leer, um die eingehende Abfragezeichenfolge beizubehalten.
+    description: ''
+  - name: --destination
+    summary: Der Zielpfad, der beim erneuten Schreiben verwendet werden soll.
+    description: ''
+  - name: --header-action
+    parameterValueGroup: Append, Delete, Overwrite
+    summary: Headeraktion für die Anforderungen.
+    description: ''
+  - name: --header-name
+    summary: Name des zu ändernde Headers.
+    description: ''
+  - name: --header-value
+    summary: Wert des Headers.
+    description: ''
+  - name: --match-processing-behavior
+    parameterValueGroup: Continue, Stop
+    summary: Geben Sie an, ob die Regel-Engine die verbleibenden Regeln weiterhin ausführen oder bei Übereinstimmung beenden soll. Der Standardwert ist "Continue".
+    description: ''
+  - name: --match-values
+    summary: Übereinstimmungswerte der Übereinstimmungsbedingung (kommagetrennt).
+    description: ''
+  - name: --match-variable
+    parameterValueGroup: Cookies, HttpVersion, IsDevice, PostArgs, QueryString, RemoteAddress, RequestBody, RequestHeader, RequestMethod, RequestScheme, RequestUri, UrlFileExtension, UrlFileName, UrlPath
+    summary: Name der Übereinstimmungsbedingung.
+    description: ''
+  - name: --negate-condition
+    parameterValueGroup: false, true
+    summary: Wenn true, negiert die Bedingung.
+    description: ''
+  - name: --operator
+    summary: Operator der Übereinstimmungsbedingung.
+    description: ''
+  - name: --preserve-unmatched-path
+    parameterValueGroup: false, true
+    summary: True gibt an, dass der verbleibende Pfad nach dem Quellmuster an den neuen Zielpfad angefügt wird.
+    description: ''
+  - name: --query-parameters
+    summary: Abfrageparameter, die eingeschlossen oder ausgeschlossen werden sollen (durch Kommas getrennt).
+    description: ''
+  - name: --query-string-behavior
+    parameterValueGroup: Exclude, ExcludeAll, Include, IncludeAll
+    summary: Abfragezeichenfolgenverhalten für die Anforderungen.
+    description: ''
+  - name: --redirect-protocol
+    parameterValueGroup: Http, Https, MatchRequest
+    summary: Protokoll, das für die Umleitung verwendet werden soll.
+    description: ''
+  - name: --redirect-type
+    parameterValueGroup: Found, Moved, PermanentRedirect, TemporaryRedirect
+    summary: Der Umleitungstyp, den die Regel beim Umleiten von Datenverkehr verwendet.
+    description: ''
+  - name: --selector
+    summary: Selektor der Übereinstimmungsbedingung.
+    description: ''
+  - name: --source-pattern
+    summary: Ein Anforderungs-URI-Muster, das den Typ der Anforderungen identifiziert, die möglicherweise umgeschrieben werden.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+  - name: --transform
+    parameterValueGroup: Lowercase, Uppercase
+    summary: Transformation, die vor dem Abgleich angewendet werden soll.
+    description: ''
+- uid: az_afd_rule_delete
+  name: az afd rule delete
+  summary: Entfernen Sie eine Übermittlungsregel aus dem Regelsatz.
+  description: ''
+  syntax: >-
+    az afd rule delete [--ids]
+                       [--profile-name]
+                       [--resource-group]
+                       [--rule-name]
+                       [--rule-set-name]
+                       [--subscription]
+                       [--yes]
+  examples:
+  - summary: Entfernen Sie eine Regel mit dem Namen rule1.
+    syntax: az afd rule delete -g group --rule-set-name ruleSetName --profile-name profile --rule-name rule1
+  optionalParameters:
+  - name: --ids
+    summary: Eine oder mehrere Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu Ressourcen-ID-Argumenten geben. Sie sollten entweder --ids oder andere Ressourcen-ID-Argumente bereitstellen.
+    description: ''
+  - name: --profile-name
+    summary: Name des CDN-Profils, das innerhalb der Ressourcengruppe eindeutig ist.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --rule-name
+    summary: Name der Regel.
+    description: ''
+  - name: --rule-set-name
+    summary: Name des Regelsets.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+  - name: --yes -y
+    summary: Nicht zur Bestätigung auffordern
+    description: ''
+- uid: az_afd_rule_list
+  name: az afd rule list
+  summary: Listet alle vorhandenen Übermittlungsregeln in einem Regelsatz auf.
+  description: ''
+  syntax: >-
+    az afd rule list --profile-name
+                     --resource-group
+                     --rule-set-name
+                     [--query-examples]
+                     [--subscription]
+  requiredParameters:
+  - isRequired: true
+    name: --profile-name
+    summary: Name des CDN-Profils, das innerhalb der Ressourcengruppe eindeutig ist.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - isRequired: true
+    name: --rule-set-name
+    summary: Name des Regelsets.
+    description: ''
+  optionalParameters:
+  - name: --query-examples
+    summary: Empfehlen Sie die JMESPath-Zeichenfolge. Sie können eine der Abfragen kopieren und nach dem Parameter --query in doppelte Anführungszeichen einfügen, um die Ergebnisse zu sehen. Sie können ein oder mehrere Positionsschlüsselwörter hinzufügen, damit wir basierend auf diesen Schlüsselwörtern Vorschläge machen können.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+- uid: az_afd_rule_show
+  name: az afd rule show
+  summary: Anzeigen von Übermittlungsregeldetails.
+  description: ''
+  syntax: >-
+    az afd rule show [--ids]
+                     [--profile-name]
+                     [--query-examples]
+                     [--resource-group]
+                     [--rule-name]
+                     [--rule-set-name]
+                     [--subscription]
+  examples:
+  - summary: Zeigt Details zur Übermittlungsregel mit dem Namen rule1 an.
+    syntax: az afd rule show -g group --rule-set-name ruleSetName --profile-name profile --rule-name rule1
+  optionalParameters:
+  - name: --ids
+    summary: Eine oder mehrere Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu Ressourcen-ID-Argumenten geben. Sie sollten entweder --ids oder andere Ressourcen-ID-Argumente bereitstellen.
+    description: ''
+  - name: --profile-name
+    summary: Name des CDN-Profils, das innerhalb der Ressourcengruppe eindeutig ist.
+    description: ''
+  - name: --query-examples
+    summary: Empfehlen Sie die JMESPath-Zeichenfolge. Sie können eine der Abfragen kopieren und nach dem Parameter --query in doppelte Anführungszeichen einfügen, um die Ergebnisse zu sehen. Sie können ein oder mehrere Positionsschlüsselwörter hinzufügen, damit wir basierend auf diesen Schlüsselwörtern Vorschläge machen können.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --rule-name
+    summary: Name der Regel.
+    description: ''
+  - name: --rule-set-name
+    summary: Name des Regelsets.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+commands:
+- az_afd_rule_action
+- az_afd_rule_action_add
+- az_afd_rule_action_list
+- az_afd_rule_action_remove
+- az_afd_rule_condition
+- az_afd_rule_condition_add
+- az_afd_rule_condition_list
+- az_afd_rule_condition_remove
+- az_afd_rule_create
+- az_afd_rule_delete
+- az_afd_rule_list
+- az_afd_rule_show
+globalParameters:
+- name: --debug
+  summary: Ausführlichkeit der Protokollierung erhöhen, um alle Debugprotokolle anzuzeigen.
+- name: --help -h
+  summary: Zeigen Sie diese Hilfemeldung an, und schließen Sie sie.
+- name: --only-show-errors
+  summary: Nur Fehler anzeigen und Warnungen unterdrücken.
+- name: --output -o
+  defaultValue: json
+  parameterValueGroup: json, jsonc, table, tsv
+  summary: Ausgabeformat.
+- name: --query
+  summary: JMESPath-Abfragezeichenfolge. Weitere Informationen und Beispiele finden Sie unter <a href="http://jmespath.org/">http://jmespath.org/</a>.
+- name: --verbose
+  summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
+metadata:
+  description: Verwalten von Übermittlungsregeln innerhalb des angegebenen Regelsets.
+  ms.openlocfilehash: ab24d3ebe2ca63b084331e801f85ba85f7dd17dc
+  ms.sourcegitcommit: 15a6f14c5a8570ba89a3bd5bb442f3324d72bc37
+  ms.translationtype: MT
+  ms.contentlocale: de-DE
+  ms.lasthandoff: 04/29/2021
+  ms.locfileid: "108246298"

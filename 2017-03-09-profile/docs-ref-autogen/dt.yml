@@ -1,0 +1,220 @@
+### YamlMime:AzureCLIGroup
+uid: az_dt
+name: az dt
+extensionInformation: >-
+  > [!Note]
+
+  > Dieser Verweis ist Teil der **Erweiterung azure-iot** für Azure CLI und erfordert Version 2.0.70 oder höher.  Die Erweiterung wird automatisch installiert, wenn Sie den Befehl **az dt zum ersten Mal** ausführen.  [Weitere Informationen zu Erweiterungen](https://docs.microsoft.com/en-us/cli/azure/azure-cli-extensions-overview)
+summary: Verwalten von Azure Digital Twins-Lösungen und -Infrastrukturen
+description: ''
+directCommands:
+- uid: az_dt_create
+  name: az dt create
+  summary: Erstellen oder aktualisieren Sie eine Digital Twins Instanz.
+  description: ''
+  syntax: >-
+    az dt create --dt-name
+                 --resource-group
+                 [--assign-identity {false, true}]
+                 [--location]
+                 [--pna {Disabled, Enabled}]
+                 [--role]
+                 [--scopes]
+                 [--tags]
+  examples:
+  - summary: Erstellen Sie eine Instanz in der Zielressourcengruppe mithilfe des Ressourcengruppenstandorts.
+    syntax: az dt create -n {instance_name} -g {resouce_group}
+  - summary: Erstellen Sie eine Instanz in der Zielressourcengruppe mit dem angegebenen Speicherort und den angegebenen Tags.
+    syntax: az dt create -n {instance_name} -g {resouce_group} -l westus --tags a=b c=d
+  - summary: Erstellen Sie eine Instanz in der Zielressourcengruppe mit einer vom System verwalteten Identität.
+    syntax: az dt create -n {instance_name} -g {resouce_group} --assign-identity
+  - summary: Erstellen Sie eine Instanz in der Zielressourcengruppe mit einer vom System verwalteten Identität, und weisen Sie die Identität einem oder mehrere Bereiche (durch Leerzeichen getrennt) mit der Rolle Mitwirkender zu.
+    syntax: az dt create -n {instance_name} -g {resouce_group} --assign-identity --scopes "/subscriptions/a12345ea-bb21-994d-2263-c716348e32a1/resourceGroups/ProResourceGroup/providers/Microsoft.EventHub/namespaces/myEventHubNamespace/eventhubs/myEventHub" "/subscriptions/a12345ea-bb21-994d-2263-c716348e32a1/resourceGroups/ProResourceGroup/providers/Microsoft.ServiceBus/namespaces/myServiceBusNamespace/topics/myTopic"
+  - summary: Erstellen Sie eine Instanz in der Zielressourcengruppe mit einer vom System verwalteten Identität, und weisen Sie die Identität einem oder mehrere Bereiche mit einer benutzerdefinierten angegebenen Rolle zu.
+    syntax: az dt create -n {instance_name} -g {resouce_group} --assign-identity --scopes "/subscriptions/a12345ea-bb21-994d-2263-c716348e32a1/resourceGroups/ProResourceGroup/providers/Microsoft.EventHub/namespaces/myEventHubNamespace/eventhubs/myEventHub" "/subscriptions/a12345ea-bb21-994d-2263-c716348e32a1/resourceGroups/ProResourceGroup/providers/Microsoft.ServiceBus/namespaces/myServiceBusNamespace/topics/myTopic" --role MyCustomRole
+  - summary: Aktualisieren Sie eine Instanz in der Zielressourcengruppe, um die vom System verwaltete Identität zu aktivieren.
+    syntax: az dt create -n {instance_name} -g {resouce_group} --assign-identity
+  - summary: Aktualisieren Sie eine Instanz in der Zielressourcengruppe, um die vom System verwaltete Identität zu deaktivieren.
+    syntax: az dt create -n {instance_name} -g {resouce_group} --assign-identity false
+  - summary: Aktualisieren Sie eine Instanz in der Zielressourcengruppe mit neuen Tagwerten, und deaktivieren Sie den Zugriff auf das öffentliche Netzwerk.
+    syntax: az dt create -n {instance_name} -g {resouce_group} --tags env=prod --public-network-access Disabled
+  requiredParameters:
+  - isRequired: true
+    name: --dt-name --dtn -n
+    summary: Digital Twins Instanzname.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Digital Twins Instanzressourcengruppe. Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  optionalParameters:
+  - name: --assign-identity
+    parameterValueGroup: false, true
+    summary: Weisen Sie eine vom System generierte Identität der Digital Twins zu.
+    description: ''
+  - name: --location -l
+    summary: Digital Twins Instanzspeicherort. Wenn kein Standort angegeben wird, wird der Ressourcengruppenstandort verwendet. Sie können den Standardspeicherort mit `az configure --defaults location=<name>` konfigurieren.
+    description: ''
+  - name: --pna --public-network-access
+    defaultValue: Enabled
+    parameterValueGroup: Disabled, Enabled
+    summary: Bestimmt, ob auf Digital Twins instanz über ein öffentliches Netzwerk zugegriffen werden kann.
+    description: ''
+  - name: --role
+    defaultValue: Contributor
+    summary: Rollenname oder ID der system zugewiesenen Identität.
+    description: ''
+  - name: --scopes
+    summary: Bereichsspezifische Bereiche, auf die die vom System zugewiesene Identität zugreifen kann.
+    description: ''
+  - name: --tags
+    summary: 'Digital Twins Instanztags. Eigenschaftenbehälter in Schlüssel-Wert-Paaren im folgenden Format: a=b c=d.'
+    description: ''
+- uid: az_dt_delete
+  name: az dt delete
+  summary: Löscht eine vorhandene Digital Twins Instanz.
+  description: ''
+  syntax: >-
+    az dt delete --dt-name
+                 [--no-wait]
+                 [--resource-group]
+                 [--yes]
+  examples:
+  - summary: Löschen Sie eine beliebige Instanz auf blockierende Weise mit einer Bestätigungsaufforderung.
+    syntax: az dt delete -n {instance_name}
+  - summary: Löschen Sie eine beliebige Instanz ohne Blockierung oder Eingabeaufforderung.
+    syntax: az dt delete -n {instance_name} -y --no-wait
+  requiredParameters:
+  - isRequired: true
+    name: --dt-name --dtn -n
+    summary: Digital Twins Instanzname.
+    description: ''
+  optionalParameters:
+  - name: --no-wait
+    summary: Nicht auf den Abschluss lang andauernder Vorgänge warten
+    description: ''
+  - name: --resource-group -g
+    summary: Digital Twins Instanzressourcengruppe. Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --yes -y
+    summary: Nicht zur Bestätigung auffordern
+    description: ''
+- uid: az_dt_list
+  name: az dt list
+  summary: Listen Sie die Sammlung von Digital Twins Instanzen nach Abonnement oder Ressourcengruppe auf.
+  description: ''
+  syntax: az dt list [--resource-group]
+  examples:
+  - summary: Listet alle Instanzen im aktuellen Abonnement auf.
+    syntax: az dt list
+  - summary: Listen Sie alle Instanzen in der Zielressourcengruppe auf, und führen Sie die Ausgabe im Tabellenformat durch.
+    syntax: az dt list -g {resource_group} --output table
+  - summary: Listet alle Instanzen im Abonnement auf, die eine Bedingung erfüllen.
+    syntax: az dt list --query "[?contains(name, 'Production')]"
+  - summary: Anzahl der Instanzen, die die Bedingung erfüllen.
+    syntax: az dt list --query "length([?contains(name, 'Production')])"
+  optionalParameters:
+  - name: --resource-group -g
+    summary: Digital Twins Instanzressourcengruppe. Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+- uid: az_dt_show
+  name: az dt show
+  summary: Zeigt eine vorhandene Digital Twins Instanz an.
+  description: ''
+  syntax: >-
+    az dt show --dt-name
+               [--resource-group]
+  examples:
+  - summary: Zeigen Sie eine -Instanz an.
+    syntax: az dt show -n {instance_name}
+  - summary: Zeigt eine Instanz an und projiziert bestimmte Eigenschaften.
+    syntax: az dt show -n {instance_name} --query "{Endpoint:hostName, Location:location}"
+  requiredParameters:
+  - isRequired: true
+    name: --dt-name --dtn -n
+    summary: Digital Twins Instanzname.
+    description: ''
+  optionalParameters:
+  - name: --resource-group -g
+    summary: Digital Twins Instanzressourcengruppe. Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+commands:
+- az_dt_create
+- az_dt_delete
+- az_dt_endpoint
+- az_dt_endpoint_create
+- az_dt_endpoint_create_eventgrid
+- az_dt_endpoint_create_eventhub
+- az_dt_endpoint_create_servicebus
+- az_dt_endpoint_delete
+- az_dt_endpoint_list
+- az_dt_endpoint_show
+- az_dt_list
+- az_dt_model
+- az_dt_model_create
+- az_dt_model_delete
+- az_dt_model_list
+- az_dt_model_show
+- az_dt_model_update
+- az_dt_network
+- az_dt_network_private-endpoint
+- az_dt_network_private-endpoint_connection
+- az_dt_network_private-endpoint_connection_delete
+- az_dt_network_private-endpoint_connection_list
+- az_dt_network_private-endpoint_connection_set
+- az_dt_network_private-endpoint_connection_show
+- az_dt_network_private-link
+- az_dt_network_private-link_list
+- az_dt_network_private-link_show
+- az_dt_role-assignment
+- az_dt_role-assignment_create
+- az_dt_role-assignment_delete
+- az_dt_role-assignment_list
+- az_dt_route
+- az_dt_route_create
+- az_dt_route_delete
+- az_dt_route_list
+- az_dt_route_show
+- az_dt_show
+- az_dt_twin
+- az_dt_twin_component
+- az_dt_twin_component_show
+- az_dt_twin_component_update
+- az_dt_twin_create
+- az_dt_twin_delete
+- az_dt_twin_delete-all
+- az_dt_twin_query
+- az_dt_twin_relationship
+- az_dt_twin_relationship_create
+- az_dt_twin_relationship_delete
+- az_dt_twin_relationship_delete-all
+- az_dt_twin_relationship_list
+- az_dt_twin_relationship_show
+- az_dt_twin_relationship_update
+- az_dt_twin_show
+- az_dt_twin_telemetry
+- az_dt_twin_telemetry_send
+- az_dt_twin_update
+globalParameters:
+- name: --debug
+  summary: Ausführlichkeit der Protokollierung erhöhen, um alle Debugprotokolle anzuzeigen.
+- name: --help -h
+  summary: Zeigen Sie diese Hilfemeldung an, und schließen Sie sie.
+- name: --only-show-errors
+  summary: Nur Fehler anzeigen und Warnungen unterdrücken.
+- name: --output -o
+  defaultValue: json
+  parameterValueGroup: json, jsonc, table, tsv
+  summary: Ausgabeformat.
+- name: --query
+  summary: JMESPath-Abfragezeichenfolge. Weitere Informationen und Beispiele finden Sie unter <a href="http://jmespath.org/">http://jmespath.org/</a>.
+- name: --verbose
+  summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
+metadata:
+  description: Verwalten von Azure Digital Twins-Lösungen und -Infrastrukturen
+  ms.openlocfilehash: cc1020d682131f824fe4c658e1b0fe2f445990d6
+  ms.sourcegitcommit: 8464e3b00e33158e3c18654d9b852c8d1fadadd7
+  ms.translationtype: MT
+  ms.contentlocale: de-DE
+  ms.lasthandoff: 05/12/2021
+  ms.locfileid: "109777331"

@@ -1,0 +1,256 @@
+### YamlMime:AzureCLIGroup
+uid: az_resource-mover_move-resource
+name: az resource-mover move-resource
+extensionInformation: >-
+  > [!Note]
+
+  > Dieser Verweis ist Teil der **Ressourcen** verschiebungserweiterung für Azure CLI und erfordert Version 2.15.0 oder höher.  Die Erweiterung wird automatisch installiert, wenn Sie den Befehl **AZ Resource-Move Move-Resource** zum ersten Mal ausführen.  [Weitere Informationen zu Erweiterungen](https://docs.microsoft.com/en-us/cli/azure/azure-cli-extensions-overview)
+summary: "\"Move-Resource\" verwalten."
+description: ''
+directCommands:
+- uid: az_resource-mover_move-resource_add
+  name: az resource-mover move-resource add
+  summary: Erstellen oder aktualisieren Sie eine Move-Ressource in die Move-Collection.
+  description: ''
+  syntax: >-
+    az resource-mover move-resource add --move-collection-name
+                                        --move-resource-name
+                                        --resource-group
+                                        [--depends-on-overrides]
+                                        [--existing-target-id]
+                                        [--no-wait]
+                                        [--resource-settings]
+                                        [--source-id]
+  examples:
+  - summary: Fügen Sie ein vnet als Verschiebungs Ressource zu Move-Collection hinzu.
+    syntax: >-
+      az resource-mover move-resource add --resource-group MyResourceGroup --move-collection-name MyMoveCollection --name MoveResourceName
+
+      --source-id "/subscriptions/subID/resourceGroups/myRG/providers/Microsoft.Network/virtualNetworks/MyVNet"
+
+      --resource-settings '{
+          "resourceType": "Microsoft.Network/virtualNetworks",
+          "targetResourceName": "MyVNet-target"
+      }'
+  - summary: Fügen Sie ein vnet als Verschiebungs Ressource zu Move-Collection hinzu.
+    syntax: >-
+      az resource-mover move-resource add --resource-group MyResourceGroup --move-collection-name MyMoveCollection --name MoveResourceName
+
+      --source-id "/subscriptions/subID/resourceGroups/myRG/providers/Microsoft.Network/virtualNetworks/MyVNet"
+
+      --resource-settings @resource-settings.json
+  - summary: Fügen Sie der Move-Collection einen virtuellen Computer als Move-Ressource hinzu.
+    syntax: >-
+      az resource-mover move-resource add --resource-group MyResourceGroup --move-collection-name MyMoveCollection --name MoveResourceName
+
+      --source-id "/subscriptions/subID/resourceGroups/eastusRG/providers/Microsoft.Compute/virtualMachines/MyVM"
+
+      --depends-on-overrides id="/subscriptions/subID/resourceGroups/eastusRG/providers/Microsoft.Network/networkInterfaces/MyNIC" target-id="/subscriptions/subID/resourceGroups/westusRG/providers/Microsoft.Network/networkInterfaces/MyNIC"
+
+      --resource-settings '{
+          "resourceType": "Microsoft.Compute/virtualMachines",
+          "targetAvailabilitySetId": "/subscriptions/subID/resourceGroups/eastusRG/providers/Microsoft.Compute/availabilitySets/MyAVSet",
+          "targetAvailabilityZone": "2",
+          "targetResourceName": "MyVM-target",
+          "targetVmSize": null
+      }'
+  requiredParameters:
+  - isRequired: true
+    name: --move-collection-name
+    summary: Der Name der Verschiebungs Auflistung.
+    description: ''
+  - isRequired: true
+    name: --move-resource-name --name -n
+    summary: Der Name der Verschiebungs Ressource.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  optionalParameters:
+  - name: --depends-on-overrides
+    summary: Die Verschiebungs Ressourcen Abhängigkeiten überschreiben.
+    description: >-
+      Syntax:--depends-on-Overrides ID = XX Target-ID = XX
+
+
+      ID: die Arm-ID der abhängigen Ressource.
+
+      Target-ID: die ressourcenarm-ID der Verschiebungs Ressource oder der ressourcenarm-ID der abhängigen Ressource.
+
+
+      Mehrere Aktionen können mithilfe von mehr als einem-überschreiben-Argument angegeben werden.
+  - name: --existing-target-id
+    summary: Die vorhandene Zielarm-ID der Ressource.
+    description: ''
+  - name: --no-wait
+    summary: Nicht auf den Abschluss lang andauernder Vorgänge warten
+    description: ''
+  - name: --resource-settings
+    summary: 'Die Ressourcen Einstellungen. Erwarteter Wert: json-string/@json-file .'
+    description: ''
+  - name: --source-id
+    summary: Die Arm-Quell-ID der Ressource.
+    description: ''
+- uid: az_resource-mover_move-resource_delete
+  name: az resource-mover move-resource delete
+  summary: Löschen Sie eine Move-Ressource aus der Move-Collection.
+  description: ''
+  syntax: >-
+    az resource-mover move-resource delete --move-collection-name
+                                           --move-resource-name
+                                           --resource-group
+                                           [--no-wait]
+                                           [--yes]
+  examples:
+  - summary: Löschen Sie eine Move-Ressource aus der Move-Collection.
+    syntax: az resource-mover move-resource delete --move-collection-name MyMoveCollection --name MyMoveResource --resource-group MyResourceGroup
+  requiredParameters:
+  - isRequired: true
+    name: --move-collection-name
+    summary: Der Name der Verschiebungs Auflistung.
+    description: ''
+  - isRequired: true
+    name: --move-resource-name --name -n
+    summary: Der Name der Verschiebungs Ressource.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  optionalParameters:
+  - name: --no-wait
+    summary: Nicht auf den Abschluss lang andauernder Vorgänge warten
+    description: ''
+  - name: --yes -y
+    summary: Nicht zur Bestätigung auffordern
+    description: ''
+- uid: az_resource-mover_move-resource_list
+  name: az resource-mover move-resource list
+  summary: Auflisten der Verschiebungs Ressourcen in einer Move-Collection.
+  description: ''
+  syntax: >-
+    az resource-mover move-resource list --move-collection-name
+                                         --resource-group
+  examples:
+  - summary: Auflisten der Verschiebungs Ressourcen in einer Move-Collection.
+    syntax: az resource-mover move-resource list --move-collection-name MyMoveCollection --resource-group MyResourceGroup
+  requiredParameters:
+  - isRequired: true
+    name: --move-collection-name
+    summary: Der Name der Verschiebungs Auflistung.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+- uid: az_resource-mover_move-resource_show
+  name: az resource-mover move-resource show
+  summary: Hier werden die Details einer Move-Ressource angezeigt.
+  description: ''
+  syntax: >-
+    az resource-mover move-resource show --move-collection-name
+                                         --move-resource-name
+                                         --resource-group
+  examples:
+  - summary: Hier werden die Details einer Move-Ressource angezeigt.
+    syntax: az resource-mover move-resource show --move-collection-name MyMoveCollection --name MyMoveResource --resource-group MyResourceGroup
+  requiredParameters:
+  - isRequired: true
+    name: --move-collection-name
+    summary: Der Name der Verschiebungs Auflistung.
+    description: ''
+  - isRequired: true
+    name: --move-resource-name --name -n
+    summary: Der Name der Verschiebungs Ressource.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+- uid: az_resource-mover_move-resource_wait
+  name: az resource-mover move-resource wait
+  summary: Platzieren Sie die CLI in einem Wartezustand, bis eine Bedingung der Move-Resource erfüllt ist.
+  description: ''
+  syntax: >-
+    az resource-mover move-resource wait --move-collection-name
+                                         --move-resource-name
+                                         --resource-group
+                                         [--created]
+                                         [--custom]
+                                         [--deleted]
+                                         [--exists]
+                                         [--interval]
+                                         [--timeout]
+                                         [--updated]
+  examples:
+  - summary: Ausführung der nächsten Zeile des CLI-Skripts anhalten, bis die Verschiebung-Ressource erfolgreich erstellt wurde.
+    syntax: az resource-mover move-resource wait --move-collection-name MyMoveCollection --name MyMoveResource --resource-group MyResourceGroup --created
+  - summary: Ausführung der nächsten Zeile des CLI-Skripts anhalten, bis die Move-Ressource erfolgreich gelöscht wurde.
+    syntax: az resource-mover move-resource wait --move-collection-name MyMoveCollection --name MyMoveResource --resource-group MyResourceGroup --deleted
+  requiredParameters:
+  - isRequired: true
+    name: --move-collection-name
+    summary: Der Name der Verschiebungs Auflistung.
+    description: ''
+  - isRequired: true
+    name: --move-resource-name --name -n
+    summary: Der Name der Verschiebungs Ressource.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  optionalParameters:
+  - name: --created
+    summary: Warten Sie, bis "provisioningstate" bei "erfolgreich" erstellt wurde.
+    description: ''
+  - name: --custom
+    summary: "Warten Sie, bis die Bedingung eine benutzerdefinierte jmespath-Abfrage erfüllt. Beispiel: provisioningstate! = ' InProgress ', instanceview. statuses [? Code = = ' PowerState/Running ']."
+    description: ''
+  - name: --deleted
+    summary: Warten Sie bis zum Löschen.
+    description: ''
+  - name: --exists
+    summary: Warten Sie, bis die Ressource vorhanden ist.
+    description: ''
+  - name: --interval
+    defaultValue: "30"
+    summary: Abruf Intervall in Sekunden.
+    description: ''
+  - name: --timeout
+    defaultValue: "3600"
+    summary: Maximale Wartezeit in Sekunden.
+    description: ''
+  - name: --updated
+    summary: Warten Sie, bis das Update mit provisioningstate bei "erfolgreich" abgeschlossen ist.
+    description: ''
+commands:
+- az_resource-mover_move-resource_add
+- az_resource-mover_move-resource_delete
+- az_resource-mover_move-resource_list
+- az_resource-mover_move-resource_show
+- az_resource-mover_move-resource_wait
+globalParameters:
+- name: --debug
+  summary: Ausführlichkeit der Protokollierung erhöhen, um alle Debugprotokolle anzuzeigen.
+- name: --help -h
+  summary: Zeigen Sie diese Hilfemeldung an, und schließen Sie sie.
+- name: --only-show-errors
+  summary: Nur Fehler anzeigen und Warnungen unterdrücken.
+- name: --output -o
+  defaultValue: json
+  parameterValueGroup: json, jsonc, table, tsv
+  summary: Ausgabeformat.
+- name: --query
+  summary: JMESPath-Abfragezeichenfolge. Weitere Informationen und Beispiele finden Sie unter <a href="http://jmespath.org/">http://jmespath.org/</a>.
+- name: --verbose
+  summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
+metadata:
+  description: "\"Move-Resource\" verwalten."
+  ms.openlocfilehash: c8594288abc61e5fa8fbf341812cfd3cf60af5a0
+  ms.sourcegitcommit: 612554c029ba1f28d3a43fd22e743104a1a30ea0
+  ms.translationtype: MT
+  ms.contentlocale: de-DE
+  ms.lasthandoff: 04/07/2021
+  ms.locfileid: "106940885"

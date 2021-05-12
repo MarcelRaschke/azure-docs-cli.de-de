@@ -1,0 +1,85 @@
+### YamlMime:AzureCLIGroup
+uid: az_graph
+name: az graph
+extensionInformation: >-
+  > [!Note]
+
+  > Dieser Verweis ist Teil der **Resource Graph-Erweiterung** für Azure CLI und erfordert Version 2.21.0 oder höher.  Die Erweiterung wird automatisch installiert, wenn Sie den **Befehl az graph zum ersten Mal** ausführen.  [Weitere Informationen zu Erweiterungen](https://docs.microsoft.com/en-us/cli/azure/azure-cli-extensions-overview)
+summary: Fragen Sie die ressourcen ab, die von Azure Resource Manager.
+description: Führen Sie "az graph query --help" aus, um ausführliche Hilfe zu erhalten.
+directCommands:
+- uid: az_graph_query
+  name: az graph query
+  summary: Fragen Sie die ressourcen ab, die von Azure Resource Manager.
+  description: Weitere Informationen zur Abfragesprache und beispiele finden https://aka.ms/AzureResourceGraph-QueryLanguage Sie unter .
+  syntax: >-
+    az graph query --graph-query
+                   [--allow-partial-scopes {false, true}]
+                   [--first]
+                   [--management-groups]
+                   [--skip]
+                   [--skip-token]
+                   [--subscriptions]
+  examples:
+  - summary: Abfragen von Ressourcen, die eine Teilmenge von Ressourcenfeldern anfordern.
+    syntax: az graph query -q "project id, name, type, location, tags"
+  - summary: Abfragen von Ressourcen mit Feldauswahl, Filterung und Zusammenfassung.
+    syntax: az graph query -q "project id, type, location | where type =~ 'Microsoft.Compute/virtualMachines' | summarize count() by location | top 3 by count_"
+  - summary: Fordern Sie eine Teilmenge der Ergebnisse an, überspringen Sie 20 Elemente, und erhalten Sie die nächsten 10 Elemente.
+    syntax: az graph query -q "where type =~ "Microsoft.Compute" | project name, tags" --first 10 --skip 20
+  - summary: Wählen Sie abonnements aus, die sie abfragen möchten.
+    syntax: az graph query -q "where type =~ "Microsoft.Compute" | project name, tags" --subscriptions 11111111-1111-1111-1111-111111111111 22222222-2222-2222-2222-222222222222
+  - summary: Wählen Sie verwaltungsgruppen aus, die sie abfragen möchten.
+    syntax: az graph query -q "where type =~ "Microsoft.Compute" | project name, tags" --management-groups aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb --allow-partial-scopes
+  - summary: Abfrage mit dem Skip-Token.
+    syntax: az graph query -q "where type =~ "Microsoft.Compute" | project name, tags" --skip-token skip_token_value_from_previous_query_response
+  requiredParameters:
+  - isRequired: true
+    name: --graph-query --q -q
+    summary: Resource Graph auszuführende Abfrage.
+    description: ''
+  optionalParameters:
+  - name: --allow-partial-scopes -a
+    parameterValueGroup: false, true
+    summary: Gibt an, ob die Abfrage erfolgreich sein soll, wenn vom Server nur eine teilielle Anzahl von Abonnements verarbeitet werden kann.
+    description: ''
+  - name: --first
+    summary: 'Die maximale Anzahl von Objekten, die zurückgeben werden. Akzeptierter Bereich: 1-1000.'
+    description: ''
+  - name: --management-groups -m
+    summary: Liste der Verwaltungsgruppen, für die eine Abfrage ausgeführt werden soll.
+    description: ''
+  - name: --skip
+    summary: Ignoriert die ersten N -Objekte und ruft dann die verbleibenden Objekte ab.
+    description: ''
+  - name: --skip-token
+    summary: Überspringen Sie das Token, um ggf. die nächste Seite der Abfrage abzurufen.
+    description: ''
+  - name: --subscriptions -s
+    summary: Liste der Abonnements, für die eine Abfrage ausgeführt werden soll. Standardmäßig werden alle barrierefreien Abonnements abgefragt.
+    description: ''
+commands:
+- az_graph_query
+globalParameters:
+- name: --debug
+  summary: Ausführlichkeit der Protokollierung erhöhen, um alle Debugprotokolle anzuzeigen.
+- name: --help -h
+  summary: Zeigen Sie diese Hilfemeldung an, und schließen Sie sie.
+- name: --only-show-errors
+  summary: Nur Fehler anzeigen und Warnungen unterdrücken.
+- name: --output -o
+  defaultValue: json
+  parameterValueGroup: json, jsonc, table, tsv
+  summary: Ausgabeformat.
+- name: --query
+  summary: JMESPath-Abfragezeichenfolge. Weitere Informationen und Beispiele finden Sie unter <a href="http://jmespath.org/">http://jmespath.org/</a>.
+- name: --verbose
+  summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
+metadata:
+  description: Führen Sie "az graph query --help" aus, um ausführliche Hilfe zu finden.
+  ms.openlocfilehash: e62ccfae15ec53db277a4c510e4aea65349757a5
+  ms.sourcegitcommit: 8464e3b00e33158e3c18654d9b852c8d1fadadd7
+  ms.translationtype: MT
+  ms.contentlocale: de-DE
+  ms.lasthandoff: 05/12/2021
+  ms.locfileid: "109779847"

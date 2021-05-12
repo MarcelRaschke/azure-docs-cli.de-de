@@ -1,0 +1,1514 @@
+### YamlMime:AzureCLIGroup
+uid: az_vm
+name: az vm
+summary: Verwalten von virtuellen Linux- oder Windows-Computern.
+description: ''
+directCommands:
+- uid: az_vm_assess-patches
+  name: az vm assess-patches
+  summary: Bewerten von Patches auf einem virtuellen Computer.
+  description: ''
+  syntax: >-
+    az vm assess-patches [--ids]
+                         [--name]
+                         [--resource-group]
+                         [--subscription]
+  examples:
+  - summary: Bewerten von Patches auf einem virtuellen Computer.
+    syntax: az vm assess-patches -g MyResourceGroup -n MyVm
+  optionalParameters:
+  - name: --ids
+    summary: Eine oder mehrere Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu Ressourcen-ID-Argumenten geben. Sie sollten entweder --ids oder andere Ressourcen-ID-Argumente bereitstellen.
+    description: ''
+  - name: --name -n
+    summary: Der Name des virtuellen Computers. Sie können die Standardeinstellung mit `az configure --defaults vm=<name>` konfigurieren.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/vm/_help.py
+- uid: az_vm_auto-shutdown
+  name: az vm auto-shutdown
+  summary: Verwalten des automatischen Herunterfahrens für virtuelle Computer.
+  description: ''
+  syntax: >-
+    az vm auto-shutdown [--email]
+                        [--ids]
+                        [--location]
+                        [--name]
+                        [--off]
+                        [--resource-group]
+                        [--subscription]
+                        [--time]
+                        [--webhook]
+  examples:
+  - summary: Erstellen Sie einen Zeitplan für das automatische Herunterfahren für einen virtuellen Computer.
+    syntax: az vm auto-shutdown -g MyResourceGroup -n MyVm --time 1730 --email "foo@bar.com" --webhook "https://example.com/"
+  - summary: Löscht den Zeitplan für das automatische Herunterfahren für einen virtuellen Computer.
+    syntax: az vm auto-shutdown -g MyResourceGroup -n MyVm --off
+  optionalParameters:
+  - name: --email
+    summary: Der E-Mail-Empfänger, an den Benachrichtigungen gesendet werden sollen (kann eine Liste von durch Semikolons getrennten E-Mail-Adressen sein).
+    description: ''
+  - name: --ids
+    summary: Eine oder mehrere Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu Ressourcen-ID-Argumenten geben. Sie sollten entweder --ids oder andere Ressourcen-ID-Argumente bereitstellen.
+    description: ''
+  - name: --location -l
+    summary: 'Der Standort. Werte aus: `az account list-locations`. Sie können den standardmäßig verwendeten Standort mit `az configure --defaults location=<location>` konfigurieren.'
+    description: ''
+  - name: --name -n
+    summary: Der Name des virtuellen Computers. Sie können die Standardeinstellung mit `az configure --defaults vm=<name>` konfigurieren.
+    description: ''
+  - name: --off
+    summary: Deaktivieren Sie das automatische Herunterfahren für den virtuellen Computer. Die Konfiguration wird nicht mehr angezeigt.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+  - name: --time
+    summary: 'Die UTC-Tageszeit, zu der der Zeitplan täglich ausgeführt wird. Format: hhmm. Beispiel: 1730.'
+    description: ''
+  - name: --webhook
+    summary: Die Webhook-URL, an die die Benachrichtigung gesendet wird.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/vm/_help.py
+- uid: az_vm_capture
+  name: az vm capture
+  summary: Erfassen sie Informationen für einen beendeten virtuellen Computer.
+  description: Ein End-to-End-Tutorial finden Sie unter https://docs.microsoft.com/azure/virtual-machines/virtual-machines-linux-capture-image .
+  syntax: >-
+    az vm capture --vhd-name-prefix
+                  [--ids]
+                  [--name]
+                  [--overwrite]
+                  [--resource-group]
+                  [--storage-container]
+                  [--subscription]
+  examples:
+  - summary: Aufgehobene Zuordnung, Generalisierung und Erfassung eines beendeten virtuellen Computers.
+    syntax: >-
+      az vm deallocate -g MyResourceGroup -n MyVm
+
+      az vm generalize -g MyResourceGroup -n MyVm
+
+      az vm capture -g MyResourceGroup -n MyVm --vhd-name-prefix MyPrefix
+  - summary: Zuordnung, Generalisierung und Erfassung mehrerer beendeter virtueller Computer.
+    syntax: >-
+      vms_ids=$(az vm list -g MyResourceGroup --query "[].id" -o tsv)
+
+      az vm deallocate --ids {vms_ids}
+
+      az vm generalize --ids {vms_ids}
+
+      az vm capture --ids {vms_ids} --vhd-name-prefix MyPrefix
+  requiredParameters:
+  - isRequired: true
+    name: --vhd-name-prefix
+    summary: Das VHD-Namenspräfix gibt für die VM-Datenträger an.
+    description: ''
+  optionalParameters:
+  - name: --ids
+    summary: Mindestens eine Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen von "Resource Id"-Argumenten sein. Sie sollten entweder --ids oder andere "Resource Id"-Argumente angeben.
+    description: ''
+  - name: --name -n
+    summary: Der Name des virtuellen Computers. Sie können die Standardeinstellung mit `az configure --defaults vm=<name>` konfigurieren.
+    description: ''
+  - name: --overwrite
+    defaultValue: "1"
+    summary: Überschreiben Sie die vorhandene Datenträgerdatei.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --storage-container
+    defaultValue: vhds
+    summary: Der Containername des Speicherkontos, in dem die Datenträger gespeichert werden sollen.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/vm/_help.py
+- uid: az_vm_convert
+  name: az vm convert
+  summary: Konvertieren sie einen virtuellen Computer mit nicht verwalteten Datenträgern, um verwaltete Datenträger zu verwenden.
+  description: ''
+  syntax: >-
+    az vm convert [--ids]
+                  [--name]
+                  [--resource-group]
+                  [--subscription]
+  examples:
+  - summary: Konvertieren sie einen virtuellen Computer mit nicht verwalteten Datenträgern, um verwaltete Datenträger zu verwenden.
+    syntax: az vm convert -g MyResourceGroup -n MyVm
+  - summary: Konvertieren Sie alle VMs mit nicht verwalteten Datenträgern in einer Ressourcengruppe, um verwaltete Datenträger zu verwenden.
+    syntax: az vm convert --ids $(az vm list -g MyResourceGroup --query "[].id" -o tsv)
+  optionalParameters:
+  - name: --ids
+    summary: Eine oder mehrere Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu Ressourcen-ID-Argumenten geben. Sie sollten entweder --ids oder andere Ressourcen-ID-Argumente bereitstellen.
+    description: ''
+  - name: --name -n
+    summary: Der Name des virtuellen Computers. Sie können die Standardeinstellung mit `az configure --defaults vm=<name>` konfigurieren.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/vm/_help.py
+- uid: az_vm_create
+  name: az vm create
+  summary: Erstellen eines virtuellen Azure-Computers
+  description: Ein End-to-End-Tutorial finden Sie unter https://docs.microsoft.com/azure/virtual-machines/linux/quick-create-cli .
+  syntax: >-
+    az vm create --name
+                 --resource-group
+                 [--accelerated-networking {false, true}]
+                 [--admin-password]
+                 [--admin-username]
+                 [--asgs]
+                 [--assign-identity]
+                 [--attach-data-disks]
+                 [--attach-os-disk]
+                 [--authentication-type {all, password, ssh}]
+                 [--availability-set]
+                 [--boot-diagnostics-storage]
+                 [--computer-name]
+                 [--count]
+                 [--custom-data]
+                 [--data-disk-caching]
+                 [--data-disk-encryption-sets]
+                 [--data-disk-sizes-gb]
+                 [--enable-agent {false, true}]
+                 [--enable-auto-update {false, true}]
+                 [--encryption-at-host {false, true}]
+                 [--ephemeral-os-disk {false, true}]
+                 [--eviction-policy {Deallocate, Delete}]
+                 [--generate-ssh-keys]
+                 [--host]
+                 [--host-group]
+                 [--image]
+                 [--license-type {None, RHEL_BYOS, SLES_BYOS, Windows_Client, Windows_Server}]
+                 [--location]
+                 [--max-price]
+                 [--nics]
+                 [--no-wait]
+                 [--nsg]
+                 [--nsg-rule {NONE, RDP, SSH}]
+                 [--os-disk-caching {None, ReadOnly, ReadWrite}]
+                 [--os-disk-encryption-set]
+                 [--os-disk-name]
+                 [--os-disk-size-gb]
+                 [--os-type {linux, windows}]
+                 [--plan-name]
+                 [--plan-product]
+                 [--plan-promotion-code]
+                 [--plan-publisher]
+                 [--platform-fault-domain]
+                 [--ppg]
+                 [--priority {Low, Regular, Spot}]
+                 [--private-ip-address]
+                 [--public-ip-address]
+                 [--public-ip-address-allocation {dynamic, static}]
+                 [--public-ip-address-dns-name]
+                 [--public-ip-sku {Basic, Standard}]
+                 [--role]
+                 [--scope]
+                 [--secrets]
+                 [--size]
+                 [--specialized {false, true}]
+                 [--ssh-dest-key-path]
+                 [--ssh-key-name]
+                 [--ssh-key-values]
+                 [--storage-account]
+                 [--storage-container-name]
+                 [--storage-sku]
+                 [--subnet]
+                 [--subnet-address-prefix]
+                 [--subscription]
+                 [--tags]
+                 [--ultra-ssd-enabled {false, true}]
+                 [--use-unmanaged-disk]
+                 [--validate]
+                 [--vmss]
+                 [--vnet-address-prefix]
+                 [--vnet-name]
+                 [--workspace]
+                 [--zone {1, 2, 3}]
+  examples:
+  - summary: Erstellen Sie eine Ubuntu-Standard-VM mit automatischer SSH-Authentifizierung.
+    syntax: az vm create -n MyVm -g MyResourceGroup --image UbuntuLTS
+  - summary: Erstellen Sie einen standardmäßigen virtuellen RedHat-Computer mit automatischer SSH-Authentifizierung mithilfe eines Image-URN.
+    syntax: az vm create -n MyVm -g MyResourceGroup --image RedHat:RHEL:7-RAW:7.4.2018010506
+  - summary: Erstellen Sie eine Windows Server-Standard-VM mit einer privaten IP-Adresse.
+    syntax: az vm create -n MyVm -g MyResourceGroup --public-ip-address "" --image Win2012R2Datacenter
+  - summary: Erstellen Sie einen virtuellen Computer aus einem benutzerdefinierten verwalteten Image.
+    syntax: az vm create -g MyResourceGroup -n MyVm --image MyImage
+  - summary: Erstellen Sie eine VM aus einer spezialisierten Imageversion.
+    syntax: az vm create -g MyResourceGroup -n MyVm --image $id --specialized
+  - summary: Erstellen Sie eine VM, indem Sie sie an einen verwalteten Betriebssystemdatenträger anfügen.
+    syntax: az vm create -g MyResourceGroup -n MyVm --attach-os-disk MyOsDisk --os-type linux
+  - summary: Erstellen Sie Ubuntu Linux virtuellen Computer mithilfe eines cloud-init-Skripts für die Konfiguration. Weitere Informationen finden Sie unter https://docs.microsoft.com/azure/virtual-machines/linux/using-cloud-init.
+    syntax: az vm create -g MyResourceGroup -n MyVm --image debian --custom-data MyCloudInitScript.yml
+  - summary: Erstellen Sie eine Debian-VM mit SSH-Schlüsselauthentifizierung und einem öffentlichen DNS-Eintrag, der sich in einem vorhandenen virtuellen Netzwerk und einer verfügbarkeitsgruppe befindet.
+    syntax: >-
+      az vm create -n MyVm -g MyResourceGroup --image debian --vnet-name MyVnet --subnet subnet1 \
+          --availability-set MyAvailabilitySet --public-ip-address-dns-name MyUniqueDnsName \
+          --ssh-key-values @key-file
+  - summary: Erstellen Sie eine einfache Ubuntu Linux-VM mit einer öffentlichen IP-Adresse, einem DNS-Eintrag, zwei Datenträgern (10 GB und 20 GB) und generieren Sie dann SSH-Schlüsselpaare.
+    syntax: >-
+      az vm create -n MyVm -g MyResourceGroup --public-ip-address-dns-name MyUniqueDnsName \
+          --image ubuntults --data-disk-sizes-gb 10 20 --size Standard_DS2_v2 \
+          --generate-ssh-keys
+  - summary: Erstellen Sie eine Debian-VM mithilfe Key Vault Geheimnissen.
+    syntax: >-
+      az keyvault certificate create --vault-name vaultname -n cert1 \
+        -p "$(az keyvault certificate get-default-policy)"
+
+      secrets=$(az keyvault secret list-versions --vault-name vaultname \
+        -n cert1 --query "[?attributes.enabled].id" -o tsv)
+
+      vm_secrets=$(az vm secret format -s "$secrets")
+
+
+      az vm create -g group-name -n vm-name --admin-username deploy  \
+        --image debian --secrets "$vm_secrets"
+  - summary: Erstellen Sie einen virtuellen CentOS-Computer mit einer system zugewiesenen Identität. Der virtuelle Computer hat die Rolle "Mitwirkender" mit Zugriff auf ein Speicherkonto.
+    syntax: az vm create -n MyVm -g rg1 --image centos --assign-identity [system] --scope /subscriptions/99999999-1bf0-4dda-aec3-cb9272f09590/MyResourceGroup/myRG/providers/Microsoft.Storage/storageAccounts/storage1
+  - summary: Erstellen Sie einen virtuellen Debian-Computer mit einer vom Benutzer zugewiesenen Identität.
+    syntax: az vm create -n MyVm -g rg1 --image debian --assign-identity /subscriptions/99999999-1bf0-4dda-aec3-cb9272f09590/resourcegroups/myRG/providers/Microsoft.ManagedIdentity/userAssignedIdentities/myID
+  - summary: Erstellen Sie einen virtuellen Debian-Computer mit system- und benutzerseitig zugewiesener Identität.
+    syntax: az vm create -n MyVm -g rg1 --image debian --assign-identity [system] /subscriptions/99999999-1bf0-4dda-aec3-cb9272f09590/resourcegroups/myRG/providers/Microsoft.ManagedIdentity/userAssignedIdentities/myID
+  - summary: Erstellen Sie mehrere VMs. In diesem Beispiel werden drei VMs erstellt. Dabei handelt es sich um MyVm0, MyVm1, MyVm2.
+    syntax: az vm create -n MyVm -g MyResourceGroup --image centos --count 3
+  requiredParameters:
+  - isRequired: true
+    name: --name -n
+    summary: Der Name des virtuellen Computers.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  optionalParameters:
+  - name: --accelerated-networking
+    parameterValueGroup: false, true
+    summary: Aktivieren sie den beschleunigten Netzwerkbetrieb. Sofern nicht angegeben, wird sie von der CLI basierend auf dem Computerimage und der Größe aktiviert.
+    description: ''
+  - name: --admin-password
+    summary: Kennwort für den virtuellen Computer, wenn der Authentifizierungstyp "Kennwort" lautet.
+    description: ''
+  - name: --admin-username
+    summary: Benutzername für den virtuellen Computer. Der Standardwert ist der aktuelle Benutzername des Betriebssystems. Wenn der Standardwert vom System reserviert ist, wird der Standardwert auf azureuser festgelegt. Eine https://docs.microsoft.com/en-us/rest/api/compute/virtualmachines/createorupdate#osprofile vollständige Liste der reservierten Werte finden Sie unter .
+    description: ''
+  - name: --asgs
+    summary: Durch Leerzeichen getrennte Liste vorhandener Anwendungssicherheitsgruppen, die dem virtuellen Computer zugeordnet werden sollen.
+    description: ''
+  - name: --assign-identity
+    summary: Akzeptieren Sie vom System oder vom Benutzer zugewiesene Identitäten, die durch Leerzeichen getrennt sind. Verwenden Sie "[system]", um auf eine vom System zugewiesene Identität zu verweisen, oder eine Ressourcen-ID, um auf die vom Benutzer zugewiesene Identität zu verweisen. Weitere Beispiele finden Sie in der Hilfe.
+    description: ''
+  - name: --attach-data-disks
+    summary: Fügen Sie vorhandene Datenträger an den virtuellen Computer an. Kann den Namen oder die ID eines verwalteten Datenträgers oder den URI einer nicht verwalteten Datenträger-VHD verwenden.
+    description: ''
+  - name: --attach-os-disk
+    summary: Fügen Sie einen vorhandenen Betriebssystemdatenträger an den virtuellen Computer an. Kann den Namen oder die ID eines verwalteten Datenträgers oder den URI einer nicht verwalteten Datenträger-VHD verwenden.
+    description: ''
+  - name: --authentication-type
+    parameterValueGroup: all, password, ssh
+    summary: Typ der Authentifizierung, die mit dem virtuellen Computer verwendet werden soll. Der Standardwert ist das Kennwort für Windows und der öffentliche SSH-Schlüssel für Linux. "all" ermöglicht sowohl die SSH- als auch die Kennwortauthentifizierung.
+    description: ''
+  - name: --availability-set
+    summary: Name oder ID einer vorhandenen Verfügbarkeitsgruppe, der der virtuelle Computer hinzugefügt werden soll. Standardmäßig ist dies „Keiner“.
+    description: ''
+  - name: --boot-diagnostics-storage
+    summary: Bereits vorhandener Speicherkontoname oder dessen Blob-URI zum Erfassen der Startdiagnose. Die SKU sollte eine der Standard_GRS, Standard_LRS und Standard_RAGRS.
+    description: ''
+  - name: --computer-name
+    summary: Der Hostbetriebssystemname des virtuellen Computers. Der Standardwert ist der Name des virtuellen Computers.
+    description: ''
+  - name: --count
+    summary: Anzahl der zu erstellenden virtuellen Computer. Der Wertbereich ist [2, 250], einschließlich. Geben Sie diesen Parameter nicht an, wenn Sie einen normalen einzelnen virtuellen Computer erstellen möchten. Die VMs werden parallel erstellt. Die Ausgabe dieses Befehls ist ein Array von VMs anstelle eines einzelnen virtuellen Computers. Jeder virtuelle Computer verfügt über eine eigene öffentliche IP-Adresse( NIC). VNET und NSG werden gemeinsam genutzt. Es wird empfohlen, dass sich keine vorhandene öffentliche IP-Adresse, NIC, VNET und NSG in der Ressourcengruppe befinden. Wenn --count angegeben ist, --attach-data-disks, --attach-os-disk, --boot-diagnostics-storage, --computer-name, --host, --host-group, --nics, --os-disk-name, --private-ip-address, --public-ip-address, --public-ip-address-dns-name, --storage-account, --storage-container-name, --subnet, --use-unmanaged-disk, --vnet-name sind nicht zulässig.
+    description: ''
+  - name: --custom-data
+    summary: Benutzerdefinierte Init-Skriptdatei oder Text (cloud-init, cloud-config usw.).
+    description: ''
+  - name: --data-disk-caching
+    summary: Speicherzwischenspeichertyp für Datenträger, einschließlich "None", "ReadOnly", "ReadWrite" usw. Verwenden Sie einen singular-Wert, der auf alle Datenträger angewendet wird, oder verwenden Sie , `<lun>=<vaule1> <lun>=<value2>` um einen einzelnen Datenträger zu konfigurieren.
+    description: ''
+  - name: --data-disk-encryption-sets
+    summary: Namen oder IDs (durch Leerzeichen getrennt) von Datenträgerverschlüsselungssätzen für Datenträger.
+    description: ''
+  - name: --data-disk-sizes-gb
+    summary: Leerer verwalteter Datenträger in GB, der durch Leerzeichen getrennt werden soll.
+    description: ''
+  - name: --enable-agent
+    parameterValueGroup: false, true
+    summary: Gibt an, ob der VM-Agent auf dem virtuellen Computer bereitgestellt werden soll. Wenn diese Eigenschaft nicht angegeben ist, wird sie standardmäßig auf TRUE festgelegt. Dadurch wird sichergestellt, dass der VM-Agent auf dem virtuellen Computer installiert ist, damit dem virtuellen Computer später Erweiterungen hinzugefügt werden können.
+    description: ''
+  - name: --enable-auto-update
+    parameterValueGroup: false, true
+    summary: Geben Sie an, ob Automatische Updates für den virtuellen Windows-Computer aktiviert ist.
+    description: ''
+  - name: --encryption-at-host
+    parameterValueGroup: false, true
+    summary: Aktivieren Sie die Hostverschlüsselung für die VM oder VMSS. Dadurch wird die Verschlüsselung für alle Datenträger aktiviert, einschließlich des Resource/Temp-Datenträgers auf dem Host selbst.
+    description: ''
+  - name: --ephemeral-os-disk
+    parameterValueGroup: false, true
+    summary: Ermöglicht es Ihnen, einen Betriebssystemdatenträger direkt auf dem Hostknoten zu erstellen, wodurch die Leistung des lokalen Datenträgers und eine schnellere VM/VMSS-Reimagezeit ermöglicht wird.
+    description: ''
+  - name: --eviction-policy
+    parameterValueGroup: Deallocate, Delete
+    summary: Die Eviction-Richtlinie für den virtuellen Computer mit Spot-Priorität. Die Standardmäßige Eviction-Richtlinie lautet Zuordnung für einen virtuellen Computer mit Spot-Priorität.
+    description: ''
+  - name: --generate-ssh-keys
+    summary: Erstellen der Dateien für öffentliche und private SSH-Schlüssel, sofern diese fehlen. Die Schlüssel werden im Verzeichnis ~/.ssh gespeichert.
+    description: ''
+  - name: --host
+    summary: ID des dedizierten Hosts, auf dem sich der virtuelle Computer befindet. --host und --host-group können nicht zusammen verwendet werden.
+    description: ''
+  - name: --host-group
+    summary: Name oder ID der dedizierten Hostgruppe, in der sich der virtuelle Computer befindet. --host und --host-group können nicht zusammen verwendet werden.
+    description: ''
+  - name: --image
+    summary: Der Name des Betriebssystemimages als URN-Alias, URN, Benutzerdefinierter Imagename oder -ID, ID der benutzerdefinierten Imageversion oder VHD-Blob-URI. Dieser Parameter ist erforderlich, sofern sie nicht das `--attach-os-disk.` gültige URN-Format "Publisher:Offer:Sku:Version" verwenden. Weitere Informationen finden Sie unter https://docs.microsoft.com/azure/virtual-machines/linux/cli-ps-findimage.
+    description: ''
+    valueFrom: az vm image list, az vm image show
+  - name: --license-type
+    parameterValueGroup: None, RHEL_BYOS, SLES_BYOS, Windows_Client, Windows_Server
+    summary: Gibt an, dass das Windows-Image oder der Datenträger lokal lizenziert wurde. Verwenden Sie "Windows_Server", um Azure-Hybridvorteil für Windows Server zu aktivieren. Verwenden Sie "Windows_Client", um mehrstufige Hostingrechte für Windows 10 zu aktivieren. Weitere Informationen finden Sie in der Onlinedokumentation für virtuelle Azure-Windows-Computer.
+    description: ''
+  - name: --location -l
+    summary: Speicherort, an dem der virtuelle Computer und die zugehörigen Ressourcen erstellt werden sollen. Wenn der Standardspeicherort nicht konfiguriert ist, wird standardmäßig der Standort der Ressourcengruppe verwendet.
+    description: ''
+  - name: --max-price
+    summary: Der Höchstpreis (in US-Dollar), den Sie für eine Spot-VM/VMSS bezahlen möchten. -1 gibt an, dass die Spot-VM/VM-SSS aus Preisgründen nicht aus dem Netzwerk bzw. der Spot-VM-Umgebung bzw. der Spot-VM-SSS bzw. der Spot-VM-SSS aus Preisgründen bzw.
+    description: ''
+  - name: --nics
+    summary: Namen oder IDs vorhandener NICs, die an den virtuellen Computer angefügt werden. Die erste NIC wird als primäre NIC festgelegt. Wenn keine NIC angegeben wird, wird eine neue NIC erstellt. Wenn eine vorhandene NIC angegeben wird, geben Sie kein Subnetz, kein VNET, keine öffentliche IP-Adresse oder NSG an.
+    description: ''
+  - name: --no-wait
+    summary: Nicht auf den Abschluss lang andauernder Vorgänge warten
+    description: ''
+  - name: --nsg
+    summary: Der Name, der beim Erstellen einer neuen Netzwerksicherheitsgruppe (Standard) oder beim Verweisen auf eine vorhandene verwendet werden soll. Kann auch anhand der ID auf eine vorhandene NSG verweisen oder "" für none ('""" in Azure CLI powerShell oder --%-Operator) angeben.
+    description: ''
+  - name: --nsg-rule
+    parameterValueGroup: NONE, RDP, SSH
+    summary: NSG-Regel, die beim Erstellen einer neuen NSG erstellt werden soll. Standardmäßig werden Ports geöffnet, um RDP unter Windows und SSH unter Linux zu ermöglichen. NONE stellt keine NSG-Regel dar.
+    description: ''
+  - name: --os-disk-caching
+    parameterValueGroup: None, ReadOnly, ReadWrite
+    summary: 'Speicherzwischenspeichertyp für den VM-Betriebssystemdatenträger. Standardwert: ReadWrite.'
+    description: ''
+  - name: --os-disk-encryption-set
+    summary: Name oder ID des Datenträgerverschlüsselungssets für den Betriebssystemdatenträger.
+    description: ''
+  - name: --os-disk-name
+    summary: Der Name des neuen VM-Betriebssystemdatenträgers.
+    description: ''
+  - name: --os-disk-size-gb
+    summary: Größe des Zu erstellenden Betriebssystemdatenträgers in GB.
+    description: ''
+  - name: --os-type
+    parameterValueGroup: linux, windows
+    summary: Typ des Betriebssystems, das auf einer benutzerdefinierten VHD installiert ist. Verwenden Sie nicht, wenn Sie einen URN oder URN-Alias angeben.
+    description: ''
+  - name: --plan-name
+    summary: Planname.
+    description: ''
+  - name: --plan-product
+    summary: Planen sie das Produkt.
+    description: ''
+  - name: --plan-promotion-code
+    summary: Planen Sie den Code für die Heraufstufung.
+    description: ''
+  - name: --plan-publisher
+    summary: Planherausgeber.
+    description: ''
+  - name: --platform-fault-domain
+    summary: Geben Sie die logische Fehlerdomäne der Skalierung gruppe an, in der der virtuelle Computer erstellt wird. Standardmäßig wird der virtuelle Computer automatisch einer Fehlerdomäne zugewiesen, die das Gleichgewicht zwischen verfügbaren Fehlerdomänen am besten verwaltet. Dies gilt nur, wenn die virtualMachineScaleSet-Eigenschaft dieses virtuellen Computers festgelegt ist. Die VM-Skalierung gruppe, auf die verwiesen wird, muss über die Anzahl der Plattformfehlerdomänen verfügen. Diese Eigenschaft kann nicht aktualisiert werden, nachdem der virtuelle Computer erstellt wurde. Die Fehlerdomänenzuweisung kann in der Instanzansicht des virtuellen Computers angezeigt werden.
+    description: ''
+  - name: --ppg
+    summary: Der Name oder die ID der Näherungsplatzierungsgruppe, der der virtuelle Computer zugeordnet werden soll.
+    description: ''
+  - name: --priority
+    parameterValueGroup: Low, Regular, Spot
+    summary: Priority Verwenden Sie "Spot", um kurzlebige Workloads kostengünstig auszuführen. Die Enumeration "Niedrig" wird in Zukunft veraltet sein. Verwenden Sie "Spot", um azure spot VM und/oder VMSS bereitzustellen. Der Standardwert ist "Regular".
+    description: ''
+  - name: --private-ip-address
+    summary: Statische private IP-Adresse (z.B. 10.0.0.5).
+    description: ''
+  - name: --public-ip-address
+    summary: Name der öffentlichen IP-Adresse beim Erstellen einer ip-Adresse (Standard) oder verweisen auf eine vorhandene IP-Adresse. Kann auch anhand der ID auf eine vorhandene öffentliche IP-Adresse verweisen oder "" für "None" ('""' in Azure CLI mithilfe von PowerShell oder --% Operator angeben).
+    description: ''
+  - name: --public-ip-address-allocation
+    parameterValueGroup: dynamic, static
+    summary: ''
+    description: ''
+  - name: --public-ip-address-dns-name
+    summary: Global eindeutiger DNS-Name für eine neu erstellte öffentliche IP-Adresse.
+    description: ''
+  - name: --public-ip-sku
+    parameterValueGroup: Basic, Standard
+    summary: Öffentliche IP-SKU. Sie ist standardmäßig auf Basic festgelegt.
+    description: ''
+  - name: --role
+    defaultValue: Contributor
+    summary: Rollenname oder -id der system zugewiesenen Identität.
+    description: ''
+  - name: --scope
+    summary: Bereich, auf den die system zugewiesene Identität zugreifen kann.
+    description: ''
+  - name: --secrets
+    summary: 'Ein oder mehrere Key Vault als JSON-Zeichenfolgen oder Dateien über `@{path}` enthalten. `[{ "sourceVault": { "id": "value" }, "vaultCertificates": [{ "certificateUrl": "value", "certificateStore": "cert store name (only on windows)"}] }]`'
+    description: ''
+  - name: --size
+    defaultValue: Standard_DS1_v2
+    summary: Die vm-Größe, die erstellt werden soll. Informationen https://azure.microsoft.com/pricing/details/virtual-machines/ zur Größe finden Sie unter .
+    description: ''
+    valueFrom: az vm list-sizes
+  - name: --specialized
+    parameterValueGroup: false, true
+    summary: Geben Sie an, ob das Quellimage spezialisiert ist.
+    description: ''
+  - name: --ssh-dest-key-path
+    summary: Zieldateipfad auf dem virtuellen Computer für den SSH-Schlüssel. Wenn die Datei bereits vorhanden ist, werden die angegebenen Schlüssel an die Datei angefügt. Der Zielpfad für öffentliche SSH-Schlüssel ist derzeit aufgrund eines bekannten Problems im Linux-Bereitstellungs-Agent auf den Standardwert "/home/username/.ssh/authorized_keys" beschränkt.
+    description: ''
+  - name: --ssh-key-name
+    summary: Verwenden Sie ihn als öffentlichen Schlüssel auf dem virtuellen Computer. Es sollte eine vorhandene SSH-Schlüsselressource in Azure sein.
+    description: ''
+  - name: --ssh-key-values
+    summary: Durch Leerzeichen getrennte Liste mit öffentlichen SSH-Schlüsseln oder Dateipfaden mit öffentlichem Schlüssel.
+    description: ''
+  - name: --storage-account
+    summary: Gilt nur, wenn mit verwendet `--use-unmanaged-disk` wird. Der Name, der beim Erstellen eines neuen Speicherkontos oder beim Verweisen auf ein vorhandenes Speicherkonto verwendet werden soll. Wenn kein Speicherkonto angegeben wird, wird ein entsprechendes Speicherkonto in derselben Ressourcengruppe und demselben Speicherort verwendet, oder es wird ein neues erstellt.
+    description: ''
+  - name: --storage-container-name
+    summary: 'Gilt nur, wenn mit verwendet `--use-unmanaged-disk` wird. Name des Speichercontainers für den VM-Betriebssystemdatenträger. Standardwert: vhds.'
+    description: ''
+  - name: --storage-sku
+    summary: 'Die SKU des Speicherkontos, mit dem der virtuelle Computer beibehalten werden soll. Verwenden Sie eine einzelne SKU, die auf alle Datenträger angewendet wird, oder geben Sie einzelne Datenträger an. Verwendung: [--storage-sku SKU | --storage-sku ID=SKU ID=SKU ID=SKU...], wobei jede ID "os" oder eine 0-indizierte LUN ist. Zulässige Werte: Standard_LRS, Premium_LRS, StandardSSD_LRS, UltraSSD_LRS.'
+    description: ''
+  - name: --subnet
+    summary: Der Name des Subnetzes beim Erstellen eines neuen VNET oder beim Verweisen auf ein vorhandenes. Kann auch anhand der ID auf ein vorhandenes Subnetz verweisen. Wenn sowohl VNET-Name als auch Subnetz weggelassen werden, wird automatisch ein entsprechendes VNET und Subnetz ausgewählt, oder es wird ein neues erstellt.
+    description: ''
+  - name: --subnet-address-prefix
+    defaultValue: 10.0.0.0/24
+    summary: Das Subnetz-IP-Adresspräfix, das beim Erstellen eines neuen VNET im CIDR-Format verwendet werden soll.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+  - name: --tags
+    summary: 'Durch Leerzeichen getrennte Tags: key[=value] [key[=value] ...]. Verwenden Sie "", um vorhandene Tags zu löschen.'
+    description: ''
+  - name: --ultra-ssd-enabled
+    parameterValueGroup: false, true
+    summary: Aktiviert oder deaktiviert die Funktion, über einen oder mehrere verwaltete Datenträger mit UltraSSD_LRS Speicherkonto zu verfügen.
+    description: ''
+  - name: --use-unmanaged-disk
+    summary: Verwenden Sie keinen verwalteten Datenträger, um den virtuellen Computer persistent zu speichern.
+    description: ''
+  - name: --validate
+    summary: Generieren und überprüfen Sie die ARM-Vorlage, ohne Ressourcen zu erstellen.
+    description: ''
+  - name: --vmss
+    summary: Name oder ID einer vorhandenen VM-Skalierung gruppe, der der virtuelle Computer zugewiesen werden soll. Standardmäßig ist dies „Keiner“.
+    description: ''
+  - name: --vnet-address-prefix
+    defaultValue: 10.0.0.0/16
+    summary: Das IP-Adresspräfix, das beim Erstellen eines neuen VNET im CIDR-Format verwendet werden soll.
+    description: ''
+  - name: --vnet-name
+    summary: Der Name des virtuellen Netzwerks beim Erstellen eines neuen netzwerks oder beim Verweisen auf ein vorhandenes.
+    description: ''
+  - name: --workspace
+    summary: Name oder ID des Log Analytics-Arbeitsbereichs. Wenn Sie den Arbeitsbereich über seinen Namen angeben, sollte sich der Arbeitsbereich in derselben Ressourcengruppe wie der virtuelle Computer befinden. Andernfalls wird ein neuer Arbeitsbereich erstellt.
+    description: ''
+  - name: --zone -z
+    parameterValueGroup: 1, 2, 3
+    summary: Verfügbarkeitszone, in der die Ressource bereitgestellt werden soll.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/vm/_help.py
+- uid: az_vm_deallocate
+  name: az vm deallocate
+  summary: Zuordnung eines virtuellen Computers wird freigegeben.
+  description: Ein End-to-End-Tutorial finden Sie unter https://docs.microsoft.com/azure/virtual-machines/virtual-machines-linux-capture-image .
+  syntax: >-
+    az vm deallocate [--ids]
+                     [--name]
+                     [--no-wait]
+                     [--resource-group]
+                     [--subscription]
+  examples:
+  - summary: Aufgehobene Zuordnung, Generalisierung und Erfassung eines beendeten virtuellen Computers.
+    syntax: >-
+      az vm deallocate -g MyResourceGroup -n MyVm
+
+      az vm generalize -g MyResourceGroup -n MyVm
+
+      az vm capture -g MyResourceGroup -n MyVm --vhd-name-prefix MyPrefix
+  - summary: Das Auffinden, Generalisieren und Erfassen mehrerer angehaltener virtueller Computer.
+    syntax: >-
+      vms_ids=$(az vm list -g MyResourceGroup --query "[].id" -o tsv)
+
+      az vm deallocate --ids {vms_ids}
+
+      az vm generalize --ids {vms_ids}
+
+      az vm capture --ids {vms_ids} --vhd-name-prefix MyPrefix
+  - summary: Geben Sie die Vm-Vm auf. (automatisch generiert)
+    syntax: az vm deallocate --name MyVm --no-wait --resource-group MyResourceGroup
+  optionalParameters:
+  - name: --ids
+    summary: Eine oder mehrere Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu Ressourcen-ID-Argumenten geben. Sie sollten entweder --ids oder andere Ressourcen-ID-Argumente bereitstellen.
+    description: ''
+  - name: --name -n
+    summary: Der Name des virtuellen Computers. Sie können die Standardeinstellung mit `az configure --defaults vm=<name>` konfigurieren.
+    description: ''
+  - name: --no-wait
+    summary: Nicht auf den Abschluss lang andauernder Vorgänge warten
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/vm/_help.py
+- uid: az_vm_delete
+  name: az vm delete
+  summary: Löschen Sie einen virtuellen Computer.
+  description: ''
+  syntax: >-
+    az vm delete [--force-deletion]
+                 [--ids]
+                 [--name]
+                 [--no-wait]
+                 [--resource-group]
+                 [--subscription]
+                 [--yes]
+  examples:
+  - summary: Löschen Sie einen virtuellen Computer ohne Aufforderung zur Bestätigung.
+    syntax: az vm delete -g MyResourceGroup -n MyVm --yes
+  - summary: Löschen Sie alle virtuellen Computer in einer Ressourcengruppe.
+    syntax: az vm delete --ids $(az vm list -g MyResourceGroup --query "[].id" -o tsv)
+  optionalParameters:
+  - name: --force-deletion
+    summary: Optionaler Parameter zum Erzwingen des Löschens virtueller Computer. (Feature in der Vorschau).
+    description: ''
+  - name: --ids
+    summary: Eine oder mehrere Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu Ressourcen-ID-Argumenten geben. Sie sollten entweder --ids oder andere Ressourcen-ID-Argumente bereitstellen.
+    description: ''
+  - name: --name -n
+    summary: Der Name des virtuellen Computers. Sie können die Standardeinstellung mit `az configure --defaults vm=<name>` konfigurieren.
+    description: ''
+  - name: --no-wait
+    summary: Nicht auf den Abschluss lang andauernder Vorgänge warten
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+  - name: --yes -y
+    summary: Nicht zur Bestätigung auffordern
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/vm/_help.py
+- uid: az_vm_generalize
+  name: az vm generalize
+  summary: Markieren Sie einen virtuellen Computer als generalisiert, sodass er für mehrere Bereitstellungen imageisiert werden kann.
+  description: Ein End-to-End-Tutorial finden Sie unter https://docs.microsoft.com/azure/virtual-machines/virtual-machines-linux-capture-image .
+  syntax: >-
+    az vm generalize [--ids]
+                     [--name]
+                     [--no-wait]
+                     [--resource-group]
+                     [--subscription]
+  examples:
+  - summary: Aufgehobene Zuordnung, Generalisierung und Erfassung eines beendeten virtuellen Computers.
+    syntax: >-
+      az vm deallocate -g MyResourceGroup -n MyVm
+
+      az vm generalize -g MyResourceGroup -n MyVm
+
+      az vm capture -g MyResourceGroup -n MyVm --vhd-name-prefix MyPrefix
+  - summary: Zuordnung, Generalisierung und Erfassung mehrerer beendeter virtueller Computer.
+    syntax: >-
+      vms_ids=$(az vm list -g MyResourceGroup --query "[].id" -o tsv)
+
+      az vm deallocate --ids ${vms_ids}
+
+      az vm generalize --ids ${vms_ids}
+
+      az vm capture --ids ${vms_ids} --vhd-name-prefix MyPrefix
+  optionalParameters:
+  - name: --ids
+    summary: Mindestens eine Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu "Ressourcen-ID"-Argumenten sein. Sie sollten entweder --ids oder andere "Resource Id"-Argumente angeben.
+    description: ''
+  - name: --name -n
+    summary: Der Name des virtuellen Computers. Sie können die Standardeinstellung mit `az configure --defaults vm=<name>` konfigurieren.
+    description: ''
+  - name: --no-wait
+    summary: Nicht auf den Abschluss lang andauernder Vorgänge warten
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/vm/_help.py
+- uid: az_vm_get-instance-view
+  name: az vm get-instance-view
+  summary: Abrufen von Instanzinformationen zu einem virtuellen Computer.
+  description: ''
+  syntax: >-
+    az vm get-instance-view [--ids]
+                            [--name]
+                            [--resource-group]
+                            [--subscription]
+  examples:
+  - summary: Verwenden Sie eine Ressourcengruppe und einen Namen, um Instanzansichtsinformationen eines virtuellen Computers abzurufen.
+    syntax: az vm get-instance-view -g MyResourceGroup -n MyVm
+  - summary: Abrufen von Instanzansichten für alle VMs in einer Ressourcengruppe.
+    syntax: az vm get-instance-view --ids $(az vm list -g MyResourceGroup --query "[].id" -o tsv)
+  optionalParameters:
+  - name: --ids
+    summary: Mindestens eine Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen von "Resource Id"-Argumenten sein. Sie sollten entweder --ids oder andere "Resource Id"-Argumente angeben.
+    description: ''
+  - name: --name -n
+    summary: Der Name des virtuellen Computers. Sie können die Standardeinstellung mit `az configure --defaults vm=<name>` konfigurieren.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/vm/_help.py
+- uid: az_vm_list
+  name: az vm list
+  summary: Listet Details zu Virtual Machines auf.
+  description: '`--resource-group` kann eine leere Zeichenfolge als Parameter übergeben, der alle VM-Informationen unter dem Abonnement ausgibt. Weitere Informationen zum Abfragen von Informationen zu Virtual Machines finden Sie unter https://docs.microsoft.com/cli/azure/query-az-cli2 .'
+  syntax: >-
+    az vm list [--query-examples]
+               [--resource-group]
+               [--show-details]
+               [--subscription]
+  examples:
+  - summary: Listet alle VMs auf.
+    syntax: az vm list
+  - summary: Listet alle VMs nach Ressourcengruppe auf.
+    syntax: az vm list -g MyResourceGroup
+  - summary: Listen Sie alle VMs nach Ressourcengruppe mit Details auf.
+    syntax: az vm list -g MyResourceGroup -d
+  optionalParameters:
+  - name: --query-examples
+    summary: Empfehlen Sie die JMESPath-Zeichenfolge. Sie können eine der Abfragen kopieren und nach dem Parameter --query in doppelte Anführungszeichen einfügen, um die Ergebnisse zu sehen. Sie können ein oder mehrere Positionsschlüsselwörter hinzufügen, damit wir basierend auf diesen Schlüsselwörtern Vorschläge machen können.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --show-details -d
+    summary: Öffentliche IP-Adresse, FQDN und Energiezustände anzeigen. -Befehl wird langsam ausgeführt.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/vm/_help.py
+- uid: az_vm_list-ip-addresses
+  name: az vm list-ip-addresses
+  summary: Listet ip-Adressen auf, die einem virtuellen Computer zugeordnet sind.
+  description: ''
+  syntax: >-
+    az vm list-ip-addresses [--ids]
+                            [--name]
+                            [--resource-group]
+                            [--subscription]
+  examples:
+  - summary: Hier erhalten Sie die IP-Adressen für einen virtuellen Computer.
+    syntax: az vm list-ip-addresses -g MyResourceGroup -n MyVm
+  - summary: Ip-Adressen für alle virtuellen Computer in einer Ressourcengruppe.
+    syntax: az vm list-ip-addresses --ids $(az vm list -g MyResourceGroup --query "[].id" -o tsv)
+  optionalParameters:
+  - name: --ids
+    summary: Eine oder mehrere Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu Ressourcen-ID-Argumenten geben. Sie sollten entweder --ids oder andere Ressourcen-ID-Argumente bereitstellen.
+    description: ''
+  - name: --name -n
+    summary: Der Name des virtuellen Computers. Sie können die Standardeinstellung mit `az configure --defaults vm=<name>` konfigurieren.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/vm/_help.py
+- uid: az_vm_list-sizes
+  name: az vm list-sizes
+  summary: Auflisten der verfügbaren Größen für VMs.
+  description: ''
+  syntax: >-
+    az vm list-sizes --location
+                     [--subscription]
+  examples:
+  - summary: Listen Sie die verfügbaren VM-Größen in der Region "USA, Westen" auf.
+    syntax: az vm list-sizes -l westus
+  requiredParameters:
+  - isRequired: true
+    name: --location -l
+    summary: 'Der Standort. Werte aus: `az account list-locations`. Sie können den standardmäßig verwendeten Standort mit `az configure --defaults location=<location>` konfigurieren.'
+    description: ''
+  optionalParameters:
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/vm/_help.py
+- uid: az_vm_list-skus
+  name: az vm list-skus
+  summary: Hier finden Sie Details zu computebezogenen Ressourcen-SKUs.
+  description: Dieser Befehl enthält Einschränkungen auf Abonnementebene und bietet die genauesten Informationen.
+  syntax: >-
+    az vm list-skus [--all {false, true}]
+                    [--location]
+                    [--resource-type]
+                    [--size]
+                    [--subscription]
+                    [--zone {false, true}]
+  examples:
+  - summary: Listet alle SKUs in der Region "USA, Westen" auf.
+    syntax: az vm list-skus -l westus
+  - summary: Listet alle verfügbaren VM-Größen in der Region "USA, Osten 2" auf, die Verfügbarkeitszonen unterstützen.
+    syntax: az vm list-skus -l eastus2 --zone
+  - summary: Listen Sie alle verfügbaren VM-Größen in der Region "USA, Osten 2" auf, die verfügbarkeitszonen mit dem Namen "standard_ds1..." unterstützen.
+    syntax: az vm list-skus -l eastus2 --zone --size standard_ds1
+  - summary: Auflisten von SKU-Informationen zu Verfügbarkeitsgruppen in der Region "USA, Westen".
+    syntax: az vm list-skus -l westus --resource-type availabilitySets
+  optionalParameters:
+  - name: --all
+    parameterValueGroup: false, true
+    summary: Zeigen Sie alle Informationen an, einschließlich vm-Größen, die unter dem aktuellen Abonnement nicht verfügbar sind.
+    description: ''
+  - name: --location -l
+    summary: 'Der Standort. Werte aus: `az account list-locations`. Sie können den standardmäßig verwendeten Standort mit `az configure --defaults location=<location>` konfigurieren.'
+    description: ''
+  - name: --resource-type -r
+    summary: Ressourcentypen wie "availabilitySets", "snapshots", "disks" usw.
+    description: ''
+  - name: --size -s
+    summary: Größenname, Teilname wird akzeptiert.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+  - name: --zone -z
+    parameterValueGroup: false, true
+    summary: Anzeigen von SKUS, die Verfügbarkeitszonen unterstützen.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/vm/_help.py
+- uid: az_vm_list-usage
+  name: az vm list-usage
+  summary: Listet verfügbare Nutzungsressourcen für VMs auf.
+  description: ''
+  syntax: >-
+    az vm list-usage --location
+                     [--subscription]
+  examples:
+  - summary: Abrufen der Computeressourcennutzung für die Region "USA, Westen".
+    syntax: az vm list-usage -l westus
+  requiredParameters:
+  - isRequired: true
+    name: --location -l
+    summary: 'Der Standort. Werte aus: `az account list-locations`. Sie können den standardmäßig verwendeten Standort mit `az configure --defaults location=<location>` konfigurieren.'
+    description: ''
+  optionalParameters:
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/vm/_help.py
+- uid: az_vm_list-vm-resize-options
+  name: az vm list-vm-resize-options
+  summary: Listet verfügbare Größenänderungsoptionen für VMs auf.
+  description: ''
+  syntax: >-
+    az vm list-vm-resize-options [--ids]
+                                 [--name]
+                                 [--resource-group]
+                                 [--subscription]
+  examples:
+  - summary: Listet alle verfügbaren VM-Größen für die Größenänderung auf.
+    syntax: az vm list-vm-resize-options -g MyResourceGroup -n MyVm
+  - summary: Listet die verfügbaren Größen für alle VMs in einer Ressourcengruppe auf.
+    syntax: az vm list-vm-resize-options --ids $(az vm list -g MyResourceGroup --query "[].id" -o tsv)
+  optionalParameters:
+  - name: --ids
+    summary: Mindestens eine Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu "Ressourcen-ID"-Argumenten sein. Sie sollten entweder --ids oder andere Ressourcen-ID-Argumente bereitstellen.
+    description: ''
+  - name: --name -n
+    summary: Der Name des virtuellen Computers. Sie können die Standardeinstellung mit `az configure --defaults vm=<name>` konfigurieren.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/vm/_help.py
+- uid: az_vm_open-port
+  name: az vm open-port
+  summary: Öffnet einen virtuellen Computer für eingehenden Datenverkehr an angegebenen Ports.
+  description: Fügt der Netzwerksicherheitsgruppe (NSG), die an die Netzwerkschnittstelle (NIC) oder das Subnetz des virtuellen Computers angefügt ist, eine Sicherheitsregel hinzu. Die vorhandene NSG wird verwendet, oder es wird eine neue erstellt. Der Regelname ist "open-port-{port}" und überschreibt eine vorhandene Regel mit diesem Namen. Verwenden Sie für multi-NIC-VMs oder zur feineren Steuerung die entsprechenden Netzwerkbefehle direkt (nsg rule create usw.).
+  syntax: >-
+    az vm open-port --port
+                    [--apply-to-subnet]
+                    [--ids]
+                    [--name]
+                    [--nsg-name]
+                    [--priority]
+                    [--resource-group]
+                    [--subscription]
+  examples:
+  - summary: Öffnen Sie alle Ports auf einem virtuellen Computer für eingehenden Datenverkehr.
+    syntax: az vm open-port -g MyResourceGroup -n MyVm --port '*'
+  - summary: Öffnen Sie eine Reihe von Ports auf einem virtuellen Computer für eingehenden Datenverkehr mit der höchsten Priorität.
+    syntax: az vm open-port -g MyResourceGroup -n MyVm --port 80-100 --priority 100
+  - summary: Öffnen Sie die Ports 555, 557, 558 und 559 für eingehenden Datenverkehr mit der höchsten Priorität.
+    syntax: az vm open-port -g MyResourceGroup -n MyVm --port 555,557-559 --priority 100
+  - summary: Öffnen Sie alle Ports für alle VMs in einer Ressourcengruppe.
+    syntax: az vm open-port --ids $(az vm list -g MyResourceGroup --query "[].id" -o tsv) --port '*'
+  requiredParameters:
+  - isRequired: true
+    name: --port
+    summary: Der Port- oder Portbereich (z. B. 80-100), für den eingehender Datenverkehr geöffnet werden soll. Verwenden Sie \* "", um Datenverkehr an alle Ports zu ermöglichen. Verwenden Sie durch Komma getrennte Werte, um mehr als einen Port oder Portbereich anzugeben.
+    description: ''
+  optionalParameters:
+  - name: --apply-to-subnet
+    summary: Lassen Sie eingehenden Datenverkehr im Subnetz anstelle der NIC zu.
+    description: ''
+  - name: --ids
+    summary: Eine oder mehrere Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu Ressourcen-ID-Argumenten geben. Sie sollten entweder --ids oder andere Ressourcen-ID-Argumente bereitstellen.
+    description: ''
+  - name: --name -n
+    summary: Der Name des virtuellen Computers, auf dem eingehender Datenverkehr geöffnet werden soll.
+    description: ''
+  - name: --nsg-name
+    summary: Der Name der Netzwerksicherheitsgruppe, die erstellt werden soll, wenn keine vorhanden ist. Wird ignoriert, wenn bereits eine NSG vorhanden ist.
+    description: ''
+  - name: --priority
+    defaultValue: "900"
+    summary: Regelpriorität zwischen 100 (höchste Priorität) und 4096 (niedrigste Priorität). Muss für jede Regel in der Auflistung eindeutig sein.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/vm/_help.py
+- uid: az_vm_perform-maintenance
+  name: az vm perform-maintenance
+  summary: Der Vorgang, der auf einem virtuellen Computer gewartet werden soll.
+  description: ''
+  syntax: >-
+    az vm perform-maintenance [--ids]
+                              [--name]
+                              [--resource-group]
+                              [--subscription]
+  optionalParameters:
+  - name: --ids
+    summary: Mindestens eine Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu "Ressourcen-ID"-Argumenten sein. Sie sollten entweder --ids oder andere "Resource Id"-Argumente angeben.
+    description: ''
+  - name: --name -n
+    summary: Der Name des virtuellen Computers. Sie können die Standardeinstellung mit `az configure --defaults vm=<name>` konfigurieren.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/vm/_help.py
+- uid: az_vm_reapply
+  name: az vm reapply
+  summary: Erneutes App-Anwendung von VMs.
+  description: ''
+  syntax: >-
+    az vm reapply [--ids]
+                  [--name]
+                  [--no-wait]
+                  [--resource-group]
+                  [--subscription]
+  examples:
+  - summary: Erneutes Appappieren eines virtuellen Computers.
+    syntax: az vm reapply -g MyResourceGroup -n MyVm
+  - summary: Alle virtuellen Computer in einer Ressourcengruppe erneut aufwenden.
+    syntax: az vm reapply --ids $(az vm list -g MyResourceGroup --query "[].id" -o tsv)
+  optionalParameters:
+  - name: --ids
+    summary: Mindestens eine Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu "Ressourcen-ID"-Argumenten sein. Sie sollten entweder --ids oder andere "Resource Id"-Argumente angeben.
+    description: ''
+  - name: --name -n
+    summary: Der Name des virtuellen Computers. Sie können die Standardeinstellung mit `az configure --defaults vm=<name>` konfigurieren.
+    description: ''
+  - name: --no-wait
+    summary: Nicht auf den Abschluss lang andauernder Vorgänge warten
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/vm/_help.py
+- uid: az_vm_redeploy
+  name: az vm redeploy
+  summary: Erneutes Bereitstellen eines vorhandenen virtuellen Computers.
+  description: ''
+  syntax: >-
+    az vm redeploy [--ids]
+                   [--name]
+                   [--no-wait]
+                   [--resource-group]
+                   [--subscription]
+  examples:
+  - summary: Erneutes Bereitstellen eines virtuellen Computers
+    syntax: az vm redeploy -g MyResourceGroup -n MyVm
+  - summary: Stellen Sie alle virtuellen Computer in einer Ressourcengruppe erneut zur Bereitstellung vor.
+    syntax: az vm redeploy --ids $(az vm list -g MyResourceGroup --query "[].id" -o tsv)
+  optionalParameters:
+  - name: --ids
+    summary: Eine oder mehrere Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu Ressourcen-ID-Argumenten geben. Sie sollten entweder --ids oder andere Ressourcen-ID-Argumente bereitstellen.
+    description: ''
+  - name: --name -n
+    summary: Der Name des virtuellen Computers. Sie können die Standardeinstellung mit `az configure --defaults vm=<name>` konfigurieren.
+    description: ''
+  - name: --no-wait
+    summary: Nicht auf den Abschluss lang andauernder Vorgänge warten
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/vm/_help.py
+- uid: az_vm_resize
+  name: az vm resize
+  summary: Aktualisieren Sie die Größe eines virtuellen Computers.
+  description: ''
+  syntax: >-
+    az vm resize --size
+                 [--ids]
+                 [--name]
+                 [--no-wait]
+                 [--resource-group]
+                 [--subscription]
+  examples:
+  - summary: Ändern der Größe eines virtuellen Computers.
+    syntax: az vm resize -g MyResourceGroup -n MyVm --size Standard_DS3_v2
+  - summary: Ändern sie die Größe aller virtuellen Computer in einer Ressourcengruppe.
+    syntax: az vm resize --size Standard_DS3_v2 --ids $(az vm list -g MyResourceGroup --query "[].id" -o tsv)
+  requiredParameters:
+  - isRequired: true
+    name: --size
+    summary: Die VM-Größe.
+    description: ''
+    valueFrom: az vm list-vm-resize-options
+  optionalParameters:
+  - name: --ids
+    summary: Eine oder mehrere Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu Ressourcen-ID-Argumenten geben. Sie sollten entweder --ids oder andere Ressourcen-ID-Argumente bereitstellen.
+    description: ''
+  - name: --name -n
+    summary: Der Name des virtuellen Computers. Sie können die Standardeinstellung mit `az configure --defaults vm=<name>` konfigurieren.
+    description: ''
+  - name: --no-wait
+    summary: Nicht auf den Abschluss lang andauernder Vorgänge warten
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/vm/_help.py
+- uid: az_vm_restart
+  name: az vm restart
+  summary: Starten Sie VMs neu.
+  description: ''
+  syntax: >-
+    az vm restart [--force]
+                  [--ids]
+                  [--name]
+                  [--no-wait]
+                  [--resource-group]
+                  [--subscription]
+  examples:
+  - summary: Startet eine VM neu.
+    syntax: az vm restart -g MyResourceGroup -n MyVm
+  - summary: Starten Sie alle VMs in einer Ressourcengruppe neu.
+    syntax: az vm restart --ids $(az vm list -g MyResourceGroup --query "[].id" -o tsv)
+  optionalParameters:
+  - name: --force
+    summary: Erzwingen Sie den Neustart des virtuellen Computers, indem Sie ihn erneut bereitstellen. Verwenden Sie , wenn der virtuelle Computer nicht reagiert.
+    description: ''
+  - name: --ids
+    summary: Mindestens eine Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen von "Resource Id"-Argumenten sein. Sie sollten entweder --ids oder andere "Resource Id"-Argumente angeben.
+    description: ''
+  - name: --name -n
+    summary: Der Name des virtuellen Computers. Sie können die Standardeinstellung mit `az configure --defaults vm=<name>` konfigurieren.
+    description: ''
+  - name: --no-wait
+    summary: Nicht auf den Abschluss lang andauernder Vorgänge warten
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/vm/_help.py
+- uid: az_vm_show
+  name: az vm show
+  summary: Abrufen der Details eines virtuellen Computers.
+  description: ''
+  syntax: >-
+    az vm show [--ids]
+               [--name]
+               [--query-examples]
+               [--resource-group]
+               [--show-details]
+               [--subscription]
+  examples:
+  - summary: Anzeigen von Informationen zu einem virtuellen Computer.
+    syntax: az vm show -g MyResourceGroup -n MyVm -d
+  - summary: Abrufen der Details für alle virtuellen Computer in einer Ressourcengruppe.
+    syntax: az vm show -d --ids $(az vm list -g MyResourceGroup --query "[].id" -o tsv)
+  optionalParameters:
+  - name: --ids
+    summary: Mindestens eine Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu "Ressourcen-ID"-Argumenten sein. Sie sollten entweder --ids oder andere "Resource Id"-Argumente angeben.
+    description: ''
+  - name: --name -n
+    summary: Der Name des virtuellen Computers. Sie können die Standardeinstellung mit `az configure --defaults vm=<name>` konfigurieren.
+    description: ''
+  - name: --query-examples
+    summary: Empfehlen Sie die JMESPath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und nach dem Parameter --query in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positionsschlüsselwörter hinzufügen, damit wir basierend auf diesen Schlüsselwörtern Vorschläge machen können.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --show-details -d
+    summary: Öffentliche IP-Adresse, FQDN und Energiezustände anzeigen. der Befehl wird langsam ausgeführt.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/vm/_help.py
+- uid: az_vm_simulate-eviction
+  name: az vm simulate-eviction
+  summary: Simulieren sie die Eviction eines virtuellen Spot-Computers.
+  description: ''
+  syntax: >-
+    az vm simulate-eviction [--ids]
+                            [--name]
+                            [--resource-group]
+                            [--subscription]
+  examples:
+  - summary: Simulieren Der Eviction einer Spot-VM.
+    syntax: az vm simulate-eviction --resource-group MyResourceGroup --name MyVm
+  optionalParameters:
+  - name: --ids
+    summary: Eine oder mehrere Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu Ressourcen-ID-Argumenten geben. Sie sollten entweder --ids oder andere Ressourcen-ID-Argumente bereitstellen.
+    description: ''
+  - name: --name -n
+    summary: Der Name des virtuellen Computers. Sie können die Standardeinstellung mit `az configure --defaults vm=<name>` konfigurieren.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/vm/_help.py
+- uid: az_vm_start
+  name: az vm start
+  summary: Startet eine angehaltene VM.
+  description: ''
+  syntax: >-
+    az vm start [--ids]
+                [--name]
+                [--no-wait]
+                [--resource-group]
+                [--subscription]
+  examples:
+  - summary: Startet eine angehaltene VM.
+    syntax: az vm start -g MyResourceGroup -n MyVm
+  - summary: Starten Sie alle VMs in einer Ressourcengruppe.
+    syntax: az vm start --ids $(az vm list -g MyResourceGroup --query "[].id" -o tsv)
+  - summary: Startet eine angehaltene VM. (automatisch generiert)
+    syntax: az vm start --name MyVm --no-wait --resource-group MyResourceGroup
+  optionalParameters:
+  - name: --ids
+    summary: Eine oder mehrere Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu Ressourcen-ID-Argumenten geben. Sie sollten entweder --ids oder andere Ressourcen-ID-Argumente bereitstellen.
+    description: ''
+  - name: --name -n
+    summary: Der Name des virtuellen Computers. Sie können die Standardeinstellung mit `az configure --defaults vm=<name>` konfigurieren.
+    description: ''
+  - name: --no-wait
+    summary: Nicht auf den Abschluss lang andauernder Vorgänge warten
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/vm/_help.py
+- uid: az_vm_stop
+  name: az vm stop
+  summary: Ausschalten (Beenden) eines ausgeführten virtuellen Computers.
+  description: Der virtuelle Computer wird weiterhin in Rechnung gestellt. Um dies zu vermeiden, können Sie die Zuordnung des virtuellen Computers mithilfe von "az vm deallocate" (az vm deallocate) auferkennen.
+  syntax: >-
+    az vm stop [--ids]
+               [--name]
+               [--no-wait]
+               [--resource-group]
+               [--skip-shutdown]
+               [--subscription]
+  examples:
+  - summary: Ausschalten (Beenden) eines ausgeführten virtuellen Computers.
+    syntax: az vm stop --resource-group MyResourceGroup --name MyVm
+  - summary: Schalten Sie einen ausgeführten virtuellen Computer aus, ohne herunterzufahren.
+    syntax: az vm stop --resource-group MyResourceGroup --name MyVm --skip-shutdown
+  - summary: Schalten Sie VMs in einer Ressourcengruppe aus.
+    syntax: az vm stop --ids $(az vm list -g MyResourceGroup --query "[].id" -o tsv)
+  optionalParameters:
+  - name: --ids
+    summary: Mindestens eine Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu "Ressourcen-ID"-Argumenten sein. Sie sollten entweder --ids oder andere "Resource Id"-Argumente angeben.
+    description: ''
+  - name: --name -n
+    summary: Der Name des virtuellen Computers. Sie können die Standardeinstellung mit `az configure --defaults vm=<name>` konfigurieren.
+    description: ''
+  - name: --no-wait
+    summary: Nicht auf den Abschluss lang andauernder Vorgänge warten
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --skip-shutdown
+    summary: Überspringen Sie das Herunter- und Ausschalten sofort.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/vm/_help.py
+- uid: az_vm_update
+  name: az vm update
+  summary: Aktualisieren der Eigenschaften eines virtuellen Computers.
+  description: Aktualisieren Sie VM-Objekte und -Eigenschaften mithilfe von Pfaden, die "az vm show" entsprechen.
+  syntax: >-
+    az vm update [--add]
+                 [--disk-caching]
+                 [--force-string]
+                 [--ids]
+                 [--license-type {None, RHEL_BYOS, RHEL_ELS_6, SLES_BYOS, Windows_Client, Windows_Server}]
+                 [--max-price]
+                 [--name]
+                 [--no-wait]
+                 [--os-disk]
+                 [--ppg]
+                 [--priority {Low, Regular, Spot}]
+                 [--remove]
+                 [--resource-group]
+                 [--set]
+                 [--subscription]
+                 [--ultra-ssd-enabled {false, true}]
+                 [--workspace]
+                 [--write-accelerator]
+  examples:
+  - summary: Fügen Sie ein Tag hinzu, oder aktualisieren Sie es.
+    syntax: az vm update -n name -g group --set tags.tagName=tagValue
+  - summary: Entfernen sie ein Tag.
+    syntax: az vm update -n name -g group --remove tags.tagName
+  - summary: Legen Sie die primäre NIC eines virtuellen Computers fest.
+    syntax: az vm update -n name -g group --set networkProfile.networkInterfaces[1].primary=false networkProfile.networkInterfaces[0].primary=true
+  - summary: Fügen Sie einer VM eine neue nicht primäre NIC hinzu.
+    syntax: az vm update -n name -g group --add networkProfile.networkInterfaces primary=false id={NIC_ID}
+  - summary: Entfernen Sie die vierte NIC von einem virtuellen Computer.
+    syntax: az vm update -n name -g group --remove networkProfile.networkInterfaces 3
+  optionalParameters:
+  - name: --add
+    summary: 'Fügen Sie einer Liste von -Objekten ein -Objekt hinzu, indem Sie ein Pfad- und Schlüsselwertpaar angeben.  Beispiel: --add property.listProperty <key=value, string oder JSON string>.'
+    description: ''
+  - name: --disk-caching
+    summary: Verwenden Sie einen Singularwert, um auf einzelne Datenträger anzuwenden, oder geben Sie einzelne Datenträger an, z. B. "os=ReadWrite 0=None 1=ReadOnly" sollte update os disk und 2 Data Disks aktivieren.
+    description: ''
+  - name: --force-string
+    summary: Wenn Sie "set" oder "add" verwenden, behalten Sie Zeichenfolgenliterale bei, anstatt zu versuchen, in JSON zu konvertieren.
+    description: ''
+  - name: --ids
+    summary: Eine oder mehrere Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu Ressourcen-ID-Argumenten geben. Sie sollten entweder --ids oder andere Ressourcen-ID-Argumente bereitstellen.
+    description: ''
+  - name: --license-type
+    parameterValueGroup: None, RHEL_BYOS, RHEL_ELS_6, SLES_BYOS, Windows_Client, Windows_Server
+    summary: Gibt an, dass das Windows-Image oder der Windows-Datenträger lokal lizenziert wurde. Verwenden Sie zum Azure-Hybridvorteil für Windows Server "Windows_Server". Verwenden Sie "Windows 10", um mehrteilige Hostingrechte für Windows_Client aktivieren. Weitere Informationen finden Sie in der Online-Dokumentation zu virtuellen Azure-Windows-Computer.
+    description: ''
+  - name: --max-price
+    summary: Der maximale Preis (in US-Dollar), den Sie für eine Spot-VM/VMSS bezahlen möchten. -1 gibt an, dass die Spot-VM/VM-SSS aus Preisgründen nicht aus dem Netzwerk bzw. der Spot-VM-Umgebung bzw. der Spot-VM-SSS bzw. der Spot-VM-SSS aus Preisgründen bzw.
+    description: ''
+  - name: --name -n
+    summary: Der Name des virtuellen Computers. Sie können die Standardeinstellung mit `az configure --defaults vm=<name>` konfigurieren.
+    description: ''
+  - name: --no-wait
+    summary: Nicht auf den Abschluss lang andauernder Vorgänge warten
+    description: ''
+  - name: --os-disk
+    summary: ID oder Name des verwalteten Betriebssystemdatenträgers für den Austausch.
+    description: ''
+  - name: --ppg
+    summary: Der Name oder die ID der Näherungsplatzierungsgruppe, der der virtuelle Computer zugeordnet werden soll.
+    description: ''
+  - name: --priority
+    parameterValueGroup: Low, Regular, Spot
+    summary: Priority Verwenden Sie "Spot", um kurzlebige Workloads kostengünstig ausführen zu können. Die "Low"-Aufzähle wird in Zukunft veraltet sein. Verwenden Sie "Spot", um eine Azure Spot-VM und/oder VMSS bereitzustellen. Der Standardwert ist "Regular".
+    description: ''
+  - name: --remove
+    summary: 'Entfernen sie eine Eigenschaft oder ein Element aus einer Liste.  Beispiel: --remove property.list <indexToRemove> OR --remove propertyToRemove.'
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --set
+    summary: 'Aktualisieren Sie ein -Objekt, indem Sie einen festzulegenden Eigenschaftenpfad und -wert angeben.  Beispiel: --set property1.property2=<value>.'
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+  - name: --ultra-ssd-enabled
+    parameterValueGroup: false, true
+    summary: Aktiviert oder deaktiviert die Funktion, über einen oder mehrere verwaltete Datenträger mit UltraSSD_LRS Speicherkonto zu verfügen.
+    description: ''
+  - name: --workspace
+    summary: Name oder ID des Log Analytics-Arbeitsbereichs. Wenn Sie den Arbeitsbereich über seinen Namen angeben, sollte sich der Arbeitsbereich in derselben Ressourcengruppe wie der virtuelle Computer befinden. Andernfalls wird ein neuer Arbeitsbereich erstellt.
+    description: ''
+  - name: --write-accelerator
+    summary: Aktivieren/Deaktivieren der Schreibzugriffstaste für Datenträger. Verwenden Sie den Singularwert "true/false", um auf die Datenträger anzuwenden, oder geben Sie einzelne Datenträger an, z.B. "os=true 1=true 2=true" für Betriebssystemdatenträger und Datenträger mit lun von 1 & 2.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/vm/_help.py
+- uid: az_vm_wait
+  name: az vm wait
+  summary: Versetzen Sie die CLI in einen Wartezustand, bis eine Bedingung des virtuellen Computers erfüllt ist.
+  description: ''
+  syntax: >-
+    az vm wait [--created]
+               [--custom]
+               [--deleted]
+               [--exists]
+               [--ids]
+               [--interval]
+               [--name]
+               [--resource-group]
+               [--subscription]
+               [--timeout]
+               [--updated]
+  examples:
+  - summary: Warten Sie, bis eine VM erstellt wurde.
+    syntax: az vm wait -g MyResourceGroup -n MyVm --created
+  - summary: Warten Sie, bis alle VMs in einer Ressourcengruppe gelöscht wurden.
+    syntax: az vm wait --deleted --ids $(az vm list -g MyResourceGroup --query "[].id" -o tsv)
+  optionalParameters:
+  - name: --created
+    summary: Warten Sie, bis die Erstellung mit "provisioningState" bei "Succeeded" (Erfolgreich) ausgeführt wurde.
+    description: ''
+  - name: --custom
+    summary: "Warten Sie, bis die Bedingung eine benutzerdefinierte JMESPath-Abfrage erfüllt. Beispiel: provisioningState!='InProgress', instanceView.statuses[?code=='PowerState/running']."
+    description: ''
+  - name: --deleted
+    summary: Warten Sie, bis gelöscht wurde.
+    description: ''
+  - name: --exists
+    summary: Warten Sie, bis die Ressource vorhanden ist.
+    description: ''
+  - name: --ids
+    summary: Mindestens eine Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu Ressourcen-ID-Argumenten geben. Sie sollten entweder --ids oder andere Ressourcen-ID-Argumente bereitstellen.
+    description: ''
+  - name: --interval
+    defaultValue: "30"
+    summary: Abrufintervall in Sekunden.
+    description: ''
+  - name: --name -n
+    summary: Der Name des virtuellen Computers. Sie können die Standardeinstellung mit `az configure --defaults vm=<name>` konfigurieren.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+  - name: --timeout
+    defaultValue: "3600"
+    summary: Maximale Wartezeit in Sekunden.
+    description: ''
+  - name: --updated
+    summary: Warten Sie, bis provisioningState auf "Succeeded" aktualisiert wurde.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/vm/_help.py
+commands:
+- az_vm_aem
+- az_vm_aem_delete
+- az_vm_aem_set
+- az_vm_aem_verify
+- az_vm_assess-patches
+- az_vm_auto-shutdown
+- az_vm_availability-set
+- az_vm_availability-set_convert
+- az_vm_availability-set_create
+- az_vm_availability-set_delete
+- az_vm_availability-set_list
+- az_vm_availability-set_list-sizes
+- az_vm_availability-set_show
+- az_vm_availability-set_update
+- az_vm_boot-diagnostics
+- az_vm_boot-diagnostics_disable
+- az_vm_boot-diagnostics_enable
+- az_vm_boot-diagnostics_get-boot-log
+- az_vm_boot-diagnostics_get-boot-log-uris
+- az_vm_capture
+- az_vm_convert
+- az_vm_create
+- az_vm_deallocate
+- az_vm_delete
+- az_vm_diagnostics
+- az_vm_diagnostics_get-default-config
+- az_vm_diagnostics_set
+- az_vm_disk
+- az_vm_disk_attach
+- az_vm_disk_detach
+- az_vm_encryption
+- az_vm_encryption_disable
+- az_vm_encryption_enable
+- az_vm_encryption_show
+- az_vm_extension
+- az_vm_extension_delete
+- az_vm_extension_image
+- az_vm_extension_image_list
+- az_vm_extension_image_list-names
+- az_vm_extension_image_list-versions
+- az_vm_extension_image_show
+- az_vm_extension_list
+- az_vm_extension_set
+- az_vm_extension_show
+- az_vm_extension_wait
+- az_vm_generalize
+- az_vm_get-instance-view
+- az_vm_host
+- az_vm_host_create
+- az_vm_host_delete
+- az_vm_host_get-instance-view
+- az_vm_host_group
+- az_vm_host_group_create
+- az_vm_host_group_delete
+- az_vm_host_group_get-instance-view
+- az_vm_host_group_list
+- az_vm_host_group_show
+- az_vm_host_group_update
+- az_vm_host_list
+- az_vm_host_show
+- az_vm_host_update
+- az_vm_identity
+- az_vm_identity_assign
+- az_vm_identity_remove
+- az_vm_identity_show
+- az_vm_image
+- az_vm_image_accept-terms
+- az_vm_image_list
+- az_vm_image_list-offers
+- az_vm_image_list-publishers
+- az_vm_image_list-skus
+- az_vm_image_show
+- az_vm_image_terms
+- az_vm_image_terms_accept
+- az_vm_image_terms_cancel
+- az_vm_image_terms_show
+- az_vm_list
+- az_vm_list-ip-addresses
+- az_vm_list-sizes
+- az_vm_list-skus
+- az_vm_list-usage
+- az_vm_list-vm-resize-options
+- az_vm_monitor
+- az_vm_monitor_log
+- az_vm_monitor_log_show
+- az_vm_nic
+- az_vm_nic_add
+- az_vm_nic_list
+- az_vm_nic_remove
+- az_vm_nic_set
+- az_vm_nic_show
+- az_vm_open-port
+- az_vm_perform-maintenance
+- az_vm_reapply
+- az_vm_redeploy
+- az_vm_repair
+- az_vm_repair_create
+- az_vm_repair_list-scripts
+- az_vm_repair_restore
+- az_vm_repair_run
+- az_vm_resize
+- az_vm_restart
+- az_vm_run-command
+- az_vm_run-command_invoke
+- az_vm_run-command_list
+- az_vm_run-command_show
+- az_vm_secret
+- az_vm_secret_add
+- az_vm_secret_format
+- az_vm_secret_list
+- az_vm_secret_remove
+- az_vm_show
+- az_vm_simulate-eviction
+- az_vm_start
+- az_vm_stop
+- az_vm_unmanaged-disk
+- az_vm_unmanaged-disk_attach
+- az_vm_unmanaged-disk_detach
+- az_vm_unmanaged-disk_list
+- az_vm_update
+- az_vm_user
+- az_vm_user_delete
+- az_vm_user_reset-ssh
+- az_vm_user_update
+- az_vm_wait
+globalParameters:
+- name: --debug
+  summary: Ausführlichkeit der Protokollierung erhöhen, um alle Debugprotokolle anzuzeigen.
+- name: --help -h
+  summary: Zeigen Sie diese Hilfemeldung an, und schließen Sie sie.
+- name: --only-show-errors
+  summary: Nur Fehler anzeigen und Warnungen unterdrücken.
+- name: --output -o
+  defaultValue: json
+  parameterValueGroup: json, jsonc, table, tsv
+  summary: Ausgabeformat.
+- name: --query
+  summary: JMESPath-Abfragezeichenfolge. Weitere Informationen und Beispiele finden Sie unter <a href="http://jmespath.org/">http://jmespath.org/</a>.
+- name: --verbose
+  summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
+metadata:
+  doc_source_url_repo: https://github.com/Azure/azure-cli/blob/dev/
+  ms.date: 04/15/2021
+  description: Verwalten von virtuellen Linux- oder Windows-Computern.
+  ms.openlocfilehash: 5c4140bd8adcb041da215305c76bc97b66bab2e0
+  ms.sourcegitcommit: 47edf65705fcb047974356c30962819ea5172832
+  ms.translationtype: MT
+  ms.contentlocale: de-DE
+  ms.lasthandoff: 04/16/2021
+  ms.locfileid: "107551121"

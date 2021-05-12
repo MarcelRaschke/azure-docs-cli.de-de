@@ -1,0 +1,142 @@
+### YamlMime:AzureCLIGroup
+uid: az_vm_identity
+name: az vm identity
+summary: Verwalten von Dienstidentitäten eines virtuellen Computers.
+description: ''
+directCommands:
+- uid: az_vm_identity_assign
+  name: az vm identity assign
+  summary: Aktivieren sie die verwaltete Dienstidentität auf einem virtuellen Computer.
+  description: Dies ist erforderlich, um sich mithilfe von Bearertoken zu authentifizieren und mit anderen Azure-Diensten zu interagieren.
+  syntax: >-
+    az vm identity assign [--identities]
+                          [--ids]
+                          [--name]
+                          [--resource-group]
+                          [--role]
+                          [--scope]
+                          [--subscription]
+  examples:
+  - summary: Aktivieren Sie die vom System zugewiesene Identität auf einem virtuellen Computer mit der Rolle "Leser".
+    syntax: az vm identity assign -g MyResourceGroup -n MyVm --role Reader --scope /subscriptions/db5eb68e-73e2-4fa8-b18a-0123456789999/resourceGroups/MyResourceGroup
+  - summary: Aktivieren Sie die vom System zugewiesene Identität und eine vom Benutzer zugewiesene Identität auf einem virtuellen Computer.
+    syntax: az vm identity assign -g MyResourceGroup -n MyVm --role Reader --identities [system] myAssignedId
+  optionalParameters:
+  - name: --identities
+    summary: "Zuzuweisende durch Leerzeichen getrennte Identitäten. Verwenden Sie \"[system]\", um auf die vom System zugewiesene Identität zu verweisen. Standardwert: '[system]'."
+    description: ''
+  - name: --ids
+    summary: Mindestens eine Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu "Ressourcen-ID"-Argumenten sein. Sie sollten entweder --ids oder andere "Resource Id"-Argumente angeben.
+    description: ''
+  - name: --name -n
+    summary: Der Name des virtuellen Computers. Sie können die Standardeinstellung mit `az configure --defaults vm=<name>` konfigurieren.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --role
+    defaultValue: Contributor
+    summary: Der Rollenname oder die ID der vom System zugewiesenen Identität.
+    description: ''
+  - name: --scope
+    summary: Bereich, auf den die vom System zugewiesene Identität zugreifen kann.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/vm/_help.py
+- uid: az_vm_identity_remove
+  name: az vm identity remove
+  summary: Entfernen sie verwaltete Dienstidentitäten von einem virtuellen Computer.
+  description: ''
+  syntax: >-
+    az vm identity remove [--identities]
+                          [--ids]
+                          [--name]
+                          [--resource-group]
+                          [--subscription]
+  examples:
+  - summary: Entfernen der vom System zugewiesenen Identität
+    syntax: az vm identity remove -g MyResourceGroup -n MyVm
+  - summary: Entfernen einer vom Benutzer zugewiesenen Identität
+    syntax: az vm identity remove -g MyResourceGroup -n MyVm --identities readerId
+  - summary: Entfernen Von zwei Identitäten, die sich in derselben Ressourcengruppe mit dem virtuellen Computer befinden
+    syntax: az vm identity remove -g MyResourceGroup -n MyVm --identities readerId writerId
+  - summary: Entfernen der vom System zugewiesenen Identität und einer Benutzeridentität
+    syntax: az vm identity remove -g MyResourceGroup -n MyVm --identities [system] readerId
+  optionalParameters:
+  - name: --identities
+    summary: "Durch Leerzeichen getrennte Identitäten, die entfernt werden. Verwenden Sie \"[system]\", um auf die system zugewiesene Identität zu verweisen. Standardwert: '[system]'."
+    description: ''
+  - name: --ids
+    summary: Eine oder mehrere Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu Ressourcen-ID-Argumenten geben. Sie sollten entweder --ids oder andere Ressourcen-ID-Argumente bereitstellen.
+    description: ''
+  - name: --name -n
+    summary: Der Name des virtuellen Computers. Sie können die Standardeinstellung mit `az configure --defaults vm=<name>` konfigurieren.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/vm/_help.py
+- uid: az_vm_identity_show
+  name: az vm identity show
+  summary: Anzeigen der Informationen zur verwalteten Identität des virtuellen Computers
+  description: ''
+  syntax: >-
+    az vm identity show [--ids]
+                        [--name]
+                        [--query-examples]
+                        [--resource-group]
+                        [--subscription]
+  examples:
+  - summary: Anzeigen der Informationen zur verwalteten Identität des virtuellen Computers. (automatisch generiert)
+    syntax: az vm identity show --name MyVirtualMachine --resource-group MyResourceGroup
+  optionalParameters:
+  - name: --ids
+    summary: Eine oder mehrere Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu Ressourcen-ID-Argumenten geben. Sie sollten entweder --ids oder andere Ressourcen-ID-Argumente bereitstellen.
+    description: ''
+  - name: --name -n
+    summary: Der Name des virtuellen Computers. Sie können die Standardeinstellung mit `az configure --defaults vm=<name>` konfigurieren.
+    description: ''
+  - name: --query-examples
+    summary: Empfehlen Sie die JMESPath-Zeichenfolge. Sie können eine der Abfragen kopieren und nach dem Parameter --query in doppelte Anführungszeichen einfügen, um die Ergebnisse zu sehen. Sie können ein oder mehrere Positionsschlüsselwörter hinzufügen, damit wir basierend auf diesen Schlüsselwörtern Vorschläge geben können.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/vm/_help.py
+commands:
+- az_vm_identity_assign
+- az_vm_identity_remove
+- az_vm_identity_show
+globalParameters:
+- name: --debug
+  summary: Ausführlichkeit der Protokollierung erhöhen, um alle Debugprotokolle anzuzeigen.
+- name: --help -h
+  summary: Zeigen Sie diese Hilfemeldung an, und schließen Sie sie.
+- name: --only-show-errors
+  summary: Nur Fehler anzeigen und Warnungen unterdrücken.
+- name: --output -o
+  defaultValue: json
+  parameterValueGroup: json, jsonc, table, tsv
+  summary: Ausgabeformat.
+- name: --query
+  summary: JMESPath-Abfragezeichenfolge. Weitere Informationen und Beispiele finden Sie unter <a href="http://jmespath.org/">http://jmespath.org/</a>.
+- name: --verbose
+  summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
+metadata:
+  doc_source_url_repo: https://github.com/Azure/azure-cli/blob/dev/
+  ms.date: 04/15/2021
+  description: Verwalten von Dienstidentitäten eines virtuellen Computers.
+  ms.openlocfilehash: 3b788fe4afc7e884ae895e46f642b53f474bf64b
+  ms.sourcegitcommit: 47edf65705fcb047974356c30962819ea5172832
+  ms.translationtype: MT
+  ms.contentlocale: de-DE
+  ms.lasthandoff: 04/16/2021
+  ms.locfileid: "107546112"

@@ -9,12 +9,12 @@ ms.topic: conceptual
 ms.service: azure-cli
 ms.devlang: azurecli
 ms.custom: devx-track-azurecli
-ms.openlocfilehash: 23864b762a61e46e87bbdeb993ecb85e80d42ff1
-ms.sourcegitcommit: 5d29362589078b66d15f5cd494fe903a5195658d
+ms.openlocfilehash: da75acf08f508d918501133ba5e10c80b57ad525
+ms.sourcegitcommit: 8bff8b2ce4492ab99ad39390e4c802fb4f4425c8
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 09/25/2020
-ms.locfileid: "91225285"
+ms.lasthandoff: 03/26/2021
+ms.locfileid: "105581477"
 ---
 # <a name="the-azure-cli-alias-extension"></a>Azure CLI-Aliaserweiterung
 
@@ -27,13 +27,13 @@ Dank der Aliaserweiterung können Benutzer mithilfe von vorhandenen Befehlen ben
 
 Damit Sie die Aliaserweiterung verwenden können, ist mindestens Version **2.0.28** der Azure CLI erforderlich. Führen Sie zum Überprüfen der CLI-Version `az --version` aus. Falls Sie die Installation aktualisieren müssen, hilft Ihnen die Anleitung unter [Installieren der Azure CLI](./install-azure-cli.md) weiter.
 
-Installieren Sie die Erweiterung mit dem Befehl [az extension add](/cli/azure/extension#az-extension-add).
+Installieren Sie die Erweiterung mit dem Befehl [az extension add](/cli/azure/extension#az_extension_add).
 
 ```azurecli-interactive
 az extension add --name alias
 ```
 
-Überprüfen Sie die Installation der Erweiterung mithilfe von [az extension list](/cli/azure/extension#az-extension-list). Wenn die Aliaserweiterung ordnungsgemäß installiert wurde, ist sie in der Befehlsausgabe aufgeführt.
+Überprüfen Sie die Installation der Erweiterung mithilfe von [az extension list](/cli/azure/extension#az_extension_list). Wenn die Aliaserweiterung ordnungsgemäß installiert wurde, ist sie in der Befehlsausgabe aufgeführt.
 
 ```azurecli-interactive
 az extension list --output table --query '[].{Name:name}'
@@ -47,7 +47,7 @@ alias
 
 ## <a name="keep-the-extension-up-to-date"></a>Sicherstellen, dass die Erweiterung immer auf dem neuesten Stand ist
 
-Die Aliaserweiterung befindet sich in der aktiven Entwicklung, und es werden regelmäßig neue Versionen veröffentlicht. Beim Aktualisieren der CLI werden keine neuen Versionen installiert. Installieren Sie die Updates für die Erweiterung mithilfe von [az extension update](/cli/azure/extension#az-extension-update).
+Die Aliaserweiterung befindet sich in der aktiven Entwicklung, und es werden regelmäßig neue Versionen veröffentlicht. Beim Aktualisieren der CLI werden keine neuen Versionen installiert. Installieren Sie die Updates für die Erweiterung mithilfe von [az extension update](/cli/azure/extension#az_extension_update).
 
 ```azurecli-interactive
 az extension update --name alias
@@ -168,7 +168,7 @@ command = vm list-ip-addresses --resource-group {{ resourceGroup }} --name {{ vm
 
 ## <a name="uninstall-the-alias-extension"></a>Deinstallieren der Aliaserweiterung
 
-Verwenden Sie zum Deinstallieren der Erweiterung den Befehl [az extension remove](/cli/azure/extension#az-extension-remove).
+Verwenden Sie zum Deinstallieren der Erweiterung den Befehl [az extension remove](/cli/azure/extension#az_extension_remove).
 
 ```azurecli-interactive
 az extension remove --name alias

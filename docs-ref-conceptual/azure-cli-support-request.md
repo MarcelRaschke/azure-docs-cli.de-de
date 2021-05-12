@@ -6,13 +6,13 @@ ms.author: dbradish
 ms.service: azure-supportability
 ms.topic: how-to
 ms.date: 02/12/2021
-ms.custom: template-how-to
-ms.openlocfilehash: 446fe0d3a6d7c726167d07e8eb5f4cfa2321d9b7
-ms.sourcegitcommit: 594e9c620a6f74f5eaedf91a7f6a791e03a64c74
+ms.custom: template-how-to, devx-track-azurecli
+ms.openlocfilehash: 45387d352d94dcc044861e540932b38b954a16be
+ms.sourcegitcommit: bff138c7d3cd3ce8c90c5809b0e812be71959504
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 02/17/2021
-ms.locfileid: "100631165"
+ms.lasthandoff: 04/14/2021
+ms.locfileid: "107385789"
 ---
 # <a name="create-an-azure-support-request-in-azure-cli"></a>Erstellen einer Azure-Supportanfrage über die Azure CLI
 
@@ -102,6 +102,6 @@ az support tickets communications list --ticket-name VM012 \
 
 ## <a name="next-steps"></a>Nächste Schritte
 
-- [Häufig gestellte Fragen zum Azure-Support](/support/faq/)
-- [Supportumfang und Reaktionszeiten](/support/plans/response/)
+- [Häufig gestellte Fragen zum Azure-Support](https://azure.microsoft.com/support/faq/)
+- [Supportumfang und Reaktionszeiten](https://azure.microsoft.com/support/plans/response/)
 - [Gewusst wie: Erstellen einer Azure-Supportanfrage](/azure/azure-portal/supportability/how-to-create-azure-support-request)

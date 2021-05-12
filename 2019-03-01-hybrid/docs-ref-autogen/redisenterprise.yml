@@ -1,0 +1,314 @@
+### YamlMime:AzureCLIGroup
+uid: az_redisenterprise
+name: az redisenterprise
+extensionInformation: >-
+  > [!Note]
+
+  > Dieser Verweis ist Teil der **redisenterprise** -Erweiterung für Azure CLI und erfordert Version 2.15.0 oder höher.  Die Erweiterung wird automatisch installiert, wenn Sie den Befehl **AZ redisenterprise** zum ersten Mal ausführen.  [Weitere Informationen zu Erweiterungen](https://docs.microsoft.com/en-us/cli/azure/azure-cli-extensions-overview)
+summary: Dedizierte redis Enterprise-Caches für Ihre Azure-Anwendungen verwalten.
+description: ''
+directCommands:
+- uid: az_redisenterprise_create
+  name: az redisenterprise create
+  summary: Erstellen Sie eine neue redis Enterprise Cache-Instanz.
+  description: Erstellen oder Aktualisieren eines vorhandenen Cache Clusters (überschreiben/neu erstellen mit möglicher Ausfallzeiten) mit einer zugeordneten Datenbank.
+  syntax: >-
+    az redisenterprise create --cluster-name
+                              --resource-group
+                              --sku {EnterpriseFlash_F1500, EnterpriseFlash_F300, EnterpriseFlash_F700, Enterprise_E10, Enterprise_E100, Enterprise_E20, Enterprise_E50}
+                              [--capacity]
+                              [--client-protocol {Encrypted, Plaintext}]
+                              [--clustering-policy {EnterpriseCluster, OSSCluster}]
+                              [--eviction-policy {AllKeysLFU, AllKeysLRU, AllKeysRandom, NoEviction, VolatileLFU, VolatileLRU, VolatileRandom, VolatileTTL}]
+                              [--location]
+                              [--minimum-tls-version {1.0, 1.1, 1.2}]
+                              [--modules]
+                              [--no-database]
+                              [--no-wait]
+                              [--persistence]
+                              [--port]
+                              [--tags]
+                              [--zones]
+  examples:
+  - summary: Erstellen Sie einen neuen redis Enterprise Cache-Cluster mit der Datenbank.
+    syntax: az redisenterprise create --cluster-name "cache1" --location "East US" --minimum-tls-version "1.2" --sku "Enterprise_E20" --capacity 4 --tags tag1="value1" --zones "1" "2" "3" --client-protocol "Encrypted" --clustering-policy "EnterpriseCluster" --eviction-policy "NoEviction" --modules name="RedisBloom" args="ERROR_RATE 0.00 INITIAL_SIZE 400" --modules name="RedisTimeSeries" args="RETENTION_POLICY 20" --modules name="RediSearch" --persistence aof-enabled=true aof-frequency="1s" --port 10000 --resource-group "rg1"
+  - summary: Neuen redis Enterprise Cache-Cluster ohne Datenbank erstellen (Warnung-der Cache kann erst verwendet werden, wenn Sie eine Datenbank erstellt haben).
+    syntax: az redisenterprise create --cluster-name "cache1" --location "West US" --minimum-tls-version "1.2" --sku "EnterpriseFlash_F300" --capacity 3 --tags tag1="value1" --zones "1" "2" "3" --resource-group "rg1" --no-database
+  requiredParameters:
+  - isRequired: true
+    name: --cluster-name --name -n
+    summary: Der Name des redisenterprise-Clusters.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - isRequired: true
+    name: --sku
+    parameterValueGroup: EnterpriseFlash_F1500, EnterpriseFlash_F300, EnterpriseFlash_F700, Enterprise_E10, Enterprise_E100, Enterprise_E20, Enterprise_E50
+    summary: Der Typ des bereit zustellenden redisenterprise-Clusters.
+    description: ''
+  optionalParameters:
+  - name: --capacity
+    summary: Die Größe des redisenterprise-Clusters. Der Standardwert ist 2 oder 3, abhängig von der SKU. Gültige Werte sind (2, 4, 6,...) für Enterprise-SKUs und (3, 9, 15,...) für Flash-SKUs.
+    description: ''
+  - name: --client-protocol
+    parameterValueGroup: Encrypted, Plaintext
+    summary: Gibt an, ob redis-Clients mithilfe von TLS-verschlüsselten oder Klartext-redis-Protokollen eine Verbindung herstellen können. Der Standardwert ist TLS-verschlüsselt.
+    description: ''
+  - name: --clustering-policy
+    parameterValueGroup: EnterpriseCluster, OSSCluster
+    summary: 'Clustering-Richtlinie: Standardwert ist "osscluster". Wird zum Zeitpunkt der Erstellung angegeben.'
+    description: ''
+  - name: --eviction-policy
+    parameterValueGroup: AllKeysLFU, AllKeysLRU, AllKeysRandom, NoEviction, VolatileLFU, VolatileLRU, VolatileRandom, VolatileTTL
+    summary: 'Redis-Entfernungs Richtlinie: der Standardwert ist "volatilelru".'
+    description: ''
+  - name: --location -l
+    summary: 'Der Standort. Werte aus: `az account list-locations`. Sie können den standardmäßig verwendeten Standort mit `az configure --defaults location=<location>` konfigurieren.'
+    description: ''
+  - name: --minimum-tls-version
+    parameterValueGroup: 1.0, 1.1, 1.2
+    summary: Die minimale TLS-Version, die vom Cluster unterstützt wird.
+    description: ''
+  - name: --modules
+    summary: Optionaler Satz von redis-Modulen, die in diesem Datenbankmodul aktiviert werden sollen, kann nur zum Zeitpunkt der Erstellung hinzugefügt werden.
+    description: >-
+      Syntax:--Module Name = XX args = XX
+
+
+      Name: erforderlich. Der Name des Moduls, z. b. "redisbloom", "redisearch", "redistimeseries" args: Konfigurationsoptionen für das Modul, z. b. "ERROR_RATE 0,00 INITIAL_SIZE 400".
+
+
+      Mehrere Aktionen können mithilfe von mehr als einem-Module-Argument angegeben werden.
+  - name: --no-database
+    summary: 'Erweitert. Erstellen Sie nicht automatisch eine Standarddatenbank. Warnung: der Cache kann erst verwendet werden, wenn Sie eine Datenbank erstellt haben.'
+    description: ''
+  - name: --no-wait
+    summary: Nicht auf den Abschluss lang andauernder Vorgänge warten
+    description: ''
+  - name: --persistence
+    summary: Persistenzeinstellungen.
+    description: >-
+      Syntax:--Persistenz AOF-aktiviert = XX AOF-Frequency = XX RDB-fähig = XX RDB-Frequency = XX
+
+
+      AOF-aktiviert: legt fest, ob AOF aktiviert ist.  Zulässige Werte: true, false.
+
+      AOF-Frequency: legt die Häufigkeit fest, mit der Daten auf den Datenträger geschrieben werden.  Zulässige Werte: 1 s, immer.
+
+      RDB-aktiviert: legt fest, ob RDB aktiviert ist.  Zulässige Werte: true, false.
+
+      RDB-Frequency: legt die Häufigkeit fest, mit der eine Momentaufnahme der Datenbank erstellt wird.  Zulässige Werte: 1H, 6h, 12h.
+
+
+      Nachdem die Persistenz aktiviert wurde, können Sie Sie nicht mehr deaktivieren. Die Unterstützung für die Deaktivierung der Persistenz nach der Aktivierung wird zu einem späteren Zeitpunkt hinzugefügt.
+  - name: --port
+    summary: Der TCP-Port des Daten Bank Endpunkts. Wird zum Zeitpunkt der Erstellung angegeben. Der Standardwert ist ein verfügbarer Port.
+    description: ''
+  - name: --tags
+    summary: 'Durch Leerzeichen getrennte Tags: Key [= value] [key [= value]...]. Verwenden Sie "", um vorhandene Tags zu löschen.'
+    description: ''
+  - name: --zones -z
+    summary: Der Verfügbarkeitszonen, in dem dieser Cluster bereitgestellt wird.
+    description: ''
+- uid: az_redisenterprise_delete
+  name: az redisenterprise delete
+  summary: Löschen eines redis Enterprise Caches.
+  description: ''
+  syntax: >-
+    az redisenterprise delete --cluster-name
+                              --resource-group
+                              [--no-wait]
+                              [--yes]
+  examples:
+  - summary: Löschen eines redis Enterprise Caches.
+    syntax: az redisenterprise delete --cluster-name "cache1" --resource-group "rg1"
+  requiredParameters:
+  - isRequired: true
+    name: --cluster-name --name -n
+    summary: Der Name des redisenterprise-Clusters.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  optionalParameters:
+  - name: --no-wait
+    summary: Nicht auf den Abschluss lang andauernder Vorgänge warten
+    description: ''
+  - name: --yes -y
+    summary: Nicht zur Bestätigung auffordern
+    description: ''
+- uid: az_redisenterprise_list
+  name: az redisenterprise list
+  summary: Auflisten von redis Enterprise Caches.
+  description: Listet Details zu allen Caches innerhalb des aktuellen Abonnements oder der bereitgestellten Ressourcengruppe auf.
+  syntax: az redisenterprise list [--resource-group]
+  examples:
+  - summary: Listet alle redis Enterprise-Caches in einer Ressourcengruppe auf.
+    syntax: az redisenterprise list --resource-group "rg1"
+  - summary: Listet alle redis Enterprise-Caches innerhalb des aktuellen Abonnements auf.
+    syntax: az redisenterprise list
+  optionalParameters:
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+- uid: az_redisenterprise_show
+  name: az redisenterprise show
+  summary: Hier erhalten Sie Informationen zu einem redis Enterprise-Cache.
+  description: ''
+  syntax: >-
+    az redisenterprise show --cluster-name
+                            --resource-group
+  examples:
+  - summary: Hier erhalten Sie Informationen zu einem redis Enterprise-Cache.
+    syntax: az redisenterprise show --cluster-name "cache1" --resource-group "rg1"
+  requiredParameters:
+  - isRequired: true
+    name: --cluster-name --name -n
+    summary: Der Name des redisenterprise-Clusters.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+- uid: az_redisenterprise_update
+  name: az redisenterprise update
+  summary: Aktualisieren eines vorhandenen redis Enterprise Cache-Clusters.
+  description: ''
+  syntax: >-
+    az redisenterprise update --cluster-name
+                              --resource-group
+                              [--capacity]
+                              [--minimum-tls-version {1.0, 1.1, 1.2}]
+                              [--no-wait]
+                              [--sku {EnterpriseFlash_F1500, EnterpriseFlash_F300, EnterpriseFlash_F700, Enterprise_E10, Enterprise_E100, Enterprise_E20, Enterprise_E50}]
+                              [--tags]
+  examples:
+  - summary: Aktualisieren eines vorhandenen redis Enterprise Cache-Clusters.
+    syntax: az redisenterprise update --cluster-name "cache1" --minimum-tls-version "1.2" --sku "EnterpriseFlash_F300" --capacity 9 --tags tag1="value1" --resource-group "rg1"
+  requiredParameters:
+  - isRequired: true
+    name: --cluster-name --name -n
+    summary: Der Name des redisenterprise-Clusters.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  optionalParameters:
+  - name: --capacity
+    summary: Die Größe des redisenterprise-Clusters. Der Standardwert ist 2 oder 3, abhängig von der SKU. Gültige Werte sind (2, 4, 6,...) für Enterprise-SKUs und (3, 9, 15,...) für Flash-SKUs.
+    description: ''
+  - name: --minimum-tls-version
+    parameterValueGroup: 1.0, 1.1, 1.2
+    summary: Die minimale TLS-Version, die vom Cluster unterstützt wird.
+    description: ''
+  - name: --no-wait
+    summary: Nicht auf den Abschluss lang andauernder Vorgänge warten
+    description: ''
+  - name: --sku
+    parameterValueGroup: EnterpriseFlash_F1500, EnterpriseFlash_F300, EnterpriseFlash_F700, Enterprise_E10, Enterprise_E100, Enterprise_E20, Enterprise_E50
+    summary: Der Typ des bereit zustellenden redisenterprise-Clusters.
+    description: ''
+  - name: --tags
+    summary: 'Durch Leerzeichen getrennte Tags: Key [= value] [key [= value]...]. Verwenden Sie "", um vorhandene Tags zu löschen.'
+    description: ''
+- uid: az_redisenterprise_wait
+  name: az redisenterprise wait
+  summary: Platzieren Sie die CLI in einem Wartezustand, bis eine Bedingung des redis Enterprise Cache-Clusters erfüllt ist.
+  description: ''
+  syntax: >-
+    az redisenterprise wait --cluster-name
+                            --resource-group
+                            [--created]
+                            [--custom]
+                            [--deleted]
+                            [--exists]
+                            [--interval]
+                            [--timeout]
+                            [--updated]
+  examples:
+  - summary: Ausführung der nächsten Zeile des CLI-Skripts anhalten, bis der redis Enterprise Cache-Cluster erfolgreich erstellt wurde.
+    syntax: az redisenterprise wait --cluster-name "cache1" --resource-group "rg1" --created
+  - summary: Ausführung der nächsten Zeile des CLI-Skripts anhalten, bis der redis Enterprise Cache-Cluster erfolgreich aktualisiert wurde.
+    syntax: az redisenterprise wait --cluster-name "cache1" --resource-group "rg1" --updated
+  - summary: Ausführung der nächsten Zeile des CLI-Skripts anhalten, bis der redis Enterprise Cache erfolgreich gelöscht wurde.
+    syntax: az redisenterprise wait --cluster-name "cache1" --resource-group "rg1" --deleted
+  requiredParameters:
+  - isRequired: true
+    name: --cluster-name --name -n
+    summary: Der Name des redisenterprise-Clusters.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  optionalParameters:
+  - name: --created
+    summary: Warten Sie, bis "provisioningstate" bei "erfolgreich" erstellt wurde.
+    description: ''
+  - name: --custom
+    summary: "Warten Sie, bis die Bedingung eine benutzerdefinierte jmespath-Abfrage erfüllt. Beispiel: provisioningstate! = ' InProgress ', instanceview. statuses [? Code = = ' PowerState/Running ']."
+    description: ''
+  - name: --deleted
+    summary: Warten Sie bis zum Löschen.
+    description: ''
+  - name: --exists
+    summary: Warten Sie, bis die Ressource vorhanden ist.
+    description: ''
+  - name: --interval
+    defaultValue: "30"
+    summary: Abruf Intervall in Sekunden.
+    description: ''
+  - name: --timeout
+    defaultValue: "3600"
+    summary: Maximale Wartezeit in Sekunden.
+    description: ''
+  - name: --updated
+    summary: Warten Sie, bis das Update mit provisioningstate bei "erfolgreich" abgeschlossen ist.
+    description: ''
+commands:
+- az_redisenterprise_create
+- az_redisenterprise_database
+- az_redisenterprise_database_create
+- az_redisenterprise_database_delete
+- az_redisenterprise_database_export
+- az_redisenterprise_database_import
+- az_redisenterprise_database_list
+- az_redisenterprise_database_list-keys
+- az_redisenterprise_database_regenerate-key
+- az_redisenterprise_database_show
+- az_redisenterprise_database_update
+- az_redisenterprise_database_wait
+- az_redisenterprise_delete
+- az_redisenterprise_list
+- az_redisenterprise_operation-status
+- az_redisenterprise_operation-status_show
+- az_redisenterprise_show
+- az_redisenterprise_update
+- az_redisenterprise_wait
+globalParameters:
+- name: --debug
+  summary: Ausführlichkeit der Protokollierung erhöhen, um alle Debugprotokolle anzuzeigen.
+- name: --help -h
+  summary: Zeigen Sie diese Hilfemeldung an, und schließen Sie sie.
+- name: --only-show-errors
+  summary: Nur Fehler anzeigen und Warnungen unterdrücken.
+- name: --output -o
+  defaultValue: json
+  parameterValueGroup: json, jsonc, table, tsv
+  summary: Ausgabeformat.
+- name: --query
+  summary: JMESPath-Abfragezeichenfolge. Weitere Informationen und Beispiele finden Sie unter <a href="http://jmespath.org/">http://jmespath.org/</a>.
+- name: --verbose
+  summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
+metadata:
+  description: Dedizierte redis Enterprise-Caches für Ihre Azure-Anwendungen verwalten.
+  ms.openlocfilehash: 7ee5f85a28d5e0e7f0fd5d0b1aa16a349a74ad01
+  ms.sourcegitcommit: 612554c029ba1f28d3a43fd22e743104a1a30ea0
+  ms.translationtype: MT
+  ms.contentlocale: de-DE
+  ms.lasthandoff: 04/07/2021
+  ms.locfileid: "106937272"

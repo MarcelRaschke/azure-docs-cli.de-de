@@ -1,0 +1,178 @@
+### YamlMime:AzureCLIGroup
+uid: az_vm_encryption
+name: az vm encryption
+summary: Verwalten der Verschlüsselung von VM-Datenträgern.
+description: 'Weitere Informationen finden Sie unter: https://docs.microsoft.com/azure/security/azure-security-disk-encryption-overview ".'
+directCommands:
+- uid: az_vm_encryption_disable
+  name: az vm encryption disable
+  summary: Deaktivieren Sie die Datenträgerverschlüsselung auf dem Betriebssystemdatenträger und/oder den Datenträgern. Entschlüsseln von bereitgestellten Datenträgern.
+  description: >-
+    Bei virtuellen Linux-Computer ist das Deaktivieren der Verschlüsselung nur auf Datenvolumes zulässig.
+
+    Bei virtuellen Windows-Computer ist das Deaktivieren der Verschlüsselung auf Betriebssystem- und Datenvolumes zulässig.
+  syntax: >-
+    az vm encryption disable [--force]
+                             [--ids]
+                             [--name]
+                             [--resource-group]
+                             [--subscription]
+                             [--volume-type {ALL, DATA, OS}]
+  examples:
+  - summary: Deaktivieren Sie die Datenträgerverschlüsselung auf dem Betriebssystemdatenträger und/oder den Datenträgern. (automatisch generiert)
+    syntax: az vm encryption disable --name MyVirtualMachine --resource-group MyResourceGroup --volume-type DATA
+  optionalParameters:
+  - name: --force
+    summary: Fahren Sie fort, indem Sie clientseitige Validierungsfehler ignorieren.
+    description: ''
+  - name: --ids
+    summary: Eine oder mehrere Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu Ressourcen-ID-Argumenten geben. Sie sollten entweder --ids oder andere Ressourcen-ID-Argumente bereitstellen.
+    description: ''
+  - name: --name -n
+    summary: Der Name des virtuellen Computers. Sie können die Standardeinstellung mit `az configure --defaults vm=<name>` konfigurieren.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+  - name: --volume-type
+    parameterValueGroup: ALL, DATA, OS
+    summary: Der Typ des Volumes, auf dem der Verschlüsselungsvorgang durchgeführt wird.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/vm/_help.py
+- uid: az_vm_encryption_enable
+  name: az vm encryption enable
+  summary: Aktivieren Sie die Datenträgerverschlüsselung auf dem Betriebssystemdatenträger und/oder den Datenträgern. Verschlüsseln sie bereitgestellte Datenträger.
+  description: >-
+    Beachten Sie, Azure Active Directory/Dienstprinzipalargumente für die VM-Verschlüsselung nicht erforderlich sind. Die ältere Version von Azure Disk Encryption AAD-Argumente erforderlich.
+
+    Weitere Informationen finden Sie unter https://docs.microsoft.com/azure/security/azure-security-disk-encryption-overview.
+  syntax: >-
+    az vm encryption enable --disk-encryption-keyvault
+                            [--aad-client-cert-thumbprint]
+                            [--aad-client-id]
+                            [--aad-client-secret]
+                            [--encrypt-format-all]
+                            [--force]
+                            [--ids]
+                            [--key-encryption-algorithm]
+                            [--key-encryption-key]
+                            [--key-encryption-keyvault]
+                            [--name]
+                            [--resource-group]
+                            [--subscription]
+                            [--volume-type {ALL, DATA, OS}]
+  examples:
+  - summary: Verschlüsseln eines virtuellen Computers mithilfe eines Schlüsseltresors in derselben Ressourcengruppe
+    syntax: az vm encryption enable -g MyResourceGroup -n MyVm --disk-encryption-keyvault MyVault
+  - summary: Aktivieren Sie die Datenträgerverschlüsselung auf dem Betriebssystemdatenträger und/oder den Datenträgern. Verschlüsselt bereitgestellte Datenträger. (automatisch generiert)
+    syntax: az vm encryption enable --disk-encryption-keyvault MyVault --name MyVm --resource-group MyResourceGroup --volume-type DATA
+  requiredParameters:
+  - isRequired: true
+    name: --disk-encryption-keyvault
+    summary: Name oder ID des Schlüsseltresors, in dem der generierte Verschlüsselungsschlüssel platziert wird.
+    description: ''
+  optionalParameters:
+  - name: --aad-client-cert-thumbprint
+    summary: Fingerabdruck des AAD-App-Zertifikats mit Berechtigungen zum Schreiben von Geheimnissen in den Schlüsseltresor.
+    description: ''
+  - name: --aad-client-id
+    summary: Client-ID einer AAD-App mit Berechtigungen zum Schreiben von Geheimnissen in den Schlüsseltresor.
+    description: ''
+  - name: --aad-client-secret
+    summary: Geheimer Clientschlüssel der AAD-App mit Berechtigungen zum Schreiben von Geheimnissen in den Schlüsseltresor.
+    description: ''
+  - name: --encrypt-format-all
+    summary: Verschlüsselt Datenträger mit Formaten, anstatt sie zu verschlüsseln. Die Verschlüsselungsformatierung ist viel schneller als die verschlüsselungsbasierte Verschlüsselung, löscht jedoch die Partition, die verschlüsselt formatiert wird.
+    description: ''
+  - name: --force
+    summary: Fahren Sie fort, indem Sie clientseitige Validierungsfehler ignorieren.
+    description: ''
+  - name: --ids
+    summary: Mindestens eine Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu "Ressourcen-ID"-Argumenten sein. Sie sollten entweder --ids oder andere "Resource Id"-Argumente angeben.
+    description: ''
+  - name: --key-encryption-algorithm
+    defaultValue: RSA-OAEP
+    summary: ''
+    description: ''
+  - name: --key-encryption-key
+    summary: Schlüsseltresor-Schlüsselname oder -URL zum Verschlüsseln des Datenträgerverschlüsselungsschlüssels.
+    description: ''
+  - name: --key-encryption-keyvault
+    summary: Name oder ID des Schlüsseltresors mit dem Schlüsselverschlüsselungsschlüssel, der zum Verschlüsseln des Datenträgerverschlüsselungsschlüssels verwendet wird. Wenn fehlt, verwendet die CLI `--disk-encryption-keyvault` .
+    description: ''
+  - name: --name -n
+    summary: Der Name des virtuellen Computers. Sie können die Standardeinstellung mit `az configure --defaults vm=<name>` konfigurieren.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+  - name: --volume-type
+    parameterValueGroup: ALL, DATA, OS
+    summary: Der Typ des Volumes, auf dem der Verschlüsselungsvorgang durchgeführt wird.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/vm/_help.py
+- uid: az_vm_encryption_show
+  name: az vm encryption show
+  summary: Anzeigen des Verschlüsselungsstatus.
+  description: ''
+  syntax: >-
+    az vm encryption show [--ids]
+                          [--name]
+                          [--query-examples]
+                          [--resource-group]
+                          [--subscription]
+  examples:
+  - summary: Zeigt den Verschlüsselungsstatus an. (automatisch generiert)
+    syntax: az vm encryption show --name MyVirtualMachine --resource-group MyResourceGroup
+  optionalParameters:
+  - name: --ids
+    summary: Eine oder mehrere Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu Ressourcen-ID-Argumenten geben. Sie sollten entweder --ids oder andere Ressourcen-ID-Argumente bereitstellen.
+    description: ''
+  - name: --name -n
+    summary: Der Name des virtuellen Computers. Sie können die Standardeinstellung mit `az configure --defaults vm=<name>` konfigurieren.
+    description: ''
+  - name: --query-examples
+    summary: Empfehlen Sie die JMESPath-Zeichenfolge. Sie können eine der Abfragen kopieren und nach dem Parameter --query in doppelte Anführungszeichen einfügen, um die Ergebnisse zu sehen. Sie können ein oder mehrere Positionsschlüsselwörter hinzufügen, damit wir basierend auf diesen Schlüsselwörtern Vorschläge machen können.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/vm/_help.py
+commands:
+- az_vm_encryption_disable
+- az_vm_encryption_enable
+- az_vm_encryption_show
+globalParameters:
+- name: --debug
+  summary: Ausführlichkeit der Protokollierung erhöhen, um alle Debugprotokolle anzuzeigen.
+- name: --help -h
+  summary: Zeigen Sie diese Hilfemeldung an, und schließen Sie sie.
+- name: --only-show-errors
+  summary: Nur Fehler anzeigen und Warnungen unterdrücken.
+- name: --output -o
+  defaultValue: json
+  parameterValueGroup: json, jsonc, table, tsv
+  summary: Ausgabeformat.
+- name: --query
+  summary: JMESPath-Abfragezeichenfolge. Weitere Informationen und Beispiele finden Sie unter <a href="http://jmespath.org/">http://jmespath.org/</a>.
+- name: --verbose
+  summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
+metadata:
+  doc_source_url_repo: https://github.com/Azure/azure-cli/blob/dev/
+  ms.date: 04/15/2021
+  description: 'Weitere Informationen finden Sie unter: https://docs.microsoft.com/azure/security/azure-security-disk-encryption-overview ".'
+  ms.openlocfilehash: a1bb6fba193242e3dcc906ccfbcd86557e44278f
+  ms.sourcegitcommit: 47edf65705fcb047974356c30962819ea5172832
+  ms.translationtype: MT
+  ms.contentlocale: de-DE
+  ms.lasthandoff: 04/16/2021
+  ms.locfileid: "107553115"

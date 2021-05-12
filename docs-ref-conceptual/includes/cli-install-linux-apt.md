@@ -5,12 +5,12 @@ manager: barbkess
 ms.date: 09/29/2020
 ms.topic: include
 ms.custom: devx-track-azurecli
-ms.openlocfilehash: 31b6a6e1c4c987ea351ccebc5d5bf23313ed856f
-ms.sourcegitcommit: 547d3db8a1469f11d33e738a82d96cb51de61bd6
+ms.openlocfilehash: 0738d79c9fc968d9b1000605c30ec30c6fa6eb3c
+ms.sourcegitcommit: b76cc7c91ed21ae04b3463544ad46a749461cc6a
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 01/12/2021
-ms.locfileid: "98147572"
+ms.lasthandoff: 04/25/2021
+ms.locfileid: "107984475"
 ---
 ## <a name="overview"></a>Übersicht
 
@@ -23,6 +23,8 @@ Der `apt`-Paket-Manager enthält ein x86_64-Paket für die Azure-Befehlszeilensc
 
 > [!WARNING]
 > Ubuntu 20.04 (Focal Fossa) und 20.10 (Groovy Gorilla) enthalten ein `azure-cli`-Paket mit der Version `2.0.81`, das im `universe`-Repository verfügbar ist. Dieses Paket ist veraltet und wird nicht empfohlen. Falls dieses Paket installiert ist, entfernen Sie es mit dem Befehl `sudo apt remove azure-cli -y && sudo apt autoremove -y`, bevor Sie fortfahren.
+>
+> Die ARM64-Architektur wird vom Deb-Paket `azure-cli` nicht unterstützt.
 
 ## <a name="installation-options"></a>Installationsoptionen
 
@@ -57,7 +59,7 @@ Wenn Sie die Installation der Azure CLI lieber Schritt für Schritt durchführe
         sudo tee /etc/apt/trusted.gpg.d/microsoft.gpg > /dev/null
     ```
 
-3. <div id="set-release"/>Fügen Sie das Azure CLI-Softwarerepository hinzu (überspringen Sie diesen Schritt bei ARM64-Linux-Distributionen):
+3. <div id="set-release"/>Fügen Sie das Azure CLI-Softwarerepository hinzu:
 
     ```bash
     AZ_REPO=$(lsb_release -cs)
@@ -74,7 +76,7 @@ Wenn Sie die Installation der Azure CLI lieber Schritt für Schritt durchführe
 
 ## <a name="sign-in-to-azure-with-the-azure-cli"></a>Anmelden bei Azure mit der Azure CLI
 
-Führen Sie die Azure CLI mit dem Befehl `az` aus. Verwenden Sie den Befehl [az login](/cli/azure/reference-index#az-login), um sich anzumelden.
+Führen Sie die Azure CLI mit dem Befehl `az` aus. Verwenden Sie den Befehl [az login](/cli/azure/reference-index#az_login), um sich anzumelden.
 
 [!INCLUDE [interactive-login](interactive-login.md)]
 

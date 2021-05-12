@@ -9,12 +9,12 @@ ms.topic: conceptual
 ms.service: azure-cli
 ms.devlang: azurecli
 ms.custom: devx-track-azurecli
-ms.openlocfilehash: 92a873844516725eda7a79ecf2dcd3d89a2da1a3
-ms.sourcegitcommit: 5d29362589078b66d15f5cd494fe903a5195658d
+ms.openlocfilehash: e6343ac7ba9017fb098744298b1b8297a8b4dc66
+ms.sourcegitcommit: 8bff8b2ce4492ab99ad39390e4c802fb4f4425c8
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 09/25/2020
-ms.locfileid: "91225625"
+ms.lasthandoff: 03/26/2021
+ms.locfileid: "105581188"
 ---
 # <a name="get-started-with-azure-cli"></a>Erste Schritte mit der Azure CLI
 
@@ -37,11 +37,11 @@ Führen Sie nach der Erstinstallation der CLI `az --version` aus, um zu überpr�
 
 ## <a name="sign-in"></a>Anmelden
 
-Bevor Sie CLI-Befehle mit einer lokalen Installation verwenden, müssen Sie sich mithilfe von [az login](/cli/azure/reference-index#az-login) anmelden.
+Bevor Sie CLI-Befehle mit einer lokalen Installation verwenden, müssen Sie sich mithilfe von [az login](/cli/azure/reference-index#az_login) anmelden.
 
 [!INCLUDE [interactive-login](includes/interactive-login.md)]
 
-Nach der Anmeldung sehen Sie eine Liste der mit Ihrem Azure-Konto verknüpften Abonnements. Die Abonnementinformationen mit `isDefault: true` ist das momentan aktivierte Abonnement nach der Anmeldung. Zur Auswahl eines anderen Abonnements verwenden Sie den Befehl [az account set](/cli/azure/account#az-account-set) mit der ID des Abonnements, zu dem Sie wechseln möchten. Weitere Informationen zur Abonnementauswahl finden Sie unter [Verwenden mehrerer Azure-Abonnements](manage-azure-subscriptions-azure-cli.md).
+Nach der Anmeldung sehen Sie eine Liste der mit Ihrem Azure-Konto verknüpften Abonnements. Die Abonnementinformationen mit `isDefault: true` ist das momentan aktivierte Abonnement nach der Anmeldung. Zur Auswahl eines anderen Abonnements verwenden Sie den Befehl [az account set](/cli/azure/account#az_account_set) mit der ID des Abonnements, zu dem Sie wechseln möchten. Weitere Informationen zur Abonnementauswahl finden Sie unter [Verwenden mehrerer Azure-Abonnements](manage-azure-subscriptions-azure-cli.md).
 
 Es gibt auch Wege, wie Sie sich nicht interaktiv anmelden können. Diese werden unter [Anmelden mit der Azure CLI](authenticate-azure-cli.md) ausführlich beschrieben.
 
@@ -63,7 +63,7 @@ Die folgende Tabelle enthält einige allgemeine Befehle, die in der CLI verwende
 
 Befehle in der CLI werden als _Befehle_ von _Gruppen_ organisiert. Jede Gruppe stellt einen Azure-Dienst dar, und Befehle werden für diesen Dienst ausgeführt.
 
-Suchen Sie Befehle mithilfe von [az find](/cli/azure/reference-index#az-find). Verwenden Sie den folgenden Befehl, um beispielsweise nach Befehlsnamen zu suchen, die `secret` enthalten:
+Suchen Sie Befehle mithilfe von [az find](/cli/azure/reference-index#az_find). Verwenden Sie den folgenden Befehl, um beispielsweise nach Befehlsnamen zu suchen, die `secret` enthalten:
 
 ```azurecli-interactive
 az find secret
@@ -89,7 +89,7 @@ Es gibt einige Argumente, die für jeden Befehl verfügbar sind.
 
 ## <a name="interactive-mode"></a>Interaktiver Modus
 
-Die CLI bietet einen interaktiven Modus, der automatisch Hilfeinformationen anzeigt und die Auswahl von Unterbefehlen vereinfacht. Sie wechseln mit dem Befehl [az interactive](/cli/azure/reference-index#az-interactive) in den interaktiven Modus.
+Die CLI bietet einen interaktiven Modus, der automatisch Hilfeinformationen anzeigt und die Auswahl von Unterbefehlen vereinfacht. Sie wechseln mit dem Befehl [az interactive](/cli/azure/reference-index#az_interactive) in den interaktiven Modus.
 
 ```azurecli-interactive
 az interactive
@@ -104,27 +104,27 @@ Darüber hinaus gibt es ein [Visual Studio Code-Plug-In](https://marketplace.vis
 Sehen Sie sich zu den ersten Schritten mit der Azure CLI ein ausführliches Tutorial an, in dem Sie lernen, wie Sie virtuelle Computer einrichten und die Funktionen der CLI zum Abfragen von Azure-Ressourcen nutzen.
 
 > [!div class="nextstepaction"]
-> [Erstellen von virtuellen Computern mit der Azure CLI](azure-cli-vm-tutorial.yml)
+> [Tutorial: Erstellen von VMs mit der Azure CLI](azure-cli-vm-tutorial.yml)
 
 Es gibt auch Schnellstartanleitungen für andere beliebte Dienste.
 
 * [Erstellen eines Speicherkontos mit der Azure-Befehlszeilenschnittstelle](/azure/storage/common/storage-quickstart-create-storage-account-cli)
-* [Transfer objects to/from Azure Blob storage using the CLI](/azure/storage/blobs/storage-quickstart-blobs-cli) (Übertragen von Objekten in/aus Azure Blob Storage mit der CLI)
-* [Erstellen einer einzelnen Azure SQL-Datenbank mithilfe der Azure CLI](/azure/sql-database/sql-database-get-started-cli)
-* [Erstellen eines Azure Database for MySQL-Servers mithilfe der Azure CLI](/azure/mysql/quickstart-create-mysql-server-database-using-azure-cli)
-* [Erstellen einer Azure-Datenbank für PostgreSQL mithilfe der Azure-CLI](/azure/postgresql/quickstart-create-server-database-azure-cli)
+* [Übertragen von Objekten in/aus Azure Blob Storage mithilfe der Azure CLI](/azure/storage/blobs/storage-quickstart-blobs-cli)
+* [Erstellen einer einzelnen Azure SQL-Datenbank mithilfe der Azure CLI.](/azure/sql-database/sql-database-get-started-cli)
+* [Erstellen eines Azure Database for MySQL-Servers mithilfe der Azure CLI](/azure/mysql/quickstart-create-mysql-server-database-using-azure-cli)
+* [Erstellen einer Azure Database for PostgreSQL mithilfe der Azure-CLI](/azure/postgresql/quickstart-create-server-database-azure-cli)
 * [Erstellen einer Python-Web-App in Azure](/azure/app-service/app-service-web-get-started-python)
 * [Ausführen eines benutzerdefinierten Image von Docker-Hubs in Azure-Web-Apps für Container](/azure/app-service/containers/quickstart-custom-docker-image)
 
-## <a name="give-feedback"></a>Abgeben von Feedback
+## <a name="give-feedback"></a>Feedback senden
 
-Ihr Feedback zur CLI hilft uns dabei, Verbesserungen vorzunehmen und Fehler zu beheben. Sie können [ein Problem auf GitHub melden](https://github.com/azure/azure-cli/issues) oder mit den integrierten Features der CLI und dem Befehl [az feedback](/cli/azure/reference-index#az-feedback) allgemeines Feedback hinterlassen.
+Ihr Feedback zur CLI hilft uns dabei, Verbesserungen vorzunehmen und Fehler zu beheben. Sie können [ein Problem auf GitHub melden](https://github.com/azure/azure-cli/issues) oder mit den integrierten Features der CLI und dem Befehl [az feedback](/cli/azure/reference-index#az_feedback) allgemeines Feedback hinterlassen.
 
 ```azurecli-interactive
 az feedback
 ```
 
-## <a name="see-also"></a>Weitere Informationen
+## <a name="see-also"></a>Siehe auch
 
 * [Dienste, die von der Azure CLI verwaltet werden können](azure-services-the-azure-cli-can-manage.md)
 * [Vollständige Liste mit Befehlsreferenzen für die Azure CLI](/cli/azure/reference-index)

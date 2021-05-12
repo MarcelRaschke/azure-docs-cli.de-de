@@ -1,0 +1,459 @@
+### YamlMime:AzureCLIGroup
+uid: az_storage
+name: az storage
+summary: Verwalten von Azure Cloud Storage-Ressourcen.
+description: ''
+directCommands:
+- uid: az_storage_copy
+  name: az storage copy
+  summary: Kopieren Sie Dateien oder Verzeichnisse in oder aus Azure Storage.
+  description: ''
+  syntax: >-
+    az storage copy --destination
+                    --source
+                    [--blob-type {AppendBlob, BlockBlob, PageBlob}]
+                    [--content-type]
+                    [--exclude-path]
+                    [--exclude-pattern]
+                    [--follow-symlinks]
+                    [--include-path]
+                    [--include-pattern]
+                    [--preserve-s2s-access-tier {false, true}]
+                    [--put-md5]
+                    [--recursive]
+                    [--subscription]
+  examples:
+  - summary: Laden Sie eine einzelne Datei mithilfe der URL in das Azure-Blob hoch.
+    syntax: az storage copy -s /path/to/file.txt -d https://[account].blob.core.windows.net/[container]/[path/to/blob]
+  - summary: Laden Sie eine einzelne Datei unter Verwendung des Kontonamens und des Containernamens in das Azure-Blob hoch.
+    syntax: az storage copy -s /path/to/file.txt --destination-account-name mystorageaccount --destination-container mycontainer
+  - summary: Laden Sie eine einzelne Datei mit dem MD5-Hash des Dateiinhalts in das Azure-Blob hoch, und speichern Sie sie als Content-MD5-Eigenschaft des Blobs.
+    syntax: az storage copy -s /path/to/file.txt -d https://[account].blob.core.windows.net/[container]/[path/to/blob] --put-md5
+  - summary: Laden Sie mithilfe der URL ein gesamtes Verzeichnis in das Azure-Blob hoch.
+    syntax: az storage copy -s /path/to/dir -d https://[account].blob.core.windows.net/[container]/[path/to/directory] --recursive
+  - summary: Laden Sie mithilfe des Kontonamens und des Containernamens ein gesamtes Verzeichnis in das Azure-Blob hoch.
+    syntax: az storage copy -s /path/to/dir --destination-account-name mystorageaccount --destination-container mycontainer --recursive
+  - summary: Laden Sie einen Satz von Dateien in das Azure-Blob hoch, indem Sie Platzhalter mit URL verwenden.
+    syntax: az storage copy -s /path/*foo/*bar/*.pdf -d https://[account].blob.core.windows.net/[container]/[path/to/directory]
+  - summary: Laden Sie einen Satz von Dateien in das Azure-Blob hoch, indem Sie Platzhalter mit Kontoname und Containername verwenden.
+    syntax: az storage copy -s /path/*foo/*bar/*.pdf --destination-account-name mystorageaccount --destination-container mycontainer
+  - summary: Laden Sie Dateien und Verzeichnisse mitHilfe von Platzhaltern mit URL in das Azure-Blob hoch.
+    syntax: az storage copy -s /path/*foo/*bar* -d https://[account].blob.core.windows.net/[container]/[path/to/directory] --recursive
+  - summary: Laden Sie Dateien und Verzeichnisse mitHilfe von Platzhaltern mit Kontoname und Containername in das Azure-Blob hoch.
+    syntax: az storage copy -s /path/*foo/*bar* --destination-account-name mystorageaccount --destination-container mycontainer --recursive
+  - summary: Laden Sie mithilfe der URL eine einzelne Datei aus dem Azure-Blob herunter, und Sie können wie oben beschrieben auch Ihr Speicherkonto und Ihre Containerinformationen angeben.
+    syntax: az storage copy -s https://[account].blob.core.windows.net/[container]/[path/to/blob] -d /path/to/file.txt
+  - summary: Laden Sie ein gesamtes Verzeichnis aus dem Azure-Blob herunter, und Sie können wie oben beschrieben auch Ihr Speicherkonto und Ihre Containerinformationen angeben.
+    syntax: az storage copy -s https://[account].blob.core.windows.net/[container]/[path/to/directory] -d /path/to/dir --recursive
+  - summary: Laden Sie eine Teilmenge von Containern innerhalb eines Speicherkontos herunter, indem Sie ein Platzhaltersymbol (*) im Containernamen verwenden, und Sie können ihr Speicherkonto und die Containerinformationen wie oben beschrieben angeben.
+    syntax: az storage copy -s https://[account].blob.core.windows.net/[container*name] -d /path/to/dir --recursive
+  - summary: Laden Sie eine Teilmenge der Dateien aus dem Azure-Blob herunter. (Nur JPG-Dateien und Dateinamen beginnen nicht mit dem Test.)
+    syntax: az storage copy -s https://[account].blob.core.windows.net/[container] --include-pattern "*.jpg" --exclude-pattern test* -d /path/to/dir --recursive
+  - summary: Kopieren Sie ein einzelnes Blob in ein anderes Blob, und Sie können auch das Speicherkonto und die Containerinformationen der Quelle und des Ziels wie oben beschrieben angeben.
+    syntax: az storage copy -s https://[srcaccount].blob.core.windows.net/[container]/[path/to/blob] -d https://[destaccount].blob.core.windows.net/[container]/[path/to/blob]
+  - summary: Kopieren Sie ein gesamtes Konto aus dem Blobkonto in ein anderes Blobkonto, und Sie können auch das Speicherkonto und die Containerinformationen der Quelle und des Ziels wie oben beschrieben angeben.
+    syntax: az storage copy -s https://[srcaccount].blob.core.windows.net -d https://[destaccount].blob.core.windows.net --recursive
+  - summary: Kopieren Sie ein einzelnes Objekt aus S3 mit Zugriffsschlüssel in Blob, und Sie können wie oben beschrieben auch Ihr Speicherkonto und Ihre Containerinformationen angeben.
+    syntax: az storage copy -s https://s3.amazonaws.com/[bucket]/[object] -d https://[destaccount].blob.core.windows.net/[container]/[path/to/blob]
+  - summary: Kopieren Sie ein gesamtes Verzeichnis aus S3 mit Zugriffsschlüssel in ein virtuelles Blobverzeichnis, und Sie können wie oben beschrieben auch Ihr Speicherkonto und Ihre Containerinformationen angeben.
+    syntax: az storage copy -s https://s3.amazonaws.com/[bucket]/[folder] -d https://[destaccount].blob.core.windows.net/[container]/[path/to/directory] --recursive
+  - summary: Kopieren Sie alle Buckets im S3-Dienst mit dem Zugriffsschlüssel in das Blobkonto, und Sie können ihre Speicherkontoinformationen wie oben beschrieben angeben.
+    syntax: az storage copy -s https://s3.amazonaws.com/ -d https://[destaccount].blob.core.windows.net --recursive
+  - summary: Kopieren Sie alle Buckets in einer S3-Region mit Zugriffsschlüssel in ein Blobkonto, und Sie können auch Ihre Speicherkontoinformationen wie oben beschrieben angeben.
+    syntax: az storage copy -s https://s3-[region].amazonaws.com/ -d https://[destaccount].blob.core.windows.net --recursive
+  - summary: Laden Sie eine einzelne Datei mithilfe der URL in die Azure-Dateifreigabe hoch.
+    syntax: az storage copy -s /path/to/file.txt -d https://[account].file.core.windows.net/[share]/[path/to/file]
+  - summary: Laden Sie eine einzelne Datei mithilfe des Konto- und Freigabenamens in die Azure-Dateifreigabe hoch.
+    syntax: az storage copy -s /path/to/file.txt --destination-account-name mystorageaccount --destination-share myshare
+  - summary: Laden Sie ein gesamtes Verzeichnis mithilfe der URL in die Azure-Dateifreigabe hoch.
+    syntax: az storage copy -s /path/to/dir -d https://[account].file.core.windows.net/[share]/[path/to/directory] --recursive
+  - summary: Laden Sie mithilfe des Kontonamens und des Containernamens ein gesamtes Verzeichnis in die Azure-Dateifreigabe hoch.
+    syntax: az storage copy -s /path/to/dir --destination-account-name mystorageaccount --destination-share myshare --recursive
+  - summary: Laden Sie eine Reihe von Dateien in die Azure-Dateifreigabe hoch, indem Sie Platzhalter mit Kontoname und Freigabename verwenden.
+    syntax: az storage copy -s /path/*foo/*bar/*.pdf --destination-account-name mystorageaccount --destination-share myshare
+  - summary: Laden Sie Dateien und Verzeichnisse in die Azure-Dateifreigabe hoch, indem Sie Platzhalter mit URL verwenden.
+    syntax: az storage copy -s /path/*foo/*bar* -d https://[account].file.core.windows.net/[share]/[path/to/directory] --recursive
+  - summary: Laden Sie Dateien und Verzeichnisse mitHilfe von Platzhaltern mit Kontoname und Freigabename in die Azure-Dateifreigabe hoch.
+    syntax: az storage copy -s /path/*foo/*bar* --destination-account-name mystorageaccount --destination-share myshare --recursive
+  - summary: Laden Sie eine einzelne Datei mithilfe der URL von der Azure-Dateifreigabe herunter, und Sie können auch Ihr Speicherkonto angeben und Informationen wie oben beschrieben freigeben.
+    syntax: az storage copy -s https://[account].file.core.windows.net/[share]/[path/to/file] -d /path/to/file.txt
+  - summary: Laden Sie ein gesamtes Verzeichnis aus der Azure-Dateifreigabe herunter, und Sie können auch Ihr Speicherkonto angeben und Informationen wie oben beschrieben freigeben.
+    syntax: az storage copy -s https://[account].file.core.windows.net/[share]/[path/to/directory] -d /path/to/dir --recursive
+  - summary: Laden Sie eine Reihe von Dateien aus der Azure-Dateifreigabe herunter, indem Sie Platzhalter verwenden, und Sie können auch Ihr Speicherkonto angeben und Informationen wie oben beschrieben freigeben.
+    syntax: az storage copy -s https://[account].file.core.windows.net/[share]/ --include-pattern foo* -d /path/to/dir --recursive
+  requiredParameters:
+  - isRequired: true
+    name: --destination -d
+    summary: Der Pfad/die URL des Kopierziels. Dabei kann es sich um einen lokalen Pfad, eine URL zum Azure Storage-Server. Wenn Sie hier den Zielparameter angeben, müssen Sie keine Argumente in der Gruppe der Kopierzielargumente angeben, und Kopierzielargumente werden in Zukunft veraltet sein.
+    description: ''
+  - isRequired: true
+    name: --source -s
+    summary: Der Pfad/die URL der Kopierquelle. Dabei kann es sich um einen lokalen Pfad, eine URL zu Azure Storage-Server oder AWS S3-Buckets geben. Wenn Sie hier den Quellparameter angeben, müssen Sie keine Argumente in der Gruppe der Kopierquellenargumente angeben, und Kopierquellenargumente werden in Zukunft veraltet sein.
+    description: ''
+  optionalParameters:
+  - name: --blob-type
+    parameterValueGroup: AppendBlob, BlockBlob, PageBlob
+    summary: Der Blobtyp am Ziel.
+    description: ''
+  - name: --content-type
+    summary: Geben Sie den Inhaltstyp der Datei an.
+    description: ''
+  - name: --exclude-path
+    summary: 'Schließen Sie diese Pfade aus. Diese Option unterstützt keine Platzhalterzeichen ( \* ). Überprüft das Präfix des relativen Pfads. Beispiel: myFolder;myFolder/subDirName/file.pdf'
+    description: ''
+  - name: --exclude-pattern
+    summary: 'Schließen Sie diese Dateien aus, bei denen der Name mit der Musterliste übereinstimmt. Beispiel: \*.jpg;\*.pdf;exactName. Diese Option unterstützt Platzhalterzeichen ( \* ).'
+    description: ''
+  - name: --follow-symlinks
+    summary: Verwenden Sie beim Hochladen aus dem lokalen Dateisystem symbolische Links.
+    description: ''
+  - name: --include-path
+    summary: 'Schließen Sie nur diese Pfade ein. Diese Option unterstützt keine Platzhalterzeichen ( \* ). Überprüft das Präfix des relativen Pfads. Beispiel: myFolder;myFolder/subDirName/file.pdf.'
+    description: ''
+  - name: --include-pattern
+    summary: 'Schließen Sie nur diese Dateien ein, bei denen der Name mit der Musterliste übereinstimmt. Beispiel: \*.jpg;\*.pdf;exactName. Diese Option unterstützt Platzhalterzeichen ( \* ).'
+    description: ''
+  - name: --preserve-s2s-access-tier
+    parameterValueGroup: false, true
+    summary: Dient zum Beibehalten der Zugriffsebene beim Kopieren von Dienst zu Dienst. Informationen zum Sicherstellen der Unterstützung des Zielspeicherkontos finden Sie unter https://docs.microsoft.com/en-us/azure/storage/blobs/storage-blob-storage-tiers Festlegen der Zugriffsebene. Wenn das Festlegen der Zugriffsebene nicht unterstützt wird, verwenden Sie , `--preserve-s2s-access-tier false` um das Kopieren der Zugriffsebene zu umgehen. (Standardwert TRUE).
+    description: ''
+  - name: --put-md5
+    summary: Erstellen Sie einen MD5-Hash jeder Datei, und speichern Sie den Hash als Content-MD5-Eigenschaft des Zielblobs bzw. der Zieldatei. Nur beim Hochladen verfügbar.
+    description: ''
+  - name: --recursive -r
+    summary: Suchen Sie rekursiv nach Unterverzeichnissen.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/storage/_help.py
+- uid: az_storage_remove
+  name: az storage remove
+  summary: Löschen Sie Blobs oder Dateien aus Azure Storage.
+  description: ''
+  syntax: >-
+    az storage remove [--account-key]
+                      [--account-name]
+                      [--connection-string]
+                      [--container-name]
+                      [--exclude-path]
+                      [--exclude-pattern]
+                      [--include-path]
+                      [--include-pattern]
+                      [--name]
+                      [--path]
+                      [--recursive]
+                      [--sas-token]
+                      [--share-name]
+                      [--subscription]
+  examples:
+  - summary: Entfernen sie ein einzelnes Blob.
+    syntax: az storage remove -c mycontainer -n MyBlob
+  - summary: Entfernen Sie ein gesamtes virtuelles Verzeichnis.
+    syntax: az storage remove -c mycontainer -n path/to/directory --recursive
+  - summary: Entfernen Sie nur die obersten Blobs in einem virtuellen Verzeichnis, aber nicht die unteren Verzeichnisse.
+    syntax: az storage remove -c mycontainer --recursive
+  - summary: Entfernen Sie alle Blobs in einem Speichercontainer.
+    syntax: az storage remove -c mycontainer -n path/to/directory
+  - summary: Entfernen Sie eine Teilmenge von Blobs in einem virtuellen Verzeichnis (z. B. nur JPG- und PDF-Dateien, oder wenn der Blobname "exactName" ist und Dateinamen nicht mit "test" beginnen).
+    syntax: az storage remove -c mycontainer --include-path path/to/directory --include-pattern "*.jpg;*.pdf;exactName" --exclude-pattern "test*" --recursive
+  - summary: Entfernen Sie ein gesamtes virtuelles Verzeichnis, aber schließen Sie bestimmte Blobs aus dem Bereich aus (z. B. jedes Blob, das mit foo beginnt oder mit bar endet).
+    syntax: az storage remove -c mycontainer --include-path path/to/directory --exclude-pattern "foo*;*bar" --recursive
+  - summary: Entfernen Sie eine einzelne Datei.
+    syntax: az storage remove -s MyShare -p MyFile
+  - summary: Entfernen Sie ein gesamtes Verzeichnis.
+    syntax: az storage remove -s MyShare -p path/to/directory --recursive
+  - summary: Entfernen Sie alle Dateien in einer Speicherdateifreigabe.
+    syntax: az storage remove -s MyShare --recursive
+  optionalParameters:
+  - name: --account-key
+    summary: 'Speicherkontoschlüssel Muss in Verbindung mit dem Speicherkontonamen verwendet werden. Umgebungsvariable: AZURE_STORAGE_KEY.'
+    description: ''
+  - name: --account-name
+    summary: 'Name des Speicherkontos Zugehörige Umgebungsvariable: AZURE_STORAGE_ACCOUNT. Muss in Verbindung mit einem Speicherkontoschlüssel oder einem SAS-Token verwendet werden. Wenn keines von beiden vorhanden ist, versucht der Befehl, den Speicherkontoschlüssel mithilfe des authentifizierten Azure-Kontos abfragt. Wenn eine große Anzahl von Speicherbefehlen ausgeführt wird, kann das API-Kontingent erreicht werden.'
+    description: ''
+  - name: --connection-string
+    summary: 'Verbindungszeichenfolge des Speicherkontos. Umgebungsvariable: AZURE_STORAGE_CONNECTION_STRING.'
+    description: ''
+  - name: --container-name -c
+    summary: Der Containername
+    description: ''
+  - name: --exclude-path
+    summary: 'Schließen Sie diese Pfade aus. Diese Option unterstützt keine Platzhalterzeichen ( \* ). Überprüft das Präfix des relativen Pfads. Beispiel: myFolder;myFolder/subDirName/file.pdf'
+    description: ''
+  - name: --exclude-pattern
+    summary: 'Schließen Sie diese Dateien aus, bei denen der Name der Musterliste entspricht. Beispiel: \*.jpg;\*.pdf;exactName. Diese Option unterstützt Platzhalterzeichen ( \* ).'
+    description: ''
+  - name: --include-path
+    summary: 'Schließen Sie nur diese Pfade ein. Diese Option unterstützt keine Platzhalterzeichen ( \* ). Überprüft das Präfix des relativen Pfads. Beispiel: myFolder;myFolder/subDirName/file.pdf.'
+    description: ''
+  - name: --include-pattern
+    summary: 'Schließen Sie nur diese Dateien ein, bei denen der Name mit der Musterliste übereinstimmt. Beispiel: \*.jpg;\*.pdf;exactName. Diese Option unterstützt Platzhalterzeichen ( \* ).'
+    description: ''
+  - name: --name -n
+    summary: Der Blobname.
+    description: ''
+  - name: --path -p
+    summary: Der Pfad zur Datei innerhalb der Dateifreigabe.
+    description: ''
+  - name: --recursive -r
+    summary: Suchen Sie rekursiv nach Unterverzeichnissen.
+    description: ''
+  - name: --sas-token
+    summary: 'Eine Shared Access Signature (SAS). Muss in Verbindung mit dem Speicherkontonamen verwendet werden. Umgebungsvariable: AZURE_STORAGE_SAS_TOKEN.'
+    description: ''
+  - name: --share-name -s
+    summary: Der Dateifreigabename.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/storage/_help.py
+commands:
+- az_storage_account
+- az_storage_account_blob-inventory-policy
+- az_storage_account_blob-inventory-policy_create
+- az_storage_account_blob-inventory-policy_delete
+- az_storage_account_blob-inventory-policy_show
+- az_storage_account_blob-inventory-policy_update
+- az_storage_account_blob-service-properties
+- az_storage_account_blob-service-properties_show
+- az_storage_account_blob-service-properties_update
+- az_storage_account_check-name
+- az_storage_account_create
+- az_storage_account_delete
+- az_storage_account_file-service-properties
+- az_storage_account_file-service-properties_show
+- az_storage_account_file-service-properties_update
+- az_storage_account_generate-sas
+- az_storage_account_keys
+- az_storage_account_keys_list
+- az_storage_account_keys_renew
+- az_storage_account_list
+- az_storage_account_network-rule
+- az_storage_account_network-rule_add
+- az_storage_account_network-rule_list
+- az_storage_account_network-rule_remove
+- az_storage_account_show
+- az_storage_account_show-connection-string
+- az_storage_account_show-usage
+- az_storage_azcopy
+- az_storage_azcopy_blob
+- az_storage_azcopy_blob_delete
+- az_storage_azcopy_blob_download
+- az_storage_azcopy_blob_sync
+- az_storage_azcopy_blob_upload
+- az_storage_azcopy_run-command
+- az_storage_blob
+- az_storage_blob_access
+- az_storage_blob_access_set
+- az_storage_blob_access_show
+- az_storage_blob_access_update
+- az_storage_blob_copy
+- az_storage_blob_copy_cancel
+- az_storage_blob_copy_start
+- az_storage_blob_copy_start-batch
+- az_storage_blob_delete
+- az_storage_blob_delete-batch
+- az_storage_blob_directory
+- az_storage_blob_directory_access
+- az_storage_blob_directory_access_set
+- az_storage_blob_directory_access_show
+- az_storage_blob_directory_access_update
+- az_storage_blob_directory_create
+- az_storage_blob_directory_delete
+- az_storage_blob_directory_download
+- az_storage_blob_directory_exists
+- az_storage_blob_directory_list
+- az_storage_blob_directory_metadata
+- az_storage_blob_directory_metadata_show
+- az_storage_blob_directory_metadata_update
+- az_storage_blob_directory_move
+- az_storage_blob_directory_show
+- az_storage_blob_directory_upload
+- az_storage_blob_download
+- az_storage_blob_download-batch
+- az_storage_blob_exists
+- az_storage_blob_filter
+- az_storage_blob_generate-sas
+- az_storage_blob_lease
+- az_storage_blob_lease_acquire
+- az_storage_blob_lease_break
+- az_storage_blob_lease_change
+- az_storage_blob_lease_release
+- az_storage_blob_lease_renew
+- az_storage_blob_list
+- az_storage_blob_metadata
+- az_storage_blob_metadata_show
+- az_storage_blob_metadata_update
+- az_storage_blob_move
+- az_storage_blob_service-properties
+- az_storage_blob_service-properties_delete-policy
+- az_storage_blob_service-properties_delete-policy_show
+- az_storage_blob_service-properties_delete-policy_update
+- az_storage_blob_service-properties_show
+- az_storage_blob_service-properties_update
+- az_storage_blob_set-tier
+- az_storage_blob_show
+- az_storage_blob_snapshot
+- az_storage_blob_sync
+- az_storage_blob_tag
+- az_storage_blob_tag_list
+- az_storage_blob_tag_set
+- az_storage_blob_undelete
+- az_storage_blob_update
+- az_storage_blob_upload
+- az_storage_blob_upload-batch
+- az_storage_blob_url
+- az_storage_container
+- az_storage_container_create
+- az_storage_container_delete
+- az_storage_container_exists
+- az_storage_container_generate-sas
+- az_storage_container_lease
+- az_storage_container_lease_acquire
+- az_storage_container_lease_break
+- az_storage_container_lease_change
+- az_storage_container_lease_release
+- az_storage_container_lease_renew
+- az_storage_container_list
+- az_storage_container_metadata
+- az_storage_container_metadata_show
+- az_storage_container_metadata_update
+- az_storage_container_policy
+- az_storage_container_policy_create
+- az_storage_container_policy_delete
+- az_storage_container_policy_list
+- az_storage_container_policy_show
+- az_storage_container_restore
+- az_storage_container_set-permission
+- az_storage_container_show
+- az_storage_container_show-permission
+- az_storage_copy
+- az_storage_cors
+- az_storage_cors_add
+- az_storage_cors_clear
+- az_storage_cors_list
+- az_storage_directory
+- az_storage_directory_create
+- az_storage_directory_delete
+- az_storage_directory_exists
+- az_storage_directory_list
+- az_storage_directory_metadata
+- az_storage_directory_metadata_show
+- az_storage_directory_metadata_update
+- az_storage_directory_show
+- az_storage_entity
+- az_storage_entity_delete
+- az_storage_entity_insert
+- az_storage_entity_merge
+- az_storage_entity_query
+- az_storage_entity_replace
+- az_storage_entity_show
+- az_storage_file
+- az_storage_file_copy
+- az_storage_file_copy_cancel
+- az_storage_file_copy_start
+- az_storage_file_copy_start-batch
+- az_storage_file_delete
+- az_storage_file_delete-batch
+- az_storage_file_download
+- az_storage_file_download-batch
+- az_storage_file_exists
+- az_storage_file_generate-sas
+- az_storage_file_list
+- az_storage_file_metadata
+- az_storage_file_metadata_show
+- az_storage_file_metadata_update
+- az_storage_file_resize
+- az_storage_file_show
+- az_storage_file_update
+- az_storage_file_upload
+- az_storage_file_upload-batch
+- az_storage_file_url
+- az_storage_logging
+- az_storage_logging_off
+- az_storage_logging_show
+- az_storage_logging_update
+- az_storage_message
+- az_storage_message_clear
+- az_storage_message_delete
+- az_storage_message_get
+- az_storage_message_peek
+- az_storage_message_put
+- az_storage_message_update
+- az_storage_metrics
+- az_storage_metrics_show
+- az_storage_metrics_update
+- az_storage_queue
+- az_storage_queue_create
+- az_storage_queue_delete
+- az_storage_queue_exists
+- az_storage_queue_generate-sas
+- az_storage_queue_list
+- az_storage_queue_metadata
+- az_storage_queue_metadata_show
+- az_storage_queue_metadata_update
+- az_storage_queue_policy
+- az_storage_queue_policy_create
+- az_storage_queue_policy_delete
+- az_storage_queue_policy_list
+- az_storage_queue_policy_show
+- az_storage_queue_policy_update
+- az_storage_remove
+- az_storage_share
+- az_storage_share_create
+- az_storage_share_delete
+- az_storage_share_exists
+- az_storage_share_generate-sas
+- az_storage_share_list
+- az_storage_share_metadata
+- az_storage_share_metadata_show
+- az_storage_share_metadata_update
+- az_storage_share_policy
+- az_storage_share_policy_create
+- az_storage_share_policy_delete
+- az_storage_share_policy_list
+- az_storage_share_policy_show
+- az_storage_share_policy_update
+- az_storage_share_show
+- az_storage_share_stats
+- az_storage_share_update
+- az_storage_share_url
+- az_storage_table
+- az_storage_table_create
+- az_storage_table_delete
+- az_storage_table_exists
+- az_storage_table_generate-sas
+- az_storage_table_list
+- az_storage_table_policy
+- az_storage_table_policy_create
+- az_storage_table_policy_delete
+- az_storage_table_policy_list
+- az_storage_table_policy_show
+- az_storage_table_policy_update
+globalParameters:
+- name: --debug
+  summary: Ausführlichkeit der Protokollierung erhöhen, um alle Debugprotokolle anzuzeigen.
+- name: --help -h
+  summary: Zeigen Sie diese Hilfemeldung an, und schließen Sie sie.
+- name: --only-show-errors
+  summary: Nur Fehler anzeigen und Warnungen unterdrücken.
+- name: --output -o
+  defaultValue: json
+  parameterValueGroup: json, jsonc, table, tsv
+  summary: Ausgabeformat.
+- name: --query
+  summary: JMESPath-Abfragezeichenfolge. Weitere Informationen und Beispiele finden Sie unter <a href="http://jmespath.org/">http://jmespath.org/</a>.
+- name: --verbose
+  summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
+metadata:
+  doc_source_url_repo: https://github.com/Azure/azure-cli/blob/dev/
+  ms.date: 04/26/2021
+  description: Verwalten von Azure Cloud Storage-Ressourcen.
+  ms.openlocfilehash: 2feba69cf34182603459c3644b5a47793273eb50
+  ms.sourcegitcommit: 15a6f14c5a8570ba89a3bd5bb442f3324d72bc37
+  ms.translationtype: MT
+  ms.contentlocale: de-DE
+  ms.lasthandoff: 04/29/2021
+  ms.locfileid: "108238597"

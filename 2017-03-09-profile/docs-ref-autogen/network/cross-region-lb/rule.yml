@@ -1,0 +1,303 @@
+### YamlMime:AzureCLIGroup
+uid: az_network_cross-region-lb_rule
+name: az network cross-region-lb rule
+summary: Verwalten sie regionsübergreifende Lastenausgleichsregeln.
+description: ''
+directCommands:
+- uid: az_network_cross-region-lb_rule_create
+  name: az network cross-region-lb rule create
+  summary: Erstellen Sie eine Lastenausgleichsregel.
+  description: ''
+  syntax: >-
+    az network cross-region-lb rule create --backend-port
+                                           --frontend-port
+                                           --lb-name
+                                           --name
+                                           --protocol {Tcp, Udp}
+                                           --resource-group
+                                           [--backend-pool-name]
+                                           [--floating-ip {false, true}]
+                                           [--frontend-ip-name]
+                                           [--idle-timeout]
+                                           [--load-distribution {Default, SourceIP, SourceIPProtocol}]
+                                           [--probe-name]
+                                           [--subscription]
+  examples:
+  - summary: Erstellen Sie eine Lastenausgleichsregel, die einem Adresspool und -port eine Front-Facing-IP-Konfiguration und einen Port zuweist.
+    syntax: >-
+      az network cross-region-lb rule create -g MyResourceGroup --lb-name MyLb -n MyLbRule --protocol Tcp \
+          --frontend-ip-name MyFrontEndIp --frontend-port 80 \
+          --backend-pool-name MyAddressPool --backend-port 80
+  - summary: Erstellen Sie eine Lastenausgleichsregel, die einem Adresspool und port mit der Floating IP-Funktion eine Front-Facing-IP-Konfiguration und einen Port zuweist.
+    syntax: >-
+      az network cross-region-lb rule create -g MyResourceGroup --lb-name MyLb -n MyLbRule --protocol Tcp \
+          --frontend-ip-name MyFrontEndIp --backend-pool-name MyAddressPool  \
+          --floating-ip true --frontend-port 80 --backend-port 80
+  - summary: Erstellen Sie eine Lastenausgleichsregel für Ha-Ports, die eine Front-End-IP und einen Port zuweist, um alle verfügbaren Back-End-IP-Adressen in einem Pool am gleichen Port zu verwenden.
+    syntax: >-
+      az network cross-region-lb rule create -g MyResourceGroup --lb-name MyLb -n MyHAPortsRule \
+          --protocol All --frontend-port 0 --backend-port 0 --frontend-ip-name MyFrontendIp \
+          --backend-pool-name MyAddressPool
+  requiredParameters:
+  - isRequired: true
+    name: --backend-port
+    summary: Portnummer
+    description: ''
+  - isRequired: true
+    name: --frontend-port
+    summary: Portnummer
+    description: ''
+  - isRequired: true
+    name: --lb-name
+    summary: Der Name des Lastenausgleichs.
+    description: ''
+  - isRequired: true
+    name: --name -n
+    summary: Der Name der Lastenausgleichsregel.
+    description: ''
+  - isRequired: true
+    name: --protocol
+    parameterValueGroup: Tcp, Udp
+    summary: Netzwerktransportprotokoll.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  optionalParameters:
+  - name: --backend-pool-name
+    summary: Der Name des Back-End-Adresspools. Wenn nur eine vorhanden ist, lassen Sie die Verwendung als Standard aus.
+    description: ''
+  - name: --floating-ip
+    parameterValueGroup: false, true
+    summary: Aktivieren Sie Floating IP.
+    description: ''
+  - name: --frontend-ip-name
+    summary: Der Name der Front-End-IP-Konfiguration. Wenn nur eine vorhanden ist, lassen Sie die Verwendung als Standard aus.
+    description: ''
+  - name: --idle-timeout
+    summary: Leerlauftimeout in Minuten.
+    description: ''
+  - name: --load-distribution
+    defaultValue: default
+    parameterValueGroup: Default, SourceIP, SourceIPProtocol
+    summary: Einstellungen für Affinitätsregel.
+    description: ''
+  - name: --probe-name
+    summary: Name eines vorhandenen Tests, der dieser Regel zugeordnet werden soll.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/network/_help.py
+- uid: az_network_cross-region-lb_rule_delete
+  name: az network cross-region-lb rule delete
+  summary: Löschen sie eine Lastenausgleichsregel.
+  description: ''
+  syntax: >-
+    az network cross-region-lb rule delete --lb-name
+                                           --name
+                                           --resource-group
+                                           [--subscription]
+  examples:
+  - summary: Löschen sie eine Lastenausgleichsregel.
+    syntax: az network cross-region-lb rule delete -g MyResourceGroup --lb-name MyLb -n MyLbRule
+  requiredParameters:
+  - isRequired: true
+    name: --lb-name
+    summary: Der Name des Load Balancer.
+    description: ''
+  - isRequired: true
+    name: --name -n
+    summary: Der Name der Lastenausgleichsregel.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  optionalParameters:
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/network/_help.py
+- uid: az_network_cross-region-lb_rule_list
+  name: az network cross-region-lb rule list
+  summary: Listet Lastenausgleichsregeln auf.
+  description: ''
+  syntax: >-
+    az network cross-region-lb rule list --lb-name
+                                         --resource-group
+                                         [--query-examples]
+                                         [--subscription]
+  examples:
+  - summary: Listet Lastenausgleichsregeln auf.
+    syntax: az network cross-region-lb rule list -g MyResourceGroup --lb-name MyLb -o table
+  requiredParameters:
+  - isRequired: true
+    name: --lb-name
+    summary: Der Name des Load Balancer.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  optionalParameters:
+  - name: --query-examples
+    summary: Empfehlen Sie die JMESPath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und nach dem Parameter --query in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positionsschlüsselwörter hinzufügen, damit wir basierend auf diesen Schlüsselwörtern Vorschläge geben können.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/network/_help.py
+- uid: az_network_cross-region-lb_rule_show
+  name: az network cross-region-lb rule show
+  summary: Abrufen der Details einer Lastenausgleichsregel.
+  description: ''
+  syntax: >-
+    az network cross-region-lb rule show --lb-name
+                                         --name
+                                         --resource-group
+                                         [--query-examples]
+                                         [--subscription]
+  examples:
+  - summary: Abrufen der Details einer Lastenausgleichsregel.
+    syntax: az network cross-region-lb rule show -g MyResourceGroup --lb-name MyLb -n MyLbRule
+  requiredParameters:
+  - isRequired: true
+    name: --lb-name
+    summary: Der Name des Load Balancer.
+    description: ''
+  - isRequired: true
+    name: --name -n
+    summary: Der Name der Lastenausgleichsregel.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  optionalParameters:
+  - name: --query-examples
+    summary: Empfehlen Sie die JMESPath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und nach dem Parameter --query in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positionsschlüsselwörter hinzufügen, damit wir basierend auf diesen Schlüsselwörtern Vorschläge geben können.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/network/_help.py
+- uid: az_network_cross-region-lb_rule_update
+  name: az network cross-region-lb rule update
+  summary: Aktualisieren sie eine Lastenausgleichsregel.
+  description: ''
+  syntax: >-
+    az network cross-region-lb rule update [--add]
+                                           [--backend-pool-name]
+                                           [--backend-port]
+                                           [--floating-ip {false, true}]
+                                           [--force-string]
+                                           [--frontend-ip-name]
+                                           [--frontend-port]
+                                           [--idle-timeout]
+                                           [--ids]
+                                           [--lb-name]
+                                           [--load-distribution {Default, SourceIP, SourceIPProtocol}]
+                                           [--name]
+                                           [--probe-name]
+                                           [--protocol {Tcp, Udp}]
+                                           [--remove]
+                                           [--resource-group]
+                                           [--set]
+                                           [--subscription]
+  examples:
+  - summary: Aktualisieren Sie eine Lastenausgleichsregel, um das Protokoll in UDP zu ändern.
+    syntax: az network cross-region-lb rule update -g MyResourceGroup --lb-name MyLb -n MyLbRule --protocol Udp
+  - summary: Aktualisieren Sie eine Lastenausgleichsregel, um Ha-Ports zu unterstützen.
+    syntax: az network cross-region-lb rule update -g MyResourceGroup --lb-name MyLb -n MyLbRule \ --protocol All --frontend-port 0 --backend-port 0
+  optionalParameters:
+  - name: --add
+    summary: 'Fügen Sie einer Liste von -Objekten ein -Objekt hinzu, indem Sie ein Pfad- und Schlüsselwertpaar angeben.  Beispiel: --add property.listProperty <key=value, string oder JSON string>.'
+    description: ''
+  - name: --backend-pool-name
+    summary: Der Name des Back-End-Adresspools.
+    description: ''
+  - name: --backend-port
+    summary: Portnummer
+    description: ''
+  - name: --floating-ip
+    parameterValueGroup: false, true
+    summary: Aktivieren Sie Floating IP.
+    description: ''
+  - name: --force-string
+    summary: Wenn Sie "set" oder "add" verwenden, behalten Sie Zeichenfolgenliterale bei, anstatt zu versuchen, in JSON zu konvertieren.
+    description: ''
+  - name: --frontend-ip-name
+    summary: Der Name der Front-End-IP-Konfiguration.
+    description: ''
+  - name: --frontend-port
+    summary: Portnummer
+    description: ''
+  - name: --idle-timeout
+    summary: Leerlaufzeitüberschreitung in Minuten.
+    description: ''
+  - name: --ids
+    summary: Eine oder mehrere Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu Ressourcen-ID-Argumenten geben. Sie sollten entweder --ids oder andere Ressourcen-ID-Argumente bereitstellen.
+    description: ''
+  - name: --lb-name
+    summary: Der Name des Lastenausgleichs.
+    description: ''
+  - name: --load-distribution
+    parameterValueGroup: Default, SourceIP, SourceIPProtocol
+    summary: Einstellungen für Affinitätsregel.
+    description: ''
+  - name: --name -n
+    summary: Der Name der Lastenausgleichsregel.
+    description: ''
+  - name: --probe-name
+    summary: Name eines vorhandenen Tests, der dieser Regel zugeordnet werden soll.
+    description: ''
+  - name: --protocol
+    parameterValueGroup: Tcp, Udp
+    summary: Netzwerktransportprotokoll.
+    description: ''
+  - name: --remove
+    summary: 'Entfernen Sie eine Eigenschaft oder ein Element aus einer Liste.  Beispiel: --remove property.list <indexToRemove> OR --remove propertyToRemove.'
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --set
+    summary: 'Aktualisieren Sie ein -Objekt, indem Sie einen festzulegenden Eigenschaftenpfad und -wert angeben.  Beispiel: --set property1.property2=<value>.'
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/network/_help.py
+commands:
+- az_network_cross-region-lb_rule_create
+- az_network_cross-region-lb_rule_delete
+- az_network_cross-region-lb_rule_list
+- az_network_cross-region-lb_rule_show
+- az_network_cross-region-lb_rule_update
+globalParameters:
+- name: --debug
+  summary: Ausführlichkeit der Protokollierung erhöhen, um alle Debugprotokolle anzuzeigen.
+- name: --help -h
+  summary: Zeigen Sie diese Hilfemeldung an, und schließen Sie sie.
+- name: --only-show-errors
+  summary: Nur Fehler anzeigen und Warnungen unterdrücken.
+- name: --output -o
+  defaultValue: json
+  parameterValueGroup: json, jsonc, table, tsv
+  summary: Ausgabeformat.
+- name: --query
+  summary: JMESPath-Abfragezeichenfolge. Weitere Informationen und Beispiele finden Sie unter <a href="http://jmespath.org/">http://jmespath.org/</a>.
+- name: --verbose
+  summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
+metadata:
+  doc_source_url_repo: https://github.com/Azure/azure-cli/blob/dev/
+  ms.date: 04/25/2021
+  description: Verwalten von regeln für den bereichsübergreifenden Lastenausgleich.
+  ms.openlocfilehash: 6149ea82d8fe68f348cddae53f7cb0370c5f688b
+  ms.sourcegitcommit: 15a6f14c5a8570ba89a3bd5bb442f3324d72bc37
+  ms.translationtype: MT
+  ms.contentlocale: de-DE
+  ms.lasthandoff: 04/29/2021
+  ms.locfileid: "108235656"

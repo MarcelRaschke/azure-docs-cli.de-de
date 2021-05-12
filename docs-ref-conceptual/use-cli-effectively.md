@@ -1,333 +1,288 @@
 ---
 title: Effektive Verwendung der Azure CLI
-description: Tipps für die effektive Verwendung der Azure CLI
+description: Dieser Artikel enthält Tipps zur effektiven Verwendung der Azure CLI, und Sie erfahren u. a. mehr über Ausgabeformate, Übergeben von Parameterwerten und Regeln für Anführungszeichen für verschiedene Shells.
 author: dbradish-microsoft
 ms.author: dbradish
 manager: barbkess
-ms.date: 11/18/2020
+ms.date: 03/19/2021
 ms.topic: conceptual
 ms.service: azure-cli
 ms.devlang: azurecli
 ms.custom: devx-track-azurecli
-ms.openlocfilehash: 2473f3ade5cf37e2c57835cfc9ac928d155caf9e
-ms.sourcegitcommit: 2a0ae2ffc14ce325f9adb9c09d6b5eac534df8a6
+ms.openlocfilehash: fa0b53da592010211e8378ce7c4c00a3de2122c4
+ms.sourcegitcommit: 612554c029ba1f28d3a43fd22e743104a1a30ea0
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 01/27/2021
-ms.locfileid: "98887034"
+ms.lasthandoff: 04/07/2021
+ms.locfileid: "106876356"
 ---
 # <a name="use-azure-cli-effectively"></a>Effektive Verwendung der Azure CLI
 
-Aus Gründen der Übersichtlichkeit werden Bash-Skripts inline verwendet. Windows-Batch- bzw. PowerShell-Beispiele, mit denen Sie ähnliche Beispiele erstellen können, sind im Anhang angegeben.
+Mit der Azure CLI können Sie Azure über Bash, PowerShell oder ein Eingabeaufforderungsfenster konfigurieren und verwalten. Die Azure CLI unterstützt die Wiederverwendung von Befehlen sowohl auf Ad-hoc-Basis als auch über Skripts. Sie müssen die Funktionen der von Ihnen ausgeführten Shell kennen.
 
-## <a name="output-formatting-json-table-or-tsv"></a>Ausgabeformatierung (JSON, TABLE oder TSV)
+In diesem Artikel werden nützliche Tipps für die Azure CLI sowie zur Vermeidung von Fehlern erläutert.
 
-1. Das Format `json` ist die Standardeinstellung der CLI und dafür ausgelegt, Ihnen die umfassendsten Informationen zu liefern. Falls Sie ein anderes Format vorziehen, sollten Sie das Argument `--output` verwenden, um einen einzelnen Befehlsaufruf außer Kraft zu setzen. Sie können auch `az configure` verwenden, um Ihre globale Standardeinstellung zu aktualisieren. Beachten Sie hierbei, dass beim JSON-Format die doppelten Anführungszeichen beibehalten werden. Dies bedeutet im Allgemeinen, dass das Format für Skripterstellungszwecke nicht geeignet ist.
+[!INCLUDE [azure-cli-prepare-your-environment.md](includes/azure-cli-prepare-your-environment.md)]
 
-2. Das Format `table` ist nützlich, um eine Zusammenfassung der gewünschten Informationen zu erhalten. Dies gilt besonders für Auflistungsbefehle. Falls Ihnen die Felder im Standardtabellenformat nicht zusagen (oder kein Standardformat vorhanden ist), können Sie mit `--output json` alle Informationen anzeigen oder `--query` verwenden, um das gewünschte Format anzugeben.
+Wenn Sie Fragen zu einem Azure CLI-Befehl haben, durchsuchen Sie die [Referenz zur Azure CLI](/cli/azure/reference-index).
 
-    ```azurelcli
-    az vm show -g my_rg -n my_vm --query "{name: name, os:storageProfile.imageReference.offer}" -otable
-    Name    Os
-    ------  ------------
-    my_vm   UbuntuServer
-    ```
+## <a name="output-formatting"></a>Ausgabeformatierung
 
-3. `tsv` ist gut für kompakte Ausgaben und Skripterstellungszwecke geeignet. Beim TSV-Format werden doppelte Anführungszeichen entfernt, die im JSON-Format beibehalten werden. Verwenden Sie das Argument `--query`, um das gewünschte Format für TSV anzugeben.
+Mit vielen Azure CLI-Befehlen werden Ihnen Daten in der Konsole angezeigt. Der Zweck eines Befehls können diese Informationen sein. Dies wird in diesem Beispiel veranschaulicht, in dem mit dem Befehl [az account show](/cli/azure/account#az_account_show) Ihr aktuelles Abonnement angezeigt wird:
 
-    ```bash
-    export vm_ids=$(az vm list -d -g my_rg --query "[?powerState=='VM running'].id" -o tsv)
-    az vm stop --ids $vm_ids
-    ```
-
-## <a name="pass-values-from-one-command-to-another"></a>Übergeben von Werten von einem Befehl an einen anderen
-
-1. Wenn der Wert mehrmals verwendet wird, sollten Sie ihn einer Variablen zuweisen. Beachten Sie die Verwendung von `-o tsv` im folgenden Beispiel:
-
-    ```bash
-    running_vm_ids=$(az vm list -d -g my_rg --query "[?powerState=='VM running'].id" -o tsv)
-    ```
-2. Erwägen Sie den Einsatz von Piping, wenn der Wert nur einmal verwendet wird:
-
-    ```azurecli
-    az vm list --query "[?powerState=='VM running'].name" | grep my_vm
-    ```
-
-1. Berücksichtigen Sie für Listen die folgenden Vorschläge:
-
-   Verwenden Sie eine „for“-Schleife, falls Sie weitere Kontrollen für das Ergebnis benötigen:
-    
-    ```bash
-    #!/usr/bin/env bash
-    for vm in $(az vm list -d -g my_rg --query "[?powerState=='VM running'].id" -o tsv); do
-        echo stopping $vm
-        az vm stop --ids $vm
-        if [ $? -ne 0 ]; then
-            echo "Failed to stop $vm"
-            exit 1
-        fi
-        echo $vm stopped
-    done
-    ```
-
-    Verwenden Sie alternativ `xargs` und ggf. das Flag `-P`, um die Vorgänge parallel auszuführen und so die Leistung zu verbessern:
-
-    ```azurecli
-    az vm list -d -g my_rg --query "[?powerState=='VM stopped'].id" -o tsv | xargs -I {} -P 10 az vm start --ids "{}"
-    ```
-
-    Darüber hinaus verfügt die Azure CLI noch über integrierte Unterstützung für die Verarbeitung von Befehlen mit mehreren parallelen `--ids`, um den gleichen Effekt wie mit „xargs“ zu erzielen. Beachten Sie, dass `@-` zum Abrufen von Werten aus der Pipe verwendet wird:
-
-    ```azurecli
-    az vm list -d -g my_rg --query "[?powerState=='VM stopped'].id" -o tsv | az vm start --ids @-
-    ```
-
-## <a name="async-operations"></a>Asynchrone Vorgänge
-
-Bei vielen Befehlen und Gruppen werden `--no-wait`-Flags für die zeitintensiven Vorgänge sowie ein dedizierter `wait`-Befehl verfügbar gemacht. Dies ist für bestimmte Szenarien hilfreich:
-
-1. Bereinigen von Ressourcen, wenn nicht die Bereinigung eines nachfolgenden Vorgangs genutzt wird, z. B. das Löschen einer Ressourcengruppe:
-    
-    ```azurecli
-    az group delete -n my_rg --no-wait
-    ```
-2. Paralleles Erstellen mehrerer unabhängiger Ressourcen. Dies ähnelt dem Erstellen von Threads und dem Durchführen des Beitritts:
-
-    ```azurecli
-    az vm create -g my_rg -n vm1 --image centos --no-wait
-    az vm create -g my_rg -n vm2 --image centos --no-wait
-
-    subscription=$(az account show --query "id" -otsv)
-    vm1_id="/subscriptions/$subscription/resourceGroups/my_rg/providers/Microsoft.Compute/virtualMachines/vm1"
-    vm2_id="/subscriptions/$subscription/resourceGroups/my_rg/providers/Microsoft.Compute/virtualMachines/vm2"
-    az vm wait --created --ids $vm1_id $vm2_id
-    ```
-
-## <a name="generic-update-arguments"></a>Generische Updateargumente
-
-Die meisten Updatebefehle in der CLI verfügen über die drei folgenden generischen Argumente: `--add`, `--set` und `--remove`. Diese Argumente sind leistungsfähig, aber häufig nicht so komfortabel wie die stark typisierten Argumente, die in Updatebefehlen normalerweise verwendet werden. Die CLI verfügt zur Steigerung der Benutzerfreundlichkeit über stark typisierte Argumente für die meisten gängigen Szenarien. Falls die gewünschte Eigenschaft aber nicht aufgeführt ist, stellen die generischen Updateargumente häufig eine Lösung dar, ohne dass Sie auf ein neues Release warten müssen.
-
-1. Da die Syntax für generische Updates nicht sehr benutzerfreundlich ist, ist etwas Geduld gefordert.
-2. Überprüfen Sie, ob für den Updatebefehl die Gruppe `Generic Update Arguments` verfügbar gemacht wird. Wenn nicht, sollten Sie ein Problem melden. Falls die Gruppe verfügbar ist, können Sie versuchen, sie für das Szenario zu nutzen.
-3. Verwenden Sie den Befehl `show` für die gewünschte Ressource, um zu ermitteln, welchen Pfad Sie in den generischen Argumenten angeben sollten. Führen Sie vor dem Ausprobieren von `az vm update` beispielsweise `az vm show` aus, um den richtigen Pfad zu ermitteln. Im Allgemeinen verwenden Sie die Punktsyntax, um auf die Wörterbucheigenschaften zuzugreifen, und Klammern für die Indizierung in Listen.
-4. Sehen Sie sich die Arbeitsbeispiele an, um zu beginnen. Gute Beispiele finden Sie unter `az vm update -h`.
-5. Für `--set` und `--add` wird eine Liste mit Schlüssel-Wert-Paaren im Format `<key1>=<value1> <key2>=<value2>` verwendet. Verwenden Sie diese zum Erstellen von nicht trivialen Nutzlasten. Falls die Syntax zu unübersichtlich wird, können Sie die Verwendung einer JSON-Zeichenfolge erwägen. Ein Beispiel hierfür ist das Anfügen eines neuen Datenträgers an eine VM:
-    
-    ```azurecli
-    az vm update -g my_rg -n my_vm --add storageProfile.dataDisks "{\"createOption\": \"Attach\", \"managedDisk\": {\"id\": \"/subscriptions/0b1f6471-1bf0-4dda-aec3-cb9272f09590/resourceGroups/yg/providers/Microsoft.Compute/disks/yg-disk\"}, \"lun\": 1}"
-    ```
-
-6. Unter Umständen ist es für Sie auch besser, die `@{file}`-Konvention der CLI zu nutzen, bei der der JSON-Code in eine Datei eingefügt und dann geladen wird. Hierdurch wird der obige Befehl vereinfacht:
-    
-    ```azurecli
-    az vm update -g my_rg -n my_vm --add storageProfile.dataDisks @~/my_disk.json
-    ```
-
-## <a name="generic-resource-commands---az-resource"></a>Generische Ressourcenbefehle: `az resource`
-
-Es kann vorkommen, das für einen Dienst, an dem Sie interessiert sind, keine CLI-Befehlsabdeckung besteht. Sie können die Befehle `az resource create/show/list/delete/update/invoke-action` verwenden, um mit diesen Ressourcen zu arbeiten. Hier sind einige Vorschläge angegeben:
-1. Wenn es nur um `create/update` geht, können Sie erwägen, `az deployment group create` zu verwenden. Nutzen Sie [Azure-Schnellstartvorlagen](https://github.com/Azure/azure-quickstart-templates) für Arbeitsbeispiele.
-2. Sehen Sie sich die REST-API-Referenz zu den Bereichen Anforderungsnutzlast, URL und API-Version an. Lesen Sie beispielsweise in der Community die Kommentare zum [Erstellen von AppInsights](https://github.com/Azure/azure-cli/issues/5543).
-
-## <a name="rest-api-command---az-rest"></a>REST-API-Befehl: `az rest`
-
-Falls Ihre Anforderungen weder durch generische Updateargumente noch durch `az resource` erfüllt werden, können Sie die REST-API mit dem Befehl `az rest` aufrufen. Hierbei wird die Authentifizierung automatisch mit den bereits eingegebenen Anmeldeinformationen durchgeführt und der Header `Content-Type: application/json` festgelegt.
-
-Dies ist äußerst hilfreich, um die [Microsoft Graph-API](/graph/api/overview?toc=./ref/toc.json) aufzurufen, die von CLI-Befehlen derzeit nicht unterstützt wird ([#12946](https://github.com/Azure/azure-cli/issues/12946)).
-
-Um beispielsweise `redirectUris` für eine [Anwendung](/graph/api/resources/application) aufzurufen, rufen wir die REST-API für die [Updateanwendung](/graph/api/application-update?tabs=http) wie folgt auf:
-
-```bash
-# Line breaks for legibility only
-
-# Get the application
-az rest --method GET
-        --uri 'https://graph.microsoft.com/v1.0/applications/b4e4d2ab-e2cb-45d5-a31a-98eb3f364001'
-
-# Update `redirectUris` for `web` property
-az rest --method PATCH
-        --uri 'https://graph.microsoft.com/v1.0/applications/b4e4d2ab-e2cb-45d5-a31a-98eb3f364001'
-        --body '{"web":{"redirectUris":["https://myapp.com"]}}'
+```azurecli
+az account show
 ```
 
-Bei Verwendung von `--uri-parameters` für Anforderungen in Form von OData sollten Sie darauf achten, `$` in unterschiedlichen Umgebungen mit Escapezeichen zu versehen: in `Bash` sollte `$` zu `\$` werden, und in `PowerShell` sollte `$` zu `` `$`` werden.
+Manchmal spiegeln die Informationen, die mit einem Befehl angezeigt werden, die von Ihnen vorgenommenen Änderungen wider. In diesem Beispiel wird mithilfe des Befehls [az group create](/cli/azure/group#az_group_create) eine Ressourcengruppe erstellt:
 
-## <a name="pass-arguments"></a>Übergeben von Argumenten
+```azurecli
+az group create --name MyResourceGroup --location eastus
+```
 
-1. Wenn der Wert eines Arguments mit einem Bindestrich beginnt (z. B. `-VerySecret`), wird er als Option (ein Argumentname wie `-n`) von [argparse](https://docs.python.org/3/library/argparse.html) (https://bugs.python.org/issue9334) analysiert. Wenn Sie die Analyse als Wert erzwingen möchten, verwenden Sie `--password="-VerySecret"`. ([Azure/azure-cli#7054](https://github.com/Azure/azure-cli/issues/7054)).
-2. Wenn der Wert eines Arguments Sonderzeichen enthält, z. B. ein Leerzeichen (` `) oder Anführungszeichen (`"`, `'`), gelten bestimmte Regeln für Anführungszeichen. Weitere Informationen finden im folgenden Abschnitt:
+Wenn Sie diesen Befehl ausführen, wird in der Azure CLI-Konsole die soeben von Ihnen erstellte Ressourcengruppe angezeigt.
 
-### <a name="quoting-issues"></a>Probleme mit Anführungszeichen
+Sie können durch Angabe des Parameters `--output` das Format für die Ausgabe auswählen. In diesem Beispiel listet der Befehl [az account list](/cli/azure/account#az_account_list) alle Abonnements, auf die Sie zugreifen können, in einer Tabelle auf:
 
-Ein Problem kann sich ergeben, weil die Anführungszeichen und Leerzeichen von der Befehlsshell (Bash, Zsh, Windows-Eingabeaufforderung, PowerShell usw.) interpretiert werden, wenn diese den CLI-Befehl analysiert. Sehen Sie immer in den Dokumenten nach, wenn Sie bei der Nutzung einer Shell unsicher sind:
+```azurecli
+az account list --output table
+```
 
-- Bash: [Anführungszeichen](https://www.gnu.org/software/bash/manual/html_node/Quoting.html)
-- PowerShell: [Informationen zu Regeln für Anführungszeichen](/powershell/module/microsoft.powershell.core/about/about_quoting_rules)
-    - Aufgrund des bekannten Problems [#1995](https://github.com/PowerShell/PowerShell/issues/1995) von PowerShell gelten für Escapezeichen einige zusätzliche Regeln. Weitere Informationen finden Sie unter [Probleme mit Anführungszeichen bei PowerShell](https://github.com/Azure/azure-cli/blob/dev/doc/quoting-issues-with-powershell.md).
-- Windows-Eingabeaufforderung: [Gewusst wie: Escapezeichen, Trennzeichen und Anführungszeichen in der Windows-Befehlszeile](https://ss64.com/nt/syntax-esc.html)
+Hier sehen Sie drei gängige Formate:
 
-Hier sind einige Vorschläge angegeben, mit denen unerwartete Ergebnisse vermieden werden können:
+* Das `json`-Format zeigt Informationen als JSON-Zeichenfolge an. Dieses Format liefert die umfassendsten Informationen. Dies ist das Standardformat. Sie können das Standardformat mithilfe des Befehls [az configure](/cli/azure/reference-index#az_configure) ändern.
+* Das `table`-Format stellt die Ausgabe als für Menschen lesbare Tabelle dar. Sie können angeben, welche Werte in der Tabelle angezeigt werden, und Abfragen verwenden, um die Ausgabe anzupassen.
+* Das `tsv`-Format gibt durch Tabstopp oder Zeilenumbruch getrennte Werte ohne zusätzliche Formatierung, Schlüssel oder andere Symbole zurück.
 
-1. Wenn der Wert Leerzeichen enthält, müssen Sie ihn in Anführungszeichen einschließen.
-2. In Bash und Windows PowerShell werden sowohl einfache als auch doppelte Anführungszeichen interpretiert, während in der Windows-Eingabeaufforderung nur doppelte Anführungszeichen verarbeitet werden. Dies bedeutet, dass einzelne Anführungszeichen als Teil des Werts interpretiert werden.
-3. Falls Ihr Befehl nur in Bash (oder Zsh) ausgeführt wird, haben einfache Anführungszeichen den Vorteil, dass der darin eingeschlossene Inhalt beibehalten wird. Dies kann sehr hilfreich sein, wenn Sie JSON-Code inline angeben. Beispielsweise funktioniert dies in Bash wie folgt: `'{"foo": "bar"}'`
-4. Wenn Ihr Befehl über die Windows-Eingabeaufforderung ausgeführt wird, müssen Sie ausschließlich doppelte Anführungszeichen verwenden. Falls der Wert doppelte Anführungszeichen enthält, müssen Sie ihn mit Escapezeichen versehen: `"i like to use \" a lot"`. Die Entsprechung des obigen Codes für die Eingabeaufforderung lautet: `"{\"foo\": \"bar\"}"`
-5. In Bash werden exportierte Variablen ausgewertet, die in doppelten Anführungszeichen stehen. Falls Sie dies nicht wünschen, sollten sie wiederum Escapezeichen der Form `\ ` verwenden, z. B. in `"\$var"`. Sie können auch einfache Anführungszeichen verwenden, z. B. `'$var'`.
-6. Für einige CLI-Argumente, z. B. die generischen Updateargumente, wird eine Liste mit durch Leerzeichen getrennten Werten verwendet, z. B. `<key1>=<value1> <key2>=<value2>`. Da für den Schlüsselnamen und -wert eine beliebige Zeichenfolge verwendet werden kann, die unter Umständen Leerzeichen enthält, müssen Anführungszeichen genutzt werden. Umschließen Sie das Paar, und nicht nur den Schlüssel bzw. den Wert. `"my name"=john` ist also nicht richtig. Verwenden Sie stattdessen `"my name=john"`. Beispiel:
-    
-    ```azurecli
-    az webapp config appsettings set -g my_rg -n my_web --settings "client id=id1" "my name=john"
-    ```
+Weitere Informationen zu diesen und anderen Formaten finden Sie unter [Ausgabeformate für Azure CLI-Befehle](format-output-azure-cli.md).
 
-7. Verwenden Sie die `@<file>`-Konvention der CLI für das Laden aus der Datei, um die Interpretationsmechanismen der Shell zu umgehen:
-    
-    ```azurecli
-    az ad app create --display-name my-native --native-app --required-resource-accesses @manifest.json
-    ```
-8. Wenn für ein CLI-Argument angegeben ist, dass eine durch Leerzeichen getrennte Liste akzeptiert wird, sind die folgenden Formate zulässig:
-    - `--arg foo bar`: OK. Ohne Anführungszeichen, durch Leerzeichen getrennte Liste
-    - `--arg "foo" "bar"`: OK: Mit Anführungszeichen, durch Leerzeichen getrennte Liste
-    - `--arg "foo bar"`: NICHT GUT. Dies ist eine Zeichenfolge, die ein Leerzeichen enthält, und keine durch Leerzeichen getrennte Liste.
-9. Beim Ausführen von Azure CLI-Befehlen in PowerShell treten Analysefehler auf, wenn die Argumente Sonderzeichen aus PowerShell enthalten, z. B. `@`. Sie können dieses Problem beheben, indem Sie vor dem Sonderzeichen als Escapezeichen `` ` `` einfügen oder das Argument in einfache oder doppelte Anführungszeichen (`'`/`"`) setzen. `az deployment group create --parameters @parameters.json` funktioniert in PowerShell beispielsweise nicht, weil `@` als [Aufteilungssymbol](/powershell/module/microsoft.powershell.core/about/about_splatting) (Splatting) analysiert wird. Zur Behebung können Sie das Argument in `` `@parameters.json`` oder `'@parameters.json'` ändern.
-10. Bei Verwendung von `--query` mit einem Befehl müssen einige Zeichen von [JMESPath](https://jmespath.org/specification.html) in der Shell mit Escapezeichen versehen werden. Beispiel in Bash:
-    
-    ```bash
-    # Wrong, as the dash needs to be quoted in a JMESPath query
-    $ az version --query azure-cli
-    az version: error: argument --query: invalid jmespath_type value: 'azure-cli'
+## <a name="pass-values-to-another-command"></a>Übergeben von Werten an einen anderen Befehl
 
-    # Wrong, as the dash needs to be quoted in a JMESPath query, but quotes are interpreted by Bash
-    $ az version --query "azure-cli"
-    az version: error: argument --query: invalid jmespath_type value: 'azure-cli'
+Azure CLI-Befehle werden in einer Shell ausgeführt. In diesem Artikel wird Bash verwendet, es gibt jedoch auch andere Optionen. Sie können die Standardshellsyntax verwenden, um die Nutzung der Azure CLI zu vereinfachen.
 
-    # Correct
-    $ az version --query '"azure-cli"'
-    "2.5.1"
+Ein Wert kann als Variable gespeichert werden. Variablen ermöglichen es Ihnen, Werte mehrmals zu verwenden oder allgemeinere Skripts zu erstellen. In diesem Beispiel wird einer Variablen eine ID zugewiesen, die mit dem Befehl [az vm list](/cli/azure/vm#az_vm_list) ermittelt wurde.
 
-    $ az version --query \"azure-cli\"
-    "2.5.1"
+```azurecli
+running_vm_ids=$(az vm list --resource-group MyResourceGroup --show-details \
+   --query "[?powerState=='VM running'].id" --output tsv)
+```
 
-    $ az version --query "\"azure-cli\""
-    "2.5.1"
-    ```
+> [!TIP]
+> Verwenden Sie unbedingt den Ausgabetyp `tsv`. Andere Ausgabetypen enthalten unter Umständen unerwünschte Symbole wie Anführungszeichen.
 
-    In der Eingabeaufforderung:
-    ```cmd
-    > az version --query "\"azure-cli\""
-    "2.5.1"
+Verwenden Sie den Wert später in Befehlen. Sie können den Wert durch Wiedergeben der Variablen überprüfen.
 
-    > az version --query \"azure-cli\"
-    "2.5.1"
-    ```
+```azurecli
+echo $running_vm_ids
+```
 
-    In PowerShell (zusätzliche Escapezeichen erforderlich):
-    ```powershell
-    > az version --query '\"azure-cli\"'
-    "2.5.1"
+Sie können auch einen Wert von einem Befehl an einen anderen übergeben. In diesem Beispiel wird die Bash-Standardsyntax für die Suche nach einem Wert verwendet:
 
-    > az version --query "\`"azure-cli\`""
-    "2.5.1"
+```azurecli
+az vm list --query "[?powerState=='VM running'].name" --output tsv | grep my_vm
+```
 
-    > az version --query "\""azure-cli\"""
-    "2.5.1"
+Beachten Sie bei der Verwendung von Azure CLI-Befehlen, wie Ihre Shell Anführungszeichen und Escapezeichen verwendet. Wenn Sie in verschiedenen Shells verwendete Skripts unterstützen, müssen Sie verstehen, wie sich die Shells unterscheiden.
 
-    > az --% version --query "\"azure-cli\""
-    "2.5.1"
+* Bash. [Anführungszeichen](https://www.gnu.org/software/bash/manual/html_node/Quoting.html)
+* PowerShell. [Informationen zu Regeln für Anführungszeichen](/powershell/module/microsoft.powershell.core/about/about_quoting_rules)
+* Windows-Eingabeaufforderung: [Escapezeichen, Trennzeichen und Anführungszeichen in der Windows-Befehlszeile](https://ss64.com/nt/syntax-esc.html)
 
-    > az --% version --query \"azure-cli\"
-    "2.5.1"
-    ```
+> [!NOTE]
+> Aufgrund eines bekannten Problems in PowerShell gelten für Escapezeichen einige zusätzliche Regeln. Weitere Informationen finden Sie unter [Probleme mit Anführungszeichen bei PowerShell](https://github.com/Azure/azure-cli/blob/dev/doc/quoting-issues-with-powershell.md).
 
-11. Die beste Möglichkeit zur Behandlung eines Problems mit Anführungszeichen ist die Ausführung des Befehls mit dem Flag `--debug`. Hiermit werden die Argumente, die von der CLI tatsächlich empfangen werden, in [Python-Syntax](https://docs.python.org/3/tutorial/introduction.html#strings) angezeigt. Beispiel in Bash:
+### <a name="using-hyphen-characters-in-values"></a>Verwenden von Bindestrichen in Werten
 
-    ```bash
-    # Wrong, as quotes and spaces are interpreted by Bash
-    $ az {"key": "value"} --debug
-    Command arguments: ['{key:', 'value}', '--debug']
+Beginnt ein Wert mit einem Bindestrich, versucht die Azure CLI, ihn als Parameternamen zu analysieren. Verwenden Sie Anführungszeichen, um ihn als Wert zu analysieren: `--password="-VerySecret"`.
 
-    # Wrong, as quotes are interpreted by Bash
-    $ az {"key":"value"} --debug
-    Command arguments: ['{key:value}', '--debug']
+### <a name="using-quotation-marks-in-values"></a>Verwenden von Anführungszeichen in Werten
 
-    # Correct
-    $ az '{"key":"value"}' --debug
-    Command arguments: ['{"key":"value"}', '--debug']
+Wenn Sie einen Parameter als Wert angeben, der Leerzeichen enthält, schließen Sie ihn in Anführungszeichen ein. Beachten Sie folgende Tipps:
 
-    # Correct
-    $ az "{\"key\":\"value\"}" --debug
-    Command arguments: ['{"key":"value"}', '--debug']
-    ```
+* In Bash oder PowerShell werden sowohl einfache als auch doppelte Anführungszeichen interpretiert. In der Windows-Eingabeaufforderung werden nur doppelte Anführungszeichen interpretiert. Einfache Anführungszeichen werden als Teil des Werts interpretiert.
+
+* Verwenden Sie für reine Bash-Befehle einfache Anführungszeichen, um JSON-Inline-Code zu vereinfachen. Dieser JSON-Code ist beispielsweise in Bash korrekt: `'{"key": "value"}'`. In der Windows-Eingabeaufforderung lautet die Entsprechung `"{\"key\": \"value\"}"`.
+
+* Einige Azure CLI-Befehle verwenden eine Liste mit durch Leerzeichen getrennten Werten. Wenn der Schlüsselname oder -wert Leerzeichen enthält, umschließen Sie das gesamte Paar: `"my key=my value"`.
+
+* Bash wertet doppelte Anführungszeichen in exportierten Variablen aus. Entspricht dieses Verhalten nicht Ihren Vorstellungen, versehen Sie die Variable mit Escapezeichen: `"\$variable"`.
+
+* Es gibt Sonderzeichen in PowerShell, z. B. `@`. Fügen Sie zum Ausführen der Azure CLI in PowerShell `` ` `` als Escapezeichen vor dem Sonderzeichen ein. Stattdessen können Sie den Wert in einfache oder doppelte Anführungszeichen `"`/`"` setzen.
+
+  ```azurecli
+  `@parameters.json
+  '@parameters.json'
+  ```
+
+* Bei Verwendung des Parameters `--query` mit einem Befehl müssen einige Zeichen von [JMESPath](https://jmespath.org/specification.html) in der Shell mit Escapezeichen versehen werden.
+
+  Diese drei Befehle führen in Bash zum gleichen Ergebnis:
+
+  ```azurecli
+  az version --query '"azure-cli"'
+  az version --query \"azure-cli\"
+  az version --query "\"azure-cli\""
+  ```
+
+  Diese beiden Befehle führen in der Windows-Eingabeaufforderung zum gleichen Ergebnis:
+
+  ```azurecli
+  az version --query "\"azure-cli\""
+  az version --query \"azure-cli\"
+  ```
+
+  Diese fünf Befehle führen in PowerShell zum gleichen Ergebnis:
+
+  ```azurecli
+  az version --query '\"azure-cli\"'
+  az version --query "\`"azure-cli\`""
+  az version --query "\""azure-cli\"""
+  az --% version --query "\"azure-cli\""
+  az --% version --query \"azure-cli\"
+  ```
+
+## <a name="asynchronous-operations"></a>Asynchrone Vorgänge
+
+Vorgänge in Azure können beträchtliche Zeit in Anspruch nehmen. Die Konfiguration eines virtuellen Computers in einem Rechenzentrum irgendwo auf der Welt erfolgt beispielsweise nicht sofort. Die Azure CLI wartet, bis der Befehl abgeschlossen ist, bevor andere Befehle akzeptiert werden.
+
+In vielen Befehlen kann der Parameter `--no-wait` verwendet werden, der die Ausführung weiterer Befehle ermöglicht. Im folgenden Beispiel wird eine Ressourcengruppe entfernt:
+
+```azurecli
+az group delete --name MyResourceGroup --no-wait
+```
+
+Beim Entfernen einer Ressourcengruppe werden auch alle dazugehörigen Ressourcen entfernt. Die Freigabe dieser Ressourcen kann sehr lange dauern. Mit dem Parameter `--no-wait` kann die Konsole bei Ausführung dieses Befehls sofort Befehle akzeptieren, auch wenn noch der erste Befehl verarbeitet wird.
+
+Viele Befehle bieten eine Warteoption, mit der die Konsole angehalten wird, bis eine Bedingung erfüllt ist. Im folgenden Beispiel wird der Befehl [az vm wait](/cli/azure/vm#az_vm_wait) verwendet, um das parallele Erstellen unabhängiger Ressourcen zu unterstützen:
+
+```azurecli
+az vm create --resource-group VMResources --name virtual-machine-01 --image centos --no-wait
+az vm create --resource-group VMResources --name virtual-machine-02 --image centos --no-wait
+
+subscription=$(az account show --query "id" -o tsv)
+vm1_id="/subscriptions/$subscription/resourceGroups/VMResources/providers/Microsoft.Compute/virtualMachines/virtual-machine-01"
+vm2_id="/subscriptions/$subscription/resourceGroups/VMResources/providers/Microsoft.Compute/virtualMachines/virtual-machine-02"
+az vm wait --created --ids $vm1_id $vm2_id
+```
+
+Nach der Erstellung der beiden IDs können Sie die Konsole wieder nutzen.
 
 ## <a name="work-behind-a-proxy"></a>Verwendung hinter einem Proxy
 
-Ein Proxy wird in Unternehmensnetzwerken häufig im Hintergrund genutzt oder ist aufgrund von Ablaufverfolgungstools wie Fiddler, mitmproxy usw. vorhanden. Wenn für den Proxy selbstsignierte Zertifikate verwendet werden, wird von der Python-Bibliothek mit den Anforderungen ([Requests](https://github.com/kennethreitz/requests)), die von der CLI genutzt wird, Folgendes ausgelöst: `SSLError("bad handshake: Error([('SSL routines', 'tls_process_server_certificate', 'certificate verify failed')],)",)`. Es gibt zwei Möglichkeiten, diesen Fehler zu behandeln:
+Wenn Sie die Azure CLI über einen Proxyserver verwenden, kann dies den folgenden Fehler verursachen: `SSLError("bad handshake: Error([('SSL routines', 'tls_process_server_certificate', 'certificate verify failed')],)",)`. Legen Sie zur Behebung dieses Fehlers die Umgebungsvariable `REQUESTS_CA_BUNDLE` auf den Pfad der Bundlezertifikatdatei der Zertifizierungsstelle im PEM-Format fest.
 
-1. Legen Sie die Umgebungsvariable `REQUESTS_CA_BUNDLE` auf den Pfad der Bundlezertifikatdatei der Zertifizierungsstelle im PEM-Format fest. Wir empfehlen Ihnen diese Vorgehensweise, wenn Sie die CLI häufig hinter einem Unternehmensproxy verwenden. Die Standardbundledatei der Zertifizierungsstelle, die von der CLI verwendet wird, befindet sich bei Windows unter `C:\Program Files (x86)\Microsoft SDKs\Azure\CLI2\Lib\site-packages\certifi\cacert.pem`. Bei Ubuntu/Debian befindet sie sich unter ` /opt/az/lib/python3.6/site-packages/certifi/cacert.pem` und bei CentOS/RHEL/SUSE unter `/usr/lib64/az/lib/python3.6/site-packages/certifi/cacert.pem`. Sie können das Zertifikat des Proxyservers an diese Datei anfügen oder den Inhalt in eine andere Zertifikatdatei kopieren und anschließend `REQUESTS_CA_BUNDLE` dafür festlegen. Beispiel:
+| Betriebssystem                     | Standardbundle der Zertifizierungsstelle                                                  |
+|----------------------- |-------------------------------------------------------------------------------------- |
+| Windows                | C:\Programme (x86)\Microsoft SDKs\Azure\CLI2\Lib\site-packages\certifi\cacert.pem |
+| Ubuntu/Debian Linux    | /opt/az/lib/python3.6/site-packages/certifi/cacert.pem                                |
+| CentOS/RHEL/SUSE Linux | /usr/lib64/az/lib/python3.6/site-packages/certifi/cacert.pem                          |
 
-    ```console
-    <Original cacert.pem>
+Fügen Sie das Zertifikat des Proxyservers an diese Datei an, oder kopieren Sie den Inhalt in eine andere Zertifikatdatei, und legen Sie anschließend `REQUESTS_CA_BUNDLE` dafür fest. Möglicherweise müssen Sie auch die Umgebungsvariable `HTTP_PROXY` oder `HTTPS_PROXY` festlegen.
 
-    -----BEGIN CERTIFICATE-----
-    <Your proxy's certificate here>
-    -----END CERTIFICATE-----
-    ```
-
-   Es wird häufig gefragt, ob die Umgebungsvariablen `HTTP_PROXY` bzw. `HTTPS_PROXY` festgelegt werden sollten. Die Antwort ist, dass dies vom jeweiligen Fall abhängt. Bei Verwendung von Fiddler unter Windows fungiert die Anwendung beim Start standardmäßig als Systemproxy, sodass Sie nichts festlegen müssen. Wenn die Option deaktiviert ist oder wenn Sie andere Tools verwenden, die nicht als Systemproxy fungieren, sollten Sie die Variablen festlegen. Da fast der gesamte Datenverkehr von der CLI SSL-basiert ist, sollte nur `HTTPS_PROXY` festgelegt werden. Falls Sie unsicher sind, können Sie auch einfach beide Variablen festlegen. Denken Sie aber daran, dies rückgängig zu machen, nachdem der Proxy heruntergefahren wurde. Der Standardwert für Fiddler ist `http://localhost:8888`.
-
-   Für einige Proxys ist Authentifizierung erforderlich. Daher muss das Format der Umgebungsvariablen `HTTP_PROXY` oder `HTTPS_PROXY` die Authentifizierung beinhalten, z. B. `HTTPS_PROXY="https://username:password@proxy-server:port"`. Es wird von den zugrunde liegenden Python-Bibliotheken benötigt. Ausführliche Informationen finden Sie unter [Konfigurieren von Proxys für die Azure-Bibliotheken](/azure/developer/python/azure-sdk-configure-proxy?tabs=bash). 
-
-   Weitere Informationen finden Sie im [Blog von Stefan](https://blog.jhnr.ch/2018/05/16/working-with-azure-cli-behind-ssl-intercepting-proxy-server/).
-
-2. Deaktivieren Sie die Zertifikatüberprüfung für die gesamte Azure CLI, indem Sie die Umgebungsvariable `AZURE_CLI_DISABLE_CONNECTION_VERIFICATION=1` festlegen. Dies ist nicht sicher, aber für kurze Einsätze trotzdem gut geeignet, z. B. die Erfassung einer Netzwerkablaufverfolgung für einen bestimmten Befehl und die sofortige Deaktivierung nach Abschluss des Vorgangs. Aufgrund von zugrunde liegenden Einschränkungen des SDK funktioniert dies unter Umständen für einige Datenebenenbefehle nicht.
+Einige Proxys erfordern eine Authentifizierung. Das Format der Umgebungsvariablen `HTTP_PROXY` oder `HTTPS_PROXY` sollte die Authentifizierung beinhalten, etwa `HTTPS_PROXY="https://username:password@proxy-server:port"`. Ausführliche Informationen finden Sie unter [Konfigurieren von Proxys für die Azure-Bibliotheken](/azure/developer/python/azure-sdk-configure-proxy?tabs=bash).
 
 ## <a name="concurrent-builds"></a>Gleichzeitige Buildvorgänge
 
-Wenn Sie „az“ auf einem Buildcomputer verwenden und mehrere Aufträge parallel ausgeführt werden können, besteht das Risiko, dass die Anmeldetoken für zwei Buildaufträge gemeinsam verwendet werden, falls die Aufträge mit demselben Betriebssystembenutzer ausgeführt werden.  Legen Sie zur Vermeidung von Verwechslungen dieser Art AZURE_CONFIG_DIR auf ein Verzeichnis fest, in dem die Anmeldetoken gespeichert werden sollen.  Hierbei kann es sich um einen zufällig erstellten Ordner oder einfach um den Namen des Jenkins-Arbeitsbereichs handeln, z. B. ```AZURE_CONFIG_DIR=.```.
+Wenn Sie die Azure CLI auf einem Buildcomputer ausführen, auf dem mehrere Aufträge parallel ausgeführt werden können, werden Zugriffstoken unter Umständen von zwei Buildaufträgen gemeinsam genutzt, die unter demselben Betriebssystembenutzer ausgeführt werden.  Legen Sie zur Vermeidung von Verwechslungen AZURE_CONFIG_DIR auf ein Verzeichnis fest, in dem die Zugriffstoken gespeichert werden.
 
-## <a name="appendix"></a>Anhang
+## <a name="generic-update-arguments"></a>Generische Updateargumente
 
-### <a name="windows-batch-scripts-for-saving-to-variables-and-using-it-later"></a>Windows-Batchskripts für die Speicherung in Variablen und die spätere Verwendung
+Azure CLI-Befehlsgruppen enthalten häufig einen update-Befehl. [Azure Virtual Machines](/cli/azure/vm) enthält beispielsweise den Befehl [az vm update](/cli/azure/vm#az_vm_update). Die meisten update-Befehle bieten diese drei generischen Parameter: `--add`, `--set` und `--remove`.
 
-```batch
+Die Parameter `--set` und `--add` verwenden eine Liste von durch Leerzeichen getrennten Schlüssel-Wert-Paaren: `key1=value1 key2=value2`. Verwenden Sie zum Anzeigen der Eigenschaften, die aktualisiert werden können, einen show-Befehl, etwa [az vm show](/cli/azure/vm#az_vm_show).
+
+```azurecli
+az vm show --resource-group VMResources --name virtual-machine-01
+```
+
+Sie können eine JSON-Zeichenfolge verwenden, um den Befehl zu vereinfachen. Verwenden Sie beispielsweise den folgenden Wert, um einen neuen Datenträger an einen virtuellen Computer anzufügen:
+
+```azurecli
+az vm update --resource-group VMResources --name virtual-machine-01 \
+--add storageProfile.dataDisks "{\"createOption\": \"Attach\", \"managedDisk\": 
+   {\"id\": 
+   \"/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/yg/providers/Microsoft.Compute/disks/yg-disk\"}, 
+   \"lun\": 1}"
+```
+
+## <a name="generic-resource-commands"></a>Generische Ressourcenbefehle
+
+Ein Dienst, den Sie verwenden möchten, wird möglicherweise noch nicht von der Azure CLI unterstützt. Sie können die Befehle vom Typ [az resource](/cli/azure/resource) verwenden, um mit diesen Ressourcen zu arbeiten.
+
+Wenn Sie nur create- oder update-Befehle benötigen, verwenden Sie [az deployment group create](/cli/azure/deployment/group#az_deployment_group_create). Arbeitsbeispiele finden Sie unter [Azure-Schnellstartvorlagen](/resources/templates/).
+
+## <a name="rest-api-commands"></a>REST-API-Befehle
+
+Wenn generische update-Argumente und [az resource](/cli/azure/resource) Ihre Anforderungen nicht erfüllen, können Sie den Befehl [az rest](/cli/azure/reference-index#az_rest) verwenden, um die REST-API aufzurufen. Bei dem Befehl wird die Authentifizierung automatisch mit den bereits eingegebenen Anmeldeinformationen durchgeführt und der Header `Content-Type: application/json` festgelegt. Weitere Informationen finden Sie unter [Azure-REST-API-Referenz](/rest/api/azure/).
+
+Dieses Beispiel funktioniert mit der [Microsoft Graph-API](/graph/api/overview?toc=./ref/toc.json). Rufen Sie zum Aktualisieren von Umleitungs-URIs für eine [Anwendung](/graph/api/resources/application) die REST-API zum [Aktualisieren der Anwendung](/graph/api/application-update?tabs=http) auf, wie in diesem Code gezeigt:
+
+```azurecli
+# Get the application
+az rest --method GET \
+    --uri 'https://graph.microsoft.com/v1.0/applications/b4e4d2ab-e2cb-45d5-a31a-98eb3f364001'
+
+# Update `redirectUris` for `web` property
+az rest --method PATCH \
+    --uri 'https://graph.microsoft.com/v1.0/applications/b4e4d2ab-e2cb-45d5-a31a-98eb3f364001' \
+    --body '{"web":{"redirectUris":["https://myapp.com"]}}'
+```
+
+## <a name="scripts"></a>Skripts
+
+Verwenden Sie das folgende Windows-Batchskript zum Speichern von IDs in Variablen:
+
+```console
 ECHO OFF
 SETLOCAL
-FOR /F "tokens=* USEBACKQ" %%F IN (`az vm list -d -g my_rg --query "[?powerState=='VM running'].id" -o tsv`) DO (
+FOR /F "tokens=* USEBACKQ" %%F IN (
+   `az vm list --resource-group VMResources --show-details --query "[?powerState=='VM running'].id" --output tsv`
+) DO (
     SET "vm_ids=%%F %vm_ids%"  :: construct the id list
 )
 az vm stop --ids %vm_ids% :: CLI stops all VMs in parallel
 ```
 
-### <a name="windows-powershell-scripts-for-saving-to-variables-and-using-it-later"></a>Windows PowerShell-Skripts für die Speicherung in Variablen und die spätere Verwendung
+Verwenden Sie das folgende Windows PowerShell-Skript zum Speichern von IDs in Variablen:
 
 ```powershell
-$vm_ids=(az vm list -d -g my_rg --query "[?powerState=='VM running'].id" -o tsv)
+$vm_ids=(az vm list --resource-group VMResources --show-details --query "[?powerState=='VM running'].id" --output tsv)
 az vm stop --ids $vm_ids # CLI stops all VMs in parallel
 ```
 
-### <a name="windows-batch-scripts-to-loop-through-a-list"></a>Windows-Batchskripts zum Durchlaufen einer Liste per Schleifenvorgang
+Verwenden Sie das folgende Windows-Batchskript zum Durchlaufen einer Liste per Schleifenvorgang:
 
-```batch
+```console
 ECHO OFF
 SETLOCAL
-FOR /F "tokens=* USEBACKQ" %%F IN (`az vm list -d -g my_rg --query "[?powerState=='VM running'].id" -o tsv`) DO (
+FOR /F "tokens=* USEBACKQ" %%F IN (
+    `az vm list --resource-group VMResources --show-details --query "[?powerState=='VM running'].id" --output tsv`
+) DO (
     ECHO Stopping %%F
     az vm stop --ids %%F
 )
 ```
 
-### <a name="windows-powershell-scripts-to-loop-through-a-list"></a>Windows PowerShell-Skripts zum Durchlaufen einer Liste per Schleifenvorgang
+Verwenden Sie das folgende Windows PowerShell-Skript zum Durchlaufen einer Liste per Schleifenvorgang:
 
 ```powershell
-$vm_ids=(az vm list -d -g my_rg --query "[?powerState=='VM running'].id" -o tsv)
+$vm_ids=(az vm list --resource-group VMResources --show-details --query "[?powerState=='VM running'].id" --output tsv)
 foreach ($vm_id in $vm_ids) {
     Write-Output "Stopping $vm_id"
     az vm stop --ids $vm_id
 }
 ```
 
-### <a name="cli-environment-variables"></a>CLI-Umgebungsvariablen
+Nachfolgend sind Azure CLI-Umgebungsvariablen aufgeführt:
 
 |  Umgebungsvariable          | BESCHREIBUNG            |
 |--------------------------------|------------------------|
-| **AZURE_CONFIG_DIR**           | Globales Konfigurationsverzeichnis für Konfigurationsdateien, Protokolle und Telemetriedaten. Wenn nichts angegeben wird, wird standardmäßig `~/.azure` verwendet. |
-| **AZURE_EXTENSION_DIR**        | Installationsverzeichnis für Erweiterungen. Wenn nichts angegeben wird, wird standardmäßig das Verzeichnis `cliextensions` im globalen Konfigurationsverzeichnis verwendet. |
+| **AZURE_CONFIG_DIR**           | Das globale Verzeichnis für Konfigurationsdateien, Protokolle und Telemetriedaten. Wenn keine Angabe erfolgt, wird dieser Wert standardmäßig auf `~/.azure.` festgelegt. |
+| **AZURE_EXTENSION_DIR**        | Das Verzeichnis mit Erweiterungsinstallationen. Wenn keine Angabe erfolgt, wird für diesen Wert standardmäßig das Unterverzeichnis `cliextensions` innerhalb des globalen Konfigurationsverzeichnisses verwendet. |
+
+## <a name="next-steps"></a>Nächste Schritte
+
+* [Angeben von Werten in Azure CLI-Befehlen](azure-cli-variables.md)
+* [Abfragen der Azure CLI-Befehlsausgabe](query-azure-cli.md)
+* [Ausgabeformate für Azure CLI-Befehle](format-output-azure-cli.md)
+* [Verwenden von Azure-Abonnements mit der Azure CLI](manage-azure-subscriptions-azure-cli.md)

@@ -1,0 +1,280 @@
+### YamlMime:AzureCLIGroup
+uid: az_appconfig_feature_filter
+name: az appconfig feature filter
+summary: Verwalten von Filtern, die mit in einer APP-Konfiguration gespeicherten Merkmals Flags verknüpft sind.
+description: ''
+directCommands:
+- uid: az_appconfig_feature_filter_add
+  name: az appconfig feature filter add
+  summary: Fügen Sie einem Merkmals Flag einen Filter hinzu.
+  description: ''
+  syntax: >-
+    az appconfig feature filter add --feature
+                                    --filter-name
+                                    [--auth-mode {key, login}]
+                                    [--connection-string]
+                                    [--endpoint]
+                                    [--filter-parameters]
+                                    [--index]
+                                    [--label]
+                                    [--name]
+                                    [--subscription]
+                                    [--yes]
+  examples:
+  - summary: Fügen Sie einen Filter für die Funktion "Color" mit der Bezeichnung "mylabel" mit dem Namen "myFilter" und 2 Parametern hinzu.
+    syntax: az appconfig feature filter add -n MyAppConfiguration --feature color --label MyLabel --filter-name MyFilter --filter-parameters Name=\"Value\" Name2=\"Value2\"
+  - summary: Fügen Sie einen Filter am Index 2 (null basierter Index) für die Funktion "Color" mit der Bezeichnung "mylabel" und Filter Name "myFilter" ohne Parameter ein.
+    syntax: az appconfig feature filter add -n MyAppConfiguration --feature color --label MyLabel --filter-name MyFilter --index 2
+  - summary: Fügen Sie einen Filter mit dem Namen "myFilter" mithilfe der Verbindungs Zeichenfolge hinzu.
+    syntax: az appconfig feature filter add --connection-string Endpoint=https://contoso.azconfig.io;Id=xxx;Secret=xxx --feature color --filter-name MyFilter
+  - summary: Fügen Sie mithilfe des App-Konfigurations Endpunkts und ihrer AZ Login-Anmelde Informationen einen Filter mit dem Namen "myFilter" hinzu.
+    syntax: az appconfig feature filter add --endpoint=https://contoso.azconfig.io --feature color --filter-name MyFilter --auth-mode login
+  - summary: Fügen Sie einen Filter für die Funktion "Color" mit der Bezeichnung "mylabel" mit dem Namen "myFilter" und den Array Parametern hinzu.
+    syntax: az appconfig feature filter add -n MyAppConfiguration --feature color --label MyLabel --filter-name MyFilter --filter-parameters ArrayParam=[1,2,3]
+  requiredParameters:
+  - isRequired: true
+    name: --feature
+    summary: Der Name der Funktion, der Sie den Filter hinzufügen möchten.
+    description: ''
+  - isRequired: true
+    name: --filter-name
+    summary: Der Name des hinzu zufügenden Filters.
+    description: ''
+  optionalParameters:
+  - name: --auth-mode
+    defaultValue: key
+    parameterValueGroup: key, login
+    summary: Dieser Parameter kann verwendet werden, um anzugeben, wie ein Daten Vorgang autorisiert werden soll. Wenn der Authentifizierungsmodus "Key" lautet, geben Sie eine Verbindungs Zeichenfolge oder einen Speicher Namen an, und Ihre Konto Zugriffsschlüssel werden für die Autorisierung abgerufen. Wenn der Authentifizierungsmodus "Login" lautet, geben Sie den Speicher Endpunkt oder den Speicher Namen an, und ihre Anmelde Informationen für "AZ Login" werden für die Autorisierung verwendet. Der Standard Authentifizierungsmodus kann mithilfe von konfiguriert werden `az configure --defaults appconfig_auth_mode=<auth_mode>` . Weitere Informationen finden Sie unter https://docs.microsoft.com/en-us/azure/azure-app-configuration/concept-enable-rbac.
+    description: ''
+  - name: --connection-string
+    summary: Kombination aus Zugriffsschlüssel und Endpunkt der APP-Konfiguration. Finden Sie unter "AZ AppConfig Anmelde Informationen List". Benutzer können Sie mithilfe `az configure --defaults appconfig_connection_string=<connection_string>` der-oder-Umgebungsvariablen mit dem Namen AZURE_APPCONFIG_CONNECTION_STRING voreinstellen.
+    description: ''
+  - name: --endpoint
+    summary: Wenn der Authentifizierungsmodus "Login" lautet, geben Sie die Endpunkt-URL der APP-Konfiguration an. Der Endpunkt kann mit dem Befehl "AZ AppConfig Show" abgerufen werden. Sie können den Standard Endpunkt mit konfigurieren `az configure --defaults appconfig_endpoint=<endpoint>` .
+    description: ''
+  - name: --filter-parameters
+    summary: Durch Leerzeichen getrennte Filter Parameter im Format "Name [= value]". Der Wert muss eine JSON-Zeichenfolge mit Escapezeichen sein.
+    description: ''
+  - name: --index
+    summary: NULL basierter Index in der Filterliste, an der Sie den neuen Filter einfügen möchten. Wenn kein Index angegeben oder der Index ungültig ist, wird am Ende der Liste der Filter hinzugefügt.
+    description: ''
+  - name: --label
+    summary: Wenn keine Bezeichnung angegeben ist, fügen Sie dem Merkmals Flag standardmäßig eine NULL-Bezeichnung hinzu.
+    description: ''
+  - name: --name -n
+    summary: Name der APP-Konfiguration. Sie können den Standardnamen mithilfe von konfigurieren `az configure --defaults app_configuration_store=<name>` .
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  - name: --yes -y
+    summary: Nicht zur Bestätigung auffordern
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/appconfig/_help.py
+- uid: az_appconfig_feature_filter_delete
+  name: az appconfig feature filter delete
+  summary: Löschen eines Filters aus einem Merkmals Flag
+  description: ''
+  syntax: >-
+    az appconfig feature filter delete --feature
+                                       [--all]
+                                       [--auth-mode {key, login}]
+                                       [--connection-string]
+                                       [--endpoint]
+                                       [--filter-name]
+                                       [--index]
+                                       [--label]
+                                       [--name]
+                                       [--subscription]
+                                       [--yes]
+  examples:
+  - summary: Löschen eines Filters aus einem Feature mithilfe des App-Konfigurations namens ohne Bestätigung.
+    syntax: az appconfig feature filter delete -n MyAppConfiguration --feature color --filter-name MyFilter --yes
+  - summary: Löschen Sie einen Filter aus einer Funktion, wenn Sie über mehrere Filter mit demselben Namen verfügen.
+    syntax: az appconfig feature filter delete --feature color --filter-name MyFilter --index 2 --connection-string Endpoint=https://contoso.azconfig.io;Id=xxx;Secret=xxx
+  - summary: Löschen Sie alle Filter eines Features mithilfe des App-Konfigurations namens ohne Bestätigung.
+    syntax: az appconfig feature filter delete -n MyAppConfiguration --feature color --label MyLabel --all --yes
+  requiredParameters:
+  - isRequired: true
+    name: --feature
+    summary: Der Name der Funktion, von der Sie den Filter löschen möchten.
+    description: ''
+  optionalParameters:
+  - name: --all
+    summary: Löschen Sie alle einem featureflag zugeordneten Filter.
+    description: ''
+  - name: --auth-mode
+    defaultValue: key
+    parameterValueGroup: key, login
+    summary: Dieser Parameter kann verwendet werden, um anzugeben, wie ein Daten Vorgang autorisiert werden soll. Wenn der Authentifizierungsmodus "Key" lautet, geben Sie eine Verbindungs Zeichenfolge oder einen Speicher Namen an, und Ihre Konto Zugriffsschlüssel werden für die Autorisierung abgerufen. Wenn der Authentifizierungsmodus "Login" lautet, geben Sie den Speicher Endpunkt oder den Speicher Namen an, und ihre Anmelde Informationen für "AZ Login" werden für die Autorisierung verwendet. Der Standard Authentifizierungsmodus kann mithilfe von konfiguriert werden `az configure --defaults appconfig_auth_mode=<auth_mode>` . Weitere Informationen finden Sie unter https://docs.microsoft.com/en-us/azure/azure-app-configuration/concept-enable-rbac.
+    description: ''
+  - name: --connection-string
+    summary: Kombination aus Zugriffsschlüssel und Endpunkt der APP-Konfiguration. Finden Sie unter "AZ AppConfig Anmelde Informationen List". Benutzer können Sie mithilfe `az configure --defaults appconfig_connection_string=<connection_string>` der-oder-Umgebungsvariablen mit dem Namen AZURE_APPCONFIG_CONNECTION_STRING voreinstellen.
+    description: ''
+  - name: --endpoint
+    summary: Wenn der Authentifizierungsmodus "Login" lautet, geben Sie die Endpunkt-URL der APP-Konfiguration an. Der Endpunkt kann mit dem Befehl "AZ AppConfig Show" abgerufen werden. Sie können den Standard Endpunkt mit konfigurieren `az configure --defaults appconfig_endpoint=<endpoint>` .
+    description: ''
+  - name: --filter-name
+    summary: Der Name des Filters, der gelöscht werden soll.
+    description: ''
+  - name: --index
+    summary: NULL basierter Index des Filters, der gelöscht werden soll, wenn mehrere Instanzen mit demselben Filternamen vorhanden sind.
+    description: ''
+  - name: --label
+    summary: Wenn keine Bezeichnung angegeben ist, wird standardmäßig aus dem Merkmals Flag mit der NULL-Bezeichnung gelöscht.
+    description: ''
+  - name: --name -n
+    summary: Name der APP-Konfiguration. Sie können den Standardnamen mithilfe von konfigurieren `az configure --defaults app_configuration_store=<name>` .
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  - name: --yes -y
+    summary: Nicht zur Bestätigung auffordern
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/appconfig/_help.py
+- uid: az_appconfig_feature_filter_list
+  name: az appconfig feature filter list
+  summary: Listet alle Filter für ein Merkmals Flag auf.
+  description: ''
+  syntax: >-
+    az appconfig feature filter list --feature
+                                     [--all]
+                                     [--auth-mode {key, login}]
+                                     [--connection-string]
+                                     [--endpoint]
+                                     [--label]
+                                     [--name]
+                                     [--query-examples]
+                                     [--subscription]
+                                     [--top]
+  examples:
+  - summary: Listet alle Filter für das featureflag "Color" auf.
+    syntax: az appconfig feature filter list -n MyAppConfiguration --feature color --all
+  - summary: Liste 150 Filter für Merkmals Flag "Color"
+    syntax: az appconfig feature filter list --connection-string Endpoint=https://contoso.azconfig.io;Id=xxx;Secret=xxx  --feature color --top 150
+  - summary: Listet alle Filter für das featureflag "Color" mit ihren "AZ Login"-Anmelde Informationen auf.
+    syntax: az appconfig feature filter list --endpoint https://myappconfiguration.azconfig.io --feature color --all --auth-mode login
+  requiredParameters:
+  - isRequired: true
+    name: --feature
+    summary: Der Name der Funktion, deren Filter angezeigt werden sollen.
+    description: ''
+  optionalParameters:
+  - name: --all
+    summary: Listet alle einem Merkmals Flag zugeordneten Filter auf.
+    description: ''
+  - name: --auth-mode
+    defaultValue: key
+    parameterValueGroup: key, login
+    summary: Dieser Parameter kann verwendet werden, um anzugeben, wie ein Daten Vorgang autorisiert werden soll. Wenn der Authentifizierungsmodus "Key" lautet, geben Sie eine Verbindungs Zeichenfolge oder einen Speicher Namen an, und Ihre Konto Zugriffsschlüssel werden für die Autorisierung abgerufen. Wenn der Authentifizierungsmodus "Login" lautet, geben Sie den Speicher Endpunkt oder den Speicher Namen an, und ihre Anmelde Informationen für "AZ Login" werden für die Autorisierung verwendet. Der Standard Authentifizierungsmodus kann mithilfe von konfiguriert werden `az configure --defaults appconfig_auth_mode=<auth_mode>` . Weitere Informationen finden Sie unter https://docs.microsoft.com/en-us/azure/azure-app-configuration/concept-enable-rbac.
+    description: ''
+  - name: --connection-string
+    summary: Kombination aus Zugriffsschlüssel und Endpunkt der APP-Konfiguration. Finden Sie unter "AZ AppConfig Anmelde Informationen List". Benutzer können Sie mithilfe `az configure --defaults appconfig_connection_string=<connection_string>` der-oder-Umgebungsvariablen mit dem Namen AZURE_APPCONFIG_CONNECTION_STRING voreinstellen.
+    description: ''
+  - name: --endpoint
+    summary: Wenn der Authentifizierungsmodus "Login" lautet, geben Sie die Endpunkt-URL der APP-Konfiguration an. Der Endpunkt kann mit dem Befehl "AZ AppConfig Show" abgerufen werden. Sie können den Standard Endpunkt mit konfigurieren `az configure --defaults appconfig_endpoint=<endpoint>` .
+    description: ''
+  - name: --label
+    summary: Wenn keine Bezeichnung angegeben ist, werden standardmäßig Filter aus dem Merkmals Flag mit der NULL-Bezeichnung angezeigt.
+    description: ''
+  - name: --name -n
+    summary: Name der APP-Konfiguration. Sie können den Standardnamen mithilfe von konfigurieren `az configure --defaults app_configuration_store=<name>` .
+    description: ''
+  - name: --query-examples
+    summary: Empfehlen Sie die jmespath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und Sie nach dem Abfrage Parameter in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positions Schlüsselwörter hinzufügen, um Vorschläge auf der Grundlage dieser Schlüsselwörter zu geben.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  - name: --top -t
+    summary: Maximale Anzahl zurück zugebender Elemente. Der Wert muss eine positive ganze Zahl sein. Der Standardwert ist 100.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/appconfig/_help.py
+- uid: az_appconfig_feature_filter_show
+  name: az appconfig feature filter show
+  summary: Anzeigen von Filtern eines Merkmals Flags.
+  description: ''
+  syntax: >-
+    az appconfig feature filter show --feature
+                                     --filter-name
+                                     [--auth-mode {key, login}]
+                                     [--connection-string]
+                                     [--endpoint]
+                                     [--index]
+                                     [--label]
+                                     [--name]
+                                     [--query-examples]
+                                     [--subscription]
+  examples:
+  - summary: Zeigen Sie einen eindeutigen Funktions Filter an, wenn Sie über mehrere Filter mit demselben Namen verfügen.
+    syntax: az appconfig feature filter show -n MyAppConfiguration --feature color --filter-name MyFilter --index 2
+  - summary: Alle Instanzen eines Funktions Filters anzeigen, wenn mehrere Filter denselben Namen aufweisen.
+    syntax: az appconfig feature filter show --connection-string Endpoint=https://contoso.azconfig.io;Id=xxx;Secret=xxx --feature color --filter-name MyFilter
+  requiredParameters:
+  - isRequired: true
+    name: --feature
+    summary: Der Name der Funktion, die den Filter enthält.
+    description: ''
+  - isRequired: true
+    name: --filter-name
+    summary: Der Name des anzuzeigenden Filters.
+    description: ''
+  optionalParameters:
+  - name: --auth-mode
+    defaultValue: key
+    parameterValueGroup: key, login
+    summary: Dieser Parameter kann verwendet werden, um anzugeben, wie ein Daten Vorgang autorisiert werden soll. Wenn der Authentifizierungsmodus "Key" lautet, geben Sie eine Verbindungs Zeichenfolge oder einen Speicher Namen an, und Ihre Konto Zugriffsschlüssel werden für die Autorisierung abgerufen. Wenn der Authentifizierungsmodus "Login" lautet, geben Sie den Speicher Endpunkt oder den Speicher Namen an, und ihre Anmelde Informationen für "AZ Login" werden für die Autorisierung verwendet. Der Standard Authentifizierungsmodus kann mithilfe von konfiguriert werden `az configure --defaults appconfig_auth_mode=<auth_mode>` . Weitere Informationen finden Sie unter https://docs.microsoft.com/en-us/azure/azure-app-configuration/concept-enable-rbac.
+    description: ''
+  - name: --connection-string
+    summary: Kombination aus Zugriffsschlüssel und Endpunkt der APP-Konfiguration. Finden Sie unter "AZ AppConfig Anmelde Informationen List". Benutzer können Sie mithilfe `az configure --defaults appconfig_connection_string=<connection_string>` der-oder-Umgebungsvariablen mit dem Namen AZURE_APPCONFIG_CONNECTION_STRING voreinstellen.
+    description: ''
+  - name: --endpoint
+    summary: Wenn der Authentifizierungsmodus "Login" lautet, geben Sie die Endpunkt-URL der APP-Konfiguration an. Der Endpunkt kann mit dem Befehl "AZ AppConfig Show" abgerufen werden. Sie können den Standard Endpunkt mit konfigurieren `az configure --defaults appconfig_endpoint=<endpoint>` .
+    description: ''
+  - name: --index
+    summary: NULL basierter Index des Filters, der angezeigt werden soll, wenn mehrere Instanzen mit demselben Filternamen vorhanden sind.
+    description: ''
+  - name: --label
+    summary: Wenn keine Bezeichnung angegeben ist, wird standardmäßig das featureflag mit der NULL-Bezeichnung angezeigt.
+    description: ''
+  - name: --name -n
+    summary: Name der APP-Konfiguration. Sie können den Standardnamen mithilfe von konfigurieren `az configure --defaults app_configuration_store=<name>` .
+    description: ''
+  - name: --query-examples
+    summary: Empfehlen Sie die jmespath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und Sie nach dem Abfrage Parameter in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positions Schlüsselwörter hinzufügen, um Vorschläge auf der Grundlage dieser Schlüsselwörter zu geben.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/appconfig/_help.py
+commands:
+- az_appconfig_feature_filter_add
+- az_appconfig_feature_filter_delete
+- az_appconfig_feature_filter_list
+- az_appconfig_feature_filter_show
+globalParameters:
+- name: --debug
+  summary: Ausführlichkeit der Protokollierung erhöhen, um alle Debugprotokolle anzuzeigen.
+- name: --help -h
+  summary: Zeigen Sie diese Hilfemeldung an, und schließen Sie sie.
+- name: --only-show-errors
+  summary: Nur Fehler anzeigen und Warnungen unterdrücken.
+- name: --output -o
+  defaultValue: json
+  parameterValueGroup: json, jsonc, table, tsv
+  summary: Ausgabeformat.
+- name: --query
+  summary: JMESPath-Abfragezeichenfolge. Weitere Informationen und Beispiele finden Sie unter <a href="http://jmespath.org/">http://jmespath.org/</a>.
+- name: --verbose
+  summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
+metadata:
+  doc_source_url_repo: https://github.com/Azure/azure-cli/blob/dev/
+  ms.date: 01/18/2021
+  description: Verwalten von Filtern, die mit in einer APP-Konfiguration gespeicherten Merkmals Flags verknüpft sind.
+  ms.openlocfilehash: d2e84500e4bc9b1b7d45ade99eb6c0086c470e28
+  ms.sourcegitcommit: 612554c029ba1f28d3a43fd22e743104a1a30ea0
+  ms.translationtype: MT
+  ms.contentlocale: de-DE
+  ms.lasthandoff: 04/07/2021
+  ms.locfileid: "106804497"

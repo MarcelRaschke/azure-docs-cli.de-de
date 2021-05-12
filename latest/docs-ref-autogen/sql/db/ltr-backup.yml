@@ -1,0 +1,272 @@
+### YamlMime:AzureCLIGroup
+uid: az_sql_db_ltr-backup
+name: az sql db ltr-backup
+summary: Verwalten von Sicherungen für die langfristige Aufbewahrung von SQL-Datenbanken.
+description: ''
+directCommands:
+- uid: az_sql_db_ltr-backup_delete
+  name: az sql db ltr-backup delete
+  summary: Löschen sie eine Sicherung mit langfristiger Aufbewahrung.
+  description: ''
+  syntax: >-
+    az sql db ltr-backup delete --database
+                                --location
+                                --name
+                                --server
+                                [--subscription]
+                                [--yes]
+  examples:
+  - summary: Löscht die Sicherung der langfristigen Aufbewahrung für die Datenbank.
+    syntax: az sql db ltr-backup delete -l southeastasia -s myserver -d mydb -n "3214b3fb-fba9-43e7-96a3-09e35ffcb336;132292152080000000"
+  requiredParameters:
+  - isRequired: true
+    name: --database -d
+    summary: Name der Azure SQL-Datenbank. Wenn angegeben (zusammen mit dem Servernamen), werden alle angeforderten Sicherungen unter dieser Datenbank abgerufen.
+    description: ''
+  - isRequired: true
+    name: --location -l
+    summary: Der Speicherort der gewünschten Sicherungen.
+    description: ''
+  - isRequired: true
+    name: --name -n
+    summary: Der Name der LTR-Sicherung. Verwenden Sie "az sql db ltr-backup show" oder "az sql db ltr-backup list" als Sicherungsname.
+    description: ''
+  - isRequired: true
+    name: --server -s
+    summary: Name des Azure SQL Servers. Wenn angegeben, ruft alle angeforderten Sicherungen unter diesem Server ab.
+    description: ''
+  optionalParameters:
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+  - name: --yes -y
+    summary: Nicht zur Bestätigung auffordern
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/sql/_help.py
+- uid: az_sql_db_ltr-backup_list
+  name: az sql db ltr-backup list
+  summary: Listet die Sicherungen für die langfristige Aufbewahrung für einen Standort, einen Server oder eine Datenbank auf.
+  description: ''
+  syntax: >-
+    az sql db ltr-backup list --location
+                              [--database]
+                              [--database-state]
+                              [--latest]
+                              [--query-examples]
+                              [--resource-group]
+                              [--server]
+                              [--subscription]
+  examples:
+  - summary: Auflisten von Sicherungen mit langfristiger Aufbewahrung für eine Datenbank.
+    syntax: az sql db ltr-backup list -l southeastasia -s myserver -d mydb
+  - summary: Listet Sicherungen für die langfristige Aufbewahrung für einen Server auf (listet nur die neuesten LTR-Sicherungen auf, die zu Livedatenbanken gehören).
+    syntax: az sql db ltr-backup list -l southeastasia -s myserver --database-state Live --only-latest-per-database True
+  - summary: Auflisten von Sicherungen für die Langzeitaufbewahrung für einen Server (mit Ressourcengruppenargument).
+    syntax: az sql db ltr-backup list -l southeastasia -g mygroup -s myserver
+  - summary: Listet Sicherungen für die langfristige Aufbewahrung für einen Speicherort auf (listet nur die neuesten LTR-Sicherungen auf, die zu Livedatenbanken gehören).
+    syntax: az sql db ltr-backup list -l southeastasia --database-state Live --only-latest-per-database True
+  - summary: Auflisten von Sicherungen mit langfristiger Aufbewahrung für einen Speicherort (mit Ressourcengruppenargument).
+    syntax: az sql db ltr-backup list -l southeastasia -g mygroup
+  requiredParameters:
+  - isRequired: true
+    name: --location -l
+    summary: Der Speicherort der gewünschten Sicherungen.
+    description: ''
+  optionalParameters:
+  - name: --database -d
+    summary: Name der Azure SQL-Datenbank. Wenn angegeben (zusammen mit dem Servernamen), werden alle angeforderten Sicherungen unter dieser Datenbank abgerufen.
+    description: ''
+  - name: --database-state --state
+    summary: "\"All\", \"Live\" oder \"Deleted\". Ruft Sicherungen nur aus Datenbanken mit dem angegebenen Zustand ab. Wenn kein Zustand provied ist, wird standardmäßig \"All\" verwendet."
+    description: ''
+  - name: --latest --only-latest-per-database
+    summary: True gibt nur die neueste Sicherung für jede Datenbank zurück.
+    description: ''
+  - name: --query-examples
+    summary: Empfehlen Sie die JMESPath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und sie nach dem Parameter --query in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positionsschlüsselwörter hinzufügen, damit wir basierend auf diesen Schlüsselwörtern Vorschläge geben können.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --server -s
+    summary: Name des Azure SQL-Servers. Ruft bei Angabe alle angeforderten Sicherungen unter diesem Server ab.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/sql/_help.py
+- uid: az_sql_db_ltr-backup_restore
+  name: az sql db ltr-backup restore
+  summary: Stellen Sie eine Langfristige Aufbewahrungssicherung in einer neuen Datenbank wieder her.
+  description: ''
+  syntax: >-
+    az sql db ltr-backup restore --backup-id
+                                 --dest-database
+                                 --dest-resource-group
+                                 --dest-server
+                                 [--backup-storage-redundancy]
+                                 [--no-wait]
+                                 [--subscription]
+  examples:
+  - summary: Stellen Sie die LTR-Sicherung wieder her.
+    syntax: >-
+      az sql db ltr-backup restore \
+
+      --dest-database targetdb --dest-server myserver --dest-resource-group mygroup \
+
+      --backup-id "/subscriptions/6caa113c-794c-42f8-ab9d-878d8aa104dc/resourceGroups/mygroup/providers/Microsoft.Sql/locations/southeastasia/longTermRetentionServers/myserver/longTermRetentionDatabases/sourcedb/longTermRetentionBackups/3214b3fb-fba9-43e7-96a3-09e35ffcb336;132292152080000000"
+  requiredParameters:
+  - isRequired: true
+    name: --backup-id
+    summary: Die Ressourcen-ID der Sicherung mit langfristiger Aufbewahrung, die wiederhergestellt werden soll. Verwenden Sie "az sql db ltr-backup show" oder "az sql db ltr-backup list" als Sicherungs-ID.
+    description: ''
+  - isRequired: true
+    name: --dest-database
+    summary: Name der Datenbank, die als Wiederherstellungsziel erstellt wird.
+    description: ''
+  - isRequired: true
+    name: --dest-resource-group
+    summary: Name der Ressourcengruppe des Servers, auf dem die Datenbank wiederhergestellt werden soll.
+    description: ''
+  - isRequired: true
+    name: --dest-server
+    summary: Name des Servers, auf dem die Datenbank wiederhergestellt werden soll.
+    description: ''
+  optionalParameters:
+  - name: --backup-storage-redundancy --bsr
+    summary: 'Sicherungsspeicherredundanz zum Speichern von Sicherungen. Zulässige Werte sind: Local, Zone, Geo.'
+    description: ''
+  - name: --no-wait
+    summary: Nicht auf den Abschluss lang andauernder Vorgänge warten
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/sql/_help.py
+- uid: az_sql_db_ltr-backup_show
+  name: az sql db ltr-backup show
+  summary: Hier erhalten Sie eine Sicherung mit langfristiger Aufbewahrung für eine Datenbank.
+  description: ''
+  syntax: >-
+    az sql db ltr-backup show --database
+                              --location
+                              --name
+                              --server
+                              [--query-examples]
+                              [--subscription]
+  examples:
+  - summary: Anzeigen der Sicherung der langfristigen Aufbewahrung für eine Datenbank.
+    syntax: az sql db ltr-backup show -l southeastasia -s myserver -d mydb -n "3214b3fb-fba9-43e7-96a3-09e35ffcb336;132292152080000000"
+  requiredParameters:
+  - isRequired: true
+    name: --database -d
+    summary: Name der Azure SQL-Datenbank. Wenn angegeben (zusammen mit dem Servernamen), werden alle angeforderten Sicherungen unter dieser Datenbank abgerufen.
+    description: ''
+  - isRequired: true
+    name: --location -l
+    summary: Der Speicherort der gewünschten Sicherungen.
+    description: ''
+  - isRequired: true
+    name: --name -n
+    summary: Der Name der LTR-Sicherung. Verwenden Sie "az sql db ltr-backup show" oder "az sql db ltr-backup list" als Sicherungsname.
+    description: ''
+  - isRequired: true
+    name: --server -s
+    summary: Name des Azure SQL Servers. Wenn angegeben, ruft alle angeforderten Sicherungen unter diesem Server ab.
+    description: ''
+  optionalParameters:
+  - name: --query-examples
+    summary: Empfehlen Sie die JMESPath-Zeichenfolge. Sie können eine der Abfragen kopieren und nach dem Parameter --query in doppelte Anführungszeichen einfügen, um die Ergebnisse zu sehen. Sie können ein oder mehrere Positionsschlüsselwörter hinzufügen, damit wir basierend auf diesen Schlüsselwörtern Vorschläge machen können.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/sql/_help.py
+- uid: az_sql_db_ltr-backup_wait
+  name: az sql db ltr-backup wait
+  summary: Platzieren Sie die CLI in einen Wartezustand, bis eine Bedingung der Datenbank erfüllt ist.
+  description: ''
+  syntax: >-
+    az sql db ltr-backup wait [--created]
+                              [--custom]
+                              [--deleted]
+                              [--exists]
+                              [--ids]
+                              [--interval]
+                              [--name]
+                              [--resource-group]
+                              [--server]
+                              [--subscription]
+                              [--timeout]
+                              [--updated]
+  optionalParameters:
+  - name: --created
+    summary: Warten Sie, bis mit "provisioningState" bei "Succeeded" erstellt wurde.
+    description: ''
+  - name: --custom
+    summary: "Warten Sie, bis die Bedingung eine benutzerdefinierte JMESPath-Abfrage erfüllt. Beispiel: provisioningState!='InProgress', instanceView.statuses[?code=='PowerState/running']."
+    description: ''
+  - name: --deleted
+    summary: Warten Sie, bis sie gelöscht wurde.
+    description: ''
+  - name: --exists
+    summary: Warten Sie, bis die Ressource vorhanden ist.
+    description: ''
+  - name: --ids
+    summary: Eine oder mehrere Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen von "Resource Id"-Argumenten sein. Sie sollten entweder --ids oder andere "Resource Id"-Argumente angeben.
+    description: ''
+  - name: --interval
+    defaultValue: "30"
+    summary: Abrufintervall in Sekunden.
+    description: ''
+  - name: --name -n
+    summary: Name des Azure SQL-Datenbank.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --server -s
+    summary: Name des Azure SQL Servers. Sie können die Standardeinstellung mit `az configure --defaults sql-server=<name>` konfigurieren.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+  - name: --timeout
+    defaultValue: "3600"
+    summary: Maximale Wartezeit in Sekunden.
+    description: ''
+  - name: --updated
+    summary: Warten Sie, bis das Update mit provisioningState unter "Succeeded" (Erfolgreich) ausgeführt wurde.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/sql/_help.py
+commands:
+- az_sql_db_ltr-backup_delete
+- az_sql_db_ltr-backup_list
+- az_sql_db_ltr-backup_restore
+- az_sql_db_ltr-backup_show
+- az_sql_db_ltr-backup_wait
+globalParameters:
+- name: --debug
+  summary: Ausführlichkeit der Protokollierung erhöhen, um alle Debugprotokolle anzuzeigen.
+- name: --help -h
+  summary: Zeigen Sie diese Hilfemeldung an, und schließen Sie sie.
+- name: --only-show-errors
+  summary: Nur Fehler anzeigen und Warnungen unterdrücken.
+- name: --output -o
+  defaultValue: json
+  parameterValueGroup: json, jsonc, table, tsv
+  summary: Ausgabeformat.
+- name: --query
+  summary: JMESPath-Abfragezeichenfolge. Weitere Informationen und Beispiele finden Sie unter <a href="http://jmespath.org/">http://jmespath.org/</a>.
+- name: --verbose
+  summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
+metadata:
+  doc_source_url_repo: https://github.com/Azure/azure-cli/blob/dev/
+  ms.date: 04/19/2021
+  description: Verwalten von Sicherungen der langfristigen Aufbewahrung von SQL-Datenbanken.
+  ms.openlocfilehash: 7cd881751a72eeae3f40914a18d4ba5531ccf47d
+  ms.sourcegitcommit: f11f08a8b571d9909044693a8dc52c0cf2e9b2bc
+  ms.translationtype: MT
+  ms.contentlocale: de-DE
+  ms.lasthandoff: 04/19/2021
+  ms.locfileid: "107710391"

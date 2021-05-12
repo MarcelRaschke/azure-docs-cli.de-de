@@ -1,0 +1,330 @@
+### YamlMime:AzureCLIGroup
+uid: az_keyvault_storage_sas-definition
+name: az keyvault storage sas-definition
+summary: Verwalten von SAS-Definitionen für Speicherkonten.
+description: ''
+directCommands:
+- uid: az_keyvault_storage_sas-definition_create
+  name: az keyvault storage sas-definition create
+  summary: Erstellt oder aktualisiert eine neue SAS-Definition für das angegebene Speicherkonto.
+  description: ''
+  syntax: >-
+    az keyvault storage sas-definition create --account-name
+                                              --name
+                                              --sas-type {account, service}
+                                              --template-uri
+                                              --validity-period
+                                              --vault-name
+                                              [--disabled {false, true}]
+                                              [--subscription]
+                                              [--tags]
+  examples:
+  - summary: Hinzufügen einer SAS-Definition für ein Konto mit sas-token
+    syntax: >-
+      $sastoken = az storage account generate-sas --expiry 2020-01-01 --permissions rw --resource-types sco --services bfqt --https-only --account-name storageacct --account-key 00000000
+
+
+      az keyvault storage sas-definition create --vault-name vault --account-name storageacct -n rwallserviceaccess --validity-period P2D --sas-type account --template-uri $sastoken
+  - summary: Hinzufügen einer SAS-Definition für ein Blob-SAS-Token
+    syntax: >-
+      $sastoken = az storage blob generate-sas --account-name storageacct --account-key 00000000 -c container1 -n blob1 --https-only --permissions rw
+
+      $url = az storage blob url --account-name storageacct -c container1 -n blob1
+
+      az keyvault storage sas-definition create --vault-name vault --account-name storageacct -n rwblobaccess --validity-period P2D --sas-type service --template-uri $url?$sastoken
+  - summary: Hinzufügen einer SAS-Definition für einen Container sas-token
+    syntax: >-
+      $sastoken = az storage container generate-sas --account-name storageacct --account-key 00000000 -n container1 --https-only --permissions rw
+
+      $url = "https://{storage-account-name}.blob.core.windows.net/{container-name}"  # The prefix of your blob url
+
+      az keyvault storage sas-definition create --vault-name vault --account-name storageacct -n rwcontaineraccess --validity-period P2D --sas-type service --template-uri $url?$sastoken
+  requiredParameters:
+  - isRequired: true
+    name: --account-name
+    summary: Name zum Identifizieren des Speicherkontos im Tresor.
+    description: ''
+  - isRequired: true
+    name: --name -n
+    summary: Name zum Identifizieren der SAS-Definition im Tresor.
+    description: ''
+  - isRequired: true
+    name: --sas-type
+    parameterValueGroup: account, service
+    summary: Der Typ des SAS-Tokens, das von der SAS-Definition erstellt wird.
+    description: ''
+  - isRequired: true
+    name: --template-uri
+    summary: Die SAS-Definitionstokenvorlage, die mit dem Schlüssel 00000000 signiert ist. Im Fall eines Kontotokens ist dies nur das SAS-Token selbst, bei Diensttoken die vollständige Dienstendpunkt-URL zusammen mit dem SAS-Token.  Token, die gemäß der SAS-Definition erstellt werden, haben die gleichen Eigenschaften wie die Vorlage.
+    description: ''
+  - isRequired: true
+    name: --validity-period
+    summary: Die Gültigkeitsdauer von SAS-Token, die gemäß der SAS-Definition in ISO-8601 erstellt wurden, z. B. "PT12H" für 12-Stunden-Token.
+    description: ''
+  - isRequired: true
+    name: --vault-name
+    summary: Name des Tresors.
+    description: ''
+  optionalParameters:
+  - name: --disabled
+    parameterValueGroup: false, true
+    summary: Fügen Sie das Speicherkonto in einem deaktivierten Zustand hinzu.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+  - name: --tags
+    summary: 'Durch Leerzeichen getrennte Tags: key[=value] [key[=value] ...]. Verwenden Sie "", um vorhandene Tags zu löschen.'
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/keyvault/_help.py
+- uid: az_keyvault_storage_sas-definition_delete
+  name: az keyvault storage sas-definition delete
+  summary: Löscht eine SAS-Definition aus einem angegebenen Speicherkonto.
+  description: Für diesen Vorgang ist die Berechtigung storage/deletesas erforderlich.
+  syntax: >-
+    az keyvault storage sas-definition delete [--account-name]
+                                              [--id]
+                                              [--name]
+                                              [--subscription]
+                                              [--vault-name]
+  optionalParameters:
+  - name: --account-name
+    summary: Name zum Identifizieren des Speicherkontos im Tresor. Erforderlich, wenn --id nicht angegeben ist.
+    description: ''
+  - name: --id
+    summary: ID der SAS-Definition. Wenn angegeben, sollten alle anderen Id-Argumente weggelassen werden.
+    description: ''
+  - name: --name -n
+    summary: Name zum Identifizieren der SAS-Definition im Tresor. Erforderlich, wenn --id nicht angegeben ist.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+  - name: --vault-name
+    summary: Name des Key Vault. Erforderlich, wenn --id nicht angegeben ist.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/keyvault/_help.py
+- uid: az_keyvault_storage_sas-definition_list
+  name: az keyvault storage sas-definition list
+  summary: Auflisten von Speicher-SAS-Definitionen für das angegebene Speicherkonto.
+  description: Für diesen Vorgang ist die Berechtigung storage/listsas erforderlich.
+  syntax: >-
+    az keyvault storage sas-definition list --account-name
+                                            --vault-name
+                                            [--maxresults]
+                                            [--query-examples]
+                                            [--subscription]
+  requiredParameters:
+  - isRequired: true
+    name: --account-name
+    summary: Name zum Identifizieren des Speicherkontos im Tresor.
+    description: ''
+  - isRequired: true
+    name: --vault-name
+    summary: Name des Tresors.
+    description: ''
+  optionalParameters:
+  - name: --maxresults
+    summary: Maximale Anzahl von Ergebnissen, die auf einer Seite zurückgegeben werden sollen. Wenn keine Angabe erfolgt, gibt der Dienst bis zu 25 Ergebnisse zurück.
+    description: ''
+  - name: --query-examples
+    summary: Empfehlen Sie die JMESPath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und nach dem Parameter --query in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positionsschlüsselwörter hinzufügen, damit wir basierend auf diesen Schlüsselwörtern Vorschläge geben können.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/keyvault/_help.py
+- uid: az_keyvault_storage_sas-definition_list-deleted
+  name: az keyvault storage sas-definition list-deleted
+  summary: Listet gelöschte SAS-Definitionen für den angegebenen Tresor und das angegebene Speicherkonto auf.
+  description: Der Vorgang Get Deleted SAS Definitions (Gelöschte SAS-Definitionen abrufen) gibt die SAS-Definitionen zurück, die für einen Tresor gelöscht wurden, der für das vorläufig löschen aktiviert ist. Für diesen Vorgang ist die Berechtigung storage/listsas erforderlich.
+  syntax: >-
+    az keyvault storage sas-definition list-deleted --account-name
+                                                    --vault-name
+                                                    [--maxresults]
+                                                    [--subscription]
+  requiredParameters:
+  - isRequired: true
+    name: --account-name
+    summary: Name zum Identifizieren des Speicherkontos im Tresor.
+    description: ''
+  - isRequired: true
+    name: --vault-name
+    summary: Name des Tresors.
+    description: ''
+  optionalParameters:
+  - name: --maxresults
+    summary: Maximale Anzahl von Ergebnissen, die auf einer Seite zurückgeben werden. Wenn nichts angegeben ist, gibt der Dienst bis zu 25 Ergebnisse zurück.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/keyvault/_help.py
+- uid: az_keyvault_storage_sas-definition_recover
+  name: az keyvault storage sas-definition recover
+  summary: Stellt die gelöschte SAS-Definition wieder auf.
+  description: Stellt die gelöschte SAS-Definition für das angegebene Speicherkonto wieder auf. Dieser Vorgang kann nur für einen Tresor ausgeführt werden, für den das soft-delete aktiviert ist. Für diesen Vorgang ist die Speicher-/Wiederherstellungsberechtigung erforderlich.
+  syntax: >-
+    az keyvault storage sas-definition recover --account-name
+                                               --name
+                                               --vault-name
+                                               [--subscription]
+  requiredParameters:
+  - isRequired: true
+    name: --account-name
+    summary: Name zum Identifizieren des Speicherkontos im Tresor.
+    description: ''
+  - isRequired: true
+    name: --name -n
+    summary: Name zum Identifizieren der SAS-Definition im Tresor.
+    description: ''
+  - isRequired: true
+    name: --vault-name
+    summary: Name des Tresors.
+    description: ''
+  optionalParameters:
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/keyvault/_help.py
+- uid: az_keyvault_storage_sas-definition_show
+  name: az keyvault storage sas-definition show
+  summary: Ruft Informationen zu einer SAS-Definition für das angegebene Speicherkonto ab.
+  description: Für diesen Vorgang ist die Berechtigung storage/getsas erforderlich.
+  syntax: >-
+    az keyvault storage sas-definition show [--account-name]
+                                            [--id]
+                                            [--name]
+                                            [--query-examples]
+                                            [--subscription]
+                                            [--vault-name]
+  optionalParameters:
+  - name: --account-name
+    summary: Name zum Identifizieren des Speicherkontos im Tresor. Erforderlich, wenn --id nicht angegeben ist.
+    description: ''
+  - name: --id
+    summary: ID der SAS-Definition. Wenn angegeben, sollten alle anderen "Id"-Argumente weggelassen werden.
+    description: ''
+  - name: --name -n
+    summary: Name zum Identifizieren der SAS-Definition im Tresor. Erforderlich, wenn --id nicht angegeben ist.
+    description: ''
+  - name: --query-examples
+    summary: Empfehlen Sie die JMESPath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und nach dem Parameter --query in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positionsschlüsselwörter hinzufügen, damit wir basierend auf diesen Schlüsselwörtern Vorschläge geben können.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+  - name: --vault-name
+    summary: Name des Key Vault. Erforderlich, wenn --id nicht angegeben ist.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/keyvault/_help.py
+- uid: az_keyvault_storage_sas-definition_show-deleted
+  name: az keyvault storage sas-definition show-deleted
+  summary: Ruft die angegebene gelöschte SAS-Definition ab.
+  description: Der Vorgang Get Deleted SAS Definition gibt die angegebene gelöschte SAS-Definition zusammen mit ihren Attributen zurück. Für diesen Vorgang ist die Berechtigung storage/getsas erforderlich.
+  syntax: >-
+    az keyvault storage sas-definition show-deleted --account-name
+                                                    --name
+                                                    --vault-name
+                                                    [--subscription]
+  requiredParameters:
+  - isRequired: true
+    name: --account-name
+    summary: Name zum Identifizieren des Speicherkontos im Tresor.
+    description: ''
+  - isRequired: true
+    name: --name -n
+    summary: Name zum Identifizieren der SAS-Definition im Tresor.
+    description: ''
+  - isRequired: true
+    name: --vault-name
+    summary: Name des Tresors.
+    description: ''
+  optionalParameters:
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/keyvault/_help.py
+- uid: az_keyvault_storage_sas-definition_update
+  name: az keyvault storage sas-definition update
+  summary: Aktualisiert die angegebenen Attribute, die der angegebenen SAS-Definition zugeordnet sind.
+  description: Dieser Vorgang erfordert die Berechtigung „storage/setsas“.
+  syntax: >-
+    az keyvault storage sas-definition update [--account-name]
+                                              [--disabled {false, true}]
+                                              [--id]
+                                              [--name]
+                                              [--sas-type {account, service}]
+                                              [--subscription]
+                                              [--tags]
+                                              [--template-uri]
+                                              [--validity-period]
+                                              [--vault-name]
+  optionalParameters:
+  - name: --account-name
+    summary: Name zum Identifizieren des Speicherkontos im Tresor. Erforderlich, wenn --id nicht angegeben ist.
+    description: ''
+  - name: --disabled
+    parameterValueGroup: false, true
+    summary: Fügen Sie das Speicherkonto in einem deaktivierten Zustand hinzu.
+    description: ''
+  - name: --id
+    summary: ID der SAS-Definition. Wenn angegeben, sollten alle anderen Id-Argumente weggelassen werden.
+    description: ''
+  - name: --name -n
+    summary: Name zum Identifizieren der SAS-Definition im Tresor. Erforderlich, wenn --id nicht angegeben ist.
+    description: ''
+  - name: --sas-type
+    parameterValueGroup: account, service
+    summary: Der Typ des SAS-Tokens, das von der SAS-Definition erstellt wird.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+  - name: --tags
+    summary: 'Durch Leerzeichen getrennte Tags: key[=value] [key[=value] ...]. Verwenden Sie "", um vorhandene Tags zu löschen.'
+    description: ''
+  - name: --template-uri
+    summary: Die SAS-Definitionstokenvorlage, die mit dem Schlüssel 00000000 signiert ist. Im Fall eines Kontotokens ist dies nur das SAS-Token selbst, bei Diensttoken die vollständige Dienstendpunkt-URL zusammen mit dem SAS-Token.  Token, die gemäß der SAS-Definition erstellt werden, haben die gleichen Eigenschaften wie die Vorlage.
+    description: ''
+  - name: --validity-period
+    summary: Die Gültigkeitsdauer von SAS-Token, die gemäß der SAS-Definition in ISO-8601 erstellt wurden, z. B. "PT12H" für 12-Stunden-Token.
+    description: ''
+  - name: --vault-name
+    summary: Name des Key Vault. Erforderlich, wenn --id nicht angegeben ist.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/keyvault/_help.py
+commands:
+- az_keyvault_storage_sas-definition_create
+- az_keyvault_storage_sas-definition_delete
+- az_keyvault_storage_sas-definition_list
+- az_keyvault_storage_sas-definition_list-deleted
+- az_keyvault_storage_sas-definition_recover
+- az_keyvault_storage_sas-definition_show
+- az_keyvault_storage_sas-definition_show-deleted
+- az_keyvault_storage_sas-definition_update
+globalParameters:
+- name: --debug
+  summary: Ausführlichkeit der Protokollierung erhöhen, um alle Debugprotokolle anzuzeigen.
+- name: --help -h
+  summary: Zeigen Sie diese Hilfemeldung an, und schließen Sie sie.
+- name: --only-show-errors
+  summary: Nur Fehler anzeigen und Warnungen unterdrücken.
+- name: --output -o
+  defaultValue: json
+  parameterValueGroup: json, jsonc, table, tsv
+  summary: Ausgabeformat.
+- name: --query
+  summary: JMESPath-Abfragezeichenfolge. Weitere Informationen und Beispiele finden Sie unter <a href="http://jmespath.org/">http://jmespath.org/</a>.
+- name: --verbose
+  summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
+metadata:
+  doc_source_url_repo: https://github.com/Azure/azure-cli/blob/dev/
+  ms.date: 04/26/2021
+  description: Verwalten von SAS-Definitionen für Speicherkonten.
+  ms.openlocfilehash: f32943bbbe2515a093b6b876dae28a74303c4e77
+  ms.sourcegitcommit: 15a6f14c5a8570ba89a3bd5bb442f3324d72bc37
+  ms.translationtype: MT
+  ms.contentlocale: de-DE
+  ms.lasthandoff: 04/29/2021
+  ms.locfileid: "108252350"

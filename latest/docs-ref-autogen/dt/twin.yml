@@ -1,0 +1,263 @@
+### YamlMime:AzureCLIGroup
+uid: az_dt_twin
+name: az dt twin
+extensionInformation: >-
+  > [!Note]
+
+  > Dieser Verweis ist Teil der **Erweiterung azure-iot** für Azure CLI und erfordert Version 2.0.70 oder höher.  Die Erweiterung wird automatisch installiert, wenn Sie zum ersten Mal den **Befehl az dt twin** ausführen.  [Weitere Informationen zu Erweiterungen](https://docs.microsoft.com/en-us/cli/azure/azure-cli-extensions-overview)
+summary: Verwalten und Konfigurieren der digitalen Zwillinge einer Digital Twins Instanz.
+description: ''
+directCommands:
+- uid: az_dt_twin_create
+  name: az dt twin create
+  summary: Erstellen sie einen digitalen Zwilling für eine Instanz.
+  description: >-
+    --properties kann ein JSON-Inlinepfad oder ein Dateipfad sein.
+
+    Hinweis: --properties sind für Zwillinge erforderlich, die Komponenten enthalten.
+  syntax: >-
+    az dt twin create --dt-name
+                      --dtmi
+                      --twin-id
+                      [--if-none-match]
+                      [--properties]
+                      [--resource-group]
+  examples:
+  - summary: Erstellen Sie einen digitalen Zwilling aus einem vorhandenen (zuvor erstellten) Modell.
+    syntax: az dt twin create -n {instance_or_hostname} --dtmi "dtmi:com:example:Room;1" --twin-id {twin_id}
+  - summary: Erstellen Sie einen digitalen Zwilling aus einem vorhandenen (zuvor erstellten) Modell mit dem Tag if-none-match.
+    syntax: az dt twin create -n {instance_or_hostname} --dtmi "dtmi:com:example:Room;1" --twin-id {twin_id} --if-none-match
+  - summary: Erstellen Sie einen digitalen Zwilling aus einem vorhandenen (zuvor erstellten) Modell. Instanziieren Sie mit Eigenschaftswerten.
+    syntax: "az dt twin create -n {instance_or_hostname} --dtmi \"dtmi:com:example:DeviceInformation;1\" --twin-id {twin_id} --properties '{\"manufacturer\": \"Microsoft\"}'"
+  - summary: Erstellen Sie einen digitalen Zwilling mit einer Komponente aus vorhandenen (zuvor erstellten) Modellen. Instanziieren Sie die Komponente mit minimalen Eigenschaften.
+    syntax: >-
+      az dt twin create -n {instance_or_hostname} --dtmi "dtmi:com:example:TemperatureController;1" --twin-id {twin_id} --properties '{
+          "Thermostat": {
+              "$metadata": {},
+          }
+      }'
+  - summary: Erstellen Sie einen digitalen Zwilling mit einer Komponente aus vorhandenen (zuvor erstellten) Modellen. Instanziieren Sie mit Eigenschaftswerten.
+    syntax: >-
+      az dt twin create -n {instance_or_hostname} --dtmi "dtmi:com:example:TemperatureController;1" --twin-id {twin_id} --properties '{
+          "Temperature": 10.2,
+          "Thermostat": {
+              "$metadata": {},
+              "setPointTemp": 23.12
+          }
+      }'
+  requiredParameters:
+  - isRequired: true
+    name: --dt-name --dtn -n
+    summary: Digital Twins Instanzname oder Hostname. Wenn ein Instanzname angegeben wird, wird das Benutzerabonnement zuerst nach der Zielinstanz abgefragt, um den Hostnamen abzurufen. Wenn ein Hostname angegeben wird, wird die Abonnementabfrage übersprungen, und der bereitgestellte Wert wird für nachfolgende Interaktionen verwendet.
+    description: ''
+  - isRequired: true
+    name: --dtmi --model-id -m
+    summary: 'Digital Twins Modell-ID. Beispiel: dgi:com:example:Room;2.'
+    description: ''
+  - isRequired: true
+    name: --twin-id -t
+    summary: Die ID des digitalen Zwillings.
+    description: ''
+  optionalParameters:
+  - name: --if-none-match
+    summary: Gibt an, dass der Erstellungsvorgang fehlschlagen soll, wenn ein vorhandener Zwilling mit der gleichen ID vorhanden ist.
+    description: ''
+  - name: --properties -p
+    summary: Anfängliche Eigenschaftswerte zum Instanziieren eines digitalen Zwillings oder verwandter Komponenten. Geben Sie den Dateipfad oder Inline-JSON-Code an. Eigenschaften sind für Zwillinge erforderlich, die Komponenten enthalten. Mindestens müssen Sie für jede Komponente ein leeres $metadata-Objekt angeben.
+    description: ''
+  - name: --resource-group -g
+    summary: Digital Twins Instanzressourcengruppe. Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+- uid: az_dt_twin_delete
+  name: az dt twin delete
+  summary: Entfernen sie einen digitalen Zwilling. Alle Beziehungen, die auf diesen Zwilling verweisen, müssen bereits gelöscht werden.
+  description: ''
+  syntax: >-
+    az dt twin delete --dt-name
+                      --twin-id
+                      [--etag]
+                      [--resource-group]
+  examples:
+  - summary: Entfernen Sie einen digitalen Zwilling nach ID.
+    syntax: az dt twin delete -n {instance_or_hostname} --twin-id {twin_id}
+  - summary: Entfernen Sie einen digitalen Zwilling anhand der ID mithilfe des ETags.
+    syntax: az dt twin delete -n {instance_or_hostname} --twin-id {twin_id} --etag {etag}
+  requiredParameters:
+  - isRequired: true
+    name: --dt-name --dtn -n
+    summary: Digital Twins Instanzname oder Hostname. Wenn ein Instanzname angegeben wird, wird das Benutzerabonnement zuerst nach der Zielinstanz abgefragt, um den Hostnamen abzurufen. Wenn ein Hostname angegeben wird, wird die Abonnementabfrage übersprungen, und der angegebene Wert wird für die nachfolgende Interaktion verwendet.
+    description: ''
+  - isRequired: true
+    name: --twin-id -t
+    summary: Die ID des digitalen Zwillings.
+    description: ''
+  optionalParameters:
+  - name: --etag -e
+    summary: Entitätstagwert. Der Befehl ist erfolgreich, wenn das ETag mit dem aktuellen ETag für die Ressource übereinstimmt.
+    description: ''
+  - name: --resource-group -g
+    summary: Digital Twins Instanzressourcengruppe. Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+- uid: az_dt_twin_delete-all
+  name: az dt twin delete-all
+  summary: Löscht alle digitalen Zwillinge innerhalb einer Digital Twins Instanz, einschließlich aller Beziehungen für diese Zwillinge.
+  description: ''
+  syntax: >-
+    az dt twin delete-all --dt-name
+                          [--resource-group]
+                          [--yes]
+  examples:
+  - summary: Löschen Sie alle digitalen Zwillinge. Alle Beziehungen, die auf die Zwillinge verweisen, werden ebenfalls gelöscht.
+    syntax: az dt twin delete-all -n {instance_or_hostname}
+  requiredParameters:
+  - isRequired: true
+    name: --dt-name --dtn -n
+    summary: Digital Twins Instanzname oder Hostname. Wenn ein Instanzname angegeben wird, wird das Benutzerabonnement zuerst nach der Zielinstanz abgefragt, um den Hostnamen abzurufen. Wenn ein Hostname angegeben wird, wird die Abonnementabfrage übersprungen, und der bereitgestellte Wert wird für nachfolgende Interaktionen verwendet.
+    description: ''
+  optionalParameters:
+  - name: --resource-group -g
+    summary: Digital Twins Instanzressourcengruppe. Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --yes -y
+    summary: Nicht zur Bestätigung auffordern
+    description: ''
+- uid: az_dt_twin_query
+  name: az dt twin query
+  summary: Fragen Sie die digitalen Zwillinge einer Instanz ab. Ermöglicht das Durchlaufen von Beziehungen und das Filtern nach Eigenschaftswerten.
+  description: ''
+  syntax: >-
+    az dt twin query --dt-name
+                     --query-command
+                     [--cost {false, true}]
+                     [--resource-group]
+  examples:
+  - summary: Fragen Sie alle digitalen Zwillinge in der Zielinstanz ab, und projektiern Sie alle Attribute. Außerdem werden die Kosten in Abfrageeinheiten angezeigt.
+    syntax: az dt twin query -n {instance_or_hostname} -q "select * from digitaltwins" --show-cost
+  - summary: Fragen Sie alle Attribute nach Modell ab, und projektieren Sie sie.
+    syntax: az dt twin query -n {instance_or_hostname} -q "select * from digitaltwins T where IS_OF_MODEL(T, 'dtmi:com:example:Room;2')"
+  requiredParameters:
+  - isRequired: true
+    name: --dt-name --dtn -n
+    summary: Digital Twins Instanzname oder Hostname. Wenn ein Instanzname angegeben wird, wird das Benutzerabonnement zuerst nach der Zielinstanz abgefragt, um den Hostnamen abzurufen. Wenn ein Hostname angegeben wird, wird die Abonnementabfrage übersprungen, und der bereitgestellte Wert wird für nachfolgende Interaktionen verwendet.
+    description: ''
+  - isRequired: true
+    name: --query-command -q
+    summary: Auszuführende Benutzerabfrage.
+    description: ''
+  optionalParameters:
+  - name: --cost --show-cost
+    parameterValueGroup: false, true
+    summary: Berechnet und zeigt die Abfragegebühr an.
+    description: ''
+  - name: --resource-group -g
+    summary: Digital Twins Instanzressourcengruppe. Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+- uid: az_dt_twin_show
+  name: az dt twin show
+  summary: Zeigt die Details eines digitalen Zwillings an.
+  description: ''
+  syntax: >-
+    az dt twin show --dt-name
+                    --twin-id
+                    [--resource-group]
+  examples:
+  - summary: Zeigt die Details eines digitalen Zwillings an.
+    syntax: az dt twin show -n {instance_or_hostname} --twin-id {twin_id}
+  requiredParameters:
+  - isRequired: true
+    name: --dt-name --dtn -n
+    summary: Digital Twins Instanzname oder Hostname. Wenn ein Instanzname angegeben wird, wird das Benutzerabonnement zuerst nach der Zielinstanz abgefragt, um den Hostnamen abzurufen. Wenn ein Hostname angegeben wird, wird die Abonnementabfrage übersprungen, und der bereitgestellte Wert wird für nachfolgende Interaktionen verwendet.
+    description: ''
+  - isRequired: true
+    name: --twin-id -t
+    summary: Die ID des digitalen Zwillings.
+    description: ''
+  optionalParameters:
+  - name: --resource-group -g
+    summary: Digital Twins Instanzressourcengruppe. Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+- uid: az_dt_twin_update
+  name: az dt twin update
+  summary: Aktualisieren sie einen digitalen Instanzzwilling über die JSON-Patchspezifikation.
+  description: Aktualisierungen an Eigenschaftswerten und $model Elementen können in derselben Anforderung erfolgen. Vorgänge sind auf das Hinzufügen, Ersetzen und Entfernen beschränkt.
+  syntax: >-
+    az dt twin update --dt-name
+                      --json-patch
+                      --twin-id
+                      [--etag]
+                      [--resource-group]
+  examples:
+  - summary: Aktualisieren eines digitalen Zwillings über die JSON-Patchspezifikation.
+    syntax: "az dt twin update -n {instance_or_hostname} --twin-id {twin_id} --json-patch '{\"op\":\"replace\", \"path\":\"/Temperature\", \"value\": 20.5}'"
+  - summary: Aktualisieren sie einen digitalen Zwilling über die JSON-Patchspezifikation und mithilfe von etag.
+    syntax: "az dt twin update -n {instance_or_hostname} --twin-id {twin_id} --etag {etag} --json-patch '{\"op\":\"replace\", \"path\":\"/Temperature\", \"value\": 20.5}'"
+  - summary: Aktualisieren eines digitalen Zwillings über die JSON-Patchspezifikation.
+    syntax: >-
+      az dt twin update -n {instance_or_hostname} --twin-id {twin_id} --json-patch '[
+        {"op":"replace", "path":"/Temperature", "value": 20.5},
+        {"op":"add", "path":"/Areas", "value": ["ControlSystem"]}
+      ]'
+  - summary: Aktualisieren eines digitalen Zwillings über die in einer Datei definierte JSON-Patchspezifikation.
+    syntax: az dt twin update -n {instance_or_hostname} --twin-id {twin_id} --json-patch ./my/patch/document.json
+  requiredParameters:
+  - isRequired: true
+    name: --dt-name --dtn -n
+    summary: Digital Twins Instanzname oder Hostname. Wenn ein Instanzname angegeben wird, wird das Benutzerabonnement zuerst nach der Zielinstanz abgefragt, um den Hostnamen abzurufen. Wenn ein Hostname angegeben wird, wird die Abonnementabfrage übersprungen, und der angegebene Wert wird für die nachfolgende Interaktion verwendet.
+    description: ''
+  - isRequired: true
+    name: --json-patch --patch
+    summary: Eine durch JSON-Patch beschriebene Updatespezifikation. Aktualisierungen an Eigenschaftswerten und $model Elementen können in derselben Anforderung erfolgen. Vorgänge sind auf das Hinzufügen, Ersetzen und Entfernen beschränkt. Geben Sie den Dateipfad oder Inline-JSON-Code an.
+    description: ''
+  - isRequired: true
+    name: --twin-id -t
+    summary: Die ID des digitalen Zwillings.
+    description: ''
+  optionalParameters:
+  - name: --etag -e
+    summary: Entitätstagwert. Der Befehl ist erfolgreich, wenn das ETag mit dem aktuellen ETag für die Ressource übereinstimmt.
+    description: ''
+  - name: --resource-group -g
+    summary: Digital Twins Instanzressourcengruppe. Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+commands:
+- az_dt_twin_component
+- az_dt_twin_component_show
+- az_dt_twin_component_update
+- az_dt_twin_create
+- az_dt_twin_delete
+- az_dt_twin_delete-all
+- az_dt_twin_query
+- az_dt_twin_relationship
+- az_dt_twin_relationship_create
+- az_dt_twin_relationship_delete
+- az_dt_twin_relationship_delete-all
+- az_dt_twin_relationship_list
+- az_dt_twin_relationship_show
+- az_dt_twin_relationship_update
+- az_dt_twin_show
+- az_dt_twin_telemetry
+- az_dt_twin_telemetry_send
+- az_dt_twin_update
+globalParameters:
+- name: --debug
+  summary: Ausführlichkeit der Protokollierung erhöhen, um alle Debugprotokolle anzuzeigen.
+- name: --help -h
+  summary: Zeigen Sie diese Hilfemeldung an, und schließen Sie sie.
+- name: --only-show-errors
+  summary: Nur Fehler anzeigen und Warnungen unterdrücken.
+- name: --output -o
+  defaultValue: json
+  parameterValueGroup: json, jsonc, table, tsv
+  summary: Ausgabeformat.
+- name: --query
+  summary: JMESPath-Abfragezeichenfolge. Weitere Informationen und Beispiele finden Sie unter <a href="http://jmespath.org/">http://jmespath.org/</a>.
+- name: --verbose
+  summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
+metadata:
+  description: Verwalten und Konfigurieren der digitalen Zwillinge einer Digital Twins Instanz
+  ms.openlocfilehash: d0bda81b04adf5be7c0845afa4ae49c00ce5edb5
+  ms.sourcegitcommit: 8464e3b00e33158e3c18654d9b852c8d1fadadd7
+  ms.translationtype: MT
+  ms.contentlocale: de-DE
+  ms.lasthandoff: 05/12/2021
+  ms.locfileid: "109778643"

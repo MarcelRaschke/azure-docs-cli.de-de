@@ -1,0 +1,524 @@
+### YamlMime:AzureCLIGroup
+uid: az_apim
+name: az apim
+summary: Verwalten Sie Azure API Management Services.
+description: ''
+directCommands:
+- uid: az_apim_apply-network-updates
+  name: az apim apply-network-updates
+  summary: Sichern eines API Management Dienstanbieter in dem konfigurierten Speicherkonto.
+  description: ''
+  syntax: >-
+    az apim apply-network-updates --name
+                                  --resource-group
+                                  [--location]
+                                  [--no-wait]
+                                  [--subscription]
+  requiredParameters:
+  - isRequired: true
+    name: --name -n
+    summary: Der Name der API Management-Dienst Instanz.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  optionalParameters:
+  - name: --location -l
+    summary: 'Der Standort. Werte aus: `az account list-locations`. Sie können den standardmäßig verwendeten Standort mit `az configure --defaults location=<location>` konfigurieren.'
+    description: ''
+  - name: --no-wait
+    summary: Nicht auf den Abschluss lang andauernder Vorgänge warten
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/apim/_help.py
+- uid: az_apim_backup
+  name: az apim backup
+  summary: Erstellt eine Sicherung des API Management Dienstanbieter für das angegebene Azure Storage Konto. Dies ist ein Vorgang mit langer Ausführungsdauer und kann einige Minuten in Anspruch nehmen.
+  description: ''
+  syntax: >-
+    az apim backup --backup-name
+                   --container-name
+                   --name
+                   --resource-group
+                   --storage-account-key
+                   --storage-account-name
+                   [--no-wait]
+                   [--subscription]
+  examples:
+  - summary: Erstellen einer Sicherung der API Management-Dienst Instanz
+    syntax: az apim backup --name MyApim -g MyResourceGroup --backup-name myBackup              --storage-account-name mystorageaccount --storage-account-container backups              --storage-account-key Ay2ZbdxLnD4OJPT29F6jLPkB6KynOzx85YCObhrw==
+  requiredParameters:
+  - isRequired: true
+    name: --backup-name
+    summary: Der Name der Sicherungsdatei, die erstellt werden soll.
+    description: ''
+  - isRequired: true
+    name: --container-name --storage-account-container
+    summary: Der Name des Speicherkonto Containers, der zum Platzieren der Sicherung verwendet wird.
+    description: ''
+  - isRequired: true
+    name: --name -n
+    summary: Der Name der API Management-Dienst Instanz.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - isRequired: true
+    name: --storage-account-key
+    summary: Der Zugriffsschlüssel des Speicher Kontos, das zum Platzieren der Sicherung verwendet wird.
+    description: ''
+  - isRequired: true
+    name: --storage-account-name
+    summary: Der Name des Speicher Kontos, das zum Platzieren der Sicherung verwendet wird.
+    description: ''
+  optionalParameters:
+  - name: --no-wait
+    summary: Nicht auf den Abschluss lang andauernder Vorgänge warten
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/apim/_help.py
+- uid: az_apim_check-name
+  name: az apim check-name
+  summary: Prüft, ob ein Dienst Name zur Verwendung verfügbar ist.
+  description: ''
+  syntax: >-
+    az apim check-name --name
+                       [--subscription]
+  requiredParameters:
+  - isRequired: true
+    name: --name -n
+    summary: Der Name der API Management-Dienst Instanz.
+    description: ''
+  optionalParameters:
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/apim/_help.py
+- uid: az_apim_create
+  name: az apim create
+  summary: Erstellen einer API Management-Dienstinstanz
+  description: ''
+  syntax: >-
+    az apim create --name
+                   --publisher-email
+                   --publisher-name
+                   --resource-group
+                   [--enable-client-certificate {false, true}]
+                   [--enable-managed-identity {false, true}]
+                   [--location]
+                   [--no-wait]
+                   [--sku-capacity]
+                   [--sku-name {Basic, Consumption, Developer, Premium, Standard}]
+                   [--subscription]
+                   [--tags]
+                   [--virtual-network {External, Internal, None}]
+  examples:
+  - summary: Erstellen Sie eine Developer-Ebene API Management-Dienstanbieter.
+    syntax: az apim create --name MyApim -g MyResourceGroup -l eastus --publisher-email email@mydomain.com --publisher-name Microsoft
+  - summary: Erstellen Sie eine Verbrauchs Ebene API Management-Dienstanbieter.
+    syntax: >-
+      az apim create --name MyApim -g MyResourceGroup -l eastus --sku-name Consumption --enable-client-certificate \
+          --publisher-email email@mydomain.com --publisher-name Microsoft
+  requiredParameters:
+  - isRequired: true
+    name: --name -n
+    summary: Der eindeutige Name der zu erstellenden Dienst Instanz.
+    description: Der Name muss global eindeutig sein, da er als gatewayhostname wie "" eingeschlossen wird https://my-api-servicename.azure-api.net .  Siehe Beispiele.
+  - isRequired: true
+    name: --publisher-email
+    summary: Die e-Mail-Adresse für den Empfang aller System Benachrichtigungen.
+    description: ''
+  - isRequired: true
+    name: --publisher-name
+    summary: Der Name Ihrer Organisation für die Verwendung im Entwickler Portal und e-Mail-Benachrichtigungen.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  optionalParameters:
+  - name: --enable-client-certificate
+    parameterValueGroup: false, true
+    summary: Erzwingt ein Client Zertifikat, das bei jeder Anforderung an das Gateway angezeigt wird, und ermöglicht außerdem die Authentifizierung des Zertifikats in der Richtlinie auf dem Gateway.
+    description: ''
+  - name: --enable-managed-identity
+    parameterValueGroup: false, true
+    summary: Erstellen Sie eine verwaltete Identität für den API Management-Dienst, um auf andere Azure-Ressourcen zuzugreifen.
+    description: ''
+  - name: --location -l
+    summary: 'Der Standort. Werte aus: `az account list-locations`. Sie können den standardmäßig verwendeten Standort mit `az configure --defaults location=<location>` konfigurieren.'
+    description: ''
+  - name: --no-wait
+    summary: Nicht auf den Abschluss lang andauernder Vorgänge warten
+    description: ''
+  - name: --sku-capacity
+    defaultValue: "1"
+    summary: Die Anzahl der bereitgestellten Einheiten der SKU.
+    description: ''
+  - name: --sku-name
+    defaultValue: Developer
+    parameterValueGroup: Basic, Consumption, Developer, Premium, Standard
+    summary: Die SKU der API Management-Instanz.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  - name: --tags
+    summary: 'Durch Leerzeichen getrennte Tags: Key [= value] [key [= value]...]. Verwenden Sie "", um vorhandene Tags zu löschen.'
+    description: ''
+  - name: --virtual-network -v
+    defaultValue: None
+    parameterValueGroup: External, Internal, None
+    summary: Der Typ des virtuellen Netzwerks.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/apim/_help.py
+- uid: az_apim_delete
+  name: az apim delete
+  summary: Löscht einen API Management Dienstanbieter.
+  description: ''
+  syntax: >-
+    az apim delete --name
+                   --resource-group
+                   [--no-wait]
+                   [--subscription]
+                   [--yes]
+  examples:
+  - summary: Löschen eines API Management Dienstanbieter.
+    syntax: az apim delete -n MyApim -g MyResourceGroup
+  requiredParameters:
+  - isRequired: true
+    name: --name -n
+    summary: Der Name der API Management-Dienst Instanz.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  optionalParameters:
+  - name: --no-wait
+    summary: Nicht auf den Abschluss lang andauernder Vorgänge warten
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  - name: --yes -y
+    summary: Nicht zur Bestätigung auffordern
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/apim/_help.py
+- uid: az_apim_list
+  name: az apim list
+  summary: Listet API Management Dienst Instanzen auf.
+  description: ''
+  syntax: >-
+    az apim list [--query-examples]
+                 [--resource-group]
+                 [--subscription]
+  optionalParameters:
+  - name: --query-examples
+    summary: Empfehlen Sie die jmespath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und Sie nach dem Abfrage Parameter in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positions Schlüsselwörter hinzufügen, um Vorschläge auf der Grundlage dieser Schlüsselwörter zu geben.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/apim/_help.py
+- uid: az_apim_restore
+  name: az apim restore
+  summary: Stellt eine Sicherung eines API Management dienstanens wieder her, der mit dem ApiManagementService_Backup-Vorgang für den aktuellen Dienst erstellt wurde. Dies ist ein Vorgang mit langer Ausführungszeit und kann einige Minuten in Anspruch nehmen.
+  description: ''
+  syntax: >-
+    az apim restore --backup-name
+                    --container-name
+                    --name
+                    --resource-group
+                    --storage-account-key
+                    --storage-account-name
+                    [--no-wait]
+                    [--subscription]
+  examples:
+  - summary: Stellt eine Sicherung der API Management Dienst Instanz wieder her.
+    syntax: az apim restore --name MyApim -g MyResourceGroup --backup-name myBackup              --storage-account-name mystorageaccount --storage-account-container backups              --storage-account-key Ay2ZbdxLnD4OJPT29F6jLPkB6KynOzx85YCObhrw==
+  requiredParameters:
+  - isRequired: true
+    name: --backup-name
+    summary: Der Name der wiederherzustellenden Sicherungsdatei.
+    description: ''
+  - isRequired: true
+    name: --container-name --storage-account-container
+    summary: Der Name des Speicherkonto Containers, von dem aus die Sicherung abgerufen wird.
+    description: ''
+  - isRequired: true
+    name: --name -n
+    summary: Der Name der API Management-Dienst Instanz.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - isRequired: true
+    name: --storage-account-key
+    summary: Der Zugriffsschlüssel des Speicher Kontos, von dem aus die Sicherung abgerufen wird.
+    description: ''
+  - isRequired: true
+    name: --storage-account-name
+    summary: Der Name des Speicher Kontos, von dem aus die Sicherung abgerufen wird.
+    description: ''
+  optionalParameters:
+  - name: --no-wait
+    summary: Nicht auf den Abschluss lang andauernder Vorgänge warten
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/apim/_help.py
+- uid: az_apim_show
+  name: az apim show
+  summary: Anzeigen der Details einer API Management-Dienst Instanz.
+  description: ''
+  syntax: >-
+    az apim show --name
+                 --resource-group
+                 [--query-examples]
+                 [--subscription]
+  requiredParameters:
+  - isRequired: true
+    name: --name -n
+    summary: Der Name der API Management-Dienst Instanz.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  optionalParameters:
+  - name: --query-examples
+    summary: Empfehlen Sie die jmespath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und Sie nach dem Abfrage Parameter in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positions Schlüsselwörter hinzufügen, um Vorschläge auf der Grundlage dieser Schlüsselwörter zu geben.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/apim/_help.py
+- uid: az_apim_update
+  name: az apim update
+  summary: Aktualisieren einer API Management-Dienst Instanz.
+  description: ''
+  syntax: >-
+    az apim update --name
+                   --resource-group
+                   [--add]
+                   [--enable-client-certificate {false, true}]
+                   [--enable-managed-identity {false, true}]
+                   [--force-string]
+                   [--no-wait]
+                   [--publisher-email]
+                   [--publisher-name]
+                   [--remove]
+                   [--set]
+                   [--sku-capacity]
+                   [--sku-name {Basic, Consumption, Developer, Premium, Standard}]
+                   [--subscription]
+                   [--tags]
+                   [--virtual-network {External, Internal, None}]
+  requiredParameters:
+  - isRequired: true
+    name: --name -n
+    summary: Der Name der API Management-Dienst Instanz.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  optionalParameters:
+  - name: --add
+    summary: Fügen Sie einer Liste von-Objekten ein Objekt hinzu, indem Sie ein Pfad-und Schlüssel-Wert-Paar angeben.  Beispiel:--Add Property. ListProperty <Key = Value, String oder JSON String>.
+    description: ''
+  - name: --enable-client-certificate
+    parameterValueGroup: false, true
+    summary: Erzwingt ein Client Zertifikat, das bei jeder Anforderung an das Gateway angezeigt wird, und ermöglicht außerdem die Authentifizierung des Zertifikats in der Richtlinie auf dem Gateway.
+    description: ''
+  - name: --enable-managed-identity
+    parameterValueGroup: false, true
+    summary: Erstellen Sie eine verwaltete Identität für den API Management-Dienst, um auf andere Azure-Ressourcen zuzugreifen.
+    description: ''
+  - name: --force-string
+    summary: Wenn Sie "Set" oder "Add" verwenden, erhalten Sie Zeichen folgen Literale, anstatt zu versuchen, in JSON zu konvertieren.
+    description: ''
+  - name: --no-wait
+    summary: Nicht auf den Abschluss lang andauernder Vorgänge warten
+    description: ''
+  - name: --publisher-email
+    summary: Die e-Mail-Adresse für den Empfang aller System Benachrichtigungen.
+    description: ''
+  - name: --publisher-name
+    summary: Der Name Ihrer Organisation für die Verwendung im Entwickler Portal und e-Mail-Benachrichtigungen.
+    description: ''
+  - name: --remove
+    summary: Entfernt eine Eigenschaft oder ein Element aus einer Liste.  Beispiel:--Remove Property. List <indexToRemove> oder--Remove propertytoremove.
+    description: ''
+  - name: --set
+    summary: Aktualisieren Sie ein Objekt, indem Sie einen Eigenschafts Pfad und einen festzulegenden Wert angeben.  Beispiel:--Set Eigenschaft1. Eigenschaft2 =<value>.
+    description: ''
+  - name: --sku-capacity
+    summary: Die Anzahl der bereitgestellten Einheiten der SKU.
+    description: ''
+  - name: --sku-name
+    parameterValueGroup: Basic, Consumption, Developer, Premium, Standard
+    summary: Die SKU der API Management-Instanz.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  - name: --tags
+    summary: 'Durch Leerzeichen getrennte Tags: Key [= value] [key [= value]...]. Verwenden Sie "", um vorhandene Tags zu löschen.'
+    description: ''
+  - name: --virtual-network -v
+    parameterValueGroup: External, Internal, None
+    summary: Der Typ des virtuellen Netzwerks.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/apim/_help.py
+- uid: az_apim_wait
+  name: az apim wait
+  summary: Platzieren Sie die CLI in einem Wartezustand, bis die Bedingung eines APIM erfüllt ist.
+  description: ''
+  syntax: >-
+    az apim wait --name
+                 --resource-group
+                 [--created]
+                 [--custom]
+                 [--deleted]
+                 [--exists]
+                 [--interval]
+                 [--subscription]
+                 [--timeout]
+                 [--updated]
+  examples:
+  - summary: Platzieren Sie die CLI in einem Wartezustand, bis die Bedingung eines APIM erfüllt ist. automatisch generierten
+    syntax: az apim wait --created --name MyApim --resource-group MyResourceGroup
+  requiredParameters:
+  - isRequired: true
+    name: --name -n
+    summary: Der Name der API Management-Dienst Instanz.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  optionalParameters:
+  - name: --created
+    summary: Warten Sie, bis "provisioningstate" bei "erfolgreich" erstellt wurde.
+    description: ''
+  - name: --custom
+    summary: "Warten Sie, bis die Bedingung eine benutzerdefinierte jmespath-Abfrage erfüllt. Beispiel: provisioningstate! = ' InProgress ', instanceview. statuses [? Code = = ' PowerState/Running ']."
+    description: ''
+  - name: --deleted
+    summary: Warten Sie bis zum Löschen.
+    description: ''
+  - name: --exists
+    summary: Warten Sie, bis die Ressource vorhanden ist.
+    description: ''
+  - name: --interval
+    defaultValue: "30"
+    summary: Abruf Intervall in Sekunden.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  - name: --timeout
+    defaultValue: "3600"
+    summary: Maximale Wartezeit in Sekunden.
+    description: ''
+  - name: --updated
+    summary: Warten Sie, bis das Update mit provisioningstate bei "erfolgreich" abgeschlossen ist.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/apim/_help.py
+commands:
+- az_apim_api
+- az_apim_api_create
+- az_apim_api_delete
+- az_apim_api_import
+- az_apim_api_list
+- az_apim_api_operation
+- az_apim_api_operation_create
+- az_apim_api_operation_delete
+- az_apim_api_operation_list
+- az_apim_api_operation_show
+- az_apim_api_operation_update
+- az_apim_api_release
+- az_apim_api_release_create
+- az_apim_api_release_delete
+- az_apim_api_release_list
+- az_apim_api_release_show
+- az_apim_api_release_update
+- az_apim_api_revision
+- az_apim_api_revision_create
+- az_apim_api_revision_list
+- az_apim_api_show
+- az_apim_api_update
+- az_apim_api_versionset
+- az_apim_api_versionset_create
+- az_apim_api_versionset_delete
+- az_apim_api_versionset_list
+- az_apim_api_versionset_show
+- az_apim_api_versionset_update
+- az_apim_api_wait
+- az_apim_apply-network-updates
+- az_apim_backup
+- az_apim_check-name
+- az_apim_create
+- az_apim_delete
+- az_apim_list
+- az_apim_nv
+- az_apim_nv_create
+- az_apim_nv_delete
+- az_apim_nv_list
+- az_apim_nv_show
+- az_apim_nv_show-secret
+- az_apim_nv_update
+- az_apim_product
+- az_apim_product_api
+- az_apim_product_api_add
+- az_apim_product_api_check
+- az_apim_product_api_delete
+- az_apim_product_api_list
+- az_apim_product_create
+- az_apim_product_delete
+- az_apim_product_list
+- az_apim_product_show
+- az_apim_product_update
+- az_apim_product_wait
+- az_apim_restore
+- az_apim_show
+- az_apim_update
+- az_apim_wait
+globalParameters:
+- name: --debug
+  summary: Ausführlichkeit der Protokollierung erhöhen, um alle Debugprotokolle anzuzeigen.
+- name: --help -h
+  summary: Zeigen Sie diese Hilfemeldung an, und schließen Sie sie.
+- name: --only-show-errors
+  summary: Nur Fehler anzeigen und Warnungen unterdrücken.
+- name: --output -o
+  defaultValue: json
+  parameterValueGroup: json, jsonc, table, tsv
+  summary: Ausgabeformat.
+- name: --query
+  summary: JMESPath-Abfragezeichenfolge. Weitere Informationen und Beispiele finden Sie unter <a href="http://jmespath.org/">http://jmespath.org/</a>.
+- name: --verbose
+  summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
+metadata:
+  doc_source_url_repo: https://github.com/Azure/azure-cli/blob/dev/
+  ms.date: 12/01/2020
+  description: Verwalten Sie Azure API Management Services.
+  ms.openlocfilehash: 5f8741e7f5766feae034200909f193e4b7547466
+  ms.sourcegitcommit: 612554c029ba1f28d3a43fd22e743104a1a30ea0
+  ms.translationtype: MT
+  ms.contentlocale: de-DE
+  ms.lasthandoff: 04/07/2021
+  ms.locfileid: "106867448"

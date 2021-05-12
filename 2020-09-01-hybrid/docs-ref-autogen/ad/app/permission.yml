@@ -1,0 +1,199 @@
+### YamlMime:AzureCLIGroup
+uid: az_ad_app_permission
+name: az ad app permission
+summary: Verwalten Sie die OAuth2-Berechtigungen einer Anwendung.
+description: ''
+directCommands:
+- uid: az_ad_app_permission_add
+  name: az ad app permission add
+  summary: Fügen Sie eine API-Berechtigung hinzu.
+  description: >-
+    Zum Aktivieren des Befehls "AZ AD App-Berechtigungs Gewährung" ist erforderlich.
+
+
+    Um verfügbare Berechtigungen für die Ressourcen-APP zu erhalten, führen Sie aus `az ad sp show --id <resource-appId>` . So erhalten Sie z. b. die verfügbaren Berechtigungen für Graph-API:
+      - Azure Active Directory Diagramm: `az ad sp show --id 00000002-0000-0000-c000-000000000000`
+      - Microsoft Graph: `az ad sp show --id 00000003-0000-0000-c000-000000000000` die Anwendungs Berechtigungen unter der `appRoles` Eigenschaft entsprechen `Role` in--API-Berechtigungen. Delegierte Berechtigungen unter der `oauth2Permissions` Eigenschaft entsprechen `Scope` in--API-Berechtigungen.
+  syntax: >-
+    az ad app permission add --api
+                             --api-permissions
+                             --id
+  examples:
+  - summary: Fügen Sie Azure Active Directory Graph Delegierte Berechtigung User. Read (anmelden und Lesen des Benutzerprofils) hinzu.
+    syntax: az ad app permission add --id eeba0b46-78e5-4a1a-a1aa-cafe6c123456 --api 00000002-0000-0000-c000-000000000000 --api-permissions 311a71cc-e848-46a1-bdf8-97ff7156d8e6=Scope
+  - summary: Fügen Sie Azure Active Directory Graph-Anwendungs Berechtigung Application. lesewrite. all (alle Anwendungen lesen und schreiben) hinzu.
+    syntax: az ad app permission add --id eeba0b46-78e5-4a1a-a1aa-cafe6c123456 --api 00000002-0000-0000-c000-000000000000 --api-permissions 1cda74f2-2616-4834-b122-5cb1b07f8a59=Role
+  requiredParameters:
+  - isRequired: true
+    name: --api
+    summary: 'Geben `RequiredResourceAccess.resourceAppId` Sie an: der eindeutige Bezeichner für die Ressource, auf die die Anwendung zugreifen muss. Dieser Wert muss gleich der appId sein, die für die Zielressourcenanwendung deklariert wird.'
+    description: ''
+  - isRequired: true
+    name: --api-permissions
+    summary: Geben Sie `ResourceAccess.id` den eindeutigen Bezeichner für eine der OAuth2Permission-oder APPROLE-Instanzen an, die die Ressourcen Anwendung verfügbar macht. Durch Leerzeichen getrennte Liste von `<resource-access-id>=<type>` .
+    description: ''
+  - isRequired: true
+    name: --id
+    summary: Bezeichneruri, Anwendungs-ID oder Objekt-ID.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/role/_help.py
+- uid: az_ad_app_permission_admin-consent
+  name: az ad app permission admin-consent
+  summary: Erteilen von Anwendungs & Delegierten Berechtigungen durch Administrator Zustimmung.
+  description: Sie müssen sich als Verzeichnis Administrator anmelden.
+  syntax: az ad app permission admin-consent --id
+  examples:
+  - summary: Erteilen von Anwendungs & Delegierten Berechtigungen durch Administrator Zustimmung. automatisch generierten
+    syntax: az ad app permission admin-consent --id 00000000-0000-0000-0000-000000000000
+  requiredParameters:
+  - isRequired: true
+    name: --id
+    summary: Bezeichneruri, Anwendungs-ID oder Objekt-ID.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/role/_help.py
+- uid: az_ad_app_permission_delete
+  name: az ad app permission delete
+  summary: Entfernen Sie eine API-Berechtigung.
+  description: ''
+  syntax: >-
+    az ad app permission delete --api
+                                --id
+                                [--api-permissions]
+  examples:
+  - summary: Entfernen Sie Azure Active Directory Graph-Berechtigungen.
+    syntax: az ad app permission delete --id eeba0b46-78e5-4a1a-a1aa-cafe6c123456 --api 00000002-0000-0000-c000-000000000000
+  - summary: Entfernen Sie den Delegierten Azure Active Directory Graph-Berechtigungs Benutzer. lesen (anmelden und Lesen des Benutzerprofils).
+    syntax: az ad app permission delete --id eeba0b46-78e5-4a1a-a1aa-cafe6c123456 --api 00000002-0000-0000-c000-000000000000 --api-permissions 311a71cc-e848-46a1-bdf8-97ff7156d8e6
+  requiredParameters:
+  - isRequired: true
+    name: --api
+    summary: 'Geben `RequiredResourceAccess.resourceAppId` Sie an: der eindeutige Bezeichner für die Ressource, auf die die Anwendung zugreifen muss. Dieser Wert muss gleich der appId sein, die für die Zielressourcenanwendung deklariert wird.'
+    description: ''
+  - isRequired: true
+    name: --id
+    summary: Bezeichneruri, Anwendungs-ID oder Objekt-ID.
+    description: ''
+  optionalParameters:
+  - name: --api-permissions
+    summary: Geben Sie `ResourceAccess.id` den eindeutigen Bezeichner für eine der OAuth2Permission-oder APPROLE-Instanzen an, die die Ressourcen Anwendung verfügbar macht. Durch Leerzeichen getrennte Liste von `<resource-access-id>` .
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/role/_help.py
+- uid: az_ad_app_permission_grant
+  name: az ad app permission grant
+  summary: Erteilen Sie der App eine delegierte API-Berechtigung.
+  description: >-
+    Ein Dienst Prinzipal muss für die app vorhanden sein, wenn dieser Befehl ausgeführt wird. Verwenden Sie zum Erstellen eines entsprechenden Dienst Prinzipals `az ad sp create --id {appId}` .
+
+    Verwenden Sie für Anwendungs Berechtigungen "AD App-Berechtigung admin-Consent".
+  syntax: >-
+    az ad app permission grant --api
+                               --id
+                               [--consent-type {AllPrincipals, Principal}]
+                               [--expires]
+                               [--principal-id]
+                               [--scope]
+  examples:
+  - summary: Erteilen von Berechtigungen für eine native Anwendung mit Berechtigungen für den Zugriff auf eine vorhandene API mit Gültigkeitsdauer von 2 Jahren
+    syntax: az ad app permission grant --id e042ec79-34cd-498f-9d9f-1234234 --api a0322f79-57df-498f-9d9f-12678 --expires 2
+  requiredParameters:
+  - isRequired: true
+    name: --api
+    summary: 'Geben `RequiredResourceAccess.resourceAppId` Sie an: der eindeutige Bezeichner für die Ressource, auf die die Anwendung zugreifen muss. Dieser Wert muss gleich der appId sein, die für die Zielressourcenanwendung deklariert wird.'
+    description: ''
+  - isRequired: true
+    name: --id
+    summary: Bezeichneruri, Anwendungs-ID oder Objekt-ID.
+    description: ''
+  optionalParameters:
+  - name: --consent-type
+    defaultValue: AllPrincipals
+    parameterValueGroup: AllPrincipals, Principal
+    summary: Gibt an, ob die Zustimmung vom Administrator (im Auftrag der Organisation) oder von einer Person bereitgestellt wurde.
+    description: ''
+  - name: --expires
+    defaultValue: "1"
+    summary: Das Ablaufdatum für die Berechtigungen in Jahren. z. b. 1, 2 oder "nie".
+    description: ''
+  - name: --principal-id
+    summary: Wenn--Consent-Type "Principal" ist, gibt dieses Argument das Objekt des Benutzers an, dem die Zustimmung erteilt wurde, und gilt nur für diesen Benutzer.
+    description: ''
+  - name: --scope
+    defaultValue: user_impersonation
+    summary: Gibt den Wert des Bereichs Anspruchs an, den die Ressourcen Anwendung im OAuth 2,0-Zugriffs Token erwarten soll, z. b. User. Read.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/role/_help.py
+- uid: az_ad_app_permission_list
+  name: az ad app permission list
+  summary: Auflisten von API-Berechtigungen, die die Anwendung angefordert hat.
+  description: ''
+  syntax: >-
+    az ad app permission list --id
+                              [--query-examples]
+  examples:
+  - summary: Auflisten der OAuth2-Berechtigungen für eine vorhandene Aad-App
+    syntax: az ad app permission list --id e042ec79-34cd-498f-9d9f-1234234
+  requiredParameters:
+  - isRequired: true
+    name: --id
+    summary: Der Bezeichner-URI, die Anwendungs-ID oder die Objekt-ID der zugeordneten Anwendung.
+    description: ''
+  optionalParameters:
+  - name: --query-examples
+    summary: Empfehlen Sie die jmespath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und Sie nach dem Abfrage Parameter in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positions Schlüsselwörter hinzufügen, um Vorschläge auf der Grundlage dieser Schlüsselwörter zu geben.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/role/_help.py
+- uid: az_ad_app_permission_list-grants
+  name: az ad app permission list-grants
+  summary: List Oauth2 Berechtigungs Zuweisungen.
+  description: ''
+  syntax: >-
+    az ad app permission list-grants [--filter]
+                                     [--id]
+                                     [--show-resource-name {false, true}]
+  examples:
+  - summary: List oauth2 dem Dienst Prinzipal erteilte Berechtigungen
+    syntax: az ad app permission list-grants --id e042ec79-34cd-498f-9d9f-1234234123456
+  optionalParameters:
+  - name: --filter
+    summary: Odata-Filter, z. b.--Filter "Display Name EQ ' Test ' und serviceprincipaltype EQ ' Application '".
+    description: ''
+  - name: --id
+    summary: Bezeichneruri, Anwendungs-ID oder Objekt-ID.
+    description: ''
+  - name: --show-resource-name -r
+    parameterValueGroup: false, true
+    summary: Anzeigen amen der Ressource anzeigen.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/role/_help.py
+commands:
+- az_ad_app_permission_add
+- az_ad_app_permission_admin-consent
+- az_ad_app_permission_delete
+- az_ad_app_permission_grant
+- az_ad_app_permission_list
+- az_ad_app_permission_list-grants
+globalParameters:
+- name: --debug
+  summary: Ausführlichkeit der Protokollierung erhöhen, um alle Debugprotokolle anzuzeigen.
+- name: --help -h
+  summary: Zeigen Sie diese Hilfemeldung an, und schließen Sie sie.
+- name: --only-show-errors
+  summary: Nur Fehler anzeigen und Warnungen unterdrücken.
+- name: --output -o
+  defaultValue: json
+  parameterValueGroup: json, jsonc, table, tsv
+  summary: Ausgabeformat.
+- name: --query
+  summary: JMESPath-Abfragezeichenfolge. Weitere Informationen und Beispiele finden Sie unter <a href="http://jmespath.org/">http://jmespath.org/</a>.
+- name: --verbose
+  summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
+metadata:
+  doc_source_url_repo: https://github.com/Azure/azure-cli/blob/dev/
+  ms.date: 01/20/2021
+  description: Verwalten Sie die OAuth2-Berechtigungen einer Anwendung.
+  ms.openlocfilehash: 74ec4469bdf8a96f7cfbcd0dc0ea6346b67d2e31
+  ms.sourcegitcommit: 612554c029ba1f28d3a43fd22e743104a1a30ea0
+  ms.translationtype: MT
+  ms.contentlocale: de-DE
+  ms.lasthandoff: 04/07/2021
+  ms.locfileid: "106874299"

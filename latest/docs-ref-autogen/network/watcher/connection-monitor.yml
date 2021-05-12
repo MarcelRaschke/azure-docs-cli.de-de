@@ -1,0 +1,426 @@
+### YamlMime:AzureCLIGroup
+uid: az_network_watcher_connection-monitor
+name: az network watcher connection-monitor
+summary: Verwalten der Verbindungsüberwachung zwischen einem virtuellen Azure-Computer und einer beliebigen IP-Ressource
+description: >-
+  Der Verbindungsmonitor kann verwendet werden, um die Netzwerkkonnektivität zwischen einem virtuellen Azure-Computer und einer IP-Adresse zu überwachen.
+
+  Die IP-Adresse kann einer anderen Azure-Ressource oder einer Ressource im Internet oder lokal zugewiesen werden. Weitere Informationen finden Sie unter https://aka.ms/connectionmonitordoc .
+directCommands:
+- uid: az_network_watcher_connection-monitor_create
+  name: az network watcher connection-monitor create
+  summary: Erstellen Sie einen Verbindungsmonitor.
+  description: >-
+    Diese Erweiterung ermöglicht das Erstellen der V1- und V2-Version des Verbindungsmonitors.
+
+    Der V1-Verbindungsmonitor unterstützt einen einzelnen Quell- und Zielendpunkt, der wie gewohnt mit V1-Argumentgruppen enthalten ist.
+
+    Der V2-Verbindungsmonitor unterstützt mehrere Endpunkte und mehrere Testprotokolle, die in V2-Argumentgruppen enthalten sind.
+  syntax: >-
+    az network watcher connection-monitor create --name
+                                                 [--dest-address]
+                                                 [--dest-port]
+                                                 [--dest-resource]
+                                                 [--do-not-start]
+                                                 [--endpoint-dest-address]
+                                                 [--endpoint-dest-coverage-level {AboveAverage, Average, BelowAverage, Default, Full, Low}]
+                                                 [--endpoint-dest-name]
+                                                 [--endpoint-dest-resource-id]
+                                                 [--endpoint-dest-type {AzureSubnet, AzureVM, AzureVNet, ExternalAddress, MMAWorkspaceMachine, MMAWorkspaceNetwork}]
+                                                 [--endpoint-source-address]
+                                                 [--endpoint-source-coverage-level {AboveAverage, Average, BelowAverage, Default, Full, Low}]
+                                                 [--endpoint-source-name]
+                                                 [--endpoint-source-resource-id]
+                                                 [--endpoint-source-type {AzureSubnet, AzureVM, AzureVNet, ExternalAddress, MMAWorkspaceMachine, MMAWorkspaceNetwork}]
+                                                 [--frequency]
+                                                 [--http-method {Get, Post}]
+                                                 [--http-path]
+                                                 [--http-port]
+                                                 [--http-valid-status-codes]
+                                                 [--https-prefer {false, true}]
+                                                 [--icmp-disable-trace-route {false, true}]
+                                                 [--location]
+                                                 [--monitoring-interval]
+                                                 [--notes]
+                                                 [--output-type {Workspace}]
+                                                 [--preferred-ip-version {IPv4, IPv6}]
+                                                 [--protocol {Http, Icmp, Tcp}]
+                                                 [--resource-group]
+                                                 [--source-port]
+                                                 [--source-resource]
+                                                 [--subscription]
+                                                 [--tags]
+                                                 [--tcp-disable-trace-route {false, true}]
+                                                 [--tcp-port]
+                                                 [--tcp-port-behavior {ListenIfAvailable, None}]
+                                                 [--test-config-name]
+                                                 [--test-group-disable {false, true}]
+                                                 [--test-group-name]
+                                                 [--threshold-failed-percent]
+                                                 [--threshold-round-trip-time]
+                                                 [--workspace-ids]
+  examples:
+  - summary: Erstellen Sie einen Verbindungsmonitor für einen virtuellen Computer.
+    syntax: >-
+      az network watcher connection-monitor create -g MyResourceGroup -n MyConnectionMonitorName \
+          --source-resource MyVM
+  - summary: Erstellen eines V2-Verbindungsmonitors
+    syntax: az network watcher connection-monitor create --name MyV2ConnectionMonitor --endpoint-source-name "vm01" --endpoint-source-resource-id MyVM01ResourceID --endpoint-dest-name bing --endpoint-dest-address bing.com --test-config-name TCPTestConfig --protocol Tcp --tcp-port 2048
+  - summary: Erstellen Sie einen Verbindungsmonitor. (automatisch generiert)
+    syntax: az network watcher connection-monitor create --endpoint-dest-address bing.com --endpoint-dest-name bing --endpoint-source-name "vm01" --endpoint-source-resource-id MyVM01ResourceID --location westus2 --name MyConnectionMonitorName --protocol Tcp --tcp-port 2048 --test-config-name TCPTestConfig
+  requiredParameters:
+  - isRequired: true
+    name: --name -n
+    summary: Name des Verbindungsmonitors.
+    description: ''
+  optionalParameters:
+  - name: --dest-address
+    summary: Die IP-Adresse oder der URI, an der Datenverkehr empfangen werden soll.
+    description: ''
+  - name: --dest-port
+    summary: Portnummer, über die Datenverkehr empfangen werden soll.
+    description: ''
+  - name: --dest-resource
+    summary: Derzeit werden nur Virtual Machines unterstützt.
+    description: ''
+  - name: --do-not-start
+    summary: Erstellen Sie den Verbindungsmonitor, aber starten Sie ihn nicht sofort.
+    description: ''
+  - name: --endpoint-dest-address
+    summary: Adresse des Ziels des Verbindungsmonitorendpunkts (IP oder Domänenname).
+    description: ''
+  - name: --endpoint-dest-coverage-level
+    parameterValueGroup: AboveAverage, Average, BelowAverage, Default, Full, Low
+    summary: Testen der Abdeckung für den Endpunkt.
+    description: ''
+  - name: --endpoint-dest-name
+    summary: Der Name des Ziels des Verbindungsüberwachungsendpunkts. Wenn Sie eine V2-Verbindungsmonitor erstellen, ist dies erforderlich.
+    description: ''
+  - name: --endpoint-dest-resource-id
+    summary: Ressourcen-ID des Ziels des Verbindungsmonitorendpunkts.
+    description: ''
+  - name: --endpoint-dest-type
+    parameterValueGroup: AzureSubnet, AzureVM, AzureVNet, ExternalAddress, MMAWorkspaceMachine, MMAWorkspaceNetwork
+    summary: Der Endpunkttyp.
+    description: ''
+  - name: --endpoint-source-address
+    summary: Adresse der Quelle des Verbindungsmonitor-Endpunkts (IP oder Domänenname).
+    description: ''
+  - name: --endpoint-source-coverage-level
+    parameterValueGroup: AboveAverage, Average, BelowAverage, Default, Full, Low
+    summary: Testen Sie die Abdeckung für den Endpunkt.
+    description: ''
+  - name: --endpoint-source-name
+    summary: Der Name der Quelle des Verbindungsmonitor-Endpunkts. Wenn Sie eine V2-Verbindungsmonitor erstellen, ist dies erforderlich.
+    description: ''
+  - name: --endpoint-source-resource-id
+    summary: Ressourcen-ID der Quelle des Verbindungsmonitor-Endpunkts. Wenn der Endpunkt als Quelle verwendet werden soll, ist diese Option erforderlich.
+    description: ''
+  - name: --endpoint-source-type
+    parameterValueGroup: AzureSubnet, AzureVM, AzureVNet, ExternalAddress, MMAWorkspaceMachine, MMAWorkspaceNetwork
+    summary: Der Endpunkttyp.
+    description: ''
+  - name: --frequency
+    defaultValue: "60"
+    summary: Die Häufigkeit der Testauswertung in Sekunden.
+    description: ''
+  - name: --http-method
+    parameterValueGroup: Get, Post
+    summary: Die zu verwendende HTTP-Methode.
+    description: ''
+  - name: --http-path
+    summary: 'Die Pfadkomponente des URI. Beispiel: "/dir1/dir2".'
+    description: ''
+  - name: --http-port
+    summary: Der Port, mit dem eine Verbindung hergestellt werden soll.
+    description: ''
+  - name: --http-valid-status-codes
+    summary: 'Durch Leerzeichen getrennte Liste von HTTP-Statuscodes, die als erfolgreich betrachtet werden. Beispiel: "2xx 301-304 418".'
+    description: ''
+  - name: --https-prefer
+    parameterValueGroup: false, true
+    summary: Wert, der angibt, ob HTTPS gegenüber HTTP bevorzugt wird, wenn die Auswahl nicht explizit ist.
+    description: ''
+  - name: --icmp-disable-trace-route
+    parameterValueGroup: false, true
+    summary: Wert, der angibt, ob die Pfadauswertung mit Ablaufverfolgungsroute deaktiviert werden soll. false ist der Standardwert.
+    description: ''
+  - name: --location -l
+    summary: 'Der Standort. Werte aus: `az account list-locations`. Sie können den standardmäßig verwendeten Standort mit `az configure --defaults location=<location>` konfigurieren.'
+    description: ''
+  - name: --monitoring-interval
+    defaultValue: "60"
+    summary: Überwachungsintervall in Sekunden.
+    description: ''
+  - name: --notes
+    summary: Optionale Hinweise, die dem Verbindungsmonitor zugeordnet werden sollen.
+    description: ''
+  - name: --output-type
+    parameterValueGroup: Workspace
+    summary: Ausgabezieltyp des Verbindungsmonitors. Derzeit wird nur "Arbeitsbereich" unterstützt.
+    description: ''
+  - name: --preferred-ip-version
+    parameterValueGroup: IPv4, IPv6
+    summary: Die bevorzugte IP-Version, die bei der Testauswertung verwendet werden soll. Der Verbindungsmonitor kann abhängig von anderen Parametern eine andere Version verwenden.
+    description: ''
+  - name: --protocol
+    parameterValueGroup: Http, Icmp, Tcp
+    summary: Das Protokoll, das bei der Testauswertung verwendet werden soll.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --source-port
+    summary: Portnummer, von der Datenverkehr ausgehen soll.
+    description: ''
+  - name: --source-resource
+    summary: Derzeit werden nur Virtual Machines unterstützt.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+  - name: --tags
+    summary: 'Durch Leerzeichen getrennte Tags: key[=value] [key[=value] ...]. Verwenden Sie "", um vorhandene Tags zu löschen.'
+    description: ''
+  - name: --tcp-disable-trace-route
+    parameterValueGroup: false, true
+    summary: Wert, der angibt, ob die Pfadauswertung mit Ablaufverfolgungsroute deaktiviert werden soll. false ist die Standardeinstellung.
+    description: ''
+  - name: --tcp-port
+    summary: Der Port, mit dem eine Verbindung hergestellt werden soll.
+    description: ''
+  - name: --tcp-port-behavior
+    parameterValueGroup: ListenIfAvailable, None
+    summary: Zielportverhalten.
+    description: ''
+  - name: --test-config-name
+    summary: Der Name der Testkonfiguration des Verbindungsmonitors. Wenn Sie eine V2-Verbindungsmonitor erstellen, ist dies erforderlich.
+    description: ''
+  - name: --test-group-disable
+    parameterValueGroup: false, true
+    summary: Wert, der angibt, ob die Testgruppe deaktiviert ist. false ist der Standardwert.
+    description: ''
+  - name: --test-group-name
+    defaultValue: DefaultTestGroup
+    summary: Der Name der Testgruppe für den Verbindungsmonitor.
+    description: ''
+  - name: --threshold-failed-percent
+    summary: Der maximale Prozentsatz fehlerhafter Überprüfungen, die für einen Test als erfolgreich ausgewertet werden dürfen.
+    description: ''
+  - name: --threshold-round-trip-time
+    summary: Die maximale Roundtripzeit in Millisekunden, die für einen Test als erfolgreich ausgewertet werden darf.
+    description: ''
+  - name: --workspace-ids
+    summary: Durch Leerzeichen getrennte Liste der IDs des Log Analytics-Arbeitsbereichs.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/network/_help.py
+- uid: az_network_watcher_connection-monitor_delete
+  name: az network watcher connection-monitor delete
+  summary: Löschen Sie einen Verbindungsmonitor für die bestimmte Region.
+  description: ''
+  syntax: >-
+    az network watcher connection-monitor delete --location
+                                                 --name
+                                                 [--subscription]
+  examples:
+  - summary: Löschen Sie einen Verbindungsmonitor für die bestimmte Region.
+    syntax: az network watcher connection-monitor delete -l westus -n MyConnectionMonitorName
+  requiredParameters:
+  - isRequired: true
+    name: --location -l
+    summary: 'Der Standort. Werte aus: `az account list-locations`. Sie können den standardmäßig verwendeten Standort mit `az configure --defaults location=<location>` konfigurieren.'
+    description: ''
+  - isRequired: true
+    name: --name -n
+    summary: Name des Verbindungsmonitors.
+    description: ''
+  optionalParameters:
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/network/_help.py
+- uid: az_network_watcher_connection-monitor_list
+  name: az network watcher connection-monitor list
+  summary: Listet Verbindungsmonitore für die bestimmte Region auf.
+  description: ''
+  syntax: >-
+    az network watcher connection-monitor list --location
+                                               [--query-examples]
+                                               [--subscription]
+  examples:
+  - summary: Listen Sie einen Verbindungsmonitor für die bestimmte Region auf.
+    syntax: az network watcher connection-monitor list -l westus
+  - summary: Listet Verbindungsmonitore für die bestimmte Region auf. (automatisch generiert)
+    syntax: az network watcher connection-monitor list --location westus --subscription MySubscription
+  requiredParameters:
+  - isRequired: true
+    name: --location -l
+    summary: 'Der Standort. Werte aus: `az account list-locations`. Sie können den standardmäßig verwendeten Standort mit `az configure --defaults location=<location>` konfigurieren.'
+    description: ''
+  optionalParameters:
+  - name: --query-examples
+    summary: Empfehlen Sie die JMESPath-Zeichenfolge. Sie können eine der Abfragen kopieren und nach dem Parameter --query in doppelte Anführungszeichen einfügen, um die Ergebnisse zu sehen. Sie können ein oder mehrere Positionsschlüsselwörter hinzufügen, damit wir basierend auf diesen Schlüsselwörtern Vorschläge machen können.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/network/_help.py
+- uid: az_network_watcher_connection-monitor_query
+  name: az network watcher connection-monitor query
+  summary: Fragen Sie eine Momentaufnahme des letzten Verbindungsstatus eines Verbindungsmonitors ab.
+  description: ''
+  syntax: >-
+    az network watcher connection-monitor query --location
+                                                --name
+                                                [--subscription]
+  examples:
+  - summary: Listen Sie einen Verbindungsmonitor für die bestimmte Region auf.
+    syntax: az network watcher connection-monitor query -l westus -n MyConnectionMonitorName
+  requiredParameters:
+  - isRequired: true
+    name: --location -l
+    summary: 'Der Standort. Werte aus: `az account list-locations`. Sie können den standardmäßig verwendeten Standort mit `az configure --defaults location=<location>` konfigurieren.'
+    description: ''
+  - isRequired: true
+    name: --name -n
+    summary: Name des Verbindungsmonitors.
+    description: ''
+  optionalParameters:
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/network/_help.py
+- uid: az_network_watcher_connection-monitor_show
+  name: az network watcher connection-monitor show
+  summary: Zeigt einen Verbindungsmonitor nach Namen an.
+  description: ''
+  syntax: >-
+    az network watcher connection-monitor show --location
+                                               --name
+                                               [--query-examples]
+                                               [--subscription]
+  examples:
+  - summary: Zeigt einen Verbindungsmonitor für den angegebenen Namen an.
+    syntax: az network watcher connection-monitor show -l westus -n MyConnectionMonitorName
+  requiredParameters:
+  - isRequired: true
+    name: --location -l
+    summary: 'Der Standort. Werte aus: `az account list-locations`. Sie können den standardmäßig verwendeten Standort mit `az configure --defaults location=<location>` konfigurieren.'
+    description: ''
+  - isRequired: true
+    name: --name -n
+    summary: Name des Verbindungsmonitors.
+    description: ''
+  optionalParameters:
+  - name: --query-examples
+    summary: Empfehlen Sie die JMESPath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und nach dem Parameter --query in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positionsschlüsselwörter hinzufügen, damit wir basierend auf diesen Schlüsselwörtern Vorschläge geben können.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/network/_help.py
+- uid: az_network_watcher_connection-monitor_start
+  name: az network watcher connection-monitor start
+  summary: Starten Sie den angegebenen Verbindungsmonitor.
+  description: ''
+  syntax: >-
+    az network watcher connection-monitor start --location
+                                                --name
+                                                [--subscription]
+  examples:
+  - summary: Starten Sie den angegebenen Verbindungsmonitor.
+    syntax: az network watcher connection-monitor start -l westus -n MyConnectionMonitorName
+  requiredParameters:
+  - isRequired: true
+    name: --location -l
+    summary: 'Der Standort. Werte aus: `az account list-locations`. Sie können den standardmäßig verwendeten Standort mit `az configure --defaults location=<location>` konfigurieren.'
+    description: ''
+  - isRequired: true
+    name: --name -n
+    summary: Name des Verbindungsmonitors.
+    description: ''
+  optionalParameters:
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/network/_help.py
+- uid: az_network_watcher_connection-monitor_stop
+  name: az network watcher connection-monitor stop
+  summary: Beenden Sie den angegebenen Verbindungsmonitor.
+  description: ''
+  syntax: >-
+    az network watcher connection-monitor stop --location
+                                               --name
+                                               [--subscription]
+  examples:
+  - summary: Beenden Sie den angegebenen Verbindungsmonitor.
+    syntax: az network watcher connection-monitor stop -l westus -n MyConnectionMonitorName
+  requiredParameters:
+  - isRequired: true
+    name: --location -l
+    summary: 'Der Standort. Werte aus: `az account list-locations`. Sie können den standardmäßig verwendeten Standort mit `az configure --defaults location=<location>` konfigurieren.'
+    description: ''
+  - isRequired: true
+    name: --name -n
+    summary: Name des Verbindungsmonitors.
+    description: ''
+  optionalParameters:
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/network/_help.py
+commands:
+- az_network_watcher_connection-monitor_create
+- az_network_watcher_connection-monitor_delete
+- az_network_watcher_connection-monitor_endpoint
+- az_network_watcher_connection-monitor_endpoint_add
+- az_network_watcher_connection-monitor_endpoint_list
+- az_network_watcher_connection-monitor_endpoint_remove
+- az_network_watcher_connection-monitor_endpoint_show
+- az_network_watcher_connection-monitor_list
+- az_network_watcher_connection-monitor_output
+- az_network_watcher_connection-monitor_output_add
+- az_network_watcher_connection-monitor_output_list
+- az_network_watcher_connection-monitor_output_remove
+- az_network_watcher_connection-monitor_query
+- az_network_watcher_connection-monitor_show
+- az_network_watcher_connection-monitor_start
+- az_network_watcher_connection-monitor_stop
+- az_network_watcher_connection-monitor_test-configuration
+- az_network_watcher_connection-monitor_test-configuration_add
+- az_network_watcher_connection-monitor_test-configuration_list
+- az_network_watcher_connection-monitor_test-configuration_remove
+- az_network_watcher_connection-monitor_test-configuration_show
+- az_network_watcher_connection-monitor_test-group
+- az_network_watcher_connection-monitor_test-group_add
+- az_network_watcher_connection-monitor_test-group_list
+- az_network_watcher_connection-monitor_test-group_remove
+- az_network_watcher_connection-monitor_test-group_show
+globalParameters:
+- name: --debug
+  summary: Ausführlichkeit der Protokollierung erhöhen, um alle Debugprotokolle anzuzeigen.
+- name: --help -h
+  summary: Zeigen Sie diese Hilfemeldung an, und schließen Sie sie.
+- name: --only-show-errors
+  summary: Nur Fehler anzeigen und Warnungen unterdrücken.
+- name: --output -o
+  defaultValue: json
+  parameterValueGroup: json, jsonc, table, tsv
+  summary: Ausgabeformat.
+- name: --query
+  summary: JMESPath-Abfragezeichenfolge. Weitere Informationen und Beispiele finden Sie unter <a href="http://jmespath.org/">http://jmespath.org/</a>.
+- name: --verbose
+  summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
+metadata:
+  doc_source_url_repo: https://github.com/Azure/azure-cli/blob/dev/
+  ms.date: 04/25/2021
+  description: >-
+    Der Verbindungsmonitor kann verwendet werden, um die Netzwerkkonnektivität zwischen einem virtuellen Azure-Computer und einer IP-Adresse zu überwachen.
+
+    Die IP-Adresse kann einer anderen Azure-Ressource oder einer Ressource im Internet oder lokal zugewiesen werden. Weitere Informationen finden Sie unter https://aka.ms/connectionmonitordoc .
+  ms.openlocfilehash: 98933d59eaf2862aee7ed4f30e1567cf8e1b5818
+  ms.sourcegitcommit: 15a6f14c5a8570ba89a3bd5bb442f3324d72bc37
+  ms.translationtype: MT
+  ms.contentlocale: de-DE
+  ms.lasthandoff: 04/29/2021
+  ms.locfileid: "108259099"

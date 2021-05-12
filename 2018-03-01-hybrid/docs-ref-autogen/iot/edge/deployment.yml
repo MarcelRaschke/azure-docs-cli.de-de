@@ -1,0 +1,280 @@
+### YamlMime:AzureCLIGroup
+uid: az_iot_edge_deployment
+name: az iot edge deployment
+extensionInformation: >-
+  > [!Note]
+
+  > Diese Referenz ist Teil der **Azure-IOT-** Erweiterung für Azure CLI und erfordert Version 2.0.70 oder höher.  Die Erweiterung wird automatisch installiert, wenn Sie den Befehl **AZ IOT Edge Deployment** zum ersten Mal ausführen.  [Weitere Informationen zu Erweiterungen](https://docs.microsoft.com/en-us/cli/azure/azure-cli-extensions-overview)
+summary: Verwalten Sie IOT Edge bereit Stellungen in der Skala.
+description: ''
+directCommands:
+- uid: az_iot_edge_deployment_create
+  name: az iot edge deployment create
+  summary: Erstellen Sie eine IOT Edge Bereitstellung in einem Ziel IOT Hub.
+  description: >-
+    Der Bereitstellungs Inhalt ist JSON und hat folgendes Format: {"modulescontent": {...}} oder {"Content": {"modulescontent": {...}}}.
+
+
+    Edge-bereit Stellungen können mit benutzerdefinierten Metriken für die Bedarfs gesteuerte Auswertung erstellt werden.
+
+    Benutzermetriken sind JSON und in Form von {"Queries": {...}} oder {"Metriken": {"Queries": {...}}}.
+  syntax: >-
+    az iot edge deployment create --content
+                                  --deployment-id
+                                  [--hub-name]
+                                  [--lab]
+                                  [--layered {false, true}]
+                                  [--login]
+                                  [--metrics]
+                                  [--no-validation {false, true}]
+                                  [--pri]
+                                  [--resource-group]
+                                  [--target-condition]
+  examples:
+  - summary: Erstellen Sie eine Bereitstellung mit Bezeichnungen (bash-Syntax Beispiel), die für Geräte in "Gebäude 9" gilt, und die Umgebung ist "Test".
+    syntax: az iot edge deployment create -d {deployment_name} -n {iothub_name} --content modules_content.json --labels '{"key0":"value0", "key1":"value1"}' --target-condition "tags.building=9 and tags.environment='test'" --priority 3
+  - summary: Erstellen Sie eine Bereitstellung mit Bezeichnungen (PowerShell-Syntax Beispiel), die für Geräte gilt, die mit der Umgebung "dev" gekennzeichnet sind.
+    syntax: az iot edge deployment create -d {deployment_name} -n {iothub_name} --content modules_content.json --labels "{'key':'value'}" --target-condition "tags.environment='dev'"
+  - summary: Erstellen Sie eine mehrschichtige Bereitstellung, die für Geräte gilt, die mit der Umgebung "dev" gekennzeichnet sind Sowohl benutzermetriken als auch Inhalt von Modulen sind Inline definiert (PowerShell-Syntax Beispiel).
+    syntax: az iot edge deployment create -d {deployment_name} -n {iothub_name} --content "{'modulesContent':{'`$edgeAgent':{'properties.desired.modules.mymodule0':{ }},'`$edgeHub':{'properties.desired.routes.myroute0':'FROM /messages/* INTO `$upstream'}}}" --target-condition "tags.environment='dev'" --priority 10 --metrics "{'queries':{'mymetrik':'SELECT deviceId from devices where properties.reported.lastDesiredStatus.code = 200'}}" --layered
+  - summary: Erstellen Sie eine überlagerte Bereitstellung, die für Geräte in "Building 9" und in der Umgebung "Test" gilt. Sowohl benutzermetriken als auch Inhalt von Modulen sind Inline definiert (bash-Syntax Beispiel).
+    syntax: az iot edge deployment create -d {deployment_name} -n {iothub_name} --content '{"modulesContent":{"$edgeAgent":{"properties.desired.modules.mymodule0":{ }},"$edgeHub":{"properties.desired.routes.myroute0":"FROM /messages/* INTO $upstream"}}}' --target-condition "tags.building=9 and tags.environment='test'" --metrics '{"queries":{"mymetrik":"SELECT deviceId from devices where properties.reported.lastDesiredStatus.code = 200"}}' --layered
+  - summary: Erstellen Sie eine überlagerte Bereitstellung, die für Geräte in "Building 9" und in der Umgebung "Test" gilt. Sowohl benutzermetriken als auch Inhalt von Modulen, die aus der Datei
+    syntax: az iot edge deployment create -d {deployment_name} -n {iothub_name} --content layered_modules_content.json --target-condition "tags.building=9 and tags.environment='test'" --metrics metrics_content.json --layered
+  requiredParameters:
+  - isRequired: true
+    name: --content -k
+    summary: IOT Edge Bereitstellungs Inhalt. Geben Sie Dateipfad oder unformatierte JSON-
+    description: ''
+  - isRequired: true
+    name: --deployment-id -d
+    summary: Name der Ziel Bereitstellung.
+    description: ''
+  optionalParameters:
+  - name: --hub-name -n
+    summary: IOT Hub Name.
+    description: ''
+  - name: --lab --labels
+    summary: 'Karte der Bezeichnungen, die auf die Ziel Bereitstellung angewendet werden sollen. Verwenden Sie das folgende Format: "{" Key0 ":" value0 "," key1 ":" Value1 "}".'
+    description: ''
+  - name: --layered
+    parameterValueGroup: false, true
+    summary: Mithilfe von geschichteten bereit Stellungen können Sie gewünschte Eigenschaften in $edgeAgent, $edgeHub und Benutzer Modulen definieren, die sich auf einer Basis Bereitstellung befinden. Beispielsweise werden die Routen, die in einer geschichteten Bereitstellung angegeben sind, mit Routen der Basis Bereitstellung zusammengeführt. Routen mit dem gleichen Namen werden basierend auf der Bereitstellungs Priorität überschrieben.
+    description: ''
+  - name: --login -l
+    summary: Dieser Befehl unterstützt eine Entitäts Verbindungs Zeichenfolge mit rechten zum Ausführen von Aktionen. Verwenden Sie, um die Sitzungs Anmeldung über "AZ Login" zu vermeiden. Wenn sowohl eine Entitäts Verbindungs Zeichenfolge als auch ein Name angegeben wird, hat die Verbindungs Zeichenfolge Priorität
+    description: ''
+  - name: --metrics -m
+    summary: IOT Edge Bereitstellungs metrikdefinitionen. Geben Sie Dateipfad oder unformatierte JSON-
+    description: ''
+  - name: --no-validation
+    parameterValueGroup: false, true
+    summary: Deaktiviert die Client seitige Schema Validierung für die Erstellung der Edge-Bereitstellung.
+    description: ''
+  - name: --pri --priority
+    summary: Gewichtung der Bereitstellung im Fall von konkurrierenden Regeln (höchste WINS).
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --target-condition --tc -t
+    summary: Die Ziel Bedingung, für die eine Edge-Bereitstellung gilt.
+    description: ''
+- uid: az_iot_edge_deployment_delete
+  name: az iot edge deployment delete
+  summary: Löschen Sie eine IOT Edge Bereitstellung.
+  description: ''
+  syntax: >-
+    az iot edge deployment delete --deployment-id
+                                  [--etag]
+                                  [--hub-name]
+                                  [--login]
+                                  [--resource-group]
+  requiredParameters:
+  - isRequired: true
+    name: --deployment-id -d
+    summary: Name der Ziel Bereitstellung.
+    description: ''
+  optionalParameters:
+  - name: --etag -e
+    summary: ETag oder Entitätstag, das dem letzten Zustand der Ressource entspricht. Wenn kein ETag angegeben wird, wird der Wert " \* " verwendet.
+    description: ''
+  - name: --hub-name -n
+    summary: IOT Hub Name.
+    description: ''
+  - name: --login -l
+    summary: Dieser Befehl unterstützt eine Entitäts Verbindungs Zeichenfolge mit rechten zum Ausführen von Aktionen. Verwenden Sie, um die Sitzungs Anmeldung über "AZ Login" zu vermeiden. Wenn sowohl eine Entitäts Verbindungs Zeichenfolge als auch ein Name angegeben wird, hat die Verbindungs Zeichenfolge Priorität
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+- uid: az_iot_edge_deployment_list
+  name: az iot edge deployment list
+  summary: Auflisten IOT Edge bereit Stellungen in einer IOT Hub.
+  description: ''
+  syntax: >-
+    az iot edge deployment list [--hub-name]
+                                [--login]
+                                [--resource-group]
+                                [--top]
+  optionalParameters:
+  - name: --hub-name -n
+    summary: IOT Hub Name.
+    description: ''
+  - name: --login -l
+    summary: Dieser Befehl unterstützt eine Entitäts Verbindungs Zeichenfolge mit rechten zum Ausführen von Aktionen. Verwenden Sie, um die Sitzungs Anmeldung über "AZ Login" zu vermeiden. Wenn sowohl eine Entitäts Verbindungs Zeichenfolge als auch ein Name angegeben wird, hat die Verbindungs Zeichenfolge Priorität
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --top
+    summary: Maximale Anzahl von bereit Stellungen, die zurückgegeben werden sollen. Standardmäßig werden alle bereit Stellungen zurückgegeben.
+    description: ''
+- uid: az_iot_edge_deployment_show
+  name: az iot edge deployment show
+  summary: Hier finden Sie Details zu einer IOT Edge-Bereitstellung.
+  description: ''
+  syntax: >-
+    az iot edge deployment show --deployment-id
+                                [--hub-name]
+                                [--login]
+                                [--resource-group]
+  requiredParameters:
+  - isRequired: true
+    name: --deployment-id -d
+    summary: Name der Ziel Bereitstellung.
+    description: ''
+  optionalParameters:
+  - name: --hub-name -n
+    summary: IOT Hub Name.
+    description: ''
+  - name: --login -l
+    summary: Dieser Befehl unterstützt eine Entitäts Verbindungs Zeichenfolge mit rechten zum Ausführen von Aktionen. Verwenden Sie, um die Sitzungs Anmeldung über "AZ Login" zu vermeiden. Wenn sowohl eine Entitäts Verbindungs Zeichenfolge als auch ein Name angegeben wird, hat die Verbindungs Zeichenfolge Priorität
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+- uid: az_iot_edge_deployment_show-metric
+  name: az iot edge deployment show-metric
+  summary: Wertet eine in einer IOT Edge Bereitstellung definierte Zielsystem Metrik aus.
+  description: ''
+  syntax: >-
+    az iot edge deployment show-metric --deployment-id
+                                       --metric-id
+                                       [--hub-name]
+                                       [--login]
+                                       [--metric-type {system, user}]
+                                       [--resource-group]
+  examples:
+  - summary: System Metrik "appliedcount" auswerten
+    syntax: az iot edge deployment show-metric -m appliedCount -d {deployment_name} -n {iothub_name} --mt system
+  - summary: Auswerten der Benutzer Metrik "mycustommetric"
+    syntax: az iot edge deployment show-metric -m myCustomMetric -d {deployment_name} -n {iothub_name}
+  requiredParameters:
+  - isRequired: true
+    name: --deployment-id -d
+    summary: Name der Ziel Bereitstellung.
+    description: ''
+  - isRequired: true
+    name: --metric-id -m
+    summary: Die Zielmetrik für die Auswertung.
+    description: ''
+  optionalParameters:
+  - name: --hub-name -n
+    summary: IOT Hub Name.
+    description: ''
+  - name: --login -l
+    summary: Dieser Befehl unterstützt eine Entitäts Verbindungs Zeichenfolge mit rechten zum Ausführen von Aktionen. Verwenden Sie, um die Sitzungs Anmeldung über "AZ Login" zu vermeiden. Wenn sowohl eine Entitäts Verbindungs Zeichenfolge als auch ein Name angegeben wird, hat die Verbindungs Zeichenfolge Priorität
+    description: ''
+  - name: --metric-type --mt
+    defaultValue: user
+    parameterValueGroup: system, user
+    summary: Gibt an, welche metrikauflistung für die Suche nach Metriken verwendet werden soll.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+- uid: az_iot_edge_deployment_update
+  name: az iot edge deployment update
+  summary: >-
+    Aktualisieren Sie die angegebenen Eigenschaften einer IOT Edge Bereitstellung.
+
+
+    Verwenden Sie "--Set", gefolgt von den Eigenschaften Zuweisungen zum Aktualisieren einer Bereitstellung.
+
+
+    Hinweis: IOT Edge Bereitstellungs Inhalt ist unveränderlich. Die Bereitstellungs Eigenschaften, die aktualisiert werden können, sind "Labels", "Metrics", "Priority" und "targetcondition".
+  description: ''
+  syntax: >-
+    az iot edge deployment update --deployment-id
+                                  [--add]
+                                  [--etag]
+                                  [--force-string]
+                                  [--hub-name]
+                                  [--login]
+                                  [--remove]
+                                  [--resource-group]
+                                  [--set]
+  examples:
+  - summary: Ändern der Bezeichnungen und Ziel Bedingungen einer vorhandenen Edge-Bereitstellung
+    syntax: az iot edge deployment update -d {deployment_name} -n {iothub_name} --set labels='{"purpose":"dev", "owners":"IoTEngineering"}' targetCondition='tags.building=9'
+  requiredParameters:
+  - isRequired: true
+    name: --deployment-id -d
+    summary: Name der Ziel Bereitstellung.
+    description: ''
+  optionalParameters:
+  - name: --add
+    summary: Fügen Sie einer Liste von-Objekten ein Objekt hinzu, indem Sie ein Pfad-und Schlüssel-Wert-Paar angeben.  Beispiel:--Add Property. ListProperty <Key = Value, String oder JSON String>.
+    description: ''
+  - name: --etag -e
+    summary: ETag oder Entitätstag, das dem letzten Zustand der Ressource entspricht. Wenn kein ETag angegeben wird, wird der Wert " \* " verwendet.
+    description: ''
+  - name: --force-string
+    summary: Wenn Sie "Set" oder "Add" verwenden, erhalten Sie Zeichen folgen Literale, anstatt zu versuchen, in JSON zu konvertieren.
+    description: ''
+  - name: --hub-name -n
+    summary: IOT Hub Name.
+    description: ''
+  - name: --login -l
+    summary: Dieser Befehl unterstützt eine Entitäts Verbindungs Zeichenfolge mit rechten zum Ausführen von Aktionen. Verwenden Sie, um die Sitzungs Anmeldung über "AZ Login" zu vermeiden. Wenn sowohl eine Entitäts Verbindungs Zeichenfolge als auch ein Name angegeben wird, hat die Verbindungs Zeichenfolge Priorität
+    description: ''
+  - name: --remove
+    summary: Entfernt eine Eigenschaft oder ein Element aus einer Liste.  Beispiel:--Remove Property. List <indexToRemove> oder--Remove propertytoremove.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --set
+    summary: Aktualisieren Sie ein Objekt, indem Sie einen Eigenschafts Pfad und einen festzulegenden Wert angeben.  Beispiel:--Set Eigenschaft1. Eigenschaft2 =<value>.
+    description: ''
+commands:
+- az_iot_edge_deployment_create
+- az_iot_edge_deployment_delete
+- az_iot_edge_deployment_list
+- az_iot_edge_deployment_show
+- az_iot_edge_deployment_show-metric
+- az_iot_edge_deployment_update
+globalParameters:
+- name: --debug
+  summary: Ausführlichkeit der Protokollierung erhöhen, um alle Debugprotokolle anzuzeigen.
+- name: --help -h
+  summary: Zeigen Sie diese Hilfemeldung an, und schließen Sie sie.
+- name: --only-show-errors
+  summary: Nur Fehler anzeigen und Warnungen unterdrücken.
+- name: --output -o
+  defaultValue: json
+  parameterValueGroup: json, jsonc, table, tsv
+  summary: Ausgabeformat.
+- name: --query
+  summary: JMESPath-Abfragezeichenfolge. Weitere Informationen und Beispiele finden Sie unter <a href="http://jmespath.org/">http://jmespath.org/</a>.
+- name: --verbose
+  summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
+metadata:
+  description: Verwalten Sie IOT Edge bereit Stellungen in der Skala.
+  ms.openlocfilehash: a19e7a13eba06a152a3cee70d14f20a89254eb98
+  ms.sourcegitcommit: 612554c029ba1f28d3a43fd22e743104a1a30ea0
+  ms.translationtype: MT
+  ms.contentlocale: de-DE
+  ms.lasthandoff: 04/07/2021
+  ms.locfileid: "106928647"

@@ -1,0 +1,277 @@
+### YamlMime:AzureCLIGroup
+uid: az_policy_remediation
+name: az policy remediation
+summary: Verwalten von Ressourcenrichtlinien-Korrekturen.
+description: ''
+directCommands:
+- uid: az_policy_remediation_cancel
+  name: az policy remediation cancel
+  summary: Brechen Sie eine Ressourcenrichtlinien-Korrektur ab.
+  description: ''
+  syntax: >-
+    az policy remediation cancel --name
+                                 [--management-group]
+                                 [--namespace]
+                                 [--parent]
+                                 [--resource]
+                                 [--resource-group]
+                                 [--resource-type]
+                                 [--subscription]
+  requiredParameters:
+  - isRequired: true
+    name: --name -n
+    summary: Der Name der Korrektur.
+    description: ''
+  optionalParameters:
+  - name: --management-group -m
+    summary: Name der Verwaltungsgruppe.
+    description: ''
+  - name: --namespace
+    summary: Anbieternamespace (z.B. Microsoft.Provider).
+    description: ''
+  - name: --parent
+    summary: Der übergeordnete Pfad (z. B. resourceTypeA/nameA/resourceTypeB/nameB).
+    description: ''
+  - name: --resource
+    summary: Ressourcen-ID oder Ressourcenname. Wenn ein Name angegeben wird, geben Sie die Ressourcengruppe und andere relevante Ressourcen-ID-Argumente an.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --resource-type
+    summary: Ressourcentyp (z. B. resourceTypeC).
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/resource/_help.py
+- uid: az_policy_remediation_create
+  name: az policy remediation create
+  summary: Erstellen Sie eine Ressourcenrichtlinien-Korrektur.
+  description: ''
+  syntax: >-
+    az policy remediation create --name
+                                 --policy-assignment
+                                 [--definition-reference-id]
+                                 [--location-filters]
+                                 [--management-group]
+                                 [--namespace]
+                                 [--parent]
+                                 [--resource]
+                                 [--resource-discovery-mode {ExistingNonCompliant, ReEvaluateCompliance}]
+                                 [--resource-group]
+                                 [--resource-type]
+                                 [--subscription]
+  examples:
+  - summary: Erstellen einer Korrektur im Ressourcengruppenbereich für eine Richtlinienzuweisung
+    syntax: az policy remediation create -g myRg -n myRemediation --policy-assignment eeb18edc813c42d0ad5a9eab
+  - summary: Erstellen einer Korrektur im Ressourcengruppenbereich für eine Richtlinienzuweisung mithilfe der Ressourcen-ID der Richtlinienzuweisung
+    syntax: az policy remediation create -g myRg -n myRemediation --policy-assignment "/subscriptions/fff10b27-fff3-fff5-fff8-fffbe01e86a5/providers/Microsoft.Authorization/policyAssignments/myPa"
+  - summary: Erstellen einer Korrektur im Abonnementbereich für eine Richtliniensatzzuweisung
+    syntax: az policy remediation create -n myRemediation --policy-assignment eeb18edc813c42d0ad5a9eab --definition-reference-id auditVMPolicyReference
+  - summary: Erstellen einer Korrektur im Verwaltungsgruppenbereich für bestimmte Ressourcenstandorte
+    syntax: az policy remediation create -m myMg -n myRemediation --policy-assignment eeb18edc813c42d0ad5a9eab --location-filters eastus westeurope
+  - summary: Erstellen einer Korrektur für eine bestimmte Ressource mithilfe der Ressourcen-ID
+    syntax: az policy remediation create --resource "/subscriptions/fff10b27-fff3-fff5-fff8-fffbe01e86a5/resourceGroups/myRg/providers/Microsoft.Compute/virtualMachines/myVm" -n myRemediation --policy-assignment eeb18edc813c42d0ad5a9eab
+  - summary: Erstellen einer Korrektur, die die Konformität vor der Behebung erneut auswertet
+    syntax: az policy remediation create -g myRg -n myRemediation --policy-assignment eeb18edc813c42d0ad5a9eab --resource-discovery-mode ReEvaluateCompliance
+  requiredParameters:
+  - isRequired: true
+    name: --name -n
+    summary: Name der Korrektur.
+    description: ''
+  - isRequired: true
+    name: --policy-assignment -a
+    summary: Name oder Ressourcen-ID der Richtlinienzuweisung.
+    description: ''
+  optionalParameters:
+  - name: --definition-reference-id
+    summary: Verweis-ID der Richtliniendefinition innerhalb der Richtliniensatzdefinition. Nur erforderlich, wenn die Richtlinienzuweisung eine Richtliniensatzdefinition zuweist.
+    description: ''
+  - name: --location-filters
+    summary: Durch Leerzeichen getrennte Liste der Ressourcenstandorte, die bereinigt werden sollten (z. B. centralus westeurope).
+    description: ''
+  - name: --management-group -m
+    summary: Name der Verwaltungsgruppe.
+    description: ''
+  - name: --namespace
+    summary: Anbieternamespace (z. B. Microsoft.Provider).
+    description: ''
+  - name: --parent
+    summary: Der übergeordnete Pfad (z. B. resourceTypeA/nameA/resourceTypeB/nameB).
+    description: ''
+  - name: --resource
+    summary: Ressourcen-ID oder Ressourcenname. Wenn ein Name angegeben wird, geben Sie die Ressourcengruppe und andere relevante Ressourcen-ID-Argumente an.
+    description: ''
+  - name: --resource-discovery-mode
+    parameterValueGroup: ExistingNonCompliant, ReEvaluateCompliance
+    summary: Die Art und Weise, wie Ressourcen ermittelt werden, die behoben werden sollen. Der Standardwert ist ExistingNonCompliant, sofern nicht angegeben.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --resource-type
+    summary: Ressourcentyp (z. B. resourceTypeC).
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/resource/_help.py
+- uid: az_policy_remediation_delete
+  name: az policy remediation delete
+  summary: Löschen sie eine Ressourcenrichtlinienbereinigung.
+  description: ''
+  syntax: >-
+    az policy remediation delete --name
+                                 [--management-group]
+                                 [--namespace]
+                                 [--parent]
+                                 [--resource]
+                                 [--resource-group]
+                                 [--resource-type]
+                                 [--subscription]
+  requiredParameters:
+  - isRequired: true
+    name: --name -n
+    summary: Name der Wiederherstellung.
+    description: ''
+  optionalParameters:
+  - name: --management-group -m
+    summary: Name der Verwaltungsgruppe.
+    description: ''
+  - name: --namespace
+    summary: Anbieternamespace (z. B. Microsoft.Provider).
+    description: ''
+  - name: --parent
+    summary: Der übergeordnete Pfad (z. B. resourceTypeA/nameA/resourceTypeB/nameB).
+    description: ''
+  - name: --resource
+    summary: Ressourcen-ID oder Ressourcenname. Wenn ein Name angegeben wird, geben Sie die Ressourcengruppe und andere relevante Ressourcen-ID-Argumente an.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --resource-type
+    summary: Ressourcentyp (z. B. resourceTypeC).
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/resource/_help.py
+- uid: az_policy_remediation_list
+  name: az policy remediation list
+  summary: Auflisten von Ressourcenrichtlinien-Korrekturen.
+  description: ''
+  syntax: >-
+    az policy remediation list [--management-group]
+                               [--namespace]
+                               [--parent]
+                               [--query-examples]
+                               [--resource]
+                               [--resource-group]
+                               [--resource-type]
+                               [--subscription]
+  optionalParameters:
+  - name: --management-group -m
+    summary: Name der Verwaltungsgruppe.
+    description: ''
+  - name: --namespace
+    summary: Anbieternamespace (z. B. Microsoft.Provider).
+    description: ''
+  - name: --parent
+    summary: Der übergeordnete Pfad (z.B. resourceTypeA/nameA/resourceTypeB/nameB).
+    description: ''
+  - name: --query-examples
+    summary: Empfehlen Sie die JMESPath-Zeichenfolge. Sie können eine der Abfragen kopieren und nach dem Parameter --query in doppelte Anführungszeichen einfügen, um die Ergebnisse zu sehen. Sie können ein oder mehrere Positionsschlüsselwörter hinzufügen, damit wir basierend auf diesen Schlüsselwörtern Vorschläge machen können.
+    description: ''
+  - name: --resource
+    summary: Ressourcen-ID oder Ressourcenname. Wenn ein Name angegeben wird, geben Sie die Ressourcengruppe und andere relevante Ressourcen-ID-Argumente an.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --resource-type
+    summary: Ressourcentyp (z. B. resourceTypeC).
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/resource/_help.py
+- uid: az_policy_remediation_show
+  name: az policy remediation show
+  summary: Anzeigen einer Ressourcenrichtlinien-Korrektur.
+  description: ''
+  syntax: >-
+    az policy remediation show --name
+                               [--management-group]
+                               [--namespace]
+                               [--parent]
+                               [--query-examples]
+                               [--resource]
+                               [--resource-group]
+                               [--resource-type]
+                               [--subscription]
+  requiredParameters:
+  - isRequired: true
+    name: --name -n
+    summary: Name der Korrektur.
+    description: ''
+  optionalParameters:
+  - name: --management-group -m
+    summary: Name der Verwaltungsgruppe.
+    description: ''
+  - name: --namespace
+    summary: Anbieternamespace (z. B. Microsoft.Provider).
+    description: ''
+  - name: --parent
+    summary: Der übergeordnete Pfad (z. B. resourceTypeA/nameA/resourceTypeB/nameB).
+    description: ''
+  - name: --query-examples
+    summary: Empfehlen Sie die JMESPath-Zeichenfolge. Sie können eine der Abfragen kopieren und nach dem Parameter --query in doppelte Anführungszeichen einfügen, um die Ergebnisse zu sehen. Sie können ein oder mehrere Positionsschlüsselwörter hinzufügen, damit wir basierend auf diesen Schlüsselwörtern Vorschläge machen können.
+    description: ''
+  - name: --resource
+    summary: Ressourcen-ID oder Ressourcenname. Wenn ein Name angegeben wird, geben Sie die Ressourcengruppe und andere relevante Ressourcen-ID-Argumente an.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --resource-type
+    summary: Ressourcentyp (z. B. resourceTypeC).
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/resource/_help.py
+commands:
+- az_policy_remediation_cancel
+- az_policy_remediation_create
+- az_policy_remediation_delete
+- az_policy_remediation_deployment
+- az_policy_remediation_deployment_list
+- az_policy_remediation_list
+- az_policy_remediation_show
+globalParameters:
+- name: --debug
+  summary: Ausführlichkeit der Protokollierung erhöhen, um alle Debugprotokolle anzuzeigen.
+- name: --help -h
+  summary: Zeigen Sie diese Hilfemeldung an, und schließen Sie sie.
+- name: --only-show-errors
+  summary: Nur Fehler anzeigen und Warnungen unterdrücken.
+- name: --output -o
+  defaultValue: json
+  parameterValueGroup: json, jsonc, table, tsv
+  summary: Ausgabeformat.
+- name: --query
+  summary: JMESPath-Abfragezeichenfolge. Weitere Informationen und Beispiele finden Sie unter <a href="http://jmespath.org/">http://jmespath.org/</a>.
+- name: --verbose
+  summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
+metadata:
+  doc_source_url_repo: https://github.com/Azure/azure-cli/blob/dev/
+  ms.date: 04/09/2021
+  description: Verwalten von Ressourcenrichtlinien-Korrekturen.
+  ms.openlocfilehash: a079defdafa455bdc25ed9844f4d6348823cab58
+  ms.sourcegitcommit: d01260d847ea835a8bbab0e0db73d1b39f5c18ef
+  ms.translationtype: MT
+  ms.contentlocale: de-DE
+  ms.lasthandoff: 04/13/2021
+  ms.locfileid: "107334832"

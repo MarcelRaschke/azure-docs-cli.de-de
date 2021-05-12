@@ -4,21 +4,523 @@ description: Enthält Informationen zu den aktuellen Updates der Azure CLI.
 author: dbradish-microsoft
 ms.author: dbradish
 manager: barbkess
-ms.date: 02/10/2021
+ms.date: 05/06/2021
 ms.topic: article
 ms.service: azure-cli
 ms.devlang: azurecli
 ms.custom: devx-track-azurecli
-ms.openlocfilehash: 6f60c62974be947de8b1a2efbc7d0be9e9724e98
-ms.sourcegitcommit: a75bc3963fb815e8f19b7b3d575d3bd065b5b0cc
+ms.openlocfilehash: 5536f88f3db89a5bec82393dd0a9369e1319fc98
+ms.sourcegitcommit: 15a6f14c5a8570ba89a3bd5bb442f3324d72bc37
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 02/10/2021
-ms.locfileid: "100090240"
+ms.lasthandoff: 04/29/2021
+ms.locfileid: "108242796"
 ---
 # <a name="azure-cli-release-notes"></a>Versionshinweise für die Azure CLI
 
 # <a name="current-release-notes"></a>[Aktuelle Versionshinweise](#tab/azure-cli)
+
+## <a name="may-06-2021"></a>6\. Mai 2021
+
+Version 2.23.0
+
+### <a name="acr"></a>ACR
+
+* `az acr check-health`: Unterstützung zum Überprüfen von DNS-Routings zu privaten Endpunkten hinzugefügt
+* Fehlerbehebung Nr. 17618: Behandlung von Hinzufüge-/Aktualisierungsvorgängen für Aufgaben aktualisiert, die mithilfe von „--auth-mode“ erstellt wurden
+
+### <a name="aks"></a>AKS
+
+* `az aks update`: `--windows-admin-password` hinzugefügt, um die Aktualisierung des Windows-Kennworts zu unterstützen
+* `az aks update`: Unterstützung für die Aktualisierung von einem SPN-Cluster auf einen MSI-Cluster
+* `az aks create`: Parameter `--enable-encryption-at-host` hinzugefügt
+
+### <a name="app-service"></a>App Service
+
+* [BREAKING CHANGE] Websites SDK auf aktuelle Version aktualisiert (azure-mgmt-web==2.0.0) und Adopt track2 SDK
+* [BREAKING CHANGE] `az staticwebapp browse` in `az staticwebapp show` umbenannt
+* SKU-Option für `az staticwebapp create --sku` hinzugefügt
+* Befehl `az staticwebapp update` hinzugefügt
+* `az webapp/functionapp config access-restriction add/remove`: Unterstützung für Diensttags, HTTP-Header und Regeln für mehrere Quellen
+
+### <a name="arm"></a>ARM
+
+* `az bicep`: Ersetzen von datetime-APIs, die in Python 3.6 nicht verfügbar sind
+* `az deployment group create`: Kompatibilitätsproblem von api-version für Parameter `--template-specs` behoben
+
+### <a name="backup"></a>Backup
+
+* `az backup vault create`: Tags als optionales Argument hinzugefügt
+* AFS-Konfigurationssicherungsflow als idempotent festgelegt
+
+### <a name="cdn"></a>CDN
+
+* `az cdn endpoint rule add`: Erstellung der Zustellungsregel für nicht von Microsoft stammende SKUs korrigiert
+
+### <a name="compute"></a>Compute
+
+* Erweiterter Standort für Compute-RP
+* `az sig image-version create`: Unterstützung für die Erstellung auf der Grundlage einer VHD
+* `az vm create --count`: Unterstützung von VNet- und Subnetzkonfiguration
+* `az vmss extension upgrade`: Fehler behoben
+* Fehlermeldung für `vm identity assign` hinzugefügt
+* Verwaltete ZRS-Datenträger (Zonenredundanter Speicher)
+* `az disk create`: Vertrauenswürdiger Start
+* `az disk create`: Ruhezustand
+* Kompatibilitätsproblems mit der alten API-Version behoben
+* `az sig image version create`: Unterstützung für Datenträger-VHDs
+
+### <a name="feedback"></a>Feedback
+
+* Feedbackproblemtext nicht minimieren
+
+### <a name="functionapp"></a>FunctionApp
+
+* Problem mit der ZIP-Bereitstellung behoben, das dazu führte, dass statt der erwarteten koordinierten Weltzeit (UTC) die Ortszeit angegeben wurde
+* JSON-Code der Stapel-API aktualisiert, um PowerShell unter Linux in Functions hinzuzufügen
+
+### <a name="hdinsight"></a>HDInsight
+
+* Anstehenden BREAKING CHANGE für das Entfernen der Standardwerte `--workernode-size` und `--headnode-size` hinzugefügt
+
+### <a name="key-vault"></a>Key Vault
+
+* [BREAKING CHANGE] Unterstützung für das Feature für vorläufiges Löschen für verwaltetes HSM `keyvault delete --hsm-name` führt vorläufiges Löschen für einen MHSM aus.
+
+### <a name="marketplace-ordering"></a>Marketplace-Bestellungen
+
+* Neue Befehlsgruppe `az term` zum Akzeptieren/Anzeigen von Bedingungen
+
+### <a name="misc"></a>Verschiedenes:
+
+* Design für Cloud Shell definiert
+
+### <a name="monitor"></a>Monitor
+
+* Neuer Befehl `az monitor metrics list-namespaces`
+
+### <a name="network"></a>Netzwerk
+
+* [BREAKING CHANGE] az network dns record-set a show: Eigenschaft `arecords` in der Ausgabe wird in `aRecords` geändert.
+* Neuer Befehl `az network express-route list-route-tables-summary`
+* Neuer Befehl `az network express-route peering get-stats`
+* Neuer Befehl `az network express-route peering connection list`
+* `az network lb create`: Neuer Parameter `--edge-zone` hinzugefügt
+* `az network nic create`: Neuer Parameter `--edge-zone` hinzugefügt
+* `az network private-endpoint create`: Neuer Parameter `--edge-zone` hinzugefügt
+* `az network private-link-service create`: Neuer Parameter `--edge-zone` hinzugefügt
+* `az network public-ip create`: Neuer Parameter `--edge-zone` hinzugefügt
+* `az network public-ip prefix create`: Neuer Parameter `--edge-zone` hinzugefügt
+* `az network vnet create`: Neuer Parameter `--edge-zone` hinzugefügt
+* Neuer Befehl `az network lb list-nic`
+* `az network application-gateway show-backend-health`: Unterstützung für Testvorgangsargumente
+* `az network vpn-connection list`: Unterstützung für Parameter `--vnet-gateway`
+* Neuer Befehl `az network vnet-gateway disconnect-vpn-connections`
+* Neuer Befehl `az network vnet-gateway vpn-client show-health`
+* Neuer Befehl `az network vnet-gateway vpn-client ipsec-policy show`
+* Neuer Befehl `az network vnet-gateway vpn-client ipsec-policy set`
+* Neuer Befehl `az network vnet-gateway packet-capture start`
+* Neuer Befehl `az network vnet-gateway packet-capture stop`
+* Neuer Befehl `az network vnet-gateway show-supported-devices`
+* Neuer Befehl `az network vpn-connection list-ike-sas`
+* Neuer Befehl `az network vpn-connection packet-capture start`
+* Neuer Befehl `az network vpn-connection packet-capture stop`
+* Neuer Befehl: `az network vpn-connection show-device-config-script`
+* `az network private-link-resource list`: Unterstützung für weitere Anbieter für `--type`
+
+### <a name="packaging"></a>Paketerstellung
+
+* Python auf `3.8.9` im Docker-Image aktualisiert
+* Python-Paket auf `3.8.9` in MSI aktualisiert
+
+### <a name="rdbms"></a>RDBMS
+* [BREAKING CHANGE] `az mysql flexible-server create`: Der Standardwert für `--storage-size` wird von 10 in 32 geändert.
+* `az postgres flexible-server create`: Parameter `--private-dns-zone` zum Erstellen eines Servers mit privatem Zugriff hinzugefügt.
+
+### <a name="role"></a>Role
+
+* `az role assignment create/update`: AutoVervollständigen für `assignee_principal_type`
+
+### <a name="sql"></a>SQL
+
+* `az sql db create`: Argument „--ha-replicas“ hinzugefügt
+* `az sql db replica create`: Argument „--ha-replicas“ hinzugefügt
+* Kurze MW-Richtliniennamen für MI zulässig
+
+### <a name="sql-vm"></a>SQL-VM
+
+* „SqlServerLicenseType“ als optional festgelegt
+
+### <a name="storage"></a>Storage
+
+* Fehlerbehebung Nr. 16272 und Nr. 16853: Fehlermeldung optimiert
+* `az storage account create`: Unterstützung für Edgezonen hinzugefügt
+* Unterstützung für benutzerseitig zugewiesene Identität für das Speicherkonto
+* `az storage account create/update`: Unterstützung von SAS und Schlüsselrichtlinie
+
+### <a name="synapse"></a>Synapse
+
+* `az synapse notebook create`: Erstellen eines Notebooks
+
+## <a name="april-19-2021"></a>19. April 2021
+
+Version 2.22.1
+
+### <a name="arm"></a>ARM
+
+* Hotfix: Behebung des Problems, dass der Bicep-Build in Python 3.6 beschädigt wurde
+
+### <a name="key-vault"></a>Key Vault
+
+* Hotfix: Allgemeine Verfügbarkeit von Befehlen und Parametern für verwaltetes HSM
+
+## <a name="april-13-2021"></a>13. April 2021
+
+Version 2.22.0
+
+### <a name="acr"></a>ACR
+
+* [BREAKING CHANGE] `az acr connected-registry install info`: Schlüssel ACR_REGISTRY_NAME, ACR_SYNC_TOKEN_NAME, ACR_SYNC_TOKEN_PASSWORD, ACR_PARENT_GATEWAY_ENDPOINT und ACR_PARENT_PROTOCOL durch einen neuen verbundenen Zeichenfolgenschlüssel (ACR_REGISTRY_CONNECTION_STRING) ersetzt
+* [BREAKING CHANGE] `az acr connected-registry install renew-credentials`: Schlüssel ACR_REGISTRY_NAME, ACR_SYNC_TOKEN_NAME, ACR_SYNC_TOKEN_PASSWORD, ACR_PARENT_GATEWAY_ENDPOINT und ACR_PARENT_PROTOCOL durch einen neuen verbundenen Zeichenfolgenschlüssel (ACR_REGISTRY_CONNECTION_STRING) ersetzt
+* `az acr connected-registry create`: Überprüfen Sie vor der Erstellung der Token- und Synchronisierungsbereichszuordnung, ob alle Vorgänger aktiv sind.
+* `az acr connected-registry create`: Fügen Sie bei Bedarf vor der Erstellung der verbundenen Registrierung allen Vorgängern der neuen verbundenen Registrierung die für die Erstellung erforderlichen Repository- und Gatewayberechtigungen hinzu.
+* `az acr connected-registry delete`: Entfernen Sie die Gatewayberechtigungen der gelöschten Ressourcen aus allen Synchronisierungsbereichszuordnungen ihrer Vorgänger.
+* `az acr connected-registry repo`: Neuer Befehl zum Hinzufügen von Repositoryberechtigungen zu einer verbundenen Registrierung und allen Synchronisierungsbereichszuordnungen ihrer Vorgänger sowie zum Entfernen von Repositoryberechtigungen aus der verbundenen Registrierung und allen Synchronisierungsbereichszuordnungen ihrer Nachfolger
+
+### <a name="aks"></a>AKS
+
+* `az aks create`-Unterstützung für die Features `--private-dns-zone` und `--fqdn-subdomain` hinzugefügt
+
+### <a name="app-config"></a>App-Konfiguration
+
+* Konfigurieren der maximalen Zeilenbreite für den YAML-Parser, damit die Ausgabe nicht mehr umgebrochen wird
+* Fehler in der Seitenansicht des Wiederherstellungsbefehls behoben
+
+### <a name="app-service"></a>App Service
+
+* Fehlerbehebung Nr. 17219: Fehler bei der SSL-Bindung behoben
+* Vorschauflag für Python 3.9 im Befehl zum Erstellen einer Funktions-App entfernt
+* Fehlerbehebung: Behandeln, wenn nur ein einzelnes Veröffentlichungsprofil zurückgegeben wird
+* Fehlerbehebung Nr. 16203: „az webapp log tail“ unterstützt unter Linux ausgeführte Web-Apps.
+
+### <a name="arm"></a>ARM
+
+* [BREAKING CHANGE] `az bicep build`: Parameter `--files` in `--file` geändert
+* [BREAKING CHANGE] `az bicep decompile`: Parameter `--files` in `--file` geändert
+* Fehlerbehebung Nr. 17379: Die automatische Bicep-Installation führt zu einer ungültigen JSON-Ausgabe der Bereitstellung.
+* `az bicep build`: Parameter `--outdir` zum Angeben des Ausgabeverzeichnisses hinzugefügt
+* `az bicep build`: Parameter `--outfile` zum Angeben des Ausgabedateipfads hinzugefügt
+* Problem behoben, aufgrund dessen bei der Überprüfung des Versionsupgrades für die Bicep-Befehlszeilenschnittstelle bei Erreichen des GitHub-API-Ratenlimits eine Ausnahme ausgelöst wurde
+* `az policy exemption`: Neue Befehle zur Unterstützung von Richtlinienausnahmen hinzugefügt
+
+### <a name="backup"></a>Backup
+
+* Fehlerbehebung Nr. 14776: Funktionalität des Parameters `--force` für Befehl `az backup vault delete` korrigiert
+* On-Demand-Sicherung korrigiert
+* `az backup protectable-item list`: Optionaler Parameter `--backup-management-type` hinzugefügt
+* Richtlinienerstellung mit „rgNamePrefix“ und „rgNameSuffix“ korrigiert
+* `az backup protectable-item list`: `--server-name` als optionales Argument hinzugefügt
+
+### <a name="compute"></a>Compute
+
+* `az ssh vm`: Unterstützung von VM-SSH mit Dienstprinzipal
+* Option für paralleles VMSS-Upgrade hinzugefügt
+* Neuer Befehl: `vm install-patches`
+* Datenträgerverschlüsselungssatz: `--enable-auto-key-rotation` hinzugefügt
+
+### <a name="container"></a>Container
+
+* Fehlerbehebung Nr. 16499: `az container create`: Behandlung des Rückgabewerts von „network_profiles.create_or_update“ korrigiert
+
+### <a name="cosmos-db"></a>Cosmos DB
+
+* Unterstützung für verwaltete Dienstidentität und Standardidentität
+
+### <a name="eventgrid"></a>EventGrid
+
+* `az eventgrid system-topic create/update`: MSI-Unterstützung hinzugefügt
+* `az eventgrid [partner topic | system-topic] event-subscription`: Unterstützung für StorageQueueMessageTTL, AdvancedFilters, EnableAdvancedFilteringOnArrays hinzugefügt
+* `az eventgrid [partner topic | system-topic] event-subscription`: Unterstützung für Übermittlungsattribut hinzugefügt
+* `az eventgrid topic create`: Unterstützung für das Erstellen eines Themas für azure oder azurearc hinzugefügt
+
+### <a name="interactive"></a>Interactive
+
+* Fehlerbehebung Nr. 16931: `KeyError` in `az interactive --update` behoben
+
+### <a name="netappfiles"></a>NetAppFiles
+
+* `az netappfiles account ad add`: Optionaler Parameter mit dem Namen „allow-local-ldap-users“ hinzugefügt
+* `az netappfiles volume create`: Optionaler Parameter mit dem Namen „ldap-enabled“ hinzugefügt
+* `az netappfiles volume backup status show`: Vorgang hinzugefügt
+* Sicherungstests aktualisiert
+
+### <a name="network"></a>Netzwerk
+
+* `az network vnet-gateway`: Mehrfachwert für `--vpn-auth-type` zulässig
+
+### <a name="packaging"></a>Verpackung
+
+* [BREAKING CHANGE] Von der durch das RPM-Paket installierten az-Komponente wird nun `python3` anstelle der hartcodierten Variante `/usr/bin/python3` verwendet.
+
+### <a name="rdbms"></a>RDBMS
+
+* Zulassen des privaten Datenbankserverzugriffs aus einem anderen Abonnement
+* Servererstellung mit privatem Netzwerk geändert, Fehler im Zusammenhang mit der Wiederherstellungszeit behoben
+
+### <a name="search"></a>Suchen,
+
+* `az search service create`: asynchrone Optionen (--no-wait) hinzugefügt
+* `az search service update`: asynchrone Optionen (--no-wait) hinzugefügt
+* `az search shared-private-link-resource create`: asynchrone Optionen (--no-wait) hinzugefügt
+* `az search shared-private-link-resource update`: asynchrone Optionen (--no-wait) hinzugefügt
+
+### <a name="service-fabric"></a>Service Fabric
+
+* CLI-Befehle für verwaltete Anwendungen hinzugefügt
+
+### <a name="storage"></a>Storage
+
+* `az storage fs directory upload/download`: Unterstützung für den Upload und Download des ADLS Gen2-Dateisystemverzeichnisses
+* `az storage fs file list`: Unterstützung für „--show-next-marker“
+* `az storage share-rm`: Unterstützung für das Erstellen/Anzeigen/Löschen von Momentaufnahmen
+
+### <a name="synapse"></a>Synapse
+
+* [BREAKING CHANGE] `az synapse role assignment create`: Rollennamen in alter Version nicht zulässig (SQL-Administrator, Apache Spark-Administrator, Arbeitsbereichsadministrator)
+* [BREAKING CHANGE] `az synapse role assignment create`: Wenn vom Argument „--assignee“ das Prinzipalobjekt nicht eindeutig bestimmt werden kann, löst der Befehl einen Fehler aus, statt eine Rollenzuweisung für das unsichere Prinzipalobjekt hinzuzufügen.
+* `az synapse role scope list`: Auflisten aller von Synapse unterstützten Bereiche
+* `az synapse role assignment create/list/delete`: Argumente „--scope“, „--item-type“ und „--item“ hinzugefügt, um die bereichsbasierte Verwaltung von Rollenzuweisungen zu unterstützen
+* `az synapse role assignment create/list/delete`: Argument „--assignee-object-id“ hinzugefügt. Mit diesem Objekt wird die Graph-API umgangen und das Prinzipalobjekt eindeutig bestimmt, statt das Prinzipalobjekt mithilfe des Arguments „--assignee“ abzuleiten.
+
+## <a name="march-23-2021"></a>23. März 2021
+
+Version 2.21.0
+
+### <a name="acr"></a>ACR
+
+* Ausgabe einer Ablaufverfolgung in `az acr login` für die Selbstdiagnose möglicher Wartezeiten beim Docker-Befehl
+* Fehlerbehebung Nr. 17172: Beim Ausführen von „check-health“ hinter einem Unternehmensproxy
+* `acr update`: Unterstützung eines anonymen Pullvorgangs
+* Fehlerbehebung Nr. 16700: Überprüfen des Vorhandenseins von Speicherblobs mithilfe der API „exists“
+
+### <a name="aks"></a>AKS
+
+* `aks update`: `--no-uptime-sla` hinzugefügt
+* Fehler beim abonnementübergreifenden Hinzufügen von Identitäten und beim Anfügen von ACR behoben
+* Unterstützung für Präfix-ID für öffentliche IP-Adressen von Knoten hinzugefügt
+
+### <a name="apim"></a>APIM
+
+* [BREAKING CHANGE] `apim backup`: `--storage-account-container` unterstützt nicht mehrere Werte.
+* [BREAKING CHANGE] `apim restore`: `--storage-account-container` unterstützt nicht mehrere Werte.
+
+### <a name="app-service"></a>App Service
+
+* [BREAKING CHANGE] Fehlerbehebung Nr. 16087: `az webapp config ssl create`: Parameter `--name` wie erforderlich festgelegt
+* Fehlerbehebung Nr. 17053: `az webapp show` gibt NULL-Werte für SiteConfig-Eigenschaften zurück.
+* Fehlerbehebung Nr. 17207: `az webapp log config`: Für „level“ wird standardmäßig immer „verbose“ festgelegt.
+
+### <a name="arm"></a>ARM
+
+* `az bicep build`: Problem behoben, aufgrund dessen Buildwarnungen nicht angezeigt wurden
+
+### <a name="backup"></a>Backup
+
+* `id_part` für Namen von Unterressourcen zur Korrektur von `--ids` hinzugefügt
+* Fehlerbehebung Nr. 17094: Separate Testsammlung für CRR-Tests erstellt
+* `az backup protection check-vm`: `--vm` und `--resource-group` als optionale Parameter hinzugefügt
+
+### <a name="cache"></a>Cache
+
+* Allgemeine Verfügbarkeit von `az cache`
+
+### <a name="cdn"></a>CDN
+
+* `az afd rule create`: Nachricht `--help` korrigiert
+
+### <a name="compute"></a>Compute
+
+* Windows-Fehler vom Typ „vm user update“ behoben
+* Fehlerbehebung Nr. 16585: `az vmss deallocate`: Fehler bei `--instance-ids`
+* `az vm create`: Neuer Parameter `--platform-fault-domain` im FLEX VMSS-Modus
+* `az vm create`: `--patch-mode` für Linux-VM
+* `az ssh vm`: Automatisches Starten des Browsers, wenn beim Abrufen des Zertifikats ein Fehler auftritt
+* `az vm create`: Neuer Parameter `--count`
+* `az vm create`: Vertrauenswürdiger Start
+* Fehlerbehebung Nr. 16037: „az vm open-port“ akzeptiert eine Liste mit Ports.
+
+### <a name="extension"></a>Durchwahl
+
+* Umsetzbare Meldung hinzugefügt, wenn eine Erweiterung nicht mit CLI Core kompatibel ist
+
+### <a name="key-vault"></a>Key Vault
+
+* `az keyvault role definition list`: Unterstützung für `--custom-role-only`, um nur benutzerdefinierte Rollendefinitionen aufzulisten
+* Unterstützung der benutzerdefinierten keyvault-Rollendefinition
+* `--no-wait` für Befehl `az keyvault security-domain download` und `--target-operation` für Befehl `az keyvault security-domain wait` hinzugefügt
+
+### <a name="netappfiles"></a>NetAppFiles
+
+* `az netappfiles account backup show`: Vorgang hinzugefügt
+* `az netappfiles account backup delete`: Vorgang hinzugefügt
+* `az netappfiles account ad add`: Parameter `--ldap-over-tls` hinzugefügt
+* `az netappfiles account create`: Parameter `--encryption` hinzugefügt
+* `az netappfiles account update`: Parameter `--encryption` hinzugefügt
+* `az netappfiles volume create`: Parameter `--encryption-key-source` hinzugefügt
+* `az netappfiles volume create`: Standardexportrichtlinie für nfsv4.1 entfernt und optionale Parameter für das Einrichten einer Exportrichtlinie für nfsv4.1 hinzugefügt: rule_index, unix_read_only, unix_read_write, cifs, allowed_clients
+
+### <a name="network"></a>Netzwerk
+
+* `az network public-ip prefix create`: Unterstützung für `--zone 1 2 3`
+* `az network lb frontend-ip create`: Unterstützung für `--zone 1 2 3`
+* Version von 2020-08-01 auf 2020-11-01 aktualisiert
+* `az network lb address-pool`: Unterstützung eines Subnetzes beim Erstellen oder Aktualisieren eines IP-basierten Back-End-Pools eines Lastenausgleichs
+
+### <a name="rdbms"></a>RDBMS
+
+* Tests für die Teampipeline flexibler Server hinzugefügt
+* Python SDK-Migration
+* Funktion zum Erstellen, Anzeigen und Löschen von PostgreSQL-Datenbanken hinzugefügt
+* Python SDK auf 8.1.0b2 aktualisiert
+
+### <a name="role"></a>Rolle
+
+* `az ad app permission list/grant`: Fehlermeldung optimiert, die angezeigt wurde, wenn kein zugeordneter Dienstprinzipal für die App vorhanden ist
+
+### <a name="search"></a>Suche
+
+* `az search`: Allgemeine Verfügbarkeit
+
+### <a name="service-fabric"></a>Service Fabric
+
+* `az sf certificate`: Befehle für Clusterzertifikate als veraltet gekennzeichnet
+
+### <a name="sql"></a>SQL
+
+* Befehle für Serververtrauensgruppen hinzugefügt
+
+### <a name="storage"></a>Storage
+
+* Fehlerbehebung Nr. 16917: Fehler bei `az storage account generate-sas`, falls eine Verbindungszeichenfolge angegeben wird
+* Fehlerbehebung Nr. 16979: Fehler bei `az storage container create`, wenn Speichercontainermetadaten angegeben werden
+
+### <a name="upgrade"></a>Aktualisieren
+
+* Fehlerbehebung Nr. 16952: ImportError nach dem Upgrade behoben
+
+### <a name="misc"></a>Verschiedenes:
+
+* Konfigurieren des Designs zugelassen
+
+## <a name="march-02-2021"></a>02. März 2021
+
+Version 2.20.0
+
+### <a name="aks"></a>AKS
+
+* Unterstützung für SGX-Add-On „confcom“ hinzugefügt
+
+### <a name="ams"></a>AMS
+
+* Modul zur Verwendung der Azure Media Services-API 2020 aktualisiert.
+* `az ams account encryption`: Neue Untergruppe zum Anzeigen oder Festlegen der Verschlüsselung für das Mediendienstkonto
+* `az ams account storage set-authentication`: Neuer Befehl zum Festlegen der Authentifizierung für das Speicherkonto, das dem Mediendienstkonto zugeordnet ist
+* `az ams account create (mi-system-assigned)`: Neuer Parameter „--mi-system-assigned“ für den Befehl „account create“, um die verwaltete Identität des Medienkontos festzulegen
+* `az ams account mru set`: Dieser Befehl funktioniert nicht mehr für Azure Media Services-Konten, die mit der API-Version 2020-05-01 oder höher erstellt werden.
+* `az ams live-event create (stretch-mode, key-frame-interval, transcrip-lang, use-static-hostname, custom hostname)`: Neue Parameteroptionen zum Befehl „live-event create“ hinzugefügt
+* `az ams live-event standby`: Neuer Befehl, um das Liveereignis in den Standbymodus zu schalten
+* `az ams transform create (videoanalysismode, audioanalysis mode)`: Neue Parameteroptionen für den Befehl „transform create“
+
+### <a name="app-service"></a>App Service
+
+* `az webapp config ssl bind`: Handle, wenn sich „webapp“ und „appservice“-Plan in unterschiedlichen Regionen befinden. Siehe auch Aktualisierungen im Text
+* Korrektur #8743: Bereitstellung von „az webapp“
+* Fehlerbehebung: „generateRandomAppNames.json“ zum Setup hinzugefügt
+* `az functionapp create`: Unterstützung der Vorschauversion zum Erstellen von .NET-isolierten Apps hinzugefügt.
+* Korrektur #12150: Unterstützung für Subnetz-ID in VNET-Integration hinzugefügt
+* `az functionapp create`: Entfernen des Vorschauflags aus Node.js 14.
+
+### <a name="arm"></a>ARM
+
+* `az deployment group/sub/mg/tenant validate/create/what-if`: Unterstützung für Bicep-Dateien hinzugefügt
+* `az bicep install`: Neuer Befehl zum Installieren der Bicep-CLI
+* `az bicep upgrade`: Neuer Befehl zum Aktualisieren der Bicep-CLI
+* `az bicep build`: Neuer Befehl zum Erstellen von Bicep-Dateien
+* `az bicep version`: Neuer Befehl zum Anzeigen der aktuell installierten Bicep-CLI-Version
+* `az bicep list-versions`: Neuer Befehl zum Anzeigen der verfügbaren Bicep-CLI-Versionen
+* `az managedapp definition update`: Neuer Befehl zum Aktualisieren von „managedapp definition“ hinzugefügt
+
+### <a name="backup"></a>Backup
+
+* `az backup recoverypoint show-log-chain`: Start-/Endzeit in der Ausgabe der Tabelle „show-log-chain“ hinzugefügt
+* Fehlerbehebung: Wiederherstellung an einem alternativen Speicherort für geschützte SQL/SAPHANA-Elemente aktiviert
+
+### <a name="cdn"></a>CDN
+
+* CLI-Unterstützung für AFD-SKU hinzugefügt
+
+### <a name="compute"></a>Compute
+
+* `az vm (extension) image list`: Robuster gemacht
+* `az vmss create`: Lizenztyp-Problem behoben
+* API-Version auf 2020-12-01 aktualisiert
+* `az vm create`: `--enable-hotpatching` hinzugefügt
+
+### <a name="cosmos-db"></a>Cosmos DB
+
+* Upgrade auf Version 3.0.0 und Unterstützung für NetworkAclBypass hinzugefügt sowie Mongo-Serverversion und Sicherungsrichtlinie aktualisiert
+
+### <a name="extension"></a>Erweiterung
+
+* Unterstützung für Konfiguration der Erweiterungsindex-URL
+
+### <a name="iot-central"></a>IoT Central
+
+* `az iot central app`: Verschiedene S360-Korrekturen vorgenommen
+* `az iot central app update`: Notwendigkeit zum Überprüfen von „etag“ beim Aktualisieren der vorhandenen IoT Central-App entfernt.
+* „resourceType“ (IoT-Apps) in die CamelCase-Schreibweise geändert.
+
+### <a name="key-vault"></a>Key Vault
+
+* [WICHTIGE ÄNDERUNG]  `az keyvault role assignment/definition list`: `roleDefinitionName` sollte in der Befehlsausgabe `roleName` sein
+* [WICHTIGE ÄNDERUNG]  `id` wird zu `jobId`, `azureStorageBlobContainerUri` wird zu `folderUrl` in der Befehlsausgabe von `az keyvault backup/restore``az keyvault key restore`
+
+### <a name="network"></a>Netzwerk
+
+* Version von 2020-07-01 auf 2020-08-01 aktualisiert
+* `az network public-ip create`: Unterstützung von „--zone 1 2 3“ nach „2020-08-01“
+* `az network routeserver peering`: `--vrouter-name` in `--routeserver` umbenannt
+* `az network express-route peering create`: Unterstützung von IPv6-Adressen
+* `az network public-ip create`: Neues Argument `--tier` verfügbar gemacht
+
+### <a name="openshift"></a>OpenShift
+
+* Veraltungswarnung „az openshift“ aktualisiert
+
+### <a name="search"></a>Suche
+
+* `az search`: Korrektur der Hilfsanweisung `--identity-type`.
+
+### <a name="sql"></a>SQL
+
+* „az sql mi“-Beispiele aktualisiert
+* `az sql db/elastic-pool create/update`: Argument „maintenance-configuration“ hinzugefügt
+* `az sql db replica create`: Argument „--secondary-type“ hinzugefügt
+
+### <a name="storage"></a>Storage
+
+* [WICHTIGE ÄNDERUNG]  `az storage account file-service-properties`: Aktivieren der Aufbewahrungsrichtlinie für Löschvorgänge mit serverseitig sieben (7) Aufbewahrungstagen als Standard eingestellt
+* Korrektur #16872: „az storage blob now“ (2.19) erfordert auch dann eine Anmeldung, wenn die Verbindungszeichenfolge angegeben wird
+* Korrektur #16959: Absturz von „az storage copy“: ValidationError: Auf die lokale Variable „service“ wird vor der Zuweisung verwiesen
+* Korrektur #14054: Dem Objekt „NoneType“ fehlt das Attribut „__name__“
+* Korrektur #16679: `az storage blob download` schlägt mit der Meldung „Berechtigung verweigert“ fehl, wenn die Zieldatei ein Verzeichnis ist
+* Storage-API-Version auf 2021-01-01 aktualisiert
+* Unterstützung von Versionen in Lebenszyklusverwaltungsrichtlinien
+* Unterstützung von Speicherkonten in der Zugriffsverwaltung mit gemeinsam verwendetem Schlüssel
+* `az storage account network-rule`: Ressourcenzugriffsregeln allgemein verfügbar
+* Unterstützung der doppelten Verschlüsselung für Verschlüsselungsbereich
+* `az storage account blob-service-properties update`: Unterstützung von „--change-feed-retention-days“
+* Unterstützung des erneuten Schreibens vorhandener BLOBs
 
 ## <a name="february-10-2021"></a>10. Februar 2021
 
@@ -48,7 +550,7 @@ Version 2.19.0
 
 ### <a name="app-config"></a>App-Konfiguration
 
-* [BREAKING CHANGE] `az appconfig feature filter add`: Unterstützung für das Hinzufügen von JSON-Objekten als Parameterwerte für Funktionsfilter. Ausführlichere Informationen finden Sie [hier](https://github.com/Azure/azure-cli/pull/16536).
+* [WICHTIGE ÄNDERUNG] `az appconfig feature filter add`: Unterstützung für das Hinzufügen von JSON-Objekten als Parameterwerte für Funktionsfilter
 
 ### <a name="app-service"></a>App Service
 
@@ -6995,18 +7497,27 @@ Sie können für die abendlichen Vorschaubuilds wie folgt Probleme melden:
 
 # <a name="beta-release-notes"></a>[Versionshinweise zur Betaversion](#tab/azure-cli-beta)
 
-Die Azure CLI-Betaversion ist eine Migration der Authentifizierungsmethode der AAD-Plattform (v1.0) zu [Microsoft Identity Platform (v2.0)](/azure/active-directory/develop/v2-overview).
+## <a name="february-8-2021"></a>8\. Februar 2021
 
-## <a name="june-23-2020"></a>23. Juni 2020
+> [!NOTE]
+>
+>  In dieser Version werden WICHTIGE ÄNDERUNGEN eingeführt.  Lesen Sie vor der Installation sorgfältig alle Anmerkungen zur Version.
+>
+> Die Betaversion garantiert keine Qualität auf Produktebene, daher sollte sie nicht in der Produktionsumgebung verwendet werden.
 
-### <a name="things-to-know-about-the-new-azure-cli-beta-release"></a>Wissenswertes über die neue Azure CLI-Betaversion
+* Bei der Azure CLI-Betaversion wird [ADAL](https://github.com/AzureAD/azure-activedirectory-library-for-python) intern durch [Azure Identity](https://github.com/Azure/azure-sdk-for-python/tree/master/sdk/identity/azure-identity) und [MSAL](https://github.com/AzureAD/microsoft-authentication-library-for-python) ersetzt. Vorhandener ADAL-Tokencache (`~/.azure/accessToken.json`) wird automatisch zu MSAL-verschlüsseltem Tokencache migriert, wenn ein Befehl ausgeführt wird, der Anmeldeinformationen erfordert.
 
--   Die Betaversion der Azure CLI unterstützt alle CLI-Befehle, die in der aktuellen veröffentlichten Version verfügbar sind.
--   Nach der Installation der Betaversion ist eine erneute Anmeldung erforderlich.
--   Die Betaversion unterstützt nur die Windows-Plattform.
--   Azure Stack wird nicht unterstützt.
--   Parameter `--use-cert-sn-issuer` wird nicht unterstützt, wenn für die Authentifizierung ein Dienstprinzipalschlüssel verwendet wird.
--   Das Überspringen der SSL-Überprüfung über die Umgebung `ADAL_PYTHON_SSL_NO_VERIFY` wird nicht unterstützt.
+* Bei `az login` gibt es mehrere Änderungen.  (Führen Sie `az login --help` aus, um weitere Einzelheiten zu erfahren.)
+  * [WICHTIGE ÄNDERUNG] `~/.azure/accessToken.json` wird nach einer erfolgreichen Anmeldung nicht mehr erstellt. Verwenden Sie stattdessen[`az account get-access-token`](https://docs.microsoft.com/cli/azure/account#az_account_get_access_token), um ein Zugriffstoken abzurufen.
+  * [WICHTIGE ÄNDERUNG] Das Argument `--use-cert-sn-issuer` wird nicht unterstützt.
+  * Nach der Anmeldung mit einer verwalteten Identität werden alle `clientId`-, `objectId`- und `resourceId`-Werte angezeigt.
+  * Korrektur #13188: `az login` mit verwalteter Identität, wobei die Identität als systemseitig zugewiesen angegeben wird, obwohl sie vom Benutzer zugewiesen wurde.
+
+* [WICHTIGE ÄNDERUNG] Das Überspringen der SSL-Überprüfung über die Umgebung `ADAL_PYTHON_SSL_NO_VERIFY` wurde entfernt. Informationen zur Vertrauensstellung eines selbstsignierten Stammzertifikats finden Sie unter [Verwendung hinter einem Proxy](https://docs.microsoft.com/cli/azure/use-cli-effectively#work-behind-a-proxy).
+
+Die Betaversion der Azure CLI unterstützt alle Befehl und wird jeweils mit der aktuell veröffentlichen Version synchronisiert.  
+
+Anweisungen zur Installation finden Sie unter [Installieren der Azure CLI-Betaversion](install-azure-cli-beta.md). 
 
 Sollten Probleme in der Betaversion auftreten, können Sie auf [GitHub](https://github.com/Azure/azure-cli/issues/new/choose) gerne Kommentare für das Azure CLI-Entwicklungsteam hinterlassen.
 

@@ -1,0 +1,153 @@
+### YamlMime:AzureCLIGroup
+uid: az_vm_user
+name: az vm user
+summary: Verwalten von Benutzerkonten für einen virtuellen Computer.
+description: ''
+directCommands:
+- uid: az_vm_user_delete
+  name: az vm user delete
+  summary: Löschen sie ein Benutzerkonto von einem virtuellen Computer.
+  description: Löscht auch das Basisverzeichnis des Benutzers auf Linux-VMs.
+  syntax: >-
+    az vm user delete --username
+                      [--ids]
+                      [--name]
+                      [--no-wait]
+                      [--resource-group]
+                      [--subscription]
+  examples:
+  - summary: Löschen sie ein Benutzerkonto.
+    syntax: az vm user delete -u username -n MyVm -g MyResourceGroup
+  - summary: Löschen Sie einen Benutzer auf allen VMs in einer Ressourcengruppe.
+    syntax: az vm user delete -u username --ids $(az vm list -g MyResourceGroup --query "[].id" -o tsv)
+  requiredParameters:
+  - isRequired: true
+    name: --username -u
+    summary: Der Benutzername.
+    description: ''
+  optionalParameters:
+  - name: --ids
+    summary: Mindestens eine Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen von "Resource Id"-Argumenten sein. Sie sollten entweder --ids oder andere "Resource Id"-Argumente angeben.
+    description: ''
+  - name: --name -n
+    summary: Der Name des virtuellen Computers. Sie können die Standardeinstellung mit `az configure --defaults vm=<name>` konfigurieren.
+    description: ''
+  - name: --no-wait
+    summary: Nicht auf den Abschluss lang andauernder Vorgänge warten
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/vm/_help.py
+- uid: az_vm_user_reset-ssh
+  name: az vm user reset-ssh
+  summary: Setzen Sie die SSH-Konfiguration auf einem virtuellen Computer zurück.
+  description: Die Erweiterung startet den SSH-Dienst neu, öffnet den SSH-Port auf Ihrem virtuellen Computer und setzt die SSH-Konfiguration auf Standardwerte zurück. Das Benutzerkonto (Name, Kennwort und SSH-Schlüssel) wird nicht geändert.
+  syntax: >-
+    az vm user reset-ssh [--ids]
+                         [--name]
+                         [--no-wait]
+                         [--resource-group]
+                         [--subscription]
+  examples:
+  - summary: Zurücksetzen der SSH-Konfiguration
+    syntax: az vm user reset-ssh -n MyVm -g MyResourceGroup
+  - summary: Setzen Sie den SSH-Server auf allen VMs in einer Ressourcengruppe zurück.
+    syntax: az vm user reset-ssh --ids $(az vm list -g MyResourceGroup --query "[].id" -o tsv)
+  optionalParameters:
+  - name: --ids
+    summary: Mindestens eine Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu "Ressourcen-ID"-Argumenten sein. Sie sollten entweder --ids oder andere "Resource Id"-Argumente angeben.
+    description: ''
+  - name: --name -n
+    summary: Der Name des virtuellen Computers. Sie können die Standardeinstellung mit `az configure --defaults vm=<name>` konfigurieren.
+    description: ''
+  - name: --no-wait
+    summary: Nicht auf den Abschluss lang andauernder Vorgänge warten
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/vm/_help.py
+- uid: az_vm_user_update
+  name: az vm user update
+  summary: Aktualisieren sie ein Benutzerkonto.
+  description: Dieser Befehl verwendet VMAccessForLinux 1.5 für das Linux-Betriebssystem und VMAccessAgent 2.4 für das Windows-Betriebssystem.
+  syntax: >-
+    az vm user update --username
+                      [--ids]
+                      [--name]
+                      [--no-wait]
+                      [--password]
+                      [--resource-group]
+                      [--ssh-key-value]
+                      [--subscription]
+  examples:
+  - summary: Aktualisieren sie ein Windows-Benutzerkonto. Wenn der Benutzername nicht vorhanden ist, wird ein neuer Benutzer erstellt.
+    syntax: az vm user update -u username -p password -n MyVm -g MyResourceGroup
+  - summary: Aktualisieren sie ein Linux-Benutzerkonto. ("$(< filename)"-Syntax wird an der Eingabeaufforderung oder in PowerShell nicht unterstützt.)
+    syntax: az vm user update -u username --ssh-key-value "$(< ~/.ssh/id_rsa.pub)" -n MyVm -g MyResourceGroup
+  - summary: Aktualisieren sie einen Benutzer auf allen VMs in einer Ressourcengruppe. ("$(< filename)"-Syntax wird an der Eingabeaufforderung oder in PowerShell nicht unterstützt.)
+    syntax: az vm user update -u username --ssh-key-value "$(< ~/.ssh/id_rsa.pub)" --ids $(az vm list -g MyResourceGroup --query "[].id" -o tsv)
+  requiredParameters:
+  - isRequired: true
+    name: --username -u
+    summary: Der Benutzername.
+    description: ''
+  optionalParameters:
+  - name: --ids
+    summary: Eine oder mehrere Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu Ressourcen-ID-Argumenten geben. Sie sollten entweder --ids oder andere Ressourcen-ID-Argumente bereitstellen.
+    description: ''
+  - name: --name -n
+    summary: Der Name des virtuellen Computers. Sie können die Standardeinstellung mit `az configure --defaults vm=<name>` konfigurieren.
+    description: ''
+  - name: --no-wait
+    summary: Nicht auf den Abschluss lang andauernder Vorgänge warten
+    description: ''
+  - name: --password -p
+    summary: Das Kennwort des Benutzers
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --ssh-key-value
+    summary: Dateiwert des öffentlichen SSH-Schlüssels oder Pfad der Datei mit öffentlichem Schlüssel. Dieser Befehl fügt den neuen öffentlichen Schlüsseltext an die Datei ~/.ssh/authorized_keys für den Administratorbenutzer auf dem virtuellen Computer an. Vorhandene SSH-Schlüssel werden dadurch weder ersetzt noch entfernt.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/vm/_help.py
+commands:
+- az_vm_user_delete
+- az_vm_user_reset-ssh
+- az_vm_user_update
+globalParameters:
+- name: --debug
+  summary: Ausführlichkeit der Protokollierung erhöhen, um alle Debugprotokolle anzuzeigen.
+- name: --help -h
+  summary: Zeigen Sie diese Hilfemeldung an, und schließen Sie sie.
+- name: --only-show-errors
+  summary: Nur Fehler anzeigen und Warnungen unterdrücken.
+- name: --output -o
+  defaultValue: json
+  parameterValueGroup: json, jsonc, table, tsv
+  summary: Ausgabeformat.
+- name: --query
+  summary: JMESPath-Abfragezeichenfolge. Weitere Informationen und Beispiele finden Sie unter <a href="http://jmespath.org/">http://jmespath.org/</a>.
+- name: --verbose
+  summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
+metadata:
+  doc_source_url_repo: https://github.com/Azure/azure-cli/blob/dev/
+  ms.date: 04/15/2021
+  description: Verwalten von Benutzerkonten für einen virtuellen Computer.
+  ms.openlocfilehash: d5dc9b80340ddffec87eb382fa46c9b9db42c4ce
+  ms.sourcegitcommit: 47edf65705fcb047974356c30962819ea5172832
+  ms.translationtype: MT
+  ms.contentlocale: de-DE
+  ms.lasthandoff: 04/16/2021
+  ms.locfileid: "107555663"

@@ -1,0 +1,298 @@
+### YamlMime:AzureCLIGroup
+uid: az_sf_application
+name: az sf application
+summary: Verwalten von Anwendungen, die in einem Azure Service Fabric-Cluster ausgeführt werden. Unterstützt nur Arm-bereitgestellte Anwendungen.
+description: ''
+directCommands:
+- uid: az_sf_application_create
+  name: az sf application create
+  summary: Erstellen Sie eine neue Anwendung in einem Azure Service Fabric-Cluster.
+  description: ''
+  syntax: >-
+    az sf application create --application-name
+                             --application-type-name
+                             --application-type-version
+                             --cluster-name
+                             --resource-group
+                             [--application-parameters]
+                             [--max-nodes]
+                             [--min-nodes]
+                             [--package-url]
+                             [--subscription]
+  examples:
+  - summary: Erstellen Sie die Anwendung "TestApp" mit Parametern. Der Anwendungstyp "testapptype", Version "V1", sollte bereits im Cluster vorhanden sein, und die Anwendungsparameter müssen im Anwendungs Manifest definiert werden.
+    syntax: >-
+      az sf application create -g testRG -c testCluster --application-name testApp --application-type-name TestAppType \
+        --application-type-version v1 --application-parameters key0=value0
+  - summary: Erstellen Sie die Anwendung "TestApp" und die APP-Typversion mithilfe der bereitgestellten Paket-URL.
+    syntax: >-
+      az sf application create -g testRG -c testCluster --application-name testApp --application-type-name TestAppType \
+        --application-type-version v1 --package-url "https://sftestapp.blob.core.windows.net/sftestapp/testApp_1.0.sfpkg" \
+          --application-parameters key0=value0
+  requiredParameters:
+  - isRequired: true
+    name: --application-name --name
+    summary: Geben Sie den Anwendungsnamen an.
+    description: ''
+  - isRequired: true
+    name: --application-type-name --type-name
+    summary: Geben Sie den Namen des Anwendungs Typs an.
+    description: ''
+  - isRequired: true
+    name: --application-type-version --version
+    summary: Geben Sie die Version des Anwendungs Typs an.
+    description: ''
+  - isRequired: true
+    name: --cluster-name -c
+    summary: Geben Sie den Namen des Clusters an. Wenn dieser nicht angegeben wird, entspricht er dem Ressourcengruppen Namen.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Geben Sie den Namen der Ressourcengruppe an. Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  optionalParameters:
+  - name: --application-parameters --parameters
+    summary: Geben Sie die Anwendungsparameter als Schlüssel-Wert-Paare an. Diese Parameter müssen im Anwendungs Manifest vorhanden sein. Beispiel:--Application-Parameters Param1 = Value1 Param2 = Value2.
+    description: ''
+  - name: --max-nodes --maximum-nodes
+    summary: Geben Sie die maximale Anzahl von Knoten an, auf denen eine Anwendung platziert werden soll. Der Wert dieses Parameters muss eine nicht negative Ganzzahl sein. Der Standardwert ist 0 (null), womit angegeben wird, dass die Anwendung auf einer beliebigen Anzahl von Knoten im Cluster platziert werden kann.
+    description: ''
+  - name: --min-nodes --minimum-nodes
+    summary: Geben Sie die Mindestanzahl von Knoten an, in denen Service Fabric Kapazität für diese Anwendung reserviert. Dies bedeutet jedoch nicht, dass die Anwendung Replikate auf allen diesen Knoten enthält. Der Wert dieses Parameters muss eine nicht negative Ganzzahl sein. Der Standardwert hierfür ist 0 (null), was bedeutet, dass für die Anwendung keine Kapazität reserviert ist.
+    description: ''
+  - name: --package-url
+    summary: Geben Sie die URL der sfpkg-Datei des Anwendungspakets an.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+- uid: az_sf_application_delete
+  name: az sf application delete
+  summary: Löschen einer Anwendung.
+  description: ''
+  syntax: >-
+    az sf application delete --application-name
+                             --cluster-name
+                             --resource-group
+                             [--subscription]
+  examples:
+  - summary: Löschen einer Anwendung.
+    syntax: az sf application delete -g testRG -c testCluster --application-name testApp
+  requiredParameters:
+  - isRequired: true
+    name: --application-name --name
+    summary: Geben Sie den Anwendungsnamen an.
+    description: ''
+  - isRequired: true
+    name: --cluster-name -c
+    summary: Geben Sie den Namen des Clusters an. Wenn dieser nicht angegeben wird, entspricht er dem Ressourcengruppen Namen.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Geben Sie den Namen der Ressourcengruppe an. Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  optionalParameters:
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+- uid: az_sf_application_list
+  name: az sf application list
+  summary: Listet Anwendungen eines bestimmten Clusters auf.
+  description: ''
+  syntax: >-
+    az sf application list --cluster-name
+                           --resource-group
+                           [--query-examples]
+                           [--subscription]
+  examples:
+  - summary: Auflisten von Anwendungen für einen bestimmten Cluster.
+    syntax: az sf application list -g testRG -c testCluster
+  requiredParameters:
+  - isRequired: true
+    name: --cluster-name -c
+    summary: Geben Sie den Namen des Clusters an. Wenn dieser nicht angegeben wird, entspricht er dem Ressourcengruppen Namen.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Geben Sie den Namen der Ressourcengruppe an. Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  optionalParameters:
+  - name: --query-examples
+    summary: Empfehlen Sie die jmespath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und Sie nach dem Abfrage Parameter in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positions Schlüsselwörter hinzufügen, um Vorschläge auf der Grundlage dieser Schlüsselwörter zu geben.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+- uid: az_sf_application_show
+  name: az sf application show
+  summary: Zeigen Sie die Eigenschaften einer Anwendung in einem Azure Service Fabric-Cluster an.
+  description: ''
+  syntax: >-
+    az sf application show --application-name
+                           --cluster-name
+                           --resource-group
+                           [--query-examples]
+                           [--subscription]
+  examples:
+  - summary: Anwendung erhalten.
+    syntax: az sf application show -g testRG -c testCluster --application-name testApp
+  requiredParameters:
+  - isRequired: true
+    name: --application-name --name
+    summary: Geben Sie den Anwendungsnamen an.
+    description: ''
+  - isRequired: true
+    name: --cluster-name -c
+    summary: Geben Sie den Namen des Clusters an. Wenn dieser nicht angegeben wird, entspricht er dem Ressourcengruppen Namen.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Geben Sie den Namen der Ressourcengruppe an. Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  optionalParameters:
+  - name: --query-examples
+    summary: Empfehlen Sie die jmespath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und Sie nach dem Abfrage Parameter in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positions Schlüsselwörter hinzufügen, um Vorschläge auf der Grundlage dieser Schlüsselwörter zu geben.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+- uid: az_sf_application_update
+  name: az sf application update
+  summary: Aktualisieren Sie eine Azure Service Fabric-Anwendung. Dies ermöglicht die Aktualisierung der Anwendungsparameter und/oder die Aktualisierung der Anwendungstyp Version, die ein Anwendungs Upgrade auslöst.
+  description: ''
+  syntax: >-
+    az sf application update --application-name
+                             --cluster-name
+                             --resource-group
+                             [--application-parameters]
+                             [--application-type-version]
+                             [--consider-warning-as-error {false, true}]
+                             [--failure-action {Manual, Rollback}]
+                             [--force-restart {false, true}]
+                             [--hc-retry-timeout]
+                             [--hc-stable-duration]
+                             [--hc-wait-duration]
+                             [--max-nodes]
+                             [--max-porcent-unhealthy-apps]
+                             [--max-porcent-unhealthy-partitions]
+                             [--max-porcent-unhealthy-replicas]
+                             [--max-porcent-unhealthy-services]
+                             [--min-nodes]
+                             [--rep-check-timeout]
+                             [--service-type-health-policy-map]
+                             [--subscription]
+                             [--ud-timeout]
+                             [--upgrade-timeout]
+  examples:
+  - summary: Aktualisieren Sie die Anwendungsparameter und upgreade-Richtlinien Werte und die APP-Typversion in v2.
+    syntax: >-
+      az sf application update -g testRG -c testCluster --application-name testApp --application-type-version v2 \
+        --application-parameters key0=value0 --health-check-stable-duration 0 --health-check-wait-duration 0 --health-check-retry-timeout 0 \
+          --upgrade-domain-timeout 5000 --upgrade-timeout 7000 --failure-action Rollback --upgrade-replica-set-check-timeout 300 --force-restart
+  - summary: Aktualisieren von Anwendungs minimalen und maximalen Knoten.
+    syntax: az sf application update -g testRG -c testCluster --application-name testApp --minimum-nodes 1 --maximum-nodes 3
+  requiredParameters:
+  - isRequired: true
+    name: --application-name --name
+    summary: Geben Sie den Anwendungsnamen an.
+    description: ''
+  - isRequired: true
+    name: --cluster-name -c
+    summary: Geben Sie den Namen des Clusters an. Wenn dieser nicht angegeben wird, entspricht er dem Ressourcengruppen Namen.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Geben Sie den Namen der Ressourcengruppe an. Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  optionalParameters:
+  - name: --application-parameters --parameters
+    summary: Geben Sie die Anwendungsparameter als Schlüssel-Wert-Paare an. Diese Parameter müssen im Anwendungs Manifest vorhanden sein. Beispiel:--Application-Parameters Param1 = Value1 Param2 = Value2.
+    description: ''
+  - name: --application-type-version --version
+    summary: Geben Sie die Version des Anwendungs Typs an.
+    description: ''
+  - name: --consider-warning-as-error --warning-as-error
+    parameterValueGroup: false, true
+    summary: Gibt an, ob ein Warnungs Integritäts Ereignis während der Integritäts Auswertung als Fehler Ereignis behandelt werden soll.
+    description: ''
+  - name: --failure-action
+    parameterValueGroup: Manual, Rollback
+    summary: Geben Sie die Aktion an, die ausgeführt werden soll, wenn das überwachte Upgrade Die zulässigen Werte für diesen Parameter sind Rollback oder manual.
+    description: ''
+  - name: --force-restart
+    parameterValueGroup: false, true
+    summary: Gibt an, dass der Dienst Host neu gestartet wird, auch wenn das Upgrade eine reine Konfigurationsänderung ist.
+    description: ''
+  - name: --hc-retry-timeout --health-check-retry-timeout
+    summary: Geben Sie die Dauer in Sekunden an, nach der Service Fabric die Integritätsprüfung wiederholt, wenn die vorherige Integritäts Überprüfung nicht erfolgreich war.
+    description: ''
+  - name: --hc-stable-duration --health-check-stable-duration
+    summary: Geben Sie die Dauer in Sekunden an, die Service Fabric wartet, um zu überprüfen, ob die Anwendung stabil ist, bevor Sie zur nächsten upgradedomäne wechselt oder das Upgrade abschließen. Diese Wartezeit verhindert, dass nicht erkannte Integritäts Änderungen direkt nach der Integritätsprüfung durchgeführt werden.
+    description: ''
+  - name: --hc-wait-duration --health-check-wait-duration
+    summary: Geben Sie die Dauer in Sekunden an, die Service Fabric wartet, bevor die anfängliche Integritätsprüfung durchführt, nachdem das Upgrade für die upgradedomäne abgeschlossen wurde.
+    description: ''
+  - name: --max-nodes --maximum-nodes
+    summary: Geben Sie die maximale Anzahl von Knoten an, auf denen eine Anwendung platziert werden soll. Der Wert dieses Parameters muss eine nicht negative Ganzzahl sein. Der Standardwert ist 0 (null), womit angegeben wird, dass die Anwendung auf einer beliebigen Anzahl von Knoten im Cluster platziert werden kann.
+    description: ''
+  - name: --max-porcent-unhealthy-apps --max-unhealthy-apps
+    summary: Geben Sie den maximalen Prozentsatz der Anwendungs Instanzen an, die auf den Knoten im Cluster bereitgestellt werden und den Integritäts Zustand "Fehler" aufweisen, bevor der Integritäts Status der Anwendung für den Cluster fehlerhaft ist. Zulässige Werte sind die Form 0 bis 100.
+    description: ''
+  - name: --max-porcent-unhealthy-partitions --max-unhealthy-parts
+    summary: Geben Sie den maximalen Prozentsatz der fehlerhafter-Partitionen pro Dienst an, der von der Integritätsrichtlinie für den Standard Diensttyp für das überwachte Upgrade verwendet werden darf. Zulässige Werte sind die Form 0 bis 100.
+    description: ''
+  - name: --max-porcent-unhealthy-replicas --max-unhealthy-reps
+    summary: Geben Sie den maximalen Prozentsatz der fehlerhafter-Replikate pro Dienst an, der von der Integritätsrichtlinie für den Standard Diensttyp für das überwachte Upgrade verwendet werden darf. Zulässige Werte sind die Form 0 bis 100.
+    description: ''
+  - name: --max-porcent-unhealthy-services --max-unhealthy-servs
+    summary: Geben Sie den maximalen Prozentsatz der fehlerhafter-Dienste an, der von der Integritätsrichtlinie für den Standard Diensttyp für das überwachte Upgrade verwendet werden darf. Zulässige Werte sind die Form 0 bis 100.
+    description: ''
+  - name: --min-nodes --minimum-nodes
+    summary: Geben Sie die Mindestanzahl von Knoten an, in denen Service Fabric Kapazität für diese Anwendung reserviert. Dies bedeutet jedoch nicht, dass die Anwendung Replikate auf allen diesen Knoten enthält. Der Wert dieses Parameters muss eine nicht negative Ganzzahl sein. Der Standardwert hierfür ist 0 (null), was bedeutet, dass für die Anwendung keine Kapazität reserviert ist.
+    description: ''
+  - name: --rep-check-timeout --replica-check-timeout --upgrade-replica-set-check-timeout
+    summary: Geben Sie die maximale Zeit in Sekunden an, die Service Fabric wartet, bis ein Dienst in einem sicheren Zustand neu konfiguriert wird, falls er sich nicht bereits in einem sicheren Zustand befindet, bevor Service Fabric mit dem Upgrade fortgesetzt wird.
+    description: ''
+  - name: --service-type-health-policy-map --service-type-policy
+    summary: 'Geben Sie die Zuordnung der Integritätsrichtlinie für verschiedene Dienst Typen als Hash Tabelle im folgenden Format an: {"servicetykname": "maxprozentuunhealthypartitionsperservice, maxprozentuunhealthyreplicasperpartition, maxprozentuunhealthyservices"}. Beispiel: @ {"ServiceTypeName01" = "5, 10, 5"; "ServiceTypeName02" = "5, 5, 5"}.'
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  - name: --ud-timeout --upgrade-domain-timeout
+    summary: Geben Sie die maximale Zeit in Sekunden an, die Service Fabric für das Upgrade einer einzelnen upgradedomäne benötigt. Nach diesem Zeitraum tritt beim Upgrade ein Fehler auf.
+    description: ''
+  - name: --upgrade-timeout
+    summary: Geben Sie die maximale Zeit in Sekunden an, die Service Fabric für das gesamte Upgrade benötigt. Nach diesem Zeitraum tritt beim Upgrade ein Fehler auf.
+    description: ''
+commands:
+- az_sf_application_certificate
+- az_sf_application_certificate_add
+- az_sf_application_create
+- az_sf_application_delete
+- az_sf_application_list
+- az_sf_application_show
+- az_sf_application_update
+globalParameters:
+- name: --debug
+  summary: Ausführlichkeit der Protokollierung erhöhen, um alle Debugprotokolle anzuzeigen.
+- name: --help -h
+  summary: Zeigen Sie diese Hilfemeldung an, und schließen Sie sie.
+- name: --only-show-errors
+  summary: Nur Fehler anzeigen und Warnungen unterdrücken.
+- name: --output -o
+  defaultValue: json
+  parameterValueGroup: json, jsonc, table, tsv
+  summary: Ausgabeformat.
+- name: --query
+  summary: JMESPath-Abfragezeichenfolge. Weitere Informationen und Beispiele finden Sie unter <a href="http://jmespath.org/">http://jmespath.org/</a>.
+- name: --verbose
+  summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
+metadata:
+  description: Verwalten von Anwendungen, die in einem Azure Service Fabric-Cluster ausgeführt werden. Unterstützt nur Arm-bereitgestellte Anwendungen.
+  ms.openlocfilehash: d4cc0e46c2471bc23578fdbbfc3103d37625def2
+  ms.sourcegitcommit: f379fad9c4e873cd2ca68b5494b6c240a5016b5b
+  ms.translationtype: MT
+  ms.contentlocale: de-DE
+  ms.lasthandoff: 12/09/2020
+  ms.locfileid: "102821589"

@@ -1,0 +1,571 @@
+### YamlMime:AzureCLIGroup
+uid: az_postgres_server
+name: az postgres server
+summary: Verwalten von PostgreSQL-Servern.
+description: ''
+directCommands:
+- uid: az_postgres_server_create
+  name: az postgres server create
+  summary: Erstellen Sie einen Server.
+  description: ''
+  syntax: >-
+    az postgres server create [--admin-password]
+                              [--admin-user]
+                              [--assign-identity]
+                              [--auto-grow {Disabled, Enabled}]
+                              [--backup-retention]
+                              [--geo-redundant-backup {Disabled, Enabled}]
+                              [--infrastructure-encryption {Disabled, Enabled}]
+                              [--location]
+                              [--minimal-tls-version {TLS1_0, TLS1_1, TLS1_2, TLSEnforcementDisabled}]
+                              [--name]
+                              [--public]
+                              [--resource-group]
+                              [--sku-name]
+                              [--ssl-enforcement {Disabled, Enabled}]
+                              [--storage-size]
+                              [--subscription]
+                              [--tags]
+                              [--version]
+  examples:
+  - summary: Erstellen Sie einen PostgreSQL-Server in "Europa, Norden" mit SKU-GP_Gen5_2 (Universell, Gen 5-Hardware, 2 virtuelle Kerne).
+    syntax: >-
+      az postgres server create -l northeurope -g testgroup -n testsvr -u username -p password \
+          --sku-name GP_Gen5_2
+  - summary: Erstellen Sie einen PostgreSQL-Server, für den alle Parameter festgelegt sind.
+    syntax: >-
+      az postgres server create -l northeurope -g testgroup -n testsvr -u username -p password \
+          --sku-name B_Gen5_1 --ssl-enforcement Enabled --minimal-tls-version TLS1_0 --public-network-access Disabled \
+          --backup-retention 10 --geo-redundant-backup Enabled --storage-size 51200 \
+          --tags "key=value" --version 11
+  optionalParameters:
+  - name: --admin-password -p
+    summary: 'Das Kennwort des Administrators. Mindestens 8 Zeichen und maximal 128 Zeichen. Das Kennwort muss Zeichen aus drei der folgenden Kategorien enthalten: Englische Großbuchstaben, englische Kleinbuchstaben, Zahlen und nicht alphanumerische Zeichen.'
+    description: ''
+  - name: --admin-user -u
+    defaultValue: shyplover5
+    summary: Administratorbenutzername für den Server. Nach der Festlegung kann sie nicht mehr geändert werden.
+    description: ''
+  - name: --assign-identity
+    summary: Generieren Sie eine Azure Active Directory-Identität für diesen Server, und weisen Sie sie für die Verwendung mit Schlüsselverwaltungsdiensten wie Azure KeyVault zu.
+    description: ''
+  - name: --auto-grow
+    defaultValue: Enabled
+    parameterValueGroup: Disabled, Enabled
+    summary: Aktivieren oder deaktivieren Sie die automatische Füllung des Speichers. Der Standardwert ist Aktiviert.
+    description: ''
+  - name: --backup-retention
+    summary: Die Anzahl der Tage, die eine Sicherung aufbewahrt wird. Bereich von 7 bis 35 Tagen. Der Standard ist 7 Tage.
+    description: ''
+  - name: --geo-redundant-backup
+    parameterValueGroup: Disabled, Enabled
+    summary: Aktivieren oder deaktivieren Sie georedundante Sicherungen. Der Standardwert ist Deaktiviert. Wird im Basic-Tarif nicht unterstützt.
+    description: ''
+  - name: --infrastructure-encryption -i
+    parameterValueGroup: Disabled, Enabled
+    summary: Fügen Sie mithilfe eines neuen Verschlüsselungsalgorithmus eine optionale zweite Verschlüsselungsebene für Daten hinzu. Der Standardwert ist Deaktiviert.
+    description: ''
+  - name: --location -l
+    summary: 'Der Standort. Werte aus: `az account list-locations`. Sie können den standardmäßig verwendeten Standort mit `az configure --defaults location=<location>` konfigurieren.'
+    description: ''
+  - name: --minimal-tls-version
+    parameterValueGroup: TLS1_0, TLS1_1, TLS1_2, TLSEnforcementDisabled
+    summary: Legen Sie die tls-Mindestversion für Verbindungen mit dem Server fest, wenn SSL aktiviert ist. Der Standardwert ist TLSEnforcementDisabled.
+    description: ''
+  - name: --name -n
+    summary: Name des Servers. Der Name darf nur Kleinbuchstaben, Zahlen und den Bindestrich (-) enthalten. Mindestens 3 Zeichen und maximal 63 Zeichen.
+    description: ''
+  - name: --public --public-network-access
+    summary: 'Aktivieren oder deaktivieren Sie den Zugriff des öffentlichen Netzwerks auf den Server. Wenn diese Deaktiviert ist, können nur Verbindungen, die über private Links hergestellt werden, diesen Server erreichen. Zulässige Werte sind: Enabled, Disabled, all, 0.0.0.0, <SingleIP> , <StartIP-DestinationIP>. Der Standardwert ist Aktiviert.'
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --sku-name
+    defaultValue: GP_Gen5_2
+    summary: 'Der Name der SKU. Folgt der Konvention „{Tarif} _{Computegeneration}_ {virtuelle Kerne}“ in Kurzform. Beispiele: B_Gen5_1, GP_Gen5_4, MO_Gen5_16.'
+    description: ''
+  - name: --ssl-enforcement
+    parameterValueGroup: Disabled, Enabled
+    summary: Aktivieren oder deaktivieren Sie die SSL-Erzwingung für Verbindungen mit dem Server. Der Standardwert ist Aktiviert.
+    description: ''
+  - name: --storage-size
+    defaultValue: "51200"
+    summary: 'Die Speicherkapazität des Servers (Einheit: MB). Mindestens 5.120 und erhöht sich in Inkrementen von 1.024. Der Standardwert ist 51200.'
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+  - name: --tags
+    summary: 'Durch Leerzeichen getrennte Tags: key[=value] [key[=value] ...]. Verwenden Sie "", um vorhandene Tags zu löschen.'
+    description: ''
+  - name: --version
+    summary: Server-Hauptversion.
+    description: ''
+- uid: az_postgres_server_delete
+  name: az postgres server delete
+  summary: Löschen sie einen Server.
+  description: ''
+  syntax: >-
+    az postgres server delete [--ids]
+                              [--name]
+                              [--resource-group]
+                              [--subscription]
+                              [--yes]
+  examples:
+  - summary: Löschen sie einen Server.
+    syntax: az postgres server delete -g testgroup -n testsvr
+  optionalParameters:
+  - name: --ids
+    summary: Eine oder mehrere Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu Ressourcen-ID-Argumenten geben. Sie sollten entweder --ids oder andere Ressourcen-ID-Argumente bereitstellen.
+    description: ''
+  - name: --name -n
+    summary: Name des Servers. Der Name darf nur Kleinbuchstaben, Zahlen und den Bindestrich (-) enthalten. Mindestens 3 Zeichen und maximal 63 Zeichen.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+  - name: --yes -y
+    summary: Nicht zur Bestätigung auffordern
+    description: ''
+- uid: az_postgres_server_georestore
+  name: az postgres server georestore
+  summary: Geowiederherstellung eines Servers aus einer Sicherung.
+  description: ''
+  syntax: >-
+    az postgres server georestore --location
+                                  --source-server
+                                  [--backup-retention]
+                                  [--geo-redundant-backup]
+                                  [--ids]
+                                  [--name]
+                                  [--no-wait]
+                                  [--resource-group]
+                                  [--sku-name]
+                                  [--subscription]
+  examples:
+  - summary: Geowiederherstellung von "testsvr" auf einem neuen Server "testsvrnew" in "USA, Westen 2".
+    syntax: az postgres server georestore -g testgroup -n testsvrnew --source-server testsvr -l westus2
+  - summary: Geowiederherstellung von "testsvr" auf einem neuen Server "testsvrnew" in "USA, Westen 2" mit SKU-GP_Gen5_2.
+    syntax: az postgres server georestore -g testgroup -n testsvrnew --source-server testsvr -l westus2 --sku-name GP_Gen5_2
+  - summary: Geowiederherstellung von "testsvr2" auf einem neuen Server "testsvrnew", wobei sich "testsvrnew" in einer anderen Ressourcengruppe als "testsvr2" befindet.
+    syntax: >-
+      az postgres server georestore -g testgroup -n testsvrnew \
+          -s "/subscriptions/${SubID}/resourceGroups/${ResourceGroup}/providers/Microsoft.DBforPostgreSQL/servers/testsvr2" \
+          -l westus2
+  requiredParameters:
+  - isRequired: true
+    name: --location -l
+    summary: 'Der Standort. Werte aus: `az account list-locations`. Sie können den standardmäßig verwendeten Standort mit `az configure --defaults location=<location>` konfigurieren.'
+    description: ''
+  - isRequired: true
+    name: --source-server -s
+    summary: Der Name oder die ID des Quellservers, über den die Wiederherstellung durchgeführt wird.
+    description: ''
+  optionalParameters:
+  - name: --backup-retention
+    summary: Die Anzahl der Tage, die eine Sicherung aufbewahrt wird. Bereich von 7 bis 35 Tagen. Der Standard ist 7 Tage.
+    description: ''
+  - name: --geo-redundant-backup
+    summary: Aktivieren oder deaktivieren Sie georedundante Sicherungen. Der Standardwert ist Deaktiviert. Wird im Basic-Tarif nicht unterstützt.
+    description: ''
+  - name: --ids
+    summary: Mindestens eine Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen von "Resource Id"-Argumenten sein. Sie sollten entweder --ids oder andere "Resource Id"-Argumente angeben.
+    description: ''
+  - name: --name -n
+    summary: Name des Servers. Der Name darf nur Kleinbuchstaben, Zahlen und den Bindestrich (-) enthalten. Mindestens 3 Zeichen und maximal 63 Zeichen.
+    description: ''
+  - name: --no-wait
+    summary: Nicht auf den Abschluss lang andauernder Vorgänge warten
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --sku-name
+    summary: 'Der Name der SKU. Der Standardwert ist die SKU des Quellservers. Folgt der Konvention „{Tarif} _{Computegeneration}_ {virtuelle Kerne}“ in Kurzform. Beispiele: B_Gen5_1, GP_Gen5_4, MO_Gen5_16.'
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+- uid: az_postgres_server_list
+  name: az postgres server list
+  summary: Listet verfügbare Server auf.
+  description: ''
+  syntax: >-
+    az postgres server list [--query-examples]
+                            [--resource-group]
+                            [--subscription]
+  examples:
+  - summary: Listet alle PostgreSQL-Server in einem Abonnement auf.
+    syntax: az postgres server list
+  - summary: Listet alle PostgreSQL-Server in einer Ressourcengruppe auf.
+    syntax: az postgres server list -g testgroup
+  optionalParameters:
+  - name: --query-examples
+    summary: Empfehlen Sie die JMESPath-Zeichenfolge. Sie können eine der Abfragen kopieren und nach dem Parameter --query in doppelte Anführungszeichen einfügen, um die Ergebnisse zu sehen. Sie können ein oder mehrere Positionsschlüsselwörter hinzufügen, damit wir basierend auf diesen Schlüsselwörtern Vorschläge machen können.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+- uid: az_postgres_server_list-skus
+  name: az postgres server list-skus
+  summary: Listet die verfügbaren SKU-Daten in der angegebenen Region auf.
+  description: ''
+  syntax: >-
+    az postgres server list-skus --location
+                                 [--subscription]
+  examples:
+  - summary: Listet die verfügbaren SKU-Daten in der angegebenen Region auf.
+    syntax: az postgres server list-skus -l eastus
+  requiredParameters:
+  - isRequired: true
+    name: --location -l
+    summary: Der Name des Speicherorts.
+    description: ''
+  optionalParameters:
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+- uid: az_postgres_server_restart
+  name: az postgres server restart
+  summary: Starten Sie einen Server neu.
+  description: ''
+  syntax: >-
+    az postgres server restart [--ids]
+                               [--name]
+                               [--resource-group]
+                               [--subscription]
+  examples:
+  - summary: Starten Sie einen Server neu.
+    syntax: az postgres server restart -g testgroup -n testsvr
+  optionalParameters:
+  - name: --ids
+    summary: Eine oder mehrere Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu Ressourcen-ID-Argumenten geben. Sie sollten entweder --ids oder andere Ressourcen-ID-Argumente bereitstellen.
+    description: ''
+  - name: --name -n
+    summary: Name des Servers. Der Name darf nur Kleinbuchstaben, Zahlen und den Bindestrich (-) enthalten. Mindestens 3 Zeichen und maximal 63 Zeichen.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+- uid: az_postgres_server_restore
+  name: az postgres server restore
+  summary: Stellt einen Server aus einer Sicherung wieder her
+  description: ''
+  syntax: >-
+    az postgres server restore --pitr-time
+                               --source-server
+                               [--ids]
+                               [--name]
+                               [--no-wait]
+                               [--resource-group]
+                               [--subscription]
+  examples:
+  - summary: Stellen Sie "testsvr" als neuen Server "testsvrnew" auf einen bestimmten Zeitpunkt wieder auf.
+    syntax: az postgres server restore -g testgroup -n testsvrnew --source-server testsvr --restore-point-in-time "2017-06-15T13:10:00Z"
+  - summary: Stellen Sie "testsvr2" in "testsvrnew" wieder zurück, wobei sich "testsvrnew" in einer anderen Ressourcengruppe als "testsvr2" befindet.
+    syntax: >-
+      az postgres server restore -g testgroup -n testsvrnew \
+          -s "/subscriptions/${SubID}/resourceGroups/${ResourceGroup}/providers/Microsoft.DBforPostgreSQL/servers/testsvr2" \
+          --restore-point-in-time "2017-06-15T13:10:00Z"
+  requiredParameters:
+  - isRequired: true
+    name: --pitr-time --restore-point-in-time
+    summary: Der Zeitpunkt in UTC für die Wiederherstellung aus (ISO8601-Format), z.B. 2017-04-26T02:10:00+08:00.
+    description: ''
+  - isRequired: true
+    name: --source-server -s
+    summary: Der Name oder die Ressourcen-ID des Quellservers, von dem die Wiederherstellung ausgeführt werden soll.
+    description: ''
+  optionalParameters:
+  - name: --ids
+    summary: Mindestens eine Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen von "Resource Id"-Argumenten sein. Sie sollten entweder --ids oder andere "Resource Id"-Argumente angeben.
+    description: ''
+  - name: --name -n
+    summary: Name des Servers. Der Name darf nur Kleinbuchstaben, Zahlen und den Bindestrich (-) enthalten. Mindestens 3 Zeichen und maximal 63 Zeichen.
+    description: ''
+  - name: --no-wait
+    summary: Nicht auf den Abschluss lang andauernder Vorgänge warten
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+- uid: az_postgres_server_show
+  name: az postgres server show
+  summary: Abrufen der Details eines Servers.
+  description: ''
+  syntax: >-
+    az postgres server show [--ids]
+                            [--name]
+                            [--query-examples]
+                            [--resource-group]
+                            [--subscription]
+  examples:
+  - summary: Abrufen der Details eines Servers. (automatisch generiert)
+    syntax: az postgres server show --name MyServer --resource-group MyResourceGroup
+  optionalParameters:
+  - name: --ids
+    summary: Mindestens eine Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen von "Resource Id"-Argumenten sein. Sie sollten entweder --ids oder andere "Resource Id"-Argumente angeben.
+    description: ''
+  - name: --name -n
+    summary: Name des Servers. Der Name darf nur Kleinbuchstaben, Zahlen und den Bindestrich (-) enthalten. Mindestens 3 Zeichen und maximal 63 Zeichen.
+    description: ''
+  - name: --query-examples
+    summary: Empfehlen Sie die JMESPath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und sie nach dem Parameter --query in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positionsschlüsselwörter hinzufügen, damit wir basierend auf diesen Schlüsselwörtern Vorschläge geben können.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+- uid: az_postgres_server_show-connection-string
+  name: az postgres server show-connection-string
+  summary: Zeigt die Verbindungszeichenfolgen für eine PostgreSQL-Serverdatenbank an.
+  description: ''
+  syntax: >-
+    az postgres server show-connection-string [--admin-password]
+                                              [--admin-user]
+                                              [--database-name]
+                                              [--ids]
+                                              [--server-name]
+                                              [--subscription]
+  examples:
+  - summary: Zeigt Verbindungszeichenfolgen für cmd und Programmiersprachen an.
+    syntax: az postgres server show-connection-string -s testServer -u username -p password -d databasename
+  optionalParameters:
+  - name: --admin-password -p
+    defaultValue: '{password}'
+    summary: Das Anmeldekennwort des Administrators.
+    description: ''
+  - name: --admin-user -u
+    defaultValue: '{username}'
+    summary: Der Anmeldebenutzername des Administrators.
+    description: ''
+  - name: --database-name -d
+    defaultValue: '{database}'
+    summary: Der Name einer Datenbank.
+    description: ''
+  - name: --ids
+    summary: Eine oder mehrere Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu Ressourcen-ID-Argumenten geben. Sie sollten entweder --ids oder andere Ressourcen-ID-Argumente bereitstellen.
+    description: ''
+  - name: --server-name -s
+    defaultValue: '{server}'
+    summary: Name des Servers.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+- uid: az_postgres_server_update
+  name: az postgres server update
+  summary: Aktualisieren sie einen Server.
+  description: ''
+  syntax: >-
+    az postgres server update [--add]
+                              [--admin-password]
+                              [--assign-identity]
+                              [--auto-grow {Disabled, Enabled}]
+                              [--backup-retention]
+                              [--force-string]
+                              [--ids]
+                              [--minimal-tls-version {TLS1_0, TLS1_1, TLS1_2, TLSEnforcementDisabled}]
+                              [--name]
+                              [--public]
+                              [--remove]
+                              [--resource-group]
+                              [--set]
+                              [--sku-name]
+                              [--ssl-enforcement {Disabled, Enabled}]
+                              [--storage-size]
+                              [--subscription]
+                              [--tags]
+  examples:
+  - summary: Aktualisieren sie die SKU eines Servers.
+    syntax: az postgres server update -g testgroup -n testsvrnew --sku-name GP_Gen5_4
+  - summary: Aktualisieren sie die Tags eines Servers.
+    syntax: az postgres server update -g testgroup -n testsvrnew --tags "k1=v1" "k2=v2"
+  - summary: Aktualisieren sie einen Server. (automatisch generiert)
+    syntax: az postgres server update --name testsvrnew --resource-group testgroup --ssl-enforcement Enabled --minimal-tls-version TLS1_0
+  optionalParameters:
+  - name: --add
+    summary: 'Fügen Sie einer Liste von -Objekten ein -Objekt hinzu, indem Sie ein Pfad- und Schlüsselwertpaar angeben.  Beispiel: --add property.listProperty <key=value, string oder JSON string>.'
+    description: ''
+  - name: --admin-password -p
+    summary: 'Das Kennwort des Administrators. Mindestens 8 Zeichen und maximal 128 Zeichen. Das Kennwort muss Zeichen aus drei der folgenden Kategorien enthalten: Englische Großbuchstaben, englische Kleinbuchstaben, Zahlen und nicht alphanumerische Zeichen.'
+    description: ''
+  - name: --assign-identity
+    summary: Generieren und zuweisen einer Azure Active Directory-Identität für diesen Server zur Verwendung mit Schlüsselverwaltungsdiensten wie Azure KeyVault.
+    description: ''
+  - name: --auto-grow
+    parameterValueGroup: Disabled, Enabled
+    summary: Aktivieren oder deaktivieren Sie die automatische Verwächste des Speichers. Der Standardwert ist Aktiviert.
+    description: ''
+  - name: --backup-retention
+    summary: Die Anzahl der Tage, für die eine Sicherung aufbewahrt wird. Bereich von 7 bis 35 Tagen. Der Standard ist 7 Tage.
+    description: ''
+  - name: --force-string
+    summary: Wenn Sie "set" oder "add" verwenden, behalten Sie Zeichenfolgenliterale bei, anstatt zu versuchen, in JSON zu konvertieren.
+    description: ''
+  - name: --ids
+    summary: Mindestens eine Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen von "Resource Id"-Argumenten sein. Sie sollten entweder --ids oder andere "Resource Id"-Argumente angeben.
+    description: ''
+  - name: --minimal-tls-version
+    parameterValueGroup: TLS1_0, TLS1_1, TLS1_2, TLSEnforcementDisabled
+    summary: Legen Sie die tls-Mindestversion für Verbindungen mit dem Server fest, wenn SSL aktiviert ist. Der Standardwert ist TLSEnforcementDisabled.
+    description: ''
+  - name: --name -n
+    summary: Name des Servers. Der Name darf nur Kleinbuchstaben, Zahlen und den Bindestrich (-) enthalten. Mindestens 3 Zeichen und maximal 63 Zeichen.
+    description: ''
+  - name: --public --public-network-access
+    summary: 'Aktivieren oder deaktivieren Sie den Öffentlichen Netzwerkzugriff auf den Server. Wenn diese Option deaktiviert ist, können nur Verbindungen, die über private Links hergestellt werden, diesen Server erreichen. Zulässige Werte sind: Enabled, Disabled, all, 0.0.0.0, <SingleIP> , <StartIP-DestinationIP>. Der Standardwert ist Aktiviert.'
+    description: ''
+  - name: --remove
+    summary: 'Entfernen sie eine Eigenschaft oder ein Element aus einer Liste.  Beispiel: --remove property.list <indexToRemove> OR --remove propertyToRemove.'
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --set
+    summary: 'Aktualisieren Sie ein -Objekt, indem Sie einen festzulegenden Eigenschaftenpfad und -wert angeben.  Beispiel: --set property1.property2=<value>.'
+    description: ''
+  - name: --sku-name
+    summary: 'Der Name der SKU. Folgt der Konvention „{Tarif} _{Computegeneration}_ {virtuelle Kerne}“ in Kurzform. Beispiele: B_Gen5_1, GP_Gen5_4, MO_Gen5_16.'
+    description: ''
+  - name: --ssl-enforcement
+    parameterValueGroup: Disabled, Enabled
+    summary: Aktivieren oder deaktivieren Sie die SSL-Erzwingung für Verbindungen mit dem Server. Der Standardwert ist Aktiviert.
+    description: ''
+  - name: --storage-size
+    summary: 'Die Speicherkapazität des Servers (Einheit: MB). Mindestens 5.120 und erhöht sich in Inkrementen von 1.024. Der Standardwert ist 51200.'
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+  - name: --tags
+    summary: 'Durch Leerzeichen getrennte Tags: key[=value] [key[=value] ...]. Verwenden Sie "", um vorhandene Tags zu löschen.'
+    description: ''
+- uid: az_postgres_server_wait
+  name: az postgres server wait
+  summary: Warten Sie, bis der Server bestimmte Bedingungen erfüllt.
+  description: ''
+  syntax: >-
+    az postgres server wait [--custom]
+                            [--exists]
+                            [--ids]
+                            [--interval]
+                            [--name]
+                            [--resource-group]
+                            [--subscription]
+                            [--timeout]
+  optionalParameters:
+  - name: --custom
+    summary: "Warten Sie, bis die Bedingung eine benutzerdefinierte JMESPath-Abfrage erfüllt. Beispiel: provisioningState!='InProgress', instanceView.statuses[?code=='PowerState/running']."
+    description: ''
+  - name: --exists
+    summary: Warten Sie, bis die Ressource vorhanden ist.
+    description: ''
+  - name: --ids
+    summary: Eine oder mehrere Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu Ressourcen-ID-Argumenten geben. Sie sollten entweder --ids oder andere Ressourcen-ID-Argumente bereitstellen.
+    description: ''
+  - name: --interval
+    defaultValue: "30"
+    summary: Abrufintervall in Sekunden.
+    description: ''
+  - name: --name -n
+    summary: Name des Servers. Der Name darf nur Kleinbuchstaben, Zahlen und den Bindestrich (-) enthalten. Mindestens 3 Zeichen und maximal 63 Zeichen.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+  - name: --timeout
+    defaultValue: "3600"
+    summary: Maximale Wartezeit in Sekunden.
+    description: ''
+commands:
+- az_postgres_server_ad-admin
+- az_postgres_server_ad-admin_create
+- az_postgres_server_ad-admin_delete
+- az_postgres_server_ad-admin_list
+- az_postgres_server_ad-admin_show
+- az_postgres_server_ad-admin_wait
+- az_postgres_server_configuration
+- az_postgres_server_configuration_list
+- az_postgres_server_configuration_set
+- az_postgres_server_configuration_show
+- az_postgres_server_create
+- az_postgres_server_delete
+- az_postgres_server_firewall-rule
+- az_postgres_server_firewall-rule_create
+- az_postgres_server_firewall-rule_delete
+- az_postgres_server_firewall-rule_list
+- az_postgres_server_firewall-rule_show
+- az_postgres_server_firewall-rule_update
+- az_postgres_server_georestore
+- az_postgres_server_key
+- az_postgres_server_key_create
+- az_postgres_server_key_delete
+- az_postgres_server_key_list
+- az_postgres_server_key_show
+- az_postgres_server_list
+- az_postgres_server_list-skus
+- az_postgres_server_private-endpoint-connection
+- az_postgres_server_private-endpoint-connection_approve
+- az_postgres_server_private-endpoint-connection_delete
+- az_postgres_server_private-endpoint-connection_reject
+- az_postgres_server_private-endpoint-connection_show
+- az_postgres_server_private-link-resource
+- az_postgres_server_private-link-resource_list
+- az_postgres_server_replica
+- az_postgres_server_replica_create
+- az_postgres_server_replica_list
+- az_postgres_server_replica_stop
+- az_postgres_server_restart
+- az_postgres_server_restore
+- az_postgres_server_show
+- az_postgres_server_show-connection-string
+- az_postgres_server_update
+- az_postgres_server_vnet-rule
+- az_postgres_server_vnet-rule_create
+- az_postgres_server_vnet-rule_delete
+- az_postgres_server_vnet-rule_list
+- az_postgres_server_vnet-rule_show
+- az_postgres_server_vnet-rule_update
+- az_postgres_server_wait
+globalParameters:
+- name: --debug
+  summary: Ausführlichkeit der Protokollierung erhöhen, um alle Debugprotokolle anzuzeigen.
+- name: --help -h
+  summary: Zeigen Sie diese Hilfemeldung an, und schließen Sie sie.
+- name: --only-show-errors
+  summary: Nur Fehler anzeigen und Warnungen unterdrücken.
+- name: --output -o
+  defaultValue: json
+  parameterValueGroup: json, jsonc, table, tsv
+  summary: Ausgabeformat.
+- name: --query
+  summary: JMESPath-Abfragezeichenfolge. Weitere Informationen und Beispiele finden Sie unter <a href="http://jmespath.org/">http://jmespath.org/</a>.
+- name: --verbose
+  summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
+metadata:
+  description: Verwalten von PostgreSQL-Servern.
+  ms.openlocfilehash: 7c03dfc8cc9ff63801405799559237b9019a5b27
+  ms.sourcegitcommit: 8464e3b00e33158e3c18654d9b852c8d1fadadd7
+  ms.translationtype: MT
+  ms.contentlocale: de-DE
+  ms.lasthandoff: 05/12/2021
+  ms.locfileid: "109778164"

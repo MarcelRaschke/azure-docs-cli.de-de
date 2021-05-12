@@ -1,0 +1,580 @@
+### YamlMime:AzureCLIGroup
+uid: az_sql_vm
+name: az sql vm
+summary: Verwalten von virtuellen SQL-Computern.
+description: ''
+directCommands:
+- uid: az_sql_vm_add-to-group
+  name: az sql vm add-to-group
+  summary: Fügt einer SQL-VM-Gruppe einen virtuellen SQL-Computer hinzu.
+  description: ''
+  syntax: >-
+    az sql vm add-to-group --sqlvm-group
+                           [--bootstrap-acc-pwd]
+                           [--ids]
+                           [--name]
+                           [--operator-acc-pwd]
+                           [--resource-group]
+                           [--service-acc-pwd]
+                           [--subscription]
+  examples:
+  - summary: Hinzufügen eines virtuellen SQL-Computers zu einer Gruppe.
+    syntax: az sql vm add-to-group -n sqlvm -g myresourcegroup --sqlvm-group sqlvmgroup --bootstrap-acc-pwd {bootstrappassword} --operator-acc-pwd {operatorpassword} --service-acc-pwd {servicepassword}
+  requiredParameters:
+  - isRequired: true
+    name: --sqlvm-group -r
+    summary: Name oder Ressourcen-ID der SQL-VM-Gruppe. Wenn nur der Name angegeben wird, sollte sich die SQL-VM-Gruppe in derselben Ressourcengruppe des virtuellen SQL-Computers befindet.
+    description: ''
+  optionalParameters:
+  - name: --bootstrap-acc-pwd -b
+    summary: Kennwort für das Bootstrapkonto des Clusters, sofern es in der Gruppe virtueller SQL-Computer angegeben ist.
+    description: ''
+  - name: --ids
+    summary: Mindestens eine Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu "Ressourcen-ID"-Argumenten sein. Sie sollten entweder --ids oder andere "Resource Id"-Argumente angeben.
+    description: ''
+  - name: --name -n
+    summary: Name des virtuellen SQL-Computers.
+    description: ''
+  - name: --operator-acc-pwd -p
+    summary: Das Kennwort für das Clusteroperatorkonto, das in der Gruppe virtueller SQL-Computer angegeben ist.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --service-acc-pwd -s
+    summary: Kennwort für das SQL-Dienstkonto, das in der Gruppe virtueller SQL-Computer angegeben ist.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/sql/_help.py
+- uid: az_sql_vm_create
+  name: az sql vm create
+  summary: Erstellt einen virtuellen SQL-Computer.
+  description: ''
+  syntax: >-
+    az sql vm create --name
+                     --resource-group
+                     [--backup-pwd]
+                     [--backup-schedule-type {Automated, Manual}]
+                     [--backup-system-dbs {false, true}]
+                     [--connectivity-type {LOCAL, PRIVATE, PUBLIC}]
+                     [--credential-name]
+                     [--day-of-week {Friday, Monday, Saturday, Sunday, Thursday, Tuesday, Wednesday}]
+                     [--enable-auto-backup {false, true}]
+                     [--enable-auto-patching {false, true}]
+                     [--enable-encryption {false, true}]
+                     [--enable-key-vault-credential {false, true}]
+                     [--enable-r-services {false, true}]
+                     [--full-backup-duration]
+                     [--full-backup-frequency {Daily, Weekly}]
+                     [--full-backup-start-hour]
+                     [--image-offer]
+                     [--image-sku {Developer, Enterprise, Express, Standard, Web}]
+                     [--key-vault]
+                     [--license-type {AHUB, DR, PAYG}]
+                     [--location]
+                     [--log-backup-frequency]
+                     [--maintenance-window-duration]
+                     [--maintenance-window-start-hour]
+                     [--port]
+                     [--retention-period]
+                     [--sa-key]
+                     [--sp-name]
+                     [--sp-secret]
+                     [--sql-auth-update-pwd]
+                     [--sql-auth-update-username]
+                     [--sql-mgmt-type {Full, LightWeight, NoAgent}]
+                     [--sql-workload-type {DW, GENERAL, OLTP}]
+                     [--storage-account]
+                     [--subscription]
+                     [--tags]
+  examples:
+  - summary: Erstellen Sie einen virtuellen SQL-Computer mit dem AHUB-Abrechnungstag.
+    syntax: az sql vm create -n sqlvm -g myresourcegroup -l eastus --license-type AHUB
+  - summary: Erstellen Sie einen virtuellen SQL-Computer mit dem Abrechnungstag für die Dr.
+    syntax: az sql vm create -n sqlvm -g myresourcegroup -l eastus --license-type DR
+  - summary: Erstellen Sie einen virtuellen SQL-Computer mit einem bestimmten SKU-Typ und Lizenztyp.
+    syntax: az sql vm create -n sqlvm -g myresourcegroup -l eastus --image-sku Enterprise --license-type AHUB
+  - summary: Erstellen Sie einen virtuellen SQL-Computer mit dem NoAgent-Typ, der nur für EOS SQL 2008 und SQL 2008 R2 gültig ist.
+    syntax: az sql vm create -n sqlvm -g myresourcegroup -l eastus --license-type AHUB --sql-mgmt-type NoAgent --image-sku Enterprise --image-offer SQL2008-WS2008R2
+  - summary: Aktivieren Sie R-Dienste ab SQL2016.
+    syntax: az sql vm create -n sqlvm -g myresourcegroup -l eastus --license-type PAYG --sql-mgmt-type Full --enable-r-services true
+  - summary: Erstellen Sie einen virtuellen SQL-Computer, und konfigurieren Sie einstellungen für die automatische Sicherung.
+    syntax: az sql vm create -n sqlvm -g myresourcegroup -l eastus --license-type PAYG --sql-mgmt-type Full --backup-schedule-type manual --full-backup-frequency Weekly --full-backup-start-hour 2 --full-backup-duration 2 --sa-key {storageKey} --storage-account 'https://storageacc.blob.core.windows.net/' --retention-period 30 --log-backup-frequency 60
+  - summary: Erstellen Sie einen virtuellen SQL-Computer, und konfigurieren Sie Einstellungen für automatisches Patchen.
+    syntax: az sql vm create -n sqlvm -g myresourcegroup -l eastus --license-type PAYG --sql-mgmt-type Full --day-of-week sunday --maintenance-window-duration 60 --maintenance-window-start-hour 2
+  - summary: Erstellen Sie einen virtuellen SQL-Computer, und konfigurieren Sie SQL-Konnektivitätseinstellungen.
+    syntax: az sql vm create -n sqlvm -g myresourcegroup -l eastus --license-type PAYG --sql-mgmt-type Full --connectivity-type private --port 1433 --sql-auth-update-username {newlogin} --sql-auth-update-pwd {sqlpassword}
+  requiredParameters:
+  - isRequired: true
+    name: --name -n
+    summary: Name des virtuellen SQL-Computers. Der Name des neuen virtuellen SQL-Computers muss gleich dem zugrunde liegenden virtuellen Computer sein, der aus dem SQL Marketplace-Image erstellt wurde.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  optionalParameters:
+  - name: --backup-pwd
+    summary: Kennwort für die Verschlüsselung bei der Sicherung.
+    description: ''
+  - name: --backup-schedule-type
+    parameterValueGroup: Automated, Manual
+    summary: Sicherungszeitplantyp.
+    description: ''
+  - name: --backup-system-dbs
+    parameterValueGroup: false, true
+    summary: Schließen Sie Systemdatenbanken in die Sicherung ein.
+    description: ''
+  - name: --connectivity-type
+    parameterValueGroup: LOCAL, PRIVATE, PUBLIC
+    summary: SQL Server Konnektivitätsoption.
+    description: ''
+  - name: --credential-name
+    summary: Name der Anmeldeinformationen.
+    description: ''
+  - name: --day-of-week
+    parameterValueGroup: Friday, Monday, Saturday, Sunday, Thursday, Tuesday, Wednesday
+    summary: Wochentag, auf den der Patch angewendet werden soll.
+    description: ''
+  - name: --enable-auto-backup
+    parameterValueGroup: false, true
+    summary: Aktivieren oder deaktivieren Sie die automatische Zurückholung auf einem virtuellen SQL-Computer. Wenn Sicherungseinstellungen angegeben werden, wird der Parameter automatisch auf TRUE festlegen.
+    description: ''
+  - name: --enable-auto-patching
+    parameterValueGroup: false, true
+    summary: Aktivieren oder deaktivieren Sie das automatischePatchen auf einem virtuellen SQL-Computer. Wenn Einstellungen für das automatischePatchen bereitgestellt werden, wird der Parameter automatisch auf TRUE festlegen.
+    description: ''
+  - name: --enable-encryption
+    parameterValueGroup: false, true
+    summary: Aktivieren Sie die Verschlüsselung für die Sicherung auf einem virtuellen SQL-Computer.
+    description: ''
+  - name: --enable-key-vault-credential
+    parameterValueGroup: false, true
+    summary: Aktivieren oder deaktivieren Sie die Einstellung für Schlüsseltresor-Anmeldeinformationen. Wenn Schlüsseltresoreinstellungen angegeben werden, wird der Parameter automatisch auf TRUE festlegen.
+    description: ''
+  - name: --enable-r-services
+    parameterValueGroup: false, true
+    summary: Aktivieren oder Deaktivieren von R-Diensten (AB SQL 2016).
+    description: ''
+  - name: --full-backup-duration
+    summary: Das Zeitfenster eines bestimmten Tags, an dem eine vollständige Sicherung stattfinden kann. 1 bis 23 Stunden.
+    description: ''
+  - name: --full-backup-frequency
+    parameterValueGroup: Daily, Weekly
+    summary: Intervall für vollständige Sicherungen. In beiden Fällen werden vollständige Sicherungen während des nächsten geplanten Zeitfensters gestartet.
+    description: ''
+  - name: --full-backup-start-hour
+    summary: Die Startzeit eines bestimmten Tags, an dem eine vollständige Sicherung stattfinden kann. 0 bis 23 Stunden.
+    description: ''
+  - name: --image-offer
+    summary: SQL-Imageangebot. Beispiele hierfür sind SQL2008R2-WS2008, SQL2008-WS2008.
+    description: ''
+  - name: --image-sku
+    parameterValueGroup: Developer, Enterprise, Express, Standard, Web
+    summary: SQL-Image-SKU.
+    description: ''
+  - name: --key-vault
+    summary: Azure Key Vault URL.
+    description: ''
+  - name: --license-type -i
+    parameterValueGroup: AHUB, DR, PAYG
+    summary: SQL Server Lizenztyp.
+    description: ''
+  - name: --location -l
+    summary: Der Standort. Wenn sie nicht angegeben wird, sollte sich der virtuelle Computer in derselben Region der Ressourcengruppe befinden. Sie können den Standardspeicherort mit `az configure --defaults location=<location>` konfigurieren.
+    description: ''
+  - name: --log-backup-frequency
+    summary: Intervall für Protokollsicherungen. 5-60 Minuten.
+    description: ''
+  - name: --maintenance-window-duration
+    summary: Dauer des Patchens. 30-180 Minuten.
+    description: ''
+  - name: --maintenance-window-start-hour
+    summary: 'Stunde des Tages, in der das Patchen initiiert wird. Lokale VM-Zeit: 0 bis 23 Stunden.'
+    description: ''
+  - name: --port
+    summary: SQL Server Port.
+    description: ''
+  - name: --retention-period
+    summary: Aufbewahrungsdauer der Sicherung. 1 bis 30 Tage.
+    description: ''
+  - name: --sa-key
+    summary: Speicherkontoschlüssel, zu dem die Sicherung durchgeführt wird.
+    description: ''
+  - name: --sp-name
+    summary: Dienstprinzipalname für den Zugriff auf den Schlüsseltresor.
+    description: ''
+  - name: --sp-secret
+    summary: Geheimnis des Dienstprinzipalnamens für den Zugriff auf den Schlüsseltresor.
+    description: ''
+  - name: --sql-auth-update-pwd
+    summary: SQL Server Systemadministrator-Anmeldekennwort ein.
+    description: ''
+  - name: --sql-auth-update-username
+    summary: SQL Server zu erstellende sysadmin-Anmeldung.
+    description: ''
+  - name: --sql-mgmt-type
+    defaultValue: LightWeight
+    parameterValueGroup: Full, LightWeight, NoAgent
+    summary: SQL Server Verwaltungstyp. Wenn NoAgent ausgewählt ist, geben Sie --image-sku und --offer-type an.
+    description: ''
+  - name: --sql-workload-type
+    parameterValueGroup: DW, GENERAL, OLTP
+    summary: SQL Server Arbeitsauslastungstyp.
+    description: ''
+  - name: --storage-account
+    summary: Speicherkonto-URL, an die die Sicherung erstellt wird.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+  - name: --tags
+    summary: 'Durch Leerzeichen getrennte Tags: key[=value] [key[=value] ...]. Verwenden Sie "", um vorhandene Tags zu löschen.'
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/sql/_help.py
+- uid: az_sql_vm_delete
+  name: az sql vm delete
+  summary: Löscht einen virtuellen SQL-Computer.
+  description: ''
+  syntax: >-
+    az sql vm delete [--ids]
+                     [--name]
+                     [--resource-group]
+                     [--subscription]
+                     [--yes]
+  optionalParameters:
+  - name: --ids
+    summary: Eine oder mehrere Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu Ressourcen-ID-Argumenten geben. Sie sollten entweder --ids oder andere Ressourcen-ID-Argumente bereitstellen.
+    description: ''
+  - name: --name -n
+    summary: Name des virtuellen SQL-Computers.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+  - name: --yes -y
+    summary: Nicht zur Bestätigung auffordern
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/sql/_help.py
+- uid: az_sql_vm_list
+  name: az sql vm list
+  summary: Listet alle virtuellen SQL-Computer in einer Ressourcengruppe oder einem Abonnement auf.
+  description: ''
+  syntax: >-
+    az sql vm list [--query-examples]
+                   [--resource-group]
+                   [--subscription]
+  optionalParameters:
+  - name: --query-examples
+    summary: Empfehlen Sie die JMESPath-Zeichenfolge. Sie können eine der Abfragen kopieren und nach dem Parameter --query in doppelte Anführungszeichen einfügen, um die Ergebnisse zu sehen. Sie können ein oder mehrere Positionsschlüsselwörter hinzufügen, damit wir basierend auf diesen Schlüsselwörtern Vorschläge machen können.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/sql/_help.py
+- uid: az_sql_vm_remove-from-group
+  name: az sql vm remove-from-group
+  summary: Entfernen Sie den virtuellen SQL-Computer aus der aktuellen GRUPPE virtueller SQL-Computer.
+  description: ''
+  syntax: >-
+    az sql vm remove-from-group [--ids]
+                                [--name]
+                                [--resource-group]
+                                [--subscription]
+  examples:
+  - summary: Entfernen Sie den virtuellen SQL-Computer aus einer Gruppe.
+    syntax: az sql vm remove-from-group -n sqlvm -g myresourcegroup
+  optionalParameters:
+  - name: --ids
+    summary: Eine oder mehrere Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu Ressourcen-ID-Argumenten geben. Sie sollten entweder --ids oder andere "Resource Id"-Argumente angeben.
+    description: ''
+  - name: --name -n
+    summary: Name des virtuellen SQL-Computers.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/sql/_help.py
+- uid: az_sql_vm_show
+  name: az sql vm show
+  summary: Ruft einen virtuellen SQL-Computer ab.
+  description: ''
+  syntax: >-
+    az sql vm show [--expand {*, AutoBackupSettings, AutoPatchingSettings, KeyVaultCredentialSettings, ServerConfigurationsManagementSettings}]
+                   [--ids]
+                   [--name]
+                   [--query-examples]
+                   [--resource-group]
+                   [--subscription]
+  optionalParameters:
+  - name: --expand
+    parameterValueGroup: '*, AutoBackupSettings, AutoPatchingSettings, KeyVaultCredentialSettings, ServerConfigurationsManagementSettings'
+    summary: Abrufen der SQLIaaSExtension-Konfigurationseinstellungen. Verwenden Sie , um alle Einstellungen \* anzuzeigen. Um nur einige wenige auszuwählen, müssen die Einstellungen leer sein.
+    description: ''
+  - name: --ids
+    summary: Mindestens eine Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen von "Resource Id"-Argumenten sein. Sie sollten entweder --ids oder andere "Resource Id"-Argumente angeben.
+    description: ''
+  - name: --name -n
+    summary: Name des virtuellen SQL-Computers.
+    description: ''
+  - name: --query-examples
+    summary: Empfehlen Sie die JMESPath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und nach dem Parameter --query in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positionsschlüsselwörter hinzufügen, damit wir basierend auf diesen Schlüsselwörtern Vorschläge geben können.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/sql/_help.py
+- uid: az_sql_vm_update
+  name: az sql vm update
+  summary: Aktualisiert die Eigenschaften eines virtuellen SQL-Computers.
+  description: ''
+  syntax: >-
+    az sql vm update [--add]
+                     [--backup-pwd]
+                     [--backup-schedule-type {Automated, Manual}]
+                     [--backup-system-dbs {false, true}]
+                     [--connectivity-type {LOCAL, PRIVATE, PUBLIC}]
+                     [--credential-name]
+                     [--day-of-week {Friday, Monday, Saturday, Sunday, Thursday, Tuesday, Wednesday}]
+                     [--enable-auto-backup {false, true}]
+                     [--enable-auto-patching {false, true}]
+                     [--enable-encryption {false, true}]
+                     [--enable-key-vault-credential {false, true}]
+                     [--enable-r-services {false, true}]
+                     [--force-string]
+                     [--full-backup-duration]
+                     [--full-backup-frequency {Daily, Weekly}]
+                     [--full-backup-start-hour]
+                     [--ids]
+                     [--image-sku {Developer, Enterprise, Express, Standard, Web}]
+                     [--key-vault]
+                     [--license-type {AHUB, DR, PAYG}]
+                     [--log-backup-frequency]
+                     [--maintenance-window-duration]
+                     [--maintenance-window-start-hour]
+                     [--name]
+                     [--port]
+                     [--remove]
+                     [--resource-group]
+                     [--retention-period]
+                     [--sa-key]
+                     [--set]
+                     [--sp-name]
+                     [--sp-secret]
+                     [--sql-mgmt-type {Full}]
+                     [--sql-workload-type {DW, GENERAL, OLTP}]
+                     [--storage-account]
+                     [--subscription]
+                     [--tags]
+                     [--yes]
+  examples:
+  - summary: Fügen Sie ein Tag hinzu, oder aktualisieren Sie es.
+    syntax: az sql vm update -n sqlvm -g myresourcegroup --set tags.tagName=tagValue
+  - summary: Entfernen sie ein Tag.
+    syntax: az sql vm update -n sqlvm -g myresourcegroup --remove tags.tagName
+  - summary: Aktualisieren sie einen virtuellen SQL-Computer mit einem bestimmten SKU-Typ.
+    syntax: az sql vm update -n sqlvm -g myresourcegroup --image-sku Enterprise
+  - summary: Aktualisieren Sie die Verwaltbarkeit eines virtuellen SQL-Computers von LightWeight auf Full.
+    syntax: az sql vm update -n sqlvm -g myresourcegroup --sql-mgmt-type Full --yes
+  - summary: Aktualisieren Sie die Einstellungen für die automatische Sicherung virtueller SQL-Computer.
+    syntax: az sql vm update -n sqlvm -g myresourcegroup --backup-schedule-type manual --full-backup-frequency Weekly --full-backup-start-hour 2 --full-backup-duration 2 --sa-key {storageKey} --storage-account 'https://storageacc.blob.core.windows.net/' --retention-period 30 --log-backup-frequency 60
+  - summary: Deaktivieren Sie die Einstellungen für die automatische Sicherung virtueller SQL-Computer.
+    syntax: az sql vm update -n sqlvm -g myresourcegroup --enable-auto-backup false
+  - summary: Aktualisieren Sie die Einstellungen für das automatische Patchen virtueller SQL-Computer.
+    syntax: az sql vm update -n sqlvm -g myresourcegroup --day-of-week sunday --maintenance-window-duration 60 --maintenance-window-start-hour 2
+  - summary: Deaktivieren Sie die Einstellungen für das automatische Patchen virtueller SQL-Computer.
+    syntax: az sql vm update -n sqlvm -g myresourcegroup --enable-auto-patching false
+  - summary: Aktualisieren Sie ein Abrechnungstag für einen virtuellen SQL-Computer auf AHUB.
+    syntax: az sql vm update -n sqlvm -g myresourcegroup --license-type AHUB
+  - summary: Aktualisieren eines Abrechnungstags für einen virtuellen SQL-Computer in die Dr.
+    syntax: az sql vm update -n sqlvm -g myresourcegroup --license-type DR
+  optionalParameters:
+  - name: --add
+    summary: 'Fügen Sie einer Liste von -Objekten ein -Objekt hinzu, indem Sie ein Pfad- und Schlüsselwertpaar angeben.  Beispiel: --add property.listProperty <key=value, string oder JSON string>.'
+    description: ''
+  - name: --backup-pwd
+    summary: Kennwort für die Verschlüsselung bei der Sicherung.
+    description: ''
+  - name: --backup-schedule-type
+    parameterValueGroup: Automated, Manual
+    summary: Sicherungszeitplantyp.
+    description: ''
+  - name: --backup-system-dbs
+    parameterValueGroup: false, true
+    summary: Schließen Sie Systemdatenbanken in die Sicherung ein.
+    description: ''
+  - name: --connectivity-type
+    parameterValueGroup: LOCAL, PRIVATE, PUBLIC
+    summary: SQL Server Konnektivitätsoption.
+    description: ''
+  - name: --credential-name
+    summary: Name der Anmeldeinformationen.
+    description: ''
+  - name: --day-of-week
+    parameterValueGroup: Friday, Monday, Saturday, Sunday, Thursday, Tuesday, Wednesday
+    summary: Wochentag, auf den der Patch angewendet werden soll.
+    description: ''
+  - name: --enable-auto-backup
+    parameterValueGroup: false, true
+    summary: Aktivieren oder deaktivieren Sie die automatische Zurückholung auf einem virtuellen SQL-Computer. Wenn Sicherungseinstellungen angegeben werden, wird der Parameter automatisch auf TRUE festlegen.
+    description: ''
+  - name: --enable-auto-patching
+    parameterValueGroup: false, true
+    summary: Aktivieren oder deaktivieren Sie das automatischePatchen auf einem virtuellen SQL-Computer. Wenn Einstellungen für das automatischePatchen bereitgestellt werden, wird der Parameter automatisch auf TRUE festlegen.
+    description: ''
+  - name: --enable-encryption
+    parameterValueGroup: false, true
+    summary: Aktivieren Sie die Verschlüsselung für die Sicherung auf einem virtuellen SQL-Computer.
+    description: ''
+  - name: --enable-key-vault-credential
+    parameterValueGroup: false, true
+    summary: Aktivieren oder deaktivieren Sie die Einstellung für Schlüsseltresor-Anmeldeinformationen. Wenn Schlüsseltresoreinstellungen angegeben sind, wird der Parameter automatisch auf TRUE festgelegt.
+    description: ''
+  - name: --enable-r-services
+    parameterValueGroup: false, true
+    summary: Aktivieren oder Deaktivieren von R-Diensten (AB SQL 2016).
+    description: ''
+  - name: --force-string
+    summary: Wenn Sie "set" oder "add" verwenden, behalten Sie Zeichenfolgenliterale bei, anstatt zu versuchen, in JSON zu konvertieren.
+    description: ''
+  - name: --full-backup-duration
+    summary: Das Zeitfenster eines bestimmten Tags, an dem eine vollständige Sicherung stattfinden kann. 1 bis 23 Stunden.
+    description: ''
+  - name: --full-backup-frequency
+    parameterValueGroup: Daily, Weekly
+    summary: Intervall für vollständige Sicherungen. In beiden Fällen werden vollständige Sicherungen während des nächsten geplanten Zeitfensters gestartet.
+    description: ''
+  - name: --full-backup-start-hour
+    summary: Die Startzeit eines bestimmten Tags, an dem eine vollständige Sicherung stattfinden kann. 0 bis 23 Stunden.
+    description: ''
+  - name: --ids
+    summary: Mindestens eine Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu "Ressourcen-ID"-Argumenten sein. Sie sollten entweder --ids oder andere "Resource Id"-Argumente angeben.
+    description: ''
+  - name: --image-sku
+    parameterValueGroup: Developer, Enterprise, Express, Standard, Web
+    summary: SQL-Image-SKU.
+    description: ''
+  - name: --key-vault
+    summary: Azure Key Vault URL.
+    description: ''
+  - name: --license-type -i
+    parameterValueGroup: AHUB, DR, PAYG
+    summary: SQL Server Lizenztyp.
+    description: ''
+  - name: --log-backup-frequency
+    summary: Intervall für Protokollsicherungen. 5 bis 60 Minuten.
+    description: ''
+  - name: --maintenance-window-duration
+    summary: Dauer des Patchens. 30-180 Minuten.
+    description: ''
+  - name: --maintenance-window-start-hour
+    summary: 'Stunde des Tages, in der das Patchen initiiert wird. Lokale VM-Zeit: 0 bis 23 Stunden.'
+    description: ''
+  - name: --name -n
+    summary: Name des virtuellen SQL-Computers.
+    description: ''
+  - name: --port
+    summary: SQL Server Port.
+    description: ''
+  - name: --remove
+    summary: 'Entfernen sie eine Eigenschaft oder ein Element aus einer Liste.  Beispiel: --remove property.list <indexToRemove> OR --remove propertyToRemove.'
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --retention-period
+    summary: Aufbewahrungszeitraum der Sicherung. 1 bis 30 Tage.
+    description: ''
+  - name: --sa-key
+    summary: Speicherkontoschlüssel, in den die Sicherung erstellt wird.
+    description: ''
+  - name: --set
+    summary: 'Aktualisieren Sie ein -Objekt, indem Sie einen festzulegenden Eigenschaftenpfad und -wert angeben.  Beispiel: --set property1.property2=<value>.'
+    description: ''
+  - name: --sp-name
+    summary: Dienstprinzipalname für den Zugriff auf den Schlüsseltresor.
+    description: ''
+  - name: --sp-secret
+    summary: Geheimnis des Dienstprinzipalnamens für den Zugriff auf den Schlüsseltresor.
+    description: ''
+  - name: --sql-mgmt-type
+    parameterValueGroup: Full
+    summary: SQL Server Verwaltungstyp. Updates von LightWeight auf Full.
+    description: ''
+  - name: --sql-workload-type
+    parameterValueGroup: DW, GENERAL, OLTP
+    summary: SQL Server Arbeitsauslastungstyp.
+    description: ''
+  - name: --storage-account
+    summary: Speicherkonto-URL, an die die Sicherung erstellt wird.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+  - name: --tags
+    summary: 'Durch Leerzeichen getrennte Tags: key[=value] [key[=value] ...]. Verwenden Sie "", um vorhandene Tags zu löschen.'
+    description: ''
+  - name: --yes -y
+    defaultValue: "1"
+    summary: Nicht zur Bestätigung auffordern Erfordert --sql-mgmt-type.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/sql/_help.py
+commands:
+- az_sql_vm_add-to-group
+- az_sql_vm_create
+- az_sql_vm_delete
+- az_sql_vm_group
+- az_sql_vm_group_ag-listener
+- az_sql_vm_group_ag-listener_create
+- az_sql_vm_group_ag-listener_delete
+- az_sql_vm_group_ag-listener_list
+- az_sql_vm_group_ag-listener_show
+- az_sql_vm_group_ag-listener_update
+- az_sql_vm_group_create
+- az_sql_vm_group_delete
+- az_sql_vm_group_list
+- az_sql_vm_group_show
+- az_sql_vm_group_update
+- az_sql_vm_list
+- az_sql_vm_remove-from-group
+- az_sql_vm_show
+- az_sql_vm_update
+globalParameters:
+- name: --debug
+  summary: Ausführlichkeit der Protokollierung erhöhen, um alle Debugprotokolle anzuzeigen.
+- name: --help -h
+  summary: Zeigen Sie diese Hilfemeldung an, und schließen Sie sie.
+- name: --only-show-errors
+  summary: Nur Fehler anzeigen und Warnungen unterdrücken.
+- name: --output -o
+  defaultValue: json
+  parameterValueGroup: json, jsonc, table, tsv
+  summary: Ausgabeformat.
+- name: --query
+  summary: JMESPath-Abfragezeichenfolge. Weitere Informationen und Beispiele finden Sie unter <a href="http://jmespath.org/">http://jmespath.org/</a>.
+- name: --verbose
+  summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
+metadata:
+  doc_source_url_repo: https://github.com/Azure/azure-cli/blob/dev/
+  ms.date: 04/19/2021
+  description: Verwalten virtueller SQL-Computer.
+  ms.openlocfilehash: 73fa76ae339f342d305e4a015771b5ac438556de
+  ms.sourcegitcommit: b76cc7c91ed21ae04b3463544ad46a749461cc6a
+  ms.translationtype: MT
+  ms.contentlocale: de-DE
+  ms.lasthandoff: 04/25/2021
+  ms.locfileid: "107958059"

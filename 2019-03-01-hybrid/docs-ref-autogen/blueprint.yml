@@ -1,0 +1,374 @@
+### YamlMime:AzureCLIGroup
+uid: az_blueprint
+name: az blueprint
+extensionInformation: >-
+  > [!Note]
+
+  > Dieser Verweis ist Teil der **Blaupausenerweiterung** für Azure CLI und erfordert Version 2.3.0 oder höher.  Die Erweiterung wird automatisch installiert, wenn Sie zum ersten Mal den **Befehl az blueprint** ausführen.  [Weitere Informationen zu Erweiterungen](https://docs.microsoft.com/en-us/cli/azure/azure-cli-extensions-overview)
+summary: Befehle zum Verwalten der Blaupause.
+description: ''
+directCommands:
+- uid: az_blueprint_create
+  name: az blueprint create
+  summary: Erstellen Sie eine Blaupausendefinition.
+  description: ''
+  syntax: >-
+    az blueprint create --name
+                        [--description]
+                        [--display-name]
+                        [--management-group]
+                        [--parameters]
+                        [--subscription]
+                        [--target-scope {managementGroup, subscription}]
+  examples:
+  - summary: Erstellen einer Abonnement-Blaupause
+    syntax: >-
+      az blueprint create --subscription MySubscription --name \
+
+      MyBlueprint --description \
+
+      "blueprint contains all artifacts" --target-scope \
+
+      subscription
+  - summary: Erstellen einer Verwaltungsgruppen-Blaupause
+    syntax: >-
+      az blueprint create --management-group MyManagementGroup --name \
+
+      MyBlueprint --description \
+
+      "blueprint contains all artifact" --target-scope \
+
+      subscription
+  requiredParameters:
+  - isRequired: true
+    name: --name -n
+    summary: Name der Blaupausendefinition.
+    description: ''
+  optionalParameters:
+  - name: --description
+    summary: Erläutern Sie diese Ressource über mehrere Zeilen.
+    description: ''
+  - name: --display-name
+    summary: Diese Ressource wird durch eine einzeilere Zeichenfolge erläutert.
+    description: ''
+  - name: --management-group -m
+    summary: Verwenden Sie die Verwaltungsgruppe für den Bereich der Blaupause.
+    description: ''
+  - name: --parameters -p
+    summary: Für diese Blaupausendefinition erforderliche Parameter. Dies kann eine JSON-Zeichenfolge oder ein JSON-Dateipfad sein.
+    description: ''
+  - name: --subscription -s
+    summary: Verwenden Sie das Abonnement für den Bereich der Blaupause. Wenn --management-group nicht angegeben ist, wird der Wert --subscription oder das Standardabonnement als Bereich verwendet.
+    description: ''
+  - name: --target-scope
+    defaultValue: subscription
+    parameterValueGroup: managementGroup, subscription
+    summary: Der Bereich, in dem diese Blaupausendefinition zugewiesen werden kann.
+    description: ''
+- uid: az_blueprint_delete
+  name: az blueprint delete
+  summary: Löscht eine Blaupausendefinition.
+  description: ''
+  syntax: >-
+    az blueprint delete --name
+                        [--management-group]
+                        [--subscription]
+                        [--yes]
+  examples:
+  - summary: Löschen einer Verwaltungsgruppen-Blaupause
+    syntax: >-
+      az blueprint delete --management-group MyManagementGroup --name \
+
+      MyBlueprint
+  - summary: Löschen einer Abonnement-Blaupause
+    syntax: >-
+      az blueprint delete --subscription MySubscription --name \
+
+      MyBlueprint
+  requiredParameters:
+  - isRequired: true
+    name: --name -n
+    summary: Name der Blaupausendefinition.
+    description: ''
+  optionalParameters:
+  - name: --management-group -m
+    summary: Verwenden Sie die Verwaltungsgruppe für den Bereich der Blaupause.
+    description: ''
+  - name: --subscription -s
+    summary: Verwenden Sie das Abonnement für den Bereich der Blaupause. Wenn --management-group nicht angegeben ist, wird der Wert --subscription oder das Standardabonnement als Bereich verwendet.
+    description: ''
+  - name: --yes -y
+    summary: Nicht zur Bestätigung auffordern
+    description: ''
+- uid: az_blueprint_export
+  name: az blueprint export
+  summary: Exportieren sie eine Blaupausendefinition und Artefakte in JSON-Dateien.
+  description: ''
+  syntax: >-
+    az blueprint export --name
+                        --output-path
+                        [--management-group]
+                        [--subscription]
+                        [--yes]
+  examples:
+  - summary: Exportieren einer Blaupausendefinition und von Artefakten
+    syntax: >-
+      az blueprint export --name MyBlueprint \
+
+      --output-path "path/to/blueprint/directory"
+  requiredParameters:
+  - isRequired: true
+    name: --name -n
+    summary: Name der zu exportierende Blaupausendefinition.
+    description: ''
+  - isRequired: true
+    name: --output-path
+    summary: Der Verzeichnispfad für JSON-Definitionen der Blaupause und der Artefakte. Die Blaupausendefinitionsdatei wird blueprint.jsbenannt. JSON-Artefakte befinden sich in einem Unterverzeichnis namens artifacts.
+    description: ''
+  optionalParameters:
+  - name: --management-group -m
+    summary: Verwenden Sie die Verwaltungsgruppe für den Bereich der Blaupause.
+    description: ''
+  - name: --subscription -s
+    summary: Verwenden Sie das Abonnement für den Bereich der Blaupause. Wenn --management-group nicht angegeben ist, wird der Wert --subscription oder das Standardabonnement als Bereich verwendet.
+    description: ''
+  - name: --yes -y
+    summary: Überspringen sie die Benutzerbestätigung. Wenn das Verzeichnis nicht vorhanden ist, wird es erstellt, wenn es festgelegt ist. Wenn das Verzeichnis vorhanden ist und Inhalte enthält, werden sie überschrieben. Wenn diese Einstellung nicht festgelegt ist, wird der Benutzer aufgefordert, die Berechtigung zum Fortfahren einzuholen.
+    description: ''
+- uid: az_blueprint_import
+  name: az blueprint import
+  summary: Importieren Sie eine Blaupausendefinition und Artefakte aus einem Directoy von JSON-Dateien.
+  description: ''
+  syntax: >-
+    az blueprint import --input-path
+                        --name
+                        [--management-group]
+                        [--subscription]
+                        [--yes]
+  examples:
+  - summary: Importieren einer Blaupausendefinition und von Artefakten
+    syntax: >-
+      az blueprint import --name MyBlueprint \
+
+      --input-path "path/to/blueprint/directory"
+  requiredParameters:
+  - isRequired: true
+    name: --input-path
+    summary: Der Verzeichnispfad für JSON-Definitionen der Blaupause und der Artefakte. Die Blaupausendefinitionsdatei sollte blueprint.jsbenannt werden. Json-Dateien für Artefakte sollten sich in einem Unterverzeichnis namens artifacts befinden.
+    description: ''
+  - isRequired: true
+    name: --name -n
+    summary: Name der Blaupausendefinition.
+    description: ''
+  optionalParameters:
+  - name: --management-group -m
+    summary: Verwenden Sie die Verwaltungsgruppe für den Bereich der Blaupause.
+    description: ''
+  - name: --subscription -s
+    summary: Verwenden Sie das Abonnement für den Bereich der Blaupause. Wenn --management-group nicht angegeben ist, wird der Wert --subscription oder das Standardabonnement als Bereich verwendet.
+    description: ''
+  - name: --yes -y
+    summary: Nicht zur Bestätigung auffordern
+    description: ''
+- uid: az_blueprint_list
+  name: az blueprint list
+  summary: Auflisten von Blaupausendefinitionen.
+  description: ''
+  syntax: >-
+    az blueprint list [--management-group]
+                      [--subscription]
+  examples:
+  - summary: Auflisten von Blaupausen in einer Verwaltungsgruppe
+    syntax: az blueprint list --management-group MyManagementGroup
+  - summary: Auflisten von Blaupausen in einem Abonnement
+    syntax: az blueprint list --subscription MySubscription
+  optionalParameters:
+  - name: --management-group -m
+    summary: Verwenden Sie die Verwaltungsgruppe für den Bereich der Blaupause.
+    description: ''
+  - name: --subscription -s
+    summary: Verwenden Sie das Abonnement für den Bereich der Blaupause. Wenn --management-group nicht angegeben ist, wird der Wert --subscription oder das Standardabonnement als Bereich verwendet.
+    description: ''
+- uid: az_blueprint_publish
+  name: az blueprint publish
+  summary: Veröffentlichen Sie eine neue Version der Blaupausendefinition mit den neuesten Artefakten. Veröffentlichte Blaupausendefinitionen sind unveränderlich.
+  description: ''
+  syntax: >-
+    az blueprint publish --blueprint-name
+                         --version
+                         [--change-notes]
+                         [--management-group]
+                         [--subscription]
+  examples:
+  - summary: Veröffentlichen einer Verwaltungsgruppen-Blaupause
+    syntax: >-
+      az blueprint publish --management-group MyManagementGroup --blueprint-name \
+
+      MyBlueprint --version v2
+  - summary: Veröffentlichen einer Abonnement-Blaupause
+    syntax: >-
+      az blueprint publish --subscription MySubscription \
+
+      --blueprint-name MyBlueprint \
+
+      --version v2
+  requiredParameters:
+  - isRequired: true
+    name: --blueprint-name
+    summary: Name der Blaupausendefinition.
+    description: ''
+  - isRequired: true
+    name: --version
+    summary: Version der veröffentlichten Blaupausendefinition.
+    description: ''
+  optionalParameters:
+  - name: --change-notes
+    summary: Versionsspezifische Änderungshinweise.
+    description: ''
+  - name: --management-group -m
+    summary: Verwenden Sie die Verwaltungsgruppe für den Bereich der Blaupause.
+    description: ''
+  - name: --subscription -s
+    summary: Verwenden Sie das Abonnement für den Bereich der Blaupause. Wenn --management-group nicht angegeben ist, wird der Wert --subscription oder das Standardabonnement als Bereich verwendet.
+    description: ''
+- uid: az_blueprint_show
+  name: az blueprint show
+  summary: Abrufen einer Blaupausendefinition.
+  description: ''
+  syntax: >-
+    az blueprint show --name
+                      [--management-group]
+                      [--subscription]
+  examples:
+  - summary: Anzeigen einer Verwaltungsgruppen-Blaupause
+    syntax: >-
+      az blueprint show --management-group MyManagementGroup --name \
+
+      MyBlueprint
+  - summary: Anzeigen einer Abonnement-Blaupause
+    syntax: >-
+      az blueprint show --subscription MySubscription --name \
+
+      MyBlueprint
+  requiredParameters:
+  - isRequired: true
+    name: --name -n
+    summary: Name der Blaupausendefinition.
+    description: ''
+  optionalParameters:
+  - name: --management-group -m
+    summary: Verwenden Sie die Verwaltungsgruppe für den Bereich der Blaupause.
+    description: ''
+  - name: --subscription -s
+    summary: Verwenden Sie das Abonnement für den Bereich der Blaupause. Wenn --management-group nicht angegeben ist, wird der Wert --subscription oder das Standardabonnement als Bereich verwendet.
+    description: ''
+- uid: az_blueprint_update
+  name: az blueprint update
+  summary: Aktualisieren sie eine Blaupausendefinition.
+  description: ''
+  syntax: >-
+    az blueprint update --name
+                        [--add]
+                        [--description]
+                        [--force-string]
+                        [--management-group]
+                        [--parameters]
+                        [--remove]
+                        [--set]
+                        [--subscription]
+  requiredParameters:
+  - isRequired: true
+    name: --name -n
+    summary: Name der Blaupausendefinition.
+    description: ''
+  optionalParameters:
+  - name: --add
+    summary: 'Fügen Sie einer Liste von -Objekten ein -Objekt hinzu, indem Sie ein Pfad- und Schlüsselwertpaar angeben.  Beispiel: --add property.listProperty <key=value, string oder JSON string>.'
+    description: ''
+  - name: --description
+    summary: Diese Ressource wird in mehreren Zeilen erläutert.
+    description: ''
+  - name: --force-string
+    summary: Wenn Sie "set" oder "add" verwenden, behalten Sie Zeichenfolgenliterale bei, anstatt zu versuchen, in JSON zu konvertieren.
+    description: ''
+  - name: --management-group -m
+    summary: Verwenden Sie die Verwaltungsgruppe für den Bereich der Blaupause.
+    description: ''
+  - name: --parameters -p
+    summary: Parameter, die für diese Blaupausendefinition erforderlich sind. Dies kann eine JSON-Zeichenfolge oder ein JSON-Dateipfad sein.
+    description: ''
+  - name: --remove
+    summary: 'Entfernen sie eine Eigenschaft oder ein Element aus einer Liste.  Beispiel: --remove property.list <indexToRemove> OR --remove propertyToRemove.'
+    description: ''
+  - name: --set
+    summary: 'Aktualisieren Sie ein Objekt, indem Sie einen festzulegenden Eigenschaftenpfad und -wert angeben.  Beispiel: --set property1.property2=<value>.'
+    description: ''
+  - name: --subscription -s
+    summary: Verwenden Sie das Abonnement für den Bereich der Blaupause. Wenn --management-group nicht angegeben ist, wird der Wert --subscription oder das Standardabonnement als Bereich verwendet.
+    description: ''
+commands:
+- az_blueprint_artifact
+- az_blueprint_artifact_delete
+- az_blueprint_artifact_list
+- az_blueprint_artifact_policy
+- az_blueprint_artifact_policy_create
+- az_blueprint_artifact_policy_update
+- az_blueprint_artifact_role
+- az_blueprint_artifact_role_create
+- az_blueprint_artifact_role_update
+- az_blueprint_artifact_show
+- az_blueprint_artifact_template
+- az_blueprint_artifact_template_create
+- az_blueprint_artifact_template_update
+- az_blueprint_assignment
+- az_blueprint_assignment_create
+- az_blueprint_assignment_delete
+- az_blueprint_assignment_list
+- az_blueprint_assignment_show
+- az_blueprint_assignment_update
+- az_blueprint_assignment_wait
+- az_blueprint_assignment_who
+- az_blueprint_create
+- az_blueprint_delete
+- az_blueprint_export
+- az_blueprint_import
+- az_blueprint_list
+- az_blueprint_publish
+- az_blueprint_resource-group
+- az_blueprint_resource-group_add
+- az_blueprint_resource-group_list
+- az_blueprint_resource-group_remove
+- az_blueprint_resource-group_show
+- az_blueprint_resource-group_update
+- az_blueprint_show
+- az_blueprint_update
+- az_blueprint_version
+- az_blueprint_version_artifact
+- az_blueprint_version_artifact_list
+- az_blueprint_version_artifact_show
+- az_blueprint_version_delete
+- az_blueprint_version_list
+- az_blueprint_version_show
+globalParameters:
+- name: --debug
+  summary: Ausführlichkeit der Protokollierung erhöhen, um alle Debugprotokolle anzuzeigen.
+- name: --help -h
+  summary: Zeigen Sie diese Hilfemeldung an, und schließen Sie sie.
+- name: --only-show-errors
+  summary: Nur Fehler anzeigen und Warnungen unterdrücken.
+- name: --output -o
+  defaultValue: json
+  parameterValueGroup: json, jsonc, table, tsv
+  summary: Ausgabeformat.
+- name: --query
+  summary: JMESPath-Abfragezeichenfolge. Weitere Informationen und Beispiele finden Sie unter <a href="http://jmespath.org/">http://jmespath.org/</a>.
+- name: --verbose
+  summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
+metadata:
+  description: Befehle zum Verwalten der Blaupause.
+  ms.openlocfilehash: 326ab79383a3a2f34454e9cddcf5906ab3094e39
+  ms.sourcegitcommit: b76cc7c91ed21ae04b3463544ad46a749461cc6a
+  ms.translationtype: MT
+  ms.contentlocale: de-DE
+  ms.lasthandoff: 04/25/2021
+  ms.locfileid: "107974770"

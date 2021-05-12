@@ -7,12 +7,12 @@ ms.topic: include
 ms.service: azure-cli
 ms.devlang: azurecli
 ms.custom: devx-track-azurecli
-ms.openlocfilehash: 2cba7031b3fe4c54edcb7c0dcef6f37b97d2f785
-ms.sourcegitcommit: d5f026468ea20bbd7ef35bdbf9852bcb2b812d83
+ms.openlocfilehash: d02856e18fcbf395bb6f304b3dea9a17a6dc0a2c
+ms.sourcegitcommit: 8bff8b2ce4492ab99ad39390e4c802fb4f4425c8
 ms.translationtype: HT
 ms.contentlocale: de-DE
-ms.lasthandoff: 12/23/2020
-ms.locfileid: "97744615"
+ms.lasthandoff: 03/26/2021
+ms.locfileid: "105582705"
 ---
 ## <a name="overview"></a>Übersicht
 
@@ -39,7 +39,7 @@ curl -L https://aka.ms/InstallAzureCli | bash
 
 Das Skript kann auch heruntergeladen und lokal ausgeführt werden. Unter Umständen müssen Sie Ihre Shell neu starten, damit einige Änderungen wirksam werden.
 
-Sie können dann die Azure CLI mit dem Befehl `az` ausführen. Verwenden Sie den Befehl [az login](/cli/azure/reference-index#az-login), um sich anzumelden.
+Sie können dann die Azure CLI mit dem Befehl `az` ausführen. Verwenden Sie den Befehl [az login](/cli/azure/reference-index#az_login), um sich anzumelden.
 
 [!INCLUDE [interactive-login](interactive-login.md)]
 

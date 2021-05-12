@@ -1,0 +1,563 @@
+### YamlMime:AzureCLIGroup
+uid: az_batch_job
+name: az batch job
+summary: Batch Aufträge verwalten.
+description: ''
+directCommands:
+- uid: az_batch_job_create
+  name: az batch job create
+  summary: Fügen Sie einen Auftrag zu einem Batch-Konto hinzu.
+  description: ''
+  syntax: >-
+    az batch job create [--account-endpoint]
+                        [--account-key]
+                        [--account-name]
+                        [--id]
+                        [--job-manager-task-command-line]
+                        [--job-manager-task-environment-settings]
+                        [--job-manager-task-id]
+                        [--job-manager-task-resource-files]
+                        [--job-max-task-retry-count]
+                        [--job-max-wall-clock-time]
+                        [--json-file]
+                        [--metadata]
+                        [--pool-id]
+                        [--priority]
+                        [--required-slots]
+                        [--subscription]
+                        [--uses-task-dependencies]
+  optionalParameters:
+  - name: --account-endpoint
+    summary: 'Batch-Dienst Endpunkt. Alternativ dazu können Sie auch durch Umgebungsvariable: AZURE_BATCH_ENDPOINT festlegen.'
+    description: ''
+  - name: --account-key
+    summary: 'Batch-Kontoschlüssel. Alternativ dazu können Sie auch durch Umgebungsvariable: AZURE_BATCH_ACCESS_KEY festlegen.'
+    description: ''
+  - name: --account-name
+    summary: 'Name des Batch-Kontos. Alternativ dazu können Sie auch durch Umgebungsvariable: AZURE_BATCH_ACCOUNT festlegen.'
+    description: ''
+  - name: --id
+    summary: Erforderlich. Eine Zeichenfolge, die den Auftrag innerhalb des Kontos eindeutig identifiziert. Die ID kann eine beliebige Kombination aus alphanumerischen Zeichen einschließlich Bindestrichen und unterstrichen enthalten und darf nicht mehr als 64 Zeichen enthalten. Bei der ID wird die Groß-/Kleinschreibung beibehalten und die Groß-/Kleinschreibung nicht beachtet.
+    description: ''
+  - name: --job-manager-task-command-line
+    summary: Erforderlich. Die Befehlszeile der Auftrags-Manager-Aufgabe. Die Befehlszeile wird nicht unter einer Shell ausgeführt und kann daher keine Shellfeatures wie die Erweiterung der Umgebungsvariablen nutzen. Wenn Sie diese Features nutzen möchten, sollten Sie die Shell in der Befehlszeile aufrufen, z. b. "cmd/c myCommand" in Windows oder "/bin/sh-c myCommand" unter Linux. Wenn sich die Befehlszeile auf Dateipfade bezieht, sollte ein relativer Pfad (relativ zum Arbeitsverzeichnis der Aufgabe) verwendet werden, oder die von Batch bereitgestellte Umgebungsvariable () wird verwendet https://docs.microsoft.com/en-us/azure/batch/batch-compute-node-environment-variables) .
+    description: ''
+  - name: --job-manager-task-environment-settings
+    summary: Eine Liste von Umgebungsvariablen Einstellungen für die Auftrags-Manager-Aufgabe. Durch Leerzeichen getrennte Werte im Format "Key = Value".
+    description: ''
+  - name: --job-manager-task-id
+    summary: Erforderlich. Eine Zeichenfolge, die die Auftrags-Manager-Aufgabe innerhalb des Auftrags eindeutig identifiziert. Die ID kann eine beliebige Kombination aus alphanumerischen Zeichen einschließlich Bindestrichen und unterstrichen enthalten und darf nicht mehr als 64 Zeichen enthalten.
+    description: ''
+  - name: --job-manager-task-resource-files
+    summary: Eine Liste der Dateien, die vom Batch-Dienst auf den Computeknoten heruntergeladen werden, bevor die Befehlszeile ausgeführt wird. Die unter diesem Element aufgeführten Dateien befinden sich im Arbeitsverzeichnis der Aufgabe. Es ist eine maximale Größe für die Liste der Ressourcen Dateien vorhanden.  Wenn die maximale Größe überschritten wird, schlägt die Anforderung fehl, und der Antwort Fehlercode ist RequestEntityTooLarge. Wenn dies auftritt, muss die Größe der ResourceFiles-Auflistung reduziert werden. Dies kann mithilfe von ZIP-Dateien, Anwendungspaketen oder docker-Containern erreicht werden. Durch Leerzeichen getrennte Ressourcen Verweise im Dateiname = HttpUrl-Format.
+    description: ''
+  - name: --job-max-task-retry-count
+    summary: Die maximale Anzahl von Wiederholungs versuchen für jeden Task. Der Batch-Dienst wiederholt einen Task, wenn der Exitcode ungleich 0 (null) ist. Beachten Sie, dass dieser Wert die Anzahl der Wiederholungen ausdrücklich steuert. Der Batch-Dienst versucht jede Aufgabe einmal und kann dann bis zu diesem Limit wiederholen. Wenn beispielsweise die maximale Anzahl von Wiederholungs versuchen 3 beträgt, versucht Batch, eine Aufgabe bis zu vier Mal auszuführen (ein anfänglicher Versuch und drei Wiederholungen). Wenn die maximale Anzahl von Wiederholungs versuchen 0 beträgt, werden die Tasks vom Batch-Dienst nicht wiederholt. Wenn die maximale Anzahl von Wiederholungs versuchen-1 beträgt, wiederholt der Batch-Dienst Tasks ohne Einschränkung. Der Standardwert ist 0 (keine Wiederholungsversuche).
+    description: ''
+  - name: --job-max-wall-clock-time
+    summary: Die maximal verstrichene Zeit, die der Auftrag ausgeführt werden kann, gemessen ab dem Zeitpunkt, zu dem der Auftrag erstellt wird. Wenn der Auftrag nicht innerhalb des Zeitlimits ausgeführt wird, beendet der Batch-Dienst ihn und alle Tasks, die noch ausgeführt werden. In diesem Fall ist der Abbruch Grund maxwallclocktimeabläuft. Wenn diese Eigenschaft nicht angegeben wird, gibt es keine zeitliche Beschränkung für die Ausführungsdauer des Auftrags. Das erwartete Format ist eine ISO-8601-Dauer.
+    description: ''
+  - name: --json-file
+    summary: Eine Datei, die die Auftragsspezifikation in JSON enthält (entsprechend dem entsprechenden Rest-API-Text formatiert). Wenn dieser Parameter angegeben wird, werden alle "Auftrags Argumente" ignoriert.
+    description: ''
+  - name: --metadata
+    summary: Eine Liste von Name-Wert-Paaren, die dem Auftrag als Metadaten zugeordnet sind. Der Batch-Dienst weist den Metadaten keine Bedeutung zu. Er dient lediglich der Verwendung von Benutzercode. Durch Leerzeichen getrennte Werte im Format "Key = Value".
+    description: ''
+  - name: --pool-id
+    summary: Die ID eines vorhandenen Pools. Alle Aufgaben des Auftrags werden im angegebenen Pool ausgeführt.
+    description: ''
+  - name: --priority
+    summary: Die Priorität des Auftrags. Die Prioritätswerte reichen von -1.000 bis 1.000. Dabei ist -1.000 die niedrigste Priorität und 1000 die höchste Priorität. Der Standardwert ist 0.
+    description: ''
+  - name: --required-slots
+    summary: Die Anzahl der Zeit Planungs Slots, die der Task für die Ausführung benötigt. Der Standardwert ist 1. Eine Aufgabe kann nur für die Ausführung auf einem Computeknoten geplant werden, wenn für den Knoten genügend kostenlose Zeit Planungs Slots verfügbar sind. Bei Tasks mit mehreren Instanzen muss dies 1 sein.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  - name: --uses-task-dependencies
+    summary: Gibt an, ob Tasks im Auftrag Abhängigkeiten voneinander definieren können. Die Standardeinstellung ist „false“. True, wenn das Flag vorhanden ist.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/batch/_help.py
+- uid: az_batch_job_delete
+  name: az batch job delete
+  summary: Löscht einen Auftrag.
+  description: Beim Löschen eines Auftrags werden auch alle Aufgaben gelöscht, die Teil dieses Auftrags sind, sowie alle Auftrags Statistiken. Dadurch wird auch die Beibehaltungs Dauer für Task Daten überschrieben. Das heißt, wenn der Auftrag Aufgaben enthält, die weiterhin auf Computeknoten aufbewahrt werden, löscht der Batch-Dienst die Arbeitsverzeichnisse der Aufgaben und ihren gesamten Inhalt.  Wenn eine Anforderung zum Löschen eines Auftrags empfangen wird, legt der Batch-Dienst den Auftrag auf den Lösch Status fest. Alle Aktualisierungs Vorgänge für einen Auftrag mit dem Status "wird gelöscht" schlagen mit dem Statuscode 409 (Konflikt) fehl, und es werden zusätzliche Informationen angezeigt, die angeben, dass der Auftrag gelöscht wird.
+  syntax: >-
+    az batch job delete --job-id
+                        [--account-endpoint]
+                        [--account-key]
+                        [--account-name]
+                        [--if-match]
+                        [--if-modified-since]
+                        [--if-none-match]
+                        [--if-unmodified-since]
+                        [--subscription]
+                        [--yes]
+  requiredParameters:
+  - isRequired: true
+    name: --job-id
+    summary: Die ID des zu löschenden Auftrags.
+    description: ''
+  optionalParameters:
+  - name: --account-endpoint
+    summary: 'Batch-Dienst Endpunkt. Alternativ dazu können Sie auch durch Umgebungsvariable: AZURE_BATCH_ENDPOINT festlegen.'
+    description: ''
+  - name: --account-key
+    summary: 'Batch-Kontoschlüssel. Alternativ dazu können Sie auch durch Umgebungsvariable: AZURE_BATCH_ACCESS_KEY festlegen.'
+    description: ''
+  - name: --account-name
+    summary: 'Name des Batch-Kontos. Alternativ dazu können Sie auch durch Umgebungsvariable: AZURE_BATCH_ACCOUNT festlegen.'
+    description: ''
+  - name: --if-match
+    summary: Ein ETag-Wert, der der Version der Ressource zugeordnet ist, die dem Client bekannt ist. Der Vorgang wird nur ausgeführt, wenn das aktuelle ETag der Ressource im Dienst exakt mit dem vom Client angegebenen Wert übereinstimmt.
+    description: ''
+  - name: --if-modified-since
+    summary: Ein Zeitstempel, der den Zeitpunkt der letzten Änderung der Ressource angibt, die dem Client bekannt ist. Der Vorgang wird nur ausgeführt, wenn die Ressource für den Dienst seit der angegebenen Zeit geändert wurde.
+    description: ''
+  - name: --if-none-match
+    summary: Ein ETag-Wert, der der Version der Ressource zugeordnet ist, die dem Client bekannt ist. Der Vorgang wird nur ausgeführt, wenn das aktuelle ETag der Ressource für den Dienst nicht mit dem vom Client angegebenen Wert identisch ist.
+    description: ''
+  - name: --if-unmodified-since
+    summary: Ein Zeitstempel, der den Zeitpunkt der letzten Änderung der Ressource angibt, die dem Client bekannt ist. Der Vorgang wird nur ausgeführt, wenn die Ressource für den Dienst seit der angegebenen Zeit nicht geändert wurde.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  - name: --yes -y
+    summary: Nicht zur Bestätigung auffordern
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/batch/_help.py
+- uid: az_batch_job_disable
+  name: az batch job disable
+  summary: Deaktiviert den angegebenen Auftrag und verhindert, dass neue Tasks ausgeführt werden.
+  description: Der Batch-Dienst verschiebt den Auftrag sofort in den deaktivier Status. Batch verwendet dann den disabletasks-Parameter, um zu bestimmen, was mit den zurzeit laufenden Aufgaben des Auftrags zu tun ist. Der Auftrag verbleibt im Status wird deaktiviert, bis der Deaktivierungs Vorgang abgeschlossen ist und alle Aufgaben entsprechend der Option disabletasks behandelt wurden. der Auftrag wechselt dann in den deaktivierten Zustand. Unter dem Auftrag werden keine neuen Tasks gestartet, bis der Status wieder in den aktiven Zustand wechselt. Wenn Sie versuchen, einen Auftrag zu deaktivieren, der sich in einem anderen Zustand als "aktiv", "deaktiviert" oder "deaktiviert" befindet, schlägt die Anforderung mit dem Statuscode 409 fehl.
+  syntax: >-
+    az batch job disable --job-id
+                         [--account-endpoint]
+                         [--account-key]
+                         [--account-name]
+                         [--disable-tasks {requeue, terminate, wait}]
+                         [--if-match]
+                         [--if-modified-since]
+                         [--if-none-match]
+                         [--if-unmodified-since]
+                         [--subscription]
+  requiredParameters:
+  - isRequired: true
+    name: --job-id
+    summary: Die ID des zu deaktivierenden Auftrags.
+    description: ''
+  optionalParameters:
+  - name: --account-endpoint
+    summary: 'Batch-Dienst Endpunkt. Alternativ dazu können Sie auch durch Umgebungsvariable: AZURE_BATCH_ENDPOINT festlegen.'
+    description: ''
+  - name: --account-key
+    summary: 'Batch-Kontoschlüssel. Alternativ dazu können Sie auch durch Umgebungsvariable: AZURE_BATCH_ACCESS_KEY festlegen.'
+    description: ''
+  - name: --account-name
+    summary: 'Name des Batch-Kontos. Alternativ dazu können Sie auch durch Umgebungsvariable: AZURE_BATCH_ACCOUNT festlegen.'
+    description: ''
+  - name: --disable-tasks
+    parameterValueGroup: requeue, terminate, wait
+    summary: Vorgehensweisen mit aktiven Aufgaben, die dem Auftrag zugeordnet sind.
+    description: ''
+  - name: --if-match
+    summary: Ein ETag-Wert, der der Version der Ressource zugeordnet ist, die dem Client bekannt ist. Der Vorgang wird nur ausgeführt, wenn das aktuelle ETag der Ressource im Dienst exakt mit dem vom Client angegebenen Wert übereinstimmt.
+    description: ''
+  - name: --if-modified-since
+    summary: Ein Zeitstempel, der den Zeitpunkt der letzten Änderung der Ressource angibt, die dem Client bekannt ist. Der Vorgang wird nur ausgeführt, wenn die Ressource für den Dienst seit der angegebenen Zeit geändert wurde.
+    description: ''
+  - name: --if-none-match
+    summary: Ein ETag-Wert, der der Version der Ressource zugeordnet ist, die dem Client bekannt ist. Der Vorgang wird nur ausgeführt, wenn das aktuelle ETag der Ressource für den Dienst nicht mit dem vom Client angegebenen Wert identisch ist.
+    description: ''
+  - name: --if-unmodified-since
+    summary: Ein Zeitstempel, der den Zeitpunkt der letzten Änderung der Ressource angibt, die dem Client bekannt ist. Der Vorgang wird nur ausgeführt, wenn die Ressource für den Dienst seit der angegebenen Zeit nicht geändert wurde.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/batch/_help.py
+- uid: az_batch_job_enable
+  name: az batch job enable
+  summary: Aktiviert den angegebenen Auftrag und ermöglicht die Durchführung neuer Tasks.
+  description: Wenn Sie diese API aufgerufen haben, legt der Batch-Dienst einen deaktivierten Auftrag auf den Aktivierungs Status fest. Nachdem dieser Vorgang abgeschlossen ist, wechselt der Auftrag in den aktiven Status, und die Planung neuer Aufgaben unter dem Auftrag wird fortgesetzt. Der Batch-Dienst lässt nicht zu, dass ein Task länger als 180 Tage im aktiven Status verbleibt. Wenn Sie einen Auftrag mit aktiven Tasks aktivieren, die vor mehr als 180 Tagen hinzugefügt wurden, werden diese Aufgaben daher nicht ausgeführt.
+  syntax: >-
+    az batch job enable --job-id
+                        [--account-endpoint]
+                        [--account-key]
+                        [--account-name]
+                        [--if-match]
+                        [--if-modified-since]
+                        [--if-none-match]
+                        [--if-unmodified-since]
+                        [--subscription]
+  requiredParameters:
+  - isRequired: true
+    name: --job-id
+    summary: Die ID des zu aktivierenden Auftrags.
+    description: ''
+  optionalParameters:
+  - name: --account-endpoint
+    summary: 'Batch-Dienst Endpunkt. Alternativ dazu können Sie auch durch Umgebungsvariable: AZURE_BATCH_ENDPOINT festlegen.'
+    description: ''
+  - name: --account-key
+    summary: 'Batch-Kontoschlüssel. Alternativ dazu können Sie auch durch Umgebungsvariable: AZURE_BATCH_ACCESS_KEY festlegen.'
+    description: ''
+  - name: --account-name
+    summary: 'Name des Batch-Kontos. Alternativ dazu können Sie auch durch Umgebungsvariable: AZURE_BATCH_ACCOUNT festlegen.'
+    description: ''
+  - name: --if-match
+    summary: Ein ETag-Wert, der der Version der Ressource zugeordnet ist, die dem Client bekannt ist. Der Vorgang wird nur ausgeführt, wenn das aktuelle ETag der Ressource im Dienst exakt mit dem vom Client angegebenen Wert übereinstimmt.
+    description: ''
+  - name: --if-modified-since
+    summary: Ein Zeitstempel, der den Zeitpunkt der letzten Änderung der Ressource angibt, die dem Client bekannt ist. Der Vorgang wird nur ausgeführt, wenn die Ressource für den Dienst seit der angegebenen Zeit geändert wurde.
+    description: ''
+  - name: --if-none-match
+    summary: Ein ETag-Wert, der der Version der Ressource zugeordnet ist, die dem Client bekannt ist. Der Vorgang wird nur ausgeführt, wenn das aktuelle ETag der Ressource für den Dienst nicht mit dem vom Client angegebenen Wert identisch ist.
+    description: ''
+  - name: --if-unmodified-since
+    summary: Ein Zeitstempel, der den Zeitpunkt der letzten Änderung der Ressource angibt, die dem Client bekannt ist. Der Vorgang wird nur ausgeführt, wenn die Ressource für den Dienst seit der angegebenen Zeit nicht geändert wurde.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/batch/_help.py
+- uid: az_batch_job_list
+  name: az batch job list
+  summary: Listet alle Aufträge oder Auftrags Zeitpläne in einem Batch-Konto auf.
+  description: ''
+  syntax: >-
+    az batch job list [--account-endpoint]
+                      [--account-key]
+                      [--account-name]
+                      [--expand]
+                      [--filter]
+                      [--job-schedule-id]
+                      [--query-examples]
+                      [--select]
+                      [--subscription]
+  optionalParameters:
+  - name: --account-endpoint
+    summary: 'Batch-Dienst Endpunkt. Alternativ dazu können Sie auch durch Umgebungsvariable: AZURE_BATCH_ENDPOINT festlegen.'
+    description: ''
+  - name: --account-key
+    summary: 'Der Batch-Kontoschlüssel. Alternativ dazu können Sie auch durch Umgebungsvariable: AZURE_BATCH_ACCESS_KEY festlegen.'
+    description: ''
+  - name: --account-name
+    summary: 'Der Name des Batch-Kontos. Alternativ dazu können Sie auch durch Umgebungsvariable: AZURE_BATCH_ACCOUNT festlegen.'
+    description: ''
+  - name: --expand
+    summary: Eine odata-$expand-Klausel.
+    description: ''
+  - name: --filter
+    summary: Eine odata-$Filter-Klausel.
+    description: ''
+  - name: --job-schedule-id
+    summary: Die ID des Auftrags Zeitplans, von dem aus Sie eine Liste von Aufträgen erhalten möchten. Wenn die Angabe ausgelassen wird, werden alle Aufträge im Konto aufgelistet.
+    description: ''
+  - name: --query-examples
+    summary: Empfehlen Sie die jmespath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und Sie nach dem Abfrage Parameter in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positions Schlüsselwörter hinzufügen, um Vorschläge auf der Grundlage dieser Schlüsselwörter zu geben.
+    description: ''
+  - name: --select
+    summary: Eine odata-$SELECT-Klausel.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/batch/_help.py
+- uid: az_batch_job_reset
+  name: az batch job reset
+  summary: Aktualisieren Sie die Eigenschaften eines Batch-Auftrags. Nicht angegebene Eigenschaften, die aktualisiert werden können, werden auf ihre Standardwerte zurückgesetzt.
+  description: ''
+  syntax: >-
+    az batch job reset --job-id
+                       [--account-endpoint]
+                       [--account-key]
+                       [--account-name]
+                       [--if-match]
+                       [--if-modified-since]
+                       [--if-none-match]
+                       [--if-unmodified-since]
+                       [--job-max-task-retry-count]
+                       [--job-max-wall-clock-time]
+                       [--json-file]
+                       [--metadata]
+                       [--on-all-tasks-complete {noaction, terminatejob}]
+                       [--pool-id]
+                       [--priority]
+                       [--subscription]
+  requiredParameters:
+  - isRequired: true
+    name: --job-id
+    summary: Die ID des Auftrags, dessen Eigenschaften Sie aktualisieren möchten.
+    description: ''
+  optionalParameters:
+  - name: --account-endpoint
+    summary: 'Batch-Dienst Endpunkt. Alternativ dazu können Sie auch durch Umgebungsvariable: AZURE_BATCH_ENDPOINT festlegen.'
+    description: ''
+  - name: --account-key
+    summary: 'Batch-Kontoschlüssel. Alternativ dazu können Sie auch durch Umgebungsvariable: AZURE_BATCH_ACCESS_KEY festlegen.'
+    description: ''
+  - name: --account-name
+    summary: 'Name des Batch-Kontos. Alternativ dazu können Sie auch durch Umgebungsvariable: AZURE_BATCH_ACCOUNT festlegen.'
+    description: ''
+  - name: --if-match
+    summary: Ein ETag-Wert, der der Version der Ressource zugeordnet ist, die dem Client bekannt ist. Der Vorgang wird nur ausgeführt, wenn das aktuelle ETag der Ressource im Dienst exakt mit dem vom Client angegebenen Wert übereinstimmt.
+    description: ''
+  - name: --if-modified-since
+    summary: Ein Zeitstempel, der den Zeitpunkt der letzten Änderung der Ressource angibt, die dem Client bekannt ist. Der Vorgang wird nur ausgeführt, wenn die Ressource für den Dienst seit der angegebenen Zeit geändert wurde.
+    description: ''
+  - name: --if-none-match
+    summary: Ein ETag-Wert, der der Version der Ressource zugeordnet ist, die dem Client bekannt ist. Der Vorgang wird nur ausgeführt, wenn das aktuelle ETag der Ressource für den Dienst nicht mit dem vom Client angegebenen Wert identisch ist.
+    description: ''
+  - name: --if-unmodified-since
+    summary: Ein Zeitstempel, der den Zeitpunkt der letzten Änderung der Ressource angibt, die dem Client bekannt ist. Der Vorgang wird nur ausgeführt, wenn die Ressource für den Dienst seit der angegebenen Zeit nicht geändert wurde.
+    description: ''
+  - name: --job-max-task-retry-count
+    summary: Die maximale Anzahl von Wiederholungs versuchen für jeden Task. Der Batch-Dienst wiederholt einen Task, wenn der Exitcode ungleich 0 (null) ist. Beachten Sie, dass dieser Wert die Anzahl der Wiederholungen ausdrücklich steuert. Der Batch-Dienst versucht jede Aufgabe einmal und kann dann bis zu diesem Limit wiederholen. Wenn beispielsweise die maximale Anzahl von Wiederholungs versuchen 3 beträgt, versucht Batch, eine Aufgabe bis zu vier Mal auszuführen (ein anfänglicher Versuch und drei Wiederholungen). Wenn die maximale Anzahl von Wiederholungs versuchen 0 beträgt, werden die Tasks vom Batch-Dienst nicht wiederholt. Wenn die maximale Anzahl von Wiederholungs versuchen-1 beträgt, wiederholt der Batch-Dienst Tasks ohne Einschränkung. Der Standardwert ist 0 (keine Wiederholungsversuche).
+    description: ''
+  - name: --job-max-wall-clock-time
+    summary: Die maximal verstrichene Zeit, die der Auftrag ausgeführt werden kann, gemessen ab dem Zeitpunkt, zu dem der Auftrag erstellt wird. Wenn der Auftrag nicht innerhalb des Zeitlimits ausgeführt wird, beendet der Batch-Dienst ihn und alle Tasks, die noch ausgeführt werden. In diesem Fall ist der Abbruch Grund maxwallclocktimeabläuft. Wenn diese Eigenschaft nicht angegeben wird, gibt es keine zeitliche Beschränkung für die Ausführungsdauer des Auftrags. Das erwartete Format ist eine ISO-8601-Dauer.
+    description: ''
+  - name: --json-file
+    summary: Eine Datei, die die Parameter Spezifikation für die Auftrags Aktualisierung in JSON enthält (entsprechend dem entsprechenden Rest-API-Text formatiert). Wenn dieser Parameter angegeben wird, werden alle "Auftrags Argumente" ignoriert.
+    description: ''
+  - name: --metadata
+    summary: Eine Liste von Name-Wert-Paaren, die dem Auftrag als Metadaten zugeordnet sind. Wenn der Wert nicht angegeben wird, wird der Standardwert einer leeren Liste benötigt. Tatsächlich werden vorhandene Metadaten gelöscht. Durch Leerzeichen getrennte Werte im Format "Key = Value".
+    description: ''
+  - name: --on-all-tasks-complete
+    parameterValueGroup: noaction, terminatejob
+    summary: Die Aktion, die der Batch-Dienst ausführen soll, wenn alle Aufgaben im Auftrag den Status "abgeschlossen" aufweisen. Wenn kein Wert festgelegt ist, wird das Abschluss Verhalten auf NoAction festgelegt. Wenn der aktuelle Wert terminatejob ist, ist dies ein Fehler, da das Abschluss Verhalten eines Auftrags nicht von terminatejob in NoAction geändert werden kann. Der Wert von terminatejob kann nicht in NoAction geändert werden, d. h., nachdem Sie die automatische Beendigung des Auftrags durchgeführt haben, können Sie ihn nicht mehr deaktivieren. Wenn Sie dies versuchen, schlägt die Anforderung fehl, und Batch gibt den Statuscode 400 (ungültige Anforderung) und die Fehler Antwort "Ungültige Eigenschafts Wert" zurück. Wenn Sie dieses Element nicht in einer Put-Anforderung angeben, entspricht es der Übergabe von NoAction. Dies ist ein Fehler, wenn der aktuelle Wert terminatejob ist.
+    description: ''
+  - name: --pool-id
+    summary: Die ID eines vorhandenen Pools. Alle Aufgaben des Auftrags werden im angegebenen Pool ausgeführt.
+    description: ''
+  - name: --priority
+    summary: Die Priorität des Auftrags. Die Prioritätswerte reichen von -1.000 bis 1.000. Dabei ist -1.000 die niedrigste Priorität und 1000 die höchste Priorität. Wenn der Wert weggelassen wird, wird er auf den Standardwert 0 festgelegt.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/batch/_help.py
+- uid: az_batch_job_set
+  name: az batch job set
+  summary: Aktualisieren Sie die Eigenschaften eines Batch-Auftrags. Wenn eine Eigenschaft in einer Untergruppe aktualisiert wird, werden die nicht angegebenen Eigenschaften dieser Gruppe zurückgesetzt.
+  description: ''
+  syntax: >-
+    az batch job set --job-id
+                     [--account-endpoint]
+                     [--account-key]
+                     [--account-name]
+                     [--if-match]
+                     [--if-modified-since]
+                     [--if-none-match]
+                     [--if-unmodified-since]
+                     [--job-max-task-retry-count]
+                     [--job-max-wall-clock-time]
+                     [--json-file]
+                     [--metadata]
+                     [--on-all-tasks-complete {noaction, terminatejob}]
+                     [--pool-id]
+                     [--priority]
+                     [--subscription]
+  requiredParameters:
+  - isRequired: true
+    name: --job-id
+    summary: Die ID des Auftrags, dessen Eigenschaften Sie aktualisieren möchten.
+    description: ''
+  optionalParameters:
+  - name: --account-endpoint
+    summary: 'Batch-Dienst Endpunkt. Alternativ dazu können Sie auch durch Umgebungsvariable: AZURE_BATCH_ENDPOINT festlegen.'
+    description: ''
+  - name: --account-key
+    summary: 'Batch-Kontoschlüssel. Alternativ dazu können Sie auch durch Umgebungsvariable: AZURE_BATCH_ACCESS_KEY festlegen.'
+    description: ''
+  - name: --account-name
+    summary: 'Name des Batch-Kontos. Alternativ dazu können Sie auch durch Umgebungsvariable: AZURE_BATCH_ACCOUNT festlegen.'
+    description: ''
+  - name: --if-match
+    summary: Ein ETag-Wert, der der Version der Ressource zugeordnet ist, die dem Client bekannt ist. Der Vorgang wird nur ausgeführt, wenn das aktuelle ETag der Ressource im Dienst exakt mit dem vom Client angegebenen Wert übereinstimmt.
+    description: ''
+  - name: --if-modified-since
+    summary: Ein Zeitstempel, der den Zeitpunkt der letzten Änderung der Ressource angibt, die dem Client bekannt ist. Der Vorgang wird nur ausgeführt, wenn die Ressource für den Dienst seit der angegebenen Zeit geändert wurde.
+    description: ''
+  - name: --if-none-match
+    summary: Ein ETag-Wert, der der Version der Ressource zugeordnet ist, die dem Client bekannt ist. Der Vorgang wird nur ausgeführt, wenn das aktuelle ETag der Ressource für den Dienst nicht mit dem vom Client angegebenen Wert identisch ist.
+    description: ''
+  - name: --if-unmodified-since
+    summary: Ein Zeitstempel, der den Zeitpunkt der letzten Änderung der Ressource angibt, die dem Client bekannt ist. Der Vorgang wird nur ausgeführt, wenn die Ressource für den Dienst seit der angegebenen Zeit nicht geändert wurde.
+    description: ''
+  - name: --job-max-task-retry-count
+    summary: Die maximale Anzahl von Wiederholungs versuchen für jeden Task. Der Batch-Dienst wiederholt einen Task, wenn der Exitcode ungleich 0 (null) ist. Beachten Sie, dass dieser Wert die Anzahl der Wiederholungen ausdrücklich steuert. Der Batch-Dienst versucht jede Aufgabe einmal und kann dann bis zu diesem Limit wiederholen. Wenn beispielsweise die maximale Anzahl von Wiederholungs versuchen 3 beträgt, versucht Batch, eine Aufgabe bis zu vier Mal auszuführen (ein anfänglicher Versuch und drei Wiederholungen). Wenn die maximale Anzahl von Wiederholungs versuchen 0 beträgt, werden die Tasks vom Batch-Dienst nicht wiederholt. Wenn die maximale Anzahl von Wiederholungs versuchen-1 beträgt, wiederholt der Batch-Dienst Tasks ohne Einschränkung. Der Standardwert ist 0 (keine Wiederholungsversuche).
+    description: ''
+  - name: --job-max-wall-clock-time
+    summary: Die maximal verstrichene Zeit, die der Auftrag ausgeführt werden kann, gemessen ab dem Zeitpunkt, zu dem der Auftrag erstellt wird. Wenn der Auftrag nicht innerhalb des Zeitlimits ausgeführt wird, beendet der Batch-Dienst ihn und alle Tasks, die noch ausgeführt werden. In diesem Fall ist der Abbruch Grund maxwallclocktimeabläuft. Wenn diese Eigenschaft nicht angegeben wird, gibt es keine zeitliche Beschränkung für die Ausführungsdauer des Auftrags. Das erwartete Format ist eine ISO-8601-Dauer.
+    description: ''
+  - name: --json-file
+    summary: Eine Datei, die die Auftrags Patch-Parameter Spezifikation in JSON enthält (entsprechend dem entsprechenden Rest-API-Text formatiert). Wenn dieser Parameter angegeben wird, werden alle "Auftrags Argumente" ignoriert.
+    description: ''
+  - name: --metadata
+    summary: Eine Liste von Name-Wert-Paaren, die dem Auftrag als Metadaten zugeordnet sind. Wenn der Wert nicht vorhanden ist, bleiben die vorhandenen Auftrags Metadaten unverändert. Durch Leerzeichen getrennte Werte im Format "Key = Value".
+    description: ''
+  - name: --on-all-tasks-complete
+    parameterValueGroup: noaction, terminatejob
+    summary: Die Aktion, die der Batch-Dienst ausführen soll, wenn alle Aufgaben im Auftrag den Status "abgeschlossen" aufweisen. Wenn der Wert nicht vorhanden ist, bleibt das Abschluss Verhalten unverändert. Der Wert von terminatejob kann nicht in NoAction geändert werden, d. h., nachdem Sie die automatische Beendigung des Auftrags durchgeführt haben, können Sie ihn nicht mehr deaktivieren. Wenn Sie versuchen, dies zu tun, schlägt die Anforderung mit der Fehler Antwort "Ungültiger Eigenschafts Wert" fehl. Wenn Sie die Rest-API direkt aufrufen, lautet der HTTP-Statuscode 400 (ungültige Anforderung).
+    description: ''
+  - name: --pool-id
+    summary: Die ID eines vorhandenen Pools. Alle Aufgaben des Auftrags werden im angegebenen Pool ausgeführt.
+    description: ''
+  - name: --priority
+    summary: Die Priorität des Auftrags. Die Prioritätswerte reichen von -1.000 bis 1.000. Dabei ist -1.000 die niedrigste Priorität und 1000 die höchste Priorität. Wenn der Wert nicht vorhanden ist, bleibt die Priorität des Auftrags unverändert.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/batch/_help.py
+- uid: az_batch_job_show
+  name: az batch job show
+  summary: Ruft Informationen zum angegebenen Auftrag ab.
+  description: ''
+  syntax: >-
+    az batch job show --job-id
+                      [--account-endpoint]
+                      [--account-key]
+                      [--account-name]
+                      [--expand]
+                      [--if-match]
+                      [--if-modified-since]
+                      [--if-none-match]
+                      [--if-unmodified-since]
+                      [--query-examples]
+                      [--select]
+                      [--subscription]
+  requiredParameters:
+  - isRequired: true
+    name: --job-id
+    summary: Die ID des Auftrags.
+    description: ''
+  optionalParameters:
+  - name: --account-endpoint
+    summary: 'Batch-Dienst Endpunkt. Alternativ dazu können Sie auch durch Umgebungsvariable: AZURE_BATCH_ENDPOINT festlegen.'
+    description: ''
+  - name: --account-key
+    summary: 'Batch-Kontoschlüssel. Alternativ dazu können Sie auch durch Umgebungsvariable: AZURE_BATCH_ACCESS_KEY festlegen.'
+    description: ''
+  - name: --account-name
+    summary: 'Name des Batch-Kontos. Alternativ dazu können Sie auch durch Umgebungsvariable: AZURE_BATCH_ACCOUNT festlegen.'
+    description: ''
+  - name: --expand
+    summary: Eine odata-$expand-Klausel.
+    description: ''
+  - name: --if-match
+    summary: Ein ETag-Wert, der der Version der Ressource zugeordnet ist, die dem Client bekannt ist. Der Vorgang wird nur ausgeführt, wenn das aktuelle ETag der Ressource im Dienst exakt mit dem vom Client angegebenen Wert übereinstimmt.
+    description: ''
+  - name: --if-modified-since
+    summary: Ein Zeitstempel, der den Zeitpunkt der letzten Änderung der Ressource angibt, die dem Client bekannt ist. Der Vorgang wird nur ausgeführt, wenn die Ressource für den Dienst seit der angegebenen Zeit geändert wurde.
+    description: ''
+  - name: --if-none-match
+    summary: Ein ETag-Wert, der der Version der Ressource zugeordnet ist, die dem Client bekannt ist. Der Vorgang wird nur ausgeführt, wenn das aktuelle ETag der Ressource für den Dienst nicht mit dem vom Client angegebenen Wert identisch ist.
+    description: ''
+  - name: --if-unmodified-since
+    summary: Ein Zeitstempel, der den Zeitpunkt der letzten Änderung der Ressource angibt, die dem Client bekannt ist. Der Vorgang wird nur ausgeführt, wenn die Ressource für den Dienst seit der angegebenen Zeit nicht geändert wurde.
+    description: ''
+  - name: --query-examples
+    summary: Empfehlen Sie die jmespath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und Sie nach dem Abfrage Parameter in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positions Schlüsselwörter hinzufügen, um Vorschläge auf der Grundlage dieser Schlüsselwörter zu geben.
+    description: ''
+  - name: --select
+    summary: Eine odata-$SELECT-Klausel.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/batch/_help.py
+- uid: az_batch_job_stop
+  name: az batch job stop
+  summary: Beendet den angegebenen Auftrag und markiert ihn als abgeschlossen.
+  description: Wenn eine Anforderung zum Beenden des Auftrags empfangen wird, legt der Batch-Dienst den Auftrag auf den Zustand "wird beendet" fest. Der Batch-Dienst beendet dann alle ausgeführten Tasks, die dem Auftrag zugeordnet sind, und führt alle erforderlichen Aufgaben zur Auftrags Freigabe aus. Anschließend wird der Auftrag in den Status "abgeschlossen" versetzt. Wenn der Auftrag im aktiven Zustand Tasks enthält, bleiben Sie im aktiven Zustand. Nachdem ein Auftrag beendet wurde, können keine neuen Tasks hinzugefügt werden, und alle verbleibenden aktiven Aufgaben werden nicht geplant.
+  syntax: >-
+    az batch job stop --job-id
+                      [--account-endpoint]
+                      [--account-key]
+                      [--account-name]
+                      [--if-match]
+                      [--if-modified-since]
+                      [--if-none-match]
+                      [--if-unmodified-since]
+                      [--subscription]
+                      [--terminate-reason]
+  requiredParameters:
+  - isRequired: true
+    name: --job-id
+    summary: Die ID des Auftrags, der beendet werden soll.
+    description: ''
+  optionalParameters:
+  - name: --account-endpoint
+    summary: 'Batch-Dienst Endpunkt. Alternativ dazu können Sie auch durch Umgebungsvariable: AZURE_BATCH_ENDPOINT festlegen.'
+    description: ''
+  - name: --account-key
+    summary: 'Batch-Kontoschlüssel. Alternativ dazu können Sie auch durch Umgebungsvariable: AZURE_BATCH_ACCESS_KEY festlegen.'
+    description: ''
+  - name: --account-name
+    summary: 'Name des Batch-Kontos. Alternativ dazu können Sie auch durch Umgebungsvariable: AZURE_BATCH_ACCOUNT festlegen.'
+    description: ''
+  - name: --if-match
+    summary: Ein ETag-Wert, der der Version der Ressource zugeordnet ist, die dem Client bekannt ist. Der Vorgang wird nur ausgeführt, wenn das aktuelle ETag der Ressource im Dienst exakt mit dem vom Client angegebenen Wert übereinstimmt.
+    description: ''
+  - name: --if-modified-since
+    summary: Ein Zeitstempel, der den Zeitpunkt der letzten Änderung der Ressource angibt, die dem Client bekannt ist. Der Vorgang wird nur ausgeführt, wenn die Ressource für den Dienst seit der angegebenen Zeit geändert wurde.
+    description: ''
+  - name: --if-none-match
+    summary: Ein ETag-Wert, der der Version der Ressource zugeordnet ist, die dem Client bekannt ist. Der Vorgang wird nur ausgeführt, wenn das aktuelle ETag der Ressource für den Dienst nicht mit dem vom Client angegebenen Wert identisch ist.
+    description: ''
+  - name: --if-unmodified-since
+    summary: Ein Zeitstempel, der den Zeitpunkt der letzten Änderung der Ressource angibt, die dem Client bekannt ist. Der Vorgang wird nur ausgeführt, wenn die Ressource für den Dienst seit der angegebenen Zeit nicht geändert wurde.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  - name: --terminate-reason
+    summary: Der Text, der als terminatereason des Auftrags angezeigt werden soll. Der Standardwert ist "userend".
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/batch/_help.py
+commands:
+- az_batch_job_all-statistics
+- az_batch_job_all-statistics_show
+- az_batch_job_create
+- az_batch_job_delete
+- az_batch_job_disable
+- az_batch_job_enable
+- az_batch_job_list
+- az_batch_job_prep-release-status
+- az_batch_job_prep-release-status_list
+- az_batch_job_reset
+- az_batch_job_set
+- az_batch_job_show
+- az_batch_job_stop
+- az_batch_job_task-counts
+- az_batch_job_task-counts_show
+globalParameters:
+- name: --debug
+  summary: Ausführlichkeit der Protokollierung erhöhen, um alle Debugprotokolle anzuzeigen.
+- name: --help -h
+  summary: Zeigen Sie diese Hilfemeldung an, und schließen Sie sie.
+- name: --only-show-errors
+  summary: Nur Fehler anzeigen und Warnungen unterdrücken.
+- name: --output -o
+  defaultValue: json
+  parameterValueGroup: json, jsonc, table, tsv
+  summary: Ausgabeformat.
+- name: --query
+  summary: JMESPath-Abfragezeichenfolge. Weitere Informationen und Beispiele finden Sie unter <a href="http://jmespath.org/">http://jmespath.org/</a>.
+- name: --verbose
+  summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
+metadata:
+  doc_source_url_repo: https://github.com/Azure/azure-cli/blob/dev/
+  ms.date: 12/07/2020
+  description: Batch Aufträge verwalten.
+  ms.openlocfilehash: b2d0020eb994760cb0d9f02d83f1f24a2b5249ee
+  ms.sourcegitcommit: 612554c029ba1f28d3a43fd22e743104a1a30ea0
+  ms.translationtype: MT
+  ms.contentlocale: de-DE
+  ms.lasthandoff: 04/07/2021
+  ms.locfileid: "106830677"

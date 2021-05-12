@@ -1,0 +1,262 @@
+### YamlMime:AzureCLIGroup
+uid: az_cdn_endpoint_rule
+name: az cdn endpoint rule
+summary: Verwalten von Übermittlungsregeln für einen Endpunkt.
+description: ''
+directCommands:
+- uid: az_cdn_endpoint_rule_add
+  name: az cdn endpoint rule add
+  summary: Fügen Sie einem CDN-Endpunkt eine Übermittlungsregel hinzu.
+  description: ''
+  syntax: >-
+    az cdn endpoint rule add --action-name {CacheExpiration, CacheKeyQueryString, ModifyRequestHeader, ModifyResponseHeader, OriginGroupOverride, RequestHeader, ResponseHeader, UrlRedirect, UrlRewrite, UrlSigning}
+                             --order
+                             [--cache-behavior {BypassCache, Override, SetIfMissing}]
+                             [--cache-duration]
+                             [--custom-fragment]
+                             [--custom-hostname]
+                             [--custom-path]
+                             [--custom-querystring]
+                             [--destination]
+                             [--header-action {Append, Delete, Overwrite}]
+                             [--header-name]
+                             [--header-value]
+                             [--ids]
+                             [--match-values]
+                             [--match-variable {Cookies, HttpVersion, IsDevice, PostArgs, QueryString, RemoteAddress, RequestBody, RequestHeader, RequestMethod, RequestScheme, RequestUri, UrlFileExtension, UrlFileName, UrlPath}]
+                             [--name]
+                             [--negate-condition {false, true}]
+                             [--operator]
+                             [--preserve-unmatched-path {false, true}]
+                             [--profile-name]
+                             [--query-parameters]
+                             [--query-string-behavior {Exclude, ExcludeAll, Include, IncludeAll}]
+                             [--redirect-protocol {Http, Https, MatchRequest}]
+                             [--redirect-type {Found, Moved, PermanentRedirect, TemporaryRedirect}]
+                             [--resource-group]
+                             [--rule-name]
+                             [--selector]
+                             [--source-pattern]
+                             [--subscription]
+                             [--transform {Lowercase, Uppercase}]
+  examples:
+  - summary: Erstellen Sie eine globale Regel, um das Zwischenspeichern zu deaktivieren.
+    syntax: az cdn endpoint rule add -g group -n endpoint --profile-name profile --order 0 --rule-name global --action-name CacheExpiration --cache-behavior BypassCache
+  - summary: Erstellen einer Regel für die Umleitung von HTTP zu HTTPS
+    syntax: az cdn endpoint rule add -g group -n endpoint --profile-name profile --order 1 --rule-name "redirect" --match-variable RequestScheme --operator Equal --match-values HTTP --action-name "UrlRedirect" --redirect-protocol Https --redirect-type Moved
+  requiredParameters:
+  - isRequired: true
+    name: --action-name
+    parameterValueGroup: CacheExpiration, CacheKeyQueryString, ModifyRequestHeader, ModifyResponseHeader, OriginGroupOverride, RequestHeader, ResponseHeader, UrlRedirect, UrlRewrite, UrlSigning
+    summary: Name der Aktion.
+    description: ''
+  - isRequired: true
+    name: --order
+    summary: Die Reihenfolge, in der die Regeln für den Endpunkt angewendet werden. Mögliche Werte {0,1,2,3,.........}. Eine Regel mit einer niedrigeren Reihenfolge wird vor einer Regel mit höherer Reihenfolge angewendet. Eine Regel mit der Reihenfolge 0 ist eine spezielle Regel. Es sind keine Bedingungen erforderlich, und die darin aufgeführten Aktionen werden immer angewendet.
+    description: ''
+  optionalParameters:
+  - name: --cache-behavior
+    parameterValueGroup: BypassCache, Override, SetIfMissing
+    summary: Cacheverhalten für die Anforderungen.
+    description: ''
+  - name: --cache-duration
+    summary: Die Dauer, für die der Inhalt zwischengespeichert werden muss.                Zulässiges Format ist [d.]hh:mm:ss.
+    description: ''
+  - name: --custom-fragment
+    summary: Fragment, das der Umleitungs-URL hinzugefügt werden soll.
+    description: ''
+  - name: --custom-hostname
+    summary: Host, der umgeleitet werden soll.                Lassen Sie leer, um den eingehenden Host als Zielhost zu verwenden.
+    description: ''
+  - name: --custom-path
+    summary: Der vollständige Pfad, der umgeleitet werden soll. Der Pfad darf nicht leer sein und muss mit /beginnen.                Lassen Sie leer, um den eingehenden Pfad als Zielpfad zu verwenden.
+    description: ''
+  - name: --custom-querystring
+    summary: Der Satz von Abfragezeichenfolgen, die in der Umleitungs-URL platziert werden sollen.                Lassen Sie leer, um die eingehende Abfragezeichenfolge beizubehalten.
+    description: ''
+  - name: --destination
+    summary: Der Zielpfad, der beim erneuten Schreiben verwendet werden soll.
+    description: ''
+  - name: --header-action
+    parameterValueGroup: Append, Delete, Overwrite
+    summary: Headeraktion für die Anforderungen.
+    description: ''
+  - name: --header-name
+    summary: Name des zu ändernden Headers.
+    description: ''
+  - name: --header-value
+    summary: Wert des Headers.
+    description: ''
+  - name: --ids
+    summary: Eine oder mehrere Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu Ressourcen-ID-Argumenten geben. Sie sollten entweder --ids oder andere Ressourcen-ID-Argumente bereitstellen.
+    description: ''
+  - name: --match-values
+    summary: Übereinstimmungswerte der Übereinstimmungsbedingung (durch Komma getrennt).
+    description: ''
+  - name: --match-variable
+    parameterValueGroup: Cookies, HttpVersion, IsDevice, PostArgs, QueryString, RemoteAddress, RequestBody, RequestHeader, RequestMethod, RequestScheme, RequestUri, UrlFileExtension, UrlFileName, UrlPath
+    summary: Name der Übereinstimmungsbedingung.
+    description: ''
+  - name: --name -n
+    summary: Name des CDN-Endpunkts.
+    description: ''
+  - name: --negate-condition
+    parameterValueGroup: false, true
+    summary: Wenn true, negiert die Bedingung.
+    description: ''
+  - name: --operator
+    summary: Operator der Übereinstimmungsbedingung.
+    description: ''
+  - name: --preserve-unmatched-path
+    parameterValueGroup: false, true
+    summary: True gibt an, dass der verbleibende Pfad nach dem Quellmuster an den neuen Zielpfad angefügt wird.
+    description: ''
+  - name: --profile-name
+    summary: Name des CDN-Profils, das innerhalb der Ressourcengruppe eindeutig ist.
+    description: ''
+  - name: --query-parameters
+    summary: Abfrageparameter, die ein- oder ausgeschlossen werden (durch Komma getrennt).
+    description: ''
+  - name: --query-string-behavior
+    parameterValueGroup: Exclude, ExcludeAll, Include, IncludeAll
+    summary: Abfragezeichenfolgenverhalten für die Anforderungen.
+    description: ''
+  - name: --redirect-protocol
+    parameterValueGroup: Http, Https, MatchRequest
+    summary: Protokoll, das für die Umleitung verwendet werden soll.
+    description: ''
+  - name: --redirect-type
+    parameterValueGroup: Found, Moved, PermanentRedirect, TemporaryRedirect
+    summary: Der Umleitungstyp, den die Regel beim Umleiten von Datenverkehr verwendet.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --rule-name
+    summary: Name der Regel, nur für Microsoft-SKU erforderlich.
+    description: ''
+  - name: --selector
+    summary: Selektor der Übereinstimmungsbedingung.
+    description: ''
+  - name: --source-pattern
+    summary: Ein Anforderungs-URI-Muster, das den Typ der Anforderungen identifiziert, die möglicherweise umgeschrieben werden.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+  - name: --transform
+    parameterValueGroup: Lowercase, Uppercase
+    summary: Transformation, die vor dem Abgleich angewendet werden soll.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/cdn/_help.py
+- uid: az_cdn_endpoint_rule_remove
+  name: az cdn endpoint rule remove
+  summary: Entfernen sie eine Übermittlungsregel von einem Endpunkt.
+  description: ''
+  syntax: >-
+    az cdn endpoint rule remove [--ids]
+                                [--name]
+                                [--order]
+                                [--profile-name]
+                                [--resource-group]
+                                [--rule-name]
+                                [--subscription]
+  examples:
+  - summary: Entfernen Sie die globale Regel.
+    syntax: az cdn endpoint rule remove -g group -n endpoint --profile-name profile --rule-name Global
+  - summary: Entfernen Sie die Regel mit der Reihenfolge 4.
+    syntax: az cdn endpoint rule remove -g group -n endpoint --profile-name profile --order 4
+  optionalParameters:
+  - name: --ids
+    summary: Mindestens eine Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu "Ressourcen-ID"-Argumenten sein. Sie sollten entweder --ids oder andere "Resource Id"-Argumente angeben.
+    description: ''
+  - name: --name -n
+    summary: Name des CDN-Endpunkts.
+    description: ''
+  - name: --order
+    summary: Die Reihenfolge, in der die Regeln für den Endpunkt angewendet werden. Mögliche Werte {0,1,2,3,.........}. Eine Regel mit einer niedrigeren Reihenfolge wird vor einer Regel mit höherer Reihenfolge angewendet. Eine Regel mit der Reihenfolge 0 ist eine spezielle Regel. Es sind keine Bedingungen erforderlich, und die darin aufgeführten Aktionen werden immer angewendet.
+    description: ''
+  - name: --profile-name
+    summary: Name des CDN-Profils, das innerhalb der Ressourcengruppe eindeutig ist.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --rule-name
+    summary: Name der Regel.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/cdn/_help.py
+- uid: az_cdn_endpoint_rule_show
+  name: az cdn endpoint rule show
+  summary: Zeigen Sie die Übermittlungsregeln zusammen mit dem Endpunkt an.
+  description: ''
+  syntax: >-
+    az cdn endpoint rule show [--ids]
+                              [--name]
+                              [--profile-name]
+                              [--query-examples]
+                              [--resource-group]
+                              [--subscription]
+  examples:
+  - summary: Übermittlungsregeln anzeigen, die mit dem Endpunkt verbunden sind.
+    syntax: az cdn endpoint rule show -g group -n endpoint --profile-name profile
+  optionalParameters:
+  - name: --ids
+    summary: Mindestens eine Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu "Ressourcen-ID"-Argumenten sein. Sie sollten entweder --ids oder andere Ressourcen-ID-Argumente bereitstellen.
+    description: ''
+  - name: --name -n
+    summary: Name des CDN-Endpunkts.
+    description: ''
+  - name: --profile-name
+    summary: Name des CDN-Profils, das innerhalb der Ressourcengruppe eindeutig ist.
+    description: ''
+  - name: --query-examples
+    summary: Empfehlen Sie die JMESPath-Zeichenfolge. Sie können eine der Abfragen kopieren und nach dem Parameter --query in doppelte Anführungszeichen einfügen, um die Ergebnisse zu sehen. Sie können ein oder mehrere Positionsschlüsselwörter hinzufügen, damit wir basierend auf diesen Schlüsselwörtern Vorschläge machen können.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/cdn/_help.py
+commands:
+- az_cdn_endpoint_rule_action
+- az_cdn_endpoint_rule_action_add
+- az_cdn_endpoint_rule_action_remove
+- az_cdn_endpoint_rule_action_show
+- az_cdn_endpoint_rule_add
+- az_cdn_endpoint_rule_condition
+- az_cdn_endpoint_rule_condition_add
+- az_cdn_endpoint_rule_condition_remove
+- az_cdn_endpoint_rule_condition_show
+- az_cdn_endpoint_rule_remove
+- az_cdn_endpoint_rule_show
+globalParameters:
+- name: --debug
+  summary: Ausführlichkeit der Protokollierung erhöhen, um alle Debugprotokolle anzuzeigen.
+- name: --help -h
+  summary: Zeigen Sie diese Hilfemeldung an, und schließen Sie sie.
+- name: --only-show-errors
+  summary: Nur Fehler anzeigen und Warnungen unterdrücken.
+- name: --output -o
+  defaultValue: json
+  parameterValueGroup: json, jsonc, table, tsv
+  summary: Ausgabeformat.
+- name: --query
+  summary: JMESPath-Abfragezeichenfolge. Weitere Informationen und Beispiele finden Sie unter <a href="http://jmespath.org/">http://jmespath.org/</a>.
+- name: --verbose
+  summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
+metadata:
+  doc_source_url_repo: https://github.com/Azure/azure-cli/blob/dev/
+  ms.date: 04/28/2021
+  description: Verwalten von Übermittlungsregeln für einen Endpunkt.
+  ms.openlocfilehash: 27610301bd67a63ee188bcef9c383b631bf9ef97
+  ms.sourcegitcommit: 15a6f14c5a8570ba89a3bd5bb442f3324d72bc37
+  ms.translationtype: MT
+  ms.contentlocale: de-DE
+  ms.lasthandoff: 04/29/2021
+  ms.locfileid: "108245227"

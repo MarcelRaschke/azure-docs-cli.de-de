@@ -1,0 +1,331 @@
+### YamlMime:AzureCLIGroup
+uid: az_snapshot
+name: az snapshot
+summary: Verwalten Sie Zeit Punkt Kopien von verwalteten Datenträgern, systemeigenen blobnetzen oder anderen Momentaufnahmen.
+description: ''
+directCommands:
+- uid: az_snapshot_create
+  name: az snapshot create
+  summary: Erstellen Sie eine Momentaufnahme.
+  description: ''
+  syntax: >-
+    az snapshot create --name
+                       --resource-group
+                       [--location]
+                       [--no-wait]
+                       [--size-gb]
+                       [--sku {Premium_LRS, Standard_LRS}]
+                       [--source]
+                       [--source-storage-account-id]
+                       [--subscription]
+                       [--tags]
+  examples:
+  - summary: Erstellen Sie eine Momentaufnahme, indem Sie aus einem BLOB-URI importieren.
+    syntax: az snapshot create -g MyResourceGroup -n MySnapshot --source https://vhd1234.blob.core.windows.net/vhds/osdisk1234.vhd
+  - summary: Erstellen Sie eine leere Momentaufnahme.
+    syntax: az snapshot create -g MyResourceGroup -n MySnapshot --size-gb 10
+  - summary: Erstellen Sie eine Momentaufnahme, indem Sie einen vorhandenen Datenträger in dieselbe Ressourcengruppe kopieren.
+    syntax: az snapshot create -g MyResourceGroup -n MySnapshot2 --source MyDisk
+  - summary: Erstellen Sie eine Momentaufnahme aus einem vorhandenen Datenträger in einer anderen Ressourcengruppe.
+    syntax: az snapshot create -g MyResourceGroup -n MySnapshot2 --source "/subscriptions/00000/resourceGroups/AnotherResourceGroup/providers/Microsoft.Compute/disks/MyDisk"
+  - summary: Erstellen Sie eine Momentaufnahme, und verknüpfen Sie Sie mit einer Datenträger Zugriffs Ressource.
+    syntax: az snapshot create -g MyResourceGroup -n MySnapshot --size-gb 10 --network-access-policy AllowPrivate --disk-access MyDiskAccessID
+  requiredParameters:
+  - isRequired: true
+    name: --name -n
+    summary: Der Name der Momentaufnahme.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  optionalParameters:
+  - name: --location -l
+    summary: 'Der Standort. Werte aus: `az account list-locations`. Sie können den standardmäßig verwendeten Standort mit `az configure --defaults location=<location>` konfigurieren. Wenn kein Speicherort angegeben und kein Standard Speicherort angegeben wurde, wird der Speicherort automatisch auf die gleiche Weise wie die Ressourcengruppe festgelegt.'
+    description: ''
+  - name: --no-wait
+    summary: Nicht auf den Abschluss lang andauernder Vorgänge warten
+    description: ''
+  - name: --size-gb -z
+    summary: 'Größe in GB. Maximale Größe: 4095 GB (bestimmte Vorschau Datenträger können größer sein).'
+    description: ''
+  - name: --sku
+    defaultValue: Standard_LRS
+    parameterValueGroup: Premium_LRS, Standard_LRS
+    summary: ''
+    description: ''
+  - name: --source
+    summary: Quelle zum Erstellen des Datenträgers bzw. der Momentaufnahme, einschließlich nicht verwalteter BLOB-URI, ID oder Name des verwalteten Datenträgers oder der Momentaufnahme-ID oder des Namens.
+    description: ''
+  - name: --source-storage-account-id
+    summary: Wird verwendet, wenn sich das quellblob in einem anderen Abonnement befindet.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  - name: --tags
+    summary: 'Durch Leerzeichen getrennte Tags: Key [= value] [key [= value]...]. Verwenden Sie "", um vorhandene Tags zu löschen.'
+    description: ''
+- uid: az_snapshot_delete
+  name: az snapshot delete
+  summary: Löscht eine Momentaufnahme.
+  description: ''
+  syntax: >-
+    az snapshot delete [--ids]
+                       [--name]
+                       [--resource-group]
+                       [--subscription]
+  optionalParameters:
+  - name: --ids
+    summary: Mindestens eine Ressourcen-ID (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID handeln, die alle Informationen von Ressourcen-ID-Argumenten enthält. Sie sollten entweder--IDs oder andere Ressourcen-ID-Argumente angeben.
+    description: ''
+  - name: --name -n
+    summary: Der Name der Momentaufnahme.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+- uid: az_snapshot_grant-access
+  name: az snapshot grant-access
+  summary: Gewähren von Lesezugriff auf eine Momentaufnahme.
+  description: ''
+  syntax: >-
+    az snapshot grant-access --duration-in-seconds
+                             [--ids]
+                             [--name]
+                             [--resource-group]
+                             [--subscription]
+  examples:
+  - summary: Gewähren von Lesezugriff auf eine Momentaufnahme. automatisch generierten
+    syntax: az snapshot grant-access --duration-in-seconds 3600 --name MySnapshot --resource-group MyResourceGroup
+  requiredParameters:
+  - isRequired: true
+    name: --duration-in-seconds
+    summary: Zeitspanne in Sekunden, bis der SAS-Zugriff abläuft.
+    description: ''
+  optionalParameters:
+  - name: --ids
+    summary: Mindestens eine Ressourcen-ID (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID handeln, die alle Informationen von Ressourcen-ID-Argumenten enthält. Sie sollten entweder--IDs oder andere Ressourcen-ID-Argumente angeben.
+    description: ''
+  - name: --name -n
+    summary: Der Name der Momentaufnahme.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+- uid: az_snapshot_list
+  name: az snapshot list
+  summary: Auflisten von Momentaufnahmen.
+  description: ''
+  syntax: >-
+    az snapshot list [--query-examples]
+                     [--resource-group]
+                     [--subscription]
+  optionalParameters:
+  - name: --query-examples
+    summary: Empfehlen Sie die jmespath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und Sie nach dem Abfrage Parameter in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positions Schlüsselwörter hinzufügen, um Vorschläge auf der Grundlage dieser Schlüsselwörter zu geben.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+- uid: az_snapshot_revoke-access
+  name: az snapshot revoke-access
+  summary: Widerrufen Sie den Lesezugriff auf eine Momentaufnahme.
+  description: ''
+  syntax: >-
+    az snapshot revoke-access [--ids]
+                              [--name]
+                              [--resource-group]
+                              [--subscription]
+  examples:
+  - summary: Widerrufen Sie den Lesezugriff auf eine Momentaufnahme. automatisch generierten
+    syntax: az snapshot revoke-access --name MySnapshot --resource-group MyResourceGroup
+  optionalParameters:
+  - name: --ids
+    summary: Mindestens eine Ressourcen-ID (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID handeln, die alle Informationen von Ressourcen-ID-Argumenten enthält. Sie sollten entweder--IDs oder andere Ressourcen-ID-Argumente angeben.
+    description: ''
+  - name: --name -n
+    summary: Der Name der Momentaufnahme.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+- uid: az_snapshot_show
+  name: az snapshot show
+  summary: Ruft Informationen zu einer Momentaufnahme ab.
+  description: ''
+  syntax: >-
+    az snapshot show [--ids]
+                     [--name]
+                     [--query-examples]
+                     [--resource-group]
+                     [--subscription]
+  optionalParameters:
+  - name: --ids
+    summary: Mindestens eine Ressourcen-ID (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID handeln, die alle Informationen von Ressourcen-ID-Argumenten enthält. Sie sollten entweder--IDs oder andere Ressourcen-ID-Argumente angeben.
+    description: ''
+  - name: --name -n
+    summary: Der Name der Momentaufnahme.
+    description: ''
+  - name: --query-examples
+    summary: Empfehlen Sie die jmespath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und Sie nach dem Abfrage Parameter in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positions Schlüsselwörter hinzufügen, um Vorschläge auf der Grundlage dieser Schlüsselwörter zu geben.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+- uid: az_snapshot_update
+  name: az snapshot update
+  summary: Aktualisieren einer Momentaufnahme.
+  description: ''
+  syntax: >-
+    az snapshot update [--add]
+                       [--force-string]
+                       [--ids]
+                       [--name]
+                       [--no-wait]
+                       [--remove]
+                       [--resource-group]
+                       [--set]
+                       [--sku {Premium_LRS, Standard_LRS}]
+                       [--subscription]
+  examples:
+  - summary: Aktualisieren Sie eine Momentaufnahme, und ordnen Sie Sie einer Datenträger Zugriffs Ressource zu.
+    syntax: az snapshot update --name MySnapshot --resource-group MyResourceGroup --network-access-policy AllowPrivate --disk-access MyDiskAccessID
+  - summary: Aktualisieren einer Momentaufnahme. automatisch generierten
+    syntax: az snapshot update --name MySnapshot --resource-group MyResourceGroup --subscription MySubscription
+  optionalParameters:
+  - name: --add
+    summary: Fügen Sie einer Liste von-Objekten ein Objekt hinzu, indem Sie ein Pfad-und Schlüssel-Wert-Paar angeben.  Beispiel:--Add Property. ListProperty <Key = Value, String oder JSON String>.
+    description: ''
+  - name: --force-string
+    summary: Wenn Sie "Set" oder "Add" verwenden, erhalten Sie Zeichen folgen Literale, anstatt zu versuchen, in JSON zu konvertieren.
+    description: ''
+  - name: --ids
+    summary: Mindestens eine Ressourcen-ID (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID handeln, die alle Informationen von Ressourcen-ID-Argumenten enthält. Sie sollten entweder--IDs oder andere Ressourcen-ID-Argumente angeben.
+    description: ''
+  - name: --name -n
+    summary: Der Name der Momentaufnahme.
+    description: ''
+  - name: --no-wait
+    summary: Nicht auf den Abschluss lang andauernder Vorgänge warten
+    description: ''
+  - name: --remove
+    summary: Entfernt eine Eigenschaft oder ein Element aus einer Liste.  Beispiel:--Remove Property. List <indexToRemove> oder--Remove propertytoremove.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --set
+    summary: Aktualisieren Sie ein Objekt, indem Sie einen Eigenschafts Pfad und einen festzulegenden Wert angeben.  Beispiel:--Set Eigenschaft1. Eigenschaft2 =<value>.
+    description: ''
+  - name: --sku
+    parameterValueGroup: Premium_LRS, Standard_LRS
+    summary: ''
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+- uid: az_snapshot_wait
+  name: az snapshot wait
+  summary: Platzieren Sie die CLI in einem Wartezustand, bis die Bedingung einer Momentaufnahme erfüllt ist.
+  description: ''
+  syntax: >-
+    az snapshot wait [--created]
+                     [--custom]
+                     [--deleted]
+                     [--exists]
+                     [--ids]
+                     [--interval]
+                     [--name]
+                     [--resource-group]
+                     [--subscription]
+                     [--timeout]
+                     [--updated]
+  examples:
+  - summary: Platzieren Sie die CLI in einem Wartezustand, bis die Bedingung einer Momentaufnahme erfüllt ist. automatisch generierten
+    syntax: az snapshot wait --exists --name MySnapshot --resource-group MyResourceGroup
+  - summary: Platzieren Sie die CLI in einem Wartezustand, bis die Bedingung einer Momentaufnahme erfüllt ist. automatisch generierten
+    syntax: az snapshot wait --created --name MySnapshot --resource-group MyResourceGroup
+  optionalParameters:
+  - name: --created
+    summary: Warten Sie, bis "provisioningstate" bei "erfolgreich" erstellt wurde.
+    description: ''
+  - name: --custom
+    summary: "Warten Sie, bis die Bedingung eine benutzerdefinierte jmespath-Abfrage erfüllt. Beispiel: provisioningstate! = ' InProgress ', instanceview. statuses [? Code = = ' PowerState/Running ']."
+    description: ''
+  - name: --deleted
+    summary: Warten Sie bis zum Löschen.
+    description: ''
+  - name: --exists
+    summary: Warten Sie, bis die Ressource vorhanden ist.
+    description: ''
+  - name: --ids
+    summary: Mindestens eine Ressourcen-ID (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID handeln, die alle Informationen von Ressourcen-ID-Argumenten enthält. Sie sollten entweder--IDs oder andere Ressourcen-ID-Argumente angeben.
+    description: ''
+  - name: --interval
+    defaultValue: "30"
+    summary: Abruf Intervall in Sekunden.
+    description: ''
+  - name: --name -n
+    summary: Der Name der Momentaufnahme.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  - name: --timeout
+    defaultValue: "3600"
+    summary: Maximale Wartezeit in Sekunden.
+    description: ''
+  - name: --updated
+    summary: Warten Sie, bis das Update mit provisioningstate bei "erfolgreich" abgeschlossen ist.
+    description: ''
+commands:
+- az_snapshot_create
+- az_snapshot_delete
+- az_snapshot_grant-access
+- az_snapshot_list
+- az_snapshot_revoke-access
+- az_snapshot_show
+- az_snapshot_update
+- az_snapshot_wait
+globalParameters:
+- name: --debug
+  summary: Ausführlichkeit der Protokollierung erhöhen, um alle Debugprotokolle anzuzeigen.
+- name: --help -h
+  summary: Zeigen Sie diese Hilfemeldung an, und schließen Sie sie.
+- name: --only-show-errors
+  summary: Nur Fehler anzeigen und Warnungen unterdrücken.
+- name: --output -o
+  defaultValue: json
+  parameterValueGroup: json, jsonc, table, tsv
+  summary: Ausgabeformat.
+- name: --query
+  summary: JMESPath-Abfragezeichenfolge. Weitere Informationen und Beispiele finden Sie unter <a href="http://jmespath.org/">http://jmespath.org/</a>.
+- name: --verbose
+  summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
+metadata:
+  description: Verwalten Sie Zeit Punkt Kopien von verwalteten Datenträgern, systemeigenen blobnetzen oder anderen Momentaufnahmen.
+  ms.openlocfilehash: bae64320069ea155e8d1eb21a13af519c414b113
+  ms.sourcegitcommit: 612554c029ba1f28d3a43fd22e743104a1a30ea0
+  ms.translationtype: MT
+  ms.contentlocale: de-DE
+  ms.lasthandoff: 04/07/2021
+  ms.locfileid: "106827396"

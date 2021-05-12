@@ -1,0 +1,330 @@
+### YamlMime:AzureCLIGroup
+uid: az_hdinsight_application
+name: az hdinsight application
+summary: Verwalten von HDInsight-Anwendungen.
+description: ''
+directCommands:
+- uid: az_hdinsight_application_create
+  name: az hdinsight application create
+  summary: Erstellen einer Anwendung für einen HDInsight-Cluster
+  description: ''
+  syntax: >-
+    az hdinsight application create --cluster-name
+                                    --name
+                                    --resource-group
+                                    --script-action-name
+                                    --script-uri
+                                    [--access-mode]
+                                    [--destination-port]
+                                    [--disable-gateway-auth {false, true}]
+                                    [--edgenode-size]
+                                    [--marketplace-id]
+                                    [--no-validation-timeout]
+                                    [--script-parameters]
+                                    [--ssh-password]
+                                    [--ssh-public-key]
+                                    [--ssh-user]
+                                    [--sub-domain-suffix]
+                                    [--subnet]
+                                    [--subscription]
+                                    [--tags]
+                                    [--type {CustomApplication, RServer}]
+                                    [--vnet-name]
+  examples:
+  - summary: Erstellen Sie eine Anwendung mit einem Skript-URI.
+    syntax: >-
+      az hdinsight application create -g MyResourceGroup -n MyApplication \
+
+      --cluster-name MyCluster \
+
+      --script-uri https://hdiconfigactions.blob.core.windows.net/linuxhueconfigactionv02/install-hue-uber-v02.sh \
+
+      --script-action-name MyScriptAction \
+
+      --script-parameters '"-version latest -port 20000"'
+  - summary: Erstellen Sie eine Anwendung mit einem Skript-URI und der angegebenen Edgeknotengröße.
+    syntax: >-
+      az hdinsight application create -g MyResourceGroup -n MyApplication \
+
+      --cluster-name MyCluster \
+
+      --script-uri https://hdiconfigactions.blob.core.windows.net/linuxhueconfigactionv02/install-hue-uber-v02.sh \
+
+      --script-action-name MyScriptAction \
+
+      --script-parameters "-version latest -port 20000" \
+
+      --edgenode-size Standard_D4_v2
+  - summary: Erstellen Sie eine Anwendung mit https-Endpunkt.
+    syntax: >-
+      az hdinsight application create -g MyResourceGroup -n MyApplication \
+
+      --cluster-name MyCluster \
+
+      --script-uri https://hdiconfigactions.blob.core.windows.net/linuxhueconfigactionv02/install-hue-uber-v02.sh \
+
+      --script-action-name MyScriptAction \
+
+      --script-parameters "-version latest -port 20000" \
+
+      --destination-port 8888 \
+
+      --sub-domain-suffix was
+  requiredParameters:
+  - isRequired: true
+    name: --cluster-name
+    summary: Der Name des Clusters.
+    description: ''
+  - isRequired: true
+    name: --name -n
+    summary: Der konstante Wert für den Anwendungsnamen.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - isRequired: true
+    name: --script-action-name
+    summary: Der Name der Skriptaktion.
+    description: ''
+  - isRequired: true
+    name: --script-uri
+    summary: Der URI des Skripts.
+    description: ''
+  optionalParameters:
+  - name: --access-mode
+    defaultValue: WebPage
+    summary: Der Zugriffsmodus für die Anwendung.
+    description: ''
+  - name: --destination-port
+    defaultValue: "8080"
+    summary: Der Zielport, mit dem eine Verbindung hergestellt werden soll.
+    description: ''
+  - name: --disable-gateway-auth
+    parameterValueGroup: false, true
+    summary: 'Gibt an, ob die Gatewayauthentifizierung deaktiviert werden soll. Standardmäßig wird die Gatewayauthentifizierung aktiviert. Standardwert: false.'
+    description: ''
+  - name: --edgenode-size
+    defaultValue: Standard_D3_V2
+    summary: 'Die Größe des Knotens. Siehe auch: https://docs.microsoft.com/azure/hdinsight/hdinsight-hadoop-provision-linux-clusters#configure-cluster-size .'
+    description: ''
+  - name: --marketplace-id
+    summary: Der Marketplace-Bezeichner.
+    description: ''
+  - name: --no-validation-timeout
+    summary: Timeoutfehler während der Argumentvalidierungsphase zulassen. Wenn nicht angegeben, wird der Validierungs-Timeoutfehler zugelassen.
+    description: ''
+  - name: --script-parameters
+    summary: Die Parameter für das Skript.
+    description: ''
+  - name: --ssh-password -P
+    summary: SSH-Kennwort für die Clusterknoten.
+    description: ''
+  - name: --ssh-public-key -K
+    summary: Öffentlicher SSH-Schlüssel für die Clusterknoten.
+    description: ''
+  - name: --ssh-user -U
+    defaultValue: sshuser
+    summary: SSH-Benutzername für die Clusterknoten.
+    description: ''
+  - name: --sub-domain-suffix
+    summary: Das Unterdomänensuffix der Anwendung.
+    description: ''
+  - name: --subnet
+    summary: Der Name oder die ID des Subnetzes. Wenn name angegeben wird, `--vnet-name` muss angegeben werden.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+  - name: --tags
+    summary: 'Durch Leerzeichen getrennte Tags: key[=value] [key[=value] ...]. Verwenden Sie "", um vorhandene Tags zu löschen.'
+    description: ''
+  - name: --type -t
+    defaultValue: CustomApplication
+    parameterValueGroup: CustomApplication, RServer
+    summary: Der Anwendungstyp.
+    description: ''
+  - name: --vnet-name
+    summary: Der Name eines virtuellen Netzwerks.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/hdinsight/_help.py
+- uid: az_hdinsight_application_delete
+  name: az hdinsight application delete
+  summary: Löscht die angegebene Anwendung im HDInsight-Cluster.
+  description: ''
+  syntax: >-
+    az hdinsight application delete --cluster-name
+                                    --name
+                                    --resource-group
+                                    [--no-wait]
+                                    [--subscription]
+                                    [--yes]
+  requiredParameters:
+  - isRequired: true
+    name: --cluster-name
+    summary: Der Name des Clusters.
+    description: ''
+  - isRequired: true
+    name: --name -n
+    summary: Der konstante Wert für den Anwendungsnamen.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  optionalParameters:
+  - name: --no-wait
+    summary: Nicht auf den Abschluss lang andauernder Vorgänge warten
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+  - name: --yes -y
+    summary: Nicht zur Bestätigung auffordern
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/hdinsight/_help.py
+- uid: az_hdinsight_application_list
+  name: az hdinsight application list
+  summary: Listet alle Anwendungen für den HDInsight-Cluster auf.
+  description: ''
+  syntax: >-
+    az hdinsight application list --cluster-name
+                                  --resource-group
+                                  [--query-examples]
+                                  [--subscription]
+  requiredParameters:
+  - isRequired: true
+    name: --cluster-name
+    summary: Der Name des Clusters.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  optionalParameters:
+  - name: --query-examples
+    summary: Empfehlen Sie die JMESPath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und nach dem Parameter --query in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positionsschlüsselwörter hinzufügen, damit wir basierend auf diesen Schlüsselwörtern Vorschläge geben können.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/hdinsight/_help.py
+- uid: az_hdinsight_application_show
+  name: az hdinsight application show
+  summary: Ruft Eigenschaften der angegebenen Anwendung ab.
+  description: ''
+  syntax: >-
+    az hdinsight application show --cluster-name
+                                  --name
+                                  --resource-group
+                                  [--query-examples]
+                                  [--subscription]
+  requiredParameters:
+  - isRequired: true
+    name: --cluster-name
+    summary: Der Name des Clusters.
+    description: ''
+  - isRequired: true
+    name: --name -n
+    summary: Der konstante Wert für den Anwendungsnamen.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  optionalParameters:
+  - name: --query-examples
+    summary: Empfehlen Sie die JMESPath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und nach dem Parameter --query in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positionsschlüsselwörter hinzufügen, damit wir basierend auf diesen Schlüsselwörtern Vorschläge geben können.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/hdinsight/_help.py
+- uid: az_hdinsight_application_wait
+  name: az hdinsight application wait
+  summary: Platzieren Sie die CLI in einen Wartezustand, bis ein Vorgang abgeschlossen ist.
+  description: ''
+  syntax: >-
+    az hdinsight application wait --cluster-name
+                                  --name
+                                  --resource-group
+                                  [--created]
+                                  [--custom]
+                                  [--deleted]
+                                  [--exists]
+                                  [--interval]
+                                  [--subscription]
+                                  [--timeout]
+                                  [--updated]
+  requiredParameters:
+  - isRequired: true
+    name: --cluster-name
+    summary: Der Name des Clusters.
+    description: ''
+  - isRequired: true
+    name: --name -n
+    summary: Der konstante Wert für den Anwendungsnamen.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  optionalParameters:
+  - name: --created
+    summary: Warten Sie, bis mit "provisioningState" bei "Succeeded" erstellt wurde.
+    description: ''
+  - name: --custom
+    summary: "Warten Sie, bis die Bedingung eine benutzerdefinierte JMESPath-Abfrage erfüllt. Beispiel: provisioningState!='InProgress', instanceView.statuses[?code=='PowerState/running']."
+    description: ''
+  - name: --deleted
+    summary: Warten Sie, bis sie gelöscht wurde.
+    description: ''
+  - name: --exists
+    summary: Warten Sie, bis die Ressource vorhanden ist.
+    description: ''
+  - name: --interval
+    defaultValue: "30"
+    summary: Abrufintervall in Sekunden.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+  - name: --timeout
+    defaultValue: "3600"
+    summary: Maximale Wartezeit in Sekunden.
+    description: ''
+  - name: --updated
+    summary: Warten Sie, bis provisioningState auf "Succeeded" aktualisiert wurde.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/hdinsight/_help.py
+commands:
+- az_hdinsight_application_create
+- az_hdinsight_application_delete
+- az_hdinsight_application_list
+- az_hdinsight_application_show
+- az_hdinsight_application_wait
+globalParameters:
+- name: --debug
+  summary: Ausführlichkeit der Protokollierung erhöhen, um alle Debugprotokolle anzuzeigen.
+- name: --help -h
+  summary: Zeigen Sie diese Hilfemeldung an, und schließen Sie sie.
+- name: --only-show-errors
+  summary: Nur Fehler anzeigen und Warnungen unterdrücken.
+- name: --output -o
+  defaultValue: json
+  parameterValueGroup: json, jsonc, table, tsv
+  summary: Ausgabeformat.
+- name: --query
+  summary: JMESPath-Abfragezeichenfolge. Weitere Informationen und Beispiele finden Sie unter <a href="http://jmespath.org/">http://jmespath.org/</a>.
+- name: --verbose
+  summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
+metadata:
+  doc_source_url_repo: https://github.com/Azure/azure-cli/blob/dev/
+  ms.date: 04/26/2021
+  description: Verwalten von HDInsight-Anwendungen.
+  ms.openlocfilehash: 4d20c88614b3691df4c23c21f7d2812fa0e226b1
+  ms.sourcegitcommit: 15a6f14c5a8570ba89a3bd5bb442f3324d72bc37
+  ms.translationtype: MT
+  ms.contentlocale: de-DE
+  ms.lasthandoff: 04/29/2021
+  ms.locfileid: "108240892"

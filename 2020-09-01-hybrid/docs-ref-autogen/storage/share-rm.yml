@@ -1,0 +1,273 @@
+### YamlMime:AzureCLIGroup
+uid: az_storage_share-rm
+name: az storage share-rm
+summary: Verwalten von Azure-Dateifreigaben mithilfe des Microsoft.Storage-Ressourcenanbieters
+description: ''
+directCommands:
+- uid: az_storage_share-rm_create
+  name: az storage share-rm create
+  summary: Erstellen Sie eine neue Azure-Dateifreigabe unter dem angegebenen Speicherkonto.
+  description: ''
+  syntax: >-
+    az storage share-rm create --file-share
+                               --name
+                               --storage-account
+                               [--resource-group]
+                               [--subscription]
+  examples:
+  - summary: Erstellen Sie eine neue Azure-Dateifreigabe "myfileshare" mit Metadaten und einem Kontingent von 10 GB unter dem Speicherkonto "mystorageaccount" (Kontoname) in der Ressourcengruppe "MyResourceGroup".
+    syntax: az storage share-rm create -g MyResourceGroup --storage-account mystorageaccount --name myfileshare --quota 10 --metadata key1=value1 key2=value2
+  - summary: Erstellen Sie eine neue Azure-Dateifreigabe "myfileshare" mit Metadaten und einem Kontingent von 6.000 GB unter dem Speicherkonto "mystorageaccount" (Kontoname), das eine große Dateifreigabe in der Ressourcengruppe "MyResourceGroup" ermöglicht.
+    syntax: >-
+      az storage account update -g MyResourceGroup --name mystorageaccount --enable-large-file-share
+
+      az storage share-rm create -g MyResourceGroup --storage-account mystorageaccount --name myfileshare --quota 6000 --metadata key1=value1 key2=value2
+  - summary: Erstellen Sie eine neue Azure-Dateifreigabe "myfileshare" mit Metadaten und einem Kontingent von 10 GB unter dem Speicherkonto "mystorageaccount" (Konto-ID).
+    syntax: az storage share-rm create --storage-account mystorageaccount --name myfileshare --quota 10 --metadata key1=value1 key2=value2
+  requiredParameters:
+  - isRequired: true
+    name: --file-share
+    summary: Eigenschaften der zu erstellenden Dateifreigabe.
+    description: ''
+  - isRequired: true
+    name: --name -n
+    summary: Der Dateifreigabename.
+    description: ''
+  - isRequired: true
+    name: --storage-account
+    summary: Der Name oder die ID des Speicherkontos.
+    description: ''
+  optionalParameters:
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/storage/_help.py
+- uid: az_storage_share-rm_delete
+  name: az storage share-rm delete
+  summary: Löschen Sie die angegebene Azure-Dateifreigabe oder Freigabemomentaufnahme.
+  description: Eingehende BREAKING CHANGE:Momentaufnahme wird standardmäßig nicht gelöscht, und wir fügen einen neuen Parameter hinzu, der verwendet werden soll, wenn Sie Sanpshots für den Löschvorgang hinzufügen möchten.
+  syntax: >-
+    az storage share-rm delete [--ids]
+                               [--name]
+                               [--resource-group]
+                               [--storage-account]
+                               [--subscription]
+                               [--yes]
+  examples:
+  - summary: Löschen Sie eine Azure-Dateifreigabe "myfileshare" unter dem Speicherkonto "mystorageaccount" (Kontoname) in der Ressourcengruppe "MyResourceGroup".
+    syntax: az storage share-rm delete -g MyResourceGroup --storage-account mystorageaccount --name myfileshare
+  - summary: Löschen Sie eine Azure-Dateifreigabe "myfileshare" unter dem Speicherkonto "mystorageaccount" (Konto-ID).
+    syntax: az storage share-rm delete --storage-account mystorageaccount --name myfileshare
+  - summary: Löschen Sie eine Azure-Dateifreigabe nach Ressourcen-ID.
+    syntax: az storage share-rm delete --ids file-share-id
+  - summary: Löscht eine Momentaufnahme einer Azure-Dateifreigabe.
+    syntax: az storage share-rm delete --ids file-share-id --snapshot "2021-03-25T05:29:56.0000000Z"
+  optionalParameters:
+  - name: --ids
+    summary: Eine oder mehrere Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu Ressourcen-ID-Argumenten geben. Sie sollten entweder --ids oder andere Ressourcen-ID-Argumente bereitstellen.
+    description: ''
+  - name: --name -n
+    summary: Der Dateifreigabename.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --storage-account
+    summary: Der Name oder die ID des Speicherkontos.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+  - name: --yes -y
+    summary: Nicht zur Bestätigung auffordern
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/storage/_help.py
+- uid: az_storage_share-rm_exists
+  name: az storage share-rm exists
+  summary: Überprüfen Sie, ob eine Azure-Dateifreigabe vorhanden ist.
+  description: ''
+  syntax: >-
+    az storage share-rm exists [--ids]
+                               [--name]
+                               [--resource-group]
+                               [--storage-account]
+                               [--subscription]
+  examples:
+  - summary: Überprüfen Sie, ob eine Azure-Dateifreigabe "myfileshare" unter dem Speicherkonto "mystorageaccount" (Kontoname) in der Ressourcengruppe "MyResourceGroup" vorhanden ist.
+    syntax: az storage share-rm exists -g MyResourceGroup --storage-account mystorageaccount --name myfileshare
+  - summary: Überprüfen Sie, ob eine Azure-Dateifreigabe "myfileshare" unter dem Speicherkonto "mystorageaccount" (Konto-ID) vorhanden ist.
+    syntax: az storage share-rm exists --storage-account mystorageaccount --name myfileshare
+  - summary: Überprüfen Sie anhand der Ressourcen-ID, ob eine Azure-Dateifreigabe vorhanden ist.
+    syntax: az storage share-rm exists --ids file-share-id
+  optionalParameters:
+  - name: --ids
+    summary: Mindestens eine Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu "Ressourcen-ID"-Argumenten sein. Sie sollten entweder --ids oder andere "Resource Id"-Argumente angeben.
+    description: ''
+  - name: --name -n
+    summary: Der Dateifreigabename.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --storage-account
+    summary: Der Name oder die ID des Speicherkontos.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/storage/_help.py
+- uid: az_storage_share-rm_list
+  name: az storage share-rm list
+  summary: Listen Sie die Azure-Dateifreigaben unter dem angegebenen Speicherkonto auf.
+  description: ''
+  syntax: >-
+    az storage share-rm list --storage-account
+                             [--expand]
+                             [--query-examples]
+                             [--resource-group]
+                             [--subscription]
+  examples:
+  - summary: Listen Sie die Azure-Dateifreigaben unter dem Speicherkonto "mystorageaccount" (Kontoname) in der Ressourcengruppe "MyResourceGroup" auf.
+    syntax: az storage share-rm list -g MyResourceGroup --storage-account mystorageaccount
+  - summary: Listen Sie die Azure-Dateifreigaben unter dem Speicherkonto "mystorageaccount" (Konto-ID) auf.
+    syntax: az storage share-rm list --storage-account mystorageaccount
+  - summary: Listen Sie alle Dateifreigaben auf, die unter dem Speicherkonto "mystorageaccount" gelöscht wurden.
+    syntax: az storage share-rm list --storage-account mystorageaccount --include-deleted
+  requiredParameters:
+  - isRequired: true
+    name: --storage-account
+    summary: Der Name oder die ID des Speicherkontos.
+    description: ''
+  optionalParameters:
+  - name: --expand
+    summary: Optional, wird verwendet, um die Eigenschaften in den Eigenschaften der Freigabe zu erweitern.
+    description: ''
+  - name: --query-examples
+    summary: Empfehlen Sie die JMESPath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und nach dem Parameter --query in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positionsschlüsselwörter hinzufügen, damit wir basierend auf diesen Schlüsselwörtern Vorschläge geben können.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/storage/_help.py
+- uid: az_storage_share-rm_show
+  name: az storage share-rm show
+  summary: Zeigt die Eigenschaften für eine angegebene Azure-Dateifreigabe oder Freigabemomentaufnahme an.
+  description: ''
+  syntax: >-
+    az storage share-rm show [--expand]
+                             [--ids]
+                             [--name]
+                             [--query-examples]
+                             [--resource-group]
+                             [--storage-account]
+                             [--subscription]
+  examples:
+  - summary: Zeigen Sie die Eigenschaften für eine Azure-Dateifreigabe "myfileshare" unter dem Speicherkonto "mystorageaccount" (Kontoname) in der Ressourcengruppe "MyResourceGroup" an.
+    syntax: az storage share-rm show -g MyResourceGroup --storage-account mystorageaccount --name myfileshare
+  - summary: Zeigen Sie die Eigenschaften für eine Azure-Dateifreigabe "myfileshare" unter dem Speicherkonto "mystorageaccount" (Konto-ID) an.
+    syntax: az storage share-rm show --storage-account mystorageaccount --name myfileshare
+  - summary: Zeigen Sie die Eigenschaften einer Azure-Dateifreigabe nach Ressourcen-ID an.
+    syntax: az storage share-rm show --ids file-share-id
+  - summary: Anzeigen der Eigenschaften einer Azure-Dateifreigabemomentaufnahme
+    syntax: az storage share-rm show --ids file-share-id --snapshot "2021-03-25T05:29:56.0000000Z"
+  optionalParameters:
+  - name: --expand
+    summary: Optional, wird verwendet, um die Eigenschaften in den Eigenschaften der Freigabe zu erweitern.
+    description: ''
+  - name: --ids
+    summary: Eine oder mehrere Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu Ressourcen-ID-Argumenten geben. Sie sollten entweder --ids oder andere Ressourcen-ID-Argumente bereitstellen.
+    description: ''
+  - name: --name -n
+    summary: Der Dateifreigabename.
+    description: ''
+  - name: --query-examples
+    summary: Empfehlen Sie die JMESPath-Zeichenfolge. Sie können eine der Abfragen kopieren und nach dem Parameter --query in doppelte Anführungszeichen einfügen, um die Ergebnisse zu sehen. Sie können ein oder mehrere Positionsschlüsselwörter hinzufügen, damit wir basierend auf diesen Schlüsselwörtern Vorschläge machen können.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --storage-account
+    summary: Der Name oder die ID des Speicherkontos.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/storage/_help.py
+- uid: az_storage_share-rm_update
+  name: az storage share-rm update
+  summary: Aktualisieren sie die Eigenschaften für eine Azure-Dateifreigabe.
+  description: ''
+  syntax: >-
+    az storage share-rm update --file-share
+                               [--ids]
+                               [--name]
+                               [--resource-group]
+                               [--storage-account]
+                               [--subscription]
+  examples:
+  - summary: Aktualisieren Sie die Eigenschaften für eine Azure-Dateifreigabe "myfileshare" unter dem Speicherkonto "mystorageaccount" (Kontoname) in der Ressourcengruppe "MyResourceGroup".
+    syntax: az storage share-rm update -g MyResourceGroup --storage-account mystorageaccount --name myfileshare --quota 3 --metadata key1=value1 key2=value2
+  - summary: Aktualisieren Sie die Eigenschaften für eine Azure-Dateifreigabe "myfileshare" unter dem Speicherkonto "mystorageaccount" (Konto-ID).
+    syntax: az storage share-rm update --storage-account mystorageaccount --name myfileshare --quota 3 --metadata key1=value1 key2=value2
+  - summary: Aktualisieren Sie die Eigenschaften für eine Azure-Dateifreigabe nach Ressourcen-ID.
+    syntax: az storage share-rm update --ids file-share-id --quota 3 --metadata key1=value1 key2=value2
+  requiredParameters:
+  - isRequired: true
+    name: --file-share
+    summary: Eigenschaften, die für die Dateifreigabe aktualisiert werden sollen.
+    description: ''
+  optionalParameters:
+  - name: --ids
+    summary: Mindestens eine Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu "Ressourcen-ID"-Argumenten sein. Sie sollten entweder --ids oder andere "Resource Id"-Argumente angeben.
+    description: ''
+  - name: --name -n
+    summary: Der Dateifreigabename.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --storage-account
+    summary: Der Name oder die ID des Speicherkontos.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/storage/_help.py
+commands:
+- az_storage_share-rm_create
+- az_storage_share-rm_delete
+- az_storage_share-rm_exists
+- az_storage_share-rm_list
+- az_storage_share-rm_show
+- az_storage_share-rm_update
+globalParameters:
+- name: --debug
+  summary: Ausführlichkeit der Protokollierung erhöhen, um alle Debugprotokolle anzuzeigen.
+- name: --help -h
+  summary: Zeigen Sie diese Hilfemeldung an, und schließen Sie sie.
+- name: --only-show-errors
+  summary: Nur Fehler anzeigen und Warnungen unterdrücken.
+- name: --output -o
+  defaultValue: json
+  parameterValueGroup: json, jsonc, table, tsv
+  summary: Ausgabeformat.
+- name: --query
+  summary: JMESPath-Abfragezeichenfolge. Weitere Informationen und Beispiele finden Sie unter <a href="http://jmespath.org/">http://jmespath.org/</a>.
+- name: --verbose
+  summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
+metadata:
+  doc_source_url_repo: https://github.com/Azure/azure-cli/blob/dev/
+  ms.date: 04/26/2021
+  description: Verwalten von Azure-Dateifreigaben mithilfe des Microsoft.Storage-Ressourcenanbieters.
+  ms.openlocfilehash: c439fd1271cfb033d3be87de770c9e5edaaeb13f
+  ms.sourcegitcommit: 15a6f14c5a8570ba89a3bd5bb442f3324d72bc37
+  ms.translationtype: MT
+  ms.contentlocale: de-DE
+  ms.lasthandoff: 04/29/2021
+  ms.locfileid: "108239515"

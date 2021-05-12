@@ -1,0 +1,456 @@
+### YamlMime:AzureCLIGroup
+uid: az_redis
+name: az redis
+summary: Verwalten Sie dedizierte redis-Caches für Ihre Azure-Anwendungen.
+description: ''
+directCommands:
+- uid: az_redis_create
+  name: az redis create
+  summary: Erstellt eine neue Redis-Cache-Instanz.
+  description: ''
+  syntax: >-
+    az redis create --location
+                    --name
+                    --resource-group
+                    --sku {Basic, Premium, Standard}
+                    --vm-size {c0, c1, c2, c3, c4, c5, c6, p1, p2, p3, p4, p5}
+                    [--enable-non-ssl-port]
+                    [--minimum-tls-version {1.0, 1.1, 1.2}]
+                    [--redis-configuration]
+                    [--replicas-per-master]
+                    [--shard-count]
+                    [--static-ip]
+                    [--subnet-id]
+                    [--subscription]
+                    [--tags]
+                    [--tenant-settings]
+                    [--zones {1, 2, 3}]
+  examples:
+  - summary: Erstellt eine neue Redis-Cache-Instanz. automatisch generierten
+    syntax: az redis create --location westus2 --name MyRedisCache --resource-group MyResourceGroup --sku Basic --vm-size c0
+  requiredParameters:
+  - isRequired: true
+    name: --location -l
+    summary: 'Der Standort. Werte aus: `az account list-locations`. Sie können den standardmäßig verwendeten Standort mit `az configure --defaults location=<location>` konfigurieren.'
+    description: ''
+  - isRequired: true
+    name: --name -n
+    summary: Der Name des redis-Caches.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - isRequired: true
+    name: --sku
+    parameterValueGroup: Basic, Premium, Standard
+    summary: Der Typ des redis-Caches.
+    description: ''
+  - isRequired: true
+    name: --vm-size
+    parameterValueGroup: c0, c1, c2, c3, c4, c5, c6, p1, p2, p3, p4, p5
+    summary: Größe des bereit zustellenden redis Cache. Basic-und Standard-Cache Größen beginnen mit C. Premium-Cache Größen beginnen mit P.
+    description: ''
+  optionalParameters:
+  - name: --enable-non-ssl-port
+    summary: Wenn angegeben, wird der nicht-SSL-redis-Serverport (6379) aktiviert.
+    description: ''
+  - name: --minimum-tls-version
+    parameterValueGroup: 1.0, 1.1, 1.2
+    summary: Gibt die TLS-Version an, die Clients zum Herstellen einer Verbindung mit dem Cache benötigt.
+    description: ''
+  - name: --redis-configuration
+    summary: JSON-codierte Konfigurationseinstellungen. Verwenden Sie @ {File}, um aus einer Datei zu laden.
+    description: ''
+  - name: --replicas-per-master
+    summary: Die Anzahl der Replikate, die pro Master erstellt werden sollen.
+    description: ''
+  - name: --shard-count
+    summary: Die Anzahl der Shards, die in einem Premium-Cluster Cache erstellt werden sollen.
+    description: ''
+  - name: --static-ip
+    summary: Geben Sie bei Bedarf eine statische IP-Adresse für das vnet an. Wenn Sie keine statische IP-Adresse angeben, wird automatisch eine IP-Adresse ausgewählt.
+    description: ''
+  - name: --subnet-id
+    summary: Die vollständige Ressourcen-ID eines Subnetzes in einem virtuellen Netzwerk, in dem der redis-Cache bereitgestellt werden soll. Beispiel Format/Subscriptions/{subid}/resourceGroups/{resourceGroupName}/Providers/Microsoft. {Netzwerk | Classicnetwork}/virtualNetworks/vnet1/Subnets/subnet1.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  - name: --tags
+    summary: 'Durch Leerzeichen getrennte Tags: Key [= value] [key [= value]...]. Verwenden Sie "", um vorhandene Tags zu löschen.'
+    description: ''
+  - name: --tenant-settings
+    summary: Durch Leerzeichen getrennte Mandanten Einstellungen im Schlüsselformat [= value].
+    description: ''
+  - name: --zones -z
+    parameterValueGroup: 1, 2, 3
+    summary: Durch Leerzeichen getrennte Liste von Verfügbarkeits Zonen, in die die Ressource bereitgestellt werden soll.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/redis/_help.py
+- uid: az_redis_delete
+  name: az redis delete
+  summary: Löscht einen redis-Cache.
+  description: ''
+  syntax: >-
+    az redis delete [--ids]
+                    [--name]
+                    [--resource-group]
+                    [--subscription]
+                    [--yes]
+  optionalParameters:
+  - name: --ids
+    summary: Mindestens eine Ressourcen-ID (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID handeln, die alle Informationen von Ressourcen-ID-Argumenten enthält. Sie sollten entweder--IDs oder andere Ressourcen-ID-Argumente angeben.
+    description: ''
+  - name: --name -n
+    summary: Der Name des redis-Caches.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  - name: --yes -y
+    summary: Nicht zur Bestätigung auffordern
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/redis/_help.py
+- uid: az_redis_export
+  name: az redis export
+  summary: Exportieren von in einem redis-Cache gespeicherten Daten.
+  description: ''
+  syntax: >-
+    az redis export --container
+                    --prefix
+                    [--file-format]
+                    [--ids]
+                    [--name]
+                    [--resource-group]
+                    [--subscription]
+  requiredParameters:
+  - isRequired: true
+    name: --container
+    summary: SAS-URL für den Container, in den Daten exportiert werden müssen.
+    description: ''
+  - isRequired: true
+    name: --prefix
+    summary: Präfix, das für exportierte Dateien verwendet werden soll.
+    description: ''
+  optionalParameters:
+  - name: --file-format
+    summary: Das Format des BLOBs (derzeit ist RDB das einzige unterstützte Format, bei dem in Zukunft andere Formate erwartet werden).
+    description: ''
+  - name: --ids
+    summary: Mindestens eine Ressourcen-ID (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID handeln, die alle Informationen von Ressourcen-ID-Argumenten enthält. Sie sollten entweder--IDs oder andere Ressourcen-ID-Argumente angeben.
+    description: ''
+  - name: --name -n
+    summary: Der Name des redis-Caches.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/redis/_help.py
+- uid: az_redis_force-reboot
+  name: az redis force-reboot
+  summary: Neustart der angegebenen redis-Knoten.
+  description: Dieser Vorgang erfordert die Schreib Berechtigung für die Cache Ressource. Möglicherweise ist ein Datenverlust möglich.
+  syntax: >-
+    az redis force-reboot --reboot-type {AllNodes, PrimaryNode, SecondaryNode}
+                          [--ids]
+                          [--name]
+                          [--resource-group]
+                          [--shard-id]
+                          [--subscription]
+  requiredParameters:
+  - isRequired: true
+    name: --reboot-type
+    parameterValueGroup: AllNodes, PrimaryNode, SecondaryNode
+    summary: Welche redis-Knoten neu gestartet werden sollen. Abhängig von diesem Wert ist ein Datenverlust möglich.
+    description: ''
+  optionalParameters:
+  - name: --ids
+    summary: Mindestens eine Ressourcen-ID (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID handeln, die alle Informationen von Ressourcen-ID-Argumenten enthält. Sie sollten entweder--IDs oder andere Ressourcen-ID-Argumente angeben.
+    description: ''
+  - name: --name -n
+    summary: Der Name des redis-Caches.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --shard-id
+    summary: Wenn Clustering aktiviert ist, die ID des Shards, der neu gestartet werden soll.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/redis/_help.py
+- uid: az_redis_import
+  name: az redis import
+  summary: Importieren Sie Daten in einen redis-Cache.
+  description: ''
+  syntax: >-
+    az redis import --files
+                    [--file-format]
+                    [--ids]
+                    [--name]
+                    [--resource-group]
+                    [--subscription]
+  requiredParameters:
+  - isRequired: true
+    name: --files
+    summary: SAS-URL für blobzuordnungen, die importiert werden müssen.
+    description: ''
+  optionalParameters:
+  - name: --file-format
+    summary: Das Format des BLOBs (derzeit ist RDB das einzige unterstützte Format, bei dem in Zukunft andere Formate erwartet werden).
+    description: ''
+  - name: --ids
+    summary: Mindestens eine Ressourcen-ID (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID handeln, die alle Informationen von Ressourcen-ID-Argumenten enthält. Sie sollten entweder--IDs oder andere Ressourcen-ID-Argumente angeben.
+    description: ''
+  - name: --name -n
+    summary: Der Name des redis-Caches.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/redis/_help.py
+- uid: az_redis_import-method
+  name: az redis import-method
+  summary: Importieren Sie Daten in redis Cache.
+  description: ''
+  syntax: >-
+    az redis import-method --files
+                           [--file-format]
+                           [--ids]
+                           [--name]
+                           [--resource-group]
+                           [--subscription]
+  requiredParameters:
+  - isRequired: true
+    name: --files
+    summary: SAS-URL für blobzuordnungen, die importiert werden müssen.
+    description: ''
+  optionalParameters:
+  - name: --file-format
+    summary: Das Format des BLOBs (derzeit ist RDB das einzige unterstützte Format, bei dem in Zukunft andere Formate erwartet werden).
+    description: ''
+  - name: --ids
+    summary: Mindestens eine Ressourcen-ID (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID handeln, die alle Informationen von Ressourcen-ID-Argumenten enthält. Sie sollten entweder--IDs oder andere Ressourcen-ID-Argumente angeben.
+    description: ''
+  - name: --name -n
+    summary: Der Name des redis-Caches.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/redis/_help.py
+- uid: az_redis_list
+  name: az redis list
+  summary: Auflisten von redis-Caches.
+  description: Listet Details zu allen Caches innerhalb des aktuellen Abonnements oder der bereitgestellten Ressourcengruppe auf.
+  syntax: >-
+    az redis list [--query-examples]
+                  [--resource-group]
+                  [--subscription]
+  optionalParameters:
+  - name: --query-examples
+    summary: Empfehlen Sie die jmespath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und Sie nach dem Abfrage Parameter in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positions Schlüsselwörter hinzufügen, um Vorschläge auf der Grundlage dieser Schlüsselwörter zu geben.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/redis/_help.py
+- uid: az_redis_list-keys
+  name: az redis list-keys
+  summary: Abrufen der Zugriffsschlüssel eines redis-Caches.
+  description: Dieser Vorgang erfordert die Schreib Berechtigung für die Cache Ressource.
+  syntax: >-
+    az redis list-keys [--ids]
+                       [--name]
+                       [--resource-group]
+                       [--subscription]
+  optionalParameters:
+  - name: --ids
+    summary: Mindestens eine Ressourcen-ID (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID handeln, die alle Informationen von Ressourcen-ID-Argumenten enthält. Sie sollten entweder--IDs oder andere Ressourcen-ID-Argumente angeben.
+    description: ''
+  - name: --name -n
+    summary: Der Name des redis-Caches.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/redis/_help.py
+- uid: az_redis_regenerate-keys
+  name: az redis regenerate-keys
+  summary: Erneutes Generieren der Zugriffsschlüssel von redis Cache.
+  description: Dieser Vorgang erfordert die Schreib Berechtigung für die Cache Ressource.
+  syntax: >-
+    az redis regenerate-keys --key-type {Primary, Secondary}
+                             [--ids]
+                             [--name]
+                             [--resource-group]
+                             [--subscription]
+  requiredParameters:
+  - isRequired: true
+    name: --key-type
+    parameterValueGroup: Primary, Secondary
+    summary: Der redis-Zugriffsschlüssel zum erneuten generieren.
+    description: ''
+  optionalParameters:
+  - name: --ids
+    summary: Mindestens eine Ressourcen-ID (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID handeln, die alle Informationen von Ressourcen-ID-Argumenten enthält. Sie sollten entweder--IDs oder andere Ressourcen-ID-Argumente angeben.
+    description: ''
+  - name: --name -n
+    summary: Der Name des redis-Caches.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/redis/_help.py
+- uid: az_redis_show
+  name: az redis show
+  summary: Ruft einen redis-Cache (Ressourcen Beschreibung) ab.
+  description: ''
+  syntax: >-
+    az redis show [--ids]
+                  [--name]
+                  [--query-examples]
+                  [--resource-group]
+                  [--subscription]
+  optionalParameters:
+  - name: --ids
+    summary: Mindestens eine Ressourcen-ID (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID handeln, die alle Informationen von Ressourcen-ID-Argumenten enthält. Sie sollten entweder--IDs oder andere Ressourcen-ID-Argumente angeben.
+    description: ''
+  - name: --name -n
+    summary: Der Name des redis-Caches.
+    description: ''
+  - name: --query-examples
+    summary: Empfehlen Sie die jmespath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und Sie nach dem Abfrage Parameter in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positions Schlüsselwörter hinzufügen, um Vorschläge auf der Grundlage dieser Schlüsselwörter zu geben.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/redis/_help.py
+- uid: az_redis_update
+  name: az redis update
+  summary: Aktualisieren eines redis-Caches.
+  description: Skalieren oder aktualisieren Sie die Einstellungen eines redis-Caches.
+  syntax: >-
+    az redis update [--add]
+                    [--force-string]
+                    [--ids]
+                    [--name]
+                    [--remove]
+                    [--resource-group]
+                    [--set]
+                    [--sku {Basic, Premium, Standard}]
+                    [--subscription]
+                    [--vm-size {c0, c1, c2, c3, c4, c5, c6, p1, p2, p3, p4, p5}]
+  optionalParameters:
+  - name: --add
+    summary: Fügen Sie einer Liste von-Objekten ein Objekt hinzu, indem Sie ein Pfad-und Schlüssel-Wert-Paar angeben.  Beispiel:--Add Property. ListProperty <Key = Value, String oder JSON String>.
+    description: ''
+  - name: --force-string
+    summary: Wenn Sie "Set" oder "Add" verwenden, erhalten Sie Zeichen folgen Literale, anstatt zu versuchen, in JSON zu konvertieren.
+    description: ''
+  - name: --ids
+    summary: Mindestens eine Ressourcen-ID (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID handeln, die alle Informationen von Ressourcen-ID-Argumenten enthält. Sie sollten entweder--IDs oder andere Ressourcen-ID-Argumente angeben.
+    description: ''
+  - name: --name -n
+    summary: Der Name des redis-Caches.
+    description: ''
+  - name: --remove
+    summary: Entfernt eine Eigenschaft oder ein Element aus einer Liste.  Beispiel:--Remove Property. List <indexToRemove> oder--Remove propertytoremove.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --set
+    summary: Aktualisieren Sie ein Objekt, indem Sie einen Eigenschafts Pfad und einen festzulegenden Wert angeben.  Beispiel:--Set Eigenschaft1. Eigenschaft2 =<value>.
+    description: ''
+  - name: --sku
+    parameterValueGroup: Basic, Premium, Standard
+    summary: Der Typ des redis-Caches.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  - name: --vm-size
+    parameterValueGroup: c0, c1, c2, c3, c4, c5, c6, p1, p2, p3, p4, p5
+    summary: Größe des bereit zustellenden redis Cache. Basic-und Standard-Cache Größen beginnen mit C. Premium-Cache Größen beginnen mit P.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/redis/_help.py
+commands:
+- az_redis_create
+- az_redis_delete
+- az_redis_export
+- az_redis_firewall-rules
+- az_redis_firewall-rules_create
+- az_redis_firewall-rules_delete
+- az_redis_firewall-rules_list
+- az_redis_firewall-rules_show
+- az_redis_firewall-rules_update
+- az_redis_force-reboot
+- az_redis_import
+- az_redis_import-method
+- az_redis_list
+- az_redis_list-keys
+- az_redis_patch-schedule
+- az_redis_patch-schedule_create
+- az_redis_patch-schedule_delete
+- az_redis_patch-schedule_show
+- az_redis_patch-schedule_update
+- az_redis_regenerate-keys
+- az_redis_server-link
+- az_redis_server-link_create
+- az_redis_server-link_delete
+- az_redis_server-link_list
+- az_redis_server-link_show
+- az_redis_show
+- az_redis_update
+globalParameters:
+- name: --debug
+  summary: Ausführlichkeit der Protokollierung erhöhen, um alle Debugprotokolle anzuzeigen.
+- name: --help -h
+  summary: Zeigen Sie diese Hilfemeldung an, und schließen Sie sie.
+- name: --only-show-errors
+  summary: Nur Fehler anzeigen und Warnungen unterdrücken.
+- name: --output -o
+  defaultValue: json
+  parameterValueGroup: json, jsonc, table, tsv
+  summary: Ausgabeformat.
+- name: --query
+  summary: JMESPath-Abfragezeichenfolge. Weitere Informationen und Beispiele finden Sie unter <a href="http://jmespath.org/">http://jmespath.org/</a>.
+- name: --verbose
+  summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
+metadata:
+  doc_source_url_repo: https://github.com/Azure/azure-cli/blob/dev/
+  ms.date: 10/17/2019
+  description: Verwalten Sie dedizierte redis-Caches für Ihre Azure-Anwendungen.
+  ms.openlocfilehash: 6dcdf7521d06eb954d0fd67aab568f31ed2d2142
+  ms.sourcegitcommit: 612554c029ba1f28d3a43fd22e743104a1a30ea0
+  ms.translationtype: MT
+  ms.contentlocale: de-DE
+  ms.lasthandoff: 04/07/2021
+  ms.locfileid: "106826257"

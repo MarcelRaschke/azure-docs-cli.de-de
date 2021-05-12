@@ -1,0 +1,194 @@
+### YamlMime:AzureCLIGroup
+uid: az_dms_task
+name: az dms task
+extensionInformation: >-
+  > [!Note]
+
+  > Diese Referenz ist Teil der **DMS-Vorschau** Erweiterung für Azure CLI und erfordert Version 2.0.43 oder höher.  Die Erweiterung wird automatisch installiert, wenn Sie den Befehl **AZ DMS Task** zum ersten Mal ausführen.  [Weitere Informationen zu Erweiterungen](https://docs.microsoft.com/en-us/cli/azure/azure-cli-extensions-overview)
+summary: Verwalten von Aufgaben auf Dienst Ebene für eine Database Migration Service-Instanz.
+description: Aufgaben auf Dienst Ebene sind nicht Migrations Aufgaben, die auf Dienst Ebene ausgeführt werden. Dies ist normalerweise für administrative und Wartungsarbeiten, die für den Agent und die VM des Dienstanbieter gelten.
+directCommands:
+- uid: az_dms_task_cancel
+  name: az dms task cancel
+  summary: Abbrechen einer Aufgabe auf Dienst Ebene, wenn Sie sich derzeit in der Warteschlange befindet oder ausgeführt wird.
+  description: ''
+  syntax: >-
+    az dms task cancel --name
+                       --resource-group
+                       --service-name
+  examples:
+  - summary: Abbrechen einer Aufgabe auf Dienst Ebene
+    syntax: az dms task cancel -g myresourcegroup --service-name mydms -n mytask
+  requiredParameters:
+  - isRequired: true
+    name: --name -n
+    summary: Der Name der Aufgabe. Eine DMS-Aufgabe ist die Aktivität, die auf Dienst Ebene bezogene Aufgaben ausführt. Einem Dienst können mehrere Aufgaben zugeordnet sein.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - isRequired: true
+    name: --service-name
+    summary: Der Name des Dienstanbieter.
+    description: ''
+- uid: az_dms_task_create
+  name: az dms task create
+  summary: Erstellen und starten Sie einen Task auf Dienst Ebene.
+  description: >-
+    Die folgenden Aufgaben werden zurzeit unterstützt:
+        1) OCI-Treiber auf Oracle-Quelle überprüfen, um die Kompatibilität zu prüfen
+        2) Installationspaket für das OCI-Treiber hochladen
+        3) Installieren Sie ein bereits hochgeladenes OCI-Treiber Paket.
+  syntax: >-
+    az dms task create --name
+                       --resource-group
+                       --service-name
+                       --task-options-json
+                       --task-type
+  examples:
+  - summary: Erstellen Sie einen Task auf Dienst Ebene, der überprüft, ob der derzeit installierte OCI-Treiber unterstützt.
+    syntax: 'az dms task create -g myresourcegroup --service-name mydms -n checkocitask1 --task-options-json "{"serverVersion": "12.2.0.1"}" --task-type CheckOciDriver'
+  requiredParameters:
+  - isRequired: true
+    name: --name -n
+    summary: Der Name der Aufgabe. Eine DMS-Aufgabe ist die Aktivität, die auf Dienst Ebene bezogene Aufgaben ausführt. Einem Dienst können mehrere Aufgaben zugeordnet sein.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - isRequired: true
+    name: --service-name
+    summary: Der Name des Dienstanbieter.
+    description: ''
+  - isRequired: true
+    name: --task-options-json
+    summary: Informationen und Einstellungen, die für den Typ der jeweiligen Aufgabe relevant sind. Dabei kann es sich entweder um eine JSON-formatierte Zeichenfolge oder um den Speicherort einer Datei mit dem JSON-Objekt handeln. Das Format finden Sie unten in den Beispielen.
+    description: >-
+      Für checkocidriver: {//die Version des Oracle-Quell Servers, auf der die Kompatibilität des Treibers überprüft werden soll.
+
+      Kann auch NULL sein, um eine Liste der unterstützten Versionen zu erhalten.
+
+      "Server Version": "Oracle Source Version"}
+
+
+      Für uploadocidriver: {"ocidriverpath": Dateifreigabe Pfad des Treiber Installationspakets "username": "User Name",//wenn dieser Wert fehlt oder NULL ist, werden Sie zur Angabe von "Kennwort": "Kennwort" > "Kennwort" > Wenn diese fehlt oder NULL (dringend empfohlen) werden Sie aufgefordert.
+
+
+      Für installocidriver: {//die Ausgabe der uploadocidriver-Aufgabe kann hier "ociDriverPackageName": "OCI Driver Installer Package Name"} verwendet werden.
+  - isRequired: true
+    name: --task-type
+    summary: Der Typ der zu erstellenden Aufgabe. Die unterstützten Typen sind checkocidriver, uploadocidriver und installocidriver.
+    description: ''
+- uid: az_dms_task_delete
+  name: az dms task delete
+  summary: Löschen Sie einen Task auf Dienst Ebene.
+  description: ''
+  syntax: >-
+    az dms task delete --name
+                       --resource-group
+                       --service-name
+                       [--delete-running-tasks]
+                       [--yes]
+  requiredParameters:
+  - isRequired: true
+    name: --name -n
+    summary: Der Name der Aufgabe. Eine DMS-Aufgabe ist die Aktivität, die auf Dienst Ebene bezogene Aufgaben ausführt. Einem Dienst können mehrere Aufgaben zugeordnet sein.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - isRequired: true
+    name: --service-name
+    summary: Der Name des Dienstanbieter.
+    description: ''
+  optionalParameters:
+  - name: --delete-running-tasks
+    summary: Löschen Sie die Aufgabe auf Dienst Ebene, auch wenn die Aufgabe aktuell ausgeführt wird.
+    description: ''
+  - name: --yes -y
+    summary: Nicht zur Bestätigung auffordern
+    description: ''
+- uid: az_dms_task_list
+  name: az dms task list
+  summary: Listet die Aufgaben auf Dienst Ebene innerhalb einer DMS-Instanz auf. Einige Tasks haben möglicherweise den Status "unbekannt", was darauf hinweist, dass beim Abfragen des Status dieser Aufgabe ein Fehler aufgetreten ist.
+  description: ''
+  syntax: >-
+    az dms task list --name
+                     --resource-group
+                     [--task-type]
+  examples:
+  - summary: Listet alle Tasks innerhalb einer DMS-Instanz auf.
+    syntax: az dms task list -g myresourcegroup -n mydms
+  - summary: Listet nur die Aufgaben auf, die die Kompatibilität des OCI-Treibers innerhalb einer DMS-Instanz überprüfen.
+    syntax: az dms task list -g myresourcegroup -n mydms --task-type Service.Check.OCI
+  requiredParameters:
+  - isRequired: true
+    name: --name -n
+    summary: Der Name des Dienstanbieter.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  optionalParameters:
+  - name: --task-type
+    summary: Der Aufgabentyp, der aufgelistet werden soll. Die Liste der möglichen Typen finden Sie unter "AZ DMS Check-Status".
+    description: ''
+- uid: az_dms_task_show
+  name: az dms task show
+  summary: Zeigt die Details einer Aufgabe auf Dienst Ebene an. Verwenden Sie "--Expand", um weitere Informationen zu erhalten.
+  description: ''
+  syntax: >-
+    az dms task show --name
+                     --resource-group
+                     --service-name
+                     [--expand]
+  requiredParameters:
+  - isRequired: true
+    name: --name -n
+    summary: Der Name der Aufgabe. Eine DMS-Aufgabe ist die Aktivität, die auf Dienst Ebene bezogene Aufgaben ausführt. Einem Dienst können mehrere Aufgaben zugeordnet sein.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - isRequired: true
+    name: --service-name
+    summary: Der Name des Dienstanbieter.
+    description: ''
+  optionalParameters:
+  - name: --expand
+    summary: Erweitern Sie die Antwort, um weitere Details bereitzustellen. Verwenden Sie mit "Command", um weitere Details der Aufgabe anzuzeigen. Verwenden Sie mit "Output", um die Ergebnisse der Migration der Aufgabe anzuzeigen.
+    description: ''
+commands:
+- az_dms_task_cancel
+- az_dms_task_create
+- az_dms_task_delete
+- az_dms_task_list
+- az_dms_task_show
+globalParameters:
+- name: --debug
+  summary: Ausführlichkeit der Protokollierung erhöhen, um alle Debugprotokolle anzuzeigen.
+- name: --help -h
+  summary: Zeigen Sie diese Hilfemeldung an, und schließen Sie sie.
+- name: --only-show-errors
+  summary: Nur Fehler anzeigen und Warnungen unterdrücken.
+- name: --output -o
+  defaultValue: json
+  parameterValueGroup: json, jsonc, table, tsv
+  summary: Ausgabeformat.
+- name: --query
+  summary: JMESPath-Abfragezeichenfolge. Weitere Informationen und Beispiele finden Sie unter <a href="http://jmespath.org/">http://jmespath.org/</a>.
+- name: --verbose
+  summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
+metadata:
+  description: Aufgaben auf Dienst Ebene sind nicht Migrations Aufgaben, die auf Dienst Ebene ausgeführt werden. Dies ist normalerweise für administrative und Wartungsarbeiten, die für den Agent und die VM des Dienstanbieter gelten.
+  ms.openlocfilehash: 37b04f9cbf76b7940b25e198e5dcaef4bfe29190
+  ms.sourcegitcommit: 612554c029ba1f28d3a43fd22e743104a1a30ea0
+  ms.translationtype: MT
+  ms.contentlocale: de-DE
+  ms.lasthandoff: 04/07/2021
+  ms.locfileid: "106895234"

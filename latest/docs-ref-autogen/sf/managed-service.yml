@@ -1,0 +1,388 @@
+### YamlMime:AzureCLIGroup
+uid: az_sf_managed-service
+name: az sf managed-service
+summary: Dienste verwalten, die auf einem von Azure Service Fabric verwalteten Cluster ausgeführt werden. Unterstützt nur Arm-bereitgestellte Dienste.
+description: ''
+directCommands:
+- uid: az_sf_managed-service_create
+  name: az sf managed-service create
+  summary: Erstellen Sie einen neuen verwalteten Dienst in einem von Azure Service Fabric verwalteten Cluster.
+  description: ''
+  syntax: >-
+    az sf managed-service create --application
+                                 --cluster-name
+                                 --name
+                                 --resource-group
+                                 --service-type
+                                 --state {Stateful, Stateless}
+                                 [--activation-mode]
+                                 [--close-duration]
+                                 [--default-move-cost {High, Low, Medium, Zero}]
+                                 [--dns-name]
+                                 [--drop-source]
+                                 [--has-persisted-state {false, true}]
+                                 [--high-key]
+                                 [--instance-count]
+                                 [--keep-duration]
+                                 [--low-key]
+                                 [--min-inst-pct]
+                                 [--min-instance-count]
+                                 [--min-replica]
+                                 [--partition-count]
+                                 [--partition-names]
+                                 [--partition-scheme {Named, Singleton, UniformInt64Range}]
+                                 [--placement-constraints]
+                                 [--plcmt-time-limit]
+                                 [--quorum-loss-wait]
+                                 [--replica-restart-wait]
+                                 [--subscription]
+                                 [--tags]
+                                 [--target-replica]
+  examples:
+  - summary: Erstellen Sie einen neuen Zustands losen verwalteten Dienst "testService1" mit Instanzanzahl-1 (auf allen Knoten).
+    syntax: >-
+      az sf managed-service create -g testRG -c testCluster --application-name testApp --state stateless --service-name testService \
+        --service-type testStateless --instance-count -1 --partition-scheme singleton
+  - summary: Erstellen Sie einen neuen Zustands behafteten Dienst "testService2" mit einem Ziel von 5 Knoten.
+    syntax: >-
+      az sf managed-service create -g testRG -c testCluster --application-name testApp --state stateful --service-name testService2 --has-persisted-state \
+        --service-type testStatefulType --min-replica-set-size 3 --target-replica-set-size 5 --partition-scheme uniformint64range --partition-count 1 --low-key 0 --high-key 25
+  requiredParameters:
+  - isRequired: true
+    name: --application --application-name
+    summary: Geben Sie den Namen des Dienstanbieter an.
+    description: ''
+  - isRequired: true
+    name: --cluster-name -c
+    summary: Geben Sie den Namen des Clusters an. Wenn dieser nicht angegeben wird, entspricht er dem Ressourcengruppen Namen.
+    description: ''
+  - isRequired: true
+    name: --name --service-name
+    summary: Geben Sie den Namen des Dienstanbieter an.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Geben Sie den Namen der Ressourcengruppe an. Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - isRequired: true
+    name: --service-type --type
+    summary: Geben Sie den Diensttyp Namen der Anwendung an, der im Anwendungs Manifest vorhanden sein sollte.
+    description: ''
+  - isRequired: true
+    name: --state
+    parameterValueGroup: Stateful, Stateless
+    summary: Gibt an, ob der Dienst zustandslos oder Zustands behaftet ist.
+    description: ''
+  optionalParameters:
+  - name: --activation-mode --package-activation-mode --service-package-activation-mode
+    summary: Geben Sie den Aktivierungs Modus des Dienst Pakets an.
+    description: ''
+  - name: --close-duration --instance-close-delay-duration --instance-close-duration
+    summary: Geben Sie die Dauer in Sekunden an, die gewartet werden soll, bevor eine Zustands lose Instanz geschlossen wird, damit die aktiven Anforderungen ordnungsgemäß entladen werden. Dies wäre wirksam, wenn die Instanz während des Upgrades und Deaktivierens des Anwendungs-/clusterupgrades geschlossen wird. Der Endpunkt, der für diese Instanz verfügbar gemacht wird, wird vor dem Starten der Verzögerung entfernt, wodurch neue Verbindungen zu dieser Instanz verhindert werden.
+    description: ''
+  - name: --default-move-cost
+    parameterValueGroup: High, Low, Medium, Zero
+    summary: Geben Sie die Standardkosten für eine Verschiebung an. Höhere Kosten erhöhen die Wahrscheinlichkeit, dass die Cluster Ressourcen-Manager das Replikat verschieben, wenn versucht wird, den Cluster auszugleichen.
+    description: ''
+  - name: --dns-name --service-dns-name
+    summary: Geben Sie den DNS-Namen des Dienstanbieter an. Hierfür muss der DNS-Systemdienst in Service Fabric Cluster aktiviert werden.
+    description: ''
+  - name: --drop-source --drop-source-replica-on-move
+    summary: Bestimmt, ob das sekundäre Quell Replikat gelöscht wird, auch wenn das Ziel Replikat nicht den Build abgeschlossen hat Wenn das gewünschte Verhalten darin besteht, es so schnell wie möglich zu löschen, ist der Wert dieser Eigenschaft true, wenn nicht der Wert false.
+    description: ''
+  - name: --has-persisted-state
+    parameterValueGroup: false, true
+    summary: Bestimmt, ob es sich um einen persistenten Dienst handelt, der Zustände auf dem lokalen Datenträger speichert. Wenn dies der Fall ist, ist der Wert dieser Eigenschaft "true", wenn dies nicht der Fall ist.
+    description: ''
+  - name: --high-key
+    summary: Geben Sie die obere Grenze des Partitions Schlüsselbereichs an, der zwischen der Partition "count" aufgeteilt werden soll. Dies wird nur mit dem UniformInt64-Partitionsschema verwendet.
+    description: ''
+  - name: --instance-count
+    summary: Geben Sie die Anzahl der Instanzen für den Zustands losen Dienst an. Wenn-1 verwendet wird, bedeutet dies, dass es auf allen Knoten ausgeführt wird.
+    description: ''
+  - name: --keep-duration --stand-by-keep-duration --stand-by-replica-keep-duration
+    summary: 'Geben Sie die Definition an, wie lange Standby-Replikate gewartet werden sollen, bevor Sie entfernt werden. Dies wird im ISO 8601-Format "hh: mm: SS" dargestellt.'
+    description: ''
+  - name: --low-key
+    summary: Geben Sie die untere Grenze des Partitions Schlüsselbereichs an, der zwischen der Partition "count" aufgeteilt werden soll. Dies wird nur mit dem UniformInt64-Partitionsschema verwendet.
+    description: ''
+  - name: --min-inst-pct --min-instance-percentage
+    summary: 'Geben Sie den Mindestprozentsatz von InstanceCount an, der zum erfüllen der ensureavailability-Sicherheitsüberprüfung bei Vorgängen wie dem Upgrade-oder deaktivieren-Knoten erforderlich sein muss. Die tatsächlich verwendete Anzahl ist Max (mininstancecount, ceil (mininstanceprozent/100,0 \* InstanceCount)). Beachten Sie Folgendes: Wenn InstanceCount bei der mininstanceprozent-Berechnung auf-1 festgelegt ist, wird-1 zuerst in die Anzahl der Knoten konvertiert, auf denen die Instanzen gemäß den Platzierungs Einschränkungen für den Dienst platziert werden dürfen. Zulässige Werte sind 0 bis 100.'
+    description: ''
+  - name: --min-instance-count
+    summary: Geben Sie die Mindestanzahl von Instanzen an, die für die Erfüllung der ensureavailability-Sicherheitsüberprüfung bei Vorgängen wie Upgradeoder deaktivierter Knoten erforderlich sein müssen. Die tatsächlich verwendete Anzahl ist Max (mininstancecount, ceil (mininstanceprozent/100,0 \* InstanceCount)). Beachten Sie, dass, wenn InstanceCount auf-1 festgelegt ist, während der mininstancecount-Berechnung-1 zuerst in die Anzahl der Knoten konvertiert wird, für die die Instanzen gemäß den Platzierungs Einschränkungen für den Dienst platziert werden dürfen.
+    description: ''
+  - name: --min-replica --min-replica-set-size
+    summary: Legen Sie die minimale Replikat Gruppengröße für den Zustands behafteten Dienst fest.
+    description: ''
+  - name: --partition-count
+    summary: Geben Sie die Anzahl der Partitionen an. Diese wird nur mit dem UniformInt64-Partitionsschema verwendet.
+    description: ''
+  - name: --partition-names
+    summary: Geben Sie das Array für die Namen der Partitionen an. Dies wird nur mit einem benannten Partitionsschema verwendet.
+    description: ''
+  - name: --partition-scheme
+    defaultValue: singleton
+    parameterValueGroup: Named, Singleton, UniformInt64Range
+    summary: Geben Sie an, welches Partitionsschema verwendet werden soll. Singleton-Partitionen werden normalerweise verwendet, wenn für den Dienst kein zusätzliches Routing benötigt wird. UniformInt64 bedeutet, dass jede Partition einen Bereich von Int64-Schlüsseln besitzt. Der benannte Wert ist in der Regel für Dienste mit Daten, die in einer begrenzten Menge buckettiert werden können. Einige allgemeine Beispiele für Datenfelder, die als Schlüssel für namensbasierte Partitionen verwendet werden, sind Regionen, Postleitzahlen, Kundengruppen oder andere geschäftliche Grenzen.
+    description: ''
+  - name: --placement-constraints
+    summary: 'Geben Sie die Platzierungs Einschränkungen als Zeichenfolge an. Platzierungseinschränkungen sind boolesche Ausdrücke für Knoteneigenschaften und ermöglichen es, einen Dienst entsprechend den Dienstanforderungen auf bestimmte Knoten einzuschränken. Wenn Sie z. b. einen Dienst auf Knoten platzieren möchten, bei denen NodeType den Wert Blue hat, geben Sie Folgendes an: "nodecolor = = Blue".'
+    description: ''
+  - name: --plcmt-time-limit --service-placement-time-limit
+    summary: 'Geben Sie die Dauer an, für die Replikate inbuild bleiben können, bevor Sie melden, dass der Buildvorgang im ISO 8601-Format "hh: mm: SS" liegt.'
+    description: ''
+  - name: --quorum-loss-wait --quorum-loss-wait-duration
+    summary: 'Geben Sie die maximale Dauer an, für die eine Partition den Status des Quorum Verlusts aufweisen darf, dargestellt im ISO 8601-Format "hh: mm: SS".'
+    description: ''
+  - name: --replica-restart-wait --replica-restart-wait-duration
+    summary: 'Geben Sie die Dauer zwischen dem heruntergehen eines Replikats und dem Zeitpunkt der Erstellung eines neuen Replikats im ISO 8601-Format "hh: mm: SS" an.'
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  - name: --tags
+    summary: 'Durch Leerzeichen getrennte Tags: Key [= value] [key [= value]...]. Verwenden Sie "", um vorhandene Tags zu löschen.'
+    description: ''
+  - name: --target-replica --target-replica-set-size
+    summary: Geben Sie die Ziel Replikat Gruppengröße für den Zustands behafteten Dienst an.
+    description: ''
+- uid: az_sf_managed-service_delete
+  name: az sf managed-service delete
+  summary: Löschen Sie einen verwalteten Dienst.
+  description: ''
+  syntax: >-
+    az sf managed-service delete --application
+                                 --cluster-name
+                                 --name
+                                 --resource-group
+                                 [--subscription]
+  examples:
+  - summary: Löschen Sie den verwalteten Dienst.
+    syntax: az sf managed-service delete -g testRG -c testCluster --application-name testApp --service-name testService
+  requiredParameters:
+  - isRequired: true
+    name: --application --application-name
+    summary: Geben Sie den Namen des Dienstanbieter an.
+    description: ''
+  - isRequired: true
+    name: --cluster-name -c
+    summary: Geben Sie den Namen des Clusters an. Wenn dieser nicht angegeben wird, entspricht er dem Ressourcengruppen Namen.
+    description: ''
+  - isRequired: true
+    name: --name --service-name
+    summary: Geben Sie den Namen des Dienstanbieter an.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Geben Sie den Namen der Ressourcengruppe an. Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  optionalParameters:
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+- uid: az_sf_managed-service_list
+  name: az sf managed-service list
+  summary: Listet verwaltete Dienste einer bestimmten verwalteten Anwendung auf.
+  description: ''
+  syntax: >-
+    az sf managed-service list --application
+                               --cluster-name
+                               --resource-group
+                               [--query-examples]
+                               [--subscription]
+  examples:
+  - summary: Listet verwaltete Dienste auf.
+    syntax: az sf managed-service list -g testRG -c testCluster --application-name testApp
+  requiredParameters:
+  - isRequired: true
+    name: --application --application-name
+    summary: Geben Sie den Namen des Dienstanbieter an.
+    description: ''
+  - isRequired: true
+    name: --cluster-name -c
+    summary: Geben Sie den Namen des Clusters an. Wenn dieser nicht angegeben wird, entspricht er dem Ressourcengruppen Namen.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Geben Sie den Namen der Ressourcengruppe an. Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  optionalParameters:
+  - name: --query-examples
+    summary: Empfehlen Sie die jmespath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und Sie nach dem Abfrage Parameter in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positions Schlüsselwörter hinzufügen, um Vorschläge auf der Grundlage dieser Schlüsselwörter zu geben.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+- uid: az_sf_managed-service_show
+  name: az sf managed-service show
+  summary: Holen Sie sich einen Dienst.
+  description: ''
+  syntax: >-
+    az sf managed-service show --application
+                               --cluster-name
+                               --name
+                               --resource-group
+                               [--query-examples]
+                               [--subscription]
+  examples:
+  - summary: Anzeigen der Eigenschaften eines verwalteten Dienstanbieter in einem von Azure Service Fabric verwalteten Cluster.
+    syntax: az sf managed-service show -g testRG -c testCluster --application-name testApp --service-name testService
+  requiredParameters:
+  - isRequired: true
+    name: --application --application-name
+    summary: Geben Sie den Namen des Dienstanbieter an.
+    description: ''
+  - isRequired: true
+    name: --cluster-name -c
+    summary: Geben Sie den Namen des Clusters an. Wenn dieser nicht angegeben wird, entspricht er dem Ressourcengruppen Namen.
+    description: ''
+  - isRequired: true
+    name: --name --service-name
+    summary: Geben Sie den Namen des Dienstanbieter an.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Geben Sie den Namen der Ressourcengruppe an. Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  optionalParameters:
+  - name: --query-examples
+    summary: Empfehlen Sie die jmespath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und Sie nach dem Abfrage Parameter in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positions Schlüsselwörter hinzufügen, um Vorschläge auf der Grundlage dieser Schlüsselwörter zu geben.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+- uid: az_sf_managed-service_update
+  name: az sf managed-service update
+  summary: Aktualisieren Sie einen verwalteten Dienst.
+  description: ''
+  syntax: >-
+    az sf managed-service update --application
+                                 --cluster-name
+                                 --name
+                                 --resource-group
+                                 [--close-duration]
+                                 [--default-move-cost {High, Low, Medium, Zero}]
+                                 [--drop-source]
+                                 [--instance-count]
+                                 [--keep-duration]
+                                 [--min-inst-pct]
+                                 [--min-instance-count]
+                                 [--min-replica]
+                                 [--placement-constraints]
+                                 [--plcmt-time-limit]
+                                 [--quorum-loss-wait]
+                                 [--replica-restart-wait]
+                                 [--subscription]
+                                 [--tags]
+                                 [--target-replica]
+  examples:
+  - summary: Aktualisieren Sie den verwalteten Zustands losen Dienst.
+    syntax: >-
+      az sf managed-service update -g testRG -c testCluster --application-name testApp --service-name testService --min-instance-count 2 \
+        --min-instance-percentage 20 --instance-close-delay-duration '00:11:00'
+  - summary: Aktualisieren Sie den verwalteten Zustands behafteten Dienst.
+    syntax: >-
+      az sf managed-service update -g testRG -c testCluster --application-name testApp --service-name testService2 --service-placement-time-limit '00:11:00' \
+        --stand-by-replica-keep-duration '00:11:00' --replica-restart-wait-duration '00:11:00' --quorum-loss-wait-duration '00:11:00'
+  requiredParameters:
+  - isRequired: true
+    name: --application --application-name
+    summary: Geben Sie den Namen des Dienstanbieter an.
+    description: ''
+  - isRequired: true
+    name: --cluster-name -c
+    summary: Geben Sie den Namen des Clusters an. Wenn dieser nicht angegeben wird, entspricht er dem Ressourcengruppen Namen.
+    description: ''
+  - isRequired: true
+    name: --name --service-name
+    summary: Geben Sie den Namen des Dienstanbieter an.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Geben Sie den Namen der Ressourcengruppe an. Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  optionalParameters:
+  - name: --close-duration --instance-close-delay-duration --instance-close-duration
+    summary: Geben Sie die Dauer in Sekunden an, die gewartet werden soll, bevor eine Zustands lose Instanz geschlossen wird, damit die aktiven Anforderungen ordnungsgemäß entladen werden. Dies wäre wirksam, wenn die Instanz während des Upgrades und Deaktivierens des Anwendungs-/clusterupgrades geschlossen wird. Der Endpunkt, der für diese Instanz verfügbar gemacht wird, wird vor dem Starten der Verzögerung entfernt, wodurch neue Verbindungen zu dieser Instanz verhindert werden.
+    description: ''
+  - name: --default-move-cost
+    parameterValueGroup: High, Low, Medium, Zero
+    summary: Geben Sie die Standardkosten für eine Verschiebung an. Höhere Kosten erhöhen die Wahrscheinlichkeit, dass die Cluster Ressourcen-Manager das Replikat verschieben, wenn versucht wird, den Cluster auszugleichen.
+    description: ''
+  - name: --drop-source --drop-source-replica-on-move
+    summary: Bestimmt, ob das sekundäre Quell Replikat gelöscht wird, auch wenn das Ziel Replikat nicht den Build abgeschlossen hat Wenn das gewünschte Verhalten darin besteht, es so schnell wie möglich zu löschen, ist der Wert dieser Eigenschaft true, wenn nicht der Wert false.
+    description: ''
+  - name: --instance-count
+    summary: Geben Sie die Anzahl der Instanzen für den Zustands losen Dienst an. Wenn-1 verwendet wird, bedeutet dies, dass es auf allen Knoten ausgeführt wird.
+    description: ''
+  - name: --keep-duration --stand-by-keep-duration --stand-by-replica-keep-duration
+    summary: 'Geben Sie die Definition an, wie lange Standby-Replikate gewartet werden sollen, bevor Sie entfernt werden. Dies wird im ISO 8601-Format "hh: mm: SS" dargestellt.'
+    description: ''
+  - name: --min-inst-pct --min-instance-percentage
+    summary: 'Geben Sie den Mindestprozentsatz von InstanceCount an, der zum erfüllen der ensureavailability-Sicherheitsüberprüfung bei Vorgängen wie dem Upgrade-oder deaktivieren-Knoten erforderlich sein muss. Die tatsächlich verwendete Anzahl ist Max (mininstancecount, ceil (mininstanceprozent/100,0 \* InstanceCount)). Beachten Sie Folgendes: Wenn InstanceCount bei der mininstanceprozent-Berechnung auf-1 festgelegt ist, wird-1 zuerst in die Anzahl der Knoten konvertiert, auf denen die Instanzen gemäß den Platzierungs Einschränkungen für den Dienst platziert werden dürfen. Zulässige Werte sind 0 bis 100.'
+    description: ''
+  - name: --min-instance-count
+    summary: Geben Sie die Mindestanzahl von Instanzen an, die für die Erfüllung der ensureavailability-Sicherheitsüberprüfung bei Vorgängen wie Upgradeoder deaktivierter Knoten erforderlich sein müssen. Die tatsächlich verwendete Anzahl ist Max (mininstancecount, ceil (mininstanceprozent/100,0 \* InstanceCount)). Beachten Sie, dass, wenn InstanceCount auf-1 festgelegt ist, während der mininstancecount-Berechnung-1 zuerst in die Anzahl der Knoten konvertiert wird, für die die Instanzen gemäß den Platzierungs Einschränkungen für den Dienst platziert werden dürfen.
+    description: ''
+  - name: --min-replica --min-replica-set-size
+    summary: Legen Sie die minimale Replikat Gruppengröße für den Zustands behafteten Dienst fest.
+    description: ''
+  - name: --placement-constraints
+    summary: 'Geben Sie die Platzierungs Einschränkungen als Zeichenfolge an. Platzierungseinschränkungen sind boolesche Ausdrücke für Knoteneigenschaften und ermöglichen es, einen Dienst entsprechend den Dienstanforderungen auf bestimmte Knoten einzuschränken. Wenn Sie z. b. einen Dienst auf Knoten platzieren möchten, bei denen NodeType den Wert Blue hat, geben Sie Folgendes an: "nodecolor = = Blue".'
+    description: ''
+  - name: --plcmt-time-limit --service-placement-time-limit
+    summary: 'Geben Sie die Dauer an, für die Replikate inbuild bleiben können, bevor Sie melden, dass der Buildvorgang im ISO 8601-Format "hh: mm: SS" liegt.'
+    description: ''
+  - name: --quorum-loss-wait --quorum-loss-wait-duration
+    summary: 'Geben Sie die maximale Dauer an, für die eine Partition den Status des Quorum Verlusts aufweisen darf, dargestellt im ISO 8601-Format "hh: mm: SS".'
+    description: ''
+  - name: --replica-restart-wait --replica-restart-wait-duration
+    summary: 'Geben Sie die Dauer zwischen dem heruntergehen eines Replikats und dem Zeitpunkt der Erstellung eines neuen Replikats im ISO 8601-Format "hh: mm: SS" an.'
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  - name: --tags
+    summary: 'Durch Leerzeichen getrennte Tags: Key [= value] [key [= value]...]. Verwenden Sie "", um vorhandene Tags zu löschen.'
+    description: ''
+  - name: --target-replica --target-replica-set-size
+    summary: Geben Sie die Ziel Replikat Gruppengröße für den Zustands behafteten Dienst an.
+    description: ''
+commands:
+- az_sf_managed-service_correlation-scheme
+- az_sf_managed-service_correlation-scheme_create
+- az_sf_managed-service_correlation-scheme_delete
+- az_sf_managed-service_correlation-scheme_update
+- az_sf_managed-service_create
+- az_sf_managed-service_delete
+- az_sf_managed-service_list
+- az_sf_managed-service_load-metrics
+- az_sf_managed-service_load-metrics_create
+- az_sf_managed-service_load-metrics_delete
+- az_sf_managed-service_load-metrics_update
+- az_sf_managed-service_show
+- az_sf_managed-service_update
+globalParameters:
+- name: --debug
+  summary: Ausführlichkeit der Protokollierung erhöhen, um alle Debugprotokolle anzuzeigen.
+- name: --help -h
+  summary: Zeigen Sie diese Hilfemeldung an, und schließen Sie sie.
+- name: --only-show-errors
+  summary: Nur Fehler anzeigen und Warnungen unterdrücken.
+- name: --output -o
+  defaultValue: json
+  parameterValueGroup: json, jsonc, table, tsv
+  summary: Ausgabeformat.
+- name: --query
+  summary: JMESPath-Abfragezeichenfolge. Weitere Informationen und Beispiele finden Sie unter <a href="http://jmespath.org/">http://jmespath.org/</a>.
+- name: --verbose
+  summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
+metadata:
+  description: Dienste verwalten, die auf einem von Azure Service Fabric verwalteten Cluster ausgeführt werden. Unterstützt nur Arm-bereitgestellte Dienste.
+  ms.openlocfilehash: 5bb7268c3a5b01043b22e56a1696f2d4eb872b13
+  ms.sourcegitcommit: 612554c029ba1f28d3a43fd22e743104a1a30ea0
+  ms.translationtype: MT
+  ms.contentlocale: de-DE
+  ms.lasthandoff: 04/07/2021
+  ms.locfileid: "106931811"

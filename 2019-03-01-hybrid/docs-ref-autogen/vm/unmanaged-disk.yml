@@ -1,0 +1,181 @@
+### YamlMime:AzureCLIGroup
+uid: az_vm_unmanaged-disk
+name: az vm unmanaged-disk
+summary: Verwalten Sie die nicht verwalteten Datenträger, die an einen virtuellen Computer angefügt sind.
+description: >-
+  Azure Virtual Machines Verwenden von Datenträgern als Ort zum Speichern eines Betriebssystems, von Anwendungen und von Daten. Alle virtuellen Azure-Computer verfügen über mindestens zwei Datenträger: einen Betriebssystemdatenträger und einen temporären Datenträger. Der Betriebssystem-Datenträger wird aus einem Image erstellt. Sowohl der Betriebssystem-Datenträger als auch das Image sind virtuelle Festplatten (VHDs), die im Azure-Speicherkonto gespeichert sind. Virtuelle Computer können auch über einen oder mehrere Datenträger verfügen, die ebenfalls als VHDs gespeichert werden.
+
+
+  Verwaltete und nicht verwaltete Azure-Datenträger haben eine maximale Größe von 4.095 GB (mit Ausnahme größerer Datenträger in der Vorschauversion). Nicht verwaltete Azure-Datenträger verfügen auch über eine maximale Kapazität von 4.095 GB.
+
+
+  Weitere Informationen finden Sie unter
+
+  - Azure Disks – https://docs.microsoft.com/azure/virtual-machines/linux/about-disks-and-vhds und https://docs.microsoft.com/azure/virtual-machines/windows/about-disks-and-vhds .
+
+  - Größere Managed Disks in Public Preview : https://azure.microsoft.com/blog/introducing-the-public-preview-of-larger-managed-disks-sizes/
+
+  - SSD Ultra Managed Disks in Public Preview - https://docs.microsoft.com/azure/virtual-machines/windows/disks-ultra-ssd .
+directCommands:
+- uid: az_vm_unmanaged-disk_attach
+  name: az vm unmanaged-disk attach
+  summary: Fügen Sie einen nicht verwalteten persistenten Datenträger an einen virtuellen Computer an.
+  description: Dies ermöglicht die Beibehaltung von Daten, auch wenn der virtuelle Computer aufgrund einer Wartung oder Größenveränderung erneut zur Anwendung kommt.
+  syntax: >-
+    az vm unmanaged-disk attach --resource-group
+                                --vm-name
+                                [--caching {None, ReadOnly, ReadWrite}]
+                                [--lun]
+                                [--name]
+                                [--new]
+                                [--size-gb]
+                                [--subscription]
+                                [--vhd-uri]
+  examples:
+  - summary: Fügen Sie einen neuen nicht verwalteten Datenträger mit Standardgröße (1023 GB) an einen virtuellen Computer an.
+    syntax: az vm unmanaged-disk attach -g MyResourceGroup --vm-name MyVm --new
+  - summary: Fügen Sie einen vorhandenen Datenträger als nicht verwaltet an einen virtuellen Computer an.
+    syntax: >-
+      az vm unmanaged-disk attach -g MyResourceGroup --vm-name MyVm --name MyDataDisk \
+          --vhd-uri https://mystorage.blob.core.windows.net/vhds/d1.vhd
+  - summary: Fügen Sie einen nicht verwalteten persistenten Datenträger an einen virtuellen Computer an. (automatisch generiert)
+    syntax: az vm unmanaged-disk attach --name MyDataDisk --new --resource-group MyResourceGroup --size-gb 50 --vm-name MyVm
+  requiredParameters:
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - isRequired: true
+    name: --vm-name
+    summary: Der Name des virtuellen Computers. Sie können die Standardeinstellung mit `az configure --defaults vm=<name>` konfigurieren.
+    description: ''
+  optionalParameters:
+  - name: --caching
+    parameterValueGroup: None, ReadOnly, ReadWrite
+    summary: Datenträgerzwischenspeicherungsrichtlinie.
+    description: ''
+  - name: --lun
+    summary: 0-basierte logische Einheitennummer (LOGICAL Unit Number, LUN). Der maximale Wert hängt von der Größe des virtuellen Computers ab.
+    description: ''
+  - name: --name -n
+    summary: Der Name des Datenträgers.
+    description: ''
+  - name: --new
+    summary: Erstellen Sie einen neuen Datenträger.
+    description: ''
+  - name: --size-gb -z
+    defaultValue: "1023"
+    summary: 'Größe in GB. Maximale Größe: 4.095 GB (bestimmte Vorschaudatenträger können größer sein).'
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+  - name: --vhd-uri
+    summary: 'Virtueller Festplatten-URI. Beispiel: https://mystorage.blob.core.windows.net/vhds/d1.vhd.'
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/vm/_help.py
+- uid: az_vm_unmanaged-disk_detach
+  name: az vm unmanaged-disk detach
+  summary: Trennen eines nicht verwalteten Datenträgers von einem virtuellen Computer
+  description: ''
+  syntax: >-
+    az vm unmanaged-disk detach --name
+                                --resource-group
+                                --vm-name
+                                [--subscription]
+  examples:
+  - summary: Trennen eines Datenträgers von einem virtuellen Computer
+    syntax: az vm unmanaged-disk detach -g MyResourceGroup --vm-name MyVm -n disk_name
+  requiredParameters:
+  - isRequired: true
+    name: --name -n
+    summary: Der Name des Datenträgers.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - isRequired: true
+    name: --vm-name
+    summary: Der Name des virtuellen Computers. Sie können die Standardeinstellung mit `az configure --defaults vm=<name>` konfigurieren.
+    description: ''
+  optionalParameters:
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/vm/_help.py
+- uid: az_vm_unmanaged-disk_list
+  name: az vm unmanaged-disk list
+  summary: Auflisten nicht verwalteter Datenträger eines virtuellen Computers.
+  description: ''
+  syntax: >-
+    az vm unmanaged-disk list --name
+                              --resource-group
+                              [--query-examples]
+                              [--subscription]
+  examples:
+  - summary: Listen Sie die nicht verwalteten Datenträger auf, die an einen virtuellen Computer angefügt sind.
+    syntax: az vm unmanaged-disk list -g MyResourceGroup --vm-name MyVm
+  - summary: Listen Sie nicht verwaltete Datenträger mit Namen auf, die die Zeichenfolge "data_disk" enthalten.
+    syntax: >-
+      az vm unmanaged-disk list -g MyResourceGroup --vm-name MyVm \
+          --query "[?contains(name, 'data_disk')]" --output table
+  requiredParameters:
+  - isRequired: true
+    name: --name --vm-name -n
+    summary: Der Name des virtuellen Computers. Sie können die Standardeinstellung mit `az configure --defaults vm=<name>` konfigurieren.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  optionalParameters:
+  - name: --query-examples
+    summary: Empfehlen Sie die JMESPath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und nach dem Parameter --query in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positionsschlüsselwörter hinzufügen, damit wir basierend auf diesen Schlüsselwörtern Vorschläge geben können.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/vm/_help.py
+commands:
+- az_vm_unmanaged-disk_attach
+- az_vm_unmanaged-disk_detach
+- az_vm_unmanaged-disk_list
+globalParameters:
+- name: --debug
+  summary: Ausführlichkeit der Protokollierung erhöhen, um alle Debugprotokolle anzuzeigen.
+- name: --help -h
+  summary: Zeigen Sie diese Hilfemeldung an, und schließen Sie sie.
+- name: --only-show-errors
+  summary: Nur Fehler anzeigen und Warnungen unterdrücken.
+- name: --output -o
+  defaultValue: json
+  parameterValueGroup: json, jsonc, table, tsv
+  summary: Ausgabeformat.
+- name: --query
+  summary: JMESPath-Abfragezeichenfolge. Weitere Informationen und Beispiele finden Sie unter <a href="http://jmespath.org/">http://jmespath.org/</a>.
+- name: --verbose
+  summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
+metadata:
+  doc_source_url_repo: https://github.com/Azure/azure-cli/blob/dev/
+  ms.date: 04/15/2021
+  description: >-
+    Azure Virtual Machines Verwenden von Datenträgern als Ort zum Speichern eines Betriebssystems, von Anwendungen und von Daten. Alle virtuellen Azure-Computer verfügen über mindestens zwei Datenträger: einen Betriebssystemdatenträger und einen temporären Datenträger. Der Betriebssystem-Datenträger wird aus einem Image erstellt. Sowohl der Betriebssystem-Datenträger als auch das Image sind virtuelle Festplatten (VHDs), die im Azure-Speicherkonto gespeichert sind. Virtuelle Computer können auch über einen oder mehrere Datenträger verfügen, die ebenfalls als VHDs gespeichert werden.
+
+
+    Verwaltete und nicht verwaltete Azure-Datenträger haben eine maximale Größe von 4.095 GB (mit Ausnahme größerer Datenträger in der Vorschauversion). Nicht verwaltete Azure-Datenträger verfügen auch über eine maximale Kapazität von 4.095 GB.
+
+
+    Weitere Informationen finden Sie unter
+
+    - Azure Disks – https://docs.microsoft.com/azure/virtual-machines/linux/about-disks-and-vhds und https://docs.microsoft.com/azure/virtual-machines/windows/about-disks-and-vhds .
+
+    - Größere Managed Disks in Public Preview : https://azure.microsoft.com/blog/introducing-the-public-preview-of-larger-managed-disks-sizes/
+
+    - SSD Ultra Managed Disks in Public Preview - https://docs.microsoft.com/azure/virtual-machines/windows/disks-ultra-ssd .
+  ms.openlocfilehash: 638e06e2fc6971fc1d9e4769ac784061d7577740
+  ms.sourcegitcommit: 47edf65705fcb047974356c30962819ea5172832
+  ms.translationtype: MT
+  ms.contentlocale: de-DE
+  ms.lasthandoff: 04/16/2021
+  ms.locfileid: "107552145"

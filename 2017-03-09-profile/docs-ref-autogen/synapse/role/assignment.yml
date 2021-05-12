@@ -1,0 +1,308 @@
+### YamlMime:AzureCLIGroup
+uid: az_synapse_role_assignment
+name: az synapse role assignment
+summary: Verwalten Sie die Rollenzuweisungen von Synapse.
+description: ''
+directCommands:
+- uid: az_synapse_role_assignment_create
+  name: az synapse role assignment create
+  summary: Erstellen Sie eine Rollenzuweisung.
+  description: ''
+  syntax: >-
+    az synapse role assignment create --role
+                                      --workspace-name
+                                      [--assignee]
+                                      [--assignee-object-id]
+                                      [--assignee-principal-type {Group, ServicePrincipal, User}]
+                                      [--assignment-id]
+                                      [--item]
+                                      [--item-type {bigDataPools, credentials, integrationRuntimes, linkedServices}]
+                                      [--scope]
+                                      [--subscription]
+  examples:
+  - summary: Erstellen Sie eine Rollenzuweisung mithilfe des Dienst Prinzipal namens.
+    syntax: >-
+      az synapse role assignment create --workspace-name testsynapseworkspace \
+
+      --role "Synapse Administrator" --assignee sp_name
+  - summary: Erstellen Sie eine Rollenzuweisung mithilfe des Benutzer Prinzipal namens.
+    syntax: >-
+      az synapse role assignment create --workspace-name testsynapseworkspace \
+
+      --role "Synapse Administrator" --assignee username@contoso.com
+  - summary: Erstellen Sie eine Rollenzuweisung mithilfe der ObjectID des Benutzers, der Gruppe oder des Dienst Prinzipals.
+    syntax: >-
+      az synapse role assignment create --workspace-name testsynapseworkspace \
+
+      --role "Synapse Administrator" --assignee 00000000-0000-0000-0000-000000000000
+  - summary: Erstellen Sie eine Rollenzuweisung im Bereich.
+    syntax: >-
+      az synapse role assignment create --workspace-name testsynapseworkspace \
+
+      --scope "workspaces/{workspaceName}" --role "Synapse Administrator" --assignee username@contoso.com
+  - summary: Erstellen Sie eine Rollenzuweisung im Bereich, die eine Kombination aus Elementtyp und Elementname.
+    syntax: >-
+      az synapse role assignment create --workspace-name testsynapseworkspace \
+
+      --item-type "bigDataPools" --item "bigDataPoolName" --role "Synapse Administrator" \
+
+      --assignee username@contoso.com
+  requiredParameters:
+  - isRequired: true
+    name: --role
+    summary: Der Name/die ID der Rolle, die dem Prinzipal zugewiesen wird.
+    description: ''
+  - isRequired: true
+    name: --workspace-name
+    summary: Der Name des Arbeitsbereichs.
+    description: ''
+  optionalParameters:
+  - name: --assignee
+    summary: 'Stellt einen Benutzer-oder Dienst Prinzipal dar. Unterstütztes Format: Objekt-ID, Benutzer Anmelde Name oder Dienst Prinzipal Name.'
+    description: ''
+  - name: --assignee-object-id
+    summary: Verwenden Sie diesen Parameter anstelle von "--Assignee", um Graph-API Aufruf bei unzureichenden Berechtigungen zu umgehen. Dieser Parameter funktioniert nur mit Objekt-IDs für Benutzer, Gruppen, Dienst Prinzipale und verwaltete Identitäten. Verwenden Sie für verwaltete Identitäten die Prinzipal-ID. Verwenden Sie für Dienst Prinzipale die Objekt-ID und nicht die APP-ID.
+    description: ''
+  - name: --assignee-principal-type --assignee-type
+    parameterValueGroup: Group, ServicePrincipal, User
+    summary: Verwenden Sie with--Assignee-Object-ID, um Fehler zu vermeiden, die durch die propagierungs Latenz in Aad Graph verursacht werden.
+    description: ''
+  - name: --assignment-id
+    summary: Benutzerdefinierte Rollen Zuweisungs-ID im GUID-Format, falls nicht angegeben, wird die Zuweisungs-ID zufällig generiert.
+    description: ''
+  - name: --item
+    summary: Das Element, das im Arbeitsbereich Zugriff gewährt hat. Verwenden von with-Item-Type zum Kombinieren des Bereichs der Zuweisung.
+    description: ''
+  - name: --item-type
+    parameterValueGroup: bigDataPools, credentials, integrationRuntimes, linkedServices
+    summary: Der Elementtyp, der im Arbeitsbereich Zugriff gewährt hat. Verwenden von with-Item, um den Geltungsbereich der Zuweisung zu kombinieren.
+    description: ''
+  - name: --scope
+    summary: Mit einem Bereich werden die Ressourcen oder Artefakte definiert, für die der Zugriff gilt. Synapse unterstützt hierarchische Bereiche. Berechtigungen, die auf einem Bereich höherer Ebene erteilt wurden, werden auf Objekte auf niedrigerer Ebene vererbt. In Synapse RBAC ist der Bereich auf der obersten Ebene der Arbeitsbereich. Durch das Zuweisen einer Rolle auf Arbeitsbereichsebene werden die zugehörigen Berechtigungen allen entsprechenden Objekten im Arbeitsbereich erteilt.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/synapse/_help.py
+- uid: az_synapse_role_assignment_delete
+  name: az synapse role assignment delete
+  summary: Löschen von Rollenzuweisungen des Arbeitsbereichs.
+  description: ''
+  syntax: >-
+    az synapse role assignment delete --workspace-name
+                                      [--assignee]
+                                      [--assignee-object-id]
+                                      [--ids]
+                                      [--item]
+                                      [--item-type {bigDataPools, credentials, integrationRuntimes, linkedServices}]
+                                      [--role]
+                                      [--scope]
+                                      [--subscription]
+                                      [--yes]
+  examples:
+  - summary: Löschen von Rollenzuweisungen nach Rolle und Assignee.
+    syntax: >-
+      az synapse role assignment delete --workspace-name testsynapseworkspace \
+
+      --role "Synapse Administrator" --assignee sp_name
+  - summary: Löschen von Rollenzuweisungen nach Rollen-ID/Name.
+    syntax: >-
+      az synapse role assignment delete --workspace-name testsynapseworkspace \
+
+      --role "Synapse Administrator"
+  - summary: Löschen von Rollenzuweisungen nach Dienst Prinzipal Namen.
+    syntax: >-
+      az synapse role assignment delete --workspace-name testsynapseworkspace \
+
+      --assignee sp_name
+  - summary: Löschen von Rollenzuweisungen nach Benutzer Prinzipal Namen.
+    syntax: >-
+      az synapse role assignment delete --workspace-name testsynapseworkspace \
+
+      --assignee username@contoso.com
+  - summary: Löschen von Rollenzuweisungen nach ObjectID des Benutzers, der Gruppe oder des Dienst Prinzipals.
+    syntax: >-
+      az synapse role assignment delete --workspace-name testsynapseworkspace \
+
+      --assignee 00000000-0000-0000-0000-000000000001
+  - summary: Löschen von Rollenzuweisungen nach IDs.
+    syntax: >-
+      az synapse role assignment delete --workspace-name testsynapseworkspace \
+
+      --ids 10000000-0000-0000-0000-10000000-10000000-0000-0000-0000-10000000
+  - summary: Löschen von Rollenzuweisungen nach Gültigkeitsbereich.
+    syntax: >-
+      az synapse role assignment delete --workspace-name testsynapseworkspace \
+
+      --scope "workspaces/testsynapseworkspace/linkedServices/testlinkedServices"
+  requiredParameters:
+  - isRequired: true
+    name: --workspace-name
+    summary: Der Name des Arbeitsbereichs.
+    description: ''
+  optionalParameters:
+  - name: --assignee
+    summary: 'Stellt einen Benutzer-oder Dienst Prinzipal dar. Unterstütztes Format: Objekt-ID, Benutzer Anmelde Name oder Dienst Prinzipal Name.'
+    description: ''
+  - name: --assignee-object-id
+    summary: Verwenden Sie diesen Parameter anstelle von "--Assignee", um Graph-API Aufruf bei unzureichenden Berechtigungen zu umgehen. Dieser Parameter funktioniert nur mit Objekt-IDs für Benutzer, Gruppen, Dienst Prinzipale und verwaltete Identitäten. Verwenden Sie für verwaltete Identitäten die Prinzipal-ID. Verwenden Sie für Dienst Prinzipale die Objekt-ID und nicht die APP-ID.
+    description: ''
+  - name: --ids
+    summary: Durch Leerzeichen getrennte Rollen Zuweisungs-IDs. Sie sollten "--Role" oder "--Assignee" nicht angeben, wenn "--IDs" bereitgestellt wird.
+    description: ''
+  - name: --item
+    summary: Das Element, das im Arbeitsbereich Zugriff gewährt hat. Verwenden von with-Item-Type zum Kombinieren des Bereichs der Zuweisung. Verwenden Sie AZ Role-Zuweisung mit Filterbedingung vor dem Ausführen des Löschvorgangs, um eindeutig zu erkennen, welche Zuweisungen gelöscht werden.
+    description: ''
+  - name: --item-type
+    parameterValueGroup: bigDataPools, credentials, integrationRuntimes, linkedServices
+    summary: Der Elementtyp, der im Arbeitsbereich Zugriff gewährt hat. Verwenden von with-Item, um den Geltungsbereich der Zuweisung zu kombinieren. Verwenden Sie AZ Role-Zuweisung mit Filterbedingung vor dem Ausführen des Löschvorgangs, um eindeutig zu erkennen, welche Zuweisungen gelöscht werden.
+    description: ''
+  - name: --role
+    summary: Der Name/die ID der Rolle, die dem Prinzipal zugewiesen wird.
+    description: ''
+  - name: --scope
+    summary: Mit einem Bereich werden die Ressourcen oder Artefakte definiert, für die der Zugriff gilt. Synapse unterstützt hierarchische Bereiche. Berechtigungen, die auf einem Bereich höherer Ebene erteilt wurden, werden auf Objekte auf niedrigerer Ebene vererbt. In Synapse RBAC ist der Bereich auf der obersten Ebene der Arbeitsbereich. Verwenden Sie AZ Role-Zuweisung mit Filterbedingung vor dem Ausführen des Löschvorgangs, um eindeutig zu erkennen, welche Zuweisungen gelöscht werden.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  - name: --yes -y
+    summary: Nicht zur Bestätigung auffordern
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/synapse/_help.py
+- uid: az_synapse_role_assignment_list
+  name: az synapse role assignment list
+  summary: Auflisten von Rollenzuweisungen.
+  description: ''
+  syntax: >-
+    az synapse role assignment list --workspace-name
+                                    [--assignee]
+                                    [--assignee-object-id]
+                                    [--item]
+                                    [--item-type {bigDataPools, credentials, integrationRuntimes, linkedServices}]
+                                    [--query-examples]
+                                    [--role]
+                                    [--scope]
+                                    [--subscription]
+  examples:
+  - summary: Auflisten von Rollenzuweisungen.
+    syntax: az synapse role assignment list --workspace-name testsynapseworkspace
+  - summary: Listet Rollenzuweisungen nach Rollen-ID/Name auf.
+    syntax: >-
+      az synapse role assignment list --workspace-name testsynapseworkspace \
+
+      --role "Synapse Apache Spark Administrator"
+  - summary: Listet die Rollenzuweisungen nach Assignee auf.
+    syntax: >-
+      az synapse role assignment list --workspace-name testsynapseworkspace \
+
+      --assignee sp_name
+  - summary: Listet die Rollenzuweisungen nach ObjectID des Benutzers, der Gruppe oder des Dienst Prinzipals auf.
+    syntax: >-
+      az synapse role assignment list --workspace-name testsynapseworkspace \
+
+      --assignee-object-id 00000000-0000-0000-0000-000000000000
+  - summary: Auflisten von Rollenzuweisungen nach Bereich.
+    syntax: >-
+      az synapse role assignment list --workspace-name testsynapseworkspace \
+
+      --scope "workspaces/{workspaceName}"
+  - summary: Auflisten von Rollenzuweisungen nach Elementtyp und Elementname.
+    syntax: >-
+      az synapse role assignment list --workspace-name testsynapseworkspace \
+
+      --item-type "bigDataPools" --item "bigDataPoolName"
+  requiredParameters:
+  - isRequired: true
+    name: --workspace-name
+    summary: Der Name des Arbeitsbereichs.
+    description: ''
+  optionalParameters:
+  - name: --assignee
+    summary: 'Stellt einen Benutzer-oder Dienst Prinzipal dar. Unterstütztes Format: Objekt-ID, Benutzer Anmelde Name oder Dienst Prinzipal Name.'
+    description: ''
+  - name: --assignee-object-id
+    summary: Verwenden Sie diesen Parameter anstelle von "--Assignee", um Graph-API Aufruf bei unzureichenden Berechtigungen zu umgehen. Dieser Parameter funktioniert nur mit Objekt-IDs für Benutzer, Gruppen, Dienst Prinzipale und verwaltete Identitäten. Verwenden Sie für verwaltete Identitäten die Prinzipal-ID. Verwenden Sie für Dienst Prinzipale die Objekt-ID und nicht die APP-ID.
+    description: ''
+  - name: --item
+    summary: Das Element, das im Arbeitsbereich Zugriff gewährt hat. Verwenden von with-Item-Type zum Kombinieren des Bereichs der Zuweisung.
+    description: ''
+  - name: --item-type
+    parameterValueGroup: bigDataPools, credentials, integrationRuntimes, linkedServices
+    summary: Der Elementtyp, der im Arbeitsbereich Zugriff gewährt hat. Verwenden von with-Item, um den Geltungsbereich der Zuweisung zu kombinieren.
+    description: ''
+  - name: --query-examples
+    summary: Empfehlen Sie die jmespath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und Sie nach dem Abfrage Parameter in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positions Schlüsselwörter hinzufügen, um Vorschläge auf der Grundlage dieser Schlüsselwörter zu geben.
+    description: ''
+  - name: --role
+    summary: Der Name/die ID der Rolle, die dem Prinzipal zugewiesen wird.
+    description: ''
+  - name: --scope
+    summary: Mit einem Bereich werden die Ressourcen oder Artefakte definiert, für die der Zugriff gilt. Synapse unterstützt hierarchische Bereiche. Berechtigungen, die auf einem Bereich höherer Ebene erteilt wurden, werden auf Objekte auf niedrigerer Ebene vererbt. In Synapse RBAC ist der Bereich auf der obersten Ebene der Arbeitsbereich. Durch das Zuweisen einer Rolle auf Arbeitsbereichsebene werden die zugehörigen Berechtigungen allen entsprechenden Objekten im Arbeitsbereich erteilt.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/synapse/_help.py
+- uid: az_synapse_role_assignment_show
+  name: az synapse role assignment show
+  summary: Sie erhalten eine Rollenzuweisung anhand der ID.
+  description: ''
+  syntax: >-
+    az synapse role assignment show --id
+                                    --workspace-name
+                                    [--query-examples]
+                                    [--subscription]
+  examples:
+  - summary: Sie erhalten eine Rollenzuweisung anhand der ID.
+    syntax: >-
+      az synapse role assignment show --workspace-name testsynapseworkspace \
+
+      --id 00000000-0000-0000-0000-000000000000
+  requiredParameters:
+  - isRequired: true
+    name: --id
+    summary: ID der Rolle, die dem Prinzipal zugewiesen wird.
+    description: ''
+  - isRequired: true
+    name: --workspace-name
+    summary: Der Name des Arbeitsbereichs.
+    description: ''
+  optionalParameters:
+  - name: --query-examples
+    summary: Empfehlen Sie die jmespath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und Sie nach dem Abfrage Parameter in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positions Schlüsselwörter hinzufügen, um Vorschläge auf der Grundlage dieser Schlüsselwörter zu geben.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/synapse/_help.py
+commands:
+- az_synapse_role_assignment_create
+- az_synapse_role_assignment_delete
+- az_synapse_role_assignment_list
+- az_synapse_role_assignment_show
+globalParameters:
+- name: --debug
+  summary: Ausführlichkeit der Protokollierung erhöhen, um alle Debugprotokolle anzuzeigen.
+- name: --help -h
+  summary: Zeigen Sie diese Hilfemeldung an, und schließen Sie sie.
+- name: --only-show-errors
+  summary: Nur Fehler anzeigen und Warnungen unterdrücken.
+- name: --output -o
+  defaultValue: json
+  parameterValueGroup: json, jsonc, table, tsv
+  summary: Ausgabeformat.
+- name: --query
+  summary: JMESPath-Abfragezeichenfolge. Weitere Informationen und Beispiele finden Sie unter <a href="http://jmespath.org/">http://jmespath.org/</a>.
+- name: --verbose
+  summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
+metadata:
+  doc_source_url_repo: https://github.com/Azure/azure-cli/blob/dev/
+  ms.date: 04/08/2021
+  description: Verwalten Sie die Rollenzuweisungen von Synapse.
+  ms.openlocfilehash: 773819c7b2e84a5e194ab044be5ad2fef21be960
+  ms.sourcegitcommit: b7481a4363417987865106c343ef8e60c69c9170
+  ms.translationtype: MT
+  ms.contentlocale: de-DE
+  ms.lasthandoff: 04/09/2021
+  ms.locfileid: "107232157"

@@ -1,0 +1,603 @@
+### YamlMime:AzureCLIGroup
+uid: az_storage_container
+name: az storage container
+summary: Verwalten von Blob Storage-Containern.
+description: 'Geben Sie einen der folgenden Authentifizierungsparameter für Ihre Befehle an: --auth-mode, --account-key, --connection-string, --sas-token. Sie können auch entsprechende Umgebungsvariablen verwenden, um Ihre Anmeldeinformationen für die Authentifizierung zu speichern, z. B. AZURE_STORAGE_KEY, AZURE_STORAGE_CONNECTION_STRING und AZURE_STORAGE_SAS_TOKEN.'
+directCommands:
+- uid: az_storage_container_create
+  name: az storage container create
+  summary: Erstellen Sie einen Container in einem Speicherkonto.
+  description: Standardmäßig sind Containerdaten für den Kontobesitzer privat ("off"). Verwenden Sie "blob", um den öffentlichen Lesezugriff für Blobs zuzulassen. Verwenden Sie "container", um öffentlichen Lese- und Listenzugriff auf den gesamten Container zu ermöglichen. Sie können --public-access mit `az storage container set-permission -n CONTAINER_NAME --public-access blob/container/off` konfigurieren.
+  syntax: >-
+    az storage container create --name
+                                [--account-key]
+                                [--account-name]
+                                [--auth-mode {key, login}]
+                                [--connection-string]
+                                [--default-encryption-scope]
+                                [--fail-on-exist]
+                                [--metadata]
+                                [--prevent-encryption-scope-override {false, true}]
+                                [--public-access {blob, container, off}]
+                                [--resource-group]
+                                [--sas-token]
+                                [--subscription]
+                                [--timeout]
+  examples:
+  - summary: Erstellen Sie einen Speichercontainer in einem Speicherkonto.
+    syntax: az storage container create -n mystoragecontainer
+  - summary: Erstellen Sie einen Speichercontainer in einem Speicherkonto, und geben Sie einen Fehler zurück, wenn der Container bereits vorhanden ist.
+    syntax: az storage container create -n mystoragecontainer --fail-on-exist
+  - summary: Erstellen Sie einen Speichercontainer in einem Speicherkonto, und gewähren Sie öffentlichen Lesezugriff für Blobs.
+    syntax: az storage container create -n mystoragecontainer --public-access blob
+  requiredParameters:
+  - isRequired: true
+    name: --name -n
+    summary: Der Containername
+    description: ''
+  optionalParameters:
+  - name: --account-key
+    summary: 'Speicherkontoschlüssel Muss in Verbindung mit dem Speicherkontonamen verwendet werden. Umgebungsvariable: AZURE_STORAGE_KEY.'
+    description: ''
+  - name: --account-name
+    summary: 'Name des Speicherkontos Zugehörige Umgebungsvariable: AZURE_STORAGE_ACCOUNT.'
+    description: ''
+  - name: --auth-mode
+    parameterValueGroup: key, login
+    summary: 'Der Modus, in dem der Befehl ausgeführt werden soll. Der Anmeldemodus verwendet direkt Ihre Anmeldeinformationen für die Authentifizierung. Im Legacymodus "Schlüssel" wird versucht, einen Kontoschlüssel abzufragen, wenn keine Authentifizierungsparameter für das Konto angegeben werden. Umgebungsvariable: AZURE_STORAGE_AUTH_MODE.'
+    description: ''
+  - name: --connection-string
+    summary: 'Verbindungszeichenfolge des Speicherkontos. Umgebungsvariable: AZURE_STORAGE_CONNECTION_STRING.'
+    description: ''
+  - name: --default-encryption-scope -d
+    summary: Standardmäßig verwendet der Container den angegebenen Verschlüsselungsbereich für alle Schreibvorgänge.
+    description: ''
+  - name: --fail-on-exist
+    summary: Löst eine Ausnahme aus, wenn der Container bereits vorhanden ist.
+    description: ''
+  - name: --metadata
+    summary: Metadaten in durch Leerzeichen getrennten Schlüssel-Wert-Paaren. Dadurch werden alle vorhandenen Metadaten überschrieben.
+    description: ''
+  - name: --prevent-encryption-scope-override -p
+    parameterValueGroup: false, true
+    summary: Blockieren Sie die Außerkraftsetzung des Verschlüsselungsbereichs vom Standardcontainer.
+    description: ''
+  - name: --public-access
+    parameterValueGroup: blob, container, off
+    summary: Gibt an, ob auf Daten im Container öffentlich zugegriffen werden kann.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --sas-token
+    summary: 'Ein Shared Access Signature (SAS). Muss in Verbindung mit dem Speicherkontonamen verwendet werden. Umgebungsvariable: AZURE_STORAGE_SAS_TOKEN.'
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+  - name: --timeout
+    summary: Anforderungs-Timeout in Sekunden. Gilt für jeden Aufruf des Diensts.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/storage/_help.py
+- uid: az_storage_container_delete
+  name: az storage container delete
+  summary: Markiert den angegebenen Container zum Löschen.
+  description: Der Container und alle darin enthaltenen BLOBs werden später während der automatischen Speicherbereinigung gelöscht.
+  syntax: >-
+    az storage container delete --name
+                                [--account-key]
+                                [--account-name]
+                                [--auth-mode {key, login}]
+                                [--bypass-immutability-policy]
+                                [--connection-string]
+                                [--fail-not-exist]
+                                [--if-modified-since]
+                                [--if-unmodified-since]
+                                [--lease-id]
+                                [--sas-token]
+                                [--subscription]
+                                [--timeout]
+  examples:
+  - summary: Markiert den angegebenen Container zum Löschen. (automatisch generiert)
+    syntax: az storage container delete --account-key 00000000 --account-name MyAccount --name mycontainer
+  requiredParameters:
+  - isRequired: true
+    name: --name -n
+    summary: Der Containername
+    description: ''
+  optionalParameters:
+  - name: --account-key
+    summary: 'Speicherkontoschlüssel Muss in Verbindung mit dem Speicherkontonamen verwendet werden. Umgebungsvariable: AZURE_STORAGE_KEY.'
+    description: ''
+  - name: --account-name
+    summary: 'Name des Speicherkontos Zugehörige Umgebungsvariable: AZURE_STORAGE_ACCOUNT. Muss in Verbindung mit einem Speicherkontoschlüssel oder einem SAS-Token verwendet werden. Wenn keines von beiden vorhanden ist, versucht der Befehl, den Speicherkontoschlüssel mithilfe des authentifizierten Azure-Kontos abfragt. Wenn eine große Anzahl von Speicherbefehlen ausgeführt wird, kann das API-Kontingent erreicht werden.'
+    description: ''
+  - name: --auth-mode
+    parameterValueGroup: key, login
+    summary: 'Der Modus, in dem der Befehl ausgeführt werden soll. Der Anmeldemodus verwendet direkt Ihre Anmeldeinformationen für die Authentifizierung. Im Legacymodus "Schlüssel" wird versucht, einen Kontoschlüssel abzufragen, wenn keine Authentifizierungsparameter für das Konto angegeben werden. Umgebungsvariable: AZURE_STORAGE_AUTH_MODE.'
+    description: ''
+  - name: --bypass-immutability-policy
+    summary: Umgeht das bevorstehende Dienstverhalten, das verhindert, dass ein Container gelöscht wird, wenn er über eine Unveränderlichkeitsrichtlinie verfügt. Wenn Sie dies angeben, werden Argumente ignoriert, die nicht zum Identifizieren des Containers verwendet werden ("--name", "--account-name").
+    description: ''
+  - name: --connection-string
+    summary: 'Verbindungszeichenfolge des Speicherkontos. Umgebungsvariable: AZURE_STORAGE_CONNECTION_STRING.'
+    description: ''
+  - name: --fail-not-exist
+    summary: Löst eine Ausnahme aus, wenn der Container nicht vorhanden ist.
+    description: ''
+  - name: --if-modified-since
+    summary: Beginnen Sie nur, wenn sie seit der angegebenen UTC-Datums-/Uhrzeit (Y-m-d'T'H:M'Z') geändert wurden.
+    description: ''
+  - name: --if-unmodified-since
+    summary: Beginnt nur, wenn seit der angegebenen UTC-Datums-/Uhrzeit (Y-m-d'T'H:M'Z') unverändert ist.
+    description: ''
+  - name: --lease-id
+    summary: Wenn angegeben, ist delete_container nur erfolgreich, wenn die Lease des Containers aktiv ist und mit dieser ID übereinstimmt. Erforderlich, wenn der Container über eine aktive Lease verfügt.
+    description: ''
+  - name: --sas-token
+    summary: 'Eine Shared Access Signature (SAS). Muss in Verbindung mit dem Speicherkontonamen verwendet werden. Umgebungsvariable: AZURE_STORAGE_SAS_TOKEN.'
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+  - name: --timeout
+    summary: Anforderungstimeout in Sekunden. Gilt für jeden Aufruf des Diensts.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/storage/_help.py
+- uid: az_storage_container_exists
+  name: az storage container exists
+  summary: Überprüfen Sie, ob ein Speichercontainer existiert.
+  description: ''
+  syntax: >-
+    az storage container exists --name
+                                [--account-key]
+                                [--account-name]
+                                [--auth-mode {key, login}]
+                                [--connection-string]
+                                [--sas-token]
+                                [--subscription]
+                                [--timeout]
+  examples:
+  - summary: Überprüfen Sie, ob ein Speichercontainer existiert. (automatisch generiert)
+    syntax: az storage container exists --account-name mystorageccount --account-key 00000000 --name mycontainer
+  requiredParameters:
+  - isRequired: true
+    name: --name -n
+    summary: Der Containername
+    description: ''
+  optionalParameters:
+  - name: --account-key
+    summary: 'Speicherkontoschlüssel Muss in Verbindung mit dem Speicherkontonamen verwendet werden. Umgebungsvariable: AZURE_STORAGE_KEY.'
+    description: ''
+  - name: --account-name
+    summary: 'Name des Speicherkontos Zugehörige Umgebungsvariable: AZURE_STORAGE_ACCOUNT. Muss in Verbindung mit einem Speicherkontoschlüssel oder einem SAS-Token verwendet werden. Wenn keines von beiden vorhanden ist, versucht der Befehl, den Speicherkontoschlüssel mithilfe des authentifizierten Azure-Kontos abfragt. Wenn eine große Anzahl von Speicherbefehlen ausgeführt wird, kann das API-Kontingent erreicht werden.'
+    description: ''
+  - name: --auth-mode
+    parameterValueGroup: key, login
+    summary: 'Der Modus, in dem der Befehl ausgeführt werden soll. Im Anmeldemodus werden Ihre Anmeldeinformationen direkt für die Authentifizierung verwendet. Der Legacymodus "Schlüssel" versucht, einen Kontoschlüssel abfragt, wenn keine Authentifizierungsparameter für das Konto angegeben werden. Umgebungsvariable: AZURE_STORAGE_AUTH_MODE.'
+    description: ''
+  - name: --connection-string
+    summary: 'Verbindungszeichenfolge des Speicherkontos. Umgebungsvariable: AZURE_STORAGE_CONNECTION_STRING.'
+    description: ''
+  - name: --sas-token
+    summary: 'Ein Shared Access Signature (SAS). Muss in Verbindung mit dem Speicherkontonamen verwendet werden. Umgebungsvariable: AZURE_STORAGE_SAS_TOKEN.'
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+  - name: --timeout
+    summary: Anforderungs-Timeout in Sekunden. Gilt für jeden Aufruf des Diensts.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/storage/_help.py
+- uid: az_storage_container_generate-sas
+  name: az storage container generate-sas
+  summary: Generieren sie ein SAS-Token für einen Speichercontainer.
+  description: ''
+  syntax: >-
+    az storage container generate-sas --name
+                                      [--account-key]
+                                      [--account-name]
+                                      [--as-user]
+                                      [--auth-mode {key, login}]
+                                      [--cache-control]
+                                      [--connection-string]
+                                      [--content-disposition]
+                                      [--content-encoding]
+                                      [--content-language]
+                                      [--content-type]
+                                      [--expiry]
+                                      [--https-only]
+                                      [--ip]
+                                      [--permissions]
+                                      [--policy-name]
+                                      [--sas-token]
+                                      [--start]
+                                      [--subscription]
+  examples:
+  - summary: Generieren Sie ein SAS-Token für einen Blobcontainer, und verwenden Sie es zum Hochladen eines Blobs.
+    syntax: >-
+      end=`date -u -d "30 minutes" '+%Y-%m-%dT%H:%MZ'`
+
+      sas=`az storage container generate-sas -n mycontainer --https-only --permissions dlrw --expiry $end -o tsv`
+
+      az storage blob upload -n MyBlob -c mycontainer -f file.txt --sas-token $sas
+  - summary: Generieren einer Shared Access Signature für den Container (automatisch generiert)
+    syntax: az storage container generate-sas --account-key 00000000 --account-name mystorageaccount --expiry 2020-01-01 --name mycontainer --permissions dlrw
+  - summary: Generieren sie ein SAS-Token für einen Speichercontainer. (automatisch generiert)
+    syntax: az storage container generate-sas --account-name mystorageaccount --as-user --auth-mode login --expiry 2020-01-01 --name container1 --permissions dlrw
+  requiredParameters:
+  - isRequired: true
+    name: --name -n
+    summary: Der Containername
+    description: ''
+  optionalParameters:
+  - name: --account-key
+    summary: 'Speicherkontoschlüssel Muss in Verbindung mit dem Speicherkontonamen verwendet werden. Umgebungsvariable: AZURE_STORAGE_KEY.'
+    description: ''
+  - name: --account-name
+    summary: 'Name des Speicherkontos Zugehörige Umgebungsvariable: AZURE_STORAGE_ACCOUNT. Muss in Verbindung mit einem Speicherkontoschlüssel oder einem SAS-Token verwendet werden. Wenn keines von beiden vorhanden ist, versucht der Befehl, den Speicherkontoschlüssel mithilfe des authentifizierten Azure-Kontos abzufragen. Wenn eine große Anzahl von Speicherbefehlen ausgeführt wird, kann das API-Kontingent erreicht werden.'
+    description: ''
+  - name: --as-user
+    summary: Gibt an, dass dieser Befehl die SAS zurückgibt, die mit dem Benutzerdelegierungsschlüssel signiert ist. Wenn dieses Argument angegeben ist, sind der Ablaufparameter und der Anmeldename "--auth-mode" erforderlich.
+    description: ''
+  - name: --auth-mode
+    parameterValueGroup: key, login
+    summary: 'Der Modus, in dem der Befehl ausgeführt werden soll. Der Anmeldemodus verwendet direkt Ihre Anmeldeinformationen für die Authentifizierung. Im Legacymodus "Schlüssel" wird versucht, einen Kontoschlüssel abzufragen, wenn keine Authentifizierungsparameter für das Konto angegeben werden. Umgebungsvariable: AZURE_STORAGE_AUTH_MODE.'
+    description: ''
+  - name: --cache-control
+    summary: Der Wert des Antwortheaders für Cache-Control, wenn auf die Ressource zugegriffen wird, indem diese Shared Access Signature verwendet wird.
+    description: ''
+  - name: --connection-string
+    summary: 'Verbindungszeichenfolge des Speicherkontos. Umgebungsvariable: AZURE_STORAGE_CONNECTION_STRING.'
+    description: ''
+  - name: --content-disposition
+    summary: Der Antwortheaderwert für Content-Disposition, wenn auf die Ressource zugegriffen wird, und verwendet diese Shared Access Signature.
+    description: ''
+  - name: --content-encoding
+    summary: Antwortheaderwert für Content-Encoding, wenn auf die Ressource zugegriffen wird Unter Nutzung dieser Shared Access Signature.
+    description: ''
+  - name: --content-language
+    summary: Der Antwortheaderwert für Content-Language, wenn auf die Ressource zugegriffen wird, und verwendet diese Shared Access Signature.
+    description: ''
+  - name: --content-type
+    summary: Der Antwortheaderwert für Content-Type, wenn auf die Ressource zugegriffen wird, und verwendet diese Shared Access Signature.
+    description: ''
+  - name: --expiry
+    summary: Gibt die UTC datetime (Y-m-d'T'H:M'Z') an, an der die SAS ungültig wird. Verwenden Sie nicht , wenn auf eine gespeicherte Zugriffsrichtlinie mit --id verwiesen wird, die diesen Wert angibt.
+    description: ''
+  - name: --https-only
+    summary: Lassen Sie nur Anforderungen zu, die mit dem HTTPS-Protokoll gesendet werden. Wenn sie nicht angegeben wird, sind Anforderungen sowohl vom HTTP- als auch vom HTTPS-Protokoll zulässig.
+    description: ''
+  - name: --ip
+    summary: Gibt die IP-Adresse oder den IP-Adressbereich an, von denen Anforderungen akzeptiert werden. Unterstützt nur Adressen im IPv4-Format.
+    description: ''
+  - name: --permissions
+    summary: 'Die Berechtigungen, die die SAS gewährt. Zulässige Werte: (a)dd (c)reate (d)elete (l)ist (r)ead (w)label. Verwenden Sie nicht , wenn auf eine gespeicherte Zugriffsrichtlinie mit --id verwiesen wird, die diesen Wert angibt. Kann kombiniert werden.'
+    description: ''
+  - name: --policy-name
+    summary: Der Name einer gespeicherten Zugriffsrichtlinie innerhalb der ACL des Containers.
+    description: ''
+  - name: --sas-token
+    summary: 'Ein Shared Access Signature (SAS). Muss in Verbindung mit dem Speicherkontonamen verwendet werden. Umgebungsvariable: AZURE_STORAGE_SAS_TOKEN.'
+    description: ''
+  - name: --start
+    summary: Gibt die UTC datetime (Y-m-d'T'H:M'Z') an, ab der die SAS gültig wird. Verwenden Sie nicht, wenn auf eine gespeicherte Zugriffsrichtlinie mit --id verwiesen wird, die diesen Wert angibt. Der Standardwert ist der Zeitpunkt der Anforderung.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/storage/_help.py
+- uid: az_storage_container_list
+  name: az storage container list
+  summary: Auflisten von Containern in einem Speicherkonto.
+  description: ''
+  syntax: >-
+    az storage container list [--account-key]
+                              [--account-name]
+                              [--auth-mode {key, login}]
+                              [--connection-string]
+                              [--include-metadata]
+                              [--marker]
+                              [--num-results]
+                              [--prefix]
+                              [--query-examples]
+                              [--sas-token]
+                              [--subscription]
+                              [--timeout]
+  optionalParameters:
+  - name: --account-key
+    summary: 'Speicherkontoschlüssel Muss in Verbindung mit dem Speicherkontonamen verwendet werden. Umgebungsvariable: AZURE_STORAGE_KEY.'
+    description: ''
+  - name: --account-name
+    summary: 'Name des Speicherkontos Zugehörige Umgebungsvariable: AZURE_STORAGE_ACCOUNT. Muss in Verbindung mit einem Speicherkontoschlüssel oder einem SAS-Token verwendet werden. Wenn keines von beiden vorhanden ist, versucht der Befehl, den Speicherkontoschlüssel mithilfe des authentifizierten Azure-Kontos abzufragen. Wenn eine große Anzahl von Speicherbefehlen ausgeführt wird, kann das API-Kontingent erreicht werden.'
+    description: ''
+  - name: --auth-mode
+    parameterValueGroup: key, login
+    summary: 'Der Modus, in dem der Befehl ausgeführt werden soll. Der Anmeldemodus verwendet direkt Ihre Anmeldeinformationen für die Authentifizierung. Im Legacymodus "Schlüssel" wird versucht, einen Kontoschlüssel abzufragen, wenn keine Authentifizierungsparameter für das Konto angegeben werden. Umgebungsvariable: AZURE_STORAGE_AUTH_MODE.'
+    description: ''
+  - name: --connection-string
+    summary: 'Verbindungszeichenfolge des Speicherkontos. Umgebungsvariable: AZURE_STORAGE_CONNECTION_STRING.'
+    description: ''
+  - name: --include-metadata
+    summary: Gibt an, dass Containermetadaten in der Antwort zurückgegeben werden.
+    description: ''
+  - name: --marker
+    summary: Ein nicht transparentes Fortsetzungstoken. Dieser Wert kann aus dem feld next_marker eines vorherigen Generatorobjekts abgerufen werden, wenn num_results angegeben wurde und der Generator das Aufzählen der Ergebnisse abgeschlossen hat. Falls angegeben, beginnt dieser Generator mit der Rückgabe von Ergebnissen ab dem Punkt, an dem der vorherige Generator beendet wurde.
+    description: ''
+  - name: --num-results
+    defaultValue: "5000"
+    summary: Gibt die maximale Anzahl von Ergebnissen an, die zurückgibt. Geben Sie " \* " an, um alle zurück zu geben.
+    description: ''
+  - name: --prefix
+    summary: Filtert die Ergebnisse, um nur Container zurück zu geben, deren Namen mit dem angegebenen Präfix beginnen.
+    description: ''
+  - name: --query-examples
+    summary: Empfehlen Sie die JMESPath-Zeichenfolge. Sie können eine der Abfragen kopieren und nach dem Parameter --query in doppelte Anführungszeichen einfügen, um die Ergebnisse zu sehen. Sie können ein oder mehrere Positionsschlüsselwörter hinzufügen, damit wir basierend auf diesen Schlüsselwörtern Vorschläge machen können.
+    description: ''
+  - name: --sas-token
+    summary: 'Ein Shared Access Signature (SAS). Muss in Verbindung mit dem Speicherkontonamen verwendet werden. Umgebungsvariable: AZURE_STORAGE_SAS_TOKEN.'
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+  - name: --timeout
+    summary: Anforderungs-Timeout in Sekunden. Gilt für jeden Aufruf des Diensts.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/storage/_help.py
+- uid: az_storage_container_restore
+  name: az storage container restore
+  summary: Stellt den soft-deleted-Container wieder auf.
+  description: 'Der Vorgang ist nur erfolgreich, wenn er innerhalb der in der Löschaufbewahrungsrichtlinie festgelegten Anzahl von Tagen verwendet wird.  .. versionadded:: 12.4.0 Dieser Vorgang wurde in der API-Version "2019-12-12" eingeführt.'
+  syntax: >-
+    az storage container restore --deleted-version
+                                 --name
+                                 [--account-key]
+                                 [--account-name]
+                                 [--auth-mode {key, login}]
+                                 [--connection-string]
+                                 [--sas-token]
+                                 [--timeout]
+  requiredParameters:
+  - isRequired: true
+    name: --deleted-version
+    summary: Geben Sie die Version des gelöschten Containers an, der wiederhergestellt werden soll.
+    description: ''
+  - isRequired: true
+    name: --name -n
+    summary: Geben Sie den Namen des gelöschten Containers an, der wiederhergestellt werden soll.
+    description: ''
+  optionalParameters:
+  - name: --account-key
+    summary: 'Speicherkontoschlüssel Muss in Verbindung mit dem Speicherkontonamen verwendet werden. Umgebungsvariable: AZURE_STORAGE_KEY.'
+    description: ''
+  - name: --account-name
+    summary: 'Name des Speicherkontos Zugehörige Umgebungsvariable: AZURE_STORAGE_ACCOUNT. Muss in Verbindung mit einem Speicherkontoschlüssel oder einem SAS-Token verwendet werden. Wenn keines von beiden vorhanden ist, versucht der Befehl, den Speicherkontoschlüssel mithilfe des authentifizierten Azure-Kontos abzufragen. Wenn eine große Anzahl von Speicherbefehlen ausgeführt wird, kann das API-Kontingent erreicht werden.'
+    description: ''
+  - name: --auth-mode
+    parameterValueGroup: key, login
+    summary: 'Der Modus, in dem der Befehl ausgeführt werden soll. Der Anmeldemodus verwendet direkt Ihre Anmeldeinformationen für die Authentifizierung. Im Legacymodus "Schlüssel" wird versucht, einen Kontoschlüssel abzufragen, wenn keine Authentifizierungsparameter für das Konto angegeben werden. Umgebungsvariable: AZURE_STORAGE_AUTH_MODE.'
+    description: ''
+  - name: --connection-string
+    summary: 'Verbindungszeichenfolge des Speicherkontos. Umgebungsvariable: AZURE_STORAGE_CONNECTION_STRING.'
+    description: ''
+  - name: --sas-token
+    summary: 'Eine Shared Access Signature (SAS). Muss in Verbindung mit dem Speicherkontonamen verwendet werden. Umgebungsvariable: AZURE_STORAGE_SAS_TOKEN.'
+    description: ''
+  - name: --timeout
+    summary: Anforderungstimeout in Sekunden. Gilt für jeden Aufruf des Diensts.
+    description: ''
+- uid: az_storage_container_set-permission
+  name: az storage container set-permission
+  summary: Legt die Berechtigungen für den angegebenen Container oder gespeicherte Zugriffsrichtlinien fest, die mit Shared Access Signatures verwendet werden können.
+  description: Die Berechtigungen geben an, ob öffentlicher Zugriff auf BLOBs in einem Container zulässig ist.
+  syntax: >-
+    az storage container set-permission --name
+                                        [--account-key]
+                                        [--account-name]
+                                        [--auth-mode {key, login}]
+                                        [--connection-string]
+                                        [--if-modified-since]
+                                        [--if-unmodified-since]
+                                        [--lease-id]
+                                        [--public-access {blob, container, off}]
+                                        [--sas-token]
+                                        [--subscription]
+                                        [--timeout]
+  requiredParameters:
+  - isRequired: true
+    name: --name -n
+    summary: Der Containername
+    description: ''
+  optionalParameters:
+  - name: --account-key
+    summary: 'Speicherkontoschlüssel Muss in Verbindung mit dem Speicherkontonamen verwendet werden. Umgebungsvariable: AZURE_STORAGE_KEY.'
+    description: ''
+  - name: --account-name
+    summary: 'Name des Speicherkontos Zugehörige Umgebungsvariable: AZURE_STORAGE_ACCOUNT. Muss in Verbindung mit einem Speicherkontoschlüssel oder einem SAS-Token verwendet werden. Wenn keines von beiden vorhanden ist, versucht der Befehl, den Speicherkontoschlüssel mithilfe des authentifizierten Azure-Kontos abzufragen. Wenn eine große Anzahl von Speicherbefehlen ausgeführt wird, kann das API-Kontingent erreicht werden.'
+    description: ''
+  - name: --auth-mode
+    parameterValueGroup: key, login
+    summary: 'Der Modus, in dem der Befehl ausgeführt werden soll. Im Anmeldemodus werden Ihre Anmeldeinformationen direkt für die Authentifizierung verwendet. Der Legacymodus "Schlüssel" versucht, einen Kontoschlüssel abfragt, wenn keine Authentifizierungsparameter für das Konto angegeben werden. Umgebungsvariable: AZURE_STORAGE_AUTH_MODE.'
+    description: ''
+  - name: --connection-string
+    summary: 'Verbindungszeichenfolge des Speicherkontos. Umgebungsvariable: AZURE_STORAGE_CONNECTION_STRING.'
+    description: ''
+  - name: --if-modified-since
+    summary: Beginnen Sie nur, wenn sie seit der angegebenen UTC-Datum/Uhrzeit geändert wurden (Y-m-d'T'H:M'Z').
+    description: ''
+  - name: --if-unmodified-since
+    summary: Beginnen Sie nur, wenn sie seit der angegebenen UTC datetime (Y-m-d'T'H:M'Z' unverändert sind).
+    description: ''
+  - name: --lease-id
+    summary: Wenn angegeben, set_container_acl nur erfolgreich, wenn die Lease des Containers aktiv ist und dieser ID entspricht.
+    description: ''
+  - name: --public-access
+    parameterValueGroup: blob, container, off
+    summary: Gibt an, ob auf Daten im Container öffentlich zugegriffen werden kann.
+    description: ''
+  - name: --sas-token
+    summary: 'Ein Shared Access Signature (SAS). Muss in Verbindung mit dem Speicherkontonamen verwendet werden. Umgebungsvariable: AZURE_STORAGE_SAS_TOKEN.'
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+  - name: --timeout
+    summary: Anforderungs-Timeout in Sekunden. Gilt für jeden Aufruf des Diensts.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/storage/_help.py
+- uid: az_storage_container_show
+  name: az storage container show
+  summary: Gibt alle benutzerdefinierten Metadaten und Systemeigenschaften für den angegebenen Container zurück.
+  description: Die zurückgegebenen Daten enthalten nicht die Liste von BLOBs des Containers.
+  syntax: >-
+    az storage container show --name
+                              [--account-key]
+                              [--account-name]
+                              [--auth-mode {key, login}]
+                              [--connection-string]
+                              [--lease-id]
+                              [--query-examples]
+                              [--sas-token]
+                              [--subscription]
+                              [--timeout]
+  requiredParameters:
+  - isRequired: true
+    name: --name -n
+    summary: Der Containername
+    description: ''
+  optionalParameters:
+  - name: --account-key
+    summary: 'Speicherkontoschlüssel Muss in Verbindung mit dem Speicherkontonamen verwendet werden. Umgebungsvariable: AZURE_STORAGE_KEY.'
+    description: ''
+  - name: --account-name
+    summary: 'Name des Speicherkontos Zugehörige Umgebungsvariable: AZURE_STORAGE_ACCOUNT. Muss in Verbindung mit einem Speicherkontoschlüssel oder einem SAS-Token verwendet werden. Wenn keines von beiden vorhanden ist, versucht der Befehl, den Speicherkontoschlüssel mithilfe des authentifizierten Azure-Kontos abzufragen. Wenn eine große Anzahl von Speicherbefehlen ausgeführt wird, kann das API-Kontingent erreicht werden.'
+    description: ''
+  - name: --auth-mode
+    parameterValueGroup: key, login
+    summary: 'Der Modus, in dem der Befehl ausgeführt werden soll. Der Anmeldemodus verwendet direkt Ihre Anmeldeinformationen für die Authentifizierung. Im Legacymodus "Schlüssel" wird versucht, einen Kontoschlüssel abzufragen, wenn keine Authentifizierungsparameter für das Konto angegeben werden. Umgebungsvariable: AZURE_STORAGE_AUTH_MODE.'
+    description: ''
+  - name: --connection-string
+    summary: 'Verbindungszeichenfolge des Speicherkontos. Umgebungsvariable: AZURE_STORAGE_CONNECTION_STRING.'
+    description: ''
+  - name: --lease-id
+    summary: Wenn angegeben, ist get_container_properties nur erfolgreich, wenn die Lease des Containers aktiv ist und mit dieser ID übereinstimmt.
+    description: ''
+  - name: --query-examples
+    summary: Empfehlen Sie die JMESPath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und nach dem Parameter --query in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positionsschlüsselwörter hinzufügen, damit wir basierend auf diesen Schlüsselwörtern Vorschläge geben können.
+    description: ''
+  - name: --sas-token
+    summary: 'Eine Shared Access Signature (SAS). Muss in Verbindung mit dem Speicherkontonamen verwendet werden. Umgebungsvariable: AZURE_STORAGE_SAS_TOKEN.'
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+  - name: --timeout
+    summary: Anforderungstimeout in Sekunden. Gilt für jeden Aufruf des Diensts.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/storage/_help.py
+- uid: az_storage_container_show-permission
+  name: az storage container show-permission
+  summary: Ruft die Berechtigungen für den angegebenen Container ab.
+  description: Mit den Berechtigungen wird angegeben, ob auf die Containerdaten öffentlich zugegriffen werden kann.
+  syntax: >-
+    az storage container show-permission --name
+                                         [--account-key]
+                                         [--account-name]
+                                         [--auth-mode {key, login}]
+                                         [--connection-string]
+                                         [--lease-id]
+                                         [--sas-token]
+                                         [--subscription]
+                                         [--timeout]
+  requiredParameters:
+  - isRequired: true
+    name: --name -n
+    summary: Der Containername
+    description: ''
+  optionalParameters:
+  - name: --account-key
+    summary: 'Speicherkontoschlüssel Muss in Verbindung mit dem Speicherkontonamen verwendet werden. Umgebungsvariable: AZURE_STORAGE_KEY.'
+    description: ''
+  - name: --account-name
+    summary: 'Name des Speicherkontos Zugehörige Umgebungsvariable: AZURE_STORAGE_ACCOUNT. Muss in Verbindung mit einem Speicherkontoschlüssel oder einem SAS-Token verwendet werden. Wenn keines von beiden vorhanden ist, versucht der Befehl, den Speicherkontoschlüssel mithilfe des authentifizierten Azure-Kontos abfragt. Wenn eine große Anzahl von Speicherbefehlen ausgeführt wird, kann das API-Kontingent erreicht werden.'
+    description: ''
+  - name: --auth-mode
+    parameterValueGroup: key, login
+    summary: 'Der Modus, in dem der Befehl ausgeführt werden soll. Im Anmeldemodus werden Ihre Anmeldeinformationen direkt für die Authentifizierung verwendet. Der Legacymodus "Schlüssel" versucht, einen Kontoschlüssel abfragt, wenn keine Authentifizierungsparameter für das Konto angegeben werden. Umgebungsvariable: AZURE_STORAGE_AUTH_MODE.'
+    description: ''
+  - name: --connection-string
+    summary: 'Verbindungszeichenfolge des Speicherkontos. Umgebungsvariable: AZURE_STORAGE_CONNECTION_STRING.'
+    description: ''
+  - name: --lease-id
+    summary: Wenn angegeben, get_container_acl nur erfolgreich, wenn die Lease des Containers aktiv ist und dieser ID entspricht.
+    description: ''
+  - name: --sas-token
+    summary: 'Ein Shared Access Signature (SAS). Muss in Verbindung mit dem Speicherkontonamen verwendet werden. Umgebungsvariable: AZURE_STORAGE_SAS_TOKEN.'
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+  - name: --timeout
+    summary: Anforderungs-Timeout in Sekunden. Gilt für jeden Aufruf des Diensts.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/storage/_help.py
+commands:
+- az_storage_container_create
+- az_storage_container_delete
+- az_storage_container_exists
+- az_storage_container_generate-sas
+- az_storage_container_immutability-policy
+- az_storage_container_immutability-policy_create
+- az_storage_container_immutability-policy_delete
+- az_storage_container_immutability-policy_extend
+- az_storage_container_immutability-policy_lock
+- az_storage_container_immutability-policy_show
+- az_storage_container_lease
+- az_storage_container_lease_acquire
+- az_storage_container_lease_break
+- az_storage_container_lease_change
+- az_storage_container_lease_release
+- az_storage_container_lease_renew
+- az_storage_container_legal-hold
+- az_storage_container_legal-hold_clear
+- az_storage_container_legal-hold_set
+- az_storage_container_legal-hold_show
+- az_storage_container_list
+- az_storage_container_metadata
+- az_storage_container_metadata_show
+- az_storage_container_metadata_update
+- az_storage_container_policy
+- az_storage_container_policy_create
+- az_storage_container_policy_delete
+- az_storage_container_policy_list
+- az_storage_container_policy_show
+- az_storage_container_policy_update
+- az_storage_container_restore
+- az_storage_container_set-permission
+- az_storage_container_show
+- az_storage_container_show-permission
+globalParameters:
+- name: --debug
+  summary: Ausführlichkeit der Protokollierung erhöhen, um alle Debugprotokolle anzuzeigen.
+- name: --help -h
+  summary: Zeigen Sie diese Hilfemeldung an, und schließen Sie sie.
+- name: --only-show-errors
+  summary: Nur Fehler anzeigen und Warnungen unterdrücken.
+- name: --output -o
+  defaultValue: json
+  parameterValueGroup: json, jsonc, table, tsv
+  summary: Ausgabeformat.
+- name: --query
+  summary: JMESPath-Abfragezeichenfolge. Weitere Informationen und Beispiele finden Sie unter <a href="http://jmespath.org/">http://jmespath.org/</a>.
+- name: --verbose
+  summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
+metadata:
+  doc_source_url_repo: https://github.com/Azure/azure-cli/blob/dev/
+  ms.date: 04/26/2021
+  description: 'Geben Sie einen der folgenden Authentifizierungsparameter für Ihre Befehle an: --auth-mode, --account-key, --connection-string, --sas-token. Sie können auch entsprechende Umgebungsvariablen verwenden, um Ihre Anmeldeinformationen für die Authentifizierung zu speichern, z. B. AZURE_STORAGE_KEY, AZURE_STORAGE_CONNECTION_STRING und AZURE_STORAGE_SAS_TOKEN.'
+  ms.openlocfilehash: 0d8ca4e59dd11e20d08d0758503e14d0e219edc4
+  ms.sourcegitcommit: 15a6f14c5a8570ba89a3bd5bb442f3324d72bc37
+  ms.translationtype: MT
+  ms.contentlocale: de-DE
+  ms.lasthandoff: 04/29/2021
+  ms.locfileid: "108264607"

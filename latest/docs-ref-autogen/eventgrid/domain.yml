@@ -1,0 +1,268 @@
+### YamlMime:AzureCLIGroup
+uid: az_eventgrid_domain
+name: az eventgrid domain
+summary: Verwalten von Ereignisdomänen.
+description: ''
+directCommands:
+- uid: az_eventgrid_domain_create
+  name: az eventgrid domain create
+  summary: Erstellen Sie eine Domäne.
+  description: ''
+  syntax: >-
+    az eventgrid domain create --name
+                               --resource-group
+                               [--identity {noidentity, systemassigned}]
+                               [--inbound-ip-rules]
+                               [--input-mapping-default-values]
+                               [--input-mapping-fields]
+                               [--input-schema {cloudeventschemav1_0, customeventschema, eventgridschema}]
+                               [--location]
+                               [--public-network-access {disabled, enabled}]
+                               [--sku {basic, premium}]
+                               [--subscription]
+                               [--tags]
+  examples:
+  - summary: Erstellen Sie eine neue Domäne.
+    syntax: az eventgrid domain create -g rg1 --name domain1 -l westus2
+  - summary: Erstellen Sie eine neue Domäne mit benutzerdefinierten Eingabezuordnungen.
+    syntax: az eventgrid domain create -g rg1 --name domain1 -l westus2 --input-schema customeventschema --input-mapping-fields topic=mytopicField eventType=myEventTypeField --input-mapping-default-values subject=DefaultSubject dataVersion=1.0
+  - summary: Erstellen Sie eine neue Domäne, die ereignisse akzeptiert, die im CloudEvents V1.0-Schema veröffentlicht wurden, und ordnet dem Themennamen eine Eigenschaft mytopicfield zu.
+    syntax: az eventgrid domain create -g rg1 --name domain1 -l westus2 --input-schema cloudeventschemav1_0 --input-mapping-fields topic=mytopicfield
+  - summary: Erstellen Sie eine neue Domäne, die bestimmte eingehende IP-Regeln zulässt.
+    syntax: az eventgrid domain create -g rg1 --name domain1 -l westus2 --public-network-access enabled --inbound-ip-rules 10.0.0.0/8 Allow --inbound-ip-rules 10.2.0.0/8 Allow --sku basic
+  requiredParameters:
+  - isRequired: true
+    name: --name -n
+    summary: Name der Domäne.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  optionalParameters:
+  - name: --identity
+    parameterValueGroup: noidentity, systemassigned
+    summary: Der verwaltete Identitätstyp für die Ressource.
+    description: ''
+  - name: --inbound-ip-rules
+    summary: Liste der eingehenden IP-Regeln.
+    description: 'Liste der eingehenden IP-Regeln, die die IP-Adresse in CIDR-Notation angeben, z.B. 10.0.0.0/8, zusammen mit der entsprechenden Aktion, die basierend auf der Übereinstimmung oder keiner Übereinstimmung der IpMask ausgeführt werden soll. Mögliche Werte sind : Zulassen.'
+  - name: --input-mapping-default-values
+    summary: Wenn input-schema als customeventschema angegeben wird, kann dieser Parameter verwendet werden, um Eingabezuordnungen basierend auf Standardwerten anzugeben. Sie können diesen Parameter verwenden, wenn das benutzerdefinierte Schema kein Feld enthält, das einem der drei von diesem Parameter unterstützten Felder entspricht. Geben Sie durch Leerzeichen getrennte Zuordnungen im Format "key=value" an. Zulässige Schlüsselnamen sind "subject", "eventtype", "dataversion". Die entsprechenden Wertnamen sollten die Standardwerte angeben, die für die Zuordnung verwendet werden sollen, und sie werden nur verwendet, wenn das veröffentlichte Ereignis keine gültige Zuordnung für ein bestimmtes Feld hat.
+    description: ''
+  - name: --input-mapping-fields
+    summary: Wenn input-schema als customeventschema angegeben wird, wird dieser Parameter verwendet, um Eingabezuordnungen basierend auf Feldnamen anzugeben. Geben Sie durch Leerzeichen getrennte Zuordnungen im Format "key=value" an. Zulässige Schlüsselnamen sind "id", "topic", "eventtime", "subject", "eventtype", "dataversion". Die entsprechenden Wertnamen sollten die Namen der Felder im benutzerdefinierten Eingabeschema angeben. Wenn keine Zuordnung für "id" oder "eventtime" angegeben wird, generiert Event Grid automatisch einen Standardwert für diese beiden Felder.
+    description: ''
+  - name: --input-schema
+    defaultValue: eventgridschema
+    parameterValueGroup: cloudeventschemav1_0, customeventschema, eventgridschema
+    summary: Schema, in dem eingehende Ereignisse in diesem Thema bzw. dieser Domäne veröffentlicht werden. Wenn Sie customeventschema als Wert für diesen Parameter angeben, müssen Sie auch Werte für mindestens eine von --input_mapping_default_values /--input_mapping_fields.
+    description: ''
+  - name: --location -l
+    summary: 'Der Standort. Werte aus: `az account list-locations`. Sie können den standardmäßig verwendeten Standort mit `az configure --defaults location=<location>` konfigurieren.'
+    description: ''
+  - name: --public-network-access
+    parameterValueGroup: disabled, enabled
+    summary: Dadurch wird bestimmt, ob Datenverkehr über das öffentliche Netzwerk zugelassen wird. Standardmäßig ist sie aktiviert. Sie können durch Konfigurieren weiter auf bestimmte IPs einschränken.
+    description: ''
+  - name: --sku
+    defaultValue: Basic
+    parameterValueGroup: basic, premium
+    summary: Der SKU-Name der Ressource.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+  - name: --tags
+    summary: 'Durch Leerzeichen getrennte Tags: key[=value] [key[=value] ...]. Verwenden Sie "", um vorhandene Tags zu löschen.'
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/eventgrid/_help.py
+- uid: az_eventgrid_domain_delete
+  name: az eventgrid domain delete
+  summary: Löscht eine Domäne.
+  description: ''
+  syntax: >-
+    az eventgrid domain delete [--ids]
+                               [--name]
+                               [--resource-group]
+                               [--subscription]
+  examples:
+  - summary: Löscht eine Domäne.
+    syntax: az eventgrid domain delete -g rg1 --name domain1
+  optionalParameters:
+  - name: --ids
+    summary: Eine oder mehrere Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu Ressourcen-ID-Argumenten geben. Sie sollten entweder --ids oder andere Ressourcen-ID-Argumente bereitstellen.
+    description: ''
+  - name: --name -n
+    summary: Name der Domäne.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/eventgrid/_help.py
+- uid: az_eventgrid_domain_list
+  name: az eventgrid domain list
+  summary: Listet verfügbare Domänen auf.
+  description: ''
+  syntax: >-
+    az eventgrid domain list [--odata-query]
+                             [--query-examples]
+                             [--resource-group]
+                             [--subscription]
+  examples:
+  - summary: Listet alle Domänen im aktuellen Azure-Abonnement auf.
+    syntax: az eventgrid domain list
+  - summary: Listet alle Domänen in einer Ressourcengruppe auf.
+    syntax: az eventgrid domain list -g rg1
+  - summary: Auflisten aller Domänen in einer Ressourcengruppe, deren Name das Muster "XYZ" enthält
+    syntax: az eventgrid domain list -g rg1 --odata-query "Contains(name, 'XYZ')"
+  - summary: Auflisten aller Domänen in einer Ressourcengruppe mit Ausnahme der Domäne mit dem Namen "name1"
+    syntax: az eventgrid domain list -g rg1 --odata-query "NOT (name eq 'name1')"
+  optionalParameters:
+  - name: --odata-query
+    summary: 'Die OData-Abfrage, die zum Filtern der Listenergebnisse verwendet wird. Das Filtern ist derzeit nur für die Name-Eigenschaft zulässig. Folgende Vorgänge werden unterstützt: CONTAINS, eq (für gleich), ne (für ungleich), AND, OR und NOT.'
+    description: ''
+  - name: --query-examples
+    summary: Empfehlen Sie die JMESPath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und sie nach dem Parameter --query in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positionsschlüsselwörter hinzufügen, damit wir basierend auf diesen Schlüsselwörtern Vorschläge geben können.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/eventgrid/_help.py
+- uid: az_eventgrid_domain_show
+  name: az eventgrid domain show
+  summary: Abrufen der Details einer Domäne.
+  description: ''
+  syntax: >-
+    az eventgrid domain show [--ids]
+                             [--name]
+                             [--query-examples]
+                             [--resource-group]
+                             [--subscription]
+  examples:
+  - summary: Zeigt die Details einer Domäne an.
+    syntax: az eventgrid domain show -g rg1 -n domain1
+  - summary: Zeigt die Details einer Domäne basierend auf der Ressourcen-ID an.
+    syntax: az eventgrid domain show --ids /subscriptions/{SubID}/resourceGroups/{RG}/providers/Microsoft.EventGrid/domains/domain1
+  - summary: Abrufen der Details einer Domäne (automatisch generiert)
+    syntax: az eventgrid domain show --name domain1 --resource-group rg1 --subscription MySubscription
+  optionalParameters:
+  - name: --ids
+    summary: Mindestens eine Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu "Ressourcen-ID"-Argumenten sein. Sie sollten entweder --ids oder andere "Resource Id"-Argumente angeben.
+    description: ''
+  - name: --name -n
+    summary: Name der Domäne.
+    description: ''
+  - name: --query-examples
+    summary: Empfehlen Sie die JMESPath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und sie nach dem Parameter --query in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positionsschlüsselwörter hinzufügen, damit wir basierend auf diesen Schlüsselwörtern Vorschläge geben können.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/eventgrid/_help.py
+- uid: az_eventgrid_domain_update
+  name: az eventgrid domain update
+  summary: Aktualisieren sie eine Domäne.
+  description: ''
+  syntax: >-
+    az eventgrid domain update [--identity {noidentity, systemassigned}]
+                               [--ids]
+                               [--inbound-ip-rules]
+                               [--name]
+                               [--public-network-access {disabled, enabled}]
+                               [--resource-group]
+                               [--sku {basic, premium}]
+                               [--subscription]
+                               [--tags]
+  examples:
+  - summary: Aktualisieren Sie die Eigenschaften einer vorhandenen Domäne.
+    syntax: az eventgrid domain update -g rg1 --name domain1 --sku Basic --identity noidentity --public-network-access enabled --inbound-ip-rules 10.0.0.0/8 Allow --inbound-ip-rules 10.2.0.0/8 Allow --tags Dept=IT --sku basic
+  optionalParameters:
+  - name: --identity
+    parameterValueGroup: noidentity, systemassigned
+    summary: Der Typ der verwalteten Identität für die Ressource.
+    description: ''
+  - name: --ids
+    summary: Eine oder mehrere Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu Ressourcen-ID-Argumenten geben. Sie sollten entweder --ids oder andere Ressourcen-ID-Argumente bereitstellen.
+    description: ''
+  - name: --inbound-ip-rules
+    summary: Liste der eingehenden IP-Regeln.
+    description: 'Liste der eingehenden IP-Regeln, die die IP-Adresse in CIDR-Notation angeben, z.B. 10.0.0.0/8 zusammen mit der entsprechenden Aktion, die basierend auf der Übereinstimmung oder keiner Übereinstimmung von IpMask durchzuführen ist. Mögliche Werte: Zulassen.'
+  - name: --name -n
+    summary: Name der Domäne.
+    description: ''
+  - name: --public-network-access
+    parameterValueGroup: disabled, enabled
+    summary: Dadurch wird bestimmt, ob Datenverkehr über das öffentliche Netzwerk zugelassen wird. Standardmäßig ist sie aktiviert. Sie können durch Konfigurieren weiter auf bestimmte IPs einschränken.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --sku
+    parameterValueGroup: basic, premium
+    summary: Der SKU-Name der Ressource.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+  - name: --tags
+    summary: 'Durch Leerzeichen getrennte Tags: key[=value] [key[=value] ...]. Verwenden Sie "", um vorhandene Tags zu löschen.'
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/eventgrid/_help.py
+commands:
+- az_eventgrid_domain_create
+- az_eventgrid_domain_delete
+- az_eventgrid_domain_key
+- az_eventgrid_domain_key_list
+- az_eventgrid_domain_key_regenerate
+- az_eventgrid_domain_list
+- az_eventgrid_domain_private-endpoint-connection
+- az_eventgrid_domain_private-endpoint-connection_approve
+- az_eventgrid_domain_private-endpoint-connection_delete
+- az_eventgrid_domain_private-endpoint-connection_list
+- az_eventgrid_domain_private-endpoint-connection_reject
+- az_eventgrid_domain_private-endpoint-connection_show
+- az_eventgrid_domain_private-link-resource
+- az_eventgrid_domain_private-link-resource_list
+- az_eventgrid_domain_private-link-resource_show
+- az_eventgrid_domain_show
+- az_eventgrid_domain_topic
+- az_eventgrid_domain_topic_create
+- az_eventgrid_domain_topic_delete
+- az_eventgrid_domain_topic_list
+- az_eventgrid_domain_topic_show
+- az_eventgrid_domain_update
+globalParameters:
+- name: --debug
+  summary: Ausführlichkeit der Protokollierung erhöhen, um alle Debugprotokolle anzuzeigen.
+- name: --help -h
+  summary: Zeigen Sie diese Hilfemeldung an, und schließen Sie sie.
+- name: --only-show-errors
+  summary: Nur Fehler anzeigen und Warnungen unterdrücken.
+- name: --output -o
+  defaultValue: json
+  parameterValueGroup: json, jsonc, table, tsv
+  summary: Ausgabeformat.
+- name: --query
+  summary: JMESPath-Abfragezeichenfolge. Weitere Informationen und Beispiele finden Sie unter <a href="http://jmespath.org/">http://jmespath.org/</a>.
+- name: --verbose
+  summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
+metadata:
+  doc_source_url_repo: https://github.com/Azure/azure-cli/blob/dev/
+  ms.date: 04/01/2021
+  description: Verwalten von Ereignisdomänen.
+  ms.openlocfilehash: af935825faa7161d51d5c0baf088d72572fa2e51
+  ms.sourcegitcommit: 47edf65705fcb047974356c30962819ea5172832
+  ms.translationtype: MT
+  ms.contentlocale: de-DE
+  ms.lasthandoff: 04/16/2021
+  ms.locfileid: "107544495"

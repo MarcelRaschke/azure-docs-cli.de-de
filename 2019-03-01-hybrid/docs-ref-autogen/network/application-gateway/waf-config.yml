@@ -1,0 +1,175 @@
+### YamlMime:AzureCLIGroup
+uid: az_network_application-gateway_waf-config
+name: az network application-gateway waf-config
+summary: Konfigurieren Sie die Einstellungen einer Web Application Firewall.
+description: Diese Befehle gelten nur für Anwendungsgateways mit dem SKU-Typ WAF. Weitere Informationen finden Sie unter https://docs.microsoft.com/azure/application-gateway/application-gateway-web-application-firewall-cli .
+directCommands:
+- uid: az_network_application-gateway_waf-config_list-rule-sets
+  name: az network application-gateway waf-config list-rule-sets
+  summary: Abrufen von Informationen zu verfügbaren WAF-Regelsätzen, Regelgruppen und Regel-IDs.
+  description: ''
+  syntax: >-
+    az network application-gateway waf-config list-rule-sets [--group]
+                                                             [--subscription]
+                                                             [--type]
+                                                             [--version]
+  examples:
+  - summary: Listet verfügbare Regelgruppen in OWASP-Regelsätzen auf.
+    syntax: az network application-gateway waf-config list-rule-sets --type OWASP
+  - summary: Listet verfügbare Regeln im OWASP 3.0-Regelsatz auf.
+    syntax: az network application-gateway waf-config list-rule-sets --group '*' --type OWASP --version 3.0
+  - summary: Listet verfügbare Regeln in der `crs_35_bad_robots` Regelgruppe auf.
+    syntax: az network application-gateway waf-config list-rule-sets --group crs_35_bad_robots
+  - summary: Listet verfügbare Regeln im Tabellenformat auf.
+    syntax: az network application-gateway waf-config list-rule-sets -o table
+  optionalParameters:
+  - name: --group
+    summary: Listet Regeln für die angegebene Regelgruppe auf. Verwenden Sie `\*` , um Regeln für alle Gruppen aufzulisten. Auslassen, um das Auflisten einzelner Regeln zu unterdrücken.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+  - name: --type
+    summary: Regelsatztyp, der auflistet werden soll. Lassen Sie aus, um alle Typen aufzulisten.
+    description: ''
+  - name: --version
+    summary: Regelsatzversion, die aufgeführt werden soll. Lassen Sie aus, um alle Versionen aufzulisten.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/network/_help.py
+- uid: az_network_application-gateway_waf-config_set
+  name: az network application-gateway waf-config set
+  summary: Aktualisieren sie die Firewallkonfiguration einer Webanwendung.
+  description: Dieser Befehl gilt nur für Anwendungsgateways mit dem SKU-Typ WAF. Weitere Informationen finden Sie unter https://docs.microsoft.com/azure/application-gateway/application-gateway-web-application-firewall-cli .
+  syntax: >-
+    az network application-gateway waf-config set --enabled {false, true}
+                                                  [--disabled-rule-groups]
+                                                  [--disabled-rules]
+                                                  [--firewall-mode {Detection, Prevention}]
+                                                  [--gateway-name]
+                                                  [--ids]
+                                                  [--no-wait]
+                                                  [--resource-group]
+                                                  [--rule-set-type]
+                                                  [--rule-set-version]
+                                                  [--subscription]
+  examples:
+  - summary: Konfigurieren der WAF auf einem Anwendungsgateway im Erkennungsmodus mit Standardwerten
+    syntax: >-
+      az network application-gateway waf-config set -g MyResourceGroup --gateway-name MyAppGateway \
+          --enabled true --firewall-mode Detection --rule-set-version 3.0
+  - summary: Deaktivieren Sie Regeln für die Überprüfung der Analyse des Anforderungskörpers und die Einjektion von SQL.
+    syntax: >-
+      az network application-gateway waf-config set -g MyResourceGroup --gateway-name MyAppGateway \
+          --enabled true --rule-set-type OWASP --rule-set-version 3.0 \
+          --disabled-rule-groups REQUEST-942-APPLICATION-ATTACK-SQLI \
+          --disabled-rules 920130 920140
+  - summary: Konfigurieren sie WAF auf einem Anwendungsgateway mit Ausschlüssen.
+    syntax: >-
+      az network application-gateway waf-config set -g MyResourceGroup --gateway-name MyAppGateway \
+          --enabled true --firewall-mode Detection --rule-set-version 3.0 \
+          --exclusion "RequestHeaderNames StartsWith x-header" \
+          --exclusion "RequestArgNames Equals IgnoreThis"
+  requiredParameters:
+  - isRequired: true
+    name: --enabled
+    parameterValueGroup: false, true
+    summary: Geben Sie an, ob die Anwendungsfirewall aktiviert ist.
+    description: ''
+  optionalParameters:
+  - name: --disabled-rule-groups
+    summary: Durch Leerzeichen getrennte Liste der zu deaktivierenden Regelgruppen. Verwenden Sie , um einzelne Regeln zu `--disabled-rules` deaktivieren.
+    description: ''
+    valueFrom: az network application-gateway waf-config list-rule-sets
+  - name: --disabled-rules
+    summary: Durch Leerzeichen getrennte Liste der zu deaktivierenden Regel-IDs.
+    description: ''
+    valueFrom: az network application-gateway waf-config list-rule-sets
+  - name: --firewall-mode
+    defaultValue: Detection
+    parameterValueGroup: Detection, Prevention
+    summary: Web Application Firewall-Modus.
+    description: ''
+  - name: --gateway-name
+    summary: Name des Anwendungsgateways.
+    description: ''
+  - name: --ids
+    summary: Eine oder mehrere Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu Ressourcen-ID-Argumenten geben. Sie sollten entweder --ids oder andere Ressourcen-ID-Argumente bereitstellen.
+    description: ''
+  - name: --no-wait
+    summary: Nicht auf den Abschluss lang andauernder Vorgänge warten
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --rule-set-type
+    defaultValue: OWASP
+    summary: 'Regelsatztyp:'
+    description: ''
+    valueFrom: az network application-gateway waf-config list-rule-sets
+  - name: --rule-set-version
+    summary: Regelsatzversion.
+    description: ''
+    valueFrom: az network application-gateway waf-config list-rule-sets
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/network/_help.py
+- uid: az_network_application-gateway_waf-config_show
+  name: az network application-gateway waf-config show
+  summary: Hier erhalten Sie die Firewallkonfiguration einer Webanwendung.
+  description: ''
+  syntax: >-
+    az network application-gateway waf-config show [--gateway-name]
+                                                   [--ids]
+                                                   [--query-examples]
+                                                   [--resource-group]
+                                                   [--subscription]
+  examples:
+  - summary: Hier erhalten Sie die Firewallkonfiguration einer Webanwendung.
+    syntax: az network application-gateway waf-config show -g MyResourceGroup --gateway-name MyAppGateway
+  optionalParameters:
+  - name: --gateway-name
+    summary: Name des Anwendungsgateways.
+    description: ''
+  - name: --ids
+    summary: Eine oder mehrere Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu Ressourcen-ID-Argumenten geben. Sie sollten entweder --ids oder andere Ressourcen-ID-Argumente bereitstellen.
+    description: ''
+  - name: --query-examples
+    summary: Empfehlen Sie die JMESPath-Zeichenfolge. Sie können eine der Abfragen kopieren und nach dem Parameter --query in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positionsschlüsselwörter hinzufügen, damit wir basierend auf diesen Schlüsselwörtern Vorschläge geben können.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/network/_help.py
+commands:
+- az_network_application-gateway_waf-config_list-rule-sets
+- az_network_application-gateway_waf-config_set
+- az_network_application-gateway_waf-config_show
+globalParameters:
+- name: --debug
+  summary: Ausführlichkeit der Protokollierung erhöhen, um alle Debugprotokolle anzuzeigen.
+- name: --help -h
+  summary: Zeigen Sie diese Hilfemeldung an, und schließen Sie sie.
+- name: --only-show-errors
+  summary: Nur Fehler anzeigen und Warnungen unterdrücken.
+- name: --output -o
+  defaultValue: json
+  parameterValueGroup: json, jsonc, table, tsv
+  summary: Ausgabeformat.
+- name: --query
+  summary: JMESPath-Abfragezeichenfolge. Weitere Informationen und Beispiele finden Sie unter <a href="http://jmespath.org/">http://jmespath.org/</a>.
+- name: --verbose
+  summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
+metadata:
+  doc_source_url_repo: https://github.com/Azure/azure-cli/blob/dev/
+  ms.date: 04/25/2021
+  description: Diese Befehle gelten nur für Anwendungsgateways mit dem SKU-Typ WAF. Weitere Informationen finden Sie unter https://docs.microsoft.com/azure/application-gateway/application-gateway-web-application-firewall-cli .
+  ms.openlocfilehash: 5c5e7006039eacc8ae251181b1e4efc0a94e0f62
+  ms.sourcegitcommit: 15a6f14c5a8570ba89a3bd5bb442f3324d72bc37
+  ms.translationtype: MT
+  ms.contentlocale: de-DE
+  ms.lasthandoff: 04/29/2021
+  ms.locfileid: "108267684"

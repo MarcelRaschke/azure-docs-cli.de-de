@@ -1,0 +1,364 @@
+### YamlMime:AzureCLIGroup
+uid: az_monitor_alert
+name: az monitor alert
+summary: Verwalten sie klassische metrikbasierte Warnungsregeln.
+description: ''
+directCommands:
+- uid: az_monitor_alert_create
+  name: az monitor alert create
+  summary: Erstellen Sie eine klassische metrikbasierte Warnungsregel.
+  description: ''
+  syntax: >-
+    az monitor alert create --condition
+                            --name
+                            --target
+                            [--action]
+                            [--description]
+                            [--disabled {false, true}]
+                            [--email-service-owners {false, true}]
+                            [--location]
+                            [--resource-group]
+                            [--subscription]
+                            [--tags]
+                            [--target-namespace]
+                            [--target-parent]
+                            [--target-type]
+  examples:
+  - summary: Erstellen Sie eine Warnung mit hoher CPU-Auslastung auf einem virtuellen Computer ohne Aktionen.
+    syntax: az monitor alert create -n rule1 -g {ResourceGroup} --target {VirtualMachineID} --condition "Percentage CPU > 90 avg 5m"
+  - summary: Erstellen Sie eine Warnung mit hoher CPU-Auslastung auf einem virtuellen Computer mit E-Mail- und Webhookaktionen.
+    syntax: >-
+      az monitor alert create -n rule1 -g {ResourceGroup} --target {VirtualMachineID} \
+          --condition "Percentage CPU > 90 avg 5m" \
+          --action email bob@contoso.comann@contoso.com --email-service-owners \
+          --action webhook https://www.contoso.com/alerts?type=HighCPU \
+          --action webhook https://alerts.contoso.com apiKey={APIKey} type=HighCPU
+  requiredParameters:
+  - isRequired: true
+    name: --condition
+    summary: Die Bedingung, die die Regel auslöst.
+    description: Die Form einer Bedingung ist "METRIC {>,>=,<,<=} THRESHOLD {avg,min,max,total,last} PERIOD". Werte für METRIC und die entsprechenden SCHWELLENWERTwerte können von Befehlen ermittelt werden, und PERIOD hat die Form `az monitor metric` "##h##m##s".
+  - isRequired: true
+    name: --name -n
+    summary: Der Name der Warnungsregel.
+    description: ''
+  - isRequired: true
+    name: --target
+    summary: Name oder ID der Zielressource.
+    description: ''
+  optionalParameters:
+  - name: --action -a
+    summary: Fügen Sie eine Aktion hinzu, die ausgelöst wird, wenn die Warnung ausgelöst wird.
+    description: 'Verwendung: --action TYPE KEY [ARG ...] E-Mail: --action email bob@contoso.comann @contoso.com Webhook: --action webhook https://www.contoso.com/alert apiKey=value Webhook: --action webhook Mehrere Aktionen können mit mehreren https://www.contoso.com/alert?apiKey=value Argumenten angegeben `--action` werden.'
+  - name: --description
+    summary: Freitextbeschreibung der Regel. Der Standardwert ist der Bedingungsausdruck.
+    description: ''
+  - name: --disabled
+    parameterValueGroup: false, true
+    summary: Erstellen Sie die Regel in einem deaktivierten Zustand.
+    description: ''
+  - name: --email-service-owners
+    parameterValueGroup: false, true
+    summary: Senden Sie eine E-Mail an die Dienstbesitzer, wenn eine Warnung ausgelöst wird.
+    description: ''
+  - name: --location -l
+    summary: 'Der Standort. Werte aus: `az account list-locations`. Sie können den standardmäßig verwendeten Standort mit `az configure --defaults location=<location>` konfigurieren.'
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+  - name: --tags
+    summary: 'Durch Leerzeichen getrennte Tags: key[=value] [key[=value] ...]. Verwenden Sie "", um vorhandene Tags zu löschen.'
+    description: ''
+  - name: --target-namespace
+    summary: Zielressourcenanbieternamespace.
+    description: ''
+  - name: --target-parent
+    summary: Übergeordneter Pfad der Zielressource, falls zutreffend.
+    description: ''
+  - name: --target-type
+    summary: Zielressourcentyp. Kann auch das Namespace-/Typformat akzeptieren (z.B. "Microsoft.Compute/virtualMachines").
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/monitor/_help.py
+- uid: az_monitor_alert_delete
+  name: az monitor alert delete
+  summary: Löscht eine Warnungsregel.
+  description: ''
+  syntax: >-
+    az monitor alert delete [--ids]
+                            [--name]
+                            [--resource-group]
+                            [--subscription]
+  examples:
+  - summary: Löscht eine Warnungsregel. (automatisch generiert)
+    syntax: az monitor alert delete --name MyAlertRule --resource-group MyResourceGroup
+  optionalParameters:
+  - name: --ids
+    summary: Mindestens eine Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen von "Resource Id"-Argumenten sein. Sie sollten entweder --ids oder andere "Resource Id"-Argumente angeben.
+    description: ''
+  - name: --name -n
+    summary: Der Name der Warnungsregel.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/monitor/_help.py
+- uid: az_monitor_alert_list
+  name: az monitor alert list
+  summary: Auflisten von Warnungsregeln in einer Ressourcengruppe.
+  description: ''
+  syntax: >-
+    az monitor alert list --resource-group
+                          [--query-examples]
+                          [--subscription]
+  examples:
+  - summary: Auflisten von Warnungsregeln in einer Ressourcengruppe. (automatisch generiert)
+    syntax: az monitor alert list --resource-group MyResourceGroup
+  requiredParameters:
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  optionalParameters:
+  - name: --query-examples
+    summary: Empfehlen Sie die JMESPath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und sie nach dem Parameter --query in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positionsschlüsselwörter hinzufügen, damit wir basierend auf diesen Schlüsselwörtern Vorschläge geben können.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/monitor/_help.py
+- uid: az_monitor_alert_list-incidents
+  name: az monitor alert list-incidents
+  summary: Listet alle Incidents für eine Warnungsregel auf.
+  description: ''
+  syntax: >-
+    az monitor alert list-incidents --resource-group
+                                    --rule-name
+                                    [--subscription]
+  examples:
+  - summary: Listet alle Incidents für eine Warnungsregel auf. (automatisch generiert)
+    syntax: az monitor alert list-incidents --resource-group MyResourceGroup --rule-name MyRule
+  requiredParameters:
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - isRequired: true
+    name: --rule-name
+    summary: Der Name der Warnungsregel.
+    description: ''
+  optionalParameters:
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/monitor/_help.py
+- uid: az_monitor_alert_show
+  name: az monitor alert show
+  summary: Anzeigen einer Warnungsregel.
+  description: ''
+  syntax: >-
+    az monitor alert show [--ids]
+                          [--name]
+                          [--query-examples]
+                          [--resource-group]
+                          [--subscription]
+  examples:
+  - summary: Anzeigen einer Warnungsregel. (automatisch generiert)
+    syntax: az monitor alert show --name MyAlertRule --resource-group MyResourceGroup
+  optionalParameters:
+  - name: --ids
+    summary: Eine oder mehrere Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu Ressourcen-ID-Argumenten geben. Sie sollten entweder --ids oder andere Ressourcen-ID-Argumente bereitstellen.
+    description: ''
+  - name: --name -n
+    summary: Der Name der Warnungsregel.
+    description: ''
+  - name: --query-examples
+    summary: Empfehlen Sie die JMESPath-Zeichenfolge. Sie können eine der Abfragen kopieren und nach dem Parameter --query in doppelte Anführungszeichen einfügen, um die Ergebnisse zu sehen. Sie können ein oder mehrere Positionsschlüsselwörter hinzufügen, damit wir basierend auf diesen Schlüsselwörtern Vorschläge machen können.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/monitor/_help.py
+- uid: az_monitor_alert_show-incident
+  name: az monitor alert show-incident
+  summary: Hier finden Sie Die Details eines Warnungsregelvorfalls.
+  description: ''
+  syntax: >-
+    az monitor alert show-incident [--ids]
+                                   [--name]
+                                   [--resource-group]
+                                   [--rule-name]
+                                   [--subscription]
+  optionalParameters:
+  - name: --ids
+    summary: Eine oder mehrere Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu Ressourcen-ID-Argumenten geben. Sie sollten entweder --ids oder andere Ressourcen-ID-Argumente bereitstellen.
+    description: ''
+  - name: --name -n
+    summary: Der Name des abzurufenden Incidents.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --rule-name
+    summary: Der Name der Warnungsregel.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/monitor/_help.py
+- uid: az_monitor_alert_update
+  name: az monitor alert update
+  summary: Aktualisieren einer klassischen metrikbasierten Warnungsregel.
+  description: ''
+  syntax: >-
+    az monitor alert update [--add]
+                            [--add-action]
+                            [--aggregation {avg, last, max, min, total}]
+                            [--condition]
+                            [--description]
+                            [--email-service-owners {false, true}]
+                            [--enabled]
+                            [--force-string]
+                            [--ids]
+                            [--metric]
+                            [--name]
+                            [--operator {<, <=, >, >=}]
+                            [--period]
+                            [--remove]
+                            [--remove-action]
+                            [--resource]
+                            [--resource-group]
+                            [--resource-namespace]
+                            [--resource-parent]
+                            [--resource-type]
+                            [--set]
+                            [--subscription]
+                            [--tags]
+                            [--threshold]
+  examples:
+  - summary: Aktualisieren einer klassischen metrikbasierten Warnungsregel. (automatisch generiert)
+    syntax: az monitor alert update --email-service-owners true --name MyAlertRule --resource-group MyResourceGroup
+  - summary: Aktualisieren einer klassischen metrikbasierten Warnungsregel. (automatisch generiert)
+    syntax: az monitor alert update --name MyAlertRule --remove-action email bob@contoso.com --resource-group MyResourceGroup
+  - summary: Aktualisieren einer klassischen metrikbasierten Warnungsregel. (automatisch generiert)
+    syntax: az monitor alert update --name MyAlertRule --resource-group MyResourceGroup --set retentionPolicy.days=365
+  optionalParameters:
+  - name: --add
+    summary: 'Fügen Sie einer Liste von -Objekten ein -Objekt hinzu, indem Sie ein Pfad- und Schlüsselwertpaar angeben.  Beispiel: --add property.listProperty <key=value, string oder JSON string>.'
+    description: ''
+  - name: --add-action -a
+    summary: Fügen Sie eine Aktion hinzu, die ausgelöst wird, wenn die Warnung ausgelöst wird.
+    description: 'Verwendung: --add-action TYPE KEY [ARG ...] E-Mail: --add-action email bob@contoso.comann @contoso.com Webhook: --add-action webhook https://www.contoso.com/alert apiKey=value Webhook: --add-action webhook https://www.contoso.com/alert?apiKey=value Mehrere Aktionen können mit mehreren Argumenten angegeben `--add-action` werden.'
+  - name: --aggregation
+    parameterValueGroup: avg, last, max, min, total
+    summary: Aggregationstyp, der basierend auf "--period" angewendet werden soll.
+    description: ''
+  - name: --condition
+    summary: Die Bedingung, die die Regel auslöst.
+    description: Die Form einer Bedingung ist "METRIC {>,>=,<,<=} THRESHOLD {avg,min,max,total,last} PERIOD". Werte für METRIC und entsprechende SCHWELLENWERTe können über Befehle abgerufen `az monitor metric` werden, und PERIOD hat das Format "##h##m##s".
+  - name: --description
+    summary: Beschreibung der Regel
+    description: ''
+  - name: --email-service-owners
+    parameterValueGroup: false, true
+    summary: Senden Sie eine E-Mail an die Dienstbesitzer, wenn eine Warnung ausgelöst wird.
+    description: ''
+  - name: --enabled
+    summary: ''
+    description: ''
+  - name: --force-string
+    summary: Wenn Sie "set" oder "add" verwenden, behalten Sie Zeichenfolgenliterale bei, anstatt zu versuchen, in JSON zu konvertieren.
+    description: ''
+  - name: --ids
+    summary: Mindestens eine Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen von "Resource Id"-Argumenten sein. Sie sollten entweder --ids oder andere "Resource Id"-Argumente angeben.
+    description: ''
+  - name: --metric
+    summary: Name der Metrik, auf der die Regel basieren soll.
+    description: ''
+    valueFrom: az monitor metrics list-definitions
+  - name: --name -n
+    summary: Der Name der Warnungsregel.
+    description: ''
+  - name: --operator
+    parameterValueGroup: <, <=, >, >=
+    summary: Vergleichen der Metrik mit dem Schwellenwert
+    description: ''
+  - name: --period
+    summary: Die Zeitspanne, über die --aggregation angewendet werden soll, in der Kurzform nDnHnMnS oder im vollständigen ISO8601-Format.
+    description: ''
+  - name: --remove
+    summary: 'Entfernen sie eine Eigenschaft oder ein Element aus einer Liste.  Beispiel: --remove property.list <indexToRemove> OR --remove propertyToRemove.'
+    description: ''
+  - name: --remove-action -r
+    summary: Entfernen Sie eine oder mehrere Aktionen.
+    description: 'Verwendung: --remove-action TYPE KEY [KEY ...] E-Mail: --remove-action email bob@contoso.comann @contoso.com Webhook: --remove-action webhook https://contoso.com/alerthttps://alerts.contoso.com .'
+  - name: --resource
+    summary: Name oder ID der Zielressource.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --resource-namespace
+    summary: Zielressourcenanbieternamespace.
+    description: ''
+  - name: --resource-parent
+    summary: Übergeordneter Pfad der Zielressource, falls zutreffend.
+    description: ''
+  - name: --resource-type
+    summary: Zielressourcentyp. Kann auch das Namespace-/Typformat akzeptieren (z.B. "Microsoft.Compute/virtualMachines").
+    description: ''
+  - name: --set
+    summary: 'Aktualisieren Sie ein -Objekt, indem Sie einen festzulegenden Eigenschaftenpfad und -wert angeben.  Beispiel: --set property1.property2=<value>.'
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+  - name: --tags
+    summary: 'Durch Leerzeichen getrennte Tags: key[=value] [key[=value] ...]. Verwenden Sie "", um vorhandene Tags zu löschen.'
+    description: ''
+  - name: --threshold
+    summary: Numerischer Schwellenwert, bei dem die Warnung ausgelöst werden soll.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/monitor/_help.py
+commands:
+- az_monitor_alert_create
+- az_monitor_alert_delete
+- az_monitor_alert_list
+- az_monitor_alert_list-incidents
+- az_monitor_alert_show
+- az_monitor_alert_show-incident
+- az_monitor_alert_update
+globalParameters:
+- name: --debug
+  summary: Ausführlichkeit der Protokollierung erhöhen, um alle Debugprotokolle anzuzeigen.
+- name: --help -h
+  summary: Zeigen Sie diese Hilfemeldung an, und schließen Sie sie.
+- name: --only-show-errors
+  summary: Nur Fehler anzeigen und Warnungen unterdrücken.
+- name: --output -o
+  defaultValue: json
+  parameterValueGroup: json, jsonc, table, tsv
+  summary: Ausgabeformat.
+- name: --query
+  summary: JMESPath-Abfragezeichenfolge. Weitere Informationen und Beispiele finden Sie unter <a href="http://jmespath.org/">http://jmespath.org/</a>.
+- name: --verbose
+  summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
+metadata:
+  doc_source_url_repo: https://github.com/Azure/azure-cli/blob/dev/
+  ms.date: 04/13/2021
+  description: Verwalten sie klassische metrikbasierte Warnungsregeln.
+  ms.openlocfilehash: 20db76ee1c4aad16118a3d36654ae27193d7f94e
+  ms.sourcegitcommit: d01260d847ea835a8bbab0e0db73d1b39f5c18ef
+  ms.translationtype: MT
+  ms.contentlocale: de-DE
+  ms.lasthandoff: 04/13/2021
+  ms.locfileid: "107359686"

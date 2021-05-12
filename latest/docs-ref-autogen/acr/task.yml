@@ -1,0 +1,774 @@
+### YamlMime:AzureCLIGroup
+uid: az_acr_task
+name: az acr task
+summary: Verwalten Sie eine Sammlung von Schritten zum Erstellen, Testen und Patchen von & Framework-Containerimages mithilfe von Azure Container Registries.
+description: ''
+directCommands:
+- uid: az_acr_task_cancel-run
+  name: az acr task cancel-run
+  summary: Brechen Sie eine angegebene Ausführung eines Azure Container Registry.
+  description: ''
+  syntax: >-
+    az acr task cancel-run --registry
+                           --run-id
+                           [--resource-group]
+                           [--subscription]
+  examples:
+  - summary: Abbrechen einer Ausführung
+    syntax: az acr task cancel-run -r MyRegistry --run-id runId
+  requiredParameters:
+  - isRequired: true
+    name: --registry -r
+    summary: Der Name der Containerregistrierung. Sie können den Standardregistrierungsnamen mit `az configure --defaults acr=<registry name>` konfigurieren.
+    description: ''
+  - isRequired: true
+    name: --run-id
+    summary: Der eindeutige Ausführungsbezeichner.
+    description: ''
+  optionalParameters:
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/acr/_help.py
+- uid: az_acr_task_create
+  name: az acr task create
+  summary: Erstellen Sie eine Reihe von Schritten zum Erstellen, Testen und Patchen von & Framework-Containern. Aufgaben unterstützen Trigger von Git-Commits und Basisimageupdates.
+  description: ''
+  syntax: >-
+    az acr task create --name
+                       --registry
+                       [--agent-pool]
+                       [--arg]
+                       [--assign-identity]
+                       [--auth-mode {Default, None}]
+                       [--base-image-trigger-enabled {false, true}]
+                       [--base-image-trigger-name]
+                       [--base-image-trigger-type {All, Runtime}]
+                       [--cmd]
+                       [--commit-trigger-enabled {false, true}]
+                       [--context]
+                       [--cpu]
+                       [--file]
+                       [--git-access-token]
+                       [--image]
+                       [--is-system-task]
+                       [--log-template]
+                       [--no-cache {false, true}]
+                       [--no-push {false, true}]
+                       [--platform]
+                       [--pull-request-trigger-enabled {false, true}]
+                       [--resource-group]
+                       [--schedule]
+                       [--secret-arg]
+                       [--set]
+                       [--set-secret]
+                       [--source-trigger-name]
+                       [--status {Disabled, Enabled}]
+                       [--subscription]
+                       [--target]
+                       [--timeout]
+                       [--update-trigger-endpoint]
+                       [--update-trigger-payload-type {Default, Token}]
+                       [--values]
+  examples:
+  - summary: Erstellen Sie eine Aufgabe ohne den Quellspeicherort.
+    syntax: az acr task create -n hello-world -r MyRegistry --cmd '$Registry/myimage' -c /dev/null
+  - summary: Erstellen Sie eine Aufgabe mit der Definition aus der Standardeingabe und mit einem Timertrigger, der die Aufgabe am Anfang jeder Stunde unter Verwendung des Standardtriggernamens ausgeführt. Entweder 'STRG + Z'(Windows) oder 'STRG +D' (Linux) beendet den Eingabestream.
+    syntax: >-
+      cat task.yaml | az acr task create -n hello-world -r MyRegistry -f - -c /dev/null \
+          --schedule "0 */1 * * *"
+      az acr task create -n hello-world -r MyRegistry -f - -c /dev/null --schedule "0 */1 * * *"
+  - summary: Erstellen Sie eine Linux-Aufgabe aus einem öffentlichen GitHub-Repository, das das Hello World-Image ohne Trigger erstellt und ein Buildargument verwendet.
+    syntax: >-
+      az acr task create -t hello-world:{{.Run.ID}} -n hello-world -r MyRegistry \
+          -c https://github.com/Azure/acr-builder.git -f Dockerfile \
+          --commit-trigger-enabled false --base-image-trigger-enabled false \
+          --arg DOCKER_CLI_BASE_IMAGE=docker:18.03.0-ce-git
+  - summary: Erstellen Sie eine Linux-Aufgabe mit einem bestimmten Branch eines privaten Azure DevOps-Repositorys, das das Hello-World-Image in der Arm-Architektur (Variante V7) erstellt und Trigger aktiviert hat.
+    syntax: >-
+      az acr task create -t hello-world:{{.Run.ID}} -n hello-world -r MyRegistry \
+          -c https://msazure.visualstudio.com/DefaultCollection/Project/_git/Repo#Branch:Folder \
+          -f Dockerfile --git-access-token <Personal Access Token> --platform linux/arm/v7
+  - summary: Erstellen Sie eine Linux-Aufgabe aus einem öffentlichen GitHub-Repository, das das Hello World-Image mit aktiviertem Git-Commit und Pull Request-Trigger erstellt. Beachten Sie, dass für diese Aufgabe die Quellregistrierung (MyRegistry) nicht verwendet wird. Daher können wir den Authentifizierungsmodus explizit auf None (Keine) festlegen.
+    syntax: >-
+      az acr task create -t hello-world:{{.Run.ID}} -n hello-world -r MyRegistry  -f Dockerfile \
+          --no-push true --auth-mode None -c https://github.com/Azure-Samples/acr-build-helloworld-node.git \
+          --pull-request-trigger-enabled true --git-access-token 000000000000000000000000000000000
+  - summary: Erstellen Sie eine Windows-Aufgabe aus einem öffentlichen GitHub-Repository, das das Azure Container Builder-Image in der Amd64-Architektur mit aktivierten Basisimagetriggern erstellt.
+    syntax: >-
+      az acr task create -t acb:{{.Run.ID}} -n acb-win -r MyRegistry \
+          -c https://github.com/Azure/acr-builder.git -f Windows.Dockerfile \
+          --commit-trigger-enabled false --platform Windows/amd64
+  - summary: Erstellen Sie eine mehrstufige Linux-Aufgabe aus einem öffentlichen GitHub-Repository mit sowohl vom System zugewiesenen als auch vom Benutzer zugewiesenen verwalteten Identitäten und Basisimage-, Git-Commit-, Pull Request- und Timertriggern, die die Aufgabe montags bis freitags um 12 Uhr mit dem angegebenen Timertriggernamen ausführen.
+    syntax: >-
+      az acr task create -t hello-world:{{.Run.ID}} -n hello-world -r MyRegistry \
+          --pull-request-trigger-enabled true --schedule "dailyTimer:0 12 * * Mon-Fri" \
+          -c https://github.com/Azure-Samples/acr-tasks.git#:multipleRegistries -f testtask.yaml \
+          --assign-identity [system] "/subscriptions/<subscriptionId>/resourcegroups/<myResourceGroup>/providers/Microsoft.ManagedIdentity/userAssignedIdentities/<myUserAssignedIdentitiy>"
+  requiredParameters:
+  - isRequired: true
+    name: --name -n
+    summary: Der Name der Aufgabe.
+    description: ''
+  - isRequired: true
+    name: --registry -r
+    summary: Der Name der Containerregistrierung. Sie können den Standardregistrierungsnamen mit `az configure --defaults acr=<registry name>` konfigurieren.
+    description: ''
+  optionalParameters:
+  - name: --agent-pool
+    summary: Der Name des Agentpools.
+    description: ''
+  - name: --arg
+    summary: Buildargument im Format "--arg name[=value]". Mehrere, die durch mehrfaches Übergeben von "--arg" unterstützt werden.
+    description: ''
+  - name: --assign-identity
+    summary: Weist der Aufgabe verwaltete Identitäten zu. Verwenden Sie "[system]", um auf die vom System zugewiesene Identität oder eine Ressourcen-ID zu verweisen, um auf eine vom Benutzer zugewiesene Identität zu verweisen. Unter https://aka.ms/acr/tasks/task-create-managed-identity finden Sie weitere Informationen.
+    description: ''
+  - name: --auth-mode
+    parameterValueGroup: Default, None
+    summary: Authentifizierungsmodus der Quellregistrierung.
+    description: ''
+  - name: --base-image-trigger-enabled
+    defaultValue: "1"
+    parameterValueGroup: false, true
+    summary: Gibt an, ob der Basisimagetrigger aktiviert ist.
+    description: ''
+  - name: --base-image-trigger-name
+    defaultValue: defaultBaseimageTriggerName
+    summary: Der Name des Basisimagetriggers.
+    description: ''
+  - name: --base-image-trigger-type
+    defaultValue: Runtime
+    parameterValueGroup: All, Runtime
+    summary: Der Typ des automatischen Triggers für Aktualisierungen der Basisimageabhängigkeit.
+    description: ''
+  - name: --cmd
+    summary: Auszuführende Befehle.
+    description: ''
+  - name: --commit-trigger-enabled
+    defaultValue: "1"
+    parameterValueGroup: false, true
+    summary: Gibt an, ob der Quellcodeverwaltungscommittrigger aktiviert ist.
+    description: ''
+  - name: --context -c
+    summary: Die vollständige URL zum Quellcode-Repository (erfordert das Suffix ".git" für ein GitHub-Repository) oder das Repository eines OCI-Artefakts in einer Azure-Containerregistrierung (z.B. "oci://myregistry.azurecr.io/myartifact:mytag"). Wenn "/dev/null" angegeben ist, wird der Wert auf None festgelegt und ignoriert. Dies ist ein erforderliches Argument, wenn der Task kein Systemtask ist.
+    description: ''
+  - name: --cpu
+    defaultValue: "2"
+    summary: Die CPU-Konfiguration in Bezug auf die Anzahl der Kerne, die für die Ausführung erforderlich sind.
+    description: ''
+  - name: --file -f
+    summary: Relativer Pfad der Task-/Docker-Datei zum Quellcodestammordner. Taskdateien müssen das Suffix ".yaml" aufweisen oder mithilfe von "-" aus der Standardeingabe über die Pipeline übertragen werden.
+    description: ''
+  - name: --git-access-token
+    summary: Das Zugriffstoken, das für den Zugriff auf den Quellcodeverwaltungsanbieter verwendet wird.
+    description: ''
+  - name: --image -t
+    summary: Name und Tag des Bilds im Format "-t repo/image:tag". Mehrere Tags werden unterstützt, indem -t mehrmals übergeben wird.
+    description: ''
+  - name: --is-system-task
+    summary: Gibt an, ob die Taskressource ein Systemtask ist. Der Name der Aufgabe muss "quicktask" sein. Gilt nur für die CMK-fähige Registrierung.
+    description: ''
+  - name: --log-template
+    summary: Das Repository und die Tagvorlage für das Ausführungsprotokollartefakt im Format "log/repo:tag" (z.B. "acr/logs:{{. Run.ID}}'). Gilt nur für die CMK-fähige Registrierung.
+    description: ''
+  - name: --no-cache
+    parameterValueGroup: false, true
+    summary: Gibt an, ob der Imagecache aktiviert ist.
+    description: ''
+  - name: --no-push
+    parameterValueGroup: false, true
+    summary: Gibt an, ob das image built in die Registrierung pusht werden soll.
+    description: ''
+  - name: --platform
+    summary: 'Die Plattform, auf der build/task ausgeführt wird, z. B. "windows" und "linux". Wenn sie in Buildbefehlen verwendet wird, kann sie auch im Format "os/arch/variant" für das resultierende Bild angegeben werden. Beispiel: linux/arm/v7. Die Teile "arch" und "variant" sind optional.'
+    description: ''
+  - name: --pull-request-trigger-enabled
+    parameterValueGroup: false, true
+    summary: Gibt an, ob der Pull Request-Trigger der Quellcodeverwaltung aktiviert ist. Der Trigger ist standardmäßig deaktiviert.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --schedule
+    summary: Zeitplan für einen Als Cron-Ausdruck dargestellten Timertrigger. Ein optionaler Triggername kann im Format angegeben `--schedule name:schedule` werden. Mehrere, die durch mehrfaches Übergeben von --schedule unterstützt werden.
+    description: ''
+  - name: --secret-arg
+    summary: Geheimes Buildargument im Format "--secret-arg name[=value]". Mehrere, die durch mehrfaches Übergeben von --secret-arg unterstützt werden.
+    description: ''
+  - name: --set
+    summary: Taskwert im Format "--set name[=value]". Mehrere, die von der Übergabe von --set mehrmals unterstützt werden.
+    description: ''
+  - name: --set-secret
+    summary: Der Wert der geheimen Aufgabe im Format "--set-secret name[=value]". Mehrere, die durch mehrfaches Übergeben von --set-secret unterstützt werden.
+    description: ''
+  - name: --source-trigger-name
+    defaultValue: defaultSourceTriggerName
+    summary: Der Name des Quelltriggers.
+    description: ''
+  - name: --status
+    defaultValue: Enabled
+    parameterValueGroup: Disabled, Enabled
+    summary: Der aktuelle Status des Tasks.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+  - name: --target
+    summary: Der Name der Zielbuildphase.
+    description: ''
+  - name: --timeout
+    defaultValue: "3600"
+    summary: Das Timeout in Sekunden.
+    description: ''
+  - name: --update-trigger-endpoint
+    summary: Die vollständige URL des Endpunkts für den Empfang von Triggerbenachrichtigungen zum Update des Basisimages.
+    description: ''
+  - name: --update-trigger-payload-type
+    defaultValue: Default
+    parameterValueGroup: Default, Token
+    summary: Gibt an, ob Metadaten zum Basisimagetrigger zusammen mit dem Updatetriggertoken in die Nutzlast eingeschlossen werden sollen, wenn eine Benachrichtigung gesendet wird.
+    description: ''
+  - name: --values
+    summary: Der Dateipfad der Taskwerte/Parameter relativ zum Quellkontext.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/acr/_help.py
+- uid: az_acr_task_delete
+  name: az acr task delete
+  summary: Löschen einer Aufgabe aus einem Azure Container Registry.
+  description: ''
+  syntax: >-
+    az acr task delete --name
+                       --registry
+                       [--resource-group]
+                       [--subscription]
+                       [--yes]
+  examples:
+  - summary: Löschen einer Aufgabe aus einem Azure Container Registry.
+    syntax: az acr task delete -n MyTask -r MyRegistry
+  requiredParameters:
+  - isRequired: true
+    name: --name -n
+    summary: Der Name der Aufgabe.
+    description: ''
+  - isRequired: true
+    name: --registry -r
+    summary: Der Name der Containerregistrierung. Sie können den Standardregistrierungsnamen mit `az configure --defaults acr=<registry name>` konfigurieren.
+    description: ''
+  optionalParameters:
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+  - name: --yes -y
+    summary: Nicht zur Bestätigung auffordern
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/acr/_help.py
+- uid: az_acr_task_list
+  name: az acr task list
+  summary: Listen Sie die Aufgaben für eine Azure Container Registry auf.
+  description: ''
+  syntax: >-
+    az acr task list --registry
+                     [--query-examples]
+                     [--resource-group]
+                     [--subscription]
+  examples:
+  - summary: Listen Sie Aufgaben auf, und zeigen Sie die Ergebnisse in einer Tabelle an.
+    syntax: az acr task list -r MyRegistry -o table
+  requiredParameters:
+  - isRequired: true
+    name: --registry -r
+    summary: Der Name der Containerregistrierung. Sie können den Standardregistrierungsnamen mit `az configure --defaults acr=<registry name>` konfigurieren.
+    description: ''
+  optionalParameters:
+  - name: --query-examples
+    summary: Empfehlen Sie die JMESPath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und nach dem Parameter --query in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positionsschlüsselwörter hinzufügen, damit wir basierend auf diesen Schlüsselwörtern Vorschläge geben können.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/acr/_help.py
+- uid: az_acr_task_list-runs
+  name: az acr task list-runs
+  summary: Listet alle ausgeführten Ausführungen für eine Azure Container Registry auf, mit der Möglichkeit, nach einem bestimmten Task zu filtern.
+  description: ''
+  syntax: >-
+    az acr task list-runs --registry
+                          [--image]
+                          [--name]
+                          [--resource-group]
+                          [--run-status {Canceled, Error, Failed, Queued, Running, Started, Succeeded, Timeout}]
+                          [--subscription]
+                          [--top]
+  examples:
+  - summary: Listen Sie alle Ausführungen für eine Registrierung auf, und zeigen Sie die Ergebnisse in einer Tabelle an.
+    syntax: az acr task list-runs -r MyRegistry -o table
+  - summary: Listen Sie die Läufe für eine Aufgabe auf, und zeigen Sie die Ergebnisse in einer Tabelle an.
+    syntax: az acr task list-runs -r MyRegistry -n MyTask -o table
+  - summary: Listen Sie die letzten 10 erfolgreichen Läufe für eine Registrierung auf, und zeigen Sie die Ergebnisse in einer Tabelle an.
+    syntax: az acr task list-runs -r MyRegistry --run-status Succeeded --top 10 -o table
+  - summary: Listen Sie alle Läufe auf, die das Image "hello-world" für eine Registrierung erstellt haben, und zeigen Sie die Ergebnisse in einer Tabelle an.
+    syntax: az acr task list-runs -r MyRegistry --image hello-world -o table
+  requiredParameters:
+  - isRequired: true
+    name: --registry -r
+    summary: Der Name der Containerregistrierung. Sie können den Standardregistrierungsnamen mit `az configure --defaults acr=<registry name>` konfigurieren.
+    description: ''
+  optionalParameters:
+  - name: --image -t
+    summary: Der Name des Bildes. Kann ein Tag im Format "name:tag" oder "digest" im Format "" name@digest enthalten.
+    description: ''
+  - name: --name -n
+    summary: Der Name der Aufgabe.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --run-status
+    parameterValueGroup: Canceled, Error, Failed, Queued, Running, Started, Succeeded, Timeout
+    summary: Der aktuelle Status der Ausführung.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+  - name: --top
+    defaultValue: "15"
+    summary: Begrenzen Sie die Anzahl der letzten Läufe in den Ergebnissen.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/acr/_help.py
+- uid: az_acr_task_logs
+  name: az acr task logs
+  summary: Anzeigen von Protokollen für eine bestimmte Ausführung Wenn keine Run-ID angegeben wird, zeigen Sie Protokolle für die letzte erstellte Ausführung an.
+  description: ''
+  syntax: >-
+    az acr task logs --registry
+                     [--image]
+                     [--name]
+                     [--resource-group]
+                     [--run-id]
+                     [--subscription]
+  examples:
+  - summary: Zeigt Protokolle für die zuletzt erstellte Ausführung in der Registrierung an.
+    syntax: az acr task logs -r MyRegistry
+  - summary: Zeigt Protokolle für die zuletzt erstellte Ausführung in der Registrierung gefiltert nach Aufgabe an.
+    syntax: az acr task logs -r MyRegistry -n MyTask
+  - summary: Anzeigen von Protokollen für eine bestimmte Ausführung
+    syntax: az acr task logs -r MyRegistry --run-id runId
+  - summary: Zeigt Protokolle für die zuletzt erstellte Ausführung in der Registrierung an, die das Image "hello-world" erstellt hat.
+    syntax: az acr task logs -r MyRegistry --image hello-world
+  requiredParameters:
+  - isRequired: true
+    name: --registry -r
+    summary: Der Name der Containerregistrierung. Sie können den Standardregistrierungsnamen mit `az configure --defaults acr=<registry name>` konfigurieren.
+    description: ''
+  optionalParameters:
+  - name: --image -t
+    summary: Der Name des Bildes. Kann ein Tag im Format "name:tag" oder "digest" im Format "" name@digest enthalten.
+    description: ''
+  - name: --name -n
+    summary: Der Name der Aufgabe.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --run-id
+    summary: Der eindeutige Ausführungsbezeichner.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/acr/_help.py
+- uid: az_acr_task_run
+  name: az acr task run
+  summary: Lösen Sie manuell eine Aufgabe aus, die andernfalls möglicherweise auf Git-Commits oder Trigger zur Aktualisierung von Basisimages wartet.
+  description: ''
+  syntax: >-
+    az acr task run --name
+                    --registry
+                    [--agent-pool]
+                    [--arg]
+                    [--context]
+                    [--file]
+                    [--log-template]
+                    [--no-logs]
+                    [--no-wait]
+                    [--resource-group]
+                    [--secret-arg]
+                    [--set]
+                    [--set-secret]
+                    [--subscription]
+                    [--target]
+                    [--update-trigger-token]
+  examples:
+  - summary: Lösen Sie eine Task-Ausführung aus.
+    syntax: az acr task run -n MyTask -r MyRegistry
+  - summary: Lösen Sie eine Taskauslösung aus, indem Sie den Kontext und die Datei überschreiben, die während der Taskerstellung mit einem Remote-Repository übergeben wurden.
+    syntax: az acr task run -n MyTask -r MyRegistry -c https://github.com/Azure-Samples/acr-build-helloworld-node.git -f Dockerfile
+  - summary: Lösen Sie eine Taskauslösung aus, indem Sie den Kontext und die Datei überschreiben, die während der Taskerstellung mit einem lokalen Kontext übergeben wurden.
+    syntax: az acr task run -n MyTask -r MyRegistry -c . -f Dockerfile
+  - summary: Lösen Sie eine Taskauslösung aus, indem Sie während der Taskerstellung festgelegte Buildargumente hinzufügen oder überschreiben.
+    syntax: az acr task run -n MyTask -r MyRegistry --arg DOCKER_CLI_BASE_IMAGE=docker:18.03.0-ce-git
+  requiredParameters:
+  - isRequired: true
+    name: --name -n
+    summary: Der Name der Aufgabe.
+    description: ''
+  - isRequired: true
+    name: --registry -r
+    summary: Der Name der Containerregistrierung. Sie können den Standardregistrierungsnamen mit `az configure --defaults acr=<registry name>` konfigurieren.
+    description: ''
+  optionalParameters:
+  - name: --agent-pool
+    summary: Der Name des Agentpools.
+    description: ''
+  - name: --arg
+    summary: Buildargument im Format "--arg name[=value]". Multiples, die durch mehrmalige Übergabe von "--arg" unterstützt werden.
+    description: ''
+  - name: --context -c
+    summary: Die vollständige URL zum Quellcode-Repository (erfordert das Suffix ".git" für ein GitHub-Repository) oder das Repository eines OCI-Artefakts in einer Azure-Containerregistrierung (z.B. "oci://myregistry.azurecr.io/myartifact:mytag"). Wenn "/dev/null" angegeben ist, wird der Wert auf None festgelegt und ignoriert. Dies ist ein erforderliches Argument, wenn der Task kein Systemtask ist.
+    description: ''
+  - name: --file -f
+    summary: Relativer Pfad der Task-/Docker-Datei zum Quellcodestammordner. Taskdateien müssen das Suffix ".yaml" aufweisen oder mithilfe von "-" aus der Standardeingabe über die Pipeline übertragen werden.
+    description: ''
+  - name: --log-template
+    summary: Das Repository und die Tagvorlage für das Ausführungsprotokollartefakt im Format "log/repo:tag" (z.B. "acr/logs:{{." Run.ID}}'). Gilt nur für die CMK-fähige Registrierung.
+    description: ''
+  - name: --no-logs
+    summary: Zeigen Sie keine Protokolle an, nachdem Sie den Build erfolgreich in die Warteschlange warteschlangen.
+    description: ''
+  - name: --no-wait
+    summary: Warten Sie nicht, bis die Ausführung abgeschlossen ist, und kehren Sie sofort nach der Ausführung in die Warteschlange zurück.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --secret-arg
+    summary: Geheimes Buildargument im Format "--secret-arg name[=value]". Mehrere Werden unterstützt, indem --secret-arg mehrmals übergeben wird.
+    description: ''
+  - name: --set
+    summary: Aufgabenwert im Format "--set name[=value]". Mehrere werden unterstützt, indem --set mehrmals übergeben wird.
+    description: ''
+  - name: --set-secret
+    summary: Der Wert der geheimen Aufgabe im Format "--set-secret name[=value]". Mehrere, die durch mehrfaches Übergeben von --set-secret unterstützt werden.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+  - name: --target
+    summary: Der Name der Ziel-Buildphase.
+    description: ''
+  - name: --update-trigger-token
+    summary: Die Nutzlast, die zusammen mit der Triggerbenachrichtigung des Basisimages zurück übergeben wird.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/acr/_help.py
+- uid: az_acr_task_show
+  name: az acr task show
+  summary: Hier erhalten Sie die Eigenschaften einer benannten Aufgabe für Azure Container Registry.
+  description: ''
+  syntax: >-
+    az acr task show --name
+                     --registry
+                     [--query-examples]
+                     [--resource-group]
+                     [--subscription]
+                     [--with-secure-properties]
+  examples:
+  - summary: Hier können Sie die Eigenschaften einer Aufgabe und die Ergebnisse in einer Tabelle anzeigen.
+    syntax: az acr task show -n MyTask -r MyRegistry -o table
+  - summary: Hier erhalten Sie die Eigenschaften einer Aufgabe, einschließlich sicherer Eigenschaften.
+    syntax: az acr task show -n MyTask -r MyRegistry --with-secure-properties
+  requiredParameters:
+  - isRequired: true
+    name: --name -n
+    summary: Der Name der Aufgabe.
+    description: ''
+  - isRequired: true
+    name: --registry -r
+    summary: Der Name der Containerregistrierung. Sie können den Standardregistrierungsnamen mit `az configure --defaults acr=<registry name>` konfigurieren.
+    description: ''
+  optionalParameters:
+  - name: --query-examples
+    summary: Empfehlen Sie die JMESPath-Zeichenfolge. Sie können eine der Abfragen kopieren und nach dem Parameter --query in doppelte Anführungszeichen einfügen, um die Ergebnisse zu sehen. Sie können ein oder mehrere Positionsschlüsselwörter hinzufügen, damit wir basierend auf diesen Schlüsselwörtern Vorschläge machen können.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+  - name: --with-secure-properties
+    summary: Gibt an, ob die sicheren Eigenschaften einer Aufgabe zurückgegeben werden sollen.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/acr/_help.py
+- uid: az_acr_task_show-run
+  name: az acr task show-run
+  summary: Hier können Sie die Eigenschaften einer angegebenen Ausführung eines Azure Container Registry erhalten.
+  description: ''
+  syntax: >-
+    az acr task show-run --registry
+                         --run-id
+                         [--resource-group]
+                         [--subscription]
+  examples:
+  - summary: Hier erfahren Sie, wie Sie die Details einer Ausführung anzeigen und die Ergebnisse in einer Tabelle anzeigen.
+    syntax: az acr task show-run -r MyRegistry --run-id runId -o table
+  requiredParameters:
+  - isRequired: true
+    name: --registry -r
+    summary: Der Name der Containerregistrierung. Sie können den Standardregistrierungsnamen mit `az configure --defaults acr=<registry name>` konfigurieren.
+    description: ''
+  - isRequired: true
+    name: --run-id
+    summary: Der eindeutige Ausführungsbezeichner.
+    description: ''
+  optionalParameters:
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/acr/_help.py
+- uid: az_acr_task_update
+  name: az acr task update
+  summary: Aktualisieren einer Aufgabe für eine Azure Container Registry.
+  description: ''
+  syntax: >-
+    az acr task update --name
+                       --registry
+                       [--agent-pool]
+                       [--arg]
+                       [--auth-mode {Default, None}]
+                       [--base-image-trigger-enabled {false, true}]
+                       [--base-image-trigger-type {All, Runtime}]
+                       [--commit-trigger-enabled {false, true}]
+                       [--context]
+                       [--cpu]
+                       [--file]
+                       [--git-access-token]
+                       [--image]
+                       [--log-template]
+                       [--no-cache {false, true}]
+                       [--no-push {false, true}]
+                       [--platform]
+                       [--pull-request-trigger-enabled {false, true}]
+                       [--resource-group]
+                       [--secret-arg]
+                       [--set]
+                       [--set-secret]
+                       [--status {Disabled, Enabled}]
+                       [--subscription]
+                       [--target]
+                       [--timeout]
+                       [--update-trigger-endpoint]
+                       [--update-trigger-payload-type {Default, Token}]
+                       [--values]
+  examples:
+  - summary: Aktualisieren sie Basisimageupdates, um für alle abhängigen Images einer mehrstufigen Dockerfile-Datei und den Status einer Aufgabe in einem Azure Container Registry auszulösen.
+    syntax: az acr task update -n MyTask -r MyRegistry --base-image-trigger-type All --status Disabled
+  - summary: Aktualisieren Sie die Plattform für den Buildschritt Ihrer Aufgabe auf Windows (vor Linux).
+    syntax: az acr task update -n MyTask -r MyRegistry --platform Windows
+  - summary: Aktualisieren der Trigger und des Kontexts einer Aufgabe für eine Azure Container Registry.
+    syntax: >-
+      az acr task update -n hello-world -r MyRegistry -f Dockerfile \
+          --commit-trigger-enabled false --pull-request-trigger-enabled true \
+          -c https://msazure.visualstudio.com/DefaultCollection/Project/_git/Repo#Branch:Folder
+  - summary: Aktualisieren einer Aufgabe für eine Azure Container Registry. (automatisch generiert)
+    syntax: >-
+      az acr task update --image MyImage --name MyTask --registry MyRegistry \
+          --context https://github.com/Azure-Samples/acr-build-helloworld-node.git
+  requiredParameters:
+  - isRequired: true
+    name: --name -n
+    summary: Der Name der Aufgabe.
+    description: ''
+  - isRequired: true
+    name: --registry -r
+    summary: Der Name der Containerregistrierung. Sie können den Standardregistrierungsnamen mit `az configure --defaults acr=<registry name>` konfigurieren.
+    description: ''
+  optionalParameters:
+  - name: --agent-pool
+    summary: Der Name des Agentpools.
+    description: ''
+  - name: --arg
+    summary: Buildargument im Format "--arg name[=value]". Multiples, die durch mehrmalige Übergabe von "--arg" unterstützt werden.
+    description: ''
+  - name: --auth-mode
+    parameterValueGroup: Default, None
+    summary: Authentifizierungsmodus der Quellregistrierung.
+    description: ''
+  - name: --base-image-trigger-enabled
+    parameterValueGroup: false, true
+    summary: Gibt an, ob der Basisimagetrigger aktiviert ist.
+    description: ''
+  - name: --base-image-trigger-type
+    parameterValueGroup: All, Runtime
+    summary: Der Typ des automatischen Triggers für Aktualisierungen der Basisimageabhängigkeit.
+    description: ''
+  - name: --commit-trigger-enabled
+    parameterValueGroup: false, true
+    summary: Gibt an, ob der Quellcodeverwaltungscommittrigger aktiviert ist.
+    description: ''
+  - name: --context -c
+    summary: Die vollständige URL zum Quellcode-Repository (erfordert das Suffix ".git" für ein GitHub-Repository) oder das Repository eines OCI-Artefakts in einer Azure-Containerregistrierung (z.B. "oci://myregistry.azurecr.io/myartifact:mytag"). Wenn "/dev/null" angegeben ist, wird der Wert auf None festgelegt und ignoriert. Dies ist ein erforderliches Argument, wenn der Task kein Systemtask ist.
+    description: ''
+  - name: --cpu
+    summary: Die CPU-Konfiguration in Bezug auf die Anzahl der Kerne, die für die Ausführung erforderlich sind.
+    description: ''
+  - name: --file -f
+    summary: Relativer Pfad der Task-/Docker-Datei zum Quellcodestammordner. Taskdateien müssen das Suffix ".yaml" aufweisen oder mithilfe von "-" aus der Standardeingabe über die Pipeline übertragen werden.
+    description: ''
+  - name: --git-access-token
+    summary: Das Zugriffstoken, das für den Zugriff auf den Quellcodeverwaltungsanbieter verwendet wird.
+    description: ''
+  - name: --image -t
+    summary: Der Name und das Tag des Bilds im Format "-t repo/image:tag". Mehrere Tags werden unterstützt, indem -t mehrmals übergeben wird.
+    description: ''
+  - name: --log-template
+    summary: Das Repository und die Tagvorlage für das Ausführungsprotokollartefakt im Format "log/repo:tag" (z.B. "acr/logs:{{. Run.ID}}'). Gilt nur für die CMK-fähige Registrierung.
+    description: ''
+  - name: --no-cache
+    parameterValueGroup: false, true
+    summary: Gibt an, ob der Imagecache aktiviert ist.
+    description: ''
+  - name: --no-push
+    parameterValueGroup: false, true
+    summary: Gibt an, ob das image built in die Registrierung pusht werden soll.
+    description: ''
+  - name: --platform
+    summary: 'Die Plattform, auf der build/task ausgeführt wird, z. B. "windows" und "linux". Wenn sie in Buildbefehlen verwendet wird, kann sie auch im Format "os/arch/variant" für das resultierende Bild angegeben werden. Beispiel: linux/arm/v7. Die Teile "arch" und "variant" sind optional.'
+    description: ''
+  - name: --pull-request-trigger-enabled
+    parameterValueGroup: false, true
+    summary: Gibt an, ob der Pull Request-Trigger der Quellcodeverwaltung aktiviert ist. Der Trigger ist standardmäßig deaktiviert.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --secret-arg
+    summary: Geheimes Buildargument im Format "--secret-arg name[=value]". Mehrere, die durch mehrfaches Übergeben von --secret-arg unterstützt werden.
+    description: ''
+  - name: --set
+    summary: Taskwert im Format "--set name[=value]". Mehrere, die von der Übergabe von --set mehrmals unterstützt werden.
+    description: ''
+  - name: --set-secret
+    summary: Der Wert der geheimen Aufgabe im Format "--set-secret name[=value]". Mehrere, die durch mehrfaches Übergeben von --set-secret unterstützt werden.
+    description: ''
+  - name: --status
+    parameterValueGroup: Disabled, Enabled
+    summary: Der aktuelle Status der Aufgabe.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+  - name: --target
+    summary: Der Name der Zielbuildphase.
+    description: ''
+  - name: --timeout
+    summary: Das Timeout in Sekunden.
+    description: ''
+  - name: --update-trigger-endpoint
+    summary: Die vollständige URL des Endpunkts für den Empfang von Triggerbenachrichtigungen zum Update des Basisimages.
+    description: ''
+  - name: --update-trigger-payload-type
+    parameterValueGroup: Default, Token
+    summary: Gibt an, ob Metadaten zum Basisimagetrigger zusammen mit dem Updatetriggertoken in die Nutzlast eingeschlossen werden sollen, wenn eine Benachrichtigung gesendet wird.
+    description: ''
+  - name: --values
+    summary: Der Dateipfad der Taskwerte/Parameter relativ zum Quellkontext.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/acr/_help.py
+- uid: az_acr_task_update-run
+  name: az acr task update-run
+  summary: Patchen der Ausführungseigenschaften eines Azure Container Registry Tasks.
+  description: ''
+  syntax: >-
+    az acr task update-run --registry
+                           --run-id
+                           [--no-archive {false, true}]
+                           [--resource-group]
+                           [--subscription]
+  examples:
+  - summary: Aktualisieren Sie eine vorhandene Ausführung, um sie zu archivieren.
+    syntax: az acr task update-run -r MyRegistry --run-id runId --no-archive false
+  requiredParameters:
+  - isRequired: true
+    name: --registry -r
+    summary: Der Name der Containerregistrierung. Sie können den Standardregistrierungsnamen mit `az configure --defaults acr=<registry name>` konfigurieren.
+    description: ''
+  - isRequired: true
+    name: --run-id
+    summary: Der eindeutige Ausführungsbezeichner.
+    description: ''
+  optionalParameters:
+  - name: --no-archive
+    parameterValueGroup: false, true
+    summary: Gibt an, ob die Ausführung archiviert werden soll.
+    description: ''
+  - name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/acr/_help.py
+commands:
+- az_acr_task_cancel-run
+- az_acr_task_create
+- az_acr_task_credential
+- az_acr_task_credential_add
+- az_acr_task_credential_list
+- az_acr_task_credential_remove
+- az_acr_task_credential_update
+- az_acr_task_delete
+- az_acr_task_identity
+- az_acr_task_identity_assign
+- az_acr_task_identity_remove
+- az_acr_task_identity_show
+- az_acr_task_list
+- az_acr_task_list-runs
+- az_acr_task_logs
+- az_acr_task_run
+- az_acr_task_show
+- az_acr_task_show-run
+- az_acr_task_timer
+- az_acr_task_timer_add
+- az_acr_task_timer_list
+- az_acr_task_timer_remove
+- az_acr_task_timer_update
+- az_acr_task_update
+- az_acr_task_update-run
+globalParameters:
+- name: --debug
+  summary: Ausführlichkeit der Protokollierung erhöhen, um alle Debugprotokolle anzuzeigen.
+- name: --help -h
+  summary: Zeigen Sie diese Hilfemeldung an, und schließen Sie sie.
+- name: --only-show-errors
+  summary: Nur Fehler anzeigen und Warnungen unterdrücken.
+- name: --output -o
+  defaultValue: json
+  parameterValueGroup: json, jsonc, table, tsv
+  summary: Ausgabeformat.
+- name: --query
+  summary: JMESPath-Abfragezeichenfolge. Weitere Informationen und Beispiele finden Sie unter <a href="http://jmespath.org/">http://jmespath.org/</a>.
+- name: --verbose
+  summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
+metadata:
+  doc_source_url_repo: https://github.com/Azure/azure-cli/blob/dev/
+  ms.date: 04/26/2021
+  description: Verwalten Sie eine Sammlung von Schritten zum Erstellen, Testen und & Framework-Patchen von Containerimages mithilfe von Azure Container Registries.
+  ms.openlocfilehash: 792418f0781f23e09fe9e0afa8ad7e8f37953f0e
+  ms.sourcegitcommit: 15a6f14c5a8570ba89a3bd5bb442f3324d72bc37
+  ms.translationtype: MT
+  ms.contentlocale: de-DE
+  ms.lasthandoff: 04/29/2021
+  ms.locfileid: "108245617"

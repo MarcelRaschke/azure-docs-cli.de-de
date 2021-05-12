@@ -1,0 +1,212 @@
+### YamlMime:AzureCLIGroup
+uid: az_vm_extension_image
+name: az vm extension image
+summary: Suchen Sie die verfügbaren VM-Erweiterungen für ein Abonnement und eine Region.
+description: ''
+directCommands:
+- uid: az_vm_extension_image_list
+  name: az vm extension image list
+  summary: Listen Sie die Informationen zu verfügbaren Erweiterungen auf.
+  description: ''
+  syntax: >-
+    az vm extension image list [--latest]
+                               [--location]
+                               [--name]
+                               [--publisher]
+                               [--query-examples]
+                               [--subscription]
+                               [--version]
+  examples:
+  - summary: Listet die eindeutigen Herausgeber für Erweiterungen auf.
+    syntax: az vm extension image list --query "[].publisher" -o tsv | sort -u
+  - summary: Suchen Sie im Namen nach Erweiterungen mit "Docker".
+    syntax: az vm extension image list --query "[].name" -o tsv | sort -u | grep Docker
+  - summary: Listen Sie Erweiterungsnamen auf, bei denen der Herausgebername mit "Microsoft.Azure.App" beginnt.
+    syntax: >-
+      az vm extension image list --query \
+          "[?starts_with(publisher, 'Microsoft.Azure.App')].publisher" \
+          -o tsv | sort -u | xargs -I{} az vm extension image list-names --publisher {} -l westus
+  optionalParameters:
+  - name: --latest
+    summary: Nur die neueste Version anzeigen.
+    description: ''
+  - name: --location -l
+    summary: Bildspeicherort.
+    description: ''
+  - name: --name -n
+    summary: Imagename
+    description: ''
+  - name: --publisher -p
+    summary: Name des Imageherausgebers.
+    description: ''
+  - name: --query-examples
+    summary: Empfehlen Sie die JMESPath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und nach dem Parameter --query in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positionsschlüsselwörter hinzufügen, damit wir basierend auf diesen Schlüsselwörtern Vorschläge geben können.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+  - name: --version
+    summary: Erweiterungsversion.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/vm/_help.py
+- uid: az_vm_extension_image_list-names
+  name: az vm extension image list-names
+  summary: Listen Sie die Namen der verfügbaren Erweiterungen auf.
+  description: ''
+  syntax: >-
+    az vm extension image list-names --location
+                                     --publisher
+                                     [--subscription]
+  examples:
+  - summary: Suchen Sie nach Docker-Erweiterungen nach Herausgeber und Speicherort.
+    syntax: >-
+      az vm extension image list-names --publisher Microsoft.Azure.Extensions \
+          -l westus --query "[?starts_with(name, 'Docker')]"
+  - summary: Suchen Sie CustomScript-Erweiterungen nach Herausgeber und Speicherort.
+    syntax: >-
+      az vm extension image list-names --publisher Microsoft.Azure.Extensions \
+          -l westus --query "[?starts_with(name, 'Custom')]"
+  requiredParameters:
+  - isRequired: true
+    name: --location -l
+    summary: 'Der Standort. Werte aus: `az account list-locations`. Sie können den standardmäßig verwendeten Standort mit `az configure --defaults location=<location>` konfigurieren.'
+    description: ''
+  - isRequired: true
+    name: --publisher -p
+    summary: Name des Imageherausgebers.
+    description: ''
+  optionalParameters:
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/vm/_help.py
+- uid: az_vm_extension_image_list-versions
+  name: az vm extension image list-versions
+  summary: Listen Sie die Versionen für verfügbare Erweiterungen auf.
+  description: ''
+  syntax: >-
+    az vm extension image list-versions --location
+                                        --name
+                                        --publisher
+                                        [--filter]
+                                        [--orderby]
+                                        [--subscription]
+                                        [--top]
+  examples:
+  - summary: Suchen Sie die verfügbaren Versionen für die Docker-Erweiterung.
+    syntax: >-
+      az vm extension image list-versions --publisher Microsoft.Azure.Extensions \
+          -l westus -n DockerExtension -otable
+  requiredParameters:
+  - isRequired: true
+    name: --location -l
+    summary: 'Der Standort. Werte aus: `az account list-locations`. Sie können den standardmäßig verwendeten Standort mit `az configure --defaults location=<location>` konfigurieren.'
+    description: ''
+  - isRequired: true
+    name: --name -n
+    summary: Name der Erweiterung.
+    description: ''
+  - isRequired: true
+    name: --publisher -p
+    summary: Name des Imageherausgebers.
+    description: ''
+  optionalParameters:
+  - name: --filter
+    summary: Der Filter, der auf den Vorgang angewendet werden soll.
+    description: ''
+  - name: --orderby
+    summary: Die $orderby odata-Abfrageoption.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+  - name: --top
+    summary: Die $top odata-Abfrageoption.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/vm/_help.py
+- uid: az_vm_extension_image_show
+  name: az vm extension image show
+  summary: Anzeigen von Informationen für eine Erweiterung.
+  description: ''
+  syntax: >-
+    az vm extension image show --location
+                               --name
+                               --publisher
+                               --version
+                               [--query-examples]
+                               [--subscription]
+  examples:
+  - summary: Anzeigen der CustomScript-Erweiterungsversion 2.0.2.
+    syntax: >-
+      az vm extension image show -l westus -n CustomScript \
+        --publisher Microsoft.Azure.Extensions --version 2.0.2
+  - summary: Zeigen Sie die neueste Version der Docker-Erweiterung an.
+    syntax: >-
+      publisher=Microsoft.Azure.Extensions
+
+      extension=DockerExtension
+
+      location=westus
+
+
+      latest=$(az vm extension image list-versions \
+        --publisher ${publisher} -l ${location} -n ${extension} \
+        --query "[].name" -o tsv | sort | tail -n 1)
+
+      az vm extension image show -l ${location} \
+        --publisher ${publisher} -n ${extension} --version ${latest}
+  requiredParameters:
+  - isRequired: true
+    name: --location -l
+    summary: 'Der Standort. Werte aus: `az account list-locations`. Sie können den standardmäßig verwendeten Standort mit `az configure --defaults location=<location>` konfigurieren.'
+    description: ''
+  - isRequired: true
+    name: --name -n
+    summary: Name der Erweiterung.
+    description: ''
+  - isRequired: true
+    name: --publisher -p
+    summary: Name des Imageherausgebers.
+    description: ''
+  - isRequired: true
+    name: --version
+    summary: Erweiterungsversion.
+    description: ''
+  optionalParameters:
+  - name: --query-examples
+    summary: Empfehlen Sie die JMESPath-Zeichenfolge. Sie können eine der Abfragen kopieren und nach dem Parameter --query in doppelte Anführungszeichen einfügen, um die Ergebnisse zu sehen. Sie können ein oder mehrere Positionsschlüsselwörter hinzufügen, damit wir basierend auf diesen Schlüsselwörtern Vorschläge machen können.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/vm/_help.py
+commands:
+- az_vm_extension_image_list
+- az_vm_extension_image_list-names
+- az_vm_extension_image_list-versions
+- az_vm_extension_image_show
+globalParameters:
+- name: --debug
+  summary: Ausführlichkeit der Protokollierung erhöhen, um alle Debugprotokolle anzuzeigen.
+- name: --help -h
+  summary: Zeigen Sie diese Hilfemeldung an, und schließen Sie sie.
+- name: --only-show-errors
+  summary: Nur Fehler anzeigen und Warnungen unterdrücken.
+- name: --output -o
+  defaultValue: json
+  parameterValueGroup: json, jsonc, table, tsv
+  summary: Ausgabeformat.
+- name: --query
+  summary: JMESPath-Abfragezeichenfolge. Weitere Informationen und Beispiele finden Sie unter <a href="http://jmespath.org/">http://jmespath.org/</a>.
+- name: --verbose
+  summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
+metadata:
+  doc_source_url_repo: https://github.com/Azure/azure-cli/blob/dev/
+  ms.date: 04/15/2021
+  description: Suchen Sie die verfügbaren VM-Erweiterungen für ein Abonnement und eine Region.
+  ms.openlocfilehash: 859afb84ae8bf2e64a5c346b882fd9153ee70f6d
+  ms.sourcegitcommit: 47edf65705fcb047974356c30962819ea5172832
+  ms.translationtype: MT
+  ms.contentlocale: de-DE
+  ms.lasthandoff: 04/16/2021
+  ms.locfileid: "107553982"

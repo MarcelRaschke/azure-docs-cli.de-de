@@ -1,0 +1,456 @@
+### YamlMime:AzureCLIGroup
+uid: az_dms_project_task
+name: az dms project task
+summary: Verwalten von Aufgaben für das Projekt einer Data Migration Service-Instanz.
+description: ''
+directCommands:
+- uid: az_dms_project_task_cancel
+  name: az dms project task cancel
+  summary: Brechen Sie eine Aufgabe ab, wenn sie sich derzeit in der Warteschlange befindet oder ausgeführt wird.
+  description: ''
+  syntax: >-
+    az dms project task cancel --name
+                               --project-name
+                               --resource-group
+                               --service-name
+                               [--subscription]
+  requiredParameters:
+  - isRequired: true
+    name: --name -n
+    summary: Der Name der Aufgabe.
+    description: ''
+  - isRequired: true
+    name: --project-name
+    summary: Der Name des Projekts.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - isRequired: true
+    name: --service-name
+    summary: Der Name des Diensts.
+    description: ''
+  optionalParameters:
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/dms/_help.py
+- uid: az_dms_project_task_check-name
+  name: az dms project task check-name
+  summary: Überprüfen Sie, ob ein angegebener Aufgabenname innerhalb einer bestimmten INSTANZ von DMS verfügbar ist und ob der Name gültig ist.
+  description: ''
+  syntax: >-
+    az dms project task check-name --name
+                                   --project-name
+                                   --resource-group
+                                   --service-name
+                                   [--subscription]
+  requiredParameters:
+  - isRequired: true
+    name: --name -n
+    summary: Der zu überprüfende Aufgabenname.
+    description: ''
+  - isRequired: true
+    name: --project-name
+    summary: Der Name des Projekts.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - isRequired: true
+    name: --service-name
+    summary: Der Name des Diensts.
+    description: ''
+  optionalParameters:
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/dms/_help.py
+- uid: az_dms_project_task_create
+  name: az dms project task create
+  summary: Erstellen und Starten einer Migrationsaufgabe.
+  description: >-
+    Die folgenden Aufgabenkonfigurationen werden unterstützt: -) source -> target :: task type
+      1) SQL -> SQLDB :: OfflineMigration
+      2) MySQL -> AzureDbForMySql :: OnlineMigration
+      3) PostgreSQL -> AzureDbForPostgreSql :: OnlineMigration.
+  syntax: >-
+    az dms project task create --database-options-json
+                               --name
+                               --project-name
+                               --resource-group
+                               --service-name
+                               --source-connection-json
+                               --target-connection-json
+                               [--enable-data-integrity-validation]
+                               [--enable-query-analysis-validation]
+                               [--enable-schema-validation]
+                               [--subscription]
+                               [--task-type]
+  examples:
+  - summary: Erstellen und starten Sie eine Offline-SQL-Migrationsaufgabe. Bei einer SQL-Migration werden keine Validierungsprüfungen durchgeführt.
+    syntax: "az dms project task create --task-type OfflineMigration --database-options-json \"C:\\CLI Files\\databaseOptions.json\" -n mytask --project-name myproject -g myresourcegroup --service-name mydms --source-connection-json \"{'dataSource': 'myserver', 'authentication': 'SqlAuthentication', 'encryptConnection': 'true', 'trustServerCertificate': 'true'}\" --target-connection-json \"C:\\CLI Files\\targetConnection.json\""
+  - summary: Erstellen und starten Sie eine SQL-Aufgabe, die alle Validierungsprüfungen ausführt.
+    syntax: az dms project task create --task-type OfflineMigration --database-options-json "C:\CLI Files\databaseOptions.json" -n mytask --project-name myproject -g myresourcegroup --service-name mydms --source-connection-json "C:\CLI Files\sourceConnection.json" --target-connection-json "C:\CLI Files\targetConnection.json" --enable-data-integrity-validation --enable-query-analysis-validation --enable-schema-validation
+  requiredParameters:
+  - isRequired: true
+    name: --database-options-json
+    summary: Datenbank- und Tabelleninformationen. Dies kann entweder eine Zeichenfolge im JSON-Format oder der Speicherort einer Datei sein, die das JSON-Objekt enthält. Das Format finden Sie unten im Beispiel.
+    description: >-
+      Für SQL unterstützen wir Migrationen pro Tabelle. Um dies zu verwenden, geben Sie die Tabellennamen im "table_map" wie unten angegeben an. Sie können die Quelle auch als schreibgeschützten Quelltext festlegen.
+
+      [ { "name": "source database", "target_database_name": "target database", "make_source_db_read_only": false|true, "table_map": { "schema. SourceTableName1": "schema. TargetTableName1", "schema. SourceTableName2": "schema. TargetTableName2", ... n } }, ... n ]
+
+
+      Für MySQL das Format des JSON-Objekts der Datenbankoptionen.
+
+      [ { "Name": "Quelldatenbank", "target_database_name": "Zieldatenbank", ' Zum Bearbeiten der zugrunde liegenden Migrations-Engine verwendet.
+
+      Geben Sie nur an, wenn Sie dazu aufgefordert werden oder wenn Sie wirklich wissen, was Sie tun.
+
+      "migrationSetting": { "setting1": "value1", ... n }, / Wird zum Bearbeiten der zugrunde liegenden Migrations-Engine verwendet.
+
+      Geben Sie nur an, wenn Sie dazu aufgefordert werden oder wenn Sie wirklich wissen, was Sie tun.
+
+      "sourceSetting": { "setting1": "value1", ... n }, / Wird zum Bearbeiten der zugrunde liegenden Migrations-Engine verwendet.
+
+      Geben Sie nur an, wenn Sie dazu aufgefordert werden oder wenn Sie wirklich wissen, was Sie tun.
+
+      "targetSetting": { "setting1": "value1", ... n }, / Optionaler Parameter zum Auflisten von Tabellen, die in die Migration einbezogen werden sollen.
+
+      "tableMap": { "schema. SourceTableName1": "schema. TargetTableName1", "schema. SourceTableName2": "schema. TargetTableName2", ... n } }, ... n ]
+
+
+      Für PostgreSQL das Format des JSON-Objekts der Datenbankoptionen.
+
+      [ { "Name": "Quelldatenbank", "target_database_name": "Zieldatenbank", ' Zum Bearbeiten der zugrunde liegenden Migrations-Engine verwendet.
+
+      Geben Sie nur an, wenn Sie dazu aufgefordert werden oder wenn Sie wirklich wissen, was Sie tun.
+
+      "migrationSetting": { "setting1": "value1", ... n }, / Wird zum Bearbeiten der zugrunde liegenden Migrations-Engine verwendet.
+
+      Geben Sie nur an, wenn Sie dazu aufgefordert werden oder wenn Sie wirklich wissen, was Sie tun.
+
+      "sourceSetting": { "setting1": "value1", ... n }, / Wird zum Bearbeiten der zugrunde liegenden Migrations-Engine verwendet.
+
+      Geben Sie nur an, wenn Sie dazu aufgefordert werden oder wenn Sie wirklich wissen, was Sie tun.
+
+      "targetSetting": { "setting1": "value1", ... n }, / Optionaler Parameter zum Auflisten von Tabellen, die in die Migration einbezogen werden möchten.
+
+      "selectedTables": [ "schemaName1.tableName1", ... n ] }, ... n ].
+  - isRequired: true
+    name: --name -n
+    summary: Der Name der Aufgabe.
+    description: ''
+  - isRequired: true
+    name: --project-name
+    summary: Der Name des Projekts.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - isRequired: true
+    name: --service-name
+    summary: Der Name des Diensts.
+    description: ''
+  - isRequired: true
+    name: --source-connection-json
+    summary: Die Verbindungsinformationen zum Quellserver. Dies kann entweder eine JSON-formatierte Zeichenfolge oder der Speicherort einer Datei sein, die das JSON-Objekt enthält. Das Format finden Sie in den folgenden Beispielen.
+    description: >-
+      Das Format des JSON-Verbindungsobjekts für SQL-Verbindungen.
+
+      { "userName": "user name", / wenn dies fehlt oder NULL ist, werden Sie aufgefordert, "password": null, / wenn dies fehlt, oder NULL (dringend empfohlen), werden Sie aufgefordert, "dataSource": "server name[,port]", "authentication": "SqlAuthentication| WindowsAuthentication", "encryptConnection": true, / es wird dringend empfohlen, "trustServerCertificate" als "true" zu bewahren: false / es wird dringend empfohlen, den Wert false } zu be lassen.
+
+
+      Das Format des JSON-Verbindungsobjekts für MySql-Verbindungen.
+
+      { "userName": "user name", / wenn dies fehlt oder NULL ist, werden Sie aufgefordert, "password": null, / wenn dies fehlt, oder NULL (dringend empfohlen), werden Sie aufgefordert, "serverName": "server name", "port": 3306 . Wenn dies fehlt, wird standardmäßig 3306 } verwendet.
+
+
+      Das Format des JSON-Verbindungsobjekts für PostgreSQL-Verbindungen.
+
+      { "userName": "user name", / wenn dies fehlt oder NULL ist, werden Sie aufgefordert, "password": null, / wenn dies fehlt, oder NULL (dringend empfohlen), werden Sie aufgefordert, "serverName": "Servername", "databaseName": "database name", / wenn dies fehlt, wird standardmäßig die "postgres"-Datenbank "port": 5432 verwendet. Wenn dies fehlt, wird standardmäßig 5432 "encryptConnection" verwendet: true, / es wird dringend empfohlen, "trustServerCertificate" zu be lassen: false / dringend empfohlen, als false } zu bewahren.
+  - isRequired: true
+    name: --target-connection-json
+    summary: Die Verbindungsinformationen zum Zielserver. Dies kann entweder eine Zeichenfolge im JSON-Format oder der Speicherort einer Datei sein, die das JSON-Objekt enthält. Beispiele für Verbindungsformate finden Sie unter "source-connection-json".
+    description: ''
+  optionalParameters:
+  - name: --enable-data-integrity-validation
+    summary: Nur für SQL. Gibt an, ob eine überprüfungsbasierte Datenintegritätsüberprüfung zwischen Quelle und Ziel für die ausgewählte Datenbank und die ausgewählten Tabellen durchgeführt werden soll.
+    description: ''
+  - name: --enable-query-analysis-validation
+    summary: Nur für SQL. Gibt an, ob eine schnelle und intelligente Abfrageanalyse durchgeführt werden soll, indem Abfragen aus der Quelldatenbank abgerufen und im Ziel ausgeführt werden. Das Ergebnis verfügt über Ausführungsstatistiken für Ausführungen in Quell- und Zieldatenbanken für die extrahierten Abfragen.
+    description: ''
+  - name: --enable-schema-validation
+    summary: Nur für SQL. Gibt an, ob die Schemainformationen zwischen Quelle und Ziel verglichen werden sollen.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+  - name: --task-type
+    summary: 'Der Typ der Datenbewegung, die der Task unterstützt. Die unterstützten Typen sind: OnlineMigration, OfflineMigration. Wenn nicht angegeben, wird standardmäßig OfflineMigration für SQL und OnlineMigration für MySQL und PostgreSQL verwendet.'
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/dms/_help.py
+- uid: az_dms_project_task_cutover
+  name: az dms project task cutover
+  summary: Führen Sie für eine Onlinemigrationsaufgabe die Migration durch, indem Sie eine Umstellung durchführen.
+  description: 'Verwenden Sie den Befehl "task show": az dms project task show ... --expand, um das Ergebnis der Anforderung anzuzeigen.'
+  syntax: >-
+    az dms project task cutover --name
+                                --object-name
+                                --project-name
+                                --resource-group
+                                --service-name
+                                [--subscription]
+  requiredParameters:
+  - isRequired: true
+    name: --name -n
+    summary: Der Name des Tasks.
+    description: ''
+  - isRequired: true
+    name: --object-name
+    summary: Der Name der Datenbank auf der Quelle, die Sie überschneiden möchten.
+    description: ''
+  - isRequired: true
+    name: --project-name
+    summary: Der Name des Projekts.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - isRequired: true
+    name: --service-name
+    summary: Der Name des Diensts.
+    description: ''
+  optionalParameters:
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/dms/_help.py
+- uid: az_dms_project_task_delete
+  name: az dms project task delete
+  summary: Löscht eine Migrationsaufgabe.
+  description: ''
+  syntax: >-
+    az dms project task delete --name
+                               --project-name
+                               --resource-group
+                               --service-name
+                               [--delete-running-tasks]
+                               [--subscription]
+                               [--yes]
+  examples:
+  - summary: Löscht eine Migrationsaufgabe. (automatisch generiert)
+    syntax: az dms project task delete --name MyTask --project-name MyProject --resource-group MyResourceGroup --service-name MyService
+  requiredParameters:
+  - isRequired: true
+    name: --name -n
+    summary: Der Name der Aufgabe.
+    description: ''
+  - isRequired: true
+    name: --project-name
+    summary: Der Name des Projekts.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - isRequired: true
+    name: --service-name
+    summary: Der Name des Diensts.
+    description: ''
+  optionalParameters:
+  - name: --delete-running-tasks
+    summary: Wenn der Task gerade ausgeführt wird, brechen Sie die Aufgabe ab, bevor Sie das Projekt löschen.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+  - name: --yes -y
+    summary: Nicht zur Bestätigung auffordern
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/dms/_help.py
+- uid: az_dms_project_task_list
+  name: az dms project task list
+  summary: Listen Sie die Aufgaben in einem Projekt auf. Einige Tasks weisen möglicherweise den Status Unbekannt auf, was darauf hinweist, dass beim Abfragen des Status dieser Aufgabe ein Fehler aufgetreten ist.
+  description: ''
+  syntax: >-
+    az dms project task list --project-name
+                             --resource-group
+                             --service-name
+                             [--query-examples]
+                             [--subscription]
+                             [--task-type]
+  examples:
+  - summary: Listet alle Aufgaben in einem Projekt auf.
+    syntax: az dms project task list --project-name myproject -g myresourcegroup --service-name mydms
+  - summary: Listet nur die Sql-zu-SQL-Migrationsaufgaben innerhalb eines Projekts auf.
+    syntax: az dms project task list --project-name myproject -g myresourcegroup --service-name mydms --task-type Migrate.SqlServer.SqlDb
+  requiredParameters:
+  - isRequired: true
+    name: --project-name
+    summary: Der Name des Projekts.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - isRequired: true
+    name: --service-name
+    summary: Der Name des Diensts.
+    description: ''
+  optionalParameters:
+  - name: --query-examples
+    summary: Empfehlen Sie die JMESPath-Zeichenfolge. Sie können eine der Abfragen kopieren und nach dem Parameter --query in doppelte Anführungszeichen einfügen, um die Ergebnisse zu sehen. Sie können ein oder mehrere Positionsschlüsselwörter hinzufügen, damit wir basierend auf diesen Schlüsselwörtern Vorschläge machen können.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+  - name: --task-type
+    summary: Filtert die Liste nach dem Typ der Aufgabe. Eine Liste der möglichen Typen finden Sie unter "az dms check-status".
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/dms/_help.py
+- uid: az_dms_project_task_restart
+  name: az dms project task restart
+  summary: ''
+  description: 'Um das Ergebnis der Anforderung anzuzeigen, verwenden Sie den Befehl "task show": az dms project task show ... --expand.'
+  syntax: >-
+    az dms project task restart --name
+                                --project-name
+                                --resource-group
+                                --service-name
+                                [--object-name]
+  requiredParameters:
+  - isRequired: true
+    name: --name -n
+    summary: Der Name des Tasks. Ein DMS-Projekttask ist die Aktivität, die migrationsbezogene Aufgaben ausführt. Einem Projekt können mehrere Aufgaben zugeordnet sein.
+    description: ''
+  - isRequired: true
+    name: --project-name
+    summary: Der Name des Projekts. DMS Project ist eine logische Gruppierung, die eine Quelldatenbankverbindung, eine Zieldatenbankverbindung und eine Liste der zu migrierenden Datenbanken umfasst.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - isRequired: true
+    name: --service-name
+    summary: Der Name des Diensts. Der DMS-Dienst ist eine Azure-Instanz, die Datenbankmigrationen ausführt.
+    description: ''
+  optionalParameters:
+  - name: --object-name
+    summary: Der qualifizierte Name der Datenbank oder Sammlung, die Sie neu starten möchten. Lassen Sie das Feld leer, um die gesamte Migration neu zu starten.
+    description: ''
+- uid: az_dms_project_task_show
+  name: az dms project task show
+  summary: Zeigt die Details einer Migrationsaufgabe an. Verwenden Sie "--expand", um weitere Details zu erhalten.
+  description: ''
+  syntax: >-
+    az dms project task show --name
+                             --project-name
+                             --resource-group
+                             --service-name
+                             [--expand]
+                             [--query-examples]
+                             [--subscription]
+  examples:
+  - summary: Zeigen Sie die Details einer Migrationsaufgabe an. Verwenden Sie "--expand", um weitere Details zu erhalten. (automatisch generiert)
+    syntax: az dms project task show --name MyTask --project-name MyProject --resource-group MyResourceGroup --service-name MyService
+  requiredParameters:
+  - isRequired: true
+    name: --name -n
+    summary: Der Name des Tasks.
+    description: ''
+  - isRequired: true
+    name: --project-name
+    summary: Der Name des Projekts.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - isRequired: true
+    name: --service-name
+    summary: Der Name des Diensts.
+    description: ''
+  optionalParameters:
+  - name: --expand
+    summary: Erweitern Sie die Antwort, um weitere Details anzugeben. Verwenden Sie mit "command", um weitere Details der Aufgabe anzuzeigen. Verwenden Sie mit "output", um die Ergebnisse der Taskmigration zu sehen.
+    description: ''
+  - name: --query-examples
+    summary: Empfehlen Sie die JMESPath-Zeichenfolge. Sie können eine der Abfragen kopieren und nach dem Parameter --query in doppelte Anführungszeichen einfügen, um die Ergebnisse zu sehen. Sie können ein oder mehrere Positionsschlüsselwörter hinzufügen, damit wir basierend auf diesen Schlüsselwörtern Vorschläge machen können.
+    description: ''
+  - name: --subscription
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/dms/_help.py
+- uid: az_dms_project_task_stop
+  name: az dms project task stop
+  summary: Beendet die Aufgabe oder beendet die Migration für das angegebene Objekt (nur MongoDB-Migrationen).
+  description: 'Verwenden Sie zum Anzeigen des Ergebnisses der Anforderung den Befehl "task show": az dms project task show ... --expand.'
+  syntax: >-
+    az dms project task stop --name
+                             --project-name
+                             --resource-group
+                             --service-name
+                             [--object-name]
+  requiredParameters:
+  - isRequired: true
+    name: --name -n
+    summary: Der Name der Aufgabe. Ein DMS-Projektaufgabe ist die Aktivität, die migrationsbezogene Aufgaben ausführt. Einem Projekt können mehrere Aufgaben zugeordnet sein.
+    description: ''
+  - isRequired: true
+    name: --project-name
+    summary: Der Name des Projekts. DAS DMS-Projekt ist eine logische Gruppierung, die die Quelldatenbankverbindung, die Zieldatenbankverbindung und eine Liste der zu migrierenden Datenbanken umfasst.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
+    description: ''
+  - isRequired: true
+    name: --service-name
+    summary: Der Name des Diensts. Der DMS-Dienst ist eine Azure-Instanz, die Datenbankmigrationen ausführt.
+    description: ''
+  optionalParameters:
+  - name: --object-name
+    summary: Wird nur von MongoDB-Migrationen unterstützt. Der qualifizierte Name der Datenbank oder Sammlung, die bzw. die Sie beenden möchten. Lassen Sie das Feld leer, um die gesamte Migration zu beenden.
+    description: ''
+commands:
+- az_dms_project_task_cancel
+- az_dms_project_task_check-name
+- az_dms_project_task_create
+- az_dms_project_task_cutover
+- az_dms_project_task_delete
+- az_dms_project_task_list
+- az_dms_project_task_restart
+- az_dms_project_task_show
+- az_dms_project_task_stop
+globalParameters:
+- name: --debug
+  summary: Ausführlichkeit der Protokollierung erhöhen, um alle Debugprotokolle anzuzeigen.
+- name: --help -h
+  summary: Zeigen Sie diese Hilfemeldung an, und schließen Sie sie.
+- name: --only-show-errors
+  summary: Nur Fehler anzeigen und Warnungen unterdrücken.
+- name: --output -o
+  defaultValue: json
+  parameterValueGroup: json, jsonc, table, tsv
+  summary: Ausgabeformat.
+- name: --query
+  summary: JMESPath-Abfragezeichenfolge. Weitere Informationen und Beispiele finden Sie unter <a href="http://jmespath.org/">http://jmespath.org/</a>.
+- name: --verbose
+  summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
+metadata:
+  doc_source_url_repo: https://github.com/Azure/azure-cli/blob/dev/
+  ms.date: 01/15/2021
+  description: Verwalten von Aufgaben für das Projekt einer Data Migration Service-Instanz.
+  ms.openlocfilehash: 9a484711651b254533bb2abbc6c43e3ad229de5a
+  ms.sourcegitcommit: 47edf65705fcb047974356c30962819ea5172832
+  ms.translationtype: MT
+  ms.contentlocale: de-DE
+  ms.lasthandoff: 04/16/2021
+  ms.locfileid: "107551463"

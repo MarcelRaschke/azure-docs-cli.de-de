@@ -1,12 +1,12 @@
 ### YamlMime:AzureCLIGroup
-uid: az_network_private_link_service
+uid: az_network_private-link-service
 name: az network private-link-service
 summary: Verwalten von Private Link-Diensten
 description: ''
 directCommands:
-- uid: az_network_private_link_service_create
+- uid: az_network_private-link-service_create
   name: az network private-link-service create
-  summary: Erstellen Sie einen privaten Link Dienst.
+  summary: Erstellen Sie eine Instanz des Private Link-Diensts.
   description: ''
   syntax: >-
     az network private-link-service create --lb-frontend-ip-configs
@@ -14,6 +14,7 @@ directCommands:
                                            --resource-group
                                            --subnet
                                            [--auto-approval]
+                                           [--edge-zone]
                                            [--enable-proxy-protocol {false, true}]
                                            [--fqdns]
                                            [--lb-name]
@@ -32,11 +33,11 @@ directCommands:
   requiredParameters:
   - isRequired: true
     name: --lb-frontend-ip-configs
-    summary: Durch Leerzeichen getrennte Liste von Namen oder IDs der Front-End-IP-Konfigurationen des Lasten Ausgleichs Wenn Namen verwendet werden, geben Sie auch an `--lb-name` .
+    summary: Durch Leerzeichen getrennte Liste der Namen oder IDs von Front-End-IP-Konfigurationen des Lastenausgleichs, mit der eine Verknüpfung hergestellt werden soll. Wenn Namen verwendet werden, stellen Sie auch `--lb-name` bereit.
     description: ''
   - isRequired: true
     name: --name -n
-    summary: Der Name des privaten Link Dienstanbieter.
+    summary: Name des Private Link-Diensts.
     description: ''
   - isRequired: true
     name: --resource-group -g
@@ -44,27 +45,30 @@ directCommands:
     description: ''
   - isRequired: true
     name: --subnet
-    summary: Der Name oder die ID des zu verwendenden Subnetzes. Wenn der Name angegeben ist, geben Sie auch an `--vnet-name` .
+    summary: Name oder ID des zu verwendende Subnetzes. Wenn name angegeben wird, geben Sie auch `--vnet-name` an.
     description: ''
   optionalParameters:
   - name: --auto-approval
     summary: Durch Leerzeichen getrennte Liste der Abonnement-IDs, die automatisch genehmigt werden sollen.
     description: ''
+  - name: --edge-zone
+    summary: Der Name der Edgezone.
+    description: ''
   - name: --enable-proxy-protocol
     parameterValueGroup: false, true
-    summary: Aktivieren Sie das Proxy Protokoll für den privaten Link Dienst.
+    summary: Aktivieren Sie das Proxyprotokoll für den Private Link-Dienst.
     description: ''
   - name: --fqdns
-    summary: Durch Leerzeichen getrennte Liste von voll qualifizierten Namen.
+    summary: Durch Leerzeichen getrennte Liste von FQDNs.
     description: ''
   - name: --lb-name
-    summary: Der Name des Load Balancers, von dem Front-End-IP-Konfigurationen abgerufen werden sollen. Wird ignoriert, wenn eine Frontend-IP-Konfigurations-ID angegeben wird.
+    summary: Name des Lastenausgleichs, aus dem Front-End-IP-Konfigurationen abgerufen werden sollen. Wird ignoriert, wenn eine Front-End-IP-Konfigurations-ID angegeben wird.
     description: ''
   - name: --location -l
     summary: 'Der Standort. Werte aus: `az account list-locations`. Sie können den standardmäßig verwendeten Standort mit `az configure --defaults location=<location>` konfigurieren.'
     description: ''
   - name: --private-ip-address
-    summary: Statische private IP-Adresse, die verwendet werden soll.
+    summary: Zu verwendende statische private IP-Adresse.
     description: ''
   - name: --private-ip-address-version
     defaultValue: IPv4
@@ -73,27 +77,27 @@ directCommands:
     description: ''
   - name: --private-ip-allocation-method
     parameterValueGroup: Dynamic, Static
-    summary: Zuordnungs Methode für private IP-Adressen.
+    summary: Zuordnungsmethode für private IP-Adressen.
     description: ''
   - name: --public-ip-address
-    summary: Der Name oder die ID der zu verwendenden öffentlichen IP-Adresse.
+    summary: Name oder ID der öffentlichen IP-Adresse, die verwendet werden soll.
     description: ''
   - name: --subscription
-    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
     description: ''
   - name: --tags
-    summary: 'Durch Leerzeichen getrennte Tags: Key [= value] [key [= value]...]. Verwenden Sie "", um vorhandene Tags zu löschen.'
+    summary: 'Durch Leerzeichen getrennte Tags: key[=value] [key[=value] ...]. Verwenden Sie "", um vorhandene Tags zu löschen.'
     description: ''
   - name: --visibility
-    summary: Durch Leerzeichen getrennte Liste der Abonnement-IDs, für die der private Link Dienst sichtbar ist.
+    summary: Durch Leerzeichen getrennte Liste der Abonnement-IDs, für die der Private Link-Dienst sichtbar ist.
     description: ''
   - name: --vnet-name
-    summary: Der Name des virtuellen Netzwerks (vnet).
+    summary: Der Name des virtuellen Netzwerks (VNET).
     description: ''
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/network/_help.py
-- uid: az_network_private_link_service_delete
+- uid: az_network_private-link-service_delete
   name: az network private-link-service delete
-  summary: Löschen Sie einen privaten Link Dienst.
+  summary: Löschen sie einen Private Link-Dienst.
   description: ''
   syntax: >-
     az network private-link-service delete [--ids]
@@ -101,25 +105,25 @@ directCommands:
                                            [--resource-group]
                                            [--subscription]
   examples:
-  - summary: Löschen Sie einen privaten Link Dienst. automatisch generierten
+  - summary: Löscht einen Private Link-Dienst. (automatisch generiert)
     syntax: az network private-link-service delete --name MyPrivateLinkService --resource-group MyResourceGroup
   optionalParameters:
   - name: --ids
-    summary: Mindestens eine Ressourcen-ID (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID handeln, die alle Informationen von Ressourcen-ID-Argumenten enthält. Sie sollten entweder--IDs oder andere Ressourcen-ID-Argumente angeben.
+    summary: Eine oder mehrere Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu Ressourcen-ID-Argumenten geben. Sie sollten entweder --ids oder andere Ressourcen-ID-Argumente bereitstellen.
     description: ''
   - name: --name -n
-    summary: Der Name des privaten Link Dienstanbieter.
+    summary: Name des Private Link-Diensts.
     description: ''
   - name: --resource-group -g
     summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
     description: ''
   - name: --subscription
-    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
     description: ''
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/network/_help.py
-- uid: az_network_private_link_service_list
+- uid: az_network_private-link-service_list
   name: az network private-link-service list
-  summary: Listet private Link Dienste auf.
+  summary: Auflisten von Private Link-Diensten.
   description: ''
   syntax: >-
     az network private-link-service list [--query-examples]
@@ -127,18 +131,18 @@ directCommands:
                                          [--subscription]
   optionalParameters:
   - name: --query-examples
-    summary: Empfehlen Sie die jmespath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und Sie nach dem Abfrage Parameter in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positions Schlüsselwörter hinzufügen, um Vorschläge auf der Grundlage dieser Schlüsselwörter zu geben.
+    summary: Empfehlen Sie die JMESPath-Zeichenfolge. Sie können eine der Abfragen kopieren und nach dem Parameter --query in doppelte Anführungszeichen einfügen, um die Ergebnisse zu sehen. Sie können ein oder mehrere Positionsschlüsselwörter hinzufügen, damit wir basierend auf diesen Schlüsselwörtern Vorschläge machen können.
     description: ''
   - name: --resource-group -g
     summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
     description: ''
   - name: --subscription
-    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
     description: ''
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/network/_help.py
-- uid: az_network_private_link_service_show
+- uid: az_network_private-link-service_show
   name: az network private-link-service show
-  summary: Hier finden Sie die Details eines privaten Link Dienstanbieter.
+  summary: Hier finden Sie die Details eines Private Link-Diensts.
   description: ''
   syntax: >-
     az network private-link-service show [--expand]
@@ -148,31 +152,31 @@ directCommands:
                                          [--resource-group]
                                          [--subscription]
   examples:
-  - summary: Hier finden Sie die Details eines privaten Link Dienstanbieter. automatisch generierten
+  - summary: Hier finden Sie die Details eines Private Link-Diensts. (automatisch generiert)
     syntax: az network private-link-service show --name MyPrivateLinkService --resource-group MyResourceGroup
   optionalParameters:
   - name: --expand
     summary: Erweitert referenzierte Ressourcen.
     description: ''
   - name: --ids
-    summary: Mindestens eine Ressourcen-ID (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID handeln, die alle Informationen von Ressourcen-ID-Argumenten enthält. Sie sollten entweder--IDs oder andere Ressourcen-ID-Argumente angeben.
+    summary: Eine oder mehrere Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu Ressourcen-ID-Argumenten geben. Sie sollten entweder --ids oder andere Ressourcen-ID-Argumente bereitstellen.
     description: ''
   - name: --name -n
-    summary: Der Name des privaten Link Dienstanbieter.
+    summary: Name des Private Link-Diensts.
     description: ''
   - name: --query-examples
-    summary: Empfehlen Sie die jmespath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und Sie nach dem Abfrage Parameter in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positions Schlüsselwörter hinzufügen, um Vorschläge auf der Grundlage dieser Schlüsselwörter zu geben.
+    summary: Empfehlen Sie die JMESPath-Zeichenfolge für Sie. Sie können eine der Abfragen kopieren und nach dem Parameter --query in doppelte Anführungszeichen einfügen, um die Ergebnisse anzuzeigen. Sie können ein oder mehrere Positionsschlüsselwörter hinzufügen, damit wir basierend auf diesen Schlüsselwörtern Vorschläge geben können.
     description: ''
   - name: --resource-group -g
     summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
     description: ''
   - name: --subscription
-    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
     description: ''
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/network/_help.py
-- uid: az_network_private_link_service_update
+- uid: az_network_private-link-service_update
   name: az network private-link-service update
-  summary: Aktualisieren Sie einen privaten Link Dienst.
+  summary: Aktualisieren sie einen Private Link-Dienst.
   description: ''
   syntax: >-
     az network private-link-service update [--add]
@@ -191,65 +195,65 @@ directCommands:
                                            [--tags]
                                            [--visibility]
   examples:
-  - summary: Aktualisieren eines privaten Link Dienstanbieter
+  - summary: Aktualisieren eines Private Link-Diensts
     syntax: az network private-link-service update -g MyResourceGroup -n MyPLSName --visibility SubId1 SubId2 --auto-approval SubId1 SubId2
   optionalParameters:
   - name: --add
-    summary: Fügen Sie einer Liste von-Objekten ein Objekt hinzu, indem Sie ein Pfad-und Schlüssel-Wert-Paar angeben.  Beispiel:--Add Property. ListProperty <Key = Value, String oder JSON String>.
+    summary: 'Fügen Sie einer Liste von -Objekten ein -Objekt hinzu, indem Sie ein Pfad- und Schlüsselwertpaar angeben.  Beispiel: --add property.listProperty <key=value, string oder JSON string>.'
     description: ''
   - name: --auto-approval
     summary: Durch Leerzeichen getrennte Liste der Abonnement-IDs, die automatisch genehmigt werden sollen.
     description: ''
   - name: --enable-proxy-protocol
     parameterValueGroup: false, true
-    summary: Aktivieren Sie das Proxy Protokoll für den privaten Link Dienst.
+    summary: Aktivieren Sie das Proxyprotokoll für den Private Link-Dienst.
     description: ''
   - name: --force-string
-    summary: Wenn Sie "Set" oder "Add" verwenden, erhalten Sie Zeichen folgen Literale, anstatt zu versuchen, in JSON zu konvertieren.
+    summary: Wenn Sie "set" oder "add" verwenden, behalten Sie Zeichenfolgenliterale bei, anstatt zu versuchen, in JSON zu konvertieren.
     description: ''
   - name: --fqdns
-    summary: Durch Leerzeichen getrennte Liste von voll qualifizierten Namen.
+    summary: Durch Leerzeichen getrennte Liste von FQDNs.
     description: ''
   - name: --ids
-    summary: Mindestens eine Ressourcen-ID (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID handeln, die alle Informationen von Ressourcen-ID-Argumenten enthält. Sie sollten entweder--IDs oder andere Ressourcen-ID-Argumente angeben.
+    summary: Mindestens eine Ressourcen-IDs (durch Leerzeichen getrennt). Dabei sollte es sich um eine vollständige Ressourcen-ID mit allen Informationen zu "Ressourcen-ID"-Argumenten sein. Sie sollten entweder --ids oder andere "Resource Id"-Argumente angeben.
     description: ''
   - name: --lb-frontend-ip-configs
-    summary: Durch Leerzeichen getrennte Liste von Namen oder IDs der Front-End-IP-Konfigurationen des Lasten Ausgleichs Wenn Namen verwendet werden, geben Sie auch an `--lb-name` .
+    summary: Durch Leerzeichen getrennte Liste der Namen oder IDs von Front-End-IP-Konfigurationen des Lastenausgleichs, mit der eine Verknüpfung hergestellt werden soll. Wenn Namen verwendet werden, stellen Sie auch `--lb-name` bereit.
     description: ''
   - name: --lb-name
-    summary: Der Name des Load Balancers, von dem Front-End-IP-Konfigurationen abgerufen werden sollen. Wird ignoriert, wenn eine Frontend-IP-Konfigurations-ID angegeben wird.
+    summary: Name des Lastenausgleichs, aus dem Front-End-IP-Konfigurationen abgerufen werden sollen. Wird ignoriert, wenn eine Front-End-IP-Konfigurations-ID angegeben wird.
     description: ''
   - name: --name -n
-    summary: Der Name des privaten Link Dienstanbieter.
+    summary: Name des Private Link-Diensts.
     description: ''
   - name: --remove
-    summary: Entfernt eine Eigenschaft oder ein Element aus einer Liste.  Beispiel:--Remove Property. List <indexToRemove> oder--Remove propertytoremove.
+    summary: 'Entfernen sie eine Eigenschaft oder ein Element aus einer Liste.  Beispiel: --remove property.list <indexToRemove> OR --remove propertyToRemove.'
     description: ''
   - name: --resource-group -g
     summary: Name der Ressourcengruppe Sie können die Standardgruppe mit `az configure --defaults group=<name>` konfigurieren.
     description: ''
   - name: --set
-    summary: Aktualisieren Sie ein Objekt, indem Sie einen Eigenschafts Pfad und einen festzulegenden Wert angeben.  Beispiel:--Set Eigenschaft1. Eigenschaft2 =<value>.
+    summary: 'Aktualisieren Sie ein Objekt, indem Sie einen festzulegenden Eigenschaftenpfad und -wert angeben.  Beispiel: --set property1.property2=<value>.'
     description: ''
   - name: --subscription
-    summary: Der Name oder die ID des Abonnements. Sie können das Standard Abonnement mit konfigurieren `az account set -s NAME_OR_ID` .
+    summary: Der Name oder die ID des Abonnements. Sie können das Standardabonnement mit `az account set -s NAME_OR_ID` konfigurieren.
     description: ''
   - name: --tags
-    summary: 'Durch Leerzeichen getrennte Tags: Key [= value] [key [= value]...]. Verwenden Sie "", um vorhandene Tags zu löschen.'
+    summary: 'Durch Leerzeichen getrennte Tags: key[=value] [key[=value] ...]. Verwenden Sie "", um vorhandene Tags zu löschen.'
     description: ''
   - name: --visibility
-    summary: Durch Leerzeichen getrennte Liste der Abonnement-IDs, für die der private Link Dienst sichtbar ist.
+    summary: Durch Leerzeichen getrennte Liste der Abonnement-IDs, für die der Private Link-Dienst sichtbar ist.
     description: ''
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/network/_help.py
 commands:
-- az_network_private_link_service_connection
-- az_network_private_link_service_connection_delete
-- az_network_private_link_service_connection_update
-- az_network_private_link_service_create
-- az_network_private_link_service_delete
-- az_network_private_link_service_list
-- az_network_private_link_service_show
-- az_network_private_link_service_update
+- az_network_private-link-service_connection
+- az_network_private-link-service_connection_delete
+- az_network_private-link-service_connection_update
+- az_network_private-link-service_create
+- az_network_private-link-service_delete
+- az_network_private-link-service_list
+- az_network_private-link-service_show
+- az_network_private-link-service_update
 globalParameters:
 - name: --debug
   summary: Ausführlichkeit der Protokollierung erhöhen, um alle Debugprotokolle anzuzeigen.
@@ -267,11 +271,11 @@ globalParameters:
   summary: Ausführlichkeit der Protokollierung erhöhen. „--debug“ für vollständige Debugprotokolle verwenden.
 metadata:
   doc_source_url_repo: https://github.com/Azure/azure-cli/blob/dev/
-  ms.date: 02/03/2021
+  ms.date: 04/25/2021
   description: Verwalten von Private Link-Diensten
-  ms.openlocfilehash: bbfc2f307cf1c665cb84b00e8045ff8400c15303
-  ms.sourcegitcommit: df9d6597535ef9103775afbaee5a8282e0e218ee
+  ms.openlocfilehash: 6f2798ac7c23af63ea0e253f1f48924511062ae9
+  ms.sourcegitcommit: 15a6f14c5a8570ba89a3bd5bb442f3324d72bc37
   ms.translationtype: MT
   ms.contentlocale: de-DE
-  ms.lasthandoff: 02/09/2021
-  ms.locfileid: "102913522"
+  ms.lasthandoff: 04/29/2021
+  ms.locfileid: "108259439"
